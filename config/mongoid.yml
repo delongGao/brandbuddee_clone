@@ -1,0 +1,25 @@
+options: &options
+  parameterize_keys: false
+
+defaults: &defaults
+  host: localhost
+  # slaves:
+  #   - host: slave1.local
+  #     port: 27018
+  #   - host: slave2.local
+  #     port: 27019
+
+development:
+  <<: *defaults
+  <<: *options
+  database: brandbuddee_development
+
+test:
+  <<: *defaults
+  <<: *options
+  database: brandbuddee_test
+
+production:
+  <<: *options
+  uri: <%= ENV['MONGOLAB_URI'] %>
+  database: brandbuddee_prod
