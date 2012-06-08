@@ -5,3 +5,14 @@
  *= require_self
  *= require_tree . 
 */
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+.clear { clear: both; }
+
+body {
+
+}
