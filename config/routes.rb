@@ -2,6 +2,16 @@ Brandbuddee::Application.routes.draw do
   
   root :to => 'welcome#index'
   
+  match '/signout' => 'sessions#destroy' #, :as => "signout"
+  post '/signin' => 'sessions#create'
+  match 'login' => 'sessions#new'
+  match "/signup" => 'users#new' #, :as => "signup"
+  
+  post 'users/create' => "users#create"
+  match 'users/show' => 'users#show'
+  match 'users/destroy' => 'users#destroy'
+  
+  match 'dashboard' => 'users#dashboard'
   
   
   # The priority is based upon order of creation:

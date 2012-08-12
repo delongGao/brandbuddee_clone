@@ -14,5 +14,21 @@
 .clear { clear: both; }
 
 body {
+	
+}
 
+.logo_header {
+	display: block;
+	position: relative;
+	top: 1px;
+	background: url('/assets/brandbuddee-logo-sm.png') no-repeat;
+	background-size: 108px 20px;
+	width: 108px;
+	height: 20px;
+}
+
+.main_container {
+	display: block;
+	position: relative;
+	margin: 50px 0;
 }

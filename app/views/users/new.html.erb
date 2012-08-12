@@ -1,0 +1,39 @@
+<%= render 'shared/header' %>
+<div class="container main_container">
+
+	<div class="signup-form-wrap well">
+	
+			<h2>Sign Up</h2>
+		
+			<div class="signup-form">
+				<%= form_for @user, :url => {:action => 'create'} do |f| %>
+				  <% if @user.errors.any? %>
+				    <div class="error_messages">
+				      <h2>Form is invalid</h2>
+				      <ul>
+				        <% for message in @user.errors.full_messages %>
+				          <li><%= message %></li>
+				        <% end %>
+				      </ul>
+				    </div>
+				  <% end %>
+				  <p>
+				    <%= f.label :email %>
+				    <%= f.text_field :email %>
+				  </p>
+				  <p>
+				    <%= f.label :password %>
+				    <%= f.password_field :password %>
+				  </p>
+				  <p>
+				    <%= f.label :password_confirmation %>
+				    <%= f.password_field :password_confirmation %>
+				  </p>
+				  <%= hidden_field_tag(:date, Time.now, :name=>'user[date]') %>
+				  <p class="button"><%= f.submit 'Signup', :class => "btn" %>
+					</p>
+				<% end %>
+			</div> <!-- .signup-form -->
+	</div> <!-- .signup-form-wrap -->
+
+</div><!--/.container-->

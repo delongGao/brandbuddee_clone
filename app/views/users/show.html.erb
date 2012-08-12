@@ -1,0 +1,41 @@
+<%= render 'shared/fluid_header' %>
+<div class="container main_container">
+
+<div style="color:red;font-weight:200;font-family:'Helvetica Neue'"><%= flash[:notice] %></div>
+
+<div style="position:fixed;left:25px;overflow:scroll;height:100%;width:97%;">
+<div><h2 style="font-weight:200">Total: <%= pluralize(@user.size, 'User') %></h2></div>
+<p><%= link_to "Create User", :controller=>'users', :action=>'new' %></p>
+<table class="table table-bordered table-striped table-condensed">
+  <tr>
+	<th>ID</th>
+	<th>Provider</th>
+	<th>UID</th>
+	<th>Date</th>
+	<th>Email</th>
+	<th>Password_hash</th>
+   <th>Password_salt</th>
+  </tr>
+
+<% @user.each do |u| %>
+  <tr class="<%= cycle('odd', 'even') %>">
+	<td><%= u._id %></td>
+	<td><%= u.provider %></td>
+	<td><%= u.uid %></td>
+	<td><%= u.date %></td>
+	<td><%= u.email %></td>
+	<td><%= u.password_hash %></td>
+   <td><%= u.password_salt %></td>
+	<td><%= link_to "Delete", :controller=>'users', :action=>'destroy', :_id => u._id %></td>
+  </tr>
+<% end %>
+</table>
+
+<div class="clear"></div>
+<br /><br /><br /><br />
+
+</div>
+
+</div><!--/.container-->
+
+<script src="../js/bootstrap-dropdown.js"></script>
