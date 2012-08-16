@@ -3,15 +3,46 @@ Brandbuddee::Application.routes.draw do
   root :to => 'welcome#index'
   
   match '/signout' => 'sessions#destroy' #, :as => "signout"
-  post '/signin' => 'sessions#create'
+  post '/signin' => 'sessions#email_create'
   match 'login' => 'sessions#new'
   match "/signup" => 'users#new' #, :as => "signup"
+  match '/auth/:provider/callback' => 'sessions#create'
   
   post 'users/create' => "users#create"
   match 'users/show' => 'users#show'
   match 'users/destroy' => 'users#destroy'
   
+  match 'complete/email' => 'users#complete_email'
+  match 'complete/email/update' => 'users#complete_email_update'
+
   match 'dashboard' => 'users#dashboard'
+
+  match 'profile/settings' => 'profile#profile_settings'
+  match 'profile/settings/update' => 'profile#profile_settings_update'
+  match 'account/settings' => 'profile#account_settings'
+  match 'account/settings/update' => 'profile#account_settings_update'
+  match '/profile/image/update' => 'profile#update_profile_image'
+
+  match "/profile/username" => "profile#profile_nickname_settings"
+  match "/profile/username/update" => "profile#profile_nickname_update"
+
+  post 'admin/category/create' => 'users#create_new_category'
+  match 'admin/category/destroy' => 'users#category_destroy'
+  post 'admin/brand/create' => 'users#create_new_brand'
+  match 'admin/brand/destroy' => 'users#brand_destroy'
+  match 'admin/share/destroy' => 'users#share_destroy'
+  match 'admin/redeem/destroy' => 'users#redeem_destroy'
+
+  match 'admin/campaign/create' => 'users#create_new_campaign'
+  match 'admin/campaign/destroy' => 'users#campaign_destroy'
+
+  get "/:profile" => 'profile#index', :as => :profile
+  resources :profile, :only => [:index]
+
+  match '/campaign/activate' => 'campaign#activate_campaign'
+  get "/campaign/:campaign" => 'campaign#index', :as => :campaign
+
+  get "/s/:share" => 'campaign#share', :as => :share
   
   
   # The priority is based upon order of creation:

@@ -11,18 +11,24 @@
 			<%= flash[:notice] %>
 		</div> <!-- .alert -->
 		<% end %>
-	
+
+		<a rel="external" href="/auth/facebook"><%= image_tag('facebook_login.png', :class=>"social_login", :alt=>"facebook-login", :size=>"230x44") %></a>
+		<a rel="external" href="/auth/twitter"><%= image_tag('twitter_login.png', :class=>"social_login", :alt=>"twitter-login", :size=>"230x44") %></a>
+		
 		<div class="login-form">
-			<%= form_tag url_for(:action => 'create') do %>
-			<p>
-				<%= text_field_tag :email, params[:email], :class=>"signin-field signin-default", :placeholder=>"Email" %>
-			</p>
-			<p style="margin-bottom:0;">
-				<%= password_field_tag :password, nil, :class=>"signin-field", :placeholder=>"Password" %>
-			</p>
-			<p class="button"><%= submit_tag "Login", :class=>"signin-btn btn" %></p>
-			<a href="/signup" style="display:block;margin-bottom:10px;">Don't have an account? Signup!</a>
-			<% end %>
+
+			<div class="email-signup">
+				<%= form_tag url_for(:action => 'email_create') do %>
+				<p>
+					<%= text_field_tag :email, params[:email], :class=>"signin-field signin-default", :placeholder=>"Email" %>
+				</p>
+				<p style="margin-bottom:0;">
+					<%= password_field_tag :password, nil, :class=>"signin-field", :placeholder=>"Password" %>
+				</p>
+				<p class="button"><%= submit_tag "Login", :class=>"signin-btn btn" %></p>
+				<a href="/signup" style="display:block;margin-bottom:10px;">Don't have an account? Signup!</a>
+				<% end %>
+			</div> <!-- .email-signup -->
 		</div> <!-- .login-form -->
 		
 	</div> <!-- .login-form-wrap -->

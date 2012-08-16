@@ -7,3 +7,17 @@
 //= require jquery
 //= require jquery_ujs
 //= require_tree .
+
+$(document).ready(function () {
+
+	$(".redeem_button").live('click', function(event) {
+		$(".redeem_button").hide();
+		$(".redeem_code").animate({
+		       top: '+=10px'
+		    }, { duration: 500, queue: false });
+	    $(".redeem_code").fadeIn(200);
+	});
+
+	
+
+});

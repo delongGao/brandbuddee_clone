@@ -1,0 +1,37 @@
+<div class="container">
+
+	<div class="span5 well complete_email">
+		<h2>Complete account</h2>
+		<p>Please enter your email to continue to use your account.</p>
+
+		<%= form_for @user, :url => {:controller => 'users', :action => 'complete_email_update'} do |f| %>
+					<fieldset>
+						<div class="control-group">
+					        <label class="control-label" for="prependedInput"><%= f.label :email, :class=>'' %></label>
+					        <div class="controls">
+						        <div class="complete_email_field pull-left" style="margin-right:5px;">
+						          <%= f.text_field :email, :class=>'email_text_field' %>
+						        </div> <!-- .complete_email_field -->
+					          <%= f.submit 'Submit', :class=>"btn btn-success", :style=>'margin-bottom:10px;' %>
+					        </div>
+						</div>
+					</fieldset>
+
+					<fieldset>
+						<div class="control-group">
+					        <label class="control-label" for="prependedInput"></label>
+					        <div class="controls">
+					          
+					        </div>
+						</div>
+					</fieldset>
+
+				<% end %>
+	</div>
+
+</div>
+
+<script type="text/javascript">
+	$(".complete_email_field").find('input').val('');
+	//alert('blah');
+</script>

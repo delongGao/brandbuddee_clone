@@ -1,26 +1,31 @@
-<%= render 'shared/fluid_header' %>
+<%= render 'shared/header' %>
 
-<div class="container-fluid main_container" style="padding-left:0;">
-      <div class="row-fluid">
+<div class="container main_container" style="padding-left:0;">
+
+      <% if flash[:notice].nil? %><% else %>
+        <div class="alert alert-info">
+          <button class="close" data-dismiss="alert">×</button>
+          <%= flash[:notice] %>
+        </div> <!-- .alert -->
+      <% end %>
+
+      <% if params[:c].nil? %>
+        <% @campaign = Campaign.all.order_by([:date, :desc]) %>
+      <% elsif %>
+        <% @category = Category.where(:name => params[:c]).first %> 
+        <% @campaign = @category.campaigns.order_by([:date, :desc]) %>
+      <% end %>
+      
+
+      <div class="row">
         <div class="span3">
           <div class="well sidebar-nav left-nav">
             <ul class="nav nav-list">
-              <li class="nav-header">Sidebar</li>
-              <li class="active"><a href="#">Link</a></li>
-              <li><a href="#">Link</a></li>
-              <li><a href="#">Link</a></li>
-              <li><a href="#">Link</a></li>
-              <li class="nav-header">Sidebar</li>
-              <li><a href="#">Link</a></li>
-              <li><a href="#">Link</a></li>
-              <li><a href="#">Link</a></li>
-              <li><a href="#">Link</a></li>
-              <li><a href="#">Link</a></li>
-              <li><a href="#">Link</a></li>
-              <li class="nav-header">Sidebar</li>
-              <li><a href="#">Link</a></li>
-              <li><a href="#">Link</a></li>
-              <li><a href="#">Link</a></li>
+              <li class="nav-header">Categories</li>
+              <li><a href="<%= root_url %>">All</a></li>
+              <% @categories.each do |c| %>
+                <li <% if params[:c] == c.name %> class="active" <% end %> ><a href="?c=<%= c.name %>"><%= c.name %></a></li>
+              <% end %>
             </ul>
 				
 				<hr>
@@ -29,49 +34,30 @@
 		      </footer>
           </div><!--/.well -->
         </div><!--/span-->
+
         <div class="span9">
-          <div class="hero-unit">
-            <h1>Brand Campaign</h1>
-            <p>This is a template for a simple marketing or informational website. It includes a large callout called the hero unit and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
-            <p><a class="btn btn-primary btn-large">Learn more &raquo;</a></p>
-          </div>
-          <div class="row-fluid">
-            <div class="span4">
-              <h2>Heading</h2>
-              <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-              <p><a class="btn" href="#">View details &raquo;</a></p>
-            </div><!--/span-->
-            <div class="span4">
-              <h2>Heading</h2>
-              <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-              <p><a class="btn" href="#">View details &raquo;</a></p>
-            </div><!--/span-->
-            <div class="span4">
-              <h2>Heading</h2>
-              <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-              <p><a class="btn" href="#">View details &raquo;</a></p>
-            </div><!--/span-->
-          </div><!--/row-->
-          <div class="row-fluid">
-            <div class="span4">
-              <h2>Heading</h2>
-              <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-              <p><a class="btn" href="#">View details &raquo;</a></p>
-            </div><!--/span-->
-            <div class="span4">
-              <h2>Heading</h2>
-              <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-              <p><a class="btn" href="#">View details &raquo;</a></p>
-            </div><!--/span-->
-            <div class="span4">
-              <h2>Heading</h2>
-              <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-              <p><a class="btn" href="#">View details &raquo;</a></p>
-            </div><!--/span-->
-          </div><!--/row-->
+          <ul class="thumbnails">
+          <% @campaign.each do |c| %>
+            <a href="/campaign/<%= c.link %>">
+              <li class="span3">
+                <div class="thumbnail">
+                  <!-- <img src="http://placehold.it/260x180" alt=""> -->
+                  <%= image_tag(c.campaign_image_url(:standard).to_s) %>
+                  <div class="caption">
+                    <h5><%= c.title %></h5>
+                    <p><%= c.detail %></p>
+<!--                     <p><a href="#" class="btn btn-primary">Action</a> <a href="#" class="btn">Action</a></p> -->
+                  </div>
+                </div>
+              </li>
+            </a>
+          <% end %>
+        </ul> <!-- .thumbnails -->
+
+
         </div><!--/span-->
       </div><!--/row-->
 
-      
 
-    </div><!--/.fluid-container-->
+
+    </div><!--/.container-->

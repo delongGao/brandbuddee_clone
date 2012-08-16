@@ -9,15 +9,14 @@
           <a class="brand" href="/dashboard"><div class="logo_header"></div></a>
 			
 			<% if current_user %>
-          <div class="btn-group pull-right">
-            <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-              <%= current_user.email %>
+          <div class="btn-group pull-right" style="padding-right:0;">
+            <a class="btn dropdown-toggle" data-toggle="dropdown" href="#"><i class="icon-user"></i> <%= current_user.email %>
               <span class="caret"></span>
             </a>
 
             <ul class="dropdown-menu">
-              <li style="padding-top:7px;"><a href="/profile"><i class="icon-user"></i> Profile</a></li>
-				  <li><a href="/settings"><i class="icon-cog"></i> Settings</a></li>
+              <li style="padding-top:7px;"><a href="/profile/settings"><i class="icon-user"></i> Profile Settings</a></li>
+				  <li><a href="/account/settings"><i class="icon-cog"></i> Account Settings</a></li>
               <li class="divider"></li>
               <li><a href="/signout"><i class="icon-off"></i> Sign Out</a></li>
             </ul>
@@ -32,7 +31,7 @@
             <ul class="nav">
               <% if current_user %>
 					<li><a href="/dashboard">Dashboard</a></li>
-					<li><a href="/profile">Profile</a></li>
+					<li><a href="/<%= current_user.nickname %>">Profile</a></li>
 					<!-- <li><a href="/favorites">Favorites</a></li> -->
 				  <% end %>
               <!-- <li><a href="#contact">Contact</a></li> -->

@@ -18,16 +18,20 @@
 				    </div>
 				  <% end %>
 				  <p>
+				    <%= f.label :first_name %>
+				    <%= f.text_field :email %>
+				  </p>
+				  <p>
+				    <%= f.label :last_name %>
+				    <%= f.text_field :email %>
+				  </p>
+				  <p>
 				    <%= f.label :email %>
 				    <%= f.text_field :email %>
 				  </p>
 				  <p>
 				    <%= f.label :password %>
 				    <%= f.password_field :password %>
-				  </p>
-				  <p>
-				    <%= f.label :password_confirmation %>
-				    <%= f.password_field :password_confirmation %>
 				  </p>
 				  <%= hidden_field_tag(:date, Time.now, :name=>'user[date]') %>
 				  <p class="button"><%= f.submit 'Signup', :class => "btn" %>

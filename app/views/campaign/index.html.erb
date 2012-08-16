@@ -1,0 +1,113 @@
+<%= render 'shared/header' %>
+
+<div class="container main_container" style="padding-left:0;">
+
+	<% if flash[:notice].nil? %><% else %>
+		<div class="alert alert-info">
+		  <button class="close" data-dismiss="alert">×</button>
+		  <%= flash[:notice] %>
+		</div> <!-- .alert -->
+	<% end %>
+
+	<div class="row">
+		<div class="span9">
+			<h2><%= @campaign.title %>
+			<% @campaign.categories.each do |c| %>
+				<span class="label label-info"><%= c.name %></span></h2>
+			<% end %>
+			<p><%= @campaign.location %></p>
+			<%= image_tag(@campaign.campaign_image_url().to_s) %>
+			<br><br>
+			<h4>Details:</h4>
+			<p><%= @campaign.detail %></p>
+
+
+		</div> <!-- .span9 -->
+
+		<div class="span3">
+			<br><br>
+			<h3><%= @campaign.brand.name %></h3>
+			<p><%= @campaign.brand.bio %></p>
+			<p><a href="<%= @campaign.brand.website %>" target="_blank">Website</a></p>
+			<p><a href="<%= @campaign.brand.facebook %>" target="_blank">Facebook</a></p>
+			<p><a href="<%= @campaign.brand.twitter %>" target="_blank">Twitter</a></p>
+			<p><a href="<%= @campaign.brand.pinterest %>" target="_blank">Pinterest</a></p>
+
+			<% left = @campaign.limit - @campaign.redeems.size %>
+		<% if current_user %>
+			<% if current_user.campaigns.where(:_id => @campaign.id).first %>
+
+				<p><span class="label label-success">Activated!</span></p>
+
+				<% @share = Share.where(:campaign_id => @campaign.id).first %>
+
+				
+				<% if left == 0 %>
+					<div class="alert alert-info">
+						This campaign has finished.
+					</div> <!-- .alert -->
+				<% end %>
+
+				<% if @share.unique_page_views >= @campaign.points_required %>
+					<p><a href="#" class="btn btn-success redeem_button">Redeem</a></p>
+					<% @redeem = @campaign.redeems.where(:user_id => current_user.id).first %>
+					<h2 class="redeem_code"><%= @redeem.redeem_code %></h2>
+				<% end %>
+				<br>
+
+				<p>Your Points: <b><%= @share.unique_page_views %></b> | Points Required: <b><%= @campaign.points_required %></b></p>
+				
+				<p>Total: <b><%= @campaign.limit %></b> | Left: <b><%= left %></b></p>
+
+				<div id="fb-root"></div>
+					<script>(function(d, s, id) {
+					  var js, fjs = d.getElementsByTagName(s)[0];
+					  if (d.getElementById(id)) return;
+					  js = d.createElement(s); js.id = id;
+					  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=101842726611595";
+					  fjs.parentNode.insertBefore(js, fjs);
+					}(document, 'script', 'facebook-jssdk'));</script>
+
+					<div id="share">
+						<%= javascript_include_tag "http://platform.twitter.com/widgets.js" %>
+						<div class="sharing-wrap">
+							<div class="sharing twitter-share">
+								<div id="twitter-button">
+							   		<a href="http://twitter.com/share" class="twitter-share-button"
+							      		data-url="<%= root_url + 's/' + @share.link %>"
+							      		data-text="Check out <%= @campaign.title %> <%= root_url + 's/' + @share.link %> via @brandbuddee"
+							      		data-count="none"
+										data-size="large">Tweet</a>
+								</div>
+							</div>
+							<div class="sharing facebook-share">
+								<div class="fb-like" data-href="<%= root_url + 's/' + @share.link %>" data-send="true" data-width="375" data-show-faces="false" data-action="recommend"></div>
+							</div>
+						</div>
+						<div class="clear"></div>
+						Share Link:
+						<input id="share_link_copy" type="text" value="<%= root_url + 's/' + @share.link %>">
+						<div class="clear"></div>
+					</div>
+
+			<% elsif %>
+				<p>Points Required: <b><%= @campaign.points_required %></b></p>
+				<p>Total: <b><%= @campaign.limit %></b> | Left: <b><%= left %></b></p>
+
+				<% if left == 0 %>
+					<div class="alert alert-info">
+						This campaign has finished.
+					</div> <!-- .alert -->
+				<% elsif %>
+					<%= link_to "Activate", { :controller=>'campaign', :action=>'activate_campaign', :_c => @campaign.id }, :class=>"btn btn-info" %>
+				<% end %>
+			<% end %>
+		<% end %>
+
+
+		</div> <!-- .span3 -->
+	</div> <!-- .row -->
+</div> <!-- .container -->
+
+<script src="../js/bootstrap-dropdown.js"></script>
+<script src="../js/bootstrap-modal.js"></script>

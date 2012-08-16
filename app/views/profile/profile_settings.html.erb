@@ -1,0 +1,152 @@
+<%= render 'shared/header' %>
+
+<div class="container main_container" style="padding-left:0;">
+
+	<%#= image_tag('startupclub_logo.png', :class=>"welcome_logo", :alt=>"start club", :size=>"500x33") %>
+	<% if flash[:notice].nil? %><% else %>
+		<div class="alert alert-info">
+			<button class="close" data-dismiss="alert">×</button>
+			<%= flash[:notice] %>
+		</div> <!-- .alert -->
+	<% end %>
+
+	<% if current_user %>
+	<div class="row">
+		<div class="span3">
+			<div class="well sidebar-nav">
+
+				<ul class="nav nav-list">
+	              <li class="nav-header">Profile Settings</li>
+	              <li class="active"><a href="/profile/settings">Profile Information</a></li>
+	              <li><a href="/profile/username">Username</a></li>
+	              <li class="nav-header">Account Settings</li>
+	              <li><a href="/account/settings">Edit Account</a></li>
+	              <li class="nav-header">Misc Settings</li>
+	              <li><a href="#">Invitations</a></li>
+	            </ul>
+				
+			</div>
+		</div> <!-- .span3 -->
+
+		<div class="span9">
+		<div class="well form-horizontal" style="">
+				<h2 style="font-weight:500;">Profile Setting »</h2>
+				<br>
+
+
+				<div class="profile_image_wrap">
+					<%= form_for @user, :url => {:action => 'update_profile_image'}, :html => {:multipart => true} do |f| %>
+
+						<fieldset>
+							<div class="control-group">
+						        <label class="control-label" for="prependedInput">Avatar</label>
+						        <div class="controls">
+						          <div class="profile-image-avatar"><%= image_tag(current_user.profile_image_url(:square).to_s, :class=>"", :size=>"125x125", :style=>"border-radius:100px;" ) %></div>
+						          <%= f.file_field :profile_image, :class=>'' %>
+						          <br>
+						          <%= f.submit 'Update Profile Image', :class=>"btn" %>
+						        </div>
+							</div>
+						</fieldset>
+
+					<% end %>
+					
+				</div> <!-- .profile_image_wrap -->
+
+				<%= form_for @user, :url => {:controller => 'profile', :action => 'profile_settings_update'} do |f| %>
+					<fieldset>
+						<div class="control-group">
+					        <label class="control-label" for="prependedInput"><%= f.label :first_name, 'First Name', :class=>'' %></label>
+					        <div class="controls">
+					          <%= f.text_field :first_name, :class=>'' %>
+					        </div>
+						</div>
+					</fieldset>
+
+					<fieldset>
+						<div class="control-group">
+					        <label class="control-label" for="prependedInput"><%= f.label :last_name, 'Last Name', :class=>'' %></label>
+					        <div class="controls">
+					          <%= f.text_field :last_name, :class=>'' %>
+					        </div>
+						</div>
+					</fieldset>
+
+					<fieldset>
+						<div class="control-group">
+					        <label class="control-label" for="prependedInput"><%= f.label :phone, :class=>'' %></label>
+					        <div class="controls">
+					          <%= f.text_field :phone, :class=>'' %>
+					        </div>
+						</div>
+					</fieldset>
+
+					<fieldset>
+						<div class="control-group">
+					        <label class="control-label" for="prependedInput"><%= f.label :city, :class=>'' %></label>
+					        <div class="controls">
+					          <%= f.text_field :city, :class=>'' %>
+					        </div>
+						</div>
+					</fieldset>
+
+					<fieldset>
+						<div class="control-group">
+					        <label class="control-label" for="prependedInput"><%= f.label :state, :class=>'' %></label>
+					        <div class="controls">
+					          <%= f.text_field :state, :class=>'' %>
+					        </div>
+						</div>
+					</fieldset>
+
+					<fieldset>
+						<div class="control-group">
+					        <label class="control-label" for="prependedInput"><%= f.label :bio, :class=>'' %></label>
+					        <div class="controls">
+					          <%= f.text_area :bio, :class=>'', :rows => '4' %>
+					        </div>
+						</div>
+					</fieldset>
+
+					<fieldset>
+						<div class="control-group">
+					        <label class="control-label" for="prependedInput"><%= f.label :website, :class=>'' %></label>
+					        <div class="controls">
+					          <%= f.text_field :website, :class=>'' %>
+					        </div>
+						</div>
+					</fieldset>
+
+					
+
+					<fieldset>
+						<div class="control-group">
+					        <label class="control-label" for="prependedInput"></label>
+					        <div class="controls">
+					          <%= f.submit 'Update Profile', :class=>"btn btn-success" %>
+					        </div>
+						</div>
+					</fieldset>
+
+				<% end %>
+			</div>
+		</div> <!-- .span9 -->
+	<% end %>
+
+	</div> <!-- .row -->
+
+</div><!--/.container-->
+
+
+<script src="../../../js/bootstrap-transition.js"></script>
+<script src="../../../js/bootstrap-alert.js"></script>
+<script src="../../../js/bootstrap-modal.js"></script>
+<script src="../../../js/bootstrap-dropdown.js"></script>
+<script src="../../../js/bootstrap-scrollspy.js"></script>
+<script src="../../../js/bootstrap-tab.js"></script>
+<script src="../../../js/bootstrap-tooltip.js"></script>
+<script src="../../../js/bootstrap-popover.js"></script>
+<script src="../../../js/bootstrap-button.js"></script>
+<script src="../../../js/bootstrap-collapse.js"></script>
+<script src="../../../js/bootstrap-carousel.js"></script>
+<script src="../../../js/bootstrap-typeahead.js"></script>

@@ -1,11 +1,15 @@
 <%= render 'shared/fluid_header' %>
-<div class="container main_container">
+<div style="margin-top:50px;">
 
-<div style="color:red;font-weight:200;font-family:'Helvetica Neue'"><%= flash[:notice] %></div>
+<% if flash[:notice].nil? %><% else %>
+	<div class="alert alert-info">
+		<button class="close" data-dismiss="alert">×</button>
+		<%= flash[:notice] %>
+	</div> <!-- .alert -->
+<% end %>
 
-<div style="position:fixed;left:25px;overflow:scroll;height:100%;width:97%;">
+<div style="position:relative;left:25px;overflow:scroll;height:100%;width:97%;">
 <div><h2 style="font-weight:200">Total: <%= pluralize(@user.size, 'User') %></h2></div>
-<p><%= link_to "Create User", :controller=>'users', :action=>'new' %></p>
 <table class="table table-bordered table-striped table-condensed">
   <tr>
 	<th>ID</th>
@@ -13,8 +17,21 @@
 	<th>UID</th>
 	<th>Date</th>
 	<th>Email</th>
+	<th>Profile Image</th>
+	<th>First Name</th>
+   	<th>Last Name</th>
+   	<th>AccountType</th>
 	<th>Password_hash</th>
-   <th>Password_salt</th>
+   	<th>Password_salt</th>
+   	<th>Gender</th>
+   	<th>Phone</th>
+   	<th>City</th>
+   	<th>State</th>
+   	<th>Website</th>
+   	<th>Bio</th>
+   	<th>Campaigns</th>
+   	<th>Redeems</th>
+   	<th>Nickname</th>
   </tr>
 
 <% @user.each do |u| %>
@@ -24,18 +41,349 @@
 	<td><%= u.uid %></td>
 	<td><%= u.date %></td>
 	<td><%= u.email %></td>
-	<td><%= u.password_hash %></td>
-   <td><%= u.password_salt %></td>
+	<td><%= image_tag(u.profile_image_url(:thumb).to_s, :class=>"", :style=>"border-radius:100px;" ) %></td>
+	<td><%= u.first_name %></td>
+	<td><%= u.last_name %></td>
+	<td><%= u.account_type %></td>
+	<td><%= u.password_hash.nil? %></td>
+   	<td><%= u.password_salt.nil? %></td>
+   	<td><%= u.gender %></td>
+   	<td><%= u.phone %></td>
+   	<td><%= u.city %></td>
+   	<td><%= u.state %></td>
+   	<td><%= u.website %></td>
+   	<td><%= u.bio %></td>
+   	<td>
+   		<% u.campaigns.each do |c| %>
+   			<%= c.id %>
+   		<% end %>
+   	</td>
+   	<td>
+   		<% u.redeems.each do |r| %>
+   			<%= r.id %>
+   		<% end %>
+   	</td>
+   	<td><b><%= u.nickname %></b></td>
 	<td><%= link_to "Delete", :controller=>'users', :action=>'destroy', :_id => u._id %></td>
   </tr>
 <% end %>
 </table>
-
-<div class="clear"></div>
-<br /><br /><br /><br />
-
 </div>
+
+
+<div style="position:relative;left:25px;overflow:scroll;height:100%;width:97%;">
+<div><h2 style="font-weight:200">Total: <%= pluralize(@campaign_all.size, 'Campaign') %></h2></div>
+<p><a class="btn btn-mini" data-toggle="modal" href="#create_campaign" style="margin-top:8px;margin-left:15px;"><i class="icon-plus-sign icon"></i> Create New Campaign</a></p>
+<table class="table table-bordered table-striped table-condensed">
+  <tr>
+	<th>ID</th>
+	<th>Date</th>
+	<th>Brand belongs to</th>
+	<th>Title</th>
+	<th>campaign_image</th>
+	<th>Location</th>
+	<th>Detail</th>
+	<th>Points Required</th>
+	<th>Limit</th>
+	<th>Categories</th>
+	<th>Users</th>
+	<th>Shares</th>
+	<th>Page View</th>
+	<th>Unique Page Views</th>
+	<th>Link</th>
+	<th>Share Link</th>
+  </tr>
+
+<% @campaign_all.each do |u| %>
+  <tr class="<%= cycle('odd', 'even') %>">
+	<td><%= u._id %></td>
+	<td><%= u.date %></td>
+	<td><%= u.brand.name %></td>
+	<td><%= u.title %></td>
+	<td><%= image_tag(u.campaign_image_url(:thumb).to_s) %></td>
+	<td><%= u.location %></td>
+	<td><%= u.detail %></td>
+	<td><%= u.points_required %></td>
+	<td><%= u.limit %></td>
+	<td>
+		<% u.categories.each do |a| %>
+			<%= a.id %>
+		<% end %>
+	</td>
+	<td>
+		<% u.users.each do |b| %>
+			<%= b.id %>
+		<% end %>
+	</td>
+	<td>
+		<% u.shares.each do |s| %>
+			<%= s.id %>
+		<% end %>
+	</td>
+	<td><%= u.page_views %></td>
+	<td><%= u.unique_page_views %></td>
+	<td><%= u.link %></td>
+	<td><%= u.share_link %></td>
+	<td><%= link_to "Delete", :controller=>'users', :action=>'campaign_destroy', :_id => u._id %></td>
+  </tr>
+<% end %>
+</table>
+</div>
+
+<div style="position:relative;left:25px;overflow:scroll;height:100%;width:97%;">
+<div><h2 style="font-weight:200">Total: <%= pluralize(@brand_all.size, 'Brand') %></h2></div>
+<p><a class="btn btn-mini" data-toggle="modal" href="#create_brand" style="margin-top:8px;margin-left:15px;"><i class="icon-plus-sign icon"></i> Create New Brand</a></p>
+<table class="table table-bordered table-striped table-condensed">
+  <tr>
+	<th>ID</th>
+	<th>Date</th>
+	<th>Name</th>
+	<th>Bio</th>
+	<th>Website</th>
+	<th>Facebook</th>
+	<th>Twitter</th>
+	<th>Pinterest</th>
+	<th>Campaigns</th>
+  </tr>
+
+<% @brand_all.each do |u| %>
+  <tr class="<%= cycle('odd', 'even') %>">
+	<td><%= u._id %></td>
+	<td><%= u.date %></td>
+	<td><%= u.name %></td>
+	<td><%= u.bio %></td>
+	<td><%= u.website %></td>
+	<td><%= u.facebook %></td>
+	<td><%= u.twitter %></td>
+	<td><%= u.pinterest %></td>
+	<td>
+		<% u.campaigns.each do |b| %>
+			<%= b.id %>
+		<% end %>
+	</td>
+	<td><%= link_to "Delete", :controller=>'users', :action=>'brand_destroy', :_id => u._id %></td>
+  </tr>
+<% end %>
+</table>
+</div>
+
+<div style="position:relative;left:25px;overflow:scroll;height:auto;width:97%;">
+<div><h2 style="font-weight:200">Total: <%= pluralize(@category_all.size, 'Category') %></h2></div>
+<p><a class="btn btn-mini" data-toggle="modal" href="#myModal" style="margin-top:8px;margin-left:15px;"><i class="icon-plus-sign icon"></i> Create New Category</a></p>
+<table class="table table-bordered table-striped table-condensed">
+  <tr>
+	<th>ID</th>
+	<th>Date</th>
+	<th>Name</th>
+	<th>Campaigns</th>
+  </tr>
+
+<% @category_all.each do |u| %>
+  <tr class="<%= cycle('odd', 'even') %>">
+	<td><%= u._id %></td>
+	<td><%= u.date %></td>
+	<td><%= u.name %></td>
+	<td>
+		<% u.campaigns.each do |b| %>
+			<%= b.id %>
+		<% end %>
+	</td>
+	<td><%= link_to "Delete", :controller=>'users', :action=>'category_destroy', :_id => u._id %></td>
+  </tr>
+<% end %>
+</table>
+</div>
+
+
+
+<div style="position:relative;left:25px;overflow:scroll;height:auto;width:97%;">
+<div><h2 style="font-weight:200">Total: <%= pluralize(@share_all.size, 'Share') %></h2></div>
+<table class="table table-bordered table-striped table-condensed">
+  <tr>
+	<th>ID</th>
+	<th>Date</th>
+	<th>Link</th>
+	<th>url</th>
+	<th>Page Views</th>
+	<th>Unique Page Views</th>
+	<th>Campaign</th>
+	<th>User</th>
+  </tr>
+
+<% @share_all.each do |u| %>
+  <tr class="<%= cycle('odd', 'even') %>">
+	<td><%= u._id %></td>
+	<td><%= u.date %></td>
+	<td><%= u.link %></td>
+	<td><%= u.url %></td>
+	<td><%= u.page_views %></td>
+	<td><%= u.unique_page_views %></td>
+	<td><%= u.campaign_id %></td>
+	<td><%= u.user_id %></td>
+	<td><%= link_to "Delete", :controller=>'users', :action=>'share_destroy', :_id => u._id %></td>
+  </tr>
+<% end %>
+</table>
+</div>
+
+
+
+<div style="position:relative;left:25px;overflow:scroll;height:auto;width:97%;">
+<div><h2 style="font-weight:200">Total: <%= pluralize(@redeem_all.size, 'Redeem') %></h2></div>
+<table class="table table-bordered table-striped table-condensed">
+  <tr>
+	<th>ID</th>
+	<th>Date</th>
+	<th>Redeem Code</th>
+	<th>Status</th>
+	<th>Campaign</th>
+	<th>User</th>
+  </tr>
+
+<% @redeem_all.each do |u| %>
+  <tr class="<%= cycle('odd', 'even') %>">
+	<td><%= u._id %></td>
+	<td><%= u.date %></td>
+	<td><%= u.redeem_code %></td>
+	<td><%= u.status %></td>
+	<td><%= u.campaign_id %></td>
+	<td><%= u.user_id %></td>
+	<td><%= link_to "Delete", :controller=>'users', :action=>'redeem_destroy', :_id => u._id %></td>
+  </tr>
+<% end %>
+</table>
+</div>
+
+
 
 </div><!--/.container-->
 
+
+
+
+<div class="modal fade" id="create_campaign">
+  <div class="modal-header">
+    <button class="close" data-dismiss="modal">×</button>
+    <h3>Create New Campaign</h3>
+  </div> <!-- .modal-header -->
+  <div class="modal-body">
+   <% @campaign = Campaign.new %>
+   <%= form_for @campaign, :url => url_for(:controller => 'users', :action => 'create_new_campaign'), :html => {:multipart => true} do |f| %>
+    <p>
+      <%= f.label :title, :class=>'' %>
+      <%= f.text_field :title, :class=>'' %>
+    </p>
+    <p>
+      <%= f.label :detail, :class=>'' %>
+      <%= f.text_area :detail, :class=>'', :rows => '4' %>
+    </p>
+    <p>
+      <%= f.label :campaign_image, :class=>'' %>
+      <%= f.file_field :campaign_image, :class=>'' %>
+    </p>
+    <p>
+      <%= f.label :location, :class=>'' %>
+      <%= f.text_field :location, :class=>'' %>
+    </p>
+    <p>
+      <%= f.label :share_link, :class=>'' %>
+      <%= f.text_field :share_link, :class=>'' %>
+    </p>
+    <p>
+      <%= f.label :points_required, :class=>'' %>
+      <%= f.text_field :points_required, :class=>'' %>
+    </p>
+    <p>
+      <%= f.label :limit, :class=>'' %>
+      <%= f.text_field :limit, :class=>'' %>
+    </p>
+
+    <%= select_tag "brands", options_from_collection_for_select(@brand_all, "id", "name"), :prompt => "- Select Brand -" %>
+    <%= select_tag "categories", options_from_collection_for_select(@category_all, "id", "name"), :prompt => "- Select Category -" %>
+    <%= hidden_field_tag(:date, Time.now, :name=>'campaign[date]') %>
+    <%= hidden_field_tag(:link, @link, :name=>'campaign[link]') %>
+
+  </div> <!-- .modal-body -->
+
+  <div class="modal-footer">
+    <a href="#" class="btn" data-dismiss="modal">Close</a>
+    <%= f.submit 'Create', :class=>"btn btn-success" %>
+  <% end %>
+  </div> <!-- .modal-footer -->
+</div> <!-- .modal fade -->
+
+
+<div class="modal fade" id="myModal">
+  <div class="modal-header">
+    <button class="close" data-dismiss="modal">×</button>
+    <h3>Create New Category</h3>
+  </div> <!-- .modal-header -->
+  <div class="modal-body">
+   <% @category = Category.new %>
+   <%= form_for @category, :url => url_for(:controller => 'users', :action => 'create_new_category') do |f| %>
+    <p>
+      <%= f.label :name, :class=>'' %>
+      <%= f.text_field :name, :class=>'' %>
+    </p>
+
+    <%= hidden_field_tag(:date, Time.now, :name=>'category[date]') %>
+
+  </div> <!-- .modal-body -->
+
+  <div class="modal-footer">
+    <a href="#" class="btn" data-dismiss="modal">Close</a>
+    <%= f.submit 'Create', :class=>"btn btn-success" %>
+  <% end %>
+  </div> <!-- .modal-footer -->
+</div> <!-- .modal fade -->
+
+
+<div class="modal fade" id="create_brand">
+  <div class="modal-header">
+    <button class="close" data-dismiss="modal">×</button>
+    <h3>Create New Brand</h3>
+  </div> <!-- .modal-header -->
+  <div class="modal-body">
+   <% @brand = Brand.new %>
+   <%= form_for @brand, :url => url_for(:controller => 'users', :action => 'create_new_brand') do |f| %>
+   	<p class="span3">
+      <%= f.label :name, :class=>'' %>
+      <%= f.text_field :name, :class=>'' %>
+    </p>
+    <p class="span3">
+      <%= f.label :bio, :class=>'' %>
+      <%= f.text_area :bio, :class=>'', :rows => '4' %>
+    </p>
+    <p class="span3">
+      <%= f.label :website, :class=>'' %>
+      <%= f.text_field :website, :class=>'' %>
+    </p>
+    <p class="span3">
+      <%= f.label :facebook, :class=>'' %>
+      <%= f.text_field :facebook, :class=>'' %>
+    </p>
+    <p class="span3">
+      <%= f.label :twitter, :class=>'' %>
+      <%= f.text_field :twitter, :class=>'' %>
+    </p>
+    <p class="span3">
+      <%= f.label :pinterest, :class=>'' %>
+      <%= f.text_field :pinterest, :class=>'' %>
+    </p>
+
+    <%= hidden_field_tag(:date, Time.now, :name=>'brand[date]') %>
+
+  </div> <!-- .modal-body -->
+
+  <div class="modal-footer">
+    <a href="#" class="btn" data-dismiss="modal">Close</a>
+    <%= f.submit 'Create', :class=>"btn btn-success" %>
+  <% end %>
+  </div> <!-- .modal-footer -->
+</div> <!-- .modal fade -->
+
+
+
+
 <script src="../js/bootstrap-dropdown.js"></script>
+<script src="../js/bootstrap-modal.js"></script>

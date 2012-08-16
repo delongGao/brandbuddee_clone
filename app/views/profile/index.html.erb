@@ -1,0 +1,67 @@
+<%= render 'shared/header' %>
+
+<div class="container main_container" style="padding-left:0;">
+
+	<%#= image_tag('startupclub_logo.png', :class=>"welcome_logo", :alt=>"start club", :size=>"500x33") %>
+	<% if flash[:notice].nil? %><% else %>
+		<div class="alert alert-info">
+			<button class="close" data-dismiss="alert">×</button>
+			<%= flash[:notice] %>
+		</div> <!-- .alert -->
+	<% end %>
+
+	<div class="row">
+		<div class="span3">
+			<div class="well sidebar-nav">
+
+				<div class="profile-image"><%= image_tag(@profile.profile_image_url(:square).to_s, :class=>"", :size=>"125x125", :style=>"border-radius:100px;" ) %></div>
+
+				<div class="profile-side-header">
+					<h2><%= @profile.first_name + ' ' + @profile.last_name %></h2>
+					<p><%= @profile.city + ', ' + @profile.state %></p>
+				</div>
+
+				<ul class="nav nav-list">
+	              <li class="nav-header">Profile</li>
+		              <p><%= @profile.bio %></p>
+		              <p><%= @profile.website %></p>
+	              <li class="nav-header">Social</li>
+	              	  <p><%= @profile.facebook %></p>
+	              	  <p><%= @profile.twitter %></p>
+	              	  <p><%= @profile.pinterest %></p>
+	            </ul>
+				
+			</div>
+		</div> <!-- .span3 -->
+
+		<div class="span9">
+		<div class="form-horizontal" style="">
+				<h2 style="font-weight:500;">Current Campaigns</h2>
+				<br>
+
+
+				<ul class="thumbnails">
+		          <% @campaign.each do |c| %>
+		            <a href="/campaign/<%= c.link %>">
+		              <li class="span3">
+		                <div class="thumbnail">
+		                  <!-- <img src="http://placehold.it/260x180" alt=""> -->
+		                  <%= image_tag(c.campaign_image_url(:standard).to_s) %>
+		                  <div class="caption">
+		                    <h5><%= c.title %></h5>
+		                    <p><%= c.detail %></p>
+		<!--                     <p><a href="#" class="btn btn-primary">Action</a> <a href="#" class="btn">Action</a></p> -->
+		                  </div>
+		                </div>
+		              </li>
+		            </a>
+		          <% end %>
+		        </ul> <!-- .thumbnails -->
+
+
+
+		</div> <!-- .span9 -->
+
+	</div> <!-- .row -->
+
+</div><!--/.container-->

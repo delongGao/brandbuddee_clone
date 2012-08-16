@@ -8,6 +8,8 @@ gem 'mongo'
 
 gem 'omniauth', '1.1.0'
 gem "omniauth-facebook", "~> 1.2.0"
+gem "omniauth-twitter", "~> 0.0.12"
+#gem "twitter", "~> 3.6.0"
 gem 'bcrypt-ruby', :require => 'bcrypt'
 
 gem 'rmagick', '2.13.1'
