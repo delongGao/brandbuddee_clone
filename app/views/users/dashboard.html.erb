@@ -45,7 +45,9 @@
                   <%= image_tag(c.campaign_image_url(:standard).to_s) %>
                   <div class="caption">
                     <h5><%= c.title %></h5>
-                    <p><%= c.detail %></p>
+                    <p><%#= c.detail %>
+                      <%= truncate(c.detail, :length => 102, :omission => '... (continued)') %>
+                    </p>
 <!--                     <p><a href="#" class="btn btn-primary">Action</a> <a href="#" class="btn">Action</a></p> -->
                   </div>
                 </div>
