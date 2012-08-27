@@ -39,7 +39,7 @@ Brandbuddee::Application.routes.draw do
   get "/:profile" => 'profile#index', :as => :profile
   resources :profile, :only => [:index]
 
-  match '/campaign/activate' => 'campaign#activate_campaign'
+  match 'campaign/activate' => 'campaign#activate_campaign'
   get "/campaign/:campaign" => 'campaign#index', :as => :campaign
 
   get "/s/:share" => 'campaign#share', :as => :share
