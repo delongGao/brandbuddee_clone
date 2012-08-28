@@ -51,7 +51,7 @@
 				<% if @share.unique_page_views >= @campaign.points_required %>
 					<p><a href="#" class="btn btn-success redeem_button">Redeem</a></p>
 					<% @redeem = @campaign.redeems.where(:user_id => current_user.id).first %>
-					<h2 class="redeem_code"><%= @redeem.redeem_code unless @redeem.redeem_code.nil? %></h2>
+					<h2 class="redeem_code"><%#= @redeem.redeem_code unless @redeem.redeem_code.nil? %></h2>
 				<% end %>
 				<br>
 
