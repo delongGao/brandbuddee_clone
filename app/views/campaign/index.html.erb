@@ -39,7 +39,7 @@
 
 				<p><span class="label label-success">Activated!</span></p>
 
-				<% @share = Share.where(:campaign_id => @campaign.id).first %>
+				<% @share = Share.where(:campaign_id => @campaign.id, :user_id => current_user.id).first %>
 
 				<% if left == 0 %>
 					<div class="alert alert-info">
