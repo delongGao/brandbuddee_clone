@@ -99,7 +99,7 @@
 						This campaign has finished.
 					</div> <!-- .alert -->
 				<% elsif %>
-					<%= link_to "Activate", { :controller=>'campaign', :action=>'activate_campaign', :_c => @campaign.id }, :class=>"btn btn-info" %>
+					<%= link_to "Join", { :controller=>'campaign', :action=>'activate_campaign', :_c => @campaign.id }, :class=>"btn btn-info" %>
 				<% end %>
 			<% end %>
 		<% end %>
