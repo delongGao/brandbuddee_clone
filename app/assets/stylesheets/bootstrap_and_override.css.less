@@ -1,42 +1,197 @@
 @import "twitter/bootstrap/bootstrap";
 @import "twitter/bootstrap/responsive";
 
-// body {
-//	padding-top: 15px;
-// }
-
-form {
-	margin: 0;
-}
-
-.container, .navbar-fixed-top .container, .navbar-fixed-bottom .container {
-	//width: 940px;
-	//width: 1170px;
-}
-
-.well {
-	//margin-top: 10px;
-	margin-bottom: 10px;
-}
-
 @iconSpritePath: asset-path('twitter/bootstrap/glyphicons-halflings.png');
 @iconWhiteSpritePath: asset-path('twitter/bootstrap/glyphicons-halflings-white.png');
 
-.thumbnail {
-	display: block;
-	padding: 4px;
-	line-height: 1;
-	border: 1px solid #DDD;
-	margin-bottom: 20px;
-	-webkit-border-radius: 4px;
-	-moz-border-radius: 4px;
-	border-radius: 4px;
-	-webkit-border-radius: 4px;
-	-moz-border-radius: 4px;
-	-webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075);
-	-moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075);
-	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075);
-	-webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075);
-	-moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075);
-	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075);
+
+
+
+/* 
+
+Theme: Dealstrap 1.0
+Seller: https://wrapbootstrap.com/user/cristoforo
+    
+-------------------------------------------------- */
+
+/* General
+-------------------------------------------------- */
+.page-content {
+    margin-top: 19px;
+}
+
+.page-content h4 {
+    color: #3BB0DB;
+}
+
+legend img {
+    margin-bottom: 5px;
+}
+
+/* Navbar
+-------------------------------------------------- */
+
+.navbar-form {
+    margin-top: 19px;
+    margin-bottom: 19px;
+}
+
+.navbar .nav {
+    margin-right: 0px;
+}
+
+.navbar .nav li.dropdown > .dropdown-toggle .caret {
+    border-bottom-color: #fff;
+    border-top-color: #fff;
+}
+
+.navbar .nav li.dropdown.open > .dropdown-toggle .caret, .navbar .nav li.dropdown.active > .dropdown-toggle .caret, .navbar .nav li.dropdown.open.active > .dropdown-toggle .caret {
+    border-bottom-color: #fff;
+    border-top-color: #fff;
+}
+
+.navbar .nav li.dropdown.open > .dropdown-toggle, .navbar .nav li.dropdown.active > .dropdown-toggle, .navbar .nav li.dropdown.open.active > .dropdown-toggle {
+    background-color: #51A351;
+    color: #ffffff;
+}
+
+ul.signup li {
+    margin-left: 4px;
+}
+
+ul.signup .dropdown-menu {
+    padding: 10px;
+}
+
+ul.signup .dropdown-menu input {
+    display: block;
+}
+
+/* Unit
+-------------------------------------------------- */
+
+.unit {
+    padding: 19px;
+}
+
+.unit-block {
+    margin-bottom: 20px;
+}
+
+.unit-bg {
+    background: url('../img/itembg.png') top left repeat #fff;
+    border: 3px solid #EFEFEF;
+    -moz-box-shadow: 3px 3px 3px rgba(0,0,0,0.15);
+    -webkit-box-shadow: 3px 3px 3px rgba(0,0,0,0.15);
+    box-shadow: 3px 3px 3px rgba(0,0,0,0.15);
+    border-radius: 0px;
+}
+
+.unit ul.nav-pills {
+    margin-bottom: 0px;
+}
+
+/* Footer
+-------------------------------------------------- */
+
+.footer ul {
+    margin-bottom: 0px;
+}
+
+.footer ul li {
+    display: inline;
+    margin-right: 10px;
+}
+
+/* Text Style
+-------------------------------------------------- */
+
+.text-center {
+    text-align: center;
+}
+
+.text-strike {
+    text-decoration: line-through;
+}
+
+.text-highlight-small {
+    font-size: 24px;
+    color: #FF9228;
+}
+
+.text-highlight-large {
+    font-size: 30px;
+    color: #FF9228;
+}
+
+/* Misc
+-------------------------------------------------- */
+
+#landing-page {
+    padding-top: 15%;
+}
+
+.carousel {
+    margin-bottom: 0px;
+}
+
+.firstrow td {
+    border: none;
+}
+
+/* Responsive
+-------------------------------------------------- */
+
+/* Desktop large
+------------------------- */
+@media (min-width: 1200px) {
+    .page-content .span6 {
+        width: 530px;
+    }
+
+    .page-content .span3 {
+        width: 272px;
+    }
+
+    .view-deal {
+        margin-right: 4px;
+    }
+}
+
+/* Tablet to desktop
+------------------------- */
+@media (min-width: 768px) and (max-width: 1200px) {
+    .page-content .span6 {
+        width: 420px;
+    }
+
+    .page-content .span3 {
+        width: 222px;
+    }
+
+    .view-deal {
+        display: block;
+        margin-bottom: 10px;
+    }
+}
+
+/* Tablet
+------------------------- */
+@media (max-width: 768px) {
+    .login-input {
+        width: 100%;
+    }
+
+    .view-deal {
+        margin-right: 4px;
+    }
+
+    .footer {
+        text-align: center;
+    }
+
+    .footer ul {
+        float: none;
+        margin-bottom: 10px;
+    }
 }

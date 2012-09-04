@@ -1,6 +1,5 @@
-<%= render 'shared/header' %>
-
-<div class="container main_container" style="padding-left:0;">
+<div class="container">
+    <%= render 'shared/new_header' %>
 
       <% if flash[:notice].nil? %><% else %>
         <div class="alert alert-info">
@@ -15,51 +14,164 @@
         <% @category = Category.where(:name => params[:c]).first %> 
         <% @campaign = @category.campaigns.order_by([:date, :desc]) %>
       <% end %>
-      
 
-      <div class="row">
+
+    <div class="row">
         <div class="span3">
-          <div class="well sidebar-nav left-nav">
-            <ul class="nav nav-list">
-              <li class="nav-header">Categories</li>
-              <li><a href="<%= root_url %>">All</a></li>
-              <% @categories.each do |c| %>
-                <li <% if params[:c] == c.name %> class="active" <% end %> ><a href="?c=<%= c.name %>"><%= c.name %></a></li>
-              <% end %>
-            </ul>
-				
-				<hr>
-		      <footer>
-		        <p>&copy; Brandbuddee 2012</p>
-		      </footer>
-          </div><!--/.well -->
-        </div><!--/span-->
-
-        <div class="span9">
-          <ul class="thumbnails">
-          <% @campaign.each do |c| %>
-            <a href="/campaign/<%= c.link %>">
-              <li class="span3">
-                <div class="thumbnail">
-                  <!-- <img src="http://placehold.it/260x180" alt=""> -->
-                  <%= image_tag(c.campaign_image_url(:standard).to_s) %>
-                  <div class="caption">
-                    <h5><%= c.title %></h5>
-                    <p><%#= c.detail %>
-                      <%= truncate(c.detail, :length => 69, :omission => '... (continued)') %>
-                    </p>
-<!--                     <p><a href="#" class="btn btn-primary">Action</a> <a href="#" class="btn">Action</a></p> -->
-                  </div>
+            <div class="well unit-bg">
+                <a class="" href="<%= root_url %>"><img src="/assets/brandbuddee-logo-med.png" width="100%" /></a>
+            </div>
+            <div class="well unit-bg">
+                <ul class="nav nav-list">
+                    <li class="active"><a href="/dashboard"><i class="icon-asterisk"></i>&nbsp;Earn Rewards</a></li>
+                    <li><a href="/<%= current_user.nickname %>"><i class="icon-headphones"></i>&nbsp;Your Rewards</a></li>
+                    <li><a href="list.html"><i class="icon-briefcase"></i>&nbsp;Redeem</a></li>
+                    <li><a href="list.html"><i class="icon-tag"></i>&nbsp;Past Rewards</a></li>
+                    <li class="divider"></li>
+                    <li><a href="contact.html"><i class="icon-question-sign"></i>&nbsp;Help</a></li>
+                </ul>
+            </div>
+            <div class="well unit-bg">
+                <p>
+                    <i class="icon-envelope"></i>&nbsp;Invite Friends</p>
+                <div class="input-append">
+                    <input class="span2" id="inputEmail" type="text" placeholder="Enter your email">
+                    <button class="btn" type="button">
+                        OK</button>
                 </div>
-              </li>
-            </a>
-          <% end %>
-        </ul> <!-- .thumbnails -->
+            </div>
+            <div class="well unit-bg">
+                <p>
+                    <i class="icon-heart"></i>&nbsp;Follow Us</p>
+                <ul class="unstyled">
+                    <li>
+                        <div class="fb-like-box" data-href="http://www.facebook.com/brandbuddee"
+                            data-width="260" data-height="70" data-show-faces="false" data-stream="false" data-header="false">
+                        </div>
+                    </li>
+                    <br>
+                    <li><a href="https://twitter.com/brandbuddee" class="twitter-follow-button" data-link-color="#0069D6"
+                        data-show-count="true">Follow @brandbuddee</a> </li>
+                </ul>
+            </div>
+        </div>
+        <div class="span9">
+            <div class="row unit-block">
+                <div class="span9 unit-bg">
+                    <div class="unit">
+                        <legend>
+                            <img src="assets/glyphicons_248_asterisk.png" />
+                            Earn Rewards</legend>
+                        <ul class="nav nav-pills">
+
+                            <% @categories.each do |c| %>
+                              <li <% if params[:c] == c.name %> class="active" <% end %> ><a href="?c=<%= c.name %>"><%= c.name %></a></li>
+                            <% end %>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="row unit-block">
+                <div class="span9 unit-bg">
+                    <div id="myCarousel" class="carousel slide" data-interval="3000">
+                        <!-- Carousel items -->
+                        <div class="carousel-inner">
+                            <div class="active item">
+                                <img src="assets/banner1.jpg" alt="">
+                                <div class="carousel-caption">
+                                    <h4>
+                                        First Thumbnail label</h4>
+                                    <p>
+                                        Description</p>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <img src="assets/banner2.jpg" alt="">
+                                <div class="carousel-caption">
+                                    <h4>
+                                        Second Thumbnail label</h4>
+                                    <p>
+                                        Description</p>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <img src="assets/banner3.jpg" alt="">
+                                <div class="carousel-caption">
+                                    <h4>
+                                        Third Thumbnail label</h4>
+                                    <p>
+                                        Description</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Carousel nav -->
+                        <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+                        <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="span9">
+                    <ul class="thumbnails">
+                        <% @campaign.each do |c| %>
+                          <li class="span3">
+                            <div class="thumbnail unit-bg">
+                                  <a href="/campaign/<%= c.link %>">
+                                      <%= image_tag(c.campaign_image_url(:standard).to_s, :width=>"100%") %>
+                                  </a>
+                                  <div class="caption">
+                                      <h4>
+                                          <%= c.title %></h4>
+                                      <p>
+                                          <%= truncate(c.detail, :length => 160, :omission => '... (continued)') %></p>
+                                      <p>
+                                          <span class="help-block"><small><i class="icon-tag"></i>&nbsp;<%= c.limit - c.redeems.size %> Available&nbsp;&nbsp;<i
+                                              class="icon-time"> </i>&nbsp;7 Days Remaining</small></span>
+                                      </p>
+                                      <p class="campaign_details">
+                                          <span class="view-deal"><a href="/campaign/<%= c.link %>" class="btn btn-success">View&nbsp;<i
+                                              class="icon-chevron-right icon-white"></i></a></span><span class="help-inline text-highlight-small pts_req">
+                                                  <%= c.points_required %></span>
+                                                  pts
+                                      </p>
+                                  </div>
+                              </div>
+                          </li>
+                        <% end %>
+
+                    </ul>
+                </div>
+            </div>
 
 
-        </div><!--/span-->
-      </div><!--/row-->
+            <%= render 'shared/footer' %>
+
+        </div>
+    </div>
+</div>
 
 
 
-    </div><!--/.container-->
+    <script>        !function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (!d.getElementById(id)) {
+                js = d.createElement(s); js.id = id; js.src = "//platform.twitter.com/widgets.js";
+                fjs.parentNode.insertBefore(js, fjs);
+            }
+        } (document, "script", "twitter-wjs"); </script>
+    <!-- facebook -->
+    <div id="fb-root">
+    </div>
+    <script>        (function (d, s, id) {
+            var 
+    js, fjs = d.getElementsByTagName(s)[0]; if (d.getElementById(id)) return; js = d.createElement(s);
+            js.id = id; js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=279705068712379";
+            fjs.parentNode.insertBefore(js, fjs);
+        } (document, 'script', 'facebook-jssdk'));</script>
+    <!-- backstretch -->
+    <script src="js/jquery.backstretch.min.js"></script>
+    <script>
+      $.backstretch("assets/bg.jpg");
+      $('#myCarousel').carousel();
+    </script>

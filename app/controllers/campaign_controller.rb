@@ -3,6 +3,7 @@ class CampaignController < ApplicationController
 	def index
 		params_campaign = params[:campaign].downcase
 		campaign = Campaign.where(:link => params_campaign).first
+		@campaigns_else = Campaign.all(:limit => 3).order_by([:date, :desc])
 		if campaign.present?
 		  @campaign = campaign
 		  # @gallery = user.images.order_by([:date, :desc])

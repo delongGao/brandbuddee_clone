@@ -33,7 +33,8 @@ group :assets do
   gem 'coffee-rails', "~> 3.1.0"
   gem 'uglifier'
 
-  gem "twitter-bootstrap-rails", "~> 2.0.7"
+  #gem "twitter-bootstrap-rails", "~> 2.0.7"
+  gem "twitter-bootstrap-rails", "~> 2.1.3"
 end
 
 gem 'jquery-rails'
