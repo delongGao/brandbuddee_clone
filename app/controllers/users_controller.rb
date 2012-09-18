@@ -2,11 +2,17 @@ class UsersController < ApplicationController
   #before_filter :confirm_user_logged_in
   
   def dashboard
-    #@campaign = Campaign.all.order_by([:date, :desc])
-    @categories = Category.all.order_by([:name, :asc])
+    if current_user
 
-    if current_user.email == 'email@email.com'
-      redirect_to(:action => 'complete_email')
+      #@campaign = Campaign.all.order_by([:date, :desc])
+      @categories = Category.all.order_by([:name, :asc])
+
+      if current_user.email == 'email@email.com'
+        redirect_to(:action => 'complete_email')
+      end
+
+    else
+      redirect_to root_url
     end
   end
 
