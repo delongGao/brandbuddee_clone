@@ -32,4 +32,73 @@
 	float: right;
 	min-height: 100%;
 	width: 50%;
+	background: #FFF url('/assets/splash_bg.png') repeat;
+}
+
+.splash_logo {
+	display: block;
+	position: absolute;
+	top: 35%;
+	right: 70px;
+}
+
+.splash_wrap {
+	display: block;
+	position: absolute;
+	top: 35%;
+	left: 0;
+	right: 0;
+	width: 950px;
+	margin: 0 auto;
+}
+
+.splashMessage {
+	display: block;
+	position: absolute;
+	top: 33%;
+	margin-left: 65px;
+	width: 450px;
+}
+
+.splashMessage h2 {
+	line-height: 25px;
+	color: rgba(0,0,0,0.7);
+	font-weight: 400;
+	font-size: 20px;
+}
+
+.beta_form {
+	margin-top: 15px;
+}
+
+input.input-large {
+    padding: 8px 14px;
+}
+
+div.gradient {
+    background: url(../img/gradient.png) no-repeat top center;
+    min-height: 770px;
+}
+
+div.content {
+    text-align: center;
+    margin-top: 1.5em;
+}
+
+a.sb.gplus,
+.sb a.gplus {
+	background-image: url(../img/social-buttons/gplus.png);
+}
+
+.splashFooter {
+	display: block;
+	position: absolute;
+	margin-left: 20px;
+	bottom: 7px;
+	font-size: 11px;
+	color: rgba(0,0,0,0.3);
+}
+
+.splashFooter span {
+	margin: 0 5px;	
 }

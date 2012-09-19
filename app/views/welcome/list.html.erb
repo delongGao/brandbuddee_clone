@@ -1,0 +1,31 @@
+<div id="list">
+
+<div style="color:white;font-weight:200;font-family:'Helvetica Neue'"><%= flash[:notice] %></div>
+
+<div><h2 style="font-weight:200">Total: <%= pluralize(@subscriber.size, 'Subscriber') %></h2></div>
+<table id="list">
+  <tr>
+		<th>ID</th>
+		<th>Date</th>
+	    <th>Email</th>
+		<th>Share Link</th>
+		<th>Share Points</th>
+		<th>Shared Emails</th>
+  </tr>
+
+<% @subscriber.each do |sub| %>
+  <tr class="<%= cycle('odd', 'even') %>">
+	<td><%= sub._id %></td>
+	<td><%= sub.date %></td>
+    <td><%= sub.email %></td>
+	<td><%= sub.share_link %></td>
+	<td><%= sub.share_points %></td>
+	<td><%= sub.shared_emails %></td>
+	<td><%= link_to "Delete", :controller=>'welcome', :action=>'destroy', :_id => sub._id %></td>
+  </tr>
+<% end %>
+</table>
+
+<div id="link"><%= @link %></div>
+
+</div>

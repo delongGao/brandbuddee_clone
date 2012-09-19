@@ -1,0 +1,35 @@
+<div class="well">
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=406898949368928";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+<div id="share">
+	<h2 id="share_message"></h2>
+	<p>Spread the word and get on our early beta before others!</p>
+	<%= javascript_include_tag "http://platform.twitter.com/widgets.js" %>
+	<div class="sharing-wrap">
+		<div class="sharing twitter-share">
+			<div id="twitter-button">
+		   		<a href="http://twitter.com/share" class="twitter-share-button"
+		      		data-url="<%= root_url %>b/<%= @share_link %>"
+		      		data-text="I'm next in line to try @brandbuddee! Check it out! <%= root_url %>b/<%= @share_link %>"
+		      		data-count="none"
+					data-size="large">Tweet</a>
+			</div>
+		</div>
+		<div class="sharing facebook-share">
+			<div class="fb-like" data-href="<%= root_url %>b/<%= @share_link %>" data-send="true" data-width="375" data-show-faces="false"></div>
+		</div>
+	</div>
+	<div class="clear"></div>
+	<input id="share_link_copy" type="text" value="<%= root_url %>b/<%= @share_link %>">
+	<div class="clear"></div>
+</div>
+
+</div>

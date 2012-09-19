@@ -43,6 +43,14 @@ Brandbuddee::Application.routes.draw do
   get "/campaign/:campaign" => 'campaign#index', :as => :campaign
 
   get "/s/:share" => 'campaign#share', :as => :share
+
+  post 'subscribers/create' => "welcome#create"
+  #get 'subscribers/list' => "welcome#list"
+  get 'subscribers/list' => "welcome#list"
+  get 'subscribers/delete' => "welcome#destroy"
+  
+  get "/b/:share_link" => "welcome#share"
+  get "/share" => "welcome#share"
   
   
   # The priority is based upon order of creation:
