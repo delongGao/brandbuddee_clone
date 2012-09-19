@@ -13,8 +13,9 @@
 
 .clear { clear: both; }
 
-body {
-	
+html, body {
+	height: 100% !important;
+	width: 100% !important;
 }
 
 .logo_header {
