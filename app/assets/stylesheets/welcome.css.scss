@@ -102,3 +102,26 @@ a.sb.gplus,
 .splashFooter span {
 	margin: 0 5px;	
 }
+
+.sharing {
+	float: left;
+	position: relative;
+	width: auto;
+	margin: 0 auto;
+	margin-top: 5px;
+	margin-right: 10px;
+	margin-bottom: 5px;
+}
+
+.twitter-share {
+	display: block;
+	width: 75px;
+}
+
+.facebook-share {
+	display: block;
+	width: 125px;
+	padding-top: 2px;
+	height: 26px;
+	overflow: hidden;
+}
