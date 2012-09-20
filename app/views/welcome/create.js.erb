@@ -12,7 +12,7 @@ if (notice == "You're already signed up!")
 	
 	  $("#share_box").html('<%= escape_javascript(render(:partial => 'share_message')) %>');
 	  $("#share_title").html('Welcome Back!');
-	  $("#share_message").html('<h3>You are already in line for our early beta.</h3>');
+	  $("#share_message").html('<h4>You are already in line for our early beta.</h4>');
 		setTimeout(function(){
 			$("#share").animate({
 						 right: '-=75px',
@@ -32,7 +32,7 @@ else if (notice == "You're on the beta list!")
 	
 	  $("#share_box").html('<%= escape_javascript(render(:partial => 'share_message')) %>');
 	  $("#share_title").html('Thanks for signing up!');
-	  $("#share_message").html('<h3>You are now in line for our early beta.</h3>');
+	  $("#share_message").html('<h4>You are now in line for our early beta.</h4>');
 	  setTimeout(function(){
 			$("#share").animate({
 						 right: '-=75px',
