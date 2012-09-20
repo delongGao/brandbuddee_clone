@@ -52,6 +52,19 @@
 	margin: 0 auto;
 }
 
+.splashLoginWrap {
+	display: block;
+	position: absolute;
+	margin-left: 65px;
+	width: 450px;
+}
+
+.splashLogin {
+	float: right;
+	margin-top: 10px;
+	margin-right: 17px;
+}
+
 .splashMessage {
 	display: block;
 	position: absolute;
@@ -159,4 +172,31 @@ a.sb.gplus,
 	margin-top: 7px;
 	width: 81px;
 	padding: 3px 13px;
+}
+
+.social_link {
+	display: block;
+	float: left;
+	width: 230px;
+	height: 44px;
+	//margin: 0 auto;
+}
+
+.email-signup {
+	display: block;
+	margin-top: 5px;
+	width: 392px;
+	margin: 0 auto;
+} 
+
+.social_logins {
+	display: block;
+	margin: 0 auto;
+	width: 464px;
+}
+
+.login_wrap h3 {
+	font-size: 23px;
+	font-weight: 500;
+	color: rgba(0,0,0,0.7);
 }
