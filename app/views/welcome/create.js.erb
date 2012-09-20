@@ -1,4 +1,4 @@
-$(".message").html('<div id="flash_notice"><%= escape_javascript(flash[:notice]) %></div>');
+$(".message").html('<div id="flash_notice" class="alert alert-info"><%= escape_javascript(flash[:notice]) %></div>').hide().fadeIn('fast');
 $("#subscribe")[0].reset();
 
 var notice = $(".message").text()
