@@ -67,6 +67,10 @@
 	font-size: 20px;
 }
 
+.splashMessage h4 {
+	color: rgba(0,0,0,0.7);
+}
+
 .beta_form {
 	margin-top: 15px;
 }
@@ -103,6 +107,21 @@ a.sb.gplus,
 	margin: 0 5px;	
 }
 
+.subscribe_container {
+	display: none;
+	position: relative;
+	top: 225px;
+	left: 0;
+	right: 0;
+	width: 380px;
+	margin: 0 auto;
+}
+
+.subscribe_wrap {
+	display: block;
+	position: relative;
+}
+
 .sharing {
 	float: left;
 	position: relative;
@@ -110,7 +129,7 @@ a.sb.gplus,
 	margin: 0 auto;
 	margin-top: 5px;
 	margin-right: 10px;
-	margin-bottom: 5px;
+	margin-bottom: 10px;
 }
 
 .twitter-share {
@@ -124,5 +143,20 @@ a.sb.gplus,
 	width: 125px;
 	padding-top: 2px;
 	height: 26px;
-	//overflow: hidden;
+}
+
+#share {
+	display: none;
+	position: relative;
+	top: 0;
+	right: -75px;
+	margin: 0 auto;
+	height: auto;
+}
+
+#flash_notice {
+	margin-top: 2px;
+	margin-left: 5px;
+	font-size: 13px;
+	color: orange;
 }

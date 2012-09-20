@@ -42,7 +42,7 @@ class WelcomeController < ApplicationController
 	          format.js
 	        end
 	      else
-	        flash[:notice] = "Oops email is not valid."
+	        flash[:notice] = "email is not valid"
 	        respond_to do |format|
 	          format.html #{ redirect_to(:action => 'index') }
 	          format.js
