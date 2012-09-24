@@ -87,8 +87,6 @@ class User
   end
 
 
-
-
   before_destroy :remember_id
   after_destroy :remove_id_directory
   
