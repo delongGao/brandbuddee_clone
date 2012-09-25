@@ -54,9 +54,13 @@
                             <div class="span6">
                             	<br>
 
+                        <a href="#" class="btn btn-primary">Share to Facebook</a>
+                        <a href="#" class="btn btn-info">Share to Twitter</a>
+                        <div class="clear"></div><br>
                         <% @share = Share.where(:campaign_id => @campaign.id, :user_id => current_user.id).first %>
                         <b>Share Link:</b>
                                     <input id="share_link_copy" class="input-large span4" type="text" value="<%= root_url + 's/' + @share.link %>">
+                        <br><br>
                                 <p><%= @campaign.detail %></p>
 
 
