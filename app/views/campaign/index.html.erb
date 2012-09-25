@@ -53,19 +53,19 @@
                         <div class="row page-content">
                             <div class="span6">
                             	<br>
+
+                        <% @share = Share.where(:campaign_id => @campaign.id, :user_id => current_user.id).first %>
+                        <b>Share Link:</b>
+                                    <input id="share_link_copy" class="input-large span4" type="text" value="<%= root_url + 's/' + @share.link %>">
                                 <p><%= @campaign.detail %></p>
 
 
-                        <% @share = Share.where(:campaign_id => @campaign.id, :user_id => current_user.id).first %>
+
+
+
                         <% if current_user.campaigns.where(:_id => @campaign.id).first %>
 							<div id="fb-root"></div>
-								<script>(function(d, s, id) {
-								  var js, fjs = d.getElementsByTagName(s)[0];
-								  if (d.getElementById(id)) return;
-								  js = d.createElement(s); js.id = id;
-								  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=101842726611595";
-								  fjs.parentNode.insertBefore(js, fjs);
-								}(document, 'script', 'facebook-jssdk'));</script>
+
 
 								<div id="share">
 									<%= javascript_include_tag "http://platform.twitter.com/widgets.js" %>
@@ -102,6 +102,7 @@
                                 <br />
                             </div>
                             <div class="span3">
+                                <br>
                                 <div class="well text-center">
                                     <ul class="unstyled">
                                         <li><span class="text-highlight-large"><%= @campaign.points_required %></span> pts</li>
@@ -247,22 +248,7 @@
     </div>
 </div>
 
-    <script>        !function (d, s, id) {
-            var js, fjs = d.getElementsByTagName(s)[0];
-            if (!d.getElementById(id)) {
-                js = d.createElement(s); js.id = id; js.src = "//platform.twitter.com/widgets.js";
-                fjs.parentNode.insertBefore(js, fjs);
-            }
-        } (document, "script", "twitter-wjs"); </script>
-    <!-- facebook -->
-    <div id="fb-root">
-    </div>
-    <script>        (function (d, s, id) {
-            var 
-    js, fjs = d.getElementsByTagName(s)[0]; if (d.getElementById(id)) return; js = d.createElement(s);
-            js.id = id; js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=279705068712379";
-            fjs.parentNode.insertBefore(js, fjs);
-        } (document, 'script', 'facebook-jssdk'));</script>
+
     <!-- backstretch -->
     <script src="/js/jquery.backstretch.min.js"></script>
     <script>
