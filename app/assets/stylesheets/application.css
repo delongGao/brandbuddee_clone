@@ -18,6 +18,16 @@ html, body {
 	width: 100% !important;
 }
 
+.new_logo_header {
+	display: block;
+	position: absolute;
+	top: 28px;
+	background: url('/assets/brandbuddee-logo-sm.png') no-repeat;
+	background-size: 200px 37px;
+	width: 200px;
+	height: 37px;
+}
+
 .logo_header {
 	display: block;
 	position: relative;
@@ -41,4 +51,22 @@ html, body {
 
 .pts_req {
 	margin-right: 2px;
+}
+
+.footer_style {
+	position: absolute;
+	left: 0;
+	right: 0;
+	width: 100%;
+	font-size: 12px;
+	padding: 50px 0;
+	background: rgba(0,0,0,0.9);
+	color: rgba(255,255,255,0.3);
+}
+
+.footer_style li {
+	float: left;
+	list-style: none;
+	margin-left: 20px;
+	
 }

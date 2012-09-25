@@ -68,7 +68,7 @@
   <div class="modal-footer">
     
 		<div class="email-signup">
-			<%= form_tag url_for(:controller => "sessions", :action => 'email_create'), :class => "form-inline" do %>
+			<%= form_tag url_for(:controller => "sessions", :action => 'email_create'), :class => "form-inline", :remote => true do %>
 
 				<%= text_field_tag :email, params[:email], :class=>"signin-field signin-default span2 input-large", :placeholder=>"Email" %>
 
@@ -78,6 +78,7 @@
 				<%= submit_tag "Login", :class=>"btn btn-large" %>
 			<% end %>
 		</div> <!-- .email-signup -->
+		<div class="email_signup_flash"></div>
 
   </div>  <!-- .modal-footer -->
 </div> <!-- .modal fade -->

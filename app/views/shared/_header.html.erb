@@ -14,9 +14,9 @@
               <span class="caret"></span>
             </a>
 
-            <ul class="dropdown-menuq">
+            <ul class="dropdown-menu">
               <li style="padding-top:7px;"><a href="/profile/settings"><i class="icon-user"></i> Profile Settings</a></li>
-				  <li><a href="/account/settings"><i class="icon-cog"></i> Account Settings</a></li>
+    				  <li><a href="/account/settings"><i class="icon-cog"></i> Account Settings</a></li>
               <li class="divider"></li>
               <li><a href="/signout"><i class="icon-off"></i> Sign Out</a></li>
             </ul>
@@ -30,10 +30,10 @@
 			 <div class="nav-collapse">
             <ul class="nav">
               <% if current_user %>
-					<li><a href="/dashboard">Earn Rewards</a></li>
-					<li><a href="/<%= current_user.nickname %>">Profile</a></li>
-					<!-- <li><a href="/favorites">Favorites</a></li> -->
-				  <% end %>
+      					<li><a href="/dashboard">Earn Rewards</a></li>
+      					<li><a href="/<%= current_user.nickname %>">Profile</a></li>
+      					<!-- <li><a href="/favorites">Favorites</a></li> -->
+				      <% end %>
               <!-- <li><a href="#contact">Contact</a></li> -->
             </ul>
           </div><!--/.nav-collapse -->
