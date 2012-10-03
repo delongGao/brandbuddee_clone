@@ -12,6 +12,12 @@
 
 <div class="splashRight">
 
+	<div class="splashLoginWrap">
+		<div class="splashLogin">
+			<a data-toggle="modal" href="#login" class="btn"><i class="icon-lock"></i> beta login</a>
+		</div> <!-- .splashLogin -->
+	</div> <!-- .splashLoginWrap -->
+
 	<div class="splashMessage">
 		<h2><b>brandbuddee</b> is a social word of mouth platform that connects people with brands worldwide.</h2>
 
@@ -40,3 +46,39 @@
 	</div> <!-- .splashFooter -->
 
 </div> <!-- splashRight -->
+
+
+<div class="modal fade" id="login">
+  <div class="modal-header login_wrap">
+    <button class="close" data-dismiss="modal">×</button>
+    <h3>Login to BrandBuddee</h3>
+  </div> <!-- .modal-header -->
+  <div class="modal-body">
+
+  	<div class="social_logins">
+		<a rel="external" href="/auth/facebook" class="social_link" style="margin-right:3px;"><%= image_tag('facebook_login.png', :class=>"social_login", :alt=>"facebook-login", :size=>"230x44") %></a>
+		<a rel="external" href="/auth/twitter" class="social_link"><%= image_tag('twitter_login.png', :class=>"social_login", :alt=>"twitter-login", :size=>"230x44") %></a>
+	</div> <!-- .social_logins -->
+
+		
+	<div class="clear"></div>
+
+  </div> <!-- .modal-body -->
+
+  <div class="modal-footer">
+    
+		<div class="email-signup">
+			<%= form_tag url_for(:controller => "sessions", :action => 'email_create'), :class => "form-inline", :remote => true do %>
+
+				<%= text_field_tag :email, params[:email], :class=>"signin-field signin-default span2 input-large", :placeholder=>"Email" %>
+
+
+				<%= password_field_tag :password, nil, :class=>"signin-field span2 input-large", :placeholder=>"Password" %>
+
+				<%= submit_tag "Login", :class=>"btn btn-large" %>
+			<% end %>
+		</div> <!-- .email-signup -->
+		<div class="email_signup_flash"></div>
+
+  </div>  <!-- .modal-footer -->
+</div> <!-- .modal fade -->
