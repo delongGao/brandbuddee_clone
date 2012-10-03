@@ -1,4 +1,16 @@
 Brandbuddee::Application.configure do
+
+
+  ActionMailer::Base.smtp_settings = {
+    :address        => "smtp.mailgun.org",
+    :port           => "587",
+    :authentication => :plain,
+    :user_name      => ENV['MAILGUN_SMTP_LOGIN'],
+    :password       => ENV['MAILGUN_SMTP_PASSWORD']
+  }
+  
+
+
   # Settings specified here will take precedence over those in config/application.rb
 
   # Code is not reloaded between requests

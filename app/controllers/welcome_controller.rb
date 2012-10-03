@@ -31,7 +31,7 @@ class WelcomeController < ApplicationController
 	      end
 	    else
 	      if @subscriber.save
-	        #UserMailer.subscriber_confirmation(@subscriber).deliver
+	        UserMailer.subscriber_confirmation(@subscriber).deliver
 	        Subscriber.increase_share(params[:link], params[:email])
 	        flash[:notice] = "You're on the beta list!"
 	        Subscriber.where(email: params[:email]).each do |s|
