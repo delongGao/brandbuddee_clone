@@ -7,7 +7,7 @@ class Invitation
   field :invite_code, :type => String
   field :email, :type => String#, :default => "" # optional email being sent to
   field :sent_by, :type => String#, :default => "" # optional sent from field
-  field :status, :type => Boolean, :default => False
+  field :status, :type => Boolean#, :default => False
   field :success_date, :type => DateTime
 
 end
