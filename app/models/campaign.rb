@@ -21,7 +21,7 @@ class Campaign
   field :share_link, :type => String
   field :link, :type => String
 
-  field :redeem_details => String, :default => "This is default text for Redeem Details."
+  field :redeem_details => String#, :default => "This is default text for Redeem Details."
 
   mount_uploader :campaign_image, CampaignImageUploader
   attr_accessible :campaign_image, :date, :title, :detail, :points_required, :link, :location, :limit
