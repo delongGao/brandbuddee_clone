@@ -8,7 +8,7 @@ if (notice == "You're already signed up!")
 		$(".subscribe_wrap").animate({
 		       right: '+=30px'
 		    }, { duration: 600, queue: false });
-	  $(".subscribe_wrap").fadeOut(600);
+	  	$(".subscribe_wrap").fadeOut(600);
 	
 	  $("#share_box").html('<%= escape_javascript(render(:partial => 'share_message')) %>');
 	  $("#share_title").html('Welcome Back!');
@@ -18,7 +18,7 @@ if (notice == "You're already signed up!")
 						 //right: '-=75px',
 			       right: '+=75px'
 			    }, { duration: 600, queue: false });
-		  $("#share").fadeIn(600);
+		  	$("#share").fadeIn(600);
 		},600);
 		
   }
@@ -28,7 +28,7 @@ else if (notice == "You're on the beta list!")
 		$(".subscribe_container").animate({
 		       right: '+=30px'
 		    }, { duration: 600, queue: false });
-	  $(".subscribe_wrap").fadeOut(600);
+	  	$(".subscribe_wrap").fadeOut(600);
 	
 	  $("#share_box").html('<%= escape_javascript(render(:partial => 'share_message')) %>');
 	  $("#share_title").html('Thanks for signing up!');
@@ -38,6 +38,6 @@ else if (notice == "You're on the beta list!")
 						 //right: '-=75px',
 			       right: '+=75px'
 			    }, { duration: 600, queue: false });
-		  $("#share").fadeIn(600);
+		  	$("#share").fadeIn(600);
 		},600);
   }

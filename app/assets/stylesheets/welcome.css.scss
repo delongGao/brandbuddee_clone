@@ -131,8 +131,12 @@ a.sb.gplus,
 }
 
 .subscribe_wrap {
-	display: block;
 	position: relative;
+}
+
+#share_box {
+	position: relative;
+	right: -75px;
 }
 
 .sharing {
@@ -159,10 +163,9 @@ a.sb.gplus,
 }
 
 #share {
-	display: block;
+	display: none;
 	position: relative;
 	top: 0;
-	//right: -75px;
 	margin: 0 auto;
 	height: auto;
 }
