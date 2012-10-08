@@ -12,12 +12,14 @@
 		<div><h2 style="font-weight:200">Total: <%= pluralize(@subscriber.size, 'Subscriber') %></h2></div>
 		<table class="table table-bordered table-striped table-condensed" >
 		  <tr>
-				<th>ID</th>
-				<th>Date</th>
-			    <th>Email</th>
-				<th>Share Link</th>
-				<th>Share Points</th>
-				<th>Shared Emails</th>
+			<th>ID</th>
+			<th>Date</th>
+			<th>Email</th>
+			<th>Share Link</th>
+			<th>Share Points</th>
+			<th>Shared Emails</th>
+			<th>Invite to Beta</th>
+			<th>Status</th>
 		  </tr>
 
 		<% @subscriber.each do |sub| %>
@@ -28,11 +30,12 @@
 			<td><%= sub.share_link %></td>
 			<td><%= sub.share_points %></td>
 			<td><%= sub.shared_emails %></td>
+			<td><a href="#" class="btn btn-small btn-success">Invite</a></td>
+			<td><span class="label">Never logged in.</span></td>
 			<td><%= link_to "Delete", :controller=>'welcome', :action=>'destroy', :_id => sub._id %></td>
 		  </tr>
 		<% end %>
 		</table>
 	</div> <!-- .position:relative; -->
-
 
 </div> <!-- .margin-top -->

@@ -14,11 +14,14 @@ class Campaign
   #field :users, :type => String
   field :location, :type => String
   field :limit, :type => Integer
+  field :end_date, :type => DateTime
 
   field :unique_page_views, :type => Integer, :default => 0
   field :page_views, :type => Integer, :default => 0
   field :share_link, :type => String
   field :link, :type => String
+
+  field :redeem_details => String, :default => "This is default text for Redeem Details."
 
   mount_uploader :campaign_image, CampaignImageUploader
   attr_accessible :campaign_image, :date, :title, :detail, :points_required, :link, :location, :limit

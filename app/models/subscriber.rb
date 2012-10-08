@@ -2,11 +2,12 @@ class Subscriber
   include Mongoid::Document
   has_many :invitations
 
-  field :email, :type=>String
-  field :date, :type=>Time
-  field :share_link, :type=>String
-  field :share_points, :type=>Integer, :default=>0
-  field :shared_emails, :type=>Array, :default=>[]
+  field :email, :type => String
+  field :date, :type => DateTime
+  field :share_link, :type => String
+  field :share_points, :type => Integer, :default => 0
+  field :shared_emails, :type => Array, :default => []
+
   
   attr_accessible :email, :date, :share_link, :share_points
   

@@ -60,7 +60,6 @@
                         <% @share = Share.where(:campaign_id => @campaign.id, :user_id => current_user.id).first %>
                         <b>Share Link:</b>
                                     <input id="share_link_copy" class="input-large span4" type="text" value="<%#= root_url + 's/' + @share.link %>"> -->
-                        <br><br>
                                 <p><%= @campaign.detail %></p>
 
 
@@ -70,11 +69,10 @@
                         <% if current_user.campaigns.where(:_id => @campaign.id).first %>
 							<div id="fb-root"></div>
 
-
-								<div id="share">
+								<div id="campaign-share">
 									<%= javascript_include_tag "http://platform.twitter.com/widgets.js" %>
 									<div class="sharing-wrap">
-										<div class="sharing twitter-share">
+										<div class="sharing campaign-twitter-share">
 											<div id="twitter-button">
 										   		<a href="http://twitter.com/share" class="twitter-share-button"
 										      		data-text="Check out <%= @campaign.title %> <%= root_url + 's/' + @share.link %> via @brandbuddee"
@@ -82,13 +80,13 @@
 													data-size="large">Tweet</a>
 											</div>
 										</div>
-										<div class="sharing facebook-share">
-											<div class="fb-like" data-href="<%= root_url + 's/' + @share.link %>" data-send="true" data-width="375" data-show-faces="false" data-action="recommend"></div>
+										<div class="sharing campaign-facebook-share">
+											<div class="fb-like" data-href="<%= root_url + 's/' + @share.link %>" data-send="true" data-width="375" data-show-faces="false" data-action=""></div>
 										</div>
 									</div>
 									<div class="clear"></div>
 									Share Link:
-									<input id="share_link_copy" type="text" value="<%= root_url + 's/' + @share.link %>">
+									<input id="share_link_copy" class="input-large span4" type="text" value="<%= root_url + 's/' + @share.link %>">
 									<div class="clear"></div>
 								</div>
 						<% end %>
@@ -251,6 +249,26 @@
         </div>
     </div>
 </div>
+
+
+    <script>        
+    !function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (!d.getElementById(id)) {
+                js = d.createElement(s); js.id = id; js.src = "//platform.twitter.com/widgets.js";
+                fjs.parentNode.insertBefore(js, fjs);
+            }
+        } (document, "script", "twitter-wjs"); </script>
+    <!-- facebook -->
+    <div id="fb-root">
+    </div>
+    <script>        (function (d, s, id) {
+            var 
+    js, fjs = d.getElementsByTagName(s)[0]; if (d.getElementById(id)) return; js = d.createElement(s);
+            js.id = id; js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=279705068712379";
+            fjs.parentNode.insertBefore(js, fjs);
+        } (document, 'script', 'facebook-jssdk'));
+    </script>
 
 
     <!-- backstretch -->

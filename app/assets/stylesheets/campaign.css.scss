@@ -17,3 +17,25 @@
 	height: 300px;
 	overflow: hidden;
 }
+
+.campaign-twitter-share {
+	display: block;
+	width: 71px;
+	margin-top: 8px;
+}
+
+.campaign-facebook-share {
+	display: block;
+	width: 125px;
+	padding-top: 2px;
+	height: 26px;
+}
+
+#campaign-share {
+	display: block;
+	position: relative;
+	top: 0;
+	//right: -75px;
+	margin: 0 auto;
+	height: auto;
+}
