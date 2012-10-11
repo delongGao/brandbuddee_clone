@@ -51,6 +51,18 @@ class WelcomeController < ApplicationController
 	    end
   	end
 
+  	def invite
+  		@invite = Invitation.new(params[:invitation])
+
+  		if @invite.save
+  			flash[:notice] = "Invitation sent"
+  			redirect_to(:controller=>"welcome", :action => 'list')
+  		else
+  			flash[:notice] = "Uh oh... something went wrong"
+  			redirect_to(:controller=>"welcome", :action => 'list')
+  		end
+  	end
+
   	def list
 		@subscriber = Subscriber.all.order_by([:date, :desc])
 	end

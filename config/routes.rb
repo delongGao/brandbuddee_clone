@@ -48,6 +48,8 @@ Brandbuddee::Application.routes.draw do
   #get 'subscribers/list' => "welcome#list"
   get 'subscribers/list' => "welcome#list"
   get 'subscribers/delete' => "welcome#destroy"
+
+  match 'subscriber/invite' => "welcome#invite"
   
   get "/b/:share_link" => "welcome#share"
   get "/share" => "welcome#share"

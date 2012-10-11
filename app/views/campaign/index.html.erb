@@ -1,4 +1,5 @@
 <%= render 'shared/new_header' %>
+<script type="text/javascript" src="//assets.pinterest.com/js/pinit.js"></script>
 
 
 <div class="container" style="margin-top:105px;background:rgba(255,255,255,0.6);">
@@ -72,17 +73,21 @@
 								<div id="campaign-share">
 									<%= javascript_include_tag "http://platform.twitter.com/widgets.js" %>
 									<div class="sharing-wrap">
-										<div class="sharing campaign-twitter-share">
+										<div class="sharing-campaign campaign-twitter-share">
 											<div id="twitter-button">
 										   		<a href="http://twitter.com/share" class="twitter-share-button"
 										      		data-text="Check out <%= @campaign.title %> <%= root_url + 's/' + @share.link %> via @brandbuddee"
 										      		data-count="none"
-													data-size="large">Tweet</a>
+													data-size="">Tweet</a>
 											</div>
 										</div>
-										<div class="sharing campaign-facebook-share">
+                                        <div class="sharing-campaign campaign-pinterest-share">
+                                            <a href="http://pinterest.com/pin/create/button/?url=http%3A%2F%2Flocalhost%3A3000%2F&media=http%3A%2F%2Flocalhost%3A3000%2Fimage%2F&description=This_is_the_description" class="pin-it-button" count-layout="none"><img border="0" src="//assets.pinterest.com/images/PinExt.png" title="Pin It" /></a>
+                                        </div>
+										<div class="sharing-campaign campaign-facebook-share">
 											<div class="fb-like" data-href="<%= root_url + 's/' + @share.link %>" data-send="true" data-width="375" data-show-faces="false" data-action=""></div>
 										</div>
+                                        
 									</div>
 									<div class="clear"></div>
 									Share Link:
