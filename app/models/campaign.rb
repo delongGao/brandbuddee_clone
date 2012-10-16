@@ -24,7 +24,7 @@ class Campaign
   field :redeem_details => String#, :default => "This is default text for Redeem Details."
 
   mount_uploader :campaign_image, CampaignImageUploader
-  attr_accessible :campaign_image, :date, :title, :detail, :points_required, :link, :location, :limit
+  attr_accessible :campaign_image, :date, :title, :detail, :points_required, :link, :location, :limit, :share_link
 
 
   def self.assign_link
