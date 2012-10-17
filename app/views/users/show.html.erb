@@ -249,7 +249,7 @@
     	<td><%= u.date %></td>
     	<td><%= u.redeem_code %></td>
     	<td><%= u.status %></td>
-    	<td><span class="label"><%= u.campaign.title unless u.campaign.title == nil %></span></td>
+    	<td><span class="label"><%#= u.campaign.title unless u.campaign.title == nil %></span></td>
     	<td><span class="label label-info"><%= u.user.first_name + ' ' + u.user.last_name unless u.user.first_name ==  nil or u.user.last_name == nil %></span></td>
     	<td><%= link_to "Delete", :controller=>'users', :action=>'redeem_destroy', :_id => u._id %></td>
       </tr>
