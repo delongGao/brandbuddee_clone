@@ -14,8 +14,8 @@ class User
   field :account_type, :type => String
   field :brand_name, :type => String
 
-  field :first_name, :type => String, :default => " "
-  field :last_name, :type => String, :default => " "
+  field :first_name, :type => String
+  field :last_name, :type => String
   field :gender, :type => String
   field :phone, :type => String
   field :city, :type => String

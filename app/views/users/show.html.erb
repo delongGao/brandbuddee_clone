@@ -114,7 +114,7 @@
   	</td>
   	<td>
   		<% u.users.each do |b| %>
-  			<span class="label label-info"><%= b.first_name + ' ' + b.last_name %></span>
+  			<span class="label label-info"><%= b.first_name + ' ' + b.last_name unless b.first_name ==  nil or b.last_name == nil %></span>
   		<% end %>
   	</td>
 <!--   	<td> -->
@@ -222,7 +222,7 @@
   	<td><%= u.page_views %></td>
   	<td><%= u.unique_page_views %></td>
   	<td><span class="label"><%= u.campaign.title %></span></td>
-  	<td><span class="label label-info"><%= u.user.first_name + ' ' + u.user.last_name %></span></td>
+  	<td><span class="label label-info"><%= u.user.first_name + ' ' + u.user.last_name unless u.user.first_name == nil or u.user.last_name == nil %></span></td>
   	<td><%= link_to "Delete", :controller=>'users', :action=>'share_destroy', :_id => u._id %></td>
     </tr>
   <% end %>
@@ -250,7 +250,7 @@
     	<td><%= u.redeem_code %></td>
     	<td><%= u.status %></td>
     	<td><span class="label"><%= u.campaign.title %></span></td>
-    	<td><span class="label label-info"><%= u.user.first_name + ' ' + u.user.last_name %></span></td>
+    	<td><span class="label label-info"><%= u.user.first_name + ' ' + u.user.last_name unless u.user.first_name ==  nil or u.user.last_name == nil %></span></td>
     	<td><%= link_to "Delete", :controller=>'users', :action=>'redeem_destroy', :_id => u._id %></td>
       </tr>
     <% end %>
