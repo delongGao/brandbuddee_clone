@@ -33,6 +33,8 @@ Brandbuddee::Application.routes.draw do
   match 'admin/share/destroy' => 'users#share_destroy'
   match 'admin/redeem/destroy' => 'users#redeem_destroy'
 
+  match 'admin/campaign/edit' => 'campaign#edit_campaign'
+  match 'admin/campaign/update' => 'campaign#update_campaign'
   match 'admin/campaign/create' => 'users#create_new_campaign'
   match 'admin/campaign/destroy' => 'users#campaign_destroy'
 

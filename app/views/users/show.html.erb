@@ -55,7 +55,7 @@
    	<td><%= u.bio %></td>
    	<td>
    		<% u.campaigns.each do |c| %>
-   			<%= c.id %>
+   			<span class="label"><%= c.title %></span>
    		<% end %>
    	</td>
    	<td>
@@ -78,17 +78,17 @@
   <tr>
   	<th>ID</th>
   	<th>Date</th>
+    <th>Last Updated</th>
   	<th>Brand belongs to</th>
   	<th>Title</th>
   	<th>campaign_image</th>
   	<th>Location</th>
-  	<th>Detail</th>
   	<th>Points Required</th>
   	<th>Limit</th>
     <th>End Date</th>
   	<th>Categories</th>
   	<th>Users</th>
-  	<th>Shares</th>
+<!--   	<th>Shares</th> -->
   	<th>Page View</th>
   	<th>Unique Page Views</th>
   	<th>Link</th>
@@ -99,33 +99,34 @@
   <tr class="<%= cycle('odd', 'even') %>">
   	<td><%= u._id %></td>
   	<td><%= u.date %></td>
+    <td><%= u.last_updated %></td>
   	<td><%= u.brand.name %></td>
   	<td><%= u.title %></td>
   	<td><%= image_tag(u.campaign_image_url(:thumb).to_s) %></td>
   	<td><%= u.location %></td>
-  	<td><%= u.detail %></td>
   	<td><%= u.points_required %></td>
   	<td><%= u.limit %></td>
     <td><%= u.end_date %></td>
   	<td>
   		<% u.categories.each do |a| %>
-  			<%= a.id %>
+  			<span class="label label-success"><%= a.name %></span>
   		<% end %>
   	</td>
   	<td>
   		<% u.users.each do |b| %>
-  			<%= b.id %>
+  			<span class="label label-info"><%= b.first_name + ' ' + b.last_name %></span>
   		<% end %>
   	</td>
-  	<td>
-  		<% u.shares.each do |s| %>
-  			<%= s.id %>
-  		<% end %>
-  	</td>
+<!--   	<td> -->
+  		<%# u.shares.each do |s| %>
+  			<%#= s.id %>
+  		<%# end %>
+<!--   	</td> -->
   	<td><%= u.page_views %></td>
   	<td><%= u.unique_page_views %></td>
   	<td><%= u.link %></td>
   	<td><%= u.share_link %></td>
+    <td><%= link_to "Edit", {:controller=>'campaign', :action=>'edit_campaign', :_id => u._id}, :class => 'btn btn-small btn-success' %></td>
   	<td><%= link_to "Delete", :controller=>'users', :action=>'campaign_destroy', :_id => u._id %></td>
   </tr>
 <% end %>
@@ -160,7 +161,7 @@
     	<td><%= u.pinterest %></td>
     	<td>
     		<% u.campaigns.each do |b| %>
-    			<%= b.id %>
+    			<span class="label"><%= b.title %></span>
     		<% end %>
     	</td>
     	<td><%= link_to "Delete", :controller=>'users', :action=>'brand_destroy', :_id => u._id %></td>
@@ -187,7 +188,7 @@
   	<td><%= u.name %></td>
   	<td>
   		<% u.campaigns.each do |b| %>
-  			<%= b.id %>
+  			<span class="label"><%= b.title %></span>
   		<% end %>
   	</td>
   	<td><%= link_to "Delete", :controller=>'users', :action=>'category_destroy', :_id => u._id %></td>
@@ -220,8 +221,8 @@
   	<td><%= u.url %></td>
   	<td><%= u.page_views %></td>
   	<td><%= u.unique_page_views %></td>
-  	<td><%= u.campaign_id %></td>
-  	<td><%= u.user_id %></td>
+  	<td><span class="label"><%= u.campaign.title %></span></td>
+  	<td><span class="label label-info"><%= u.user.first_name + ' ' + u.user.last_name %></span></td>
   	<td><%= link_to "Delete", :controller=>'users', :action=>'share_destroy', :_id => u._id %></td>
     </tr>
   <% end %>
@@ -248,8 +249,8 @@
     	<td><%= u.date %></td>
     	<td><%= u.redeem_code %></td>
     	<td><%= u.status %></td>
-    	<td><%= u.campaign_id %></td>
-    	<td><%= u.user_id %></td>
+    	<td><span class="label"><%= u.campaign.title %></span></td>
+    	<td><span class="label label-info"><%= u.user.first_name + ' ' + u.user.last_name %></span></td>
     	<td><%= link_to "Delete", :controller=>'users', :action=>'redeem_destroy', :_id => u._id %></td>
       </tr>
     <% end %>

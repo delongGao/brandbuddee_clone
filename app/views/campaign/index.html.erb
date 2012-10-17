@@ -107,6 +107,15 @@
                                 <a href="http://maps.google.com/maps?f=q&amp;source=embed&amp;hl=en&amp;geocode=&amp;q=San+Francisco,+CA,+United+States&amp;aq=0&amp;oq=twitter+san+fra&amp;sll=37.0625,-95.677068&amp;sspn=49.043149,74.443359&amp;ie=UTF8&amp;hq=&amp;hnear=Twitter+Bldg,+Market+St,+San+Francisco,+California+94103&amp;ll=37.776606,-122.416728&amp;spn=0.00301,0.004544&amp;t=m&amp;z=14"
                                     target="_blank">View Larger Map</a><br />
                                 <br />
+
+
+                                <div class="well">
+                                    <h4>How to Redeem</h4>
+                                    <p><%= @campaign.redeem_details %></p>
+                                </div> <!-- .well -->
+
+
+
                             </div>
                             <div class="span3">
                                 <br>
@@ -208,8 +217,7 @@
 									<p><a href="<%= @campaign.brand.twitter %>" target="_blank">Twitter</a></p>
 									<p><a href="<%= @campaign.brand.pinterest %>" target="_blank">Pinterest</a></p>
                                     <p><%= @campaign.brand.bio %></li>
-
-                                </div>
+                                </div> <!-- .well -->
                             </div>
                         </div>
                     </div>

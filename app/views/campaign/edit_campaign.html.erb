@@ -1,0 +1,62 @@
+<div class="container well" style="margin-top:40px;background:rgba(255,255,255,0.6);">
+
+	<h3 class="pull-left">Edit Campaign</h3>
+	<a href="/users/show" class="btn btn-small pull-left" style="margin-top:18px;margin-left:15px;">Back</a>
+	<br><br>
+	<div class="clear"></div>
+	<% if flash[:notice].nil? %><% else %>
+		<div class="alert alert-success">
+			<button class="close" data-dismiss="alert">×</button>
+			<%= flash[:notice] %>
+		</div> <!-- .alert -->
+	<% end %>
+	<%= image_tag(@campaign.campaign_image_url(:standard).to_s) %>
+	<br><br>
+
+   <%= form_for @campaign, :url => url_for(:controller => 'campaign', :action => 'update_campaign'), :html => {:multipart => true} do |f| %>
+    <p>
+      <%= f.label :title, :class=>'' %>
+      <%= f.text_field :title, :class=>'span6' %>
+    </p>
+    <p>
+      <%= f.label :detail, :class=>'' %>
+      <%= f.text_area :detail, :class=>'span6', :rows => '7' %>
+    </p>
+    <p>
+      <%= f.label :campaign_image, :class=>'' %>
+      <%= f.file_field :campaign_image, :class=>'span6' %>
+    </p>
+    <p>
+      <%= f.label :points_required, :class=>'' %>
+      <%= f.text_field :points_required, :class=>'span1' %>
+    </p>
+    <p>
+      <%= f.label :limit, :class=>'' %>
+      <%= f.text_field :limit, :class=>'span1' %>
+    </p>
+    <p>
+      <%= f.label :location, :class=>'' %>
+      <%= f.text_field :location, :class=>'span6' %>
+    </p>
+    <p>
+      <%= f.label :share_link, :class=>'' %>
+      <%= f.text_field :share_link, :class=>'span6' %>
+    </p>
+    <p>
+      <%= f.label :redeem_details, :class=>'' %>
+      <%= f.text_area :redeem_details, :class=>'span6', :rows => '7' %>
+    </p>
+
+    <%#= select_tag "brands", options_from_collection_for_select(@brand_all, "id", "name"), :prompt => "- Select Brand -" %>
+    <%#= select_tag "categories", options_from_collection_for_select(@category_all, "id", "name"), :prompt => "- Select Category -" %>
+    <%= hidden_field_tag(:last_updated, Time.now, :name=>'campaign[last_updated]') %>
+    <%= hidden_field_tag(:link, @link, :name=>'campaign[link]') %>
+    <%= hidden_field_tag(:campaign_id, @campaign.id, :name=>'campaign[id]') %>
+    <%= hidden_field_tag(:campaign_id, @campaign.link, :name=>'campaign[link]') %>
+
+    <%= f.submit 'Update Campaign', :class=>"btn btn-info" %>
+
+    <% end %>
+
+</div> <!-- .container -->
+<br><br><br><br><br><br>

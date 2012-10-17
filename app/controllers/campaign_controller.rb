@@ -67,4 +67,23 @@ class CampaignController < ApplicationController
 		end
 	end
 
+	def edit_campaign
+		@category_all = Category.all.order_by([:date, :desc])
+    	@brand_all = Brand.all.order_by([:date, :desc])
+
+		@campaign = Campaign.find(params[:_id])
+	end
+
+	def update_campaign
+		@campaign = Campaign.find(params[:campaign][:id])
+	    if @campaign.update_attributes(params[:campaign])
+	      flash[:notice] = "Successfully updated."
+	      #redirect_to(:action => 'edit_campaign')
+	      redirect_to "#{root_url}admin/campaign/edit?_id=#{params[:campaign][:id]}"
+	    else
+	      flash[:notice] = "Uh oh... something went wrong. Please try again."
+	      redirect_to(:action => 'edit_campaign')
+	    end
+	end
+
 end
