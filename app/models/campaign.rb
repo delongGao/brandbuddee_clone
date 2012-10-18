@@ -13,8 +13,6 @@ class Campaign
   field :detail, :type => String
   field :points_required, :type => Integer
   field :campaign_image
-  #field :users, :type => String
-  #field :location, :type => String
   field :limit, :type => Integer
   field :end_date, :type => DateTime
 
