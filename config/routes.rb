@@ -1,6 +1,8 @@
 Brandbuddee::Application.routes.draw do
   
   root :to => 'welcome#index'
+
+  match '/support/help' => 'welcome#help'
   
   match '/signout' => 'sessions#destroy' #, :as => "signout"
   post '/signin' => 'sessions#email_create'
