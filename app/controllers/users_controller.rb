@@ -52,10 +52,11 @@ class UsersController < ApplicationController
           @user = User.all.order_by([:date, :desc])
           @campaign_all = Campaign.all.order_by([:date, :desc])
           @category_all = Category.all.order_by([:date, :desc])
+          @location_all = Location.all.order_by([:date, :desc])
           @brand_all = Brand.all.order_by([:date, :desc])
           @share_all = Share.all.order_by([:date, :desc])
           @redeem_all = Redeem.all.order_by([:date, :desc])
-          #@link = Campaign.assign_link()
+          @link = Campaign.assign_link()
       else
         redirect_to root_url
       end
@@ -70,6 +71,7 @@ class UsersController < ApplicationController
 
     category = Category.find(params[:categories])
     @campaign.category_ids << params[:categories]
+    @campaign.location = params[:location]
 
     if @campaign.save
       flash[:notice] = "Campaign successfully created"
@@ -85,6 +87,17 @@ class UsersController < ApplicationController
 
     if @category.save
       flash[:notice] = "Category successfully created"
+      redirect_to(:action => 'show')
+    else
+      flash[:notice] = "Uh oh"
+    end
+  end
+
+  def create_new_location
+    @location = Location.create!(params[:location])
+
+    if @location.save
+      flash[:notice] = "Location successfully created"
       redirect_to(:action => 'show')
     else
       flash[:notice] = "Uh oh"
@@ -113,6 +126,13 @@ class UsersController < ApplicationController
     @category = Category.find(params[:_id])
     @category.destroy
     flash[:notice] = "#{@category.name} Category Destroyed"
+    redirect_to(:action => 'show')
+  end
+
+  def location_destroy
+    @location = Location.find(params[:_id])
+    @location.destroy
+    flash[:notice] = "#{@location.city} Location Destroyed"
     redirect_to(:action => 'show')
   end
 

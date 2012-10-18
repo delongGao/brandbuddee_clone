@@ -35,8 +35,10 @@
       <%= f.text_field :limit, :class=>'span1' %>
     </p>
     <p>
-      <%= f.label :location, :class=>'' %>
-      <%= f.text_field :location, :class=>'span6' %>
+      Location
+      <%#= f.select :location, options_from_collection_for_select(@location_all, "id", "city"), :prompt => "- Select New Location -" %>
+      <% current_location_id = @campaign.location.id unless @campaign.location.nil? %>
+      <%= f.select :location, options_from_collection_for_select(@location_all, "id", "city", current_location_id), :prompt => "- Select New Location -" %>
     </p>
     <p>
       <%= f.label :share_link, :class=>'' %>

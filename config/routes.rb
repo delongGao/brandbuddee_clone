@@ -30,6 +30,8 @@ Brandbuddee::Application.routes.draw do
 
   post 'admin/category/create' => 'users#create_new_category'
   match 'admin/category/destroy' => 'users#category_destroy'
+  post 'admin/location/create' => 'users#create_new_location'
+  match 'admin/location/destroy' => 'users#location_destroy'
   post 'admin/brand/create' => 'users#create_new_brand'
   match 'admin/brand/destroy' => 'users#brand_destroy'
   match 'admin/share/destroy' => 'users#share_destroy'

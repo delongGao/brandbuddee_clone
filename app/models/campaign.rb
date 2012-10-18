@@ -2,6 +2,7 @@ class Campaign
   include Mongoid::Document
   has_and_belongs_to_many :users
   has_and_belongs_to_many :categories
+  belongs_to :location
   belongs_to :brand
   has_many :redeems
   has_many :shares
@@ -13,7 +14,7 @@ class Campaign
   field :points_required, :type => Integer
   field :campaign_image
   #field :users, :type => String
-  field :location, :type => String
+  #field :location, :type => String
   field :limit, :type => Integer
   field :end_date, :type => DateTime
 
@@ -25,7 +26,7 @@ class Campaign
   field :redeem_details, :type => String, :default => "This is default text for Redeem Details."
 
   mount_uploader :campaign_image, CampaignImageUploader
-  attr_accessible :campaign_image, :date, :last_updated, :title, :detail, :points_required, :link, :location, :limit, :share_link, :redeem_details
+  attr_accessible :campaign_image, :date, :last_updated, :title, :detail, :points_required, :link, :limit, :share_link, :redeem_details, :location
 
 
   def self.assign_link

@@ -103,7 +103,7 @@
   	<td><%#= u.brand.name %></td>
   	<td><%= u.title %></td>
   	<td><%= image_tag(u.campaign_image_url(:thumb).to_s) %></td>
-  	<td><%= u.location %></td>
+  	<td><%= u.location.city unless u.location.nil? %></td>
   	<td><%= u.points_required %></td>
   	<td><%= u.limit %></td>
     <td><%= u.end_date %></td>
@@ -198,6 +198,41 @@
 </div>
 
 
+<div style="position:relative;left:25px;overflow:scroll;height:auto;width:97%;">
+  <div><h2 style="font-weight:200">Total: <%= pluralize(@location_all.size, 'Location') %></h2></div>
+  <p><a class="btn btn-mini" data-toggle="modal" href="#create_location" style="margin-top:8px;margin-left:15px;"><i class="icon-plus-sign icon"></i> Create New Location</a></p>
+  <table class="table table-bordered table-striped table-condensed">
+    <tr>
+    <th>ID</th>
+    <th>Date</th>
+    <th>City</th>
+    <th>State</th>
+    <th>Campaigns</th>
+    <th>Users</th>
+    </tr>
+
+  <% @location_all.each do |u| %>
+    <tr class="<%= cycle('odd', 'even') %>">
+    <td><%= u._id %></td>
+    <td><%= u.date %></td>
+    <td><%= u.city %></td>
+    <td><%= u.state %></td>
+    <td>
+      <% u.campaigns.each do |b| %>
+        <span class="label"><%= b.title %></span>
+      <% end %>
+    </td>
+    <td>
+      <% u.users.each do |b| %>
+        <span class="label"><%= b.id %></span>
+      <% end %>
+    </td>
+    <td><%= link_to "Delete", :controller=>'users', :action=>'location_destroy', :_id => u._id %></td>
+    </tr>
+  <% end %>
+  </table>
+</div>
+
 
 <div style="position:relative;left:25px;overflow:scroll;height:auto;width:97%;">
   <div><h2 style="font-weight:200">Total: <%= pluralize(@share_all.size, 'Share') %></h2></div>
@@ -286,8 +321,7 @@
       <%= f.file_field :campaign_image, :class=>'' %>
     </p>
     <p>
-      <%= f.label :location, :class=>'' %>
-      <%= f.text_field :location, :class=>'' %>
+      <%= select_tag "location", options_from_collection_for_select(@location_all, "id", "city"), :prompt => "- Select Location -" %>
     </p>
     <p>
       <%= f.label :share_link, :class=>'' %>
@@ -304,6 +338,7 @@
 
     <%= select_tag "brands", options_from_collection_for_select(@brand_all, "id", "name"), :prompt => "- Select Brand -" %>
     <%= select_tag "categories", options_from_collection_for_select(@category_all, "id", "name"), :prompt => "- Select Category -" %>
+
     <%= hidden_field_tag(:date, Time.now, :name=>'campaign[date]') %>
     <%= hidden_field_tag(:link, @link, :name=>'campaign[link]') %>
 
@@ -331,6 +366,35 @@
     </p>
 
     <%= hidden_field_tag(:date, Time.now, :name=>'category[date]') %>
+
+  </div> <!-- .modal-body -->
+
+  <div class="modal-footer">
+    <a href="#" class="btn" data-dismiss="modal">Close</a>
+    <%= f.submit 'Create', :class=>"btn btn-success" %>
+  <% end %>
+  </div> <!-- .modal-footer -->
+</div> <!-- .modal fade -->
+
+
+<div class="modal fade" id="create_location">
+  <div class="modal-header">
+    <button class="close" data-dismiss="modal">×</button>
+    <h3>Create New Location</h3>
+  </div> <!-- .modal-header -->
+  <div class="modal-body">
+   <% @location = Location.new %>
+   <%= form_for @location, :url => url_for(:controller => 'users', :action => 'create_new_location') do |f| %>
+    <p>
+      <%= f.label :city, :class=>'' %>
+      <%= f.text_field :city, :class=>'' %>
+    </p>
+    <p>
+      <%= f.label :state, :class=>'' %>
+      <%= f.text_field :state, :class=>'' %>
+    </p>
+
+    <%= hidden_field_tag(:date, Time.now, :name=>'location[date]') %>
 
   </div> <!-- .modal-body -->
 

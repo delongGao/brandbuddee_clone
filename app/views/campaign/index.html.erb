@@ -163,8 +163,6 @@
 				<% end %>
 			<% end %>
 		<% end %>
-
-
                                         
                                         <li>&nbsp;</li>
                                         <li>
@@ -201,6 +199,16 @@
                                                         <% @campaign.categories.each do |c| %>
 															<span class="label label-info"><%= c.name %></span>
 														<% end %>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        Location
+                                                    </td>
+                                                    <td>
+                                                        <% @campaign.locations.each do |l| %>
+                                                            <span class="label label-info"><%= l.city + ' ,' + l.state %></span>
+                                                        <% end %>
                                                     </td>
                                                 </tr>
                                             </table>
