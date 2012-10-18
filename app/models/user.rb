@@ -1,7 +1,7 @@
 class User
   include Mongoid::Document
   has_and_belongs_to_many :campaigns
-  belongs_to :locations
+  belongs_to :location
   has_many :redeems
   has_many :shares
   
