@@ -55,6 +55,8 @@
                             <div class="span6">
                             	<br>
 
+
+                    <% if current_user %>
 <!--                         <a href="#" class="btn btn-primary">Share to Facebook</a>
                         <a href="#" class="btn btn-info">Share to Twitter</a>
                         <div class="clear"></div><br>
@@ -65,7 +67,7 @@
 
 
 
-
+                    
 
                         <% if current_user.campaigns.where(:_id => @campaign.id).first %>
 							<div id="fb-root"></div>
@@ -96,6 +98,7 @@
 								</div>
 						<% end %>
 
+                    <% end %>
 								<br>
 
 <!--                                 <h4>Location</h4>
