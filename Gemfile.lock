@@ -33,6 +33,8 @@ GEM
     ansi (1.4.2)
     arel (2.2.3)
     bcrypt-ruby (3.0.1)
+    bootstrap-will_paginate (0.0.8)
+      will_paginate
     bson (1.6.2)
     bson_ext (1.6.2)
       bson (~> 1.6.2)
@@ -178,12 +180,17 @@ GEM
     uglifier (1.2.4)
       execjs (>= 0.3.0)
       multi_json (>= 1.0.2)
+    will_paginate (3.0.3)
+    will_paginate_mongoid (1.0.5)
+      mongoid (~> 2.4)
+      will_paginate (~> 3.0.2)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
   bcrypt-ruby
+  bootstrap-will_paginate
   bson_ext
   carrierwave (= 0.5.8)
   carrierwave-mongoid
@@ -203,3 +210,5 @@ DEPENDENCIES
   turn
   twitter-bootstrap-rails (~> 2.1.3)
   uglifier
+  will_paginate (~> 3.0.3)
+  will_paginate_mongoid (~> 1.0.0)

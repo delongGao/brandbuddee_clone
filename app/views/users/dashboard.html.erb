@@ -11,7 +11,7 @@
       <% end %>
 
       <% if params[:c].nil? %>
-        <% @campaign = Campaign.all.order_by([:date, :desc]) %>
+        <% @campaign = Campaign.all.order_by([:date, :desc]).paginate :page => params[:page], :per_page => 9 %>
       <% elsif %>
         <% @category = Category.where(:name => params[:c]).first %> 
         <% @campaign = @category.campaigns.order_by([:date, :desc]) %>
@@ -110,6 +110,7 @@
                           </div> <!-- .thumbnails -->
                         </div> <!-- .row -->
                         <% end %>
+                    <%= will_paginate @campaign, :class=>"pagination" %>
                 </div>
             </div>
 

@@ -21,6 +21,10 @@ gem "fog", "~> 1.3.1"
 
 gem 'mail', '2.3.3'
 
+gem "will_paginate_mongoid", "~> 1.0.0"
+gem "will_paginate", "~> 3.0.3"
+gem "bootstrap-will_paginate"
+
 
 # Bundle edge Rails instead:
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
