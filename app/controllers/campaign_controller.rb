@@ -91,10 +91,11 @@ class CampaignController < ApplicationController
 		
 		unless params[:campaign][:location].blank?
 			@location = Location.find(params[:campaign][:location])
+			#@location.campaign_ids << @campaign.id
 			@location.campaign_ids << @campaign.id
 			@location.save
 		end
-		
+
 	    if @campaign.update_attributes(params[:campaign])
 	      flash[:notice] = "Successfully updated."
 	      #redirect_to(:action => 'edit_campaign')
