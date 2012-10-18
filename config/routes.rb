@@ -40,6 +40,8 @@ Brandbuddee::Application.routes.draw do
   match 'admin/campaign/create' => 'users#create_new_campaign'
   match 'admin/campaign/destroy' => 'users#campaign_destroy'
 
+  match 'admin/redeem/resend_confirmation' => 'campaign#resend_redeem_confirmation_email'
+
   get "/:profile" => 'profile#index', :as => :profile
   resources :profile, :only => [:index]
 

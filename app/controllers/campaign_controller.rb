@@ -68,6 +68,16 @@ class CampaignController < ApplicationController
 		end
 	end
 
+	def resend_redeem_confirmation_email
+		@redeem = Redeem.find(params[:_id])
+		#@share = Share.where(:user_id => @redeem.user_id, :campaign_id => @redeem.campaign_id)
+		@campaign = Campaign.find(@redeem.campaign_id)
+		UserMailer.redeem_confirmation(@redeem.user_id, @redeem, @campaign, root_url).deliver
+
+		flash[:notice] = "Redemption Email Resent"
+		redirect_to(:controller => 'users', :action => 'show')
+	end
+
 	def edit_campaign
 		@category_all = Category.all.order_by([:date, :desc])
     	@brand_all = Brand.all.order_by([:date, :desc])
