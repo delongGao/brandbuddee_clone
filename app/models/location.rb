@@ -7,6 +7,6 @@ class Location
   field :city, :type => String
   field :state, :type => String
 
-  attr_accessible :date, :city, :state, :campaigns
+  attr_accessible :date, :city, :state, :campaigns, :campaign_ids
 
 end
