@@ -52,9 +52,15 @@ class WelcomeController < ApplicationController
   	end
 
   	def invite
-  		@invite = Invitation.new(params[:invitation])
+  		new_invite_code = Invitation.assign_invite_code()
+
+  		@subscriber = Subscriber.find(params[:_id])
+  		#@invite = Invitation.new(params[:invitation])
+  		@invite = Invitation.new(:date => Time.now, :invite_code => new_invite_code, :email => @subscriber.email)
+  		#@invite.invite_code = new_invite_code
 
   		if @invite.save
+  			UserMailer.beta_invite(params[:email], @invite.invite_code, root_url).deliver
   			flash[:notice] = "Invitation sent"
   			redirect_to(:controller=>"welcome", :action => 'list')
   		else
@@ -67,6 +73,7 @@ class WelcomeController < ApplicationController
   		if current_user
 	  		if current_user.account_type == "admin"
 	  			@subscriber = Subscriber.all.order_by([:date, :desc])
+	  			@invitation = Invitation.all.order_by([:date, :desc])
 	  		else
 	  			redirect_to root_url
 	  		end

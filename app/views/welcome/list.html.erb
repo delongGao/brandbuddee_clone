@@ -30,7 +30,36 @@
 			<td><%= sub.share_link %></td>
 			<td><%= sub.share_points %></td>
 			<td><%= sub.shared_emails %></td>
-			<td><a href="#" class="btn btn-small btn-primary">Invite</a></td>
+			<td><%= link_to "Invite", {:controller=>'welcome', :action=>'invite', :_id => sub._id}, :class => "btn btn-small btn-primary" %></td>
+			<td><span class="label">Never logged in.</span></td>
+			<td><%= link_to "Delete", :controller=>'welcome', :action=>'destroy', :_id => sub._id %></td>
+		  </tr>
+		<% end %>
+		</table>
+	</div> <!-- .position:relative; -->
+
+	<div style="position:relative;left:25px;overflow:scroll;height:100%;width:97%;">
+		<div><h2 style="font-weight:200">Total: <%= pluralize(@invitation.size, 'Subscriber') %></h2></div>
+		<table class="table table-bordered table-striped table-condensed" >
+		  <tr>
+			<th>ID</th>
+			<th>Date</th>
+			<th>Invite Code</th>
+			<th>Email</th>
+			<th>Sent By</th>
+			<th>Status</th>
+			<th>Success Date</th>
+		  </tr>
+
+		<% @invitation.each do |sub| %>
+		  <tr class="<%= cycle('odd', 'even') %>">
+			<td><%= sub._id %></td>
+			<td><%= sub.date %></td>
+		    <td><%= sub.invite_code %></td>
+			<td><%= sub.share_link %></td>
+			<td><%= sub.share_points %></td>
+			<td><%= sub.shared_emails %></td>
+			<td><%= link_to "Invite", {:controller=>'welcome', :action=>'invite', :_id => sub._id}, :class => "btn btn-small btn-primary" %></td>
 			<td><span class="label">Never logged in.</span></td>
 			<td><%= link_to "Delete", :controller=>'welcome', :action=>'destroy', :_id => sub._id %></td>
 		  </tr>

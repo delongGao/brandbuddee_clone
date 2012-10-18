@@ -14,4 +14,10 @@ class UserMailer < ActionMailer::Base
 		mail(:to => @user.email, :subject => "You've just redeemed a brandbuddee reward!", :from => "BrandBuddee <noreply@brandbuddee.com>")
 	end
 
+	def beta_invite(subscriber_email, invite_code, root_url)
+		@invite_code = invite_code
+		@url = root_url
+		mail(:to => subscriber_email, :subject => "You've been invited to the brandbuddee beta!", :from => "BrandBuddee <noreply@brandbuddee.com>")
+	end
+
 end

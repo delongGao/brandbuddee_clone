@@ -22,8 +22,8 @@ class SessionsController < ApplicationController
     #  redirect_to root_url, :notice => "Signed in!"
     else
       time_now = Time.now
-      #user = User.create_with_omniauth(auth, time_now)
-      #session[:user_id] = user.id
+      user = User.create_with_omniauth(auth, time_now)
+      session[:user_id] = user.id
       #WelcomeMailer.welcome_email(current_user).deliver
       #redirect_to(:action => 'nickname')
       redirect_to root_url
