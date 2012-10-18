@@ -206,9 +206,7 @@
                                                         Location
                                                     </td>
                                                     <td>
-                                                        <% @campaign.locations.each do |l| %>
-                                                            <span class="label label-info"><%= l.city + ' ,' + l.state %></span>
-                                                        <% end %>
+                                                        <span class="label label-info"><%= @campaign.location.city + ' ,' + @campaign.location.state %></span>
                                                     </td>
                                                 </tr>
                                             </table>
