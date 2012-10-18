@@ -47,14 +47,21 @@ class UsersController < ApplicationController
   end
   
   def show
-    @user = User.all.order_by([:date, :desc])
-    @campaign_all = Campaign.all.order_by([:date, :desc])
-    @category_all = Category.all.order_by([:date, :desc])
-    @brand_all = Brand.all.order_by([:date, :desc])
-    @share_all = Share.all.order_by([:date, :desc])
-    @redeem_all = Redeem.all.order_by([:date, :desc])
-
-    @link = Campaign.assign_link()
+    if current_user
+      if current_user.account_type == "admin"
+          @user = User.all.order_by([:date, :desc])
+          @campaign_all = Campaign.all.order_by([:date, :desc])
+          @category_all = Category.all.order_by([:date, :desc])
+          @brand_all = Brand.all.order_by([:date, :desc])
+          @share_all = Share.all.order_by([:date, :desc])
+          @redeem_all = Redeem.all.order_by([:date, :desc])
+          #@link = Campaign.assign_link()
+      else
+        redirect_to root_url
+      end
+    else
+      redirect_to root_url
+    end
   end
 
   def create_new_campaign

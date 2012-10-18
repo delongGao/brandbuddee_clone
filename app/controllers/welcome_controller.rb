@@ -64,7 +64,16 @@ class WelcomeController < ApplicationController
   	end
 
   	def list
-		@subscriber = Subscriber.all.order_by([:date, :desc])
+  		if current_user
+	  		if current_user.account_type == "admin"
+	  			@subscriber = Subscriber.all.order_by([:date, :desc])
+	  		else
+	  			redirect_to root_url
+	  		end
+	  	else
+	  		redirect_to root_url
+	  	end
+
 	end
 
 	def destroy
