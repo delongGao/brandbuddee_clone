@@ -44,7 +44,7 @@
   	<td><%= image_tag(u.profile_image_url(:thumb).to_s, :class=>"", :style=>"border-radius:100px;" ) %></td>
   	<td><%= u.first_name %></td>
   	<td><%= u.last_name %></td>
-  	<td><%= u.account_type %></td>
+  	<td><% unless u.account_type.blank? %><span class="badge badge-inverse"><%= u.account_type %><% end %></span></td>
   	<td><%= u.password_hash.nil? %></td>
    	<td><%= u.password_salt.nil? %></td>
    	<td><%= u.gender %></td>
@@ -100,7 +100,7 @@
   	<td><%= u._id %></td>
   	<td><%= u.date %></td>
     <td><%= u.last_updated %></td>
-  	<td><%= u.brand.name %></td>
+  	<td><%#= u.brand.name %></td>
   	<td><%= u.title %></td>
   	<td><%= image_tag(u.campaign_image_url(:thumb).to_s) %></td>
   	<td><%= u.location %></td>
