@@ -18,6 +18,10 @@ html, body {
 	width: 100% !important;
 }
 
+body {
+	background: rgba(0,0,0,0.1) !important;
+}
+
 .new_logo_header {
 	display: block;
 	position: absolute;

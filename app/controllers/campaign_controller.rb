@@ -91,9 +91,10 @@ class CampaignController < ApplicationController
 		
 		unless params[:campaign][:location].blank?
 			@location = Location.find(params[:campaign][:location])
-			#@location.campaign_ids << @campaign.id
-			@location.campaign_ids << @campaign.id
-			@location.save
+			# @location.campaign_ids << @campaign.id
+			# @location.save
+
+			@campaign.location_id = @location.id
 		end
 
 	    if @campaign.update_attributes(params[:campaign])
