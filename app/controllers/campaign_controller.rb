@@ -54,6 +54,7 @@ class CampaignController < ApplicationController
 						redeem_code = Redeem.assign_redeem_code()
 						@redeem = Redeem.create!(date: Time.now, redeem_code: redeem_code, campaign_id: share_update.campaign_id, user_id: share_update.user_id )
 						@redeem.save
+						UserMailer.redeem_confirmation(user_share, @redeem, share_update.campaign, root_url).deliver
 					end
 				end
 			end
