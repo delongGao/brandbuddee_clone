@@ -30,8 +30,24 @@
 			<td><%= sub.share_link %></td>
 			<td><%= sub.share_points %></td>
 			<td><%= sub.shared_emails %></td>
-			<td><%= link_to "Invite", {:controller=>'welcome', :action=>'invite', :_id => sub._id}, :class => "btn btn-small btn-primary" %></td>
-			<td><span class="label">Never logged in.</span></td>
+			<td>
+				<% if sub.invitation.nil? %>
+					<%= link_to "Invite", {:controller=>'welcome', :action=>'invite', :_id => sub._id}, :class => "btn btn-small btn-primary" %>
+				<% elsif %> 
+					<span class="badge badge-inverse">Invitation Sent</span>
+				<% end %>
+			</td>
+			<td>
+				<% if sub.invitation.nil? %>
+					<span class="badge">wait list</span>
+				<% else %>
+					<% if sub.invitation.status == true %>
+						<span class="badge badge-success">signed up!</span>
+					<% elsif sub.invitation.status == false %>
+						<span class="badge badge-important">pending</span>
+					<% end %>
+				<% end %>
+			</td>
 			<td><%= link_to "Delete", :controller=>'welcome', :action=>'destroy', :_id => sub._id %></td>
 		  </tr>
 		<% end %>
@@ -43,10 +59,10 @@
 		<table class="table table-bordered table-striped table-condensed" >
 		  <tr>
 			<th>ID</th>
-			<th>Date</th>
+			<th>Invite Date</th>
+			<th>Email</th>
 			<th>Name</th>
 			<th>Invite Code</th>
-			<th>Email</th>
 			<th>Sent By</th>
 			<th>Success Date</th>
 			<th>Status</th>
@@ -56,12 +72,18 @@
 		  <tr class="<%= cycle('odd', 'even') %>">
 			<td><%= sub._id %></td>
 			<td><%= sub.date %></td>
+			<td><%= sub.email %></td>
 		    <td><%= sub.name %></td>
 			<td><%= sub.invite_code %></td>
-			<td><%= sub.email %></td>
 			<td><%= sub.sent_by %></td>
 			<td><%= sub.success_date %></td>
-			<td><span class="label"><%= sub.status %></span></td>
+			<td>
+				<% if sub.status == true %>
+					<span class="badge badge-success">signed up!</span>
+				<% elsif sub.status == false %>
+					<span class="badge badge-important">pending</span>
+				<% end %>
+			</td>
 			<td><%= link_to "Delete", :controller=>'welcome', :action=>'invite_destroy', :_id => sub._id %></td>
 		  </tr>
 		<% end %>

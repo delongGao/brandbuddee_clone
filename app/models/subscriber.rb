@@ -1,6 +1,6 @@
 class Subscriber
   include Mongoid::Document
-  has_many :invitations
+  has_one :invitation
 
   field :email, :type => String
   field :date, :type => DateTime

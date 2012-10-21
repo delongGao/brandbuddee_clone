@@ -55,10 +55,11 @@ class WelcomeController < ApplicationController
   		new_invite_code = Invitation.assign_invite_code()
 
   		@subscriber = Subscriber.find(params[:_id])
-  		@invite = Invitation.new(:date => Time.now, :invite_code => new_invite_code, :email => @subscriber.email)
+  		@subscriber.invitation = Invitation.new(:date => Time.now, :invite_code => new_invite_code, :email => @subscriber.email)
+  		#@invite. = @subscriber.create_invitation(date: Time.now, invite_code: new_invite_code, email: @subscriber.email)
 
-  		if @invite.save
-  			UserMailer.beta_invite(@subscriber.email, @invite.invite_code, root_url).deliver
+  		if @subscriber.save
+  			UserMailer.beta_invite(@subscriber.email, @subscriber.invitation.invite_code, root_url).deliver
   			flash[:notice] = "Invitation sent"
   			redirect_to(:controller=>"welcome", :action => 'list')
   		else
