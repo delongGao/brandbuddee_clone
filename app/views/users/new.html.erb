@@ -1,11 +1,25 @@
+<script type="text/javascript">if (window.location.hash == '#_=_')window.location.hash = '';</script>
+
 <%= render 'shared/header' %>
 <div class="container main_container">
 
-	<div class="signup-form-wrap well">
+	<div class="signup-form-wrap well span6">
+
+			<% if flash[:notice].nil? %><% else %>
+		        <div class="alert alert-info">
+		          <button class="close" data-dismiss="alert">×</button>
+		          <%= flash[:notice].html_safe %>
+		        </div> <!-- .alert -->
+		    <% end %>
 	
 			<h2>Sign Up</h2>
+
+			<div class="social_logins">
+				<a rel="external" href="/auth/facebook" class="social_link" style="margin-right:3px;"><%= image_tag('facebook_login.png', :class=>"social_login", :alt=>"facebook-login", :size=>"230x44") %></a>
+				<a rel="external" href="/auth/twitter" class="social_link"><%= image_tag('twitter_login.png', :class=>"social_login", :alt=>"twitter-login", :size=>"230x44") %></a>
+			</div> <!-- .social_logins -->
 		
-			<div class="signup-form">
+			<div class="signup-form form-horizontal span3">
 				<%= form_for @user, :url => {:action => 'create'} do |f| %>
 				  <% if @user.errors.any? %>
 				    <div class="error_messages">
@@ -17,25 +31,53 @@
 				      </ul>
 				    </div>
 				  <% end %>
-				  <p>
-				    <%= f.label :first_name %>
-				    <%= f.text_field :email %>
-				  </p>
-				  <p>
-				    <%= f.label :last_name %>
-				    <%= f.text_field :email %>
-				  </p>
-				  <p>
-				    <%= f.label :email %>
-				    <%= f.text_field :email %>
-				  </p>
-				  <p>
-				    <%= f.label :password %>
-				    <%= f.password_field :password %>
-				  </p>
-				  <%= hidden_field_tag(:date, Time.now, :name=>'user[date]') %>
-				  <p class="button"><%= f.submit 'Signup', :class => "btn" %>
-					</p>
+
+					<fieldset>
+						<div class="control-group">
+					        <label class="control-label" for="prependedInput"><%= f.label :first_name, 'First Name', :class=>'' %></label>
+					        <div class="controls">
+					          <%= f.text_field :first_name, :class=>'' %>
+					        </div>
+						</div>
+					</fieldset>
+
+					<fieldset>
+						<div class="control-group">
+					        <label class="control-label" for="prependedInput"><%= f.label :last_name, 'Last Name', :class=>'' %></label>
+					        <div class="controls">
+					          <%= f.text_field :last_name, :class=>'' %>
+					        </div>
+						</div>
+					</fieldset>
+
+					<fieldset>
+						<div class="control-group">
+					        <label class="control-label" for="prependedInput"><%= f.label :email, :class=>'' %></label>
+					        <div class="controls">
+					          <%= f.text_field :email, :class=>'' %>
+					        </div>
+						</div>
+					</fieldset>
+
+					<fieldset>
+						<div class="control-group">
+					        <label class="control-label" for="prependedInput"><%= f.label :password, :class=>'' %></label>
+					        <div class="controls">
+					          <%= f.password_field :password, :class=>'' %>
+					        </div>
+						</div>
+					</fieldset>
+
+					<fieldset>
+						<div class="control-group">
+					        <label class="control-label" for="prependedInput"></label>
+					        <div class="controls">
+					          <%= hidden_field_tag(:date, Time.now, :name=>'user[date]') %>
+					          <%= hidden_field_tag(:invite, params[:invite], :name=>'invite') %>
+				  			  <%= f.submit 'Signup', :class => "btn" %>
+					        </div>
+						</div>
+					</fieldset>
 				<% end %>
 			</div> <!-- .signup-form -->
 	</div> <!-- .signup-form-wrap -->

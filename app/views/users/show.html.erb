@@ -16,6 +16,7 @@
   	<th>Provider</th>
   	<th>UID</th>
   	<th>Date</th>
+    <th>Last Login</th>
   	<th>Email</th>
   	<th>Profile Image</th>
   	<th>First Name</th>
@@ -41,6 +42,7 @@
   	<td><%= u.provider %></td>
   	<td><%= u.uid %></td>
   	<td><%= u.date %></td>
+    <td><%= u.last_login %></td>
   	<td><%= u.email %></td>
   	<td><%= image_tag(u.profile_image_url(:thumb).to_s, :class=>"", :style=>"border-radius:100px;" ) %></td>
   	<td><%= u.first_name %></td>

@@ -1,7 +1,5 @@
 <%#= render 'shared/header' %>
 
-<h1><%= params[:invite] %></h1>
-
 <div class="splashLeft">
 	<div class="splashLeftBg">
 		<%= image_tag('bb-logo.png', :class=>"splash_logo", :size=>"400x75", :alt=>"brandbuddee") %>
@@ -58,10 +56,10 @@
   </div> <!-- .modal-header -->
   <div class="modal-body">
 
-    <div class="social_logins">
-    <a rel="external" href="/auth/facebook" class="social_link" style="margin-right:3px;"><%= image_tag('facebook_login.png', :class=>"social_login", :alt=>"facebook-login", :size=>"230x44") %></a>
-    <a rel="external" href="/auth/twitter" class="social_link"><%= image_tag('twitter_login.png', :class=>"social_login", :alt=>"twitter-login", :size=>"230x44") %></a>
-  </div> <!-- .social_logins -->
+	<div class="social_logins">
+		<a rel="external" href="/auth/facebook" class="social_link" style="margin-right:3px;"><%= image_tag('facebook_login.png', :class=>"social_login", :alt=>"facebook-login", :size=>"230x44") %></a>
+		<a rel="external" href="/auth/twitter" class="social_link"><%= image_tag('twitter_login.png', :class=>"social_login", :alt=>"twitter-login", :size=>"230x44") %></a>
+	</div> <!-- .social_logins -->
 
     
   <div class="clear"></div>

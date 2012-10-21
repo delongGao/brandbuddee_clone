@@ -7,7 +7,8 @@ class UsersController < ApplicationController
       #@campaign = Campaign.all.order_by([:date, :desc])
       @categories = Category.all.order_by([:name, :asc])
 
-      if current_user.email == 'email@email.com'
+      #if current_user.email == 'email@email.com'
+      if current_user.email.nil? || current_user.email.blank?
         redirect_to(:action => 'complete_email')
       end
 
@@ -17,33 +18,67 @@ class UsersController < ApplicationController
   end
 
   def complete_email
-    @user = User.find(current_user.id)
+    @user = User.first
   end
 
   def complete_email_update
-    @user = User.find(current_user.id)
-    if @user.update_attributes(params[:user])
-      redirect_to root_url
+    email = params[:email]
+
+    if email.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i).nil?
+      flash[:notice] = "Invalid Email"
+      redirect_to(:action => 'complete_email')
+    elsif User.validates_email_uniqueness(email)
+      flash[:notice] = "This email is already associated with an account."
+      redirect_to(:action => 'complete_email')
     else
-      flash[:notice] = "Uh oh... something went wrong. Please try again."
-      redirect_to root_url
+      cookies[:e] = { :value => email, :expires => Time.now + 3600 }
+      redirect_to '/auth/twitter'
     end
+
   end
 
   def new
-    @user = User.new
+    if current_user
+      redirect_to root_url
+    else
+      @user = User.new
+      cookies[:invite] = params[:invite]
+    end
   end
 
   def create
     @user = User.new(params[:user])
-    if @user.save
-      session[:user_id] = @user.id
-      flash[:notice] = "Signed up!"
-      redirect_to(:controller => 'users', :action => 'dashboard')
+    @invite = Invitation.where(:invite_code => params[:invite]).first
+
+    if @invite.nil?
+      flash[:notice] = "Due to the unexpected amount of signups we have temporarily closed our beta. Feel free to sign up on the <a href='#{root_url}' style='color:green;'>beta list</a> to get an invite!"
+      redirect_to "#{root_url}signup"
     else
-      render "new"
-      # => redirect_to(:action => 'new')
+      unless @invite.status == true
+        if @user.save
+          session[:user_id] = @user.id
+
+          @invite.status = true
+          @invite.success_date = Time.now
+          @invite.save
+
+          flash[:notice] = "Signed up!"
+          redirect_to(:controller => 'users', :action => 'dashboard')
+        else
+          unless params[:invite].blank?
+            flash[:notice] = "fuuuuuu #{params[:invite]} | #{@invite.email}"
+            redirect_to "#{root_url}signup?invite=#{params[:invite]}"
+          else
+            flash[:notice] = "Invalid... please fill out all the fields."
+            redirect_to "#{root_url}signup"
+          end
+        end
+      else
+        flash[:notice] = "This invitation is no longer valid."
+        redirect_to "#{root_url}signup"
+      end
     end
+
   end
   
   def show

@@ -8,6 +8,7 @@ class User
   field :provider, :type => String
   field :uid, :type => String
   field :date, :type => DateTime
+  field :last_login, :type => DateTime
   field :email, :type => String
   field :password_hash, :type => String
   field :password_salt, :type => String
@@ -46,6 +47,15 @@ class User
   validates_uniqueness_of :email
   
 
+
+  def self.validates_email_uniqueness(email)
+    if self.exists?(conditions: { email: email })
+      return true
+    else
+      return false
+    end
+  end
+
   def self.create_with_omniauth(auth, time_now)
     create! do |user|
       user.provider = auth["provider"]
@@ -53,11 +63,23 @@ class User
       user.date = time_now
       user.first_name = auth["extra"]["raw_info"]["first_name"]
       user.last_name = auth["extra"]["raw_info"]["last_name"]
-      if auth["info"]["email"].nil?
-        user.email = 'email@email.com'
-      else
-        user.email = auth["info"]["email"]
-      end
+      user.email = auth["info"]["email"]
+      #user.image = auth["info"]["image"]
+      #user.remote_profile_image_url = auth["info"]["image"]
+      user.remote_profile_image_url = "http://graph.facebook.com/#{auth["uid"]}/picture?type=large"
+      user.city = auth["info"]["location"]
+      user.facebook = auth["info"]["nickname"]
+    end
+  end
+
+  def self.create_with_omniauth_twitter(auth, time_now, email)
+    create! do |user|
+      user.provider = auth["provider"]
+      user.uid = auth["uid"]
+      user.date = time_now
+      user.first_name = auth["extra"]["raw_info"]["first_name"]
+      user.last_name = auth["extra"]["raw_info"]["last_name"]
+      user.email = email
       #user.image = auth["info"]["image"]
       #user.remote_profile_image_url = auth["info"]["image"]
       user.remote_profile_image_url = "http://graph.facebook.com/#{auth["uid"]}/picture?type=large"
