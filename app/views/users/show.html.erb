@@ -268,7 +268,8 @@
   	<td><%= u.page_views %></td>
   	<td><%= u.unique_page_views %></td>
   	<td><span class="label"><%= u.campaign_id %></span></td>
-  	<td><span class="label label-info"><%= u.user.first_name + ' ' + u.user.last_name unless u.user.first_name == nil or u.user.last_name == nil %></span></td>
+  	<td><span class="label label-info"><%#= u.user.first_name + ' ' + u.user.last_name unless u.user.first_name == nil or u.user.last_name == nil %>
+      <%= u.user.id %></span></td>
   	<td><%= link_to "Delete", {:controller=>'users', :action=>'share_destroy', :_id => u._id}, :class => "btn btn-mini btn-danger" %></td>
     </tr>
   <% end %>
