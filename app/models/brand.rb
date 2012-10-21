@@ -4,6 +4,7 @@ class Brand
   has_many :campaigns
 
   field :date, :type => DateTime
+  field :last_updated, :type => DateTime
   field :name, :type => String
   field :bio, :type => String
   field :website, :type => String

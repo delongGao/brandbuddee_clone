@@ -42,6 +42,9 @@ Brandbuddee::Application.routes.draw do
   match 'admin/campaign/create' => 'users#create_new_campaign'
   match 'admin/campaign/destroy' => 'users#campaign_destroy'
 
+  match 'admin/brand/edit' => 'users#edit_brand'
+  match 'admin/brand/update' => 'users#update_brand'
+
   match 'admin/redeem/resend_confirmation' => 'campaign#resend_redeem_confirmation_email'
 
   get "/:profile" => 'profile#index', :as => :profile
@@ -58,6 +61,7 @@ Brandbuddee::Application.routes.draw do
   get 'subscribers/delete' => "welcome#destroy"
 
   match 'subscriber/invite' => "welcome#invite"
+  match 'subscriber/invite/destroy' => "welcome#invite_destroy"
   
   get "/b/:share_link" => "welcome#share"
   get "/share" => "welcome#share"

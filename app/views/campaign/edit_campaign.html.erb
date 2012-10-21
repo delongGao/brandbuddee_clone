@@ -54,7 +54,7 @@
     <%= hidden_field_tag(:last_updated, Time.now, :name=>'campaign[last_updated]') %>
     <%= hidden_field_tag(:link, @link, :name=>'campaign[link]') %>
     <%= hidden_field_tag(:campaign_id, @campaign.id, :name=>'campaign[id]') %>
-    <%= hidden_field_tag(:campaign_id, @campaign.link, :name=>'campaign[link]') %>
+    <%#= hidden_field_tag(:campaign_link, @campaign.link, :name=>'campaign[link]') %>
 
     <%= f.submit 'Update Campaign', :class=>"btn btn-info" %>
 

@@ -32,6 +32,7 @@
    	<th>Campaigns</th>
    	<th>Redeems</th>
    	<th>Nickname</th>
+    <th>Remove</th>
   </tr>
 
 <% @user.each do |u| %>
@@ -64,7 +65,7 @@
    		<% end %>
    	</td>
    	<td><b><%= u.nickname %></b></td>
-  	<td><%= link_to "Delete", :controller=>'users', :action=>'destroy', :_id => u._id %></td>
+  	<td><%= link_to "Delete", {:controller=>'users', :action=>'destroy', :_id => u._id}, :class => 'btn btn-mini btn-danger' %></td>
   </tr>
 <% end %>
 </table>
@@ -93,6 +94,8 @@
   	<th>Unique Page Views</th>
   	<th>Link</th>
   	<th>Share Link</th>
+    <th>Edit</th>
+    <th>Remove</th>
   </tr>
 
 <% @campaign_all.each do |u| %>
@@ -127,7 +130,7 @@
   	<td><%= u.link %></td>
   	<td><%= u.share_link %></td>
     <td><%= link_to "Edit", {:controller=>'campaign', :action=>'edit_campaign', :_id => u._id}, :class => 'btn btn-small btn-success' %></td>
-  	<td><%= link_to "Delete", :controller=>'users', :action=>'campaign_destroy', :_id => u._id %></td>
+  	<td><%= link_to "Delete", {:controller=>'users', :action=>'campaign_destroy', :_id => u._id}, :class => 'btn btn-mini btn-danger' %></td>
   </tr>
 <% end %>
 </table>
@@ -147,6 +150,8 @@
     	<th>Twitter</th>
     	<th>Pinterest</th>
     	<th>Campaigns</th>
+      <th>Edit</th>
+      <th>Remove</th>
     </tr>
 
   <% @brand_all.each do |u| %>
@@ -164,7 +169,8 @@
     			<span class="label"><%= b.title %></span>
     		<% end %>
     	</td>
-    	<td><%= link_to "Delete", :controller=>'users', :action=>'brand_destroy', :_id => u._id %></td>
+      <td><%= link_to "Edit", {:controller=>'users', :action=>'edit_brand', :_id => u._id}, :class => 'btn btn-small btn-success' %></td>
+    	<td><%= link_to "Delete", {:controller=>'users', :action=>'brand_destroy', :_id => u._id}, :class => 'btn btn-mini btn-danger' %></td>
     </tr>
   <% end %>
   </table>
@@ -179,6 +185,7 @@
   	<th>Date</th>
   	<th>Name</th>
   	<th>Campaigns</th>
+    <th>Remove</th>
     </tr>
 
   <% @category_all.each do |u| %>
@@ -191,7 +198,7 @@
   			<span class="label"><%= b.title %></span>
   		<% end %>
   	</td>
-  	<td><%= link_to "Delete", :controller=>'users', :action=>'category_destroy', :_id => u._id %></td>
+  	<td><%= link_to "Delete", {:controller=>'users', :action=>'category_destroy', :_id => u._id}, :class => 'btn btn-mini btn-danger' %></td>
     </tr>
   <% end %>
   </table>
@@ -209,6 +216,7 @@
     <th>State</th>
     <th>Campaigns</th>
     <th>Users</th>
+    <th>Remove</th>
     </tr>
 
   <% @location_all.each do |u| %>
@@ -227,7 +235,7 @@
         <span class="label"><%= b.id %></span>
       <% end %>
     </td>
-    <td><%= link_to "Delete", :controller=>'users', :action=>'location_destroy', :_id => u._id %></td>
+    <td><%= link_to "Delete", {:controller=>'users', :action=>'location_destroy', :_id => u._id}, :class => 'btn btn-mini btn-danger' %></td>
     </tr>
   <% end %>
   </table>
@@ -246,6 +254,7 @@
   	<th>Unique Page Views</th>
   	<th>Campaign</th>
   	<th>User</th>
+    <th>Remove</th>
     </tr>
 
   <% @share_all.each do |u| %>
@@ -258,7 +267,7 @@
   	<td><%= u.unique_page_views %></td>
   	<td><span class="label"><%= u.campaign_id %></span></td>
   	<td><span class="label label-info"><%= u.user.first_name + ' ' + u.user.last_name unless u.user.first_name == nil or u.user.last_name == nil %></span></td>
-  	<td><%= link_to "Delete", :controller=>'users', :action=>'share_destroy', :_id => u._id %></td>
+  	<td><%= link_to "Delete", {:controller=>'users', :action=>'share_destroy', :_id => u._id}, :class => "btn btn-mini btn-danger" %></td>
     </tr>
   <% end %>
   </table>
@@ -276,6 +285,8 @@
     	<th>Status</th>
     	<th>Campaign</th>
     	<th>User</th>
+      <th>Resend</th>
+      <th>Remove</th>
     </tr>
 
     <% @redeem_all.each do |u| %>
@@ -286,8 +297,8 @@
     	<td><%= u.status %></td>
     	<td><span class="label"><%= u.campaign_id %></span></td>
     	<td><span class="label label-info"><%= u.user.first_name + ' ' + u.user.last_name unless u.user.first_name ==  nil or u.user.last_name == nil %></span></td>
-      <td><%= link_to "Resend", {:controller=>'campaign', :action=>'resend_redeem_confirmation_email', :_id => u._id}, :class => 'btn btn-small' %></td>
-    	<td><%= link_to "Delete", :controller=>'users', :action=>'redeem_destroy', :_id => u._id %></td>
+      <td><%= link_to "Resend", {:controller=>'campaign', :action=>'resend_redeem_confirmation_email', :_id => u._id}, :class => 'btn btn-mini btn-success' %></td>
+    	<td><%= link_to "Delete", {:controller=>'users', :action=>'redeem_destroy', :_id => u._id}, :class => 'btn btn-mini btn-danger' %></td>
       </tr>
     <% end %>
   </table>

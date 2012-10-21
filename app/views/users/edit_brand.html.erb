@@ -1,0 +1,49 @@
+<div class="container well" style="margin-top:40px;background:rgba(255,255,255,0.6);">
+
+	<h3 class="pull-left">Edit Brand</h3>
+	<a href="/users/show" class="btn btn-small pull-left" style="margin-top:18px;margin-left:15px;">Back</a>
+	<br><br>
+	<div class="clear"></div>
+	<% if flash[:notice].nil? %><% else %>
+		<div class="alert alert-success">
+			<button class="close" data-dismiss="alert">×</button>
+			<%= flash[:notice] %>
+		</div> <!-- .alert -->
+	<% end %>
+
+
+	<%= form_for @brand, :url => url_for(:controller => 'users', :action => 'update_brand') do |f| %>
+	   	<p class="">
+	      <%= f.label :name, :class=>'' %>
+	      <%= f.text_field :name, :class=>'' %>
+	    </p>
+	    <p class="">
+	      <%= f.label :bio, :class=>'' %>
+	      <%= f.text_area :bio, :class=>'', :rows => '7' %>
+	    </p>
+	    <p class="">
+	      <%= f.label :website, :class=>'' %>
+	      <%= f.text_field :website, :class=>'' %>
+	    </p>
+	    <p class="">
+	      <%= f.label :facebook, :class=>'' %>
+	      <%= f.text_field :facebook, :class=>'' %>
+	    </p>
+	    <p class="">
+	      <%= f.label :twitter, :class=>'' %>
+	      <%= f.text_field :twitter, :class=>'' %>
+	    </p>
+	    <p class="">
+	      <%= f.label :pinterest, :class=>'' %>
+	      <%= f.text_field :pinterest, :class=>'' %>
+	    </p>
+
+	    <%= hidden_field_tag(:brand_id, @brand.id, :name=>'brand[id]') %>
+	    <%= hidden_field_tag(:date, Time.now, :name=>'brand[last_updated]') %>
+
+
+	    <%= f.submit 'Update', :class=>"btn btn-info" %>
+	  <% end %>
+
+</div> <!-- .container -->
+<br><br><br><br><br><br>

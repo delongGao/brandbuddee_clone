@@ -115,6 +115,22 @@ class UsersController < ApplicationController
     end
   end
 
+  def edit_brand
+    @brand = Brand.find(params[:_id])
+  end
+
+  def update_brand
+    @brand = Brand.find(params[:brand][:id])
+
+    if @brand.update_attributes(params[:brand])
+      flash[:notice] = "Successfully updated."
+      redirect_to "#{root_url}admin/brand/edit?_id=#{params[:brand][:id]}"
+    else
+      flash[:notice] = "Uh oh... something went wrong. Please try again."
+      redirect_to "#{root_url}admin/brand/edit?_id=#{params[:brand][:id]}"
+    end
+  end
+
   def brand_destroy
     @brand = Brand.find(params[:_id])
     @brand.destroy

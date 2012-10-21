@@ -48,8 +48,8 @@
 			<th>Invite Code</th>
 			<th>Email</th>
 			<th>Sent By</th>
-			<th>Status</th>
 			<th>Success Date</th>
+			<th>Status</th>
 		  </tr>
 
 		<% @invitation.each do |sub| %>
@@ -60,11 +60,9 @@
 			<td><%= sub.invite_code %></td>
 			<td><%= sub.email %></td>
 			<td><%= sub.sent_by %></td>
-			<td><%= sub.status %></td>
 			<td><%= sub.success_date %></td>
-			<td><%= link_to "Invite", {:controller=>'welcome', :action=>'invite', :_id => sub._id}, :class => "btn btn-small btn-primary" %></td>
-			<td><span class="label">Never logged in.</span></td>
-			<td><%= link_to "Delete", :controller=>'welcome', :action=>'destroy', :_id => sub._id %></td>
+			<td><span class="label"><%= sub.status %></span></td>
+			<td><%= link_to "Delete", :controller=>'welcome', :action=>'invite_destroy', :_id => sub._id %></td>
 		  </tr>
 		<% end %>
 		</table>
