@@ -17,16 +17,6 @@
         <% @campaign = @category.campaigns.order_by([:date, :desc]).paginate :page => params[:page], :per_page => 9 %>
       <% end %>
 
-      <h2><%= Time.now %></h2>
-      <h2>
-        <%# date = DateTime.new(2012, 10, 23, 0, 0, 0, "-0700") %>
-        <% date = DateTime.new(2012, 10, 23, 2, 50, 0, "-0700") %>
-        <%# date.localtime("-07:00") %>
-        <%= date %><br>
-        <%= time_ago_in_words(date) %><br>
-        <%= DateTime.now < date %>
-      </h2>
-
     <div class="row">
 
         <div class="span12">

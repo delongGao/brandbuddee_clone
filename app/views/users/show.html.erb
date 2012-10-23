@@ -335,6 +335,35 @@
       <%= f.file_field :campaign_image, :class=>'' %>
     </p>
     <p>
+      <%= f.label :date_end, 'Campaign End Date', :class=>'' %>
+      <span class="span2 date_time_year">
+        <%= f.label :date_year, 'Year', :class=>'' %>
+        <%#= f.file_field :date_year, :class=>'' %>
+        <%= select_tag "date_year", "<option value='2012'>2012</option><option value='2013'>2013</option>".html_safe, :class => 'span2' %>
+      </span>
+
+      <span class="span1 date_time_month">
+        <%= f.label :date_month, 'Month', :class=>'' %>
+        <%= select_tag :date_month, "<option value='1'>01</option><option value='2'>02</option><option value='3'>03</option><option value='4'>04</option><option value='5'>05</option><option value='6'>06</option><option value='7'>07</option><option value='8'>08</option><option value='9'>09</option><option value='10'>10</option><option value='11'>11</option><option value='12'>12</option>".html_safe, :include_blank => true, :class => 'span1' %>
+      </span>
+
+      <span class="span1 date_time_day">
+        <%= f.label :date_day, 'Day', :class=>'' %>
+        <%= select_tag "date_day", "<option value='1'>01</option><option value='2'>02</option><option value='3'>03</option><option value='4'>04</option><option value='5'>05</option><option value='6'>06</option><option value='7'>07</option><option value='8'>08</option><option value='9'>09</option><option value='10'>10</option><option value='11'>11</option><option value='12'>12</option><option value='13'>13</option><option value='14'>14</option><option value='15'>15</option><option value='16'>16</option><option value='17'>17</option><option value='18'>18</option><option value='19'>19</option><option value='20'>20</option><option value='21'>21</option><option value='22'>22</option><option value='23'>23</option><option value='24'>24</option><option value='25'>25</option><option value='26'>26</option><option value='27'>27</option><option value='28'>28</option><option value='29'>29</option><option value='30'>30</option><option value='31'>31</option>".html_safe, :include_blank => true, :class => 'span1' %>
+      </span>
+
+      <span class="span1 date_time_hour">
+        <%= f.label :date_hour, 'Hour', :class=>'' %>
+        <%= select_tag "date_hour", "<option value='00'>00</option><option value='01'>01</option><option value='02'>02</option><option value='03'>03</option><option value='04'>04</option><option value='05'>05</option><option value='06'>06</option><option value='07'>07</option><option value='08'>08</option><option value='09'>09</option><option value='10'>10</option><option value='11'>11</option><option value='12'>12</option><option value='13'>13</option><option value='14'>14</option><option value='15'>15</option><option value='16'>16</option><option value='17'>17</option><option value='18'>18</option><option value='19'>19</option><option value='20'>20</option><option value='21'>21</option><option value='22'>22</option><option value='23'>23</option>".html_safe, :include_blank => true, :class => 'span1' %>
+      </span>
+
+      <span class="span1 date_time_min">
+        <%= f.label :date_minute, 'Minutes', :class=>'' %>
+        <%= select_tag "date_minute", "<option value='00'>00</option><option value='30'>30</option>".html_safe, :include_blank => true, :class => 'span1' %>
+      </span>
+    </p><br><br><br><br>
+    <p>
+      <%= f.label :location, 'Location', :class=>'' %>
       <%= select_tag "location", options_from_collection_for_select(@location_all, "id", "city"), :prompt => "- Select Location -" %>
     </p>
     <p>
