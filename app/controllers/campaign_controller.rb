@@ -50,7 +50,7 @@ class CampaignController < ApplicationController
 				redeem_check = Redeem.where(:user_id => user_share, :campaign_id => share_update.campaign_id).first
 				if redeem_check.nil?
 					left = share_update.campaign.limit - share_update.campaign.redeems.size
-					unless left == 0
+					unless left == 0 || share_update.campaign.end_date < Time.now
 						redeem_code = Redeem.assign_redeem_code()
 						@redeem = Redeem.create!(date: Time.now, redeem_code: redeem_code, campaign_id: share_update.campaign_id, user_id: share_update.user_id )
 						@redeem.save
