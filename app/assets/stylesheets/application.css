@@ -72,5 +72,8 @@ body {
 	float: left;
 	list-style: none;
 	margin-left: 20px;
-	
+}
+
+.date_times {
+	display: none;
 }

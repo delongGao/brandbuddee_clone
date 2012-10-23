@@ -88,12 +88,15 @@ class CampaignController < ApplicationController
 
 	def update_campaign
 		@campaign = Campaign.find(params[:campaign][:id])
+
+		unless params[:date_year].blank? || params[:date_month].blank? || params[:date_day].blank? || params[:date_hour].blank? || params[:date_minute].blank?
+			date_time = DateTime.new(params[:date_year].to_i, params[:date_month].to_i, params[:date_day].to_i, params[:date_hour].to_i, params[:date_minute].to_i, 0, "-0700")
+			@campaign.end_date = date_time
+		end
+
 		
 		unless params[:campaign][:location].blank?
 			@location = Location.find(params[:campaign][:location])
-			# @location.campaign_ids << @campaign.id
-			# @location.save
-
 			@campaign.location_id = @location.id
 		end
 
