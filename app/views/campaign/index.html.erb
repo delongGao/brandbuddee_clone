@@ -183,7 +183,7 @@
                                                         Remaining
                                                     </td>
                                                     <td>
-                                                        7 Days
+                                                        <%= time_ago_in_words(@campaign.end_date) unless @campaign.end_date.nil? %>
                                                     </td>
                                                 </tr>
                                                 <tr>
