@@ -181,7 +181,7 @@
                                                         Remaining
                                                     </td>
                                                     <td>
-                                                        <%= time_ago_in_words(@campaign.end_date) unless @campaign.end_date.nil? %>
+                                                        <%= time_ago_in_words(@campaign.end_date) + ' left' unless @campaign.end_date.nil? %>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -249,7 +249,7 @@
 
                                               <% unless c.end_date.nil? %>
                                                     <% if c.end_date > Time.now %>
-                                                        <%= time_ago_in_words(c.end_date) %>
+                                                        <%= time_ago_in_words(c.end_date) + ' left' %>
                                                     <% else %>
                                                         Campaign ended
                                                     <% end %>

@@ -103,7 +103,7 @@
                                                 &nbsp;
                                                 <% unless c.end_date.nil? %>
                                                     <% if c.end_date > Time.now %>
-                                                        <%= time_ago_in_words(c.end_date) %>
+                                                        <%= time_ago_in_words(c.end_date) + ' left' %>
                                                     <% else %>
                                                         Campaign ended
                                                     <% end %>
