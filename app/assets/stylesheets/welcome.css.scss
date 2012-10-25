@@ -37,9 +37,8 @@
 
 .splash_logo {
 	display: block;
-	position: absolute;
-	top: 35%;
-	right: 70px;
+	position: relative;
+	top: -8px;
 }
 
 .splash_wrap {
@@ -132,11 +131,17 @@ a.sb.gplus,
 
 .subscribe_wrap {
 	position: relative;
+	width: 328px;
+	margin: 0 auto;
 }
 
 #share_box {
 	position: relative;
 	right: -75px;
+}
+
+#share_message {
+	padding: 0;
 }
 
 .sharing {
@@ -168,6 +173,7 @@ a.sb.gplus,
 	top: 0;
 	margin: 0 auto;
 	height: auto;
+	width: 475px;
 }
 
 #flash_notice {

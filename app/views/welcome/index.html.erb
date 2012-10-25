@@ -1,50 +1,162 @@
-<%#= render 'shared/header' %>
+<link href="css/splash.css" rel="stylesheet">
 
-<div class="splashLeft">
-	<div class="splashLeftBg">
-		<%= image_tag('bb-logo.png', :class=>"splash_logo", :size=>"400x75", :alt=>"brandbuddee") %>
-	</div> <!-- .splashLeftBg -->
-</div> <!-- .splashLeft -->
-
-<div class="splash_wrap">
-	<%#= image_tag('bb-logo.png', :class=>"splash_logo", :size=>"400x75", :alt=>"brandbuddee") %>
-</div> <!-- .splash_wrap -->
-
-<div class="splashRight">
-
-	<div class="splashLoginWrap">
-		<div class="splashLogin">
+<div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="#"><%= image_tag('brandbuddee-logo-med.png', :class=>"splash_logo", :size=>"248x47", :alt=>"brandbuddee") %></a>
+<!--           <div class="nav-collapse">
+            <ul class="nav pull-right">
+              <li class="active"><a href="index.html">Home</a></li>
+              <li><a href="about.html">About</a></li>
+              <li><a href="blog_fullwidth.html">Blog</a></li>
+              <li><a href="pricing.html">Pricing</a></li>
+              <li><a href="contact.html">Contact</a></li>
+            </ul>
+          </div>/.nav-collapse -->
+          <div class="splashLogin">
 			<a data-toggle="modal" href="#login" class="btn"><i class="icon-lock"></i> login</a>
-		</div> <!-- .splashLogin -->
-	</div> <!-- .splashLoginWrap -->
+		  </div> <!-- .splashLogin -->
+        </div>
+      </div>
+    </div>
 
-	<div class="splashMessage">
-		<h2><b>brandbuddee</b> is a social word of mouth platform that connects people with brands worldwide.</h2>
+    <div class="slider-block">
 
-		<div class="beta_form">
+      <div id="myCarousel" class="carousel slide">
+        <!-- Carousel items -->
+        <div class="carousel-inner">
+          <div class="active item">
+            <img src="/assets/slide_bg.jpg" alt="">
+            <div class="caption middle-left container">
+<!--               <p class="small white text-dark">Introducing</p> -->
+              <p class="medium white text">Discover, Share, & Earn <span class="green">Rewards</span></p>
+<!--               <p class="large pink add-space">brandbuddee</p> -->
+            </div>
+        </div>
+<!--         <div class="item">
+          <img src="img/slide_bg1.jpg" alt="Slide2">
+          <div class="caption bottom-right container">
+            <p class="large pink add-space">Better carousel</p>
+            <p class="small white">Multiple text & background colors</p>
+            <p class="small white">Multiple caption positions</p>
+            <p class="medium white text-pink">and much more!</p>
+          </div>
+        </div>
+        <div class="item">
+          <img src="img/slide_bg3.jpg" alt="Slide2">
+          <div class="caption top-right container">
+            <p class="medium pink add-space">Isn't that just</p>
+            <p class="large white text-dark">AWESOME?</p>
+          </div>
+        </div>
+        </div> -->
+        <!-- Carousel nav -->
+<!--         <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+        <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a> -->
+      </div>
 
-			<div id="subscribe_container">
-				<div class="subscribe_wrap">
-				  <%= form_tag url_for(:action => 'create'), :id => "subscribe", :class => "form-horizontal", :remote => true do %>
-				      <%= text_field_tag :email, nil, :id =>"subscribe_field", :class => "input-large", :placeholder=>"sign up for the beta" %>
-				      <%= submit_tag "Sign up", :class=>"btn btn-large" %>
-				    <div class="message"></div>
-				  <% end %>
-				</div> <!-- .subscribe_wrap -->
-				<div id="share_box"></div>
-			</div> <!-- #subscribe_container -->
+    </div>
 
-    	</div> <!-- .beta_form -->
-	</div> <!-- .splashMessage -->
+<!--     <div class="hero-unit">
+      <div class="container">
+        <div class="row">
+          <div class="span12">
+            <h1>Crafted with <strong class="pink">LOVE</strong></h1>
+          </div>
+        </div>
+      </div>
+    </div> -->
 
-	<div class="splashFooter">
-		<span>© 2012 BrandBuddee. All rights reserved.</span>
-<!-- 		<span><a href="#">Terms of Use</a></span>
-		<span><a href="#">Privacy Policy</a></span>
-		<span><a href="#">Contact Us</a></span> -->
-	</div> <!-- .splashFooter -->
+    <div class="container" style="padding: 75px 0;">
 
-</div> <!-- splashRight -->
+      <!-- TESTIMONIALS 3col -->
+      <div class="row testimonials">
+          <div class="span4">
+<!--             <img src="img/testimonials_placeholder.png" alt="placeholder+image"> -->
+            <h2>Discover</h2>
+            <p>Discover your favorite brands as well as new brands and become their buddee.</p>
+          </div>
+          <div class="span4">
+<!--             <img src="img/testimonials_placeholder.png" alt="placeholder+image"> -->
+            <h2>Share</h2>
+            <p>Support brands that you already love and share them with your networks.</p>
+          </div>
+          <div class="span4">
+<!--             <img src="img/testimonials_placeholder.png" alt="placeholder+image"> -->
+            <h2>Earn</h2>
+            <p>Earn amazing rewards for sharing! Simple as that. Live your life with more rewards.</p>
+          </div>
+      </div>
+
+    </div><!-- .container -->
+
+     <div class="hero-unit">
+       <div class="container">
+         <div class="row">
+           <div class="span12">
+             <h1>Get started</h1>
+             <p style="text-align:center;">Due to the unexpected amount of signups we have temporarily closed our beta.</p>
+
+            <div class="beta_form">
+
+				<div id="subscribe_container">
+					<div class="subscribe_wrap">
+					  <%= form_tag url_for(:action => 'create'), :id => "subscribe", :class => "form-horizontal", :remote => true do %>
+					      <%= text_field_tag :email, nil, :id =>"subscribe_field", :class => "input-large", :placeholder=>"sign up to be next in line" %>
+					      <%= submit_tag "Sign up", :class=>"btn btn-large" %>
+					    <div class="message"></div>
+					  <% end %>
+					</div> <!-- .subscribe_wrap -->
+					<div id="share_box"></div>
+				</div> <!-- #subscribe_container -->
+	    	</div> <!-- .beta_form -->
+
+           </div>
+         </div>
+       </div>
+     </div>
+
+    <div class="container" style="padding: 50px 0;">
+      <div class="team">
+
+        <div class="row">
+
+          <div class="span6 section-title horizontal-left">
+            <h2>Are you a Brand?</h2>
+            <p> Start sharing your story today. Email us at <a href="mailto:info@brandbuddee.com">info@brandbuddee.com</a>
+            <!-- <div class="btn btn-large pull-right">Know more &raquo;</div> --></p>
+          </div>
+
+
+        </div>
+
+        
+        
+      </div>
+    </div> <!-- /container -->
+
+    <footer>
+      <div class="container">
+        <!-- COPYRIGHTS -->
+        <p class="pull-left" style="font-weight:300;">© 2012 brandbuddee. all rights reserved.</p>
+        <p class="pull-right"><a href="#">Back to top</a></p>
+      </div>
+    </footer>
+
+
+
+
+
+<script src="js/plugins.js"></script>
+<script src="js/setup.js"></script>
+
+
+
 
 
 
