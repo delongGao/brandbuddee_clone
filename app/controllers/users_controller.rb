@@ -109,6 +109,10 @@ class UsersController < ApplicationController
       @campaign.end_date = date_time
     end
 
+    if params[:campaign][:tweet].blank?
+      @campaign.tweet = "Check out #{@campaign.title} via @brandbuddee"
+    end
+
     category = Category.find(params[:categories])
     @campaign.category_ids << params[:categories]
     @campaign.location = params[:location]

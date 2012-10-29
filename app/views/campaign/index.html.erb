@@ -76,9 +76,9 @@
 										<div class="sharing-campaign campaign-twitter-share">
 											<div id="twitter-button">
 										   		<a href="http://twitter.com/share" class="twitter-share-button"
-										      		data-text="Check out <%= @campaign.title %> <%= root_url + 's/' + @share.link %> via @brandbuddee"
+										      		data-text="<%= @campaign.tweet.html_safe unless @campaign.tweet.nil? %> <%= root_url + 's/' + @share.link %>"
 										      		data-count="none"
-                                                    data-url="none"
+                                                    data-url=""
 													data-size="">Tweet</a>
 											</div>
 										</div>

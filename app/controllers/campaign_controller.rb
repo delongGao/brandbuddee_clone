@@ -93,7 +93,6 @@ class CampaignController < ApplicationController
 			date_time = DateTime.new(params[:date_year].to_i, params[:date_month].to_i, params[:date_day].to_i, params[:date_hour].to_i, params[:date_minute].to_i, 0, "-0700")
 			@campaign.end_date = date_time
 		end
-
 		
 		unless params[:campaign][:location].blank?
 			@location = Location.find(params[:campaign][:location])

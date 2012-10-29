@@ -5,7 +5,7 @@ class Campaign
   belongs_to :location
   belongs_to :brand
   has_many :redeems
-  has_many :shares
+  has_many :shares, :dependent => :destroy
 
   field :date, :type => DateTime
   field :last_updated, :type => DateTime
@@ -21,10 +21,12 @@ class Campaign
   field :share_link, :type => String
   field :link, :type => String
 
+  field :tweet, :type => String
+
   field :redeem_details, :type => String, :default => "This is default text for Redeem Details."
 
   mount_uploader :campaign_image, CampaignImageUploader
-  attr_accessible :campaign_image, :date, :last_updated, :title, :detail, :points_required, :link, :limit, :share_link, :redeem_details, :location
+  attr_accessible :campaign_image, :date, :last_updated, :title, :detail, :points_required, :link, :limit, :share_link, :redeem_details, :location, :tweet
 
 
   def self.assign_link

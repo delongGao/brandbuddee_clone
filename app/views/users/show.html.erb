@@ -378,6 +378,10 @@
       <%= f.label :limit, :class=>'' %>
       <%= f.text_field :limit, :class=>'' %>
     </p>
+    <p>
+      <%= f.label :tweet, 'Tweet', :class=>'' %>
+      <%= f.text_area :tweet, :class=>'', :rows => '3', :placeholder => 'Leave blank to use default campaign title as tweet.' %>
+    </p>
 
     <%= select_tag "brands", options_from_collection_for_select(@brand_all, "id", "name"), :prompt => "- Select Brand -" %>
     <%= select_tag "categories", options_from_collection_for_select(@category_all, "id", "name"), :prompt => "- Select Category -" %>
