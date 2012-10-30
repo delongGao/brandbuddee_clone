@@ -1,6 +1,6 @@
 class Subscriber
   include Mongoid::Document
-  has_one :invitation
+  has_one :invitation, :dependent => :destroy
 
   field :email, :type => String
   field :date, :type => DateTime

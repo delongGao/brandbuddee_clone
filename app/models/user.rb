@@ -2,8 +2,8 @@ class User
   include Mongoid::Document
   has_and_belongs_to_many :campaigns
   belongs_to :location
-  has_many :redeems
-  has_many :shares
+  has_many :redeems, :dependent => :destroy
+  has_many :shares, :dependent => :destroy
   
   field :provider, :type => String
   field :uid, :type => String
