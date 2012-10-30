@@ -87,12 +87,12 @@
                           <% slice.each do |c| %>
                             <li class="span4">
                               <div class="thumbnail unit-bg">
+                                    <h4><%= c.title %></h4>
                                     <a href="/campaign/<%= c.link %>">
                                         <%= image_tag(c.campaign_image_url(:standard).to_s, :width=>"100%") %>
                                     </a>
                                     <div class="caption">
-                                        <h4>
-                                            <%= c.title %></h4>
+                                        
                                         <p>
                                             <%= truncate(c.detail, :length => 160, :omission => '... (continued)') %></p>
                                         <p>
