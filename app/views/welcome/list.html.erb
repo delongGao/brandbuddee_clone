@@ -71,12 +71,12 @@
 		<% @invitation.each do |sub| %>
 		  <tr class="<%= cycle('odd', 'even') %>">
 			<td><%= sub._id %></td>
-			<td><%= sub.date %></td>
+			<td><%= sub.date %> <span class="label"><%= time_ago_in_words(sub.date) + " ago" unless sub.date.nil? %></span></td>
 			<td><%= sub.email %></td>
 		    <td><%= sub.name %></td>
 			<td><%= sub.invite_code %></td>
 			<td><%= sub.sent_by %></td>
-			<td><%= sub.success_date %></td>
+			<td><%= sub.success_date %> <% unless sub.success_date.nil? %><span class="label"><%= time_ago_in_words(sub.success_date) + " ago" %><% end %></span></td>
 			<td>
 				<% if sub.status == true %>
 					<span class="badge badge-success">signed up!</span>
