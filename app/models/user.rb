@@ -9,6 +9,7 @@ class User
   field :uid, :type => String
   field :date, :type => DateTime
   field :last_login, :type => DateTime
+  field :last_activity, :type => DateTime
   field :email, :type => String
   field :password_hash, :type => String
   field :password_salt, :type => String

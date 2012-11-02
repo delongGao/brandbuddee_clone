@@ -12,6 +12,9 @@ class UsersController < ApplicationController
         redirect_to(:action => 'complete_email')
       end
 
+      current_user.last_activity = Time.now
+      current_user.save
+
     else
       redirect_to root_url
     end
