@@ -1,0 +1,62 @@
+<%= render 'shared/new_header' %>
+<script type="text/javascript" src="//assets.pinterest.com/js/pinit.js"></script>
+
+
+<div class="container" style="margin-top:105px;">
+
+	
+
+	<% if flash[:notice].nil? %><% else %>
+		<div class="alert alert-info">
+		  <button class="close" data-dismiss="alert">×</button>
+		  <%= flash[:notice] %>
+		</div> <!-- .alert -->
+	<% end %>
+
+
+    <div class="row">
+        
+        <% @static = 'contact' %>
+        <%= render 'shared/static_help_navi' %>
+
+        <div class="span9">
+
+            <h3>Contact Us</h3>
+
+            <span class="support_help_sections form-horizontal">
+                <legend>Feel free to reach out to us</legend>
+
+                    <fieldset>
+                        <div class="control-group">
+                            <label class="control-label" for="prependedInput"><b>Email</b></label>
+                            <div class="controls" style="margin-top:5px;">
+                                <a href="#">info@brandbuddee.com</a>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <fieldset>
+                        <div class="control-group">
+                            <label class="control-label" for="prependedInput"><b>Address</b></label>
+                            <div class="controls" style="margin-top:5px;">
+                                <p>
+                                    989 112th Ave NE #2308<br>
+                                    Bellevue, WA  98024
+                                </p>
+                            </div>
+                        </div>
+                    </fieldset>
+
+            </span> <!-- .support_help_sections -->
+
+            <br><br><br>
+
+</p>
+                
+
+
+            <%= render "shared/new_footer" %>
+
+        </div>
+    </div>
+</div>

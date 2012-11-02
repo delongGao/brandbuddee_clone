@@ -1,0 +1,52 @@
+<%= render 'shared/new_header' %>
+<script type="text/javascript" src="//assets.pinterest.com/js/pinit.js"></script>
+
+
+<div class="container" style="margin-top:105px;">
+
+	
+
+	<% if flash[:notice].nil? %><% else %>
+		<div class="alert alert-info">
+		  <button class="close" data-dismiss="alert">×</button>
+		  <%= flash[:notice] %>
+		</div> <!-- .alert -->
+	<% end %>
+
+
+    <div class="row">
+        
+        <% @static = 'about' %>
+        <%= render 'shared/static_help_navi' %>
+
+        <div class="span9">
+
+            <h3>About Us</h3>
+
+            <div class="hero-unit" style="padding:30px 60px;">
+                <h2>Discover, Share, and Earn rewards</h2>
+            </div> <!-- .hero-unit -->
+
+            <span class="support_help_sections">
+                <legend>All of your favorite brands in one place</legend>
+                <p>Brandbuddee is a social media discovery and content distribution platform that rewards you to discover interesting stories from your favorite brands and share it on social media. Have you ever wanted to be the first to know? Have you ever wanted to be the one that got rewarded when you shared something you thought was cool? Have you ever wanted to be recognized and treated like royalty from the brands you love? Well, you’ve earned it and that’s what we’re here to provide.</p>
+            </span> <!-- .support_help_sections -->
+
+            <span class="support_help_sections">
+                <p>At brandbuddee.com we believe in the power of reciprocity whereas everybody wins. By sharing stories about the brands you love, you can earn many different types of rewards. For brands, we offer a unique opportunity to engage with your loyal customers and incentivize the sharing of your brand’s latest story on social media. We’re pretty strict about the type of content that can be shared, but we guarantee both buddees and brands will benefit for using brandbuddee.com. Right now, it’s something that everybody is talking about, sign-up today to get in on the fun. Our commitment is towards ensuring that you get exclusive content and rewards from the brands you love and the brands allow themselves the opportunity to have their story shared from the people that matter most, YOU!</p>
+            </span> <!-- .support_help_sections -->
+
+            <span class="support_help_sections">
+                <p>So, tell your friends and get on board brandbuddee today. You never know what your favorite brands are up to unless you’re subscribed and you’ll never get the rewards or exclusive access brandbuddee provides unless you’re on the list :)</p>
+            </span> <!-- .support_help_sections -->
+
+            <br><br><br>
+</p>
+                
+
+
+            <%= render "shared/new_footer" %>
+
+        </div>
+    </div>
+</div>

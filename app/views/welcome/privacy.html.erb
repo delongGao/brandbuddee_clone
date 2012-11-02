@@ -1,0 +1,56 @@
+<%= render 'shared/new_header' %>
+<script type="text/javascript" src="//assets.pinterest.com/js/pinit.js"></script>
+
+
+<div class="container" style="margin-top:105px;">
+
+	
+
+	<% if flash[:notice].nil? %><% else %>
+		<div class="alert alert-info">
+		  <button class="close" data-dismiss="alert">×</button>
+		  <%= flash[:notice] %>
+		</div> <!-- .alert -->
+	<% end %>
+
+
+    <div class="row">
+        
+        <% @static = 'privacy' %>
+        <%= render 'shared/static_help_navi' %>
+
+        <div class="span9">
+
+            <h3>Privacy Policy</h3>
+
+            <div class="hero-unit" style="padding:30px 60px;">
+                <p>General Terms and Conditions applicable to Use of a Web Site.</p>
+            </div> <!-- .hero-unit -->
+
+            <span class="support_help_sections">
+                <legend>Outlines</legend>
+                <p>Your privacy is very important to us. Accordingly, we have developed this Policy in order for you to understand how we collect, use, communicate and disclose and make use of personal information. The following outlines our privacy policy:</p>
+
+                    <p class="offset1">- Before or at the time of collecting personal information, we will identify the purposes for which information is being collected.</p>
+
+                    <p class="offset1">- We will collect and use of personal information solely with the objective of fulfilling those purposes specified by us and for other compatible purposes, unless we obtain the consent of the individual concerned or as required by law.</p>
+
+                    <p class="offset1">- We will only retain personal information as long as necessary for the fulfillment of those purposes.</p>
+
+                    <p class="offset1">- We will collect personal information by lawful and fair means and, where appropriate, with the knowledge or consent of the individual concerned.</p>
+
+                    <p class="offset1">- Personal data should be relevant to the purposes for which it is to be used, and, to the extent necessary for those purposes, should be accurate, complete, and up-to-date.</p>
+
+                    <p class="offset1">- We will protect personal information by reasonable security safeguards against loss or theft, as well as unauthorized access, disclosure, copying, use or modification.</p>
+
+                    <p class="offset1">- We will make readily available to customers information about our policies and practices relating to the management of personal information.</p>
+            </span> <!-- .support_help_sections -->
+
+
+</p>
+            <br><br><br><br>
+            <%= render "shared/new_footer" %>
+
+        </div>
+    </div>
+</div>

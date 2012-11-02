@@ -2,6 +2,10 @@ Brandbuddee::Application.routes.draw do
   
   root :to => 'welcome#index'
 
+  match '/about' => 'welcome#about'
+  match '/terms' => 'welcome#terms'
+  match '/privacy' => 'welcome#privacy'
+  match '/contact' => 'welcome#contact'
   match '/support/help' => 'welcome#help'
   
   match '/signout' => 'sessions#destroy' #, :as => "signout"

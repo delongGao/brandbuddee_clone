@@ -2,7 +2,7 @@
 <script type="text/javascript" src="//assets.pinterest.com/js/pinit.js"></script>
 
 
-<div class="container" style="margin-top:105px;background:rgba(255,255,255,0.6);">
+<div class="container" style="margin-top:105px;">
 
 	
 
@@ -15,20 +15,9 @@
 
 
     <div class="row">
-        <div class="span3">
-
-            <div class="well unit-bg">
-                <ul class="nav nav-list">
-                    <li><a href="/dashboard"><i class="icon-asterisk"></i>&nbsp;Earn Rewards</a></li>
-                    <li><a href="#"><i class="icon-headphones"></i>&nbsp;Your Rewards</a></li>
-                    <li><a href="#"><i class="icon-briefcase"></i>&nbsp;Redeem</a></li>
-                    <li><a href="#"><i class="icon-tag"></i>&nbsp;Past Rewards</a></li>
-                    <li class="divider"></li>
-                    <li><a href="/support/help"><i class="icon-question-sign"></i>&nbsp;Help</a></li>
-                </ul>
-            </div>
-
-        </div>
+        
+        <% @static = 'help' %>
+        <%= render 'shared/static_help_navi' %>
 
         <div class="span9">
 
