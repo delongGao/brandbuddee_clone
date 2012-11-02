@@ -41,8 +41,8 @@
   	<td><%= u._id %></td>
   	<td><%= u.provider %></td>
   	<td><%= u.uid %></td>
-  	<td><%= u.date %></td>
-    <td><%= u.last_login %></td>
+  	<td><%= u.date %> <span class="label"><%= time_ago_in_words(u.date) %> ago</span></td>
+    <td><%= u.last_login %> <span class="label"><%= time_ago_in_words(u.last_login) + " ago" unless u.last_login.nil? %> </span></td>
   	<td><%= u.email %></td>
   	<td><%= image_tag(u.profile_image_url(:thumb).to_s, :class=>"", :style=>"border-radius:100px;" ) %></td>
   	<td><%= u.first_name %></td>
