@@ -25,7 +25,7 @@
 		<% @subscriber.each do |sub| %>
 		  <tr class="<%= cycle('odd', 'even') %>">
 			<td><%= sub._id %></td>
-			<td><%= sub.date %></td>
+			<td><%= sub.date %> <span class="label"><%= time_ago_in_words(sub.date) + " ago" unless sub.date.nil? %></span></td>
 		    <td><%= sub.email %></td>
 			<td><%= sub.share_link %></td>
 			<td><%= sub.share_points %></td>
