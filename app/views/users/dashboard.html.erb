@@ -92,7 +92,7 @@
                                         <p>
                                             <%= truncate(c.detail, :length => 160, :omission => '... (continued)') %></p>
                                         <p>
-                                            <span class="help-block">
+                                            <span class="help-block pull-right">
                                                 <small><i class="icon-tag"></i>&nbsp;<%= c.limit - c.redeems.size %> Available&nbsp;&nbsp;<i
                                                 class="icon-time"> </i>
 
@@ -106,11 +106,17 @@
                                                 <% end %>
                                                 </small></span>
                                         </p>
+                                        <div class="clear"></div>
                                         <p class="campaign_details">
-                                            <span class="view-deal"><a href="/campaign/<%= c.link %>" class="btn btn-success">View&nbsp;<i
-                                                class="icon-chevron-right icon-white"></i></a></span><span class="help-inline text-highlight-small pts_req">
-                                                    <%= c.points_required %></span>
-                                                    pts
+                                            <span class="pts_req_wrap">
+                                                <span class="help-inline text-highlight-small pts_req">
+                                                    <%= c.points_required %>
+                                                </span>
+                                                <span class="pts_req_text">pts</span>
+                                            </span> <!-- .pts_req_wrap -->
+                                            <span class="view-deal">
+                                                <a href="/campaign/<%= c.link %>" class="btn btn-success">View&nbsp;<i class="icon-chevron-right icon-white"></i></a>
+                                            </span> <!-- .view-deal -->
                                         </p>
                                     </div>
                                 </div>
