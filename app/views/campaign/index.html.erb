@@ -1,4 +1,5 @@
 <%= render 'shared/new_header' %>
+<link href="/css/social-buttons.css" rel="stylesheet">
 <script type="text/javascript" src="//assets.pinterest.com/js/pinit.js"></script>
 
 
@@ -243,10 +244,24 @@
                                 <div class="well">
                                     <h4>About <%= @campaign.brand.name %></h4>
                                     <p><%= @campaign.brand.bio %></p>
-									<p><a href="<%= @campaign.brand.website %>" target="_blank">Website</a></p>
-									<p><a href="<%= @campaign.brand.facebook %>" target="_blank">Facebook</a></p>
-									<p><a href="<%= @campaign.brand.twitter %>" target="_blank">Twitter</a></p>
-									<p><a href="<%= @campaign.brand.pinterest %>" target="_blank">Pinterest</a></p>
+                                    <% unless @campaign.brand.website.blank? || @campaign.brand.website.nil? %>
+    									<p><a href="<%= @campaign.brand.website %>" target="_blank">Website</a></p>
+                                    <% end %>
+                                    <% unless @campaign.brand.facebook.blank? || @campaign.brand.facebook.nil? %>
+                                        <a href="<%= @campaign.brand.facebook %>" target="_blank" class="sb circle facebook mytooltip" data-original-title="Facebook">Facebook</a>
+                                    <% end %>
+                                    <% unless @campaign.brand.twitter.blank? || @campaign.brand.twitter.nil? %>
+                                        <a href="<%= @campaign.brand.twitter %>" target="_blank" class="sb circle twitter mytooltip" data-original-title="Twitter">Twitter</a>
+                                    <% end %>
+									<% unless @campaign.brand.pinterest.blank? || @campaign.brand.pinterest.nil? %>
+                                        <a href="<%= @campaign.brand.pinterest %>" target="_blank" class="sb circle pinterest mytooltip" data-original-title="Pinterest">Pinterest</a>
+                                    <% end %>
+                                    <p>
+                            
+                            
+<!--                             <a href="http://plus.google.com/" class="sb circle gplus mytooltip" data-original-title="Google Plus">Google Plus</a> -->
+                            
+                        </p>
                                 </div> <!-- .well -->
                             </div>
                         </div>
