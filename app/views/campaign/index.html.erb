@@ -346,6 +346,18 @@
         } (document, 'script', 'facebook-jssdk'));
     </script>
 
+    <script>
+        window.onload = function()
+        {
+            if(window.jQuery)
+            {
+                $(document).ready(function(){
+                    $('.mytooltip').tooltip({'placement':'top', 'trigger' : 'hover'});
+                });
+            }
+        }
+    </script>
+
 
     <!-- backstretch -->
     <!--<script src="/js/jquery.backstretch.min.js"></script>
