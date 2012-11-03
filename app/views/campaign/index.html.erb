@@ -56,13 +56,6 @@
                             <div class="span6">
                             	<br>
 
-                    <div class="well">
-                        <h4>What do I get?</h4>
-                        <p><%= @campaign.reward unless @campaign.reward.nil? %></p>
-                    </div> <!-- .well -->
-
-                    <p><%= @campaign.detail %></p>
-
 
                     <% if current_user %>
 <!--                         <a href="#" class="btn btn-primary">Share to Facebook</a>
@@ -75,36 +68,47 @@
                     
 
                         <% if current_user.campaigns.where(:_id => @campaign.id).first %>
-							<div id="fb-root"></div>
+                            <div id="fb-root"></div>
 
-								<div id="campaign-share">
-									<%= javascript_include_tag "http://platform.twitter.com/widgets.js" %>
-									<div class="sharing-wrap">
-										<div class="sharing-campaign campaign-twitter-share">
-											<div id="twitter-button">
-										   		<a href="http://twitter.com/share" class="twitter-share-button"
-										      		data-text="<%= @campaign.tweet.html_safe unless @campaign.tweet.nil? %> <%= root_url + 's/' + @share.link %>"
-										      		data-count="none"
+                                <div id="campaign-share">
+                                    <%= javascript_include_tag "http://platform.twitter.com/widgets.js" %>
+                                    <div class="sharing-wrap">
+                                        <div class="sharing-campaign campaign-twitter-share">
+                                            <div id="twitter-button">
+                                                <a href="http://twitter.com/share" class="twitter-share-button"
+                                                    data-text="<%= @campaign.tweet.html_safe unless @campaign.tweet.nil? %> <%= root_url + 's/' + @share.link %>"
+                                                    data-count="none"
                                                     data-url=""
-													data-size="">Tweet</a>
-											</div>
-										</div>
+                                                    data-size="">Tweet</a>
+                                            </div>
+                                        </div>
                                         <div class="sharing-campaign campaign-pinterest-share">
                                             <a href="http://pinterest.com/pin/create/button/?url=http%3A%2F%2Flocalhost%3A3000%2F&media=http%3A%2F%2Flocalhost%3A3000%2Fimage%2F&description=This_is_the_description" class="pin-it-button" count-layout="none"><img border="0" src="//assets.pinterest.com/images/PinExt.png" title="Pin It" /></a>
                                         </div>
-										<div class="sharing-campaign campaign-facebook-share">
-											<div class="fb-like" data-href="<%= root_url + 's/' + @share.link %>" data-send="true" data-width="375" data-show-faces="false" data-action=""></div>
-										</div>
+                                        <div class="sharing-campaign campaign-facebook-share">
+                                            <div class="fb-like" data-href="<%= root_url + 's/' + @share.link %>" data-send="true" data-width="375" data-show-faces="false" data-action=""></div>
+                                        </div>
                                         
-									</div>
-									<div class="clear"></div>
-									Share Link:
-									<input id="share_link_copy" class="input-large span4" type="text" value="<%= root_url + 's/' + @share.link %>">
-									<div class="clear"></div>
-								</div>
-						<% end %>
+                                    </div>
+                                    <div class="clear"></div>
+                                    Share Link:
+                                    <input id="share_link_copy" class="input-large span4" type="text" value="<%= root_url + 's/' + @share.link %>">
+                                    <div class="clear"></div>
+                                </div><br>
+                        <% end %>
 
                     <% end %>
+
+
+                    <div class="well">
+                        <h4>What do I get?</h4>
+                        <p><%= @campaign.reward unless @campaign.reward.nil? %></p>
+                    </div> <!-- .well -->
+
+                    <p><%= @campaign.detail %></p>
+
+
+                    
 								<br>
 
 <!--                                 <h4>Location</h4>
