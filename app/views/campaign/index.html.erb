@@ -174,7 +174,12 @@
                                                         Available
                                                     </td>
                                                     <td>
-                                                        <%= @campaign.limit - @campaign.redeems.size %>
+                                                        
+                                                        <% if left == 0 || @campaign.end_date < Time.now %>
+                                                            0
+                                                        <% else %>
+                                                            <%= @campaign.limit - @campaign.redeems.size %>
+                                                        <% end %>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -182,7 +187,11 @@
                                                         Remaining
                                                     </td>
                                                     <td>
-                                                        <%= time_ago_in_words(@campaign.end_date) + ' left' unless @campaign.end_date.nil? %>
+                                                        <% if left == 0 || @campaign.end_date < Time.now %>
+                                                            0
+                                                        <% else %>
+                                                            <%= time_ago_in_words(@campaign.end_date) + ' left' unless @campaign.end_date.nil? %>
+                                                        <% end %>
                                                     </td>
                                                 </tr>
                                                 <tr>
