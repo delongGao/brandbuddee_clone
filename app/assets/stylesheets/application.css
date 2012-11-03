@@ -76,3 +76,19 @@ body {
 .profile_header_bttn {
 	margin-right: 10px !important;
 }
+
+.profile_header_navi {
+	margin-right: 20px !important;
+	color: #000;
+}
+
+.profile_header_navi:hover {
+	text-decoration: none !important;
+	color: #08C;
+	background: rgba(0,0,0,0.1);
+}
+
+.caret:hover {
+	border-top: 4px solid #08C !important;
+	background: rgba(0,0,0,0.1);
+}
