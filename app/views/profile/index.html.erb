@@ -24,7 +24,7 @@
 				<ul class="nav nav-list">
 	              <li class="nav-header">Profile</li>
 		              <p><%= @profile.bio %></p>
-		              <p><%= @profile.website %></p>
+		              <p><a href="<%= @profile.website %>" target="_blank"><%= @profile.website %></a></p>
 	              <li class="nav-header">Social</li>
 	              	  <p><%= @profile.facebook %></p>
 	              	  <p><%= @profile.twitter %></p>
