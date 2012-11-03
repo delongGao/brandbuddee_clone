@@ -21,7 +21,7 @@ Brandbuddee::Application.routes.draw do
   match 'complete/email' => 'users#complete_email'
   match 'complete/email/update' => 'users#complete_email_update'
 
-  match 'dashboard' => 'users#dashboard'
+  match 'home' => 'users#dashboard'
 
   match 'profile/settings' => 'profile#profile_settings'
   match 'profile/settings/update' => 'profile#profile_settings_update'
