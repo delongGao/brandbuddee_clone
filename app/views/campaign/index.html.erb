@@ -245,7 +245,7 @@
                                     <h4>About <%= @campaign.brand.name %></h4>
                                     <p><%= @campaign.brand.bio %></p>
                                     <% unless @campaign.brand.website.blank? || @campaign.brand.website.nil? %>
-    									<p><a href="<%= @campaign.brand.website %>" target="_blank">Website</a></p>
+    									<p><a href="<%= @campaign.brand.website %>" target="_blank" class="campaign_brand_link">Website</a></p>
                                     <% end %>
                                     <% unless @campaign.brand.facebook.blank? || @campaign.brand.facebook.nil? %>
                                         <a href="<%= @campaign.brand.facebook %>" target="_blank" class="sb circle facebook mytooltip" data-original-title="Facebook">Facebook</a>
