@@ -90,6 +90,10 @@
       <%= f.text_area :tweet, :class=>'span6', :rows => '3' %>
     </p>
     <p>
+      <%= f.label :reward, :class=>'' %>
+      <%= f.text_field :reward, :class=>'span6' %>
+    </p>
+    <p>
       Location
       <%#= f.select :location, options_from_collection_for_select(@location_all, "id", "city"), :prompt => "- Select New Location -" %>
       <% current_location_id = @campaign.location.id unless @campaign.location.nil? %>

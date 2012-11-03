@@ -21,12 +21,13 @@ class Campaign
   field :share_link, :type => String
   field :link, :type => String
 
+  field :reward, :type => String
   field :tweet, :type => String
 
   field :redeem_details, :type => String, :default => "This is default text for Redeem Details."
 
   mount_uploader :campaign_image, CampaignImageUploader
-  attr_accessible :campaign_image, :date, :last_updated, :title, :detail, :points_required, :link, :limit, :share_link, :redeem_details, :location, :tweet
+  attr_accessible :campaign_image, :date, :last_updated, :title, :detail, :points_required, :link, :limit, :share_link, :redeem_details, :location, :tweet, :reward
 
 
   def self.assign_link
