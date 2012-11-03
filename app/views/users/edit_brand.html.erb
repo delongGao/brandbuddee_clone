@@ -37,6 +37,10 @@
 	      <%= f.label :pinterest, :class=>'' %>
 	      <%= f.text_field :pinterest, :class=>'' %>
 	    </p>
+	    <p class="">
+	      <%= f.label :gplus, :class=>'' %>
+	      <%= f.text_field :gplus, :class=>'' %>
+	    </p>
 
 	    <%= hidden_field_tag(:brand_id, @brand.id, :name=>'brand[id]') %>
 	    <%= hidden_field_tag(:date, Time.now, :name=>'brand[last_updated]') %>

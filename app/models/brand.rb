@@ -11,5 +11,6 @@ class Brand
   field :facebook, :type => String
   field :twitter, :type => String
   field :pinterest, :type => String
+  field :gplus, :type => String
 
 end

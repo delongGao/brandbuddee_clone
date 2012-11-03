@@ -256,10 +256,13 @@
 									<% unless @campaign.brand.pinterest.blank? || @campaign.brand.pinterest.nil? %>
                                         <a href="<%= @campaign.brand.pinterest %>" target="_blank" class="sb circle pinterest mytooltip" data-original-title="Pinterest">Pinterest</a>
                                     <% end %>
+                                    <% unless @campaign.brand.gplus.blank? || @campaign.brand.pinterest.nil? %>
+                                        <a href="<%= @campaign.brand.gplus %>" target="_blank" class="sb circle gplus mytooltip" data-original-title="Google Plus">Google Plus</a>
+                                    <% end %>
                                     <p>
                             
                             
-<!--                             <a href="http://plus.google.com/" class="sb circle gplus mytooltip" data-original-title="Google Plus">Google Plus</a> -->
+                            
                             
                         </p>
                                 </div> <!-- .well -->
