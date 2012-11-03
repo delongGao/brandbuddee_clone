@@ -26,9 +26,9 @@ body {
 	display: block;
 	position: absolute;
 	top: 28px;
-	background: url('/assets/brandbuddee-logo-sm.png') no-repeat;
-	background-size: 200px 37px;
-	width: 200px;
+	background: url('/assets/brandbuddee-logo.png') no-repeat;
+	background-size: 223px 37px;
+	width: 223px;
 	height: 37px;
 }
 
@@ -71,4 +71,8 @@ body {
 
 .date_times {
 	display: none;
+}
+
+.profile_header_bttn {
+	margin-right: 10px !important;
 }

@@ -14,17 +14,20 @@
 
     <div class="row">
         <div class="span3">
-
+            
             <div class="well unit-bg">
                 <ul class="nav nav-list">
+                <% if current_user %>
                     <li><a href="/dashboard"><i class="icon-asterisk"></i>&nbsp;Earn Rewards</a></li>
                     <li><a href="/<%= current_user.nickname %>"><i class="icon-headphones"></i>&nbsp;Your Rewards</a></li>
 <!--                     <li><a href="#"><i class="icon-briefcase"></i>&nbsp;Redeem</a></li>
                     <li><a href="#"><i class="icon-tag"></i>&nbsp;Past Rewards</a></li> -->
                     <li class="divider"></li>
+                <% end %>
                     <li><a href="/support/help"><i class="icon-question-sign"></i>&nbsp;Help</a></li>
                 </ul>
             </div>
+
 <!--             <div class="well unit-bg">
                 <p>
                     <i class="icon-envelope"></i>&nbsp;Invite Friends</p>
