@@ -256,8 +256,9 @@
                                       <%= image_tag(c.campaign_image_url(:standard).to_s, :width=>"100%") %>
                                   </a>
                                   <div class="caption">
-                                      <h4>
-                                          <%= c.title %></h4>
+                                      <h4 class="campaign_profile_title_wrap">
+                                          <%= truncate(c.title, :length => 43, :omission => '...') %>
+                                      </h4>
                                       <p class="campaign_profile_reward_wrap">
                                           <%= truncate(c.reward, :length => 66, :omission => '... (continued)') %></p>
                                       <p>
