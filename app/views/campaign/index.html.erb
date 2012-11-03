@@ -261,7 +261,7 @@
                                       </h4>
                                       <p class="campaign_profile_reward_wrap">
                                           <%= truncate(c.reward, :length => 54, :omission => '...') %></p>
-                                      <p>
+                                      <p class="pull-right" style="margin:0;">
                                           <span class="help-block"><small><i class="icon-tag"></i>&nbsp;<%= c.limit - c.redeems.size %> Available&nbsp;&nbsp;<i
                                               class="icon-time"> </i>&nbsp;
 
@@ -275,7 +275,9 @@
 
                                             </small></span>
                                       </p>
-                                      <p class="campaign_details">
+                                      <div class="clear"></div>
+
+                                      <span class="campaign_details" style="margin:0;">
                                         <span class="pts_req_wrap">
                                             <span class="help-inline text-highlight-small pts_req">
                                                 <%= c.points_required %>
@@ -285,7 +287,7 @@
                                         <span class="view-deal">
                                             <a href="/campaign/<%= c.link %>" class="btn btn-success">View&nbsp;<i class="icon-chevron-right icon-white"></i></a>
                                         </span> <!-- .view-deal -->
-                                    </p>
+                                      </span> <!-- .campaign_details -->
                                   </div>
                               </div>
                           </li>
