@@ -100,14 +100,15 @@
          <div class="row">
            <div class="span12">
              <h1>Get started</h1>
-             <p style="text-align:center;">Due to the unexpected amount of signups we have temporarily closed our beta.</p>
+             <p style="text-align:center;margin-bottom:0;">Due to the unexpected amount of signups we have temporarily closed our beta.</p>
+             <p style="text-align:center;">Sign up to be next in line!</p>
 
             <div class="beta_form">
 
 				<div id="subscribe_container">
 					<div class="subscribe_wrap">
 					  <%= form_tag url_for(:action => 'create'), :id => "subscribe", :class => "form-horizontal", :remote => true do %>
-					      <%= text_field_tag :email, nil, :id =>"subscribe_field", :class => "input-large", :placeholder=>"sign up to be next in line" %>
+					      <%= text_field_tag :email, nil, :id =>"subscribe_field", :class => "input-large", :placeholder=>"email address" %>
 					      <%= submit_tag "Sign up", :class=>"btn btn-large" %>
 					    <div class="message"></div>
 					  <% end %>

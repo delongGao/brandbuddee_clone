@@ -12,19 +12,9 @@
 
 	<% if current_user %>
 	<div class="row">
-		<div class="span3">
-			<div class="well sidebar-nav">
 
-				<ul class="nav nav-list">
-	              <li class="nav-header">Profile Settings</li>
-	              <li class="active"><a href="/profile/settings">Profile Information</a></li>
-	              <li><a href="/profile/username">Username</a></li>
-	              <li class="nav-header">Account Settings</li>
-	              <li><a href="/account/settings">Edit Account</a></li>
-	            </ul>
-				
-			</div>
-		</div> <!-- .span3 -->
+		<% @static = 'profile_settings' %>
+        <%= render 'shared/static_settings_navi' %>
 
 		<div class="span9">
 		<div class="well form-horizontal" style="">

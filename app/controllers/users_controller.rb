@@ -40,6 +40,82 @@ class UsersController < ApplicationController
 
   end
 
+  def password_resets_show
+    @password_resets = PasswordReset.all.order_by([:date, :asc])
+  end
+
+  def password_reset
+    #password reset request
+    @password_reset = PasswordReset.new
+  end
+
+  def password_reset_update
+    email = params[:password_reset][:email]
+
+    if email.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i).nil?
+      flash[:notice] = "Invalid Email"
+      redirect_to(:action => 'password_reset')
+    else
+      @user = User.where(:email => params[:password_reset][:email]).first
+
+      if @user.nil?
+        flash[:notice] = "This email is not associated with a brandbuddee account. Please try another email address."
+        redirect_to(:action => 'password_reset')
+      elsif @user != nil && @user.provider == nil
+        @password_reset = PasswordReset.create!(params[:password_reset])
+        @password_reset.date = Time.now
+        @password_reset.name = @user.first_name
+        hash_code = PasswordReset.assign_hash()
+        @password_reset.hash_code = hash_code.to_s
+
+        if @password_reset.save
+          UserMailer.password_reset(@password_reset, root_url).deliver
+          flash[:notice] = "Password reset sent to <b>#{params[:password_reset][:email]}</b>"
+          redirect_to(:action => 'password_reset')
+        else
+          flash[:notice] = "Please try again..."
+          redirect_to(:action => 'password_reset')
+        end
+      else
+        flash[:notice] = "This email is not associated with a brandbuddee account created via email. Please try another email."
+        redirect_to(:action => 'password_reset')
+      end
+    end
+
+  end
+
+  def password_reset_submit
+    @password_reset = PasswordReset.where(:hash_code => params[:hash_code]).first
+  end
+
+  def password_reset_submit_update
+    @password_reset = PasswordReset.where(:hash_code => params[:hash_code]).first
+
+    if params[:password_reset][:password].blank? || params[:password_reset][:password_confirmation].blank?
+      flash[:notice] = "Please complete all fields"
+      redirect_to '/pw/reset/' + @password_reset.hash_code
+    elsif params[:password_reset][:password] != params[:password_reset][:password_confirmation]
+      flash[:notice] = "New password and confirmation must match"
+      redirect_to '/pw/reset/' + @password_reset.hash_code
+    else
+      @password_reset.reset_date = Time.now
+      @password_reset.status = true
+      @password_reset.save
+
+      @user = User.where(:email => @password_reset.email).first
+
+      if @user.update_attributes(params[:password_reset])
+        flash[:notice] = "Successfully updated."
+        #redirect_to(:controller => 'profile', :action => 'login')
+        redirect_to root_url
+      else
+        flash[:notice] = "Uh oh... something went wrong. Please try again."
+        #redirect_to(:controller => 'profile', :action => 'profile_settings')
+        redirect_to '/pw/reset/' + @password_reset.hash_code
+      end
+    end
+  end
+
   def new
     if current_user
       redirect_to root_url
@@ -218,6 +294,13 @@ class UsersController < ApplicationController
     @redeem.destroy
     flash[:notice] = "Redeem Destroyed"
     redirect_to(:action => 'show')
+  end
+
+  def password_resets_destroy
+    @password_reset = PasswordReset.find(params[:_id])
+    @password_reset.destroy
+    flash[:notice] = "Password Reset Request Destroyed"
+    redirect_to(:action => 'password_resets_show')
   end
   
   def destroy

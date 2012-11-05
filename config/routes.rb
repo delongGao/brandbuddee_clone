@@ -27,7 +27,14 @@ Brandbuddee::Application.routes.draw do
   match 'profile/settings/update' => 'profile#profile_settings_update'
   match 'account/settings' => 'profile#account_settings'
   match 'account/settings/update' => 'profile#account_settings_update'
+  match 'account/password/settings' => 'profile#password_settings'
+  match 'account/password/settings/update' => 'profile#password_settings_update'
   match '/profile/image/update' => 'profile#update_profile_image'
+
+  match 'password/reset' => 'users#password_reset'
+  match 'password/reset/send' => 'users#password_reset_update'
+  get "/pw/reset/:hash_code" => 'users#password_reset_submit', :as => :hash_code
+  match 'pw/reset/update' => 'users#password_reset_submit_update'
 
   match "/profile/username" => "profile#profile_nickname_settings"
   match "/profile/username/update" => "profile#profile_nickname_update"
@@ -63,6 +70,9 @@ Brandbuddee::Application.routes.draw do
   #get 'subscribers/list' => "welcome#list"
   get 'subscribers/list' => "welcome#list"
   get 'subscribers/delete' => "welcome#destroy"
+
+  get 'password_resets/show' => "users#password_resets_show"
+  get 'password_resets/delete' => "users#password_resets_destroy"
 
   match 'subscriber/invite' => "welcome#invite"
   match 'subscriber/invite/destroy' => "welcome#invite_destroy"

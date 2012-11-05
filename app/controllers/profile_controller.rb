@@ -22,6 +22,16 @@ class ProfileController < ApplicationController
 		@user = User.find(current_user.id)
 	end
 
+	def password_settings
+		if current_user
+			if current_user.provider.nil?
+				@user = User.find(current_user.id)
+			else
+				redirect_to root_url
+			end
+		end
+	end
+
 	def profile_settings_update
 		@user = User.find(current_user.id)
 	    if @user.update_attributes(params[:user])
@@ -42,6 +52,28 @@ class ProfileController < ApplicationController
 	      flash[:notice] = "Uh oh... something went wrong. Please try again."
 	      redirect_to(:controller => 'profile', :action => 'account_settings')
 	    end
+	end
+
+	def password_settings_update
+		@user = User.find(current_user.id)
+		user = User.authenticate(current_user.email, params[:current_password])
+		if user
+			if params[:user][:password] == params[:user][:password_confirmation]
+			    if @user.update_attributes(params[:user])
+			      flash[:notice] = "Successfully updated."
+			      redirect_to(:controller => 'profile', :action => 'password_settings')
+			    else
+			      flash[:notice] = "Uh oh... something went wrong. Please try again."
+			      redirect_to(:controller => 'profile', :action => 'password_settings')
+			    end
+			elsif params[:user][:password] != params[:user][:password_confirmation]
+				flash[:notice] = "Correctly confirm your new password"
+			    redirect_to(:controller => 'profile', :action => 'password_settings')
+			end
+		else
+			flash[:notice] = "Current password is incorrect"
+		    redirect_to(:controller => 'profile', :action => 'password_settings')
+		end
 	end
 
 	def update_profile_image
