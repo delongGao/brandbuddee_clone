@@ -92,3 +92,9 @@ body {
 	border-top: 4px solid #08C !important;
 	background: rgba(0,0,0,0.1);
 }
+
+.password_reset_link {
+	display: block;
+	margin-top: -12px;
+	font-size: 12px;
+}
