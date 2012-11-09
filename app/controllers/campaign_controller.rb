@@ -60,8 +60,10 @@ class CampaignController < ApplicationController
 			end
 
 			#redirect to share link
-			share_link = share.url
-			redirect_to share_link
+			@share = share
+			@share_link = share.url
+
+			#redirect_to share_link
 		end
 		if share.nil?
 		  redirect_to root_url
