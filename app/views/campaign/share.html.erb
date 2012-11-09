@@ -28,6 +28,7 @@
 			<% else %>
 			 <div class="btn-group pull-right">
 			 	<a rel="external" href="<%= root_url + 'campaign/' + @share.campaign.link.to_s %>" class="login btn btn-info share_campaign_join_button"><i class="icon-gift icon-white"></i> Join</a>
+			 	<a href="#"></a>
 			 </div>
 			<% end %>
 			 <div class="nav-collapse">
@@ -45,3 +46,10 @@
 
 
 <iframe src="<%= @share_link %>" class="share_iframe"></iframe>
+<script>
+	//$(".share_load").load("http://www.eberri.com"); 
+</script>
+<div class="share_load"></div>
+
+
+
