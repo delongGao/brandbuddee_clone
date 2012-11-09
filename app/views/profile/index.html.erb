@@ -40,23 +40,27 @@
 				<br>
 
 
-				<ul class="thumbnails">
-		          <% @campaign.each do |c| %>
-		            <a href="/campaign/<%= c.link %>">
-		              <li class="span3">
-		                <div class="thumbnail">
+				<% @campaign.each_slice(3) do |slice| -%>
+                    <div class="row-fluid">
+                      <div class="thumbnails">
+                      <% slice.each do |c| %>
+		              <li class="span4">
+		                <div class="thumbnail profile_campaign_thumbnails">
 		                  <!-- <img src="http://placehold.it/260x180" alt=""> -->
 		                  <%= image_tag(c.campaign_image_url(:standard).to_s) %>
 		                  <div class="caption">
-		                    <h5><%= c.title %></h5>
-		                    <p><%= c.detail %></p>
+		                    <h5><%= truncate(c.title, :length => 53, :omission => '...') %></h5>
+		                    <p><%= truncate(c.detail, :length => 83, :omission => '...') %></p>
 		<!--                     <p><a href="#" class="btn btn-primary">Action</a> <a href="#" class="btn">Action</a></p> -->
 		                  </div>
 		                </div>
 		              </li>
 		            </a>
 		          <% end %>
-		        </ul> <!-- .thumbnails -->
+
+                  </div> <!-- .thumbnails -->
+                </div> <!-- .row -->
+                <% end %>
 
 
 

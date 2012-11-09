@@ -147,7 +147,7 @@
 				<p>Your Points: <b style="font-size:17px;"><%= @share.unique_page_views %></b></p>
 
                 <% unless left == 0 %>
-                	<p><span class="label label-success">Activated!</span></p>
+                	<p><span class="label label-success activated_label">Activated!</span></p>
                 <% end %>
 
 				<% if left == 0 || @campaign.end_date < Time.now %>
@@ -161,6 +161,10 @@
 						<p><a href="#" class="btn btn-large btn-success redeem_button">Redeem</a></p>
 						<% @redeem = @campaign.redeems.where(:user_id => current_user.id).first %>
 						<h5 class="redeem_code alert alert-success"><%= @redeem.redeem_code unless @redeem.redeem_code.nil? %></h5>
+
+                         <script>
+                            $('.activated_label').hide();
+                        </script>
 					<% end %>
 				<% end %>
 				
