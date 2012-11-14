@@ -126,18 +126,20 @@ a.sb.gplus,
 	left: 0;
 	right: 0;
 	width: 380px;
-	margin: 0 auto;
+	//margin: 0 auto;
 }
 
 .subscribe_wrap {
 	position: relative;
-	width: 330px;
-	margin: 0 auto;
+	//width: 333px;
+	//margin: 0 auto;
+	margin-top:75px;
 }
 
 #share_box {
 	position: relative;
 	right: -75px;
+	color: #000;
 }
 
 #share_message {
@@ -170,17 +172,28 @@ a.sb.gplus,
 #share {
 	display: none;
 	position: relative;
-	top: 0;
-	margin: 0 auto;
+	top: 61px;
+	//margin: 0 auto;
 	height: auto;
 	width: 475px;
+}
+
+#share h4 {
+	padding: 0 !important;
+	font-size: 19px !important;
+}
+
+#share h5 {
+	padding: 0 !important;
+	line-height: 15px !important;
+	color: rgba(0,0,0,0.7);
 }
 
 #flash_notice {
 	font-size: 11px;
 	margin-top: 7px;
 	width: 81px;
-	padding: 3px 13px;
+	//padding: 3px 13px;
 }
 
 #flash_notice_email {

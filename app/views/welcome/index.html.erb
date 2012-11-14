@@ -35,6 +35,20 @@
             <div class="caption middle-left container">
 <!--               <p class="small white text-dark">Introducing</p> -->
               <p class="medium white text">Discover, Share, Earn <span class="green">Rewards</span></p>
+
+        <div class="beta_form">
+          <div id="subscribe_container">
+            <div class="subscribe_wrap">
+              <%= form_tag url_for(:action => 'create'), :id => "subscribe", :class => "form-horizontal", :remote => true do %>
+                  <%= text_field_tag :email, nil, :id =>"subscribe_field", :class => "input-large span3", :placeholder=>"sign up to be next in line" %>
+                  <%= submit_tag "Sign up", :class=>"btn btn-large" %>
+                <div class="message"></div>
+              <% end %>
+            </div> <!-- .subscribe_wrap -->
+            <div id="share_box"></div>
+          </div> <!-- #subscribe_container -->
+        </div> <!-- .beta_form -->
+
 <!--               <p class="large pink add-space">brandbuddee</p> -->
             </div>
         </div>
@@ -103,19 +117,7 @@
              <p style="text-align:center;margin-bottom:0;">Due to the unexpected amount of signups we have temporarily closed our beta.</p>
              <p style="text-align:center;">Sign up to be next in line!</p>
 
-            <div class="beta_form">
-
-				<div id="subscribe_container">
-					<div class="subscribe_wrap">
-					  <%= form_tag url_for(:action => 'create'), :id => "subscribe", :class => "form-horizontal", :remote => true do %>
-					      <%= text_field_tag :email, nil, :id =>"subscribe_field", :class => "input-large", :placeholder=>"email address" %>
-					      <%= submit_tag "Sign up", :class=>"btn btn-large" %>
-					    <div class="message"></div>
-					  <% end %>
-					</div> <!-- .subscribe_wrap -->
-					<div id="share_box"></div>
-				</div> <!-- #subscribe_container -->
-	    	</div> <!-- .beta_form -->
+            
 
            </div>
          </div>
