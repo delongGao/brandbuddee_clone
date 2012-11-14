@@ -2,8 +2,12 @@
 <link href="/css/social-buttons.css" rel="stylesheet">
 <script type="text/javascript" src="//assets.pinterest.com/js/pinit.js"></script>
 
+<% if current_user %>
+<% else %>
+    <div style="height:70px;"></div>
+<% end %>
 
-<div class="container" style="margin-top:105px;background:rgba(255,255,255,0.6);">
+<div class="container" style="margin-top:105px;">
 
 	<% if flash[:notice].nil? %><% else %>
 		<div class="alert alert-info">
@@ -14,22 +18,22 @@
 
 
     <div class="row">
-        <div class="span3">
+<!--         <div class="span3">
             
             <div class="well unit-bg">
                 <ul class="nav nav-list">
                 <% if current_user %>
                     <li><a href="/dashboard"><i class="icon-asterisk"></i>&nbsp;Earn Rewards</a></li>
                     <li><a href="/<%= current_user.nickname %>"><i class="icon-headphones"></i>&nbsp;Your Rewards</a></li>
-<!--                     <li><a href="#"><i class="icon-briefcase"></i>&nbsp;Redeem</a></li>
-                    <li><a href="#"><i class="icon-tag"></i>&nbsp;Past Rewards</a></li> -->
+                    <li><a href="#"><i class="icon-briefcase"></i>&nbsp;Redeem</a></li>
+                    <li><a href="#"><i class="icon-tag"></i>&nbsp;Past Rewards</a></li>
                     <li class="divider"></li>
                 <% end %>
                     <li><a href="/support/help"><i class="icon-question-sign"></i>&nbsp;Help</a></li>
                 </ul>
             </div>
 
-<!--             <div class="well unit-bg">
+            <div class="well unit-bg">
                 <p>
                     <i class="icon-envelope"></i>&nbsp;Invite Friends</p>
                 <div class="input-append">
@@ -37,22 +41,22 @@
                     <button class="btn" type="button">
                         OK</button>
                 </div>
-            </div> -->
+            </div>
 
-        </div>
+        </div> -->
 
-        <div class="span9">
+        <div class="span12">
             <div class="row unit-block">
-                <div class="span9 unit-bg">
+                <div class="span12 unit-bg">
                     <div class="unit">
-                        <legend>
+                        <legend style="margin-bottom:5px;">
                         	<%= @campaign.title %>
                         </legend>
             
             			
                         
                         <div class="row page-content">
-                            <div class="span6">
+                            <div class="span8">
 
                                 <div class="campaign_image_wrap">
                                   <%= image_tag(@campaign.campaign_image_url().to_s, :class=>"campaign_image") %>
@@ -133,7 +137,7 @@
 
 
                             </div>
-                            <div class="span3">
+                            <div class="span4">
 
                                 <div class="well text-center">
                                     <ul class="unstyled">

@@ -1,10 +1,7 @@
 <%= render 'shared/new_header' %>
 <script type="text/javascript" src="//assets.pinterest.com/js/pinit.js"></script>
 
-
 <div class="container" style="margin-top:105px;">
-
-	
 
 	<% if flash[:notice].nil? %><% else %>
 		<div class="alert alert-info">
@@ -20,6 +17,11 @@
         <%= render 'shared/static_help_navi' %>
 
         <div class="span9">
+
+            <% if current_user %>
+            <% else %>
+                <div style="height:55px;"></div>
+            <% end %>
 
             <h3>Terms of Use</h3>
 
