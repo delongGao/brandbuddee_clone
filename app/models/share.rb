@@ -1,3 +1,5 @@
+require 'uri'
+
 class Share
   include Mongoid::Document
   belongs_to :campaign
@@ -31,6 +33,12 @@ class Share
     share = Share.find(id)
     share.unique_page_views += 1
     share.save
+  end
+
+  def self.get_host_without_www(url)
+    url = "http://#{url}" if URI.parse(url).scheme.nil?
+    host = URI.parse(url).host.downcase
+    host.start_with?('www.') ? host[4..-1] : host
   end
 
 end

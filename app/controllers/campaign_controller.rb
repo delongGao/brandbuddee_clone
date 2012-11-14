@@ -62,6 +62,11 @@ class CampaignController < ApplicationController
 			#redirect to share link
 			@share = share
 			@share_link = share.url
+			@share_href = Share.get_host_without_www(share.url)
+
+			if @share_href == 'facebook.com'
+				redirect_to @share_link
+			end
 
 			#redirect_to share_link
 		end

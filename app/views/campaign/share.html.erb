@@ -25,6 +25,7 @@
 			 <div class="btn-group pull-right">
 			 	<a rel="external" href="<%= root_url + 'campaign/' + @share.campaign.link.to_s %>" class="login btn btn-info share_campaign_join_button"><i class="icon-gift icon-white"></i> View</a>
 			 	<a href="<%= @share_link %>" class="btn btn-success"><i class="icon-remove-sign icon-white"></i></a>
+			 	<div class="share_link_href" style="display:none;"><%= @share_href %></div>
 			 </div>
 			<% else %>
 			 <div class="btn-group pull-right">
@@ -35,6 +36,7 @@
 			 <div class="nav-collapse">
             <ul class="nav">
 					<li><a href="<%= root_url + @share.user.nickname unless @share.user.nickname.blank? %>">Shared by <b><%= @share.user.first_name + ' ' + @share.user.last_name unless @share.user.first_name.blank? || @share.user.last_name.blank? %></b></a></li>
+
 <!-- 					<li><a href="/profile">Profile</a></li> -->
 					<!-- <li><a href="/favorites">Favorites</a></li> -->
               <!-- <li><a href="#contact">Contact</a></li> -->
@@ -46,10 +48,89 @@
 
 
 
-<iframe src="<%= @share_link %>" class="share_iframe"></iframe>
+<span class="share_iframe_wrap"><iframe src="<%= @share_link %>" class="share_iframe" id="iframeid"></iframe></span>
+
 <script>
-	//$(".share_load").load("http://www.eberri.com"); 
+	//$(".share_load").load("http://www.eberri.com");
+	//var iframe = $(".share_iframe_wrap").find('iframe').val();
+	//var iframe = $(".share_iframe_wrap").find('iframe').andSelf( ).length;
+
+	// $(document).ready(function(){
+ //        var locations = ["http://eberri.com", "http://flodeck.com"];
+ //        var len = locations.length;
+ //        var iframe = $('#iframeid');
+ //        var i = 0;
+ //        setInterval(function () {
+ //            $(iframe).attr('src', locations[++i % len]);
+ //        }, 10000);
+ //    });
+	//$(document).ready(function(){
+
+		var iframe_status = false;
+
+		function iframe_action(iframe_status) {
+	    	if (iframe_status == true) {
+
+		    } else if (iframe_status == false) {
+		    	window.location = "<%= @share_link %>";
+		    	//alert('hey');
+		    }
+	    }
+
+
+	    var iframe_load = function() {
+
+	        try
+		    {
+		        iframe_status = true;
+	        	iframe_action(iframe_status);
+		    }
+	        catch(err)
+		    { 
+		        alert(msg = err.name + ": " + err.message);
+		    }
+			finally
+		    {
+		        //alert('This is finally block');
+		    }
+	    }
+
+		document.getElementById('iframeid').onload = iframe_load;
+		
+		var href = $('.share_link_href').html();
+
+		var readyStateCheckInterval = setInterval(function() {
+		    if (document.readyState === "complete") {
+		        //alert('complete');
+		        console.log('complete.');
+		        clearInterval(readyStateCheckInterval);
+		    }
+		    else if (document.readyState === "uninitialized") {
+		    	//alert('uninitialized');
+		    	console.log('uninitialized...');
+		    }
+		    else if (document.readyState === "loading") {
+		    	//alert('loading');
+		    	console.log('loading...');
+		    }
+		    else if (document.readyState === "interactive") {
+		    	//alert('interactive');
+		    	console.log('interactive...');
+		    }
+		}, 0);
+
+		
+
+//	});
+
+	    
+	    //alert(iframe_status + ' 2');
+	   //  document.getElementById('iframeid').onUnload = function() {
+    // 		alert('Handler for .error() called.');
+  		// }
+	
 </script>
+
 <div class="share_load"></div>
 
 
