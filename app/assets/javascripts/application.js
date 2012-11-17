@@ -8,6 +8,20 @@
 //= require jquery_ujs
 //= require_tree .
 
+addEventListener("load", function() { setTimeout(promo_campaign_wrap, 200); }, false);
+
+function promo_campaign_wrap(){
+	//$('.promo-campaign-wrap').fadeIn(600);
+
+	//$('.promo-campaign-wrap').show();
+
+	$("#promo-campaign-wrap").animate({
+	       top: '+=100px'
+	    }, { duration: 800, queue: false });
+    //$(".splash_logo").fadeIn(600);
+}
+
+
 $(document).ready(function () {
 
 	$(".redeem_button").live('click', function(event) {
@@ -17,7 +31,5 @@ $(document).ready(function () {
 		    }, { duration: 500, queue: false });
 	    $(".redeem_code").fadeIn(200);
 	});
-
 	
-
 });
