@@ -59,7 +59,7 @@
 		              </li>
 <!-- 		            </a> -->
 		          <% end %>
-
+		          <%= will_paginate @campaign, :class=>"pagination" %>
                   </div> <!-- .thumbnails -->
                 </div> <!-- .row -->
                 <% end %>
@@ -71,3 +71,8 @@
 	</div> <!-- .row -->
 
 </div><!--/.container-->
+
+<br><br><br>
+</div><!-- missing? -->
+
+<%= render 'shared/new_footer' %>
