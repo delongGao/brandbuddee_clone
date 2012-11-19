@@ -352,10 +352,10 @@
 
         <%= text_area_tag :personal_message, nil, :class => "input-large facebook_wall_post", :placeholder=>"your personal message...", :rows => 3 %>
         <%= hidden_field_tag(:name, @campaign.title) %>
-        <%= hidden_field_tag(:link, @campaign.link) %>
+        <%= hidden_field_tag(:link, root_url + @campaign.link) %>
         <%= hidden_field_tag(:caption, @campaign.reward) %>
         <%= hidden_field_tag(:description, @campaign.detail) %>
-        <%= hidden_field_tag(:picture, @campaign.campaign_image_url().to_s) %>
+        <%= hidden_field_tag(:picture, @campaign.campaign_image_url(:standard).to_s) %>
   </div>
   <div class="modal-footer">
     <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
