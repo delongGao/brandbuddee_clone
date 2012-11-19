@@ -7,6 +7,9 @@ class User
   
   field :provider, :type => String
   field :uid, :type => String
+  field :oauth_token, :type => String
+  field :oauth_expires_at, :type => String
+
   field :date, :type => DateTime
   field :last_login, :type => DateTime
   field :last_activity, :type => DateTime
@@ -61,6 +64,8 @@ class User
     create! do |user|
       user.provider = auth["provider"]
       user.uid = auth["uid"]
+      user.oauth_token = auth["credentials"]["token"]
+      user.oauth_expires_at = auth["credentials"]["expires_at"]
       user.date = time_now
       user.first_name = auth["extra"]["raw_info"]["first_name"]
       user.last_name = auth["extra"]["raw_info"]["last_name"]
@@ -71,6 +76,10 @@ class User
       user.city = auth["info"]["location"]
       user.facebook = auth["info"]["nickname"]
     end
+  end
+
+  def facebook
+    @facebook ||= Koala::Facebook::API.new(oauth_token)
   end
 
   def self.create_with_omniauth_twitter(auth, time_now, email)

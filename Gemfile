@@ -12,6 +12,8 @@ gem "omniauth-twitter", "~> 0.0.12"
 #gem "twitter", "~> 3.6.0"
 gem 'bcrypt-ruby', :require => 'bcrypt'
 
+gem "koala", "~> 1.5.0"
+
 gem 'rmagick', '2.13.1'
 gem 'carrierwave', '0.5.8'
 gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'

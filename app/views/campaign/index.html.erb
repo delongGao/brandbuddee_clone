@@ -101,6 +101,9 @@
                                     <div class="clear"></div>
                                     Share Link:
                                     <input id="share_link_copy" class="input-large span4" type="text" value="<%= root_url + 's/' + @share.link %>">
+                                    <% if current_user.account_type == 'admin' %>
+                                        <a href="#facebookModal" class="btn btn-primary btn-large" data-toggle="modal" style="margin-bottom:8px;"><i class="icon-circle-arrow-up icon-white"></i> Post to Facebook</a>
+                                    <% end %>
                                     <div class="clear"></div>
                                 </div><br>
                         <% end %>
@@ -335,6 +338,29 @@
 
         </div>
     </div>
+</div>
+
+
+<!-- Facebook Modal -->
+<div id="facebookModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button class="close" data-dismiss="modal">×</button>
+    <h3>Post to Facebook</h3>
+  </div>
+  <div class="modal-body">
+    <%= form_tag url_for(:controller => 'campaign', :action => 'facebook_wall_post'), :id => "", :class => "form-horizontal" do %>
+
+        <%= text_area_tag :personal_message, nil, :class => "input-large facebook_wall_post", :placeholder=>"your personal message...", :rows => 3 %>
+        <%= hidden_field_tag(:name, @campaign.title) %>
+        <%= hidden_field_tag(:link, @campaign.link) %>
+        <%= hidden_field_tag(:caption, @campaign.reward) %>
+        <%= hidden_field_tag(:description, @campaign.detail) %>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+        <%= submit_tag 'Post', :class=>"btn btn-primary" %>
+    <% end %>
+  </div>
 </div>
 
 

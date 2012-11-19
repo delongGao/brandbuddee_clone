@@ -75,6 +75,18 @@ class CampaignController < ApplicationController
 		end
 	end
 
+	def facebook_wall_post
+		if current_user
+			current_user.facebook.put_wall_post(params[:personal_message], {
+			  "name" => params[:name],
+			  "link" => params[:link],
+			  "caption" => params[:caption],
+			  "description" => params[:description],
+			  "picture" => params[:picture]
+			})
+		end
+	end
+
 	def resend_redeem_confirmation_email
 		@redeem = Redeem.find(params[:_id])
 		#@share = Share.where(:user_id => @redeem.user_id, :campaign_id => @redeem.campaign_id)
