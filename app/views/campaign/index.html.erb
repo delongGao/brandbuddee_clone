@@ -355,6 +355,7 @@
         <%= hidden_field_tag(:link, @campaign.link) %>
         <%= hidden_field_tag(:caption, @campaign.reward) %>
         <%= hidden_field_tag(:description, @campaign.detail) %>
+        <%= hidden_field_tag(:picture, @campaign.campaign_image_url().to_s) %>
   </div>
   <div class="modal-footer">
     <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
