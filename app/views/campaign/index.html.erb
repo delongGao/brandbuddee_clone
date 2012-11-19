@@ -364,7 +364,9 @@
             <%= hidden_field_tag(:link, 'http://brandbuddee.com/s/OEt4nXwnhnR') %>
             <%= hidden_field_tag(:picture, 'http://brandbuddee.s3.amazonaws.com/campaign_image/50a30cb13facd1000200000b/standard_Screen_Shot_2012-11-13_at_7.46.54_PM.png') %>
         <% elsif Rails.env.production? %>
-            <%= hidden_field_tag(:link, root_url + 's/' + @share.link) unless @share.link.nil? %>
+            <% unless @share.link.nil? %>
+            <%= hidden_field_tag(:link, root_url + 's/' + @share.link) %>
+            <% end %>
             <%= hidden_field_tag(:picture, @campaign.campaign_image_url(:standard).to_s) %>
         <% end %>
   </div>
