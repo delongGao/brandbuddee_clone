@@ -111,6 +111,40 @@
                                     <a href="#facebookModal" class="btn btn-primary btn-large" data-toggle="modal" style="margin-bottom:8px;"><i class="icon-circle-arrow-up icon-white"></i> Post to Facebook</a>
                                     <div class="clear"></div>
                                 </div><br>
+
+
+                                <!-- Facebook Modal -->
+                                <div id="facebookModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                  <div class="modal-header">
+                                    <button class="close" data-dismiss="modal">×</button>
+                                    <h3>Post to Facebook</h3>
+                                  </div>
+                                  <div class="modal-body">
+                                    <%= form_tag url_for(:controller => 'campaign', :action => 'facebook_wall_post'), :id => "", :class => "form-horizontal" do %>
+
+                                        <%= text_area_tag :personal_message, nil, :class => "input-large facebook_wall_post", :placeholder=>"your personal message...", :rows => 3 %>
+                                        <%= hidden_field_tag(:name, @campaign.title) %>
+                                        <%= hidden_field_tag(:caption, @campaign.reward) %>
+                                        <%= hidden_field_tag(:description, @campaign.detail) %>
+                                        <%= hidden_field_tag(:campaign_link, @campaign.link) %>
+                                        <% if Rails.env.development? %>
+                                            <%= hidden_field_tag(:link, 'http://brandbuddee.com/s/OEt4nXwnhnR') %>
+                                            <%= hidden_field_tag(:picture, 'http://brandbuddee.s3.amazonaws.com/campaign_image/50a30cb13facd1000200000b/standard_Screen_Shot_2012-11-13_at_7.46.54_PM.png') %>
+                                        <% elsif Rails.env.production? %>
+                                            <% unless @share.link.nil? %>
+                                            <%= hidden_field_tag(:link, root_url + 's/' + @share.link) %>
+                                            <% end %>
+                                            <%= hidden_field_tag(:picture, @campaign.campaign_image_url(:standard).to_s) %>
+                                        <% end %>
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+                                        <%= submit_tag 'Post', :class=>"btn btn-primary" %>
+                                    <% end %>
+                                  </div>
+                                </div>
+
+
                         <% end %>
 
                     <% end %>
@@ -346,36 +380,7 @@
 </div>
 
 
-<!-- Facebook Modal -->
-<div id="facebookModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-header">
-    <button class="close" data-dismiss="modal">×</button>
-    <h3>Post to Facebook</h3>
-  </div>
-  <div class="modal-body">
-    <%= form_tag url_for(:controller => 'campaign', :action => 'facebook_wall_post'), :id => "", :class => "form-horizontal" do %>
 
-        <%= text_area_tag :personal_message, nil, :class => "input-large facebook_wall_post", :placeholder=>"your personal message...", :rows => 3 %>
-        <%= hidden_field_tag(:name, @campaign.title) %>
-        <%= hidden_field_tag(:caption, @campaign.reward) %>
-        <%= hidden_field_tag(:description, @campaign.detail) %>
-        <%= hidden_field_tag(:campaign_link, @campaign.link) %>
-        <% if Rails.env.development? %>
-            <%= hidden_field_tag(:link, 'http://brandbuddee.com/s/OEt4nXwnhnR') %>
-            <%= hidden_field_tag(:picture, 'http://brandbuddee.s3.amazonaws.com/campaign_image/50a30cb13facd1000200000b/standard_Screen_Shot_2012-11-13_at_7.46.54_PM.png') %>
-        <% elsif Rails.env.production? %>
-            <% unless @share.link.nil? %>
-            <%= hidden_field_tag(:link, root_url + 's/' + @share.link) %>
-            <% end %>
-            <%= hidden_field_tag(:picture, @campaign.campaign_image_url(:standard).to_s) %>
-        <% end %>
-  </div>
-  <div class="modal-footer">
-    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-        <%= submit_tag 'Post', :class=>"btn btn-primary" %>
-    <% end %>
-  </div>
-</div>
 
 
     <script>        
