@@ -91,7 +91,7 @@
                                             </div>
                                         </div>
                                         <div class="sharing-campaign campaign-pinterest-share">
-                                            <a href="http://pinterest.com/pin/create/button/?url=http%3A%2F%2Flocalhost%3A3000%2F&media=http%3A%2F%2Flocalhost%3A3000%2Fimage%2F&description=This_is_the_description" class="pin-it-button" count-layout="none"><img border="0" src="//assets.pinterest.com/images/PinExt.png" title="Pin It" /></a>
+                                            <a href="http://pinterest.com/pin/create/button/?url=<%= root_url + 's/' + @share.link %>&media=<%= @campaign.campaign_image_url() %>&description=<%= @campaign.title %>" class="pin-it-button" target="_blank" count-layout="none"><img border="0" src="//assets.pinterest.com/images/PinExt.png" title="Pin It" /></a>
                                         </div>
                                         <div class="sharing-campaign campaign-facebook-share">
                                             <div class="fb-like" data-href="<%= root_url + 's/' + @share.link %>" data-send="true" data-width="375" data-show-faces="false" data-action=""></div>
