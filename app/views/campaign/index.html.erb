@@ -108,9 +108,7 @@
                                     <div class="clear"></div>
                                     Share Link:
                                     <input id="share_link_copy" class="input-large span4" type="text" value="<%= root_url + 's/' + @share.link %>">
-                                    <% if current_user.account_type == 'admin' %>
-                                        <a href="#facebookModal" class="btn btn-primary btn-large" data-toggle="modal" style="margin-bottom:8px;"><i class="icon-circle-arrow-up icon-white"></i> Post to Facebook</a>
-                                    <% end %>
+                                    <a href="#facebookModal" class="btn btn-primary btn-large" data-toggle="modal" style="margin-bottom:8px;"><i class="icon-circle-arrow-up icon-white"></i> Post to Facebook</a>
                                     <div class="clear"></div>
                                 </div><br>
                         <% end %>
