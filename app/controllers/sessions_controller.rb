@@ -13,6 +13,7 @@ class SessionsController < ApplicationController
 
     if User.exists?(conditions: { provider: auth["provider"], uid: auth["uid"] })
       user = User.where(uid: auth["uid"]).first
+      user.update_with_omniauth(auth, user)
       user.last_login = Time.now
       user.save
       session[:user_id] = user.id

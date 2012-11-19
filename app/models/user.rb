@@ -82,6 +82,15 @@ class User
     @facebook ||= Koala::Facebook::API.new(oauth_token)
   end
 
+  def self.update_with_omniauth(auth, user)
+    user.update_attributes!(
+      provider: auth["provider"],
+      uid: auth["uid"],
+      oauth_token: auth["credentials"]["token"],
+      oauth_expires_at: auth["credentials"]["expires_at"]
+    )
+  end
+
   def self.create_with_omniauth_twitter(auth, time_now, email)
     create! do |user|
       user.provider = auth["provider"]
