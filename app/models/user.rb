@@ -33,9 +33,9 @@ class User
   field :bio, :type => String
   field :nickname, :type => String
 
-  field :facebook, :type => String
-  field :twitter, :type => String
-  field :pinterest, :type => String
+  field :facebook_social, :type => String
+  field :twitter_social, :type => String
+  field :pinterest_social, :type => String
   
   mount_uploader :profile_image, ProfileImageUploader
   attr_accessible :profile_image, :username, :email, :password, :password_confirmation, :date, :first_name, :last_name, :gender, :phone, :city, :state, :website, :bio
@@ -74,7 +74,7 @@ class User
       #user.remote_profile_image_url = auth["info"]["image"]
       user.remote_profile_image_url = "http://graph.facebook.com/#{auth["uid"]}/picture?type=large"
       user.city = auth["info"]["location"]
-      user.facebook = auth["info"]["nickname"]
+      user.facebook_social = auth["info"]["nickname"]
     end
   end
 
@@ -94,7 +94,7 @@ class User
       #user.remote_profile_image_url = auth["info"]["image"]
       user.remote_profile_image_url = "http://graph.facebook.com/#{auth["uid"]}/picture?type=large"
       user.city = auth["info"]["location"]
-      user.facebook = auth["info"]["nickname"]
+      user.facebook_social = auth["info"]["nickname"]
     end
   end
   
