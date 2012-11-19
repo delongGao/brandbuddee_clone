@@ -77,13 +77,29 @@ class CampaignController < ApplicationController
 
 	def facebook_wall_post
 		if current_user
-			current_user.facebook.put_wall_post(params[:personal_message], {
-			  "name" => params[:name],
-			  "link" => params[:link],
-			  "caption" => params[:caption],
-			  "description" => params[:description],
-			  "picture" => params[:picture]
-			})
+			unless params[:personal_message].blank?
+				begin
+					facebook_graph = Koala::Facebook::GraphAPI.new(current_user.oauth_token)
+					object_from_koala = facebook_graph.put_wall_post(params[:personal_message], {
+						"name" => params[:name],
+						"link" => params[:link],
+						"caption" => params[:caption],
+						"description" => params[:description],
+						"picture" => params[:picture]
+					})
+					flash[:notice] = "Awesome! You've posted to your wall!"
+					redirect_to "#{root_url}campaign/#{params[:campaign_link]}"
+				rescue Koala::Facebook::APIError => exc
+					#logger.error("Problems posting to Facebook Wall..."+self.inspect+" "+exc.message)
+					if exc.message == "KoalaMissingAccessToken: Write operations require an access token"
+						flash[:error] = "Please connect to your Facebook account to post to your wall. <a href='/auth/facebook' class='btn btn-primary btn-small'>connect w/ facebook</a>"
+					end
+					redirect_to "#{root_url}campaign/#{params[:campaign_link]}"
+				end
+			else
+				flash[:error] = "Please enter a personal message"
+				redirect_to "#{root_url}campaign/#{params[:campaign_link]}"
+			end
 		end
 	end
 

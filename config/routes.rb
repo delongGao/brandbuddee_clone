@@ -64,7 +64,8 @@ Brandbuddee::Application.routes.draw do
   match 'campaign/activate' => 'campaign#activate_campaign'
   get "/campaign/:campaign" => 'campaign#index', :as => :campaign
 
-  post 'post/facebook' => 'campaign#facebook_wall_post'
+  match '/post/facebook' => 'campaign#facebook_wall_post'
+  #match '/facebook/connect' => 'users#facebook_connect'
 
   get "/s/:share" => 'campaign#share', :as => :share
 

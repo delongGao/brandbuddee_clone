@@ -38,7 +38,7 @@ class User
   field :pinterest_social, :type => String
   
   mount_uploader :profile_image, ProfileImageUploader
-  attr_accessible :profile_image, :username, :email, :password, :password_confirmation, :date, :first_name, :last_name, :gender, :phone, :city, :state, :website, :bio, :oauth_token, :oauth_expires_at 
+  attr_accessible :profile_image, :username, :email, :password, :password_confirmation, :date, :first_name, :last_name, :gender, :phone, :city, :state, :website, :bio, :oauth_token, :oauth_expires_at, :uid
   
   attr_accessor :password
   before_save :encrypt_password
@@ -54,6 +54,14 @@ class User
 
   def self.validates_email_uniqueness(email)
     if self.exists?(conditions: { email: email })
+      return true
+    else
+      return false
+    end
+  end
+
+  def self.uid_check(uid)
+    if self.exists?(conditions: { uid: uid })
       return true
     else
       return false
@@ -83,12 +91,17 @@ class User
   end
 
   def self.update_with_omniauth(auth, user)
-    user.update_attributes!(
-      provider: auth["provider"],
-      uid: auth["uid"],
-      oauth_token: auth["credentials"]["token"],
-      oauth_expires_at: auth["credentials"]["expires_at"]
-    )
+    if self.uid_check(auth["uid"])
+      return false
+    else
+      user.update_attributes!(
+        provider: auth["provider"],
+        uid: auth["uid"],
+        oauth_token: auth["credentials"]["token"],
+        oauth_expires_at: auth["credentials"]["expires_at"]
+      )
+      return true
+    end
   end
 
   def self.create_with_omniauth_twitter(auth, time_now, email)

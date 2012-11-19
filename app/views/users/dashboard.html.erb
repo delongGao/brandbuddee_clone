@@ -10,6 +10,15 @@
         </div> <!-- .alert -->
       <% end %>
 
+      <% if flash[:error].nil? %><% else %>
+        <div class="alert alert-danger">
+          <button class="close" data-dismiss="alert">×</button>
+          <%= flash[:error].html_safe %>
+        </div> <!-- .alert -->
+      <% end %>
+
+
+
       <% if params[:c].nil? %>
         <% @campaign = Campaign.all.order_by([:date, :desc]).paginate :page => params[:page], :per_page => 9 %>
       <% elsif %>

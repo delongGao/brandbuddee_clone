@@ -16,6 +16,13 @@
 		</div> <!-- .alert -->
 	<% end %>
 
+    <% if flash[:error].nil? %><% else %>
+        <div class="alert alert-danger">
+          <button class="close" data-dismiss="alert">×</button>
+          <%= flash[:error].html_safe %>
+        </div> <!-- .alert -->
+    <% end %>
+
 
     <div class="row">
 <!--         <div class="span3">
@@ -352,10 +359,16 @@
 
         <%= text_area_tag :personal_message, nil, :class => "input-large facebook_wall_post", :placeholder=>"your personal message...", :rows => 3 %>
         <%= hidden_field_tag(:name, @campaign.title) %>
-        <%= hidden_field_tag(:link, root_url + @campaign.link) %>
         <%= hidden_field_tag(:caption, @campaign.reward) %>
         <%= hidden_field_tag(:description, @campaign.detail) %>
-        <%= hidden_field_tag(:picture, @campaign.campaign_image_url(:standard).to_s) %>
+        <%= hidden_field_tag(:campaign_link, @campaign.link) %>
+        <% if Rails.env.development? %>
+            <%= hidden_field_tag(:link, 'http://brandbuddee.com/s/OEt4nXwnhnR') %>
+            <%= hidden_field_tag(:picture, 'http://brandbuddee.s3.amazonaws.com/campaign_image/50a30cb13facd1000200000b/standard_Screen_Shot_2012-11-13_at_7.46.54_PM.png') %>
+        <% elsif Rails.env.production? %>
+            <%= hidden_field_tag(:link, root_url + 's/' + @share.link) %>
+            <%= hidden_field_tag(:picture, @campaign.campaign_image_url(:standard).to_s) %>
+        <% end %>
   </div>
   <div class="modal-footer">
     <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>

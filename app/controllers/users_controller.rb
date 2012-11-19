@@ -20,6 +20,15 @@ class UsersController < ApplicationController
     end
   end
 
+  def facebook_connect
+    auth = request.env["omniauth.auth"]
+
+    User.update_with_omniauth(auth, current_user)
+
+    flash[:notice] = "Successfully connected with Facebook"
+    redirect_to '/home'
+  end
+
   def complete_email
     @user = User.first
   end
