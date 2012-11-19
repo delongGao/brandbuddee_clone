@@ -62,7 +62,12 @@ class User
 
   def self.uid_check(uid)
     if self.exists?(conditions: { uid: uid })
-      return true
+      exists = self.where(:uid => uid).first
+      unless exists.oauth_token.nil?
+        return true
+      else
+        return false
+      end
     else
       return false
     end
