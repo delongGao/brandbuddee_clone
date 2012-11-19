@@ -38,7 +38,7 @@ class User
   field :pinterest_social, :type => String
   
   mount_uploader :profile_image, ProfileImageUploader
-  attr_accessible :profile_image, :username, :email, :password, :password_confirmation, :date, :first_name, :last_name, :gender, :phone, :city, :state, :website, :bio
+  attr_accessible :profile_image, :username, :email, :password, :password_confirmation, :date, :first_name, :last_name, :gender, :phone, :city, :state, :website, :bio, :oauth_token, :oauth_expires_at 
   
   attr_accessor :password
   before_save :encrypt_password
