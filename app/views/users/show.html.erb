@@ -15,8 +15,8 @@
   	<th>ID</th>
   	<th>Provider</th>
   	<th>UID</th>
-    <th>token</th>
-    <th>expires_at</th>
+    <th>Facebook</th>
+<!--     <th>expires_at</th> -->
   	<th>Date</th>
     <th>Last Login</th>
     <th>Last Activity</th>
@@ -44,8 +44,12 @@
   	<td><%= u._id %></td>
   	<td><%= u.provider %></td>
   	<td><%= u.uid %></td>
-    <td><%= u.oauth_token %></td>
-    <td><%= u.oauth_expires_at %></td>
+    <td>
+      <% unless u.oauth_token.nil? %>
+        <span class="label label-success">connected</span>
+      <% end %>
+    </td>
+<!--     <td><%#= u.oauth_expires_at %></td> -->
   	<td><%= u.date %> <span class="label"><%= time_ago_in_words(u.date) + " ago" unless u.date.nil? %></span></td>
     <td><%= u.last_login %> <span class="label"><%= time_ago_in_words(u.last_login) + " ago" unless u.last_login.nil? %> </span></td>
     <td><%= u.last_activity %> <span class="label"><%= time_ago_in_words(u.last_activity) + " ago" unless u.last_activity.nil? %> </span></td>
