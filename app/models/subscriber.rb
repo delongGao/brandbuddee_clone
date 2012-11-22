@@ -32,5 +32,18 @@ class Subscriber
       s.save
     end
   end
+
+  def self.invite(id, root_url)
+    new_invite_code = Invitation.assign_invite_code()
+    @subscriber = Subscriber.find(id)
+    @subscriber.invitation = Invitation.new(:date => Time.now, :invite_code => new_invite_code, :email => @subscriber.email)
+
+    if @subscriber.save
+      UserMailer.beta_invite(@subscriber.email, @subscriber.invitation.invite_code, root_url).deliver
+      return true
+    else
+      return false
+    end
+  end
   
 end

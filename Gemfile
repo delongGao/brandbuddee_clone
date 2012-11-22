@@ -20,6 +20,8 @@ gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
 
 gem "s3", ">= 0.3.7"
 gem "fog", "~> 1.3.1"
+gem "delayed_job", "~> 3.0.2"
+gem "delayed_job_mongoid", "~> 1.0.8"
 
 gem 'mail', '2.3.3'
 
