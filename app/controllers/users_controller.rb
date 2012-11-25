@@ -154,7 +154,7 @@ class UsersController < ApplicationController
           redirect_to(:controller => 'users', :action => 'dashboard')
         else
           unless params[:invite].blank?
-            flash[:notice] = "fuuuuuu #{params[:invite]} | #{@invite.email}"
+            flash[:notice] = "Invalid invitation."
             redirect_to "#{root_url}signup?invite=#{params[:invite]}"
           else
             flash[:notice] = "Invalid... please fill out all the fields."
