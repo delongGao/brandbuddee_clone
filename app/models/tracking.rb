@@ -4,7 +4,7 @@ class Tracking
 
   field :date, :type => DateTime
   field :ip_address, :type => String
-  field :views, :type => Integer, :default => 0
+  field :views, :type => Integer, :default => 1
 
 
   def self.validates_ip_uniqueness(ip)
