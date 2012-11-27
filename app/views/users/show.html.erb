@@ -262,6 +262,7 @@
   	<th>Date</th>
   	<th>Link</th>
   	<th>url</th>
+    <th>Official Points</th>
   	<th>Page Views</th>
   	<th>Unique Page Views</th>
     <th>Cookie Page Views</th>
@@ -277,6 +278,7 @@
   	<td><%= u.date %></td>
   	<td><%= u.link %></td>
   	<td><%= u.url %></td>
+    <td><%= u.unique_page_views + u.trackings.size %></td>
   	<td><%= u.page_views %></td>
   	<td><%= u.unique_page_views %></td>
     <td><%= u.cookie_page_views + u.page_views %></td>
