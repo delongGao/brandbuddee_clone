@@ -1,0 +1,49 @@
+/* line 5, ../../app/assets/stylesheets/users.css.scss */
+.left-nav {
+  height: 100%;
+}
+
+/* line 14, ../../app/assets/stylesheets/users.css.scss */
+.complete_email {
+  display: block;
+  margin: 0 auto;
+  float: none;
+  position: relative;
+  top: 55px;
+  left: 0;
+  right: 0;
+}
+
+/* line 24, ../../app/assets/stylesheets/users.css.scss */
+.help-inline {
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 17px;
+}
+
+/* line 31, ../../app/assets/stylesheets/users.css.scss */
+.campaign_details {
+  float: right;
+}
+
+/* line 36, ../../app/assets/stylesheets/users.css.scss */
+.pts_req_text {
+  font-size: 12px;
+}
+
+/* line 40, ../../app/assets/stylesheets/users.css.scss */
+.pts_req_wrap {
+  margin-right: 8px;
+}
+
+/* line 52, ../../app/assets/stylesheets/users.css.scss */
+.campaign_title_wrap {
+  display: block;
+  height: 40px;
+}
+
+/* line 57, ../../app/assets/stylesheets/users.css.scss */
+.campaign_reward_wrap {
+  display: block;
+  height: 40px;
+}

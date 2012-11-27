@@ -37,12 +37,24 @@ class CampaignController < ApplicationController
 		if share.present?
 			Share.page_view(share.id)
 
+			#validates tracking based on client cookies
 			c = cookies[share.id]
 			if c == share.id
 			elsif c.nil?
 			  cookies[share.id] = share.id
 			  Share.unique_page_view(share.id)
 			end
+
+			#validates tracking via unique IP addresses
+			ip_address = request.remote_ip
+			if Tracking.validates_ip_uniqueness(ip_address)
+			  tracking = Tracking.where(:ip_address => ip_address).first
+			  Tracking.view(tracking.id)
+			else
+			  Share.unique_page_view(share.id)
+			  share.trackings.create!(date: Time.now, ip_address: ip_address)
+			end
+
 
 			share_update = Share.find(share.id)
 			user_share = share_update.user_id

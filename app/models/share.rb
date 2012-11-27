@@ -4,12 +4,16 @@ class Share
   include Mongoid::Document
   belongs_to :campaign
   belongs_to :user
+  has_many :trackings, :dependent => :destroy
 
   field :date, :type => DateTime
   field :link, :type => String
   field :url, :type => String
   field :unique_page_views, :type => Integer, :default => 0
   field :page_views, :type => Integer, :default => 0
+
+  field :cookie_unique_page_views, :type => Integer, :default => 0
+  field :cookie_page_views, :type => Integer, :default => 0
 
 
   def self.assign_link()
@@ -25,13 +29,13 @@ class Share
 
   def self.page_view(id)
     share = Share.find(id)
-    share.page_views += 1
+    share.cookie_page_views += 1
     share.save
   end
 
   def self.unique_page_view(id)
     share = Share.find(id)
-    share.unique_page_views += 1
+    share.cookie_unique_page_views += 1
     share.save
   end
 

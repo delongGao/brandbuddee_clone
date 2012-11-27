@@ -1,0 +1,263 @@
+/* line 6, ../../app/assets/stylesheets/welcome.css.scss */
+.welcome-logo {
+  display: block;
+  position: absolute;
+  top: 37%;
+  left: 0;
+  right: 0;
+  width: 500px;
+  margin: 0 auto;
+}
+
+/* line 16, ../../app/assets/stylesheets/welcome.css.scss */
+.splashLeft {
+  float: left;
+  height: 100%;
+  width: 50%;
+  color: #FFF;
+  text-align: right;
+}
+
+/* line 24, ../../app/assets/stylesheets/welcome.css.scss */
+.splashLeftBg {
+  position: fixed;
+  width: 50%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.9);
+}
+
+/* line 31, ../../app/assets/stylesheets/welcome.css.scss */
+.splashRight {
+  float: right;
+  min-height: 100%;
+  width: 50%;
+  background: white url("/assets/splash_bg.png") repeat;
+}
+
+/* line 38, ../../app/assets/stylesheets/welcome.css.scss */
+.splash_logo {
+  display: block;
+  position: relative;
+  top: -8px;
+}
+
+/* line 44, ../../app/assets/stylesheets/welcome.css.scss */
+.splash_wrap {
+  display: block;
+  position: absolute;
+  top: 35%;
+  left: 0;
+  right: 0;
+  width: 950px;
+  margin: 0 auto;
+}
+
+/* line 54, ../../app/assets/stylesheets/welcome.css.scss */
+.splashLoginWrap {
+  display: block;
+  position: absolute;
+  margin-left: 65px;
+  width: 450px;
+}
+
+/* line 61, ../../app/assets/stylesheets/welcome.css.scss */
+.splashLogin {
+  float: right;
+  margin-top: 23px;
+  margin-right: 17px;
+}
+
+/* line 67, ../../app/assets/stylesheets/welcome.css.scss */
+.splashMessage {
+  display: block;
+  position: absolute;
+  top: 33%;
+  margin-left: 65px;
+  width: 450px;
+}
+
+/* line 75, ../../app/assets/stylesheets/welcome.css.scss */
+.splashMessage h2 {
+  line-height: 25px;
+  color: rgba(0, 0, 0, 0.7);
+  font-weight: 400;
+  font-size: 20px;
+}
+
+/* line 82, ../../app/assets/stylesheets/welcome.css.scss */
+.splashMessage h4 {
+  color: rgba(0, 0, 0, 0.7);
+}
+
+/* line 86, ../../app/assets/stylesheets/welcome.css.scss */
+.beta_form {
+  margin-top: 15px;
+}
+
+/* line 90, ../../app/assets/stylesheets/welcome.css.scss */
+input.input-large {
+  padding: 8px 14px;
+}
+
+/* line 94, ../../app/assets/stylesheets/welcome.css.scss */
+div.gradient {
+  background: url(../img/gradient.png) no-repeat top center;
+  min-height: 770px;
+}
+
+/* line 99, ../../app/assets/stylesheets/welcome.css.scss */
+div.content {
+  text-align: center;
+  margin-top: 1.5em;
+}
+
+/* line 105, ../../app/assets/stylesheets/welcome.css.scss */
+a.sb.gplus,
+.sb a.gplus {
+  background-image: url(../img/social-buttons/gplus.png);
+}
+
+/* line 109, ../../app/assets/stylesheets/welcome.css.scss */
+.splashFooter {
+  display: block;
+  position: absolute;
+  margin-left: 20px;
+  bottom: 7px;
+  font-size: 11px;
+  color: rgba(0, 0, 0, 0.3);
+}
+
+/* line 118, ../../app/assets/stylesheets/welcome.css.scss */
+.splashFooter span {
+  margin: 0 5px;
+}
+
+/* line 122, ../../app/assets/stylesheets/welcome.css.scss */
+.subscribe_container {
+  display: none;
+  position: relative;
+  top: 225px;
+  left: 0;
+  right: 0;
+  width: 380px;
+}
+
+/* line 132, ../../app/assets/stylesheets/welcome.css.scss */
+.subscribe_wrap {
+  position: relative;
+  margin-top: 75px;
+}
+
+/* line 139, ../../app/assets/stylesheets/welcome.css.scss */
+#share_box {
+  position: relative;
+  right: -75px;
+  color: #000;
+}
+
+/* line 145, ../../app/assets/stylesheets/welcome.css.scss */
+#share_message {
+  padding: 0;
+}
+
+/* line 149, ../../app/assets/stylesheets/welcome.css.scss */
+.sharing {
+  float: left;
+  position: relative;
+  width: auto;
+  margin: 0 auto;
+  margin-top: 5px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+
+/* line 159, ../../app/assets/stylesheets/welcome.css.scss */
+.twitter-share {
+  display: block;
+  width: 51px;
+  margin-top: 8px;
+}
+
+/* line 165, ../../app/assets/stylesheets/welcome.css.scss */
+.facebook-share {
+  display: block;
+  width: 125px;
+  padding-top: 2px;
+  height: 26px;
+}
+
+/* line 172, ../../app/assets/stylesheets/welcome.css.scss */
+#share {
+  display: none;
+  position: relative;
+  top: 61px;
+  height: auto;
+  width: 475px;
+}
+
+/* line 181, ../../app/assets/stylesheets/welcome.css.scss */
+#share h4 {
+  padding: 0 !important;
+  font-size: 19px !important;
+}
+
+/* line 186, ../../app/assets/stylesheets/welcome.css.scss */
+#share h5 {
+  padding: 0 !important;
+  line-height: 15px !important;
+  color: rgba(0, 0, 0, 0.7);
+}
+
+/* line 192, ../../app/assets/stylesheets/welcome.css.scss */
+#flash_notice {
+  font-size: 11px;
+  margin-top: 7px;
+  width: 81px;
+}
+
+/* line 199, ../../app/assets/stylesheets/welcome.css.scss */
+#flash_notice_email {
+  font-size: 11px;
+  padding: 3px 13px;
+  text-align: center;
+  width: 371px;
+  margin: 0 auto;
+  margin-top: -10px;
+  margin-bottom: 15px;
+}
+
+/* line 209, ../../app/assets/stylesheets/welcome.css.scss */
+.social_link {
+  display: block;
+  float: left;
+  width: 230px;
+  height: 44px;
+}
+
+/* line 217, ../../app/assets/stylesheets/welcome.css.scss */
+.email-signup {
+  display: block;
+  margin-top: 5px;
+  width: 400px;
+  margin: 0 auto;
+}
+
+/* line 224, ../../app/assets/stylesheets/welcome.css.scss */
+.social_logins {
+  display: block;
+  margin: 0 auto;
+  width: 464px;
+}
+
+/* line 230, ../../app/assets/stylesheets/welcome.css.scss */
+.login_wrap h3 {
+  font-size: 23px;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.7);
+}
+
+/* line 236, ../../app/assets/stylesheets/welcome.css.scss */
+.support_help_sections {
+  display: block;
+  margin-bottom: 25px;
+}

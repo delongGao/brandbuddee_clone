@@ -178,6 +178,7 @@ class UsersController < ApplicationController
           @location_all = Location.all.order_by([:date, :desc])
           @brand_all = Brand.all.order_by([:date, :desc])
           @share_all = Share.all.order_by([:date, :desc])
+          @tracking_all = Tracking.all.order_by([:date, :desc])
           @redeem_all = Redeem.all.order_by([:date, :desc])
           @link = Campaign.assign_link()
       else

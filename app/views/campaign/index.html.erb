@@ -190,7 +190,7 @@
 <% if current_user %>
 			<% if current_user.campaigns.where(:_id => @campaign.id).first %>
 
-				<p>Your Points: <b style="font-size:17px;"><%= @share.unique_page_views %></b></p>
+				<p>Your Points: <b style="font-size:17px;"><%= @share.unique_page_views + @share.trackings.size %></b></p>
 
                 <% unless left == 0 %>
                 	<p><span class="label label-success activated_label">Activated!</span></p>

@@ -264,6 +264,8 @@
   	<th>url</th>
   	<th>Page Views</th>
   	<th>Unique Page Views</th>
+    <th>Cookie Page Views</th>
+    <th>Cookie Unique Page Views</th>
   	<th>Campaign</th>
   	<th>User</th>
     <th>Remove</th>
@@ -277,10 +279,38 @@
   	<td><%= u.url %></td>
   	<td><%= u.page_views %></td>
   	<td><%= u.unique_page_views %></td>
+    <td><%= u.cookie_page_views + u.page_views %></td>
+    <td><%= u.cookie_unique_page_views + u.unique_page_views %></td>
   	<td><span class="label"><%= u.campaign_id %></span></td>
   	<td><span class="label label-info"><%#= u.user.first_name + ' ' + u.user.last_name unless u.user.first_name == nil or u.user.last_name == nil %>
       <%= u.user.id %></span></td>
   	<td><%= link_to "Delete", {:controller=>'users', :action=>'share_destroy', :_id => u._id}, :class => "btn btn-mini btn-danger" %></td>
+    </tr>
+  <% end %>
+  </table>
+</div>
+
+
+
+<div style="position:relative;left:25px;overflow:scroll;height:auto;width:97%;">
+  <div><h2 style="font-weight:200">Total: <%= pluralize(@tracking_all.size, 'Tracking') %></h2></div>
+  <table class="table table-bordered table-striped table-condensed">
+    <tr>
+    <th>ID</th>
+    <th>Date</th>
+    <th>IP Address</th>
+    <th>Views</th>
+    <th>Share ID</th>
+    </tr>
+
+  <% @tracking_all.each do |u| %>
+    <tr class="<%= cycle('odd', 'even') %>">
+    <td><%= u._id %></td>
+    <td><%= u.date %></td>
+    <td><%= u.ip_address %></td>
+    <td><%= u.views %></td>
+    <td><span class="label"><%= u.share_id %></span></td>
+    <td><%= link_to "Delete", {:controller=>'users', :action=>'share_destroy', :_id => u._id}, :class => "btn btn-mini btn-danger" %></td>
     </tr>
   <% end %>
   </table>
