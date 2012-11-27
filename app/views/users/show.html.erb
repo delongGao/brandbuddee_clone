@@ -308,11 +308,11 @@
   <% @tracking_all.each do |u| %>
     <tr class="<%= cycle('odd', 'even') %>">
     <td><%= u._id %></td>
-    <td><%= u.date %></td>
+    <td><%= u.date %> <span class="label"><%= time_ago_in_words(u.date) + " ago" unless u.date.nil? %></span></td>
     <td><%= u.ip_address %></td>
     <td><%= u.views %></td>
     <td><span class="label"><%= u.share_id %></span></td>
-    <td><%= link_to "Delete", {:controller=>'users', :action=>'share_destroy', :_id => u._id}, :class => "btn btn-mini btn-danger" %></td>
+    <td><%#= link_to "Delete", {:controller=>'users', :action=>'share_destroy', :_id => u._id}, :class => "btn btn-mini btn-danger" %></td>
     </tr>
   <% end %>
   </table>
