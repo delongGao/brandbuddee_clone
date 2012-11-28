@@ -295,7 +295,7 @@
 
 
 <div style="position:relative;left:25px;overflow:scroll;height:auto;width:97%;">
-  <div><h2 style="font-weight:200">Total: <%= pluralize(@tracking_all.size, 'Tracking') %></h2></div>
+  <div><h2 style="font-weight:200">Total: <%= pluralize(@tracking_all.size, 'Tracking') %></h2><p><%= request.remote_ip %></p></div>
   <table class="table table-bordered table-striped table-condensed">
     <tr>
     <th>ID</th>
