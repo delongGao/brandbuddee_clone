@@ -7,8 +7,8 @@ class Tracking
   field :views, :type => Integer, :default => 1
 
 
-  def self.validates_ip_uniqueness(ip)
-    if self.exists?(conditions: { ip_address: ip })
+  def self.validates_ip_uniqueness(ip, share)
+    if self.exists?(conditions: { ip_address: ip, share_id: share.id })
       return true
     else
       return false

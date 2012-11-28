@@ -47,8 +47,8 @@ class CampaignController < ApplicationController
 
 			#validates tracking via unique IP addresses
 			ip_address = request.remote_ip
-			if Tracking.validates_ip_uniqueness(ip_address)
-			  tracking = Tracking.where(:ip_address => ip_address).first
+			if Tracking.validates_ip_uniqueness(ip_address, share)
+			  tracking = Tracking.where(:ip_address => ip_address, :share_id => share.id).first
 			  Tracking.view(tracking.id)
 			else
 			  Share.unique_page_view(share.id)
@@ -58,7 +58,8 @@ class CampaignController < ApplicationController
 
 			share_update = Share.find(share.id)
 			user_share = share_update.user_id
-			if share_update.unique_page_views == share_update.campaign.points_required
+			official_pts = share_update.unique_page_views + share_update.trackings.size
+			if official_pts == share_update.campaign.points_required
 				redeem_check = Redeem.where(:user_id => user_share, :campaign_id => share_update.campaign_id).first
 				if redeem_check.nil?
 					left = share_update.campaign.limit - share_update.campaign.redeems.size

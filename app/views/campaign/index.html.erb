@@ -189,8 +189,8 @@
 <% left = @campaign.limit - @campaign.redeems.size %>
 <% if current_user %>
 			<% if current_user.campaigns.where(:_id => @campaign.id).first %>
-
-				<p>Your Points: <b style="font-size:17px;"><%= @share.unique_page_views + @share.trackings.size %></b></p>
+                <% @official_pts = @share.unique_page_views + @share.trackings.size %>
+				<p>Your Points: <b style="font-size:17px;"><%= @official_pts %></b></p>
 
                 <% unless left == 0 %>
                 	<p><span class="label label-success activated_label">Activated!</span></p>
@@ -203,7 +203,7 @@
 				<% end %>
 
 				<% unless @share.unique_page_views.nil? %>
-					<% if @share.unique_page_views >= @campaign.points_required %>
+					<% if @official_pts >= @campaign.points_required %>
 						<p><a href="#" class="btn btn-large btn-success redeem_button">Redeem</a></p>
 						<% @redeem = @campaign.redeems.where(:user_id => current_user.id).first %>
 						<h5 class="redeem_code alert alert-success"><%= @redeem.redeem_code unless @redeem.redeem_code.nil? %></h5>
