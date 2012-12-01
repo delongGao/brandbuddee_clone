@@ -15,6 +15,7 @@ class Campaign
   field :campaign_image
   field :limit, :type => Integer
   field :end_date, :type => DateTime
+  field :status, :type => String, :default => "active"
 
   field :unique_page_views, :type => Integer, :default => 0
   field :page_views, :type => Integer, :default => 0

@@ -7,6 +7,12 @@ class UsersController < ApplicationController
       #@campaign = Campaign.all.order_by([:date, :desc])
       @categories = Category.all.order_by([:name, :asc])
 
+      # categories = Category.all.order_by([:name, :asc])
+      # categories.each do |c|
+      #   if
+      #   @categories
+      # end
+
       #if current_user.email == 'email@email.com'
       if current_user.email.nil? || current_user.email.blank?
         redirect_to(:action => 'complete_email')

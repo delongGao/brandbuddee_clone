@@ -20,7 +20,17 @@
 
 
       <% if params[:c].nil? %>
-        <% @campaign = Campaign.all.order_by([:date, :desc]).paginate :page => params[:page], :per_page => 9 %>
+        <% c = Campaign.all.order_by([:date, :desc]) %>
+        <% c.each do |campaign_filter| %>
+            <% if campaign_filter.end_date < Time.now %>
+                <% campaign_filter.status = "expired" %>
+                <% campaign_filter.save %>
+            <% else %>
+                <% campaign_filter.status = "active" %>
+                <% campaign_filter.save %>
+            <% end %>
+        <% end %>
+        <% @campaign = Campaign.where(:status => "active").order_by([:date, :desc]).paginate :page => params[:page], :per_page => 9 %>
       <% elsif %>
         <% @category = Category.where(:name => params[:c]).first %> 
         <% @campaign = @category.campaigns.order_by([:date, :desc]).paginate :page => params[:page], :per_page => 9 %>

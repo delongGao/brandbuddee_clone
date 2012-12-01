@@ -99,6 +99,7 @@
   	<th>Points Required</th>
   	<th>Limit</th>
     <th>End Date</th>
+    <th>Status</th>
   	<th>Categories</th>
   	<th>Users</th>
 <!--   	<th>Shares</th> -->
@@ -122,6 +123,7 @@
   	<td><%= u.points_required %></td>
   	<td><%= u.limit %></td>
     <td><%= u.end_date %></td>
+    <td><%= u.status %></td>
   	<td>
   		<% u.categories.each do |a| %>
   			<span class="label label-success"><%= a.name %></span>
