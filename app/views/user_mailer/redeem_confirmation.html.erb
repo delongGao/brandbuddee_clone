@@ -1,18 +1,139 @@
-Hi <%= @user.first_name %>,
-<br><br>
-You've just successfully earned a brandbuddee reward for <b><%= @campaign.title %></b>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<!-- If you delete this meta tag, Half Life 3 will never be released. -->
+<meta name="viewport" content="width=device-width" />
 
-<br><br>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>brandbuddee</title>
 
-<span style="float:left;">Here's your redeem code:</span>
-<h2 style="color:#7fc3e4;"><%= @redeem_code %></h2>
 
-<b>Redeem Details:</b>
-<br>
-<span style="color:#ABABAB;"><%= @campaign.redeem_details %></span>
-<br><br>
-Thanks so much for trying out brandbuddee and we hope you enjoy your reward!
+</head>
+ 
+<body bgcolor="#FFFFFF" style="-webkit-font-smoothing:antialiased;-webkit-text-size-adjust:none;width: 100%!important;height: 100%;font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;">
 
-<br><br><br>
-Thank you,<br>
-BrandBuddee Team
+<!-- HEADER -->
+<table class="head-wrap" bgcolor="#222" style="width:100%;">
+	<tr>
+		<td></td>
+		<td class="header container" style="display:block!important;max-width:600px!important;margin:0 auto!important;clear:both!important;">
+				
+				<div class="content" style="padding-top: 22px;padding-bottom: 15px;max-width:600px;margin:0 auto;display:block;">
+				<table bgcolor="#222">
+					<tr>
+						<td><img src="http://brandbuddee.com/images/brandbuddee-logo-sm.png" style="max-width: 100%;" /></td>
+						<td align="right"><h6 class="collapse" style="margin:0;padding:0;color:#FFF;font-weight:100;margin-left:5px;">Discover, Share, & Earn Rewards</h6></td>
+					</tr>
+				</table>
+				</div>
+				
+		</td>
+		<td></td>
+	</tr>
+</table><!-- /HEADER -->
+
+
+<!-- BODY -->
+<table class="body-wrap" style="width:100%;">
+	<tr>
+		<td></td>
+		<td class="container" bgcolor="#FFFFFF">
+
+			<div class="content" style="padding:15px;max-width:600px;margin:0 auto;display:block;">
+			<table>
+				<tr>
+					<td>
+						<h3 style="font-weight:500;font-size:27px;font-family: 'HelveticaNeue-Light', 'Helvetica Neue Light', 'Helvetica Neue', Helvetica, Arial, 'Lucida Grande', sans-serif;line-height: 1.1;margin-bottom: 15px;margin-top:0;color: black;">Hi, <%= @user.first_name %></h3>
+						<p class="lead" style="font-size:17px !important;margin-bottom: 10px;font-weight: normal;font-size: 14px;line-height: 1.6;font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;">You've just successfully earned a brandbuddee reward for <b><%= @campaign.title %></b></p>
+
+						<!-- Callout Panel -->
+						<p class="callout" style="padding:15px;background-color:#ECF8FF;margin-bottom: 15px;font-weight: normal;font-size: 14px;line-height: 1.6;font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;">
+							<span style="float:left;margin-right:10px;margin-top:6px;">Here's your redeem code:</span>
+							<b style="color:#7fc3e4;font-size:20px;"> <%= @redeem_code %></b>
+							<span style="clear:both;"></span>
+						</p><!-- /Callout Panel -->
+
+						<p style="margin-bottom: 10px;font-weight: normal;font-size: 14px;line-height: 1.6;font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;">Redeem Details:<br><%= @campaign.redeem_details %></p>
+
+						<p style="margin-top: 20px;margin-bottom: 20px;font-weight: normal;font-size: 14px;line-height: 1.6;font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;">
+							Enjoy,<br>
+							The brandbuddee team
+						</p>
+										
+												
+						<!-- social & contact -->
+						<table class="social" width="100%" style="background-color: #ebebeb;">
+							<tr>
+								<td>
+									
+									<!-- column 1 -->
+									<table align="left" class="column" style="width:280px;min-width: 279px;float:left;">
+										<tr>
+											<td style="padding: 15px;">				
+												
+												<h5 style="font-weight: 900;font-size: 17px;font-family: 'HelveticaNeue-Light', 'Helvetica Neue Light', 'Helvetica Neue', Helvetica, Arial, 'Lucida Grande', sans-serif;line-height: 1.1;
+margin-bottom:15px;margin-top:0;color:black;">Connect with Us:</h5>
+												<p class=""><a href="http://www.facebook.com/brandbuddee" class="soc-btn fb" style="padding: 7px;font-size:12px;margin-bottom:10px;text-decoration:none;color: #FFF;display:block;text-align:center;background-color: #3B5998!important;font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;">Facebook</a> <a href="http://twitter.com/brandbuddee" class="soc-btn tw" style="padding:7px;font-size:12px;margin-bottom:10px;text-decoration:none;color: #FFF;display:block;text-align:center;background-color: #1daced!important;font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;">Twitter</a></p>
+						
+												
+											</td>
+										</tr>
+									</table><!-- /column 1 -->	
+									
+									<!-- column 2 -->
+									<table align="left" class="column" style="width:280px;min-width: 279px;float:left;">
+										<tr>
+											<td style="padding: 15px;">				
+																			
+												<h5 style="font-weight: 900;font-size: 17px;font-family: 'HelveticaNeue-Light', 'Helvetica Neue Light', 'Helvetica Neue', Helvetica, Arial, 'Lucida Grande', sans-serif;line-height: 1.1;
+margin-bottom:15px;margin-top:0;color:black;">Contact Info:</h5>												
+												<p style="font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;margin-bottom: 10px;font-weight: normal;font-size: 14px;line-height: 1.6;">Contact Us: <strong><a href="http://brandbuddee.com/contact" style="color: #2BA6CB;font-family: 'HelveticaNeue-Light', 'Helvetica Neue Light', 'Helvetica Neue', Helvetica, Arial, 'Lucida Grande', sans-serif;text-decoration: none;">via website</a></strong><br/>
+                Email: <strong><a href="emailto:info@brandbuddee.com" style="color: #2BA6CB;font-family: 'HelveticaNeue-Light', 'Helvetica Neue Light', 'Helvetica Neue', Helvetica, Arial, 'Lucida Grande', sans-serif;">info@brandbuddee.com</a></strong></p>
+                
+											</td>
+										</tr>
+									</table><!-- /column 2 -->
+									
+									<span class="clear"></span>	
+									
+								</td>
+							</tr>
+						</table><!-- /social & contact -->
+						
+					</td>
+				</tr>
+			</table>
+			</div><!-- /content -->
+									
+		</td>
+		<td></td>
+	</tr>
+</table><!-- /BODY -->
+
+<!-- FOOTER -->
+<table class="footer-wrap" style="width: 100%;clear:both!important">
+	<tr>
+		<td></td>
+		<td class="container" style="font-weight: 900;font-size: 17px;font-family: 'HelveticaNeue-Light', 'Helvetica Neue Light', 'Helvetica Neue', Helvetica, Arial, 'Lucida Grande', sans-serif;">
+			
+				<!-- content -->
+				<div class="content" style="max-width: 600px;margin: 0 auto;display: block;">
+				<table align="center">
+				<tr>
+					<td align="center" style="text-align:center;">
+						<p style="font-weight: normal;font-size: 14px;line-height: 1.6;">
+							<a href="http://brandbuddee.com/terms" style="color: #2BA6CB;font-weight: normal;font-size: 14px;line-height: 1.6;font-family: 'HelveticaNeue-Light', 'Helvetica Neue Light', 'Helvetica Neue', Helvetica, Arial, 'Lucida Grande', sans-serif;margin:0;">Terms</a> |
+							<a href="http://brandbuddee.com/privacy" style="color: #2BA6CB;font-weight: normal;font-size: 14px;line-height: 1.6;font-family: 'HelveticaNeue-Light', 'Helvetica Neue Light', 'Helvetica Neue', Helvetica, Arial, 'Lucida Grande', sans-serif;margin:0;">Privacy</a>
+						</p>
+					</td>
+				</tr>
+			</table>
+				</div><!-- /content -->
+				
+		</td>
+		<td></td>
+	</tr>
+</table><!-- /FOOTER -->
+
+</body>
+</html>
