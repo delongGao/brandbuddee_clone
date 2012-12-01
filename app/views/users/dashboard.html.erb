@@ -33,7 +33,7 @@
         <% @campaign = Campaign.where(:status => "active").order_by([:date, :desc]).paginate :page => params[:page], :per_page => 9 %>
       <% elsif %>
         <% @category = Category.where(:name => params[:c]).first %> 
-        <% @campaign = @category.campaigns.order_by([:date, :desc]).paginate :page => params[:page], :per_page => 9 %>
+        <% @campaign = @category.campaigns.where(:status => "active").order_by([:date, :desc]).paginate :page => params[:page], :per_page => 9 %>
       <% end %>
 
     <div class="row">
