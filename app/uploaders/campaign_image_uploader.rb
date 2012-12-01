@@ -24,6 +24,10 @@ class CampaignImageUploader < CarrierWave::Uploader::Base
     process :resize_to_fill => [260, 180]
   end
 
+  version :email do
+    process :resize_to_fill => [600, 300]
+  end
+
 
   # Provide a default URL as a default if there hasn't been a file uploaded:
   # def default_url

@@ -46,6 +46,10 @@
 						<h3 style="font-weight:500;font-size:27px;font-family: 'HelveticaNeue-Light', 'Helvetica Neue Light', 'Helvetica Neue', Helvetica, Arial, 'Lucida Grande', sans-serif;line-height: 1.1;margin-bottom: 15px;margin-top:0;color: black;">Hi, <%= @user.first_name unless @user.first_name.nil? %></h3>
 						<p class="lead" style="font-size:17px !important;margin-bottom: 10px;font-weight: normal;font-size: 14px;line-height: 1.6;font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;">You've just successfully earned a brandbuddee reward for <b><%= @campaign.title %></b></p>
 
+						<p style="margin-bottom: 10px;font-weight: normal;font-size: 14px;line-height: 1.6;font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;">
+							<img src="<%= @campaign.campaign_image_url().to_s %>" style="max-width:100%;">
+						</p>
+
 						<!-- Callout Panel -->
 						<p class="callout" style="padding:15px;background-color:#ECF8FF;margin-bottom: 15px;font-weight: normal;font-size: 14px;line-height: 1.6;font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;">
 							<span style="float:left;margin-right:10px;margin-top:6px;">Here's your redeem code:</span>
