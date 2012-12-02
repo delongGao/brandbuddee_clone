@@ -218,7 +218,6 @@ class UsersController < ApplicationController
     else
       flash[:notice] = "Uh oh"
     end
-
   end
 
   def create_new_category

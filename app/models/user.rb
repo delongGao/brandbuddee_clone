@@ -156,7 +156,7 @@ class User
   end
   
   def remove_id_directory
-    FileUtils.remove_dir("#{Rails.root}/public/profile_image/user/#{@id}", :force => true)
+    FileUtils.remove_dir("#{Rails.root}/public/profile_image/#{@id}", :force => true)
     #FileUtils.remove_dir("http://localhost:3000/uploads/image_test/image/4f8a6da125dc9a0816000002", :force => true)
   end
   
