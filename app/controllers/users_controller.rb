@@ -141,43 +141,44 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.new(params[:user])
-    @invite = Invitation.where(:invite_code => params[:invite]).first
+    # @user = User.new(params[:user])
+    @user = User.create(params[:user])
+    # @invite = Invitation.where(:invite_code => params[:invite]).first
 
-    if @invite.nil?
-      flash[:notice] = "Due to the unexpected amount of signups we have temporarily closed our beta. Feel free to sign up on the <a href='#{root_url}' style='color:green;'>beta list</a> to get an invite!"
-      redirect_to "#{root_url}signup"
-    else
-      unless @invite.status == true
+    # if @invite.nil?
+    #   flash[:notice] = "Due to the unexpected amount of signups we have temporarily closed our beta. Feel free to sign up on the <a href='#{root_url}' style='color:green;'>beta list</a> to get an invite!"
+    #   redirect_to "#{root_url}signup"
+    # else
+    #   unless @invite.status == true
         if @user.save
           session[:user_id] = @user.id
 
-          @invite.status = true
-          @invite.success_date = Time.now
-          @invite.save
+          # @invite.status = true
+          # @invite.success_date = Time.now
+          # @invite.save
 
           flash[:notice] = "Signed up!"
           redirect_to(:controller => 'users', :action => 'dashboard')
         else
-          unless params[:invite].blank?
-            flash[:notice] = "Invalid invitation."
-            redirect_to "#{root_url}signup?invite=#{params[:invite]}"
-          else
+        #   unless params[:invite].blank?
+        #     flash[:notice] = "Invalid invitation."
+        #     redirect_to "#{root_url}signup?invite=#{params[:invite]}"
+        #   else
             flash[:notice] = "Invalid... please fill out all the fields."
             redirect_to "#{root_url}signup"
-          end
+        #   end
         end
-      else
-        flash[:notice] = "This invitation is no longer valid."
-        redirect_to "#{root_url}signup"
-      end
-    end
+      # else
+      #   flash[:notice] = "This invitation is no longer valid."
+      #   redirect_to "#{root_url}signup"
+      # end
+    # end
 
   end
   
   def show
     if current_user
-      if current_user.account_type == "admin"
+      if current_user.account_type == "admin" || Rails.env.development?
           @user = User.all.order_by([:date, :desc]).paginate :page => params[:page], :per_page => 25
           @campaign_all = Campaign.all.order_by([:date, :desc]).paginate :page => params[:page], :per_page => 25
           @category_all = Category.all.order_by([:date, :desc]).paginate :page => params[:page], :per_page => 25

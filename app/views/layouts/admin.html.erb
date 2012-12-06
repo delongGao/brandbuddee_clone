@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	  <title>brandbuddee | admin</title>
+	  <%= stylesheet_link_tag    "application", :media => "all" %>
+	  <link id="base-style" href="/css/admin/style.css" rel="stylesheet">
+	  <link id="base-style-responsive" href="/css/admin/style-responsive.css" rel="stylesheet">
+<!-- 	  <link id="bootstrap-style" href="/css/admin/bootstrap.css" rel="stylesheet">
+	  <link href="/css/admin/bootstrap-responsive.css" rel="stylesheet"> -->
+
+	  <%= javascript_include_tag "application" %>
+	  <%= csrf_meta_tags %>
+
+<!-- 	  <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+
+	  <script type="text/javascript">
+		  var _gaq = _gaq || [];
+		  _gaq.push(['_setAccount', 'UA-34930730-1']);
+		  _gaq.push(['_trackPageview']);
+		  (function() {
+		    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		  })();
+	   </script>
+	</head>
+
+	<body>
+
+		<%= yield %>
+
+	</body>
+	
+	<script src="/js/bootstrap-transition.js"></script>
+	<script src="/js/bootstrap-alert.js"></script>
+	<script src="/js/bootstrap-modal.js"></script>
+	<script src="/js/bootstrap-dropdown.js"></script>
+	<script src="/js/bootstrap-scrollspy.js"></script>
+	<script src="/js/bootstrap-tab.js"></script>
+	<script src="/js/bootstrap-tooltip.js"></script>
+	<script src="/js/bootstrap-popover.js"></script>
+	<script src="/js/bootstrap-button.js"></script>
+	<script src="/js/bootstrap-collapse.js"></script>
+	<script src="/js/bootstrap-carousel.js"></script>
+	<script src="/js/bootstrap-typeahead.js"></script>
+	
+</html>

@@ -37,25 +37,25 @@ class SessionsController < ApplicationController
       #  session[:user_id] = user.id
       #  redirect_to root_url, :notice => "Signed in!"
       else
-        c = cookies[:invite]
+        # c = cookies[:invite]
 
-        @invite = Invitation.where(:invite_code => c).first
+        # @invite = Invitation.where(:invite_code => c).first
 
-        if @invite.nil?
-          flash[:notice] = "Due to the unexpected amount of signups we have temporarily closed our beta. Feel free to sign up on the <a href='#{root_url}' style='color:green;'>beta list</a> to get an invite!"
-          redirect_to "#{root_url}signup"
-        else
-          unless @invite.status == true
-            email = cookies[:e]
+        # if @invite.nil?
+        #   flash[:notice] = "Due to the unexpected amount of signups we have temporarily closed our beta. Feel free to sign up on the <a href='#{root_url}' style='color:green;'>beta list</a> to get an invite!"
+        #   redirect_to "#{root_url}signup"
+        # else
+        #   unless @invite.status == true
+             email = cookies[:e]
             if auth["provider"] == "twitter"
               if email.nil?
                 redirect_to(:controller => 'users', :action => 'complete_email')
               else
                 user = User.create_with_omniauth_twitter(auth, Time.now, email)
 
-                @invite.status = true
-                @invite.success_date = Time.now
-                @invite.save
+                # @invite.status = true
+                # @invite.success_date = Time.now
+                # @invite.save
                 session[:user_id] = user.id
                 #WelcomeMailer.welcome_email(current_user).deliver
                 #redirect_to root_url
@@ -64,19 +64,19 @@ class SessionsController < ApplicationController
             else
               user = User.create_with_omniauth(auth, Time.now)
 
-              @invite.status = true
-              @invite.success_date = Time.now
-              @invite.save
+              # @invite.status = true
+              # @invite.success_date = Time.now
+              # @invite.save
               session[:user_id] = user.id
               #WelcomeMailer.welcome_email(current_user).deliver
               #redirect_to root_url
               redirect_to(:controller => 'users', :action => 'new')
             end
-          else
-            flash[:notice] = "This invitation is no longer valid."
-            redirect_to "#{root_url}signup"
-          end
-        end
+        #   else
+        #     flash[:notice] = "This invitation is no longer valid."
+        #     redirect_to "#{root_url}signup"
+        #   end
+        # end
 
       end
     end
