@@ -172,7 +172,7 @@
 
                                 <div class="">
                                     <h4>How to Redeem</h4>
-                                    <p><%= @campaign.redeem_details %></p>
+                                    <p><%= truncate(@campaign.redeem_details, :length => 200, :omission => '... (continued)') %></p>
                                     <br><br><br>
                                 </div> <!-- .well -->
 
