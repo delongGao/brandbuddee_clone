@@ -16,14 +16,14 @@ class AdminController < ApplicationController
 				#@user_this_month = User.where(:date.gt => Time.now - 1.month, :date.lte => Time.now)
 
 				@share_views_month = 0
-				@share_month.each do |s|
-					@share_views_month = @share_views_month + s.unique_page_views + s.trackings.size
-				end
+				# @share_month.each do |s|
+				# 	@share_views_month = @share_views_month + s.unique_page_views + s.trackings.size
+				# end
 				@share_views_last_month = 0
-				views_last_month = @share_month - @share_two_months
-				views_last_month.each do |s|
-					@share_views_last_month = @share_views_last_month + s.unique_page_views + s.trackings.size
-				end
+				# views_last_month = @share_month - @share_two_months
+				# views_last_month.each do |s|
+				# 	@share_views_last_month = @share_views_last_month + s.unique_page_views + s.trackings.size
+				# end
 				#@views_month_count = 
 				@views_last_month_count = @user_two_months.count - @user_month_count
 
