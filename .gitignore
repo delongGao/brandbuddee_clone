@@ -3,5 +3,5 @@ db/*.sqlite3
 log/*.log
 tmp/
 .sass-cache/
-/public/assets/campaign_image/*
-/public/assets/profile_image/*
+public/assets/campaign_image/*
+public/assets/profile_image/*

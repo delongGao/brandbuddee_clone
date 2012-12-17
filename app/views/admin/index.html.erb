@@ -158,7 +158,8 @@
                         	<i class="fa-icon-bullhorn"></i>
                         	<% @share_change = @share_month_count - @share_last_month_count %>
 							<% @share_percentage = (@share_change.to_f/@share_last_month_count)*100 %>
-							<% @share_stat = @share_percentage.to_f.to_i %>
+							<% @share_stat = @share_percentage %>
+							<%# @share_stat = @share_percentage.to_f.to_i %>
 							<span class="plus">+</span>
 							<span class="percent">%</span>
                         	<input type="text" value="<%= @share_stat %>" class="blueCircle" />
@@ -168,9 +169,12 @@
 					<div class="span3" onTablet="span4" onDesktop="span3">
 						<div class="circleStatsItem yellow">
                         	<i class="fa-icon-user"></i>
+                        	<% @user_change = @user_month_count - @user_last_month_count %>
+							<% @user_percentage = (@user_change.to_f/@user_last_month_count)*100 %>
+							<% @user_stat = @user_percentage %>
 							<span class="plus">+</span>
 							<span class="percent">%</span>
-                        	<input type="text" value="12" class="yellowCircle" />
+                        	<input type="text" value="<%= @user_stat %>" class="yellowCircle" />
                     	</div>
 						<div class="box-small-title">New users</div>
 					</div>
