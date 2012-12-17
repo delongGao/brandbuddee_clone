@@ -185,7 +185,7 @@
 							<span class="percent">%</span>
                         	<input type="text" value="23" class="pinkCircle" />
                     	</div>
-						<div class="box-small-title">Views</div>
+						<div class="box-small-title">Views | <%= @share_views_month  %> | <%= @share_views_last_month %> </div>
 					</div>
 					<div class="span3" onTablet="span4" onDesktop="span3">
                     	<div class="circleStatsItem green">
@@ -289,33 +289,33 @@
 				<a class="quick-button span2">
 					<i class="fa-icon-group"></i>
 					<p>Users</p>
-					<span class="notification">1100</span>
+					<span class="notification"><%= @user_all.size %></span>
 				</a>
 				<a class="quick-button span2">
 					<i class="fa-icon-bullhorn"></i>
 					<p>Campaigns</p>
-					<span class="notification green">167</span>
+					<span class="notification green"><%= @campaign_all.size %></span>
 				</a>
 				<a class="quick-button span2">
 					<i class="fa-icon-bookmark"></i>
 					<p>Brands</p>
-					<span class="notification">22</span>
+					<span class="notification"><%= @brand_all.size %></span>
 				</a>
 				<a class="quick-button span2">
 					<i class="fa-icon-folder-open"></i>
 					<p>Categories</p>
-					<span class="notification green">17</span>
+					<span class="notification green"><%= @category_all.size %></span>
 				</a>
 				<a class="quick-button span2">
 					<i class="fa-icon-barcode"></i>
 					<p>Redeems</p>
-					<span class="notification">322</span>
+					<span class="notification"><%= @redeem_all.size %></span>
 				</a>
 				
 				<a class="quick-button span2">
 					<i class="fa-icon-screenshot"></i>
 					<p>Trackings</p>
-					<span class="notification green">27939</span>
+					<span class="notification green"><%= @tracking_all.size %></span>
 				</a>
 				
 			</div>
