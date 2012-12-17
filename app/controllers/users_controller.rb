@@ -178,7 +178,7 @@ class UsersController < ApplicationController
   
   def show
     if current_user
-      if current_user.account_type == "super admin" || Rails.env.development?
+      if current_user.account_type == "super admin" || current_user.account_type == "admin" || Rails.env.development?
           @user = User.all.order_by([:date, :desc]).paginate :page => params[:page], :per_page => 25
           @campaign_all = Campaign.all.order_by([:date, :desc]).paginate :page => params[:page], :per_page => 25
           @category_all = Category.all.order_by([:date, :desc]).paginate :page => params[:page], :per_page => 25
