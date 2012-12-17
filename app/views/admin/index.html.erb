@@ -181,6 +181,7 @@
 					<div class="noMargin span3" onTablet="span4" onDesktop="span3">
 						<div class="circleStatsItem pink">
 							<% @share_views_month = 0 %>
+							<% @share_views_last_month = 0 %>
 							<%# @share_month.each do |s| %>
 							<%# @share_views_month = @share_views_month + s.unique_page_views + s.trackings.size %>
 							<%# end %>
@@ -189,7 +190,7 @@
 							<span class="percent">%</span>
                         	<input type="text" value="23" class="pinkCircle" />
                     	</div>
-						<div class="box-small-title">Views | <%= @share_views_month  %> | <%= @share_views_last_month %> | <%= @share_month.size %> </div>
+						<div class="box-small-title">Views | <%= @share_views_month  %> | <%= @share_views_last_month %> | <%= @share_month.size %> | <%= @share_two_months.size %> </div>
 					</div>
 					<div class="span3" onTablet="span4" onDesktop="span3">
                     	<div class="circleStatsItem green">
