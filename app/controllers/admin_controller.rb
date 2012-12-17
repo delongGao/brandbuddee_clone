@@ -1,11 +1,26 @@
 class AdminController < ApplicationController
 
 	def index
-		if Rails.env.development?
 
-		elsif Rails.env.production?
+		if current_user
+			if current_user.account_type == 'super admin' || Rails.env.development?
+				@share_month = Campaign.where(:date.gt => Time.now - 1.month)
+				@share_two_months = Campaign.where(:date.gt => Time.now - 2.month)
+
+				@share_month_count = @share_month.count
+				@share_last_month_count = @share_two_months.count - @share_month_count
+
+				
+
+				#@user_this_month = User.where(:date.gt => Time.now - 1.month, :date.lte => Time.now)
+
+			else
+				redirect_to root_url
+			end
+		else
 			redirect_to root_url
 		end
+
 	end
 
 end
