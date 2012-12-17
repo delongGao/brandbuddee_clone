@@ -181,9 +181,9 @@
 					<div class="noMargin span3" onTablet="span4" onDesktop="span3">
 						<div class="circleStatsItem pink">
 							<% @share_views_month = 0 %>
-							<% @share_month.each do |s| %>
-							<% @share_views_month = @share_views_month + s.unique_page_views + s.trackings.size %>
-							<% end %>
+							<%# @share_month.each do |s| %>
+							<%# @share_views_month = @share_views_month + s.unique_page_views + s.trackings.size %>
+							<%# end %>
                         	<i class="fa-icon-globe"></i>
 							<span class="plus">+</span>
 							<span class="percent">%</span>
