@@ -45,4 +45,17 @@ class Share
     host.start_with?('www.') ? host[4..-1] : host
   end
 
+  def self.views_month(share_month)
+    #share_month = self.where(:date.gt => Time.now - 1.month)
+    #share_two_month = self.where(:date.gt => t - 2.month)
+    share_views_month = 0
+
+    share_month.each do |s|
+      share_views_month = share_views_month + s.unique_page_views + s.trackings.size
+    end
+
+    return share_views_month
+
+  end
+
 end

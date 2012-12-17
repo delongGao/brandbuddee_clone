@@ -190,7 +190,7 @@
 							<span class="percent">%</span>
                         	<input type="text" value="23" class="pinkCircle" />
                     	</div>
-						<div class="box-small-title">Views | <%= @share_views_month  %> | <%= @share_views_last_month %> | <%= @share_month.size %> | <%= @share_two_months.size %> </div>
+						<div class="box-small-title">Views | <%= @share_views_month  %> | <%= @share_views_last_month %> | <%= @share_month.size %> | <%= @share_two_months.size %> | <b><%#= @share_views_month.count(:conditions => ['validated = ?', 't']) %><%= Share.views_month(@share_month) %> </b> </div>
 					</div>
 					<div class="span3" onTablet="span4" onDesktop="span3">
                     	<div class="circleStatsItem green">
