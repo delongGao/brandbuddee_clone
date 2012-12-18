@@ -13,6 +13,9 @@ class AdminController < ApplicationController
 				@user_two_months = User.where(:date.gt => Time.now - 2.month)
 				@user_month_count = @user_month.count
 				@user_last_month_count = @user_two_months.count - @user_month_count
+
+				@trackings_month = Tracking.where(:date.gt => Time.now - 1.month)
+				@trackings_two_months = Tracking.where(:date.gt => Time.now - 2.month)
 				#@user_this_month = User.where(:date.gt => Time.now - 1.month, :date.lte => Time.now)
 
 				#@share_views_month = 0
