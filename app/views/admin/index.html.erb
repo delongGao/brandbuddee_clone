@@ -195,7 +195,7 @@
 								<% share_month_trackings = 0 %>
 								<% @share_month.each do |s| %>
 
-									<% share_month_trackings = share_month_trackings + s.trackings.sum(:views) %>
+									<% share_month_trackings = share_month_trackings + s.trackings.sum(:views).to_f %>
 								<% end %>
 								<%= @share_month.sum(:unique_page_views) + share_month_trackings %>
 							</b>
