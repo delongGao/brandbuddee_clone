@@ -239,7 +239,7 @@ blockquote p {
 }
 .carousel .item {
   width: 100%;
-  max-height: 600px;
+  max-height: 400px;
 }
 .carousel .item img {
   width: 100%;
@@ -260,14 +260,15 @@ blockquote p {
   top: 25px;
 }
 .caption.middle-left, .caption.middle-right {
-  top: 23%;
+  //top: 23%;
+  top: 5%;
 }
 .caption.bottom-left, .caption.bottom-right {
   bottom: 25px;
 }
 .caption.top-left, .caption.middle-left, .caption.bottom-left {
   left: 50%;
-  margin-left: -470px;
+  margin-left: -410px;
 }
 .caption.top-left p, .caption.middle-left p, .caption.bottom-left p {
   padding-bottom: 10px;
