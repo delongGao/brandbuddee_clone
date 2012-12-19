@@ -75,6 +75,8 @@
     <div id="day_hour_value" class="date_times"><%= @campaign.end_date.to_formatted_s(:hour) unless @campaign.end_date.nil? %></div>
     <div id="day_min_value" class="date_times"><%= @campaign.end_date.to_formatted_s(:min) unless @campaign.end_date.nil? %></div>
 
+    <div id="brand_value" class="date_times"><%= @campaign.brand.name unless @campaign.brand.nil? || @campaign.brand.name.nil? %></div>
+
 
     <div class="clear"></div><br>
     <p>
@@ -108,6 +110,10 @@
       <%= f.text_area :redeem_details, :class=>'span6', :rows => '7' %>
     </p>
 
+    <p class="choose_brand_name">
+      <%= select_tag :brand, options_from_collection_for_select(@brand_all, "id", "name"), :prompt => "- Select Brand -" %>
+    </p>
+
     <%#= select_tag "brands", options_from_collection_for_select(@brand_all, "id", "name"), :prompt => "- Select Brand -" %>
     <%#= select_tag "categories", options_from_collection_for_select(@category_all, "id", "name"), :prompt => "- Select Category -" %>
     <%= hidden_field_tag(:last_updated, Time.now, :name=>'campaign[last_updated]') %>
@@ -128,6 +134,7 @@
   var day = $('#day_day_value').html();
   var hour = $('#day_hour_value').html();
   var min = $('#day_min_value').html();
+  var brand = $('#brand_value').html();
 
   //alert($('.date_time_month').find('select').find('option:contains('+blah+')').text());
   $('.date_time_year').find('select').find('option:contains('+year+')').attr('selected', 'selected');
@@ -135,4 +142,6 @@
   $('.date_time_day').find('select').find('option:contains('+day+')').attr('selected', 'selected');
   $('.date_time_hour').find('select').find('option:contains('+hour+')').attr('selected', 'selected');
   $('.date_time_min').find('select').find('option:contains('+min+')').attr('selected', 'selected');
+
+  $('.choose_brand_name').find('select').find('option:contains('+brand+')').attr('selected', 'selected');
 </script>

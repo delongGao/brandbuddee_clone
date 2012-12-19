@@ -136,6 +136,10 @@ class CampaignController < ApplicationController
 
 	def update_campaign
 		@campaign = Campaign.find(params[:campaign][:id])
+		
+		unless params[:brand].blank?
+			@campaign.brand_id = params[:brand]
+		end
 
 		unless params[:date_year].blank? || params[:date_month].blank? || params[:date_day].blank? || params[:date_hour].blank? || params[:date_minute].blank?
 			date_time = DateTime.new(params[:date_year].to_i, params[:date_month].to_i, params[:date_day].to_i, params[:date_hour].to_i, params[:date_minute].to_i, 0, "-0700")
