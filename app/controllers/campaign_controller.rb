@@ -128,7 +128,7 @@ class CampaignController < ApplicationController
 
 	def edit_campaign
 		@category_all = Category.all.order_by([:date, :desc])
-    	@brand_all = Brand.all.order_by([:date, :desc])
+    	@brand_all = Brand.all.order_by([:name, :asc])
     	@location_all = Location.all.order_by([:city, :desc])
 
 		@campaign = Campaign.find(params[:_id])

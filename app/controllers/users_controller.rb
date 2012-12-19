@@ -183,7 +183,7 @@ class UsersController < ApplicationController
           @campaign_all = Campaign.all.order_by([:date, :desc]).paginate :page => params[:page], :per_page => 25
           @category_all = Category.all.order_by([:date, :desc]).paginate :page => params[:page], :per_page => 25
           @location_all = Location.all.order_by([:date, :desc]).paginate :page => params[:page], :per_page => 25
-          @brand_all = Brand.all.order_by([:date, :desc]).paginate :page => params[:page], :per_page => 25
+          @brand_all = Brand.all.order_by([:name, :asc]).paginate :page => params[:page], :per_page => 25
           @share_all = Share.all.order_by([:date, :desc]).paginate :page => params[:page], :per_page => 25
           @tracking_all = Tracking.all.order_by([:date, :desc]).paginate :page => params[:page], :per_page => 25
           @redeem_all = Redeem.all.order_by([:date, :desc]).paginate :page => params[:page], :per_page => 25
