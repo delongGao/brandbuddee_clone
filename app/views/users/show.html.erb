@@ -118,7 +118,7 @@
   	<td><%= u._id %></td>
   	<td><%= u.date %></td>
     <td><%= u.last_updated %></td>
-  	<td><%# if u.brand.name != nil %><%#= u.brand.name %><%# end %></td>
+  	<td><%= u.brand.name unless u.brand.nil? %></td>
   	<td><%= u.title %></td>
   	<td><%= image_tag(u.campaign_image_url(:thumb).to_s) %></td>
   	<td><%= u.location.city unless u.location.nil? %></td>
