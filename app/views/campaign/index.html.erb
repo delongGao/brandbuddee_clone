@@ -205,18 +205,19 @@
 
 				<% unless @share.unique_page_views.nil? %>
 					<% if @official_pts >= @campaign.points_required %>
-                        <% if @redeem.nil? %>
-                            <div class="alert alert-danger">
-                                Oops, you were so close! Better luck next time! In the meantime, want more campaigns? Let your favorite brands know about <b>brandbuddee</b>!
-                            </div> <!-- .alert -->
-                        <% else %>
-    						<p><a href="#" class="btn btn-large btn-success redeem_button">Redeem</a></p>
-    						<% @redeem = @campaign.redeems.where(:user_id => current_user.id).first %>
-    						<h5 class="redeem_code alert alert-success"><%= @redeem.redeem_code unless @redeem.redeem_code.nil? %></h5>
+                        <% @redeem = @campaign.redeems.where(:user_id => current_user.id).first %>
+                        <% if @redeem != nil %>
+                            <p><a href="#" class="btn btn-large btn-success redeem_button">Redeem</a></p>
+                            
+                            <h5 class="redeem_code alert alert-success"><%= @redeem.redeem_code unless @redeem.redeem_code.nil? %></h5>
 
                              <script>
                                 $('.activated_label').hide();
                             </script>
+                        <% else %>
+                            <div class="alert alert-danger">
+                                Oops, you were so close! Better luck next time! In the meantime, want more campaigns? Let your favorite brands know about <b>brandbuddee</b>!
+                            </div> <!-- .alert -->
                         <% end %>
 					<% end %>
 				<% end %>
