@@ -35,7 +35,7 @@ class AdminController < ApplicationController
 				@trackings_weekly = Tracking.where(:date.gt => Time.now - 1.week).order_by([:date, :desc])
 				@redeems_weekly = Redeem.where(:date.gt => Time.now - 1.week).order_by([:date, :desc])
 				@campaigns_weekly = Campaign.where(:date.gt => Time.now - 1.week).order_by([:date, :desc])
-				@brands_weekly = Campaign.where(:date.gt => Time.now - 1.week).order_by([:date, :desc])
+				@brands_weekly = Brand.where(:date.gt => Time.now - 1.week).order_by([:date, :desc])
 
 
 				@user_all = User.all.order_by([:date, :desc])
