@@ -163,7 +163,7 @@
 							<%# @share_stat = @share_percentage.to_f.to_i %>
 							<span class="plus">+</span>
 							<span class="percent">%</span>
-                        	<input type="text" value="<%#= @share_stat %>" class="blueCircle" />
+                        	<input type="text" value="<%#= @share_stat %>0" class="blueCircle" />
                     	</div>
 						<div class="box-small-title">Shares</div>
 					</div>
@@ -562,7 +562,8 @@
 		<script type="text/javascript">
 			
 			var share_stat = $('#share_stat').html();
-			$('.blueCircle').val(share_stat);
+			alert(share_stat);
+			$('.blueCircle').val('185.3523092039');
 
 		</script>
 		<!-- end: JavaScript-->
