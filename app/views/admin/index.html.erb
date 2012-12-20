@@ -186,7 +186,7 @@
 						<div class="circleStatsItem pink">
 							<% tracking_last_month = @trackings_month.sum(:views) - @trackings_two_months.sum(:views) %>
 							<% @tracking_change = @trackings_month.sum(:views) - tracking_last_month %>
-							<% @tracking_percentage = (@tracking_change.to_f/@user_last_month_count)*100 %>
+							<% @tracking_percentage = (@tracking_change.to_f/@tracking_last_month)*100 %>
 							<% @tracking_stat = @tracking_percentage %>
                         	<i class="fa-icon-globe"></i>
 							<span class="plus">+</span>
