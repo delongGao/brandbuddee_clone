@@ -31,6 +31,12 @@ class AdminController < ApplicationController
 				@views_last_month_count = @user_two_months.count - @user_month_count
 
 
+				@users_weekly = User.where(:date.gt => Time.now - 1.week).order_by([:date, :desc])
+				@trackings_weekly = Tracking.where(:date.gt => Time.now - 1.week).order_by([:date, :desc])
+				@redeems_weekly = Redeem.where(:date.gt => Time.now - 1.week).order_by([:date, :desc])
+				@campaigns_weekly = Campaign.where(:date.gt => Time.now - 1.week).order_by([:date, :desc])
+
+
 				@user_all = User.all.order_by([:date, :desc])
 				@campaign_all = Campaign.all.order_by([:date, :desc])
 				@category_all = Category.all.order_by([:date, :desc])

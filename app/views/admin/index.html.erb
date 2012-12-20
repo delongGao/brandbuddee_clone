@@ -198,7 +198,7 @@
                         	<i class="fa-icon-globe"></i>
                         	<span class="pinkCircle statCircles"><span class="statAdd">+</span><%= @tracking_stat.to_i %><span class="statPercent">%</span></span>
                     	</div>
-						<div class="box-small-title"><a href="#" rel="tooltip" data-placement="bottom" data-original-title="<%= @tracking_stat %>">Views</a>
+						<div class="box-small-title"><a href="#" rel="tooltip" data-placement="bottom" data-original-title="<%= @tracking_stat %>%">Views</a>
 							<b>
 								<%#= @share_month.sum(:unique_page_views) %>  
 								<%#= @trackings_month.sum(:views) %>
@@ -217,7 +217,7 @@
                         	<i class="fa-icon-bar-chart"></i>
 							<span class="greenCircle statCircles"><span class="statAdd">+</span><%= @visits_stat.to_i %><span class="statPercent">%</span></span>
                     	</div>
-						<div class="box-small-title">Visits</div>
+                    	<div class="box-small-title"><a href="#" rel="tooltip" data-placement="bottom" data-original-title="<%= @visits_stat.to_i %>%">Visits</a></div>
 					</div>
 <!-- 					<div class="span2" onTablet="span4" onDesktop="span2">
 						<div class="circleStatsItem lightorange">
@@ -375,57 +375,29 @@
 							<li>
 								<a href="#">
 									<i class="fa-icon-arrow-up green"></i>                               
-									<span class="green">92</span>
-									New Comments                                    
+									<span class="green"><%= @users_weekly.size %></span>
+									New Users                                    
 								</a>
 							</li>
 						  <li>
 							<a href="#">
-							  <i class="fa-icon-arrow-down red"></i>
-							  <span class="red">15</span>
-							  New Registrations
+							  <i class="fa-icon-arrow-up red"></i>
+							  <span class="red"><%= @trackings_weekly.size %></span>
+							  New Trackings
 							</a>
 						  </li>
 						  <li>
 							<a href="#">
-							  <i class="fa-icon-minus blue"></i>
-							  <span class="blue">36</span>
-							  New Articles                                    
-							</a>
-						  </li>
-						  <li>
-							<a href="#">
-							  <i class="fa-icon-comment yellow"></i>
-							  <span class="yellow">45</span>
-							  User reviews                                    
-							</a>
-						  </li>
-						  <li>
-							<a href="#">
-							  <i class="fa-icon-arrow-up green"></i>                               
-							  <span class="green">112</span>
-							  New Comments                                    
-							</a>
-						  </li>
-						  <li>
-							<a href="#">
-							  <i class="fa-icon-arrow-down red"></i>
-							  <span class="red">31</span>
-							  New Registrations
-							</a>
-						  </li>
-						  <li>
-							<a href="#">
-							  <i class="fa-icon-minus blue"></i>
-							  <span class="blue">93</span>
-							  New Articles                                    
+							  <i class="fa-icon-plus blue"></i>
+							  <span class="blue"><%= @redeems_weekly.size %></span>
+							  New Redeems                                    
 							</a>
 						  </li>
 						  <li>
 							<a href="#">
 							  <i class="fa-icon-comment yellow"></i>
-							  <span class="yellow">254</span>
-							  User reviews                                    
+							  <span class="yellow"><%= @campaigns_weekly.size %></span>
+							  New Campaigns                                    
 							</a>
 						  </li>
 						</ul>
