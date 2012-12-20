@@ -184,24 +184,19 @@
 					</div>
 					<div class="noMargin span3" onTablet="span4" onDesktop="span3">
 						<div class="circleStatsItem pink">
-							<% @share_views_month = 0 %>
-							<% @share_views_last_month = 0 %>
-							<%# @share_month.each do |s| %>
-							<%# @share_views_month = @share_views_month + s.unique_page_views + s.trackings.size %>
-							<%# end %>
+							<% tracking_last_month = @trackings_month.sum(:views) - @trackings_two_months.sum(:views) %>
+							<% @tracking_change = @trackings_month.sum(:views) - tracking_last_month %>
+							<% @tracking_percentage = (@tracking_change.to_f/@user_last_month_count)*100 %>
+							<% @tracking_stat = @tracking_percentage %>
                         	<i class="fa-icon-globe"></i>
 							<span class="plus">+</span>
 							<span class="percent">%</span>
-                        	<input type="text" value="23" class="pinkCircle" />
+                        	<input type="text" value="<%= @tracking_stat %>" class="pinkCircle" />
                     	</div>
-						<div class="box-small-title">Views | <%= @share_views_month  %> | <%= @share_views_last_month %> | <%= @share_month.size %> | <%= @share_two_months.size %> |
+						<div class="box-small-title"><a href="#" rel="tooltip" data-placement="bottom" data-original-title="<%= @tracking_stat %>">Views</a>
 							<b>
-								<%# share_month_trackings = 0 %>
-								<%# @share_month.each do |s| %>
-									<%# share_month_trackings = share_month_trackings + s.trackings.sum(:views).to_f %>
-								<%# end %>
-								<%= @share_month.sum(:unique_page_views) %> | 
-								<%= @trackings_month.sum(:views) %>
+								<%#= @share_month.sum(:unique_page_views) %>  
+								<%#= @trackings_month.sum(:views) %>
 							</b>
 						</div>
 					</div>
