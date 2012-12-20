@@ -518,7 +518,11 @@ function template_functions(){
 }
 
 /* ---------- Circle Progess Bars ---------- */
+var share_stat = $('#share_stat').text();
+//alert(share_stat);
+$('.blueCircle').val(share_stat);
 
+				
 function circle_progess() {
 	
 	var divElement = $('div'); //log all div elements
