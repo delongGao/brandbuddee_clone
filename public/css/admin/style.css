@@ -2248,13 +2248,14 @@ footer p {
 	top:20px;
 	left: 120px;
 	border-color: rgba(0, 0, 0, 0.8);
+	text-align: center;
 }
 	
 .circleStatsItem .plus {
 	font-size: 16px; 
 	position: absolute; 
 	top:55%; 
-	margin-left: 30px;
+	margin-left: 15px;
 }
 
 .circleStatsItem .percent {

@@ -567,7 +567,7 @@ function circle_progess() {
         'max':100,
         'readOnly': true,
         'width': 120,
-        'height': 120,
+        'height': 220,
         'fgColor': '#2FABE9',
         'dynamicDraw': true,
         'thickness': 0.2,
