@@ -381,9 +381,16 @@
 							</li>
 						  <li>
 							<a href="#">
-							  <i class="fa-icon-arrow-up red"></i>
-							  <span class="red"><%= @trackings_weekly.size %></span>
+							  <i class="fa-icon-plus blue"></i>
+							  <span class="blue"><%= @trackings_weekly.size %></span>
 							  New Trackings
+							</a>
+						  </li>
+						  <li>
+							<a href="#">
+							  <i class="fa-icon-arrow-up green"></i>
+							  <span class="green"><%= @trackings_weekly.sum(:views).to_i %></span>
+							  New Views
 							</a>
 						  </li>
 						  <li>
