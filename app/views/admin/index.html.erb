@@ -157,6 +157,9 @@
                     	<div class="circleStatsItem blue">
                         	<i class="fa-icon-bullhorn"></i>
                         	<% @share_change = @share_month_count - @share_last_month_count %>
+                        	<% if @share_last_month_count == 0 %>
+								<% @share_last_month_count = 1 %>
+							<% end %>
 							<% @share_percentage = (@share_change.to_f/@share_last_month_count)*100 %>
 							<% @share_stat = @share_percentage %>
 							<span id="share_stat" class="hidden"><%= @share_stat %></span>
@@ -166,7 +169,7 @@
                         	<input type="text" value="<%= @share_stat %>" class="blueCircle" />
                     	</div>
 
-						<div class="box-small-title"><a href="#" rel="tooltip" data-placement="bottom" data-original-title="<%= @share_stat %>">Shares</a></div>
+						<div class="box-small-title"><a href="#" rel="tooltip" data-placement="bottom" data-original-title="<%= @share_stat.to_i %>%">Shares</a></div>
 
 					</div>
 					
@@ -174,13 +177,16 @@
 						<div class="circleStatsItem yellow">
                         	<i class="fa-icon-user"></i>
                         	<% @user_change = @user_month_count - @user_last_month_count %>
+                        	<% if @user_last_month_count == 0 %>
+								<% @user_last_month_count = 1 %>
+							<% end %>
 							<% @user_percentage = (@user_change.to_f/@user_last_month_count)*100 %>
 							<% @user_stat = @user_percentage %>
 							<span class="plus">+</span>
 							<span class="percent">%</span>
                         	<input type="text" value="<%= @user_stat %>" class="yellowCircle" />
                     	</div>
-						<div class="box-small-title"><a href="#" rel="tooltip" data-placement="bottom" data-original-title="<%= @user_stat %>">New users</a></div>
+						<div class="box-small-title"><a href="#" rel="tooltip" data-placement="bottom" data-original-title="<%= @user_stat.to_i %>%">New users</a></div>
 					</div>
 					<div class="noMargin span3" onTablet="span4" onDesktop="span3">
 						<div class="circleStatsItem pink">
@@ -191,9 +197,9 @@
 							<% end %>
 							<%= @trackings_month.sum(:views) %> | <%= @trackings_two_months.sum(:views) %>
 							 | tracking %:
-							<%= @tracking_change.to_f %> |
-							<%= @tracking_percentage = (@tracking_change.to_f/tracking_last_month)*100 %>
-							<% @tracking_stat = @tracking_percentage %>
+							<% @tracking_change.to_f %> |
+							<% @tracking_percentage = (@tracking_change.to_f/tracking_last_month)*100 %>
+							<%= @tracking_stat = @tracking_percentage.to_i %>%
                         	<i class="fa-icon-globe"></i>
 							<span class="plus">+</span>
 							<span class="percent">%</span>
