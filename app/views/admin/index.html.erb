@@ -163,10 +163,13 @@
 							<%# @share_stat = @share_percentage.to_f.to_i %>
 							<span class="plus">+</span>
 							<span class="percent">%</span>
-                        	<input type="text" value="<%#= @share_stat %>0" class="blueCircle" />
+                        	<input type="text" value="<%= @share_stat %>" class="blueCircle" />
                     	</div>
-						<div class="box-small-title">Shares</div>
+
+						<div class="box-small-title"><a href="#" rel="tooltip" data-placement="bottom" data-original-title="<%= @share_stat %>">Shares</a></div>
+
 					</div>
+					
 					<div class="span3" onTablet="span4" onDesktop="span3">
 						<div class="circleStatsItem yellow">
                         	<i class="fa-icon-user"></i>
@@ -177,7 +180,7 @@
 							<span class="percent">%</span>
                         	<input type="text" value="<%= @user_stat %>" class="yellowCircle" />
                     	</div>
-						<div class="box-small-title">New users</div>
+						<div class="box-small-title"><a href="#" rel="tooltip" data-placement="bottom" data-original-title="<%= @user_stat %>">New users</a></div>
 					</div>
 					<div class="noMargin span3" onTablet="span4" onDesktop="span3">
 						<div class="circleStatsItem pink">
