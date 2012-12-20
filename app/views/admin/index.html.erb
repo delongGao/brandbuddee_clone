@@ -159,10 +159,11 @@
                         	<% @share_change = @share_month_count - @share_last_month_count %>
 							<% @share_percentage = (@share_change.to_f/@share_last_month_count)*100 %>
 							<% @share_stat = @share_percentage %>
+							<span id="share_stat" class="hidden"><%= @share_stat %></span>
 							<%# @share_stat = @share_percentage.to_f.to_i %>
 							<span class="plus">+</span>
 							<span class="percent">%</span>
-                        	<input type="text" value="<%= @share_stat %>" class="blueCircle" />
+                        	<input type="text" value="<%#= @share_stat %>" class="blueCircle" />
                     	</div>
 						<div class="box-small-title">Shares</div>
 					</div>
@@ -556,7 +557,12 @@
 		<script src="/js/admin/jquery.sparkline.min.js"></script>
 
 		<script src="/js/admin/custom.js"></script>
+
+
 		<script type="text/javascript">
-		
-	</script>
+			
+			var share_stat = $('#share_stat').var();
+			$('.blueCircle').val(share_stat);
+
+		</script>
 		<!-- end: JavaScript-->
