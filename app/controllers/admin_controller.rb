@@ -37,6 +37,7 @@ class AdminController < ApplicationController
 				@campaigns_weekly = Campaign.where(:date.gt => Time.now - 1.week).order_by([:date, :desc])
 				@brands_weekly = Brand.where(:date.gt => Time.now - 1.week).order_by([:date, :desc])
 
+				@last_users = User.all.order_by([:date, :desc]).limit(4)
 
 				@user_all = User.all.order_by([:date, :desc])
 				@campaign_all = Campaign.all.order_by([:date, :desc])
