@@ -428,14 +428,17 @@
 					</div>
 					<div class="box-content">
 						<ul class="dashboard-list">
+							<% @last_users.each do |l| %>
 							<li>
 								<a href="#">
-									<img class="avatar" alt="Lucas" src="img/avatar.jpg">
+									<%= image_tag(l.profile_image_url(:thumb).to_s, :class=>'avatar') %>
+
 								</a>
-								<strong>Name:</strong> <a href="#">Łukasz Holeczek <b><%= @last_users.size %></b></a><br>
+								<strong>Name:</strong> <a href="#"><%= l.first_name unless l.first_name.nil? %> <%= l.last_name unless l.last_name.nil? %></a><br>
 								<strong>Since:</strong> Jul 25, 2012 11:09<br>
 								<strong>Status:</strong> <span class="label label-success">Approved</span>                                  
 							</li>
+							<% end %>
 							<li>
 								<a href="#">
 									<img class="avatar" alt="Bill" src="img/avatar9.jpg">
