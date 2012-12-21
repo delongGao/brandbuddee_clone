@@ -430,11 +430,11 @@
 						<ul class="dashboard-list">
 							<% @last_users.each do |l| %>
 							<li>
-								<a href="#">
+								<a href="/<%= l.nickname unless l.nickname.nil? %>">
 									<%= image_tag(l.profile_image_url(:thumb).to_s, :class=>'avatar') %>
 
 								</a>
-								<strong>Name:</strong> <a href="#"><%= l.first_name unless l.first_name.nil? %> <%= l.last_name unless l.last_name.nil? %></a><br>
+								<strong>Name:</strong> <a href="/<%= l.nickname unless l.nickname.nil? %>" target="_blank"><%= l.first_name unless l.first_name.nil? %> <%= l.last_name unless l.last_name.nil? %><% if l.nickname.nil? %> <%= l.email %> <% end %></a><br>
 								<strong>Since:</strong> <%= time_ago_in_words(l.date) + " ago" unless l.date.nil? %><br>
 								<strong>Status:</strong> <span class="label label-info"><%= l.provider %></span>                                  
 							</li>
