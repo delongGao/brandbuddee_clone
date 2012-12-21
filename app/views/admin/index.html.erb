@@ -435,11 +435,11 @@
 
 								</a>
 								<strong>Name:</strong> <a href="#"><%= l.first_name unless l.first_name.nil? %> <%= l.last_name unless l.last_name.nil? %></a><br>
-								<strong>Since:</strong> Jul 25, 2012 11:09<br>
-								<strong>Status:</strong> <span class="label label-success">Approved</span>                                  
+								<strong>Since:</strong> <%= time_ago_in_words(l.date) + " ago" unless l.date.nil? %><br>
+								<strong>Status:</strong> <span class="label label-info"><%= l.provider %></span>                                  
 							</li>
 							<% end %>
-							<li>
+<!-- 							<li>
 								<a href="#">
 									<img class="avatar" alt="Bill" src="img/avatar9.jpg">
 								</a>
@@ -462,7 +462,7 @@
 								<strong>Name:</strong> <a href="#">Kate Presley</a><br>
 								<strong>Since:</strong> Jul 25, 2012 11:09<br>
 								<strong>Status:</strong> <span class="label label-info">Updates</span>                                  
-							</li>
+							</li> -->
 						</ul>
 					</div>
 				</div><!--/span-->
