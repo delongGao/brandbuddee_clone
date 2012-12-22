@@ -1,0 +1,790 @@
+	<div id="overlay">
+		<ul>
+		  <li class="li1"></li>
+		  <li class="li2"></li>
+		  <li class="li3"></li>
+		  <li class="li4"></li>
+		  <li class="li5"></li>
+		  <li class="li6"></li>
+		</ul>
+	</div>	
+
+	<%= render 'shared/admin_header' %>
+	
+		<div class="container-fluid">
+		<div class="row-fluid">
+
+
+			<%= render 'shared/admin_side' %>
+			
+			<noscript>
+				<div class="alert alert-block span10">
+					<h4 class="alert-heading">Warning!</h4>
+					<p>You need to have <a href="http://en.wikipedia.org/wiki/JavaScript" target="_blank">JavaScript</a> enabled to use this site.</p>
+				</div>
+			</noscript>
+			
+			<div id="content" class="span10">
+			<!-- start: Content -->
+			
+
+			<div>
+				<hr>
+				<ul class="breadcrumb">
+					<li>
+						<a href="#">Home</a> <span class="divider">/</span>
+					</li>
+					<li>
+						<a href="#">Tables</a>
+					</li>
+				</ul>
+				<hr>
+			</div>
+			
+			<div class="row-fluid sortable">		
+				<div class="box span12">
+					<div class="box-header" data-original-title>
+						<h2><i class="icon-bullhorn"></i><span class="break"></span>Campaigns</h2>
+						<div class="box-icon">
+							<a href="#" class="btn-setting"><i class="icon-wrench"></i></a>
+							<a href="#" class="btn-minimize"><i class="icon-chevron-up"></i></a>
+							<a href="#" class="btn-close"><i class="icon-remove"></i></a>
+						</div>
+					</div>
+					<div class="box-content">
+						<table class="table table-striped table-bordered bootstrap-datatable datatable">
+						  <thead>
+							  <tr>
+								  <th>Title</th>
+								  <th>Date Created</th>
+								  <th>Last Updated</th>
+								  <th>Brand</th>
+								  <th>Location</th>
+								  <th>Status</th>
+								  <th>Actions</th>
+							  </tr>
+						  </thead>   
+						  <tbody>
+
+						  	<% @campaigns.each do |c| %>
+							<tr>
+								<td><%= c.title %></td>
+								<td class="center"><%= c.date %> <span class="label"><%= time_ago_in_words(c.date) + " ago" unless c.date.nil? %></span></td>
+								<td class="center"><% unless c.last_updated.nil? %><span class="label"><%= time_ago_in_words(c.last_updated) + " ago" %></span><% end %></td>
+								<td class="center"><%= c.brand.name unless c.brand.nil? %></td>
+								<td class="center"><%= c.location.city unless c.location.nil? %></td>
+								<td class="center">
+									<span class="label <% if c.status == 'active' %>label-success<% elsif c.status == 'expired' %>label-important<% end %>"><%= c.status %></span>
+								</td>
+								<td class="center">
+									<a class="btn btn-success" href="#">
+										<i class="icon-zoom-in icon-white"></i>  
+									</a>
+									<a class="btn btn-info" href="#">
+										<i class="icon-edit icon-white"></i>  
+									</a>
+									<a class="btn btn-danger" href="#">
+										<i class="icon-trash icon-white"></i> 
+									</a>
+								</td>
+							</tr>
+							<% end %>
+
+<!-- 							<tr>
+								<td>Alphonse Ivo</td>
+								<td class="center">2012/01/01</td>
+								<td class="center">Member</td>
+								<td class="center">
+									<span class="label label-success">Active</span>
+								</td>
+								<td class="center">
+									<a class="btn btn-success" href="#">
+										<i class="icon-zoom-in icon-white"></i>  
+									</a>
+									<a class="btn btn-info" href="#">
+										<i class="icon-edit icon-white"></i>  
+									</a>
+									<a class="btn btn-danger" href="#">
+										<i class="icon-trash icon-white"></i> 
+									</a>
+								</td>
+							</tr>
+							<tr>
+								<td>Thancmar Theophanes</td>
+								<td class="center">2012/01/01</td>
+								<td class="center">Member</td>
+								<td class="center">
+									<span class="label label-success">Active</span>
+								</td>
+								<td class="center">
+									<a class="btn btn-success" href="#">
+										<i class="icon-zoom-in icon-white"></i>  
+									</a>
+									<a class="btn btn-info" href="#">
+										<i class="icon-edit icon-white"></i>  
+									</a>
+									<a class="btn btn-danger" href="#">
+										<i class="icon-trash icon-white"></i> 
+									</a>
+								</td>
+								</td>
+							</tr>
+							<tr>
+								<td>Walerian Khwaja</td>
+								<td class="center">2012/01/01</td>
+								<td class="center">Member</td>
+								<td class="center">
+									<span class="label label-success">Active</span>
+								</td>
+								<td class="center">
+									<a class="btn btn-success" href="#">
+										<i class="icon-zoom-in icon-white"></i>                                            
+									</a>
+									<a class="btn btn-info" href="#">
+										<i class="icon-edit icon-white"></i>                                            
+									</a>
+									<a class="btn btn-danger" href="#">
+										<i class="icon-trash icon-white"></i> 
+									</a>
+								</td>
+							</tr>
+							<tr>
+								<td>Clemens Janko</td>
+								<td class="center">2012/02/01</td>
+								<td class="center">Staff</td>
+								<td class="center">
+									<span class="label label-important">Banned</span>
+								</td>
+								<td class="center">
+									<a class="btn btn-success" href="#">
+										<i class="icon-zoom-in icon-white"></i>                                            
+									</a>
+									<a class="btn btn-info" href="#">
+										<i class="icon-edit icon-white"></i>                                            
+									</a>
+									<a class="btn btn-danger" href="#">
+										<i class="icon-trash icon-white"></i> 
+									</a>
+								</td>
+							</tr>
+							<tr>
+								<td>Chidubem Gottlob</td>
+								<td class="center">2012/02/01</td>
+								<td class="center">Staff</td>
+								<td class="center">
+									<span class="label label-important">Banned</span>
+								</td>
+								<td class="center">
+									<a class="btn btn-success" href="#">
+										<i class="icon-zoom-in icon-white"></i>                                            
+									</a>
+									<a class="btn btn-info" href="#">
+										<i class="icon-edit icon-white"></i>                                            
+									</a>
+									<a class="btn btn-danger" href="#">
+										<i class="icon-trash icon-white"></i> 
+									</a>
+								</td>
+							</tr>
+							<tr>
+								<td>Hristofor Sergio</td>
+								<td class="center">2012/03/01</td>
+								<td class="center">Member</td>
+								<td class="center">
+									<span class="label label-warning">Pending</span>
+								</td>
+								<td class="center">
+									<a class="btn btn-success" href="#">
+										<i class="icon-zoom-in icon-white"></i>                                            
+									</a>
+									<a class="btn btn-info" href="#">
+										<i class="icon-edit icon-white"></i>                                            
+									</a>
+									<a class="btn btn-danger" href="#">
+										<i class="icon-trash icon-white"></i> 
+									</a>
+								</td>
+							</tr>
+							<tr>
+								<td>Tadhg Griogair</td>
+								<td class="center">2012/03/01</td>
+								<td class="center">Member</td>
+								<td class="center">
+									<span class="label label-warning">Pending</span>
+								</td>
+								<td class="center">
+									<a class="btn btn-success" href="#">
+										<i class="icon-zoom-in icon-white"></i>                                            
+									</a>
+									<a class="btn btn-info" href="#">
+										<i class="icon-edit icon-white"></i>                                            
+									</a>
+									<a class="btn btn-danger" href="#">
+										<i class="icon-trash icon-white"></i> 
+									</a>
+								</td>
+							</tr>
+							<tr>
+								<td>Pollux Beaumont</td>
+								<td class="center">2012/01/21</td>
+								<td class="center">Staff</td>
+								<td class="center">
+									<span class="label label-success">Active</span>
+								</td>
+								<td class="center">
+									<a class="btn btn-success" href="#">
+										<i class="icon-zoom-in icon-white"></i>                                            
+									</a>
+									<a class="btn btn-info" href="#">
+										<i class="icon-edit icon-white"></i>                                            
+									</a>
+									<a class="btn btn-danger" href="#">
+										<i class="icon-trash icon-white"></i> 
+									</a>
+								</td>
+							</tr>
+							<tr>
+								<td>Adam Alister</td>
+								<td class="center">2012/01/21</td>
+								<td class="center">Staff</td>
+								<td class="center">
+									<span class="label label-success">Active</span>
+								</td>
+								<td class="center">
+									<a class="btn btn-success" href="#">
+										<i class="icon-zoom-in icon-white"></i>                                            
+									</a>
+									<a class="btn btn-info" href="#">
+										<i class="icon-edit icon-white"></i>                                            
+									</a>
+									<a class="btn btn-danger" href="#">
+										<i class="icon-trash icon-white"></i> 
+									</a>
+								</td>
+							</tr>
+							<tr>
+								<td>Carlito Roffe</td>
+								<td class="center">2012/08/23</td>
+								<td class="center">Staff</td>
+								<td class="center">
+									<span class="label label-important">Banned</span>
+								</td>
+								<td class="center">
+									<a class="btn btn-success" href="#">
+										<i class="icon-zoom-in icon-white"></i>                                            
+									</a>
+									<a class="btn btn-info" href="#">
+										<i class="icon-edit icon-white"></i>                                            
+									</a>
+									<a class="btn btn-danger" href="#">
+										<i class="icon-trash icon-white"></i> 
+									</a>
+								</td>
+							</tr>
+							<tr>
+								<td>Sana Amrin</td>
+								<td class="center">2012/08/23</td>
+								<td class="center">Staff</td>
+								<td class="center">
+									<span class="label label-important">Banned</span>
+								</td>
+								<td class="center">
+									<a class="btn btn-success" href="#">
+										<i class="icon-zoom-in icon-white"></i>                                            
+									</a>
+									<a class="btn btn-info" href="#">
+										<i class="icon-edit icon-white"></i>                                            
+									</a>
+									<a class="btn btn-danger" href="#">
+										<i class="icon-trash icon-white"></i> 
+									</a>
+								</td>
+							</tr>
+							<tr>
+								<td>Adinah Ralph</td>
+								<td class="center">2012/06/01</td>
+								<td class="center">Admin</td>
+								<td class="center">
+									<span class="label">Inactive</span>
+								</td>
+								<td class="center">
+									<a class="btn btn-success" href="#">
+										<i class="icon-zoom-in icon-white"></i>                                            
+									</a>
+									<a class="btn btn-info" href="#">
+										<i class="icon-edit icon-white"></i>                                            
+									</a>
+									<a class="btn btn-danger" href="#">
+										<i class="icon-trash icon-white"></i> 
+									</a>
+								</td>
+							</tr>
+							<tr>
+								<td>Dederick Mihail</td>
+								<td class="center">2012/06/01</td>
+								<td class="center">Admin</td>
+								<td class="center">
+									<span class="label">Inactive</span>
+								</td>
+								<td class="center">
+									<a class="btn btn-success" href="#">
+										<i class="icon-zoom-in icon-white"></i>                                            
+									</a>
+									<a class="btn btn-info" href="#">
+										<i class="icon-edit icon-white"></i>                                            
+									</a>
+									<a class="btn btn-danger" href="#">
+										<i class="icon-trash icon-white"></i> 
+									</a>
+								</td>
+							</tr>
+							<tr>
+								<td>Hipólito András</td>
+								<td class="center">2012/03/01</td>
+								<td class="center">Member</td>
+								<td class="center">
+									<span class="label label-warning">Pending</span>
+								</td>
+								<td class="center">
+									<a class="btn btn-success" href="#">
+										<i class="icon-zoom-in icon-white"></i>                                            
+									</a>
+									<a class="btn btn-info" href="#">
+										<i class="icon-edit icon-white"></i>                                            
+									</a>
+									<a class="btn btn-danger" href="#">
+										<i class="icon-trash icon-white"></i> 
+										
+									</a>
+								</td>
+							</tr>
+							<tr>
+								<td>Fricis Arieh</td>
+								<td class="center">2012/03/01</td>
+								<td class="center">Member</td>
+								<td class="center">
+									<span class="label label-warning">Pending</span>
+								</td>
+								<td class="center">
+									<a class="btn btn-success" href="#">
+										<i class="icon-zoom-in icon-white"></i>                                            
+									</a>
+									<a class="btn btn-info" href="#">
+										<i class="icon-edit icon-white"></i>                                            
+									</a>
+									<a class="btn btn-danger" href="#">
+										<i class="icon-trash icon-white"></i> 
+										
+									</a>
+								</td>
+							</tr>
+							<tr>
+								<td>Scottie Maximilian</td>
+								<td class="center">2012/03/01</td>
+								<td class="center">Member</td>
+								<td class="center">
+									<span class="label label-warning">Pending</span>
+								</td>
+								<td class="center">
+									<a class="btn btn-success" href="#">
+										<i class="icon-zoom-in icon-white"></i>                                            
+									</a>
+									<a class="btn btn-info" href="#">
+										<i class="icon-edit icon-white"></i>                                            
+									</a>
+									<a class="btn btn-danger" href="#">
+										<i class="icon-trash icon-white"></i> 
+										
+									</a>
+								</td>
+							</tr>
+							<tr>
+								<td>Bao Gaspar</td>
+								<td class="center">2012/01/01</td>
+								<td class="center">Member</td>
+								<td class="center">
+									<span class="label label-success">Active</span>
+								</td>
+								<td class="center">
+									<a class="btn btn-success" href="#">
+										<i class="icon-zoom-in icon-white"></i>                                            
+									</a>
+									<a class="btn btn-info" href="#">
+										<i class="icon-edit icon-white"></i>                                            
+									</a>
+									<a class="btn btn-danger" href="#">
+										<i class="icon-trash icon-white"></i> 
+										
+									</a>
+								</td>
+							</tr>
+							<tr>
+								<td>Tullio Luka</td>
+								<td class="center">2012/02/01</td>
+								<td class="center">Staff</td>
+								<td class="center">
+									<span class="label label-important">Banned</span>
+								</td>
+								<td class="center">
+									<a class="btn btn-success" href="#">
+										<i class="icon-zoom-in icon-white"></i>                                            
+									</a>
+									<a class="btn btn-info" href="#">
+										<i class="icon-edit icon-white"></i>                                            
+									</a>
+									<a class="btn btn-danger" href="#">
+										<i class="icon-trash icon-white"></i> 
+										
+									</a>
+								</td>
+							</tr>
+							<tr>
+								<td>Felice Arseniy</td>
+								<td class="center">2012/02/01</td>
+								<td class="center">Admin</td>
+								<td class="center">
+									<span class="label">Inactive</span>
+								</td>
+								<td class="center">
+									<a class="btn btn-success" href="#">
+										<i class="icon-zoom-in icon-white"></i>                                            
+									</a>
+									<a class="btn btn-info" href="#">
+										<i class="icon-edit icon-white"></i>                                            
+									</a>
+									<a class="btn btn-danger" href="#">
+										<i class="icon-trash icon-white"></i> 
+										
+									</a>
+								</td>
+							</tr>
+							<tr>
+								<td>Finlay Alf</td>
+								<td class="center">2012/02/01</td>
+								<td class="center">Admin</td>
+								<td class="center">
+									<span class="label">Inactive</span>
+								</td>
+								<td class="center">
+									<a class="btn btn-success" href="#">
+										<i class="icon-zoom-in icon-white"></i>                                            
+									</a>
+									<a class="btn btn-info" href="#">
+										<i class="icon-edit icon-white"></i>                                            
+									</a>
+									<a class="btn btn-danger" href="#">
+										<i class="icon-trash icon-white"></i> 
+										
+									</a>
+								</td>
+							</tr>
+							<tr>
+								<td>Theophilus Nala</td>
+								<td class="center">2012/03/01</td>
+								<td class="center">Member</td>
+								<td class="center">
+									<span class="label label-warning">Pending</span>
+								</td>
+								<td class="center">
+									<a class="btn btn-success" href="#">
+										<i class="icon-zoom-in icon-white"></i>                                            
+									</a>
+									<a class="btn btn-info" href="#">
+										<i class="icon-edit icon-white"></i>                                            
+									</a>
+									<a class="btn btn-danger" href="#">
+										<i class="icon-trash icon-white"></i> 
+										
+									</a>
+								</td>
+							</tr>
+							<tr>
+								<td>Sullivan Robert</td>
+								<td class="center">2012/03/01</td>
+								<td class="center">Member</td>
+								<td class="center">
+									<span class="label label-warning">Pending</span>
+								</td>
+								<td class="center">
+									<a class="btn btn-success" href="#">
+										<i class="icon-zoom-in icon-white"></i>                                            
+									</a>
+									<a class="btn btn-info" href="#">
+										<i class="icon-edit icon-white"></i>                                            
+									</a>
+									<a class="btn btn-danger" href="#">
+										<i class="icon-trash icon-white"></i> 
+										
+									</a>
+								</td>
+							</tr>
+							<tr>
+								<td>Kristóf Filiberto</td>
+								<td class="center">2012/01/21</td>
+								<td class="center">Staff</td>
+								<td class="center">
+									<span class="label label-success">Active</span>
+								</td>
+								<td class="center">
+									<a class="btn btn-success" href="#">
+										<i class="icon-zoom-in icon-white"></i>                                            
+									</a>
+									<a class="btn btn-info" href="#">
+										<i class="icon-edit icon-white"></i>                                            
+									</a>
+									<a class="btn btn-danger" href="#">
+										<i class="icon-trash icon-white"></i> 
+										
+									</a>
+								</td>
+							</tr>
+							<tr>
+								<td>Kuzma Edvard</td>
+								<td class="center">2012/01/21</td>
+								<td class="center">Staff</td>
+								<td class="center">
+									<span class="label label-success">Active</span>
+								</td>
+								<td class="center">
+									<a class="btn btn-success" href="#">
+										<i class="icon-zoom-in icon-white"></i>                                            
+									</a>
+									<a class="btn btn-info" href="#">
+										<i class="icon-edit icon-white"></i>                                            
+									</a>
+									<a class="btn btn-danger" href="#">
+										<i class="icon-trash icon-white"></i> 
+										
+									</a>
+								</td>
+							</tr>
+							<tr>
+								<td>Bünyamin Kasper</td>
+								<td class="center">2012/08/23</td>
+								<td class="center">Staff</td>
+								<td class="center">
+									<span class="label label-important">Banned</span>
+								</td>
+								<td class="center">
+									<a class="btn btn-success" href="#">
+										<i class="icon-zoom-in icon-white"></i>                                            
+									</a>
+									<a class="btn btn-info" href="#">
+										<i class="icon-edit icon-white"></i>                                            
+									</a>
+									<a class="btn btn-danger" href="#">
+										<i class="icon-trash icon-white"></i> 
+										
+									</a>
+								</td>
+							</tr>
+							<tr>
+								<td>Crofton Arran</td>
+								<td class="center">2012/08/23</td>
+								<td class="center">Staff</td>
+								<td class="center">
+									<span class="label label-important">Banned</span>
+								</td>
+								<td class="center">
+									<a class="btn btn-success" href="#">
+										<i class="icon-zoom-in icon-white"></i>                                            
+									</a>
+									<a class="btn btn-info" href="#">
+										<i class="icon-edit icon-white"></i>                                            
+									</a>
+									<a class="btn btn-danger" href="#">
+										<i class="icon-trash icon-white"></i> 
+										
+									</a>
+								</td>
+							</tr>
+							<tr>
+								<td>Bernhard Shelah</td>
+								<td class="center">2012/06/01</td>
+								<td class="center">Admin</td>
+								<td class="center">
+									<span class="label">Inactive</span>
+								</td>
+								<td class="center">
+									<a class="btn btn-success" href="#">
+										<i class="icon-zoom-in icon-white"></i>                                            
+									</a>
+									<a class="btn btn-info" href="#">
+										<i class="icon-edit icon-white"></i>                                            
+									</a>
+									<a class="btn btn-danger" href="#">
+										<i class="icon-trash icon-white"></i> 
+										
+									</a>
+								</td>
+							</tr>
+							<tr>
+								<td>Grahame Miodrag</td>
+								<td class="center">2012/03/01</td>
+								<td class="center">Member</td>
+								<td class="center">
+									<span class="label label-warning">Pending</span>
+								</td>
+								<td class="center">
+									<a class="btn btn-success" href="#">
+										<i class="icon-zoom-in icon-white"></i>                                            
+									</a>
+									<a class="btn btn-info" href="#">
+										<i class="icon-edit icon-white"></i>                                            
+									</a>
+									<a class="btn btn-danger" href="#">
+										<i class="icon-trash icon-white"></i> 
+										
+									</a>
+								</td>
+							</tr>
+							<tr>
+								<td>Innokentiy Celio</td>
+								<td class="center">2012/03/01</td>
+								<td class="center">Member</td>
+								<td class="center">
+									<span class="label label-warning">Pending</span>
+								</td>
+								<td class="center">
+									<a class="btn btn-success" href="#">
+										<i class="icon-zoom-in icon-white"></i>                                            
+									</a>
+									<a class="btn btn-info" href="#">
+										<i class="icon-edit icon-white"></i>                                            
+									</a>
+									<a class="btn btn-danger" href="#">
+										<i class="icon-trash icon-white"></i> 
+										
+									</a>
+								</td>
+							</tr>
+							<tr>
+								<td>Kostandin Warinhari</td>
+								<td class="center">2012/03/01</td>
+								<td class="center">Member</td>
+								<td class="center">
+									<span class="label label-warning">Pending</span>
+								</td>
+								<td class="center">
+									<a class="btn btn-success" href="#">
+										<i class="icon-zoom-in icon-white"></i>                                            
+									</a>
+									<a class="btn btn-info" href="#">
+										<i class="icon-edit icon-white"></i>                                            
+									</a>
+									<a class="btn btn-danger" href="#">
+										<i class="icon-trash icon-white"></i> 
+
+									</a>
+								</td>
+							</tr>
+							<tr>
+								<td>Ajith Hristijan</td>
+								<td class="center">2012/03/01</td>
+								<td class="center">Member</td>
+								<td class="center">
+									<span class="label label-warning">Pending</span>
+								</td>
+								<td class="center">
+									<a class="btn btn-success" href="#">
+										<i class="icon-zoom-in icon-white"></i>                                            
+									</a>
+									<a class="btn btn-info" href="#">
+										<i class="icon-edit icon-white"></i>                                            
+									</a>
+									<a class="btn btn-danger" href="#">
+										<i class="icon-trash icon-white"></i> 
+										
+									</a>
+								</td>
+							</tr> -->
+						  </tbody>
+					  </table>            
+					</div>
+				</div><!--/span-->
+			
+			</div><!--/row-->
+
+
+			
+    
+					<hr>
+			<!-- end: Content -->
+			</div><!--/#content.span10-->
+				</div><!--/fluid-row-->
+				
+		<div class="modal hide fade" id="myModal">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">×</button>
+				<h3>Settings</h3>
+			</div>
+			<div class="modal-body">
+				<p>Here settings can be configured...</p>
+			</div>
+			<div class="modal-footer">
+				<a href="#" class="btn" data-dismiss="modal">Close</a>
+				<a href="#" class="btn btn-primary">Save changes</a>
+			</div>
+		</div>
+		
+		<div class="clearfix"></div>
+		
+
+		<%= render 'shared/admin_footer' %>
+				
+	</div><!--/.fluid-container-->
+
+
+
+		<!-- start: JavaScript-->
+
+		<script src="/js/admin/jquery-1.7.2.min.js"></script>
+		<script src="/js/admin/jquery-ui-1.8.21.custom.min.js"></script>
+	
+	
+		<script src="/js/admin/jquery.cookie.js"></script>
+	
+		<script src='/js/admin/fullcalendar.min.js'></script>
+	
+		<script src='/js/admin/jquery.dataTables.min.js'></script>
+
+		<script src="/js/admin/excanvas.js"></script>
+		<script src="/js/admin/jquery.flot.min.js"></script>
+		<script src="/js/admin/jquery.flot.pie.min.js"></script>
+		<script src="/js/admin/jquery.flot.stack.js"></script>
+		<script src="/js/admin/jquery.flot.resize.min.js"></script>
+	
+		<script src="/js/admin/jquery.chosen.min.js"></script>
+	
+		<script src="/js/admin/jquery.uniform.min.js"></script>
+		
+		<script src="/js/admin/jquery.cleditor.min.js"></script>
+	
+		<script src="/js/admin/jquery.noty.js"></script>
+	
+		<script src="/js/admin/jquery.elfinder.min.js"></script>
+	
+		<script src="/js/admin/jquery.raty.min.js"></script>
+	
+		<script src="/js/admin/jquery.iphone.toggle.js"></script>
+	
+		<script src="/js/admin/jquery.uploadify-3.1.min.js"></script>
+	
+		<script src="/js/admin/jquery.gritter.min.js"></script>
+	
+		<script src="/js/admin/jquery.imagesloaded.js"></script>
+	
+		<script src="/js/admin/jquery.masonry.min.js"></script>
+	
+		<script src="/js/admin/jquery.knob.js"></script>
+	
+		<script src="/js/admin/jquery.sparkline.min.js"></script>
+
+		<script src="/js/admin/custom.js"></script>
+
+
+		<script type="text/javascript">
+
+
+		</script>
+		<!-- end: JavaScript-->

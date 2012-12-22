@@ -9,111 +9,13 @@
 		</ul>
 	</div>	
 
-	<!-- start: Header -->
-	<div class="navbar">
-		<div class="navbar-inner">
-			<div class="container-fluid">
-				<a class="btn btn-navbar" data-toggle="collapse" data-target=".top-nav.nav-collapse,.sidebar-nav.nav-collapse">
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				</a>
-				<a class="brand" href="index.html"> <!-- <img alt="brandbuddee" src="/img/admin/logo20.png" /> --> <span class="hidden-phone"><b>brandbuddee</b> admin</span></a>
-								
-				<!-- start: Header Menu -->
-				<div class="nav-no-collapse header-nav">
-					<ul class="nav pull-right">
-						<li class="dropdown hidden-phone">
-							<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-								<i class="icon-warning-sign icon-white"></i> <span class="label label-important hidden-phone"></span> <span class="label label-success hidden-phone">0</span>
-							</a>
-							<ul class="dropdown-menu notifications">
-								<li>
-									<span class="dropdown-menu-title">You have 0 notifications</span>
-								</li>	
-
-                                <li>
-                            		<a class="dropdown-menu-sub-footer">View all notifications</a>
-								</li>	
-							</ul>
-						</li>
-						<!-- start: Notifications Dropdown -->
-						<li class="dropdown hidden-phone">
-							<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-								<i class="icon-tasks icon-white"></i> <span class="label label-warning hidden-phone">0</span>
-							</a>
-							<ul class="dropdown-menu tasks">
-								<li>
-									<span class="dropdown-menu-title">You have 0 tasks in progress</span>
-                            	</li>
-
-								<li>
-                            		<a class="dropdown-menu-sub-footer">View all tasks</a>
-								</li>	
-							</ul>
-						</li>
-						<!-- end: Notifications Dropdown -->
-						<!-- start: Message Dropdown -->
-						<li class="dropdown hidden-phone">
-							<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-								<i class="icon-envelope icon-white"></i> <span class="label label-success hidden-phone">0</span>
-							</a>
-							<ul class="dropdown-menu messages">
-								<li>
-									<span class="dropdown-menu-title">You have 0 messages</span>
-								</li>	
-
-								<li>
-                            		<a class="dropdown-menu-sub-footer">View all messages</a>
-								</li>	
-							</ul>
-						</li>
-						<!-- end: Message Dropdown -->
-						<li>
-							<a class="btn" href="#">
-								<i class="icon-wrench icon-white"></i>
-							</a>
-						</li>
-						<!-- start: User Dropdown -->
-						<li class="dropdown">
-							<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-								<i class="icon-user icon-white"></i>
-								<span class="caret"></span>
-							</a>
-							<ul class="dropdown-menu">
-								<li><a href="#"><i class="icon-user"></i> Profile</a></li>
-								<li><a href="login.html"><i class="icon-off"></i> Logout</a></li>
-							</ul>
-						</li>
-						<!-- end: User Dropdown -->
-					</ul>
-				</div>
-				<!-- end: Header Menu -->
-				
-			</div>
-		</div>
-	</div>
-	<!-- start: Header -->
+	<%= render 'shared/admin_header' %>
 	
 		<div class="container-fluid">
 		<div class="row-fluid">
 
 
-			<!-- start: Main Menu -->
-			<div class="span2 main-menu-span">
-				<div class="nav-collapse sidebar-nav">
-					<ul class="nav nav-tabs nav-stacked main-menu">
-						<li><a href="/admin"><i class="icon-home icon-white"></i><span class="hidden-tablet"> Dashboard</span></a></li>
-						<li><a href="ui.html"><i class="fa-icon-group icon-white"></i><span class="hidden-tablet"> Users</span></a></li>
-						<li><a href="form.html"><i class="fa-icon-bullhorn icon-white"></i><span class="hidden-tablet"> Campaigns</span></a></li>
-						<li><a href="chart.html"><i class="fa-icon-bookmark icon-white"></i><span class="hidden-tablet"> Brands</span></a></li>
-						<li><a href="typography.html"><i class="fa-icon-folder-open icon-white"></i><span class="hidden-tablet"> Categories</span></a></li>
-						<li><a href="gallery.html"><i class="fa-icon-barcode icon-white"></i><span class="hidden-tablet"> Redeems</span></a></li>
-						<li><a href="table.html"><i class="fa-icon-screenshot icon-white"></i><span class="hidden-tablet"> Locations</span></a></li>
-					</ul>
-				</div><!--/.well -->
-			</div><!--/span-->
-			<!-- end: Main Menu -->
+			<%= render 'shared/admin_side' %>
 			
 			<noscript>
 				<div class="alert alert-block span10">
@@ -498,21 +400,18 @@
 		</div>
 		
 		<div class="clearfix"></div>
-		
-		<footer>
-			<p>
-				<span style="text-align:left;float:left">&copy; <a href="http://brandbuddee.com" target="_blank">brandbuddee</a> 2012</span>
-<!-- 				<span style="text-align:right;float:right">Powered by: <a href="#">rain</a></span> -->
-			</p>
 
-		</footer>
+
+		<%= render 'shared/admin_footer' %>
 				
 	</div><!--/.fluid-container-->
 
-	<!-- start: JavaScript-->
 
-	<script src="/js/admin/jquery-1.7.2.min.js"></script>
-	<script src="/js/admin/jquery-ui-1.8.21.custom.min.js"></script>
+
+		<!-- start: JavaScript-->
+
+		<script src="/js/admin/jquery-1.7.2.min.js"></script>
+		<script src="/js/admin/jquery-ui-1.8.21.custom.min.js"></script>
 	
 	
 		<script src="/js/admin/jquery.cookie.js"></script>

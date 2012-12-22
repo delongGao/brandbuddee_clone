@@ -59,4 +59,8 @@ class AdminController < ApplicationController
 
 	end
 
+	def campaigns
+		@campaigns = Campaign.all.order_by([:date, :desc])
+	end
+
 end
