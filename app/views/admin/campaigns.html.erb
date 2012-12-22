@@ -57,7 +57,7 @@
 							  <tr>
 								  <th>Title</th>
 								  <th>Date Created</th>
-								  <th>Last Updated</th>
+<!-- 								  <th>Last Updated</th> -->
 								  <th>Brand</th>
 								  <th>Location</th>
 								  <th>Status</th>
@@ -70,7 +70,7 @@
 							<tr>
 								<td><%= c.title %></td>
 								<td class="center"><%= c.date %> <span class="label"><%= time_ago_in_words(c.date) + " ago" unless c.date.nil? %></span></td>
-								<td class="center"><% unless c.last_updated.nil? %><span class="label"><%= time_ago_in_words(c.last_updated) + " ago" %></span><% end %></td>
+<!-- 								<td class="center"><% unless c.last_updated.nil? %><span class="label"><%= time_ago_in_words(c.last_updated) + " ago" %></span><% end %></td> -->
 								<td class="center"><%= c.brand.name unless c.brand.nil? %></td>
 								<td class="center"><%= c.location.city unless c.location.nil? %></td>
 								<td class="center">
