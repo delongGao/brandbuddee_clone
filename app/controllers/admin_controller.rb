@@ -63,4 +63,39 @@ class AdminController < ApplicationController
 		@campaigns = Campaign.all.order_by([:date, :desc])
 	end
 
+	def edit_campaign
+		@category_all = Category.all.order_by([:date, :desc])
+    	@brand_all = Brand.all.order_by([:name, :asc])
+    	@location_all = Location.all.order_by([:city, :desc])
+
+		@campaign = Campaign.find(params[:_id])
+	end
+
+	def update_campaign
+		@campaign = Campaign.find(params[:campaign][:id])
+		
+		unless params[:brand].blank?
+			@campaign.brand_id = params[:brand]
+		end
+
+		unless params[:date_year].blank? || params[:date_month].blank? || params[:date_day].blank? || params[:date_hour].blank? || params[:date_minute].blank?
+			date_time = DateTime.new(params[:date_year].to_i, params[:date_month].to_i, params[:date_day].to_i, params[:date_hour].to_i, params[:date_minute].to_i, 0, "-0700")
+			@campaign.end_date = date_time
+		end
+		
+		unless params[:campaign][:location].blank?
+			@location = Location.find(params[:campaign][:location])
+			@campaign.location_id = @location.id
+		end
+
+	    if @campaign.update_attributes(params[:campaign])
+	      flash[:notice] = "Successfully updated."
+	      #redirect_to(:action => 'edit_campaign')
+	      redirect_to "#{root_url}admin/campaign/edit?_id=#{params[:campaign][:id]}"
+	    else
+	      flash[:notice] = "Uh oh... something went wrong. Please try again."
+	      redirect_to(:action => 'edit_campaign')
+	    end
+	end
+
 end

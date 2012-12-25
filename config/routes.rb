@@ -52,10 +52,13 @@ Brandbuddee::Application.routes.draw do
 
   match 'admin/campaigns' => 'admin#campaigns'
 
-  match 'admin/campaign/edit' => 'campaign#edit_campaign'
-  match 'admin/campaign/update' => 'campaign#update_campaign'
+  match 'admin/campaign/edit' => 'admin#edit_campaign'
+  match 'admin/campaign/update' => 'admin#update_campaign'
   match 'admin/campaign/create' => 'users#create_new_campaign'
   match 'admin/campaign/destroy' => 'users#campaign_destroy'
+
+  match 'superadmin/campaign/edit' => 'campaign#edit_campaign'
+  match 'superadmin/campaign/update' => 'campaign#update_campaign'
 
   match 'admin/brand/edit' => 'users#edit_brand'
   match 'admin/brand/update' => 'users#update_brand'
