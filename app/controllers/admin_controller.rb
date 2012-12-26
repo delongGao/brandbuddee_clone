@@ -77,8 +77,7 @@ class AdminController < ApplicationController
 		@users_weekly = @campaign.users.where(:date.gt => Time.now - 1.week).order_by([:date, :desc])
 
 		share_ids = Share.where(:campaign_id => params[:_id]).map(&:_id)
-		@trackings_weekly = Tracking.where(:share_id.in => share_ids)
-		blah = false
+		@trackings_weekly = Tracking.where(:date.gt => Time.now - 1.week, :share_id.in => share_ids)
 		#@trackings_weekly = Tracking.where(:date.gt => Time.now - 1.week).order_by([:date, :desc])
 		@redeems_weekly = Redeem.where(:date.gt => Time.now - 1.week).order_by([:date, :desc])
 		@campaigns_weekly = Campaign.where(:date.gt => Time.now - 1.week).order_by([:date, :desc])
@@ -92,7 +91,7 @@ class AdminController < ApplicationController
 		@location_all = Location.all.order_by([:date, :desc])
 		@brand_all = Brand.all.order_by([:date, :desc])
 		@share_all = Share.all.order_by([:date, :desc])
-		@tracking_all = Tracking.all.order_by([:date, :desc])
+		@tracking_all = Tracking.where(:share_id.in => share_ids)
 		@redeem_all = Redeem.all.order_by([:date, :desc])
 	end
 
