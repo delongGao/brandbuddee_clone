@@ -3,7 +3,7 @@ class AdminController < ApplicationController
 	def index
 
 		if current_user
-			if current_user.account_type == 'super admin' || Rails.env.development?
+			if current_user.account_type == 'super admin' || current_user.account_type == 'admin' || Rails.env.development?
 				@share_month = Share.where(:date.gt => Time.now - 1.month)
 				@share_two_months = Share.where(:date.gt => Time.now - 2.month)
 				@share_month_count = @share_month.count
@@ -132,19 +132,19 @@ class AdminController < ApplicationController
 
 	def view_campaign_users
 		@campaign = Campaign.find(params[:_id])
-		@campaign_users = @campaign.users.order_by([:date, :desc])
+		@campaign_users = @campaign.users.order_by([:date, :asc])
 	end
 
 	def view_campaign_redeems
 		@campaign = Campaign.find(params[:_id])
-		@campaign_redeems = @campaign.redeems.order_by([:date, :desc])
+		@campaign_redeems = @campaign.redeems.order_by([:date, :asc])
 	end
 
 	def view_campaign_trackings
 		@campaign = Campaign.find(params[:_id])
 		share_ids = Share.where(:campaign_id => @campaign._id).map(&:_id)
 
-		@campaign_trackings = Tracking.where(:share_id.in => share_ids).order_by([:date, :desc])
+		@campaign_trackings = Tracking.where(:share_id.in => share_ids).order_by([:date, :asc])
 	end
 
 end

@@ -64,6 +64,7 @@
 							  	  <th>Date</th>
 								  <th>First Name</th>
 								  <th>Last Name</th>
+								  <th>Email</th>
 								  <th>Actions</th>
 							  </tr>
 						  </thead>   
@@ -74,6 +75,7 @@
 								<td class="center"><%= c.date %> <span class="label"><%= time_ago_in_words(c.date) + " ago" unless c.date.nil? %></span></td>
 								<td><%= c.first_name %></td>
 								<td><%= c.last_name %></td>
+								<td><%= c.email %></td>
 								
 								<td class="center">
 									<a class="btn btn-success" target="_blank" href="/<%= c.nickname unless c.nickname.nil? %>">
