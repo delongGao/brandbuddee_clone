@@ -31,13 +31,10 @@
 				<hr>
 				<ul class="breadcrumb">
 					<li>
-						<a href="#">Dashboard</a> <span class="divider">/</span>
+						<a href="/admin">Dashboard</a> <span class="divider">/</span>
 					</li>
 					<li>
-						<a href="#">Campaigns</a> <span class="divider">/</span>
-					</li>
-					<li>
-						<a href="#">View</a> <span class="divider">/</span>
+						<a href="/admin/campaigns">Campaigns</a> <span class="divider">/</span>
 					</li>
 					<li>
 						<a href="#"><b><%= @campaign.title %></b></a>
@@ -61,7 +58,7 @@
                     	</div>
 						<div class="box-small-title">User satisfaction</div>
 					</div> -->
-					<div class="span3" onTablet="span4" onDesktop="span3">
+					<div class="span6" onTablet="span4" onDesktop="span5">
                     	<div class="circleStatsItem blue">
                         	<i class="fa-icon-bullhorn"></i>
                         	<% @share_change = @share_month_count - @share_last_month_count %>
@@ -80,6 +77,48 @@
 						<div class="box-small-title"><a href="#" rel="tooltip" data-placement="bottom" data-original-title="<%= @share_stat.to_i %>%">Shares</a></div>
 
 					</div>
+
+					<div class="box span4" onTablet="span6" onDesktop="span4">
+						<div class="box-header">
+							<h2><i class="icon-list"></i><span class="break"></span>Weekly Stat</h2>
+							<div class="box-icon">
+								<a href="#" class="btn-minimize"><i class="icon-chevron-up"></i></a>
+								<a href="#" class="btn-close"><i class="icon-remove"></i></a>
+							</div>
+						</div>
+						<div class="box-content">
+							<ul class="dashboard-list">
+								<li>
+									<a href="#">
+										<i class="fa-icon-arrow-up green"></i>                               
+										<span class="green"><%= @users_weekly.size %></span>
+										New Users                                    
+									</a>
+								</li>
+							  <li>
+								<a href="#">
+								  <i class="fa-icon-plus blue"></i>
+								  <span class="blue"><%= @trackings_weekly.size %></span>
+								  New Trackings
+								</a>
+							  </li>
+							  <li>
+								<a href="#">
+								  <i class="fa-icon-arrow-up green"></i>
+								  <span class="green"><%= @trackings_weekly.sum(:views).to_i %></span>
+								  New Views
+								</a>
+							  </li>
+							  <li>
+								<a href="#">
+								  <i class="fa-icon-plus blue"></i>
+								  <span class="blue"><%= @redeems_weekly.size %></span>
+								  New Redeems                                    
+								</a>
+							  </li>
+							</ul>
+						</div>
+					</div><!--/span-->
 					
 
 
@@ -165,18 +204,18 @@
 			
 			<div class="sortable row-fluid">
 				
-				<a class="quick-button span4">
+				<a class="quick-button span4" href="/admin/campaign/view/users?_id=<%= @campaign._id %>">
 					<i class="fa-icon-group"></i>
 					<p>Buddees</p>
 					<span class="notification"><%= @user_all.size %></span>
 				</a>
-				<a class="quick-button span4">
+				<a class="quick-button span4" href="/admin/campaign/view/redeems?_id=<%= @campaign._id %>">
 					<i class="fa-icon-barcode"></i>
 					<p>Redeems</p>
 					<span class="notification"><%= @redeem_all.size %></span>
 				</a>
 				
-				<a class="quick-button span4">
+				<a class="quick-button span4" href="/admin/campaign/view/trackings?_id=<%= @campaign._id %>">
 					<i class="fa-icon-screenshot"></i>
 					<p>Trackings</p>
 					<span class="notification green"><%= @tracking_all.size %></span>
@@ -205,7 +244,7 @@
 
 				<div class="box span4" onTablet="span6" onDesktop="span4">
 					<div class="box-header">
-						<h2><i class="icon-list"></i><span class="break"></span>Weekly Stat</h2>
+						<h2><i class="icon-list"></i><span class="break"></span>Monthly Stat</h2>
 						<div class="box-icon">
 							<a href="#" class="btn-minimize"><i class="icon-chevron-up"></i></a>
 							<a href="#" class="btn-close"><i class="icon-remove"></i></a>
@@ -216,28 +255,28 @@
 							<li>
 								<a href="#">
 									<i class="fa-icon-arrow-up green"></i>                               
-									<span class="green"><%= @users_weekly.size %></span>
+									<span class="green"><%= @users_monthly.size %></span>
 									New Users                                    
 								</a>
 							</li>
 						  <li>
 							<a href="#">
 							  <i class="fa-icon-plus blue"></i>
-							  <span class="blue"><%= @trackings_weekly.size %></span>
+							  <span class="blue"><%= @trackings_monthly.size %></span>
 							  New Trackings
 							</a>
 						  </li>
 						  <li>
 							<a href="#">
 							  <i class="fa-icon-arrow-up green"></i>
-							  <span class="green"><%= @trackings_weekly.sum(:views).to_i %></span>
+							  <span class="green"><%= @trackings_monthly.sum(:views).to_i %></span>
 							  New Views
 							</a>
 						  </li>
 						  <li>
 							<a href="#">
 							  <i class="fa-icon-plus blue"></i>
-							  <span class="blue"><%= @redeems_weekly.size %></span>
+							  <span class="blue"><%= @redeems_monthly.size %></span>
 							  New Redeems                                    
 							</a>
 						  </li>

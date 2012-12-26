@@ -58,6 +58,11 @@ Brandbuddee::Application.routes.draw do
   match 'admin/campaign/create' => 'users#create_new_campaign'
   match 'admin/campaign/destroy' => 'users#campaign_destroy'
 
+  match 'admin/campaign/view/users' => 'admin#view_campaign_users'
+  match 'admin/campaign/view/redeems' => 'admin#view_campaign_redeems'
+  match 'admin/campaign/view/trackings' => 'admin#view_campaign_trackings'
+
+
   match 'superadmin/campaign/edit' => 'campaign#edit_campaign'
   match 'superadmin/campaign/update' => 'campaign#update_campaign'
 

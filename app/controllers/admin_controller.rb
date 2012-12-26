@@ -82,6 +82,10 @@ class AdminController < ApplicationController
 		#@trackings_weekly = Tracking.where(:date.gt => Time.now - 1.week).order_by([:date, :desc])
 		@redeems_weekly = Redeem.where(:date.gt => Time.now - 1.week, :campaign_id => params[:_id]).order_by([:date, :desc])
 
+		@users_monthly = Share.where(:date.gt => Time.now - 1.month, :campaign_id => params[:_id])
+		@trackings_monthly = Tracking.where(:date.gt => Time.now - 1.month, :share_id.in => share_ids)
+		@redeems_monthly = Redeem.where(:date.gt => Time.now - 1.month, :campaign_id => params[:_id]).order_by([:date, :desc])
+
 		#@last_users = User.all.order_by([:date, :desc]).paginate :page => params[:page], :per_page => 4
 		@last_users = @campaign.users.order_by([:date, :desc]).paginate :page => params[:page], :per_page => 4
 
@@ -124,6 +128,23 @@ class AdminController < ApplicationController
 	      flash[:notice] = "Uh oh... something went wrong. Please try again."
 	      redirect_to(:action => 'edit_campaign')
 	    end
+	end
+
+	def view_campaign_users
+		@campaign = Campaign.find(params[:_id])
+		@campaign_users = @campaign.users.order_by([:date, :desc])
+	end
+
+	def view_campaign_redeems
+		@campaign = Campaign.find(params[:_id])
+		@campaign_redeems = @campaign.redeems.order_by([:date, :desc])
+	end
+
+	def view_campaign_trackings
+		@campaign = Campaign.find(params[:_id])
+		share_ids = Share.where(:campaign_id => @campaign._id).map(&:_id)
+
+		@campaign_trackings = Tracking.where(:share_id.in => share_ids).order_by([:date, :desc])
 	end
 
 end
