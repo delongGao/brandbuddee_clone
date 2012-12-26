@@ -74,22 +74,17 @@ class AdminController < ApplicationController
 
 
 		#@users_weekly = User.where(:date.gt => Time.now - 1.week).order_by([:date, :desc])
-		@users_weekly = @campaign.users.where(:date.gt => Time.now - 1.week).order_by([:date, :desc])
+		#@users_weekly = @campaign.users.where(:date.gt => Time.now - 1.week).order_by([:date, :desc])
+		@users_weekly = Share.where(:date.gt => Time.now - 1.week, :campaign_id => params[:_id])
 
 		share_ids = Share.where(:campaign_id => params[:_id]).map(&:_id)
 		@trackings_weekly = Tracking.where(:date.gt => Time.now - 1.week, :share_id.in => share_ids)
 		#@trackings_weekly = Tracking.where(:date.gt => Time.now - 1.week).order_by([:date, :desc])
-		@redeems_weekly = Redeem.where(:date.gt => Time.now - 1.week).order_by([:date, :desc])
-		@campaigns_weekly = Campaign.where(:date.gt => Time.now - 1.week).order_by([:date, :desc])
-		@brands_weekly = Brand.where(:date.gt => Time.now - 1.week).order_by([:date, :desc])
+		@redeems_weekly = Redeem.where(:date.gt => Time.now - 1.week, :campaign_id => params[:_id]).order_by([:date, :desc])
 
 		@last_users = User.all.order_by([:date, :desc]).paginate :page => params[:page], :per_page => 4
 
 		@user_all = Share.where(:campaign_id => params[:_id])
-		@campaign_all = Campaign.all.order_by([:date, :desc])
-		@category_all = Category.all.order_by([:date, :desc])
-		@location_all = Location.all.order_by([:date, :desc])
-		@brand_all = Brand.all.order_by([:date, :desc])
 		@share_all = Share.all.order_by([:date, :desc])
 		@tracking_all = Tracking.where(:share_id.in => share_ids)
 		@redeem_all = @campaign.redeems
