@@ -77,7 +77,7 @@
 									<span class="label <% if c.status == 'active' %>label-success<% elsif c.status == 'expired' %>label-important<% end %>"><%= c.status %></span>
 								</td>
 								<td class="center">
-									<a class="btn btn-success" href="#">
+									<a class="btn btn-success" href="/admin/campaign/view?_id=<%= c._id %>">
 										<i class="icon-zoom-in icon-white"></i>  
 									</a>
 									<a class="btn btn-info" href="/admin/campaign/edit?_id=<%= c._id %>">

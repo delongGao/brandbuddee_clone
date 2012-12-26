@@ -52,6 +52,7 @@ Brandbuddee::Application.routes.draw do
 
   match 'admin/campaigns' => 'admin#campaigns'
 
+  match 'admin/campaign/view' => 'admin#view_campaign'
   match 'admin/campaign/edit' => 'admin#edit_campaign'
   match 'admin/campaign/update' => 'admin#update_campaign'
   match 'admin/campaign/create' => 'users#create_new_campaign'
