@@ -78,6 +78,7 @@ class AdminController < ApplicationController
 
 		share_ids = Share.where(:campaign_id => params[:_id]).map(&:_id)
 		@trackings_weekly = Tracking.where(:share_id.in => share_ids)
+		blah = false
 		#@trackings_weekly = Tracking.where(:date.gt => Time.now - 1.week).order_by([:date, :desc])
 		@redeems_weekly = Redeem.where(:date.gt => Time.now - 1.week).order_by([:date, :desc])
 		@campaigns_weekly = Campaign.where(:date.gt => Time.now - 1.week).order_by([:date, :desc])
