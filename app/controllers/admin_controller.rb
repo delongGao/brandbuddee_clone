@@ -82,7 +82,8 @@ class AdminController < ApplicationController
 		#@trackings_weekly = Tracking.where(:date.gt => Time.now - 1.week).order_by([:date, :desc])
 		@redeems_weekly = Redeem.where(:date.gt => Time.now - 1.week, :campaign_id => params[:_id]).order_by([:date, :desc])
 
-		@last_users = User.all.order_by([:date, :desc]).paginate :page => params[:page], :per_page => 4
+		#@last_users = User.all.order_by([:date, :desc]).paginate :page => params[:page], :per_page => 4
+		@last_users = @campaign.users.order_by([:date, :desc]).paginate :page => params[:page], :per_page => 4
 
 		@user_all = Share.where(:campaign_id => params[:_id])
 		@share_all = Share.all.order_by([:date, :desc])
