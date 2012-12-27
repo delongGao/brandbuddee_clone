@@ -51,6 +51,7 @@ Brandbuddee::Application.routes.draw do
   match 'admin/redeem/destroy' => 'users#redeem_destroy'
 
   match 'admin/campaigns' => 'admin#campaigns'
+  match 'admin/users' => 'admin#users'
 
   match 'admin/campaign/view' => 'admin#view_campaign'
   match 'admin/campaign/edit' => 'admin#edit_campaign'

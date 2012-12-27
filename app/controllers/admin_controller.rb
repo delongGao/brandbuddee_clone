@@ -59,6 +59,10 @@ class AdminController < ApplicationController
 
 	end
 
+	def users
+		@users = User.all.order_by([:date, :desc])
+	end
+
 	def campaigns
 		@campaigns = Campaign.all.order_by([:date, :desc])
 	end
@@ -132,19 +136,19 @@ class AdminController < ApplicationController
 
 	def view_campaign_users
 		@campaign = Campaign.find(params[:_id])
-		@campaign_users = @campaign.users.order_by([:date, :asc])
+		@campaign_users = @campaign.users.order_by([:date, :desc])
 	end
 
 	def view_campaign_redeems
 		@campaign = Campaign.find(params[:_id])
-		@campaign_redeems = @campaign.redeems.order_by([:date, :asc])
+		@campaign_redeems = @campaign.redeems.order_by([:date, :desc])
 	end
 
 	def view_campaign_trackings
 		@campaign = Campaign.find(params[:_id])
 		share_ids = Share.where(:campaign_id => @campaign._id).map(&:_id)
 
-		@campaign_trackings = Tracking.where(:share_id.in => share_ids).order_by([:date, :asc])
+		@campaign_trackings = Tracking.where(:share_id.in => share_ids).order_by([:date, :desc])
 	end
 
 end
