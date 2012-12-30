@@ -9,7 +9,7 @@
 //= require twitter/bootstrap
 //= require_tree .
 
-addEventListener("load", function() { setTimeout(promo_campaign_wrap, 200); }, false);
+//addEventListener("load", function() { setTimeout(promo_campaign_wrap, 200); }, false);
 
 function promo_campaign_wrap(){
 	//$('.promo-campaign-wrap').fadeIn(600);

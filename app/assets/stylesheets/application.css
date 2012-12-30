@@ -136,14 +136,13 @@ body {
 #promo-campaign-wrap {
 	display: block;
 	position: relative;
-	top: -100px;
+	//top: -100px;
 	left: 0;
 	right: 0;
 	margin: 0 auto;
 	float: none;
 	color: #474531;
 	text-shadow: 0 1px rgba(255, 255, 255, 0.5);
-	z-index: -9999;
 }
 
 .promo-campaign-bg {
