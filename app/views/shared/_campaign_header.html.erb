@@ -59,6 +59,22 @@
   </div><!-- end .navbar -->
 </header>
 
+<% if current_user %>
+<% else %>
+    <div class="span8" id="promo-campaign-wrap">
+        <div class="promo-campaign-bg">
+            <div class="span4" style="min-width:60%;">
+                <h4 style="padding:0;line-height:5px;">Get rewarded to share cool stories</h4>
+                <h5 style="padding:0;font-weight:400;color:rgba(0,0,0,0.7);">Share this brand’s story, gain points, & earn the reward</h5>
+            </div>
+            <div class="span2" style="float:right;margin-right:25px;margin-top:3px;">
+                <a data-toggle="modal" href="#login" class="btn btn-large btn-success pull-right">Login</a>
+                <a href="<%= root_url %>signup" class="btn btn-large btn-info pull-right" style="margin-right:7px;">Join</a>
+            </div>
+        </div> <!-- .promo-campaign-bg -->
+    </div>
+<% end %>
+
 
 
 
