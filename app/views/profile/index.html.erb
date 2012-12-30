@@ -4,7 +4,7 @@
         position: relative;
         padding-top: 40px;
         background-size: 100%;
-        background: url('<% if @profile.profile_cover_url(:cover).nil? || @profile.profile_cover_url(:cover).blank? %>profile_cover_default.png<% else %><%= @profile.profile_cover_url(:cover).to_s %><% end %>') no-repeat center center;
+        background: url('<% if @profile.profile_cover_url(:cover).nil? || @profile.profile_cover_url(:cover).blank? %>/assets/profile_cover_default.png<% else %><%= @profile.profile_cover_url(:cover).to_s %><% end %>') no-repeat center center;
         //background: url('/assets/splash_bg.jpg') no-repeat;
         -webkit-background-size: cover;
         -moz-background-size: cover;
