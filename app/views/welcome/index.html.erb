@@ -1,166 +1,57 @@
-<link href="css/splash.css" rel="stylesheet">
+  <%= render 'shared/header' %>
 
-<div class="navbar navbar-fixed-top">
-      <div class="navbar-inner">
-        <div class="container">
-          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </a>
-          <a class="brand" href="<%= root_url %>"><%= image_tag('brandbuddee-logo-med.png', :class=>"splash_logo", :size=>"248x47", :alt=>"brandbuddee") %></a>
-<!--           <div class="nav-collapse">
-            <ul class="nav pull-right">
-              <li class="active"><a href="index.html">Home</a></li>
-              <li><a href="about.html">About</a></li>
-              <li><a href="blog_fullwidth.html">Blog</a></li>
-              <li><a href="pricing.html">Pricing</a></li>
-              <li><a href="contact.html">Contact</a></li>
-            </ul>
-          </div>/.nav-collapse -->
-          <div class="splashLogin">
-            <a data-toggle="modal" href="#login" class="btn" style="margin-right:5px;"><i class="icon-lock"></i> login</a>
-            <a href="/signup" class="btn"><i class="icon-ok"></i> signup</a>
-		      </div> <!-- .splashLogin -->
-        </div>
+  <!-- Content
+  ================================================== -->
+  <div id="content" class="container">
+  </div>
+
+  <!-- Carousel --> 
+  <div id="carousel" class="carousel slide" rel="carousel">
+    <!-- Carousel items -->       
+    <div class="carousel-inner">
+      <div class="active item">
+        <h1 class="alt"><!-- Discover, Share, & Earn Rewards --></h1>
+        <img src="/assets/home_bg.jpg" />
       </div>
     </div>
+  </div>
 
-    <div class="slider-block">
+  <div class="container">
 
-      <div id="myCarousel" class="carousel slide">
-        <!-- Carousel items -->
-        <div class="carousel-inner">
-          <div class="active item">
-            <img src="/assets/slide_bg.jpg" alt="">
-            <div class="caption middle-left container">
-<!--               <p class="small white text-dark">Introducing</p> -->
-<!--               <p class="medium white text">Discover, Share, Earn <span class="green">Rewards</span></p> -->
-              <p style="margin-top:15px;">
-                <object width="560" height="315"><param name="movie" value="http://www.youtube.com/v/qz69Xh6NRTE?version=3&amp;hl=en_US&amp;rel=0"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube.com/v/qz69Xh6NRTE?version=3&amp;hl=en_US&amp;rel=0" type="application/x-shockwave-flash" width="560" height="315" allowscriptaccess="always" allowfullscreen="true"></embed></object>
-              </p>
-
-<!--         <div class="beta_form">
-          <div id="subscribe_container">
-            <div class="subscribe_wrap">
-              <%= form_tag url_for(:action => 'create'), :id => "subscribe", :class => "form-horizontal", :remote => true do %>
-                  <%= text_field_tag :email, nil, :id =>"subscribe_field", :class => "input-large span3", :placeholder=>"sign up to be next in line" %>
-                  <%= submit_tag "Sign up", :class=>"btn btn-large" %>
-                <div class="message"></div>
-              <% end %>
-            </div> <!-- .subscribe_wrap -->
-            <div id="share_box"></div>
-          </div> <!-- #subscribe_container -->
-        </div> <!-- .beta_form -->
-
-<!--               <p class="large pink add-space">brandbuddee</p> -->
-            </div>
-        </div>
-<!--         <div class="item">
-          <img src="img/slide_bg1.jpg" alt="Slide2">
-          <div class="caption bottom-right container">
-            <p class="large pink add-space">Better carousel</p>
-            <p class="small white">Multiple text & background colors</p>
-            <p class="small white">Multiple caption positions</p>
-            <p class="medium white text-pink">and much more!</p>
-          </div>
-        </div>
-        <div class="item">
-          <img src="img/slide_bg3.jpg" alt="Slide2">
-          <div class="caption top-right container">
-            <p class="medium pink add-space">Isn't that just</p>
-            <p class="large white text-dark">AWESOME?</p>
-          </div>
-        </div>
-        </div> -->
-        <!-- Carousel nav -->
-<!--         <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
-        <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a> -->
+    <div class="row" style="margin-bottom:20px;">
+      <div class="span4 splash_features">
+        <span class="grey"><i class="icon-search splash_feature_icons"></i></span>
+        <h2><!-- <span class="grey">Discover</span> --> Discover</h2>
+         <p>Discover your favorite brands, exclusive stories, and become their buddee.</p>
+        <!-- <p><a class="" href="#">Read more &raquo;</a></p> -->
       </div>
-
-    </div>
-
-<!--     <div class="hero-unit">
-      <div class="container">
-        <div class="row">
-          <div class="span12">
-            <h1>Crafted with <strong class="pink">LOVE</strong></h1>
-          </div>
-        </div>
+      <div class="span4 splash_features">
+        <span class="grey"><i class="icon-upload splash_feature_icons"></i></span>
+        <h2>Share</h2>
+         <p>Support the brands that you already love and share them with your friends.</p>
+        <!-- <p><a class="" href="#">Read more &raquo;</a></p> -->
       </div>
-    </div> -->
-
-    <div class="container" style="padding-top:5px;">
-
-      <!-- TESTIMONIALS 3col -->
-      <div class="row testimonials">
-          <div class="span4">
-<!--             <img src="img/testimonials_placeholder.png" alt="placeholder+image"> -->
-            <h2>Discover</h2>
-            <p>Discover your favorite brands, exclusive stories, and become their buddee.</p>
-          </div>
-          <div class="span4">
-<!--             <img src="img/testimonials_placeholder.png" alt="placeholder+image"> -->
-            <h2>Share</h2>
-            <p>Support the brands that you already love and share them with your friends.</p>
-          </div>
-          <div class="span4">
-<!--             <img src="img/testimonials_placeholder.png" alt="placeholder+image"> -->
-            <h2>Earn Rewards</h2>
-            <p>Be the first to know. Earn amazing rewards just for sharing! Simple as that.</p>
-          </div>
+      <div class="span4 splash_features">
+        <span class="grey"><i class="icon-gift splash_feature_icons"></i></span>
+        <h2>Earn Rewards</h2>
+        <p>Be the first to know. Earn amazing rewards just for sharing! Simple as that.</p>
+        <!-- <p><a class="" href="#">Read more &raquo;</a></p> -->
       </div>
+    </div> <!-- .row -->
 
-    </div><!-- .container -->
+  </div> <!-- .container -->
 
-     <div class="hero-unit">
-       <div class="container">
-         <div class="row">
-           <div class="span12">
-             <h1>Get started</h1>
-             <p style="text-align:center;margin-bottom:0;">You're one click away from getting rewarded. <a href="/signup">Signup now!</a></p>
-<!--              <p style="text-align:center;">Sign up to be next in line!</p> -->
-
-            
-
-           </div>
-         </div>
-       </div>
-     </div>
-
-    <div class="container" style="padding: 50px 0;">
-      <div class="team">
-
-        <div class="row">
-
-          <div class="span6 section-title horizontal-left">
-            <h2>Are you a Brand?</h2>
-            <p> Start sharing your story today, many brands recieve thousands in socially referred traffic from us. See case studies <a href="http://brandbuddee.tumblr.com/" target="_blank" title="Case Studies">here</a>. Email us at <a href="mailto:info@brandbuddee.com">info@brandbuddee.com</a> to get started.
-            <!-- <div class="btn btn-large pull-right">Know more &raquo;</div> --></p>
-          </div>
+  <br>
 
 
-        </div>
-
-        
-        
-      </div>
-    </div> <!-- /container -->
-
-    <footer>
-      <div class="container">
-        <!-- COPYRIGHTS -->
-        <p class="pull-left" style="font-weight:300;">© 2012 brandbuddee. all rights reserved.</p>
-        <p class="pull-right"><a href="#">Back to top</a></p>
-      </div>
-    </footer>
+  <%= render 'shared/footer' %>
+  
 
 
-
-
-
-<script src="js/plugins.js"></script>
-<script src="js/setup.js"></script>
+  <script type="text/javascript" src="/js/jquery.isotope.min.js"></script>
+  <script type="text/javascript" src="/js/jquery.touchSwipe.js"></script>
+  <script type="text/javascript" src="/js/jquery.hotkeys.min.js"></script>
+  <script type="text/javascript" src="/js/functions.min.js?v=2"></script>
 
 
 
@@ -168,38 +59,7 @@
 
 
 
-<div class="modal fade" id="login">
-  <div class="modal-header login_wrap">
-    <button class="close" data-dismiss="modal">×</button>
-    <h3>Login to BrandBuddee</h3>
-  </div> <!-- .modal-header -->
-  <div class="modal-body">
-
-	<div class="social_logins">
-		<a rel="external" href="/auth/facebook" class="social_link" style="margin-right:3px;"><%= image_tag('facebook_login.png', :class=>"social_login", :alt=>"facebook-login", :size=>"230x44") %></a>
-		<a rel="external" href="/auth/twitter" class="social_link"><%= image_tag('twitter_login.png', :class=>"social_login", :alt=>"twitter-login", :size=>"230x44") %></a>
-	</div> <!-- .social_logins -->
-
-    
-  <div class="clear"></div>
-
-  </div> <!-- .modal-body -->
-
-  <div class="modal-footer">
-    
-    <div class="email-signup">
-      <%= form_tag url_for(:controller => "sessions", :action => 'email_create'), :class => "form-inline", :remote => true do %>
-
-        <%= text_field_tag :email, params[:email], :class=>"signin-field signin-default span2 input-large", :placeholder=>"Email" %>
 
 
-        <%= password_field_tag :password, nil, :class=>"signin-field span2 input-large", :placeholder=>"Password" %>
 
-        <%= submit_tag "Login", :class=>"btn btn-large" %>
-      <% end %>
-      <a href="/password/reset" class="password_reset_link">Forgot your password?</a>
-    </div> <!-- .email-signup -->
-    <div class="email_signup_flash"></div>
-
-  </div>  <!-- .modal-footer -->
-</div> <!-- .modal fade -->
+  

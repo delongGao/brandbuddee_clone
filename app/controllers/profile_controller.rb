@@ -5,7 +5,7 @@ class ProfileController < ApplicationController
 		user = User.where(:nickname => params_profile).first
 		if user.present?
 		  @profile = user
-		  @campaign =  user.campaigns.order_by([:date, :desc]).paginate :page => params[:page], :per_page => 9
+		  @campaign =  user.campaigns.order_by([:date, :desc]).paginate :page => params[:page], :per_page => 12
 		  # @gallery = user.images.order_by([:date, :desc])
 		  # @images = Image.all.order_by([:date, :desc])
 		end

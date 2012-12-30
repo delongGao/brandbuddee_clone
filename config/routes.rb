@@ -39,6 +39,9 @@ Brandbuddee::Application.routes.draw do
   match "/profile/username" => "profile#profile_nickname_settings"
   match "/profile/username/update" => "profile#profile_nickname_update"
 
+  match '/choose/username' => 'users#choose_username'
+  match '/choose/username/update' => 'users#choose_username_update'
+
   match 'admin' => 'admin#index'
 
   post 'admin/category/create' => 'users#create_new_category'

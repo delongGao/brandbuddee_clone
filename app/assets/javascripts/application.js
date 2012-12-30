@@ -6,6 +6,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require twitter/bootstrap
 //= require_tree .
 
 addEventListener("load", function() { setTimeout(promo_campaign_wrap, 200); }, false);

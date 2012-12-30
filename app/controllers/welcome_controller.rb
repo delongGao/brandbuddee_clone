@@ -11,6 +11,8 @@ class WelcomeController < ApplicationController
 	end
   
 	def share
+		redirect_to root_url
+
 		@link = current_uri = request.env['PATH_INFO']
 		@link.slice!("/b/")
 	end
@@ -32,9 +34,9 @@ class WelcomeController < ApplicationController
 	    else
 	      if @subscriber.save
 	        #UserMailer.subscriber_confirmation(@subscriber, root_url).deliver
-	        Subscriber.delay(run_at: 5.minutes.from_now).invite(@subscriber.id, root_url)
+	        #Subscriber.delay(run_at: 5.minutes.from_now).invite(@subscriber.id, root_url)
 	        Subscriber.increase_share(params[:link], params[:email])
-	        flash[:notice] = "You're on the beta list!"
+	        flash[:notice] = "You're subscribed!"
 	        Subscriber.where(email: params[:email]).each do |s|
 	          @share_link = s.share_link
 	        end
@@ -71,7 +73,7 @@ class WelcomeController < ApplicationController
 
   	def list
   		if current_user
-	  		if current_user.account_type == "admin"
+	  		if current_user.account_type == "admin" || Rails.env.development?
 	  			@subscriber = Subscriber.all.order_by([:date, :desc])
 	  			@invitation = Invitation.all.order_by([:date, :desc])
 	  		else

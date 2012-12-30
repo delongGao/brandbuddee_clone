@@ -1,6 +1,6 @@
-<%= render 'shared/new_header' %>
+<%= render 'shared/header' %>
 
-<div class="container main_container" style="padding-left:0;margin-top:105px;">
+<div class="container main_container" style="padding-left:0;margin-top:20px;">
 
 	<%#= image_tag('startupclub_logo.png', :class=>"welcome_logo", :alt=>"start club", :size=>"500x33") %>
 	<% if flash[:notice].nil? %><% else %>
@@ -23,25 +23,32 @@
 
 
 				<div class="profile_image_wrap">
-					<%= form_for @user, :url => {:action => 'update_profile_image'}, :html => {:multipart => true} do |f| %>
 
-						<fieldset>
-							<div class="control-group">
-						        <label class="control-label" for="prependedInput">Avatar</label>
-						        <div class="controls">
-						          <div class="profile-image-avatar"><%= image_tag(current_user.profile_image_url(:square).to_s, :class=>"", :size=>"125x125", :style=>"border-radius:100px;" ) %></div>
-						          <%= f.file_field :profile_image, :class=>'' %>
-						          <br>
-						          <%= f.submit 'Update Profile Image', :class=>"btn" %>
-						        </div>
-							</div>
-						</fieldset>
-
-					<% end %>
 					
 				</div> <!-- .profile_image_wrap -->
 
 				<%= form_for @user, :url => {:controller => 'profile', :action => 'profile_settings_update'} do |f| %>
+
+					<fieldset>
+						<div class="control-group">
+					        <label class="control-label" for="prependedInput">Avatar</label>
+					        <div class="controls">
+					          <div class="profile-image-avatar"><%= image_tag(current_user.profile_image_url(:square).to_s, :class=>"", :size=>"125x125", :style=>"border-radius:100px;" ) %></div>
+					          <%= f.file_field :profile_image, :class=>'' %>
+					        </div>
+						</div>
+					</fieldset>
+
+					<fieldset>
+						<div class="control-group">
+					        <label class="control-label" for="prependedInput">Profile Cover</label>
+					        <div class="controls">
+					          <div class="profile-image-avatar"><%= image_tag(current_user.profile_cover_url(:cover).to_s, :class=>"img-polaroid", :size=>"313x100" ) %></div>
+					          <%= f.file_field :profile_cover, :class=>'' %>
+					        </div>
+						</div>
+					</fieldset>
+
 					<fieldset>
 						<div class="control-group">
 					        <label class="control-label" for="prependedInput"><%= f.label :first_name, 'First Name', :class=>'' %></label>
@@ -124,3 +131,5 @@
 	</div> <!-- .row -->
 
 </div><!--/.container-->
+
+<%= render 'shared/footer' %>

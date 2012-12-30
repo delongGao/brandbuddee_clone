@@ -18,6 +18,10 @@ class UsersController < ApplicationController
         redirect_to(:action => 'complete_email')
       end
 
+      if current_user.nickname.nil? || current_user.nickname.blank?
+        redirect_to(:action => 'choose_username')
+      end
+
       current_user.last_activity = Time.now
       current_user.save
 
@@ -53,6 +57,60 @@ class UsersController < ApplicationController
       redirect_to '/auth/twitter'
     end
 
+  end
+
+  def choose_username
+    @user = User.find(current_user.id)
+    if current_user.nickname.nil? || current_user.nickname.blank?
+    else
+      redirect_to root_url
+    end
+  end
+
+  def choose_username_update
+    @user = User.find(current_user.id)
+    user_nickname_before = params[:user][:nickname]
+
+      nickname_regex = /^[a-zA-Z0-9_\s]*$/i
+      if user_nickname_before.match(/^[a-zA-Z0-9_\s]*$/i).nil?
+        flash[:notice] = "Invalid username! Alphanumerics only."
+        redirect_to(:controller => 'users', :action => 'choose_username')
+      else
+        if user_nickname_before.blank?
+          flash[:notice] = "Username can't be blank"
+          redirect_to(:controller => 'users', :action => 'choose_username')
+      else
+          if user_nickname_before.nil? || user_nickname_before == ""
+            user_nickname_after = nil
+          elsif user_nickname_before != nil
+            user_nickname_after = user_nickname_before.downcase
+          end
+
+          check_exist = User.first(conditions: { nickname: user_nickname_after})
+          if check_exist != nil
+            if @user.nickname == user_nickname_after
+              flash[:notice] = "This is your current username"
+              redirect_to(:controller => 'users', :action => 'choose_username')
+            elsif check_exist.nickname != nil
+              flash[:notice] = "Username already exists. Please try another."
+              redirect_to(:controller => 'users', :action => 'choose_username')
+            elsif check_exist.nickname == nil
+              flash[:notice] = "Please choose a username."
+              redirect_to(:controller => 'users', :action => 'choose_username')
+            end
+          elsif check_exist == nil
+            @user.nickname = user_nickname_after
+            if @user.save
+              flash[:notice] = "Username successfully updated."
+              redirect_to(:controller => 'users', :action => 'choose_username')
+          else
+              flash[:notice] = "Uh oh... something went wrong. Please try again."
+              redirect_to(:controller => 'users', :action => 'choose_username')
+          end
+            #flash[:notice] = "Nickname is now yours!"
+          end
+      end
+    end
   end
 
   def password_resets_show

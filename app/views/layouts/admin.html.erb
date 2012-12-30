@@ -2,7 +2,8 @@
 <html>
 	<head>
 	  <title>brandbuddee | admin</title>
-	  <%= stylesheet_link_tag    "application", :media => "all" %>
+	  <%#= stylesheet_link_tag    "application", :media => "all" %>
+	  <link id="base-style" href="/css/admin/bootstrap.css" rel="stylesheet">
 	  <link id="base-style" href="/css/admin/style.css" rel="stylesheet">
 	  <link id="base-style-responsive" href="/css/admin/style-responsive.css" rel="stylesheet">
 <!-- 	  <link id="bootstrap-style" href="/css/admin/bootstrap.css" rel="stylesheet">
@@ -23,6 +24,49 @@
 		    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
 		  })();
 	   </script>
+
+	   <style type="text/css" media="screen">
+		    .hidden {
+				display: none;
+			}
+
+			.statCircles {
+				margin-top: 66px !important;
+			}
+
+			.statPercent {
+				font-size: 12px;
+				margin-left: 3px;
+				position: relative;
+				bottom: 5px;
+			}
+
+			.statAdd {
+				font-size: 15px;
+				margin-right: 5px;
+				position: relative;
+				bottom: 4px;
+				font-weight: 300;
+			}
+
+			.statCircles {
+				width: 100px !important;
+				position: absolute;
+				margin-top: 42.857142857142854px;
+				margin-left: -110px !important;
+				font-size: 30px;
+				border: none;
+				background-image: none;
+				font-family: Arial;
+				font-weight: bold;
+				text-align: center;
+				color: #2FABE9;
+				padding: 2px 0px 0px;
+				-webkit-appearance: none;
+				background-position: initial initial;
+				background-repeat: initial initial;
+			}
+		</style>
 	</head>
 
 	<body>
@@ -30,7 +74,8 @@
 		<%= yield %>
 
 	</body>
-	
+
+
 	<script src="/js/bootstrap-transition.js"></script>
 	<script src="/js/bootstrap-alert.js"></script>
 	<script src="/js/bootstrap-modal.js"></script>
@@ -43,5 +88,6 @@
 	<script src="/js/bootstrap-collapse.js"></script>
 	<script src="/js/bootstrap-carousel.js"></script>
 	<script src="/js/bootstrap-typeahead.js"></script>
+
 	
 </html>

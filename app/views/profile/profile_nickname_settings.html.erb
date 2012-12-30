@@ -1,6 +1,6 @@
-<%= render 'shared/new_header' %>
+<%= render 'shared/header' %>
 
-<div class="container main_container" style="padding-left:0;margin-top:105px;">
+<div class="container main_container" style="padding-left:0;margin-top:20px;">
 
 	<%#= image_tag('startupclub_logo.png', :class=>"welcome_logo", :alt=>"start club", :size=>"500x33") %>
 	<% if flash[:notice].nil? %><% else %>
@@ -27,10 +27,10 @@
 						<div class="control-group">
 					        <div class="controls">
 						<div class="input-prepend">
-						<span class="add-on">http://brandbuddee.com/</span><%= f.text_field :nickname, :id=>'prependedInput' %>
+						<span class="add-on">brandbuddee.com/</span><%= f.text_field :nickname, :id=>'prependedInput', :class=>'span3' %>
 						</div>
 					</div> <!-- .controls -->
-						</div>
+						</div> <!-- .control-group -->
 					</fieldset>
 
 					<fieldset>
@@ -44,9 +44,11 @@
 
 				<% end %>
 
+		</div> <!-- .form-horizontal -->
+				<% end %>
+
 		</div> <!-- .span9 -->
-	<% end %>
-
 	</div> <!-- .row -->
-
 </div><!--/.container-->
+
+<%= render 'shared/footer' %>

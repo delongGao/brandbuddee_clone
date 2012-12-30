@@ -10,6 +10,9 @@
 
 .profile-side-header {
 	text-align: center;
+	background: rgba(255,255,255,0.6);
+	width: auto;
+	padding-top: 15px;
 }
 
 .profile_campaign_thumbnails {
@@ -18,4 +21,22 @@
 
 .profile_campaign_link:hover {
 	text-decoration: none;
+}
+
+.profile_main_box h2 {
+}
+
+.profile_main_box p {
+	background: rgba(255,255,255,0.6);
+	padding: 10px 15px;
+}
+
+.profile_city {
+	font-size: 13px;
+	font-weight: 500;
+	padding: 0;
+	margin: 0;
+	padding-top: -10px;
+	display: block;
+	margin-top: -14px;
 }

@@ -19,7 +19,37 @@ html, body {
 }
 
 body {
-	background: rgba(0,0,0,0.1) !important;
+}
+
+.splash_features {
+	text-align: center;
+}
+
+.login-btn {
+	padding: 4px 14px !important;
+}
+
+.settings-btn {
+	padding: 4px 14px !important;
+	//position: absolute !important;
+	//right: 0 !important;
+	margin-top: 23px !important;
+}
+
+.login-btn:hover {
+	background: rgba(255,255,255,0.1);
+	text-decoration: none !important;
+}
+
+.splash_feature_icons {
+	display: block !important;
+	margin-top: 45px !important;
+	margin-bottom: 40px !important;
+	font-size: 85px;
+}
+
+.feature {
+	text-align: center;
 }
 
 .new_logo_header {
@@ -127,4 +157,25 @@ body {
 	left: 0;
 	right: 0;
 	padding-top: 13px;
+}
+
+.subscribe_form_footer {
+	margin: 0;
+}
+
+.subscribe_footer_msg {
+	margin-left: 0 !important;
+	margin-bottom: 0 !important;
+	padding: 6px 27px !important;
+	text-align: center;
+	font-size: 11px;
+}
+
+.choose_username_wrap {
+	display: block !important;
+	position: absolute !important;
+	top: 25px !important;
+	left: 0 !important;
+	right: 0 !important;
+	margin: 0 auto !important;
 }

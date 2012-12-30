@@ -1,50 +1,90 @@
-<%= render 'shared/new_header' %>
+<style type="text/css" media="screen">
+    .profile_main_box {
+        display: block;
+        position: relative;
+        padding-top: 40px;
+        background-size: 100%;
+        background: url('<%= @profile.profile_cover_url(:cover).to_s %>') no-repeat center center;
+        //background: url('/assets/splash_bg.jpg') no-repeat;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+        filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='.myBackground.jpg', sizingMethod='scale');
+        -ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='myBackground.jpg', sizingMethod='scale')";
+    }
+</style>
 
-<div class="container main_container" style="padding-left:0;margin-top:105px;">
+<%= render 'shared/header' %>
 
-	<%#= image_tag('startupclub_logo.png', :class=>"welcome_logo", :alt=>"start club", :size=>"500x33") %>
-	<% if flash[:notice].nil? %><% else %>
-		<div class="alert alert-info">
-			<button class="close" data-dismiss="alert">×</button>
-			<%= flash[:notice] %>
-		</div> <!-- .alert -->
-	<% end %>
+
+<link href="/css/social-buttons.css" rel="stylesheet">
+
+<div class="container main_container">
 
 	<div class="row">
-		<div class="span3">
-			<div class="well sidebar-nav">
+		<div class="span12">
+			<div class="well sidebar-nav profile_main_box">
 
-				<div class="profile-image"><%= image_tag(@profile.profile_image_url(:square).to_s, :class=>"", :size=>"125x125", :style=>"border-radius:100px;" ) %></div>
+				<div class="span4">
+					
 
-				<div class="profile-side-header">
-					<h2><%= @profile.first_name + ' ' + @profile.last_name %></h2>
-					<p><%= @profile.city + ', ' + @profile.state %></p>
-				</div>
+					<div class="profile-side-header">
+						<%= image_tag(@profile.profile_image_url(:square).to_s, :class=>"img-circle profile-image", :size=>"125x125") %>
+						<h2>
+							<%= @profile.first_name + ' ' + @profile.last_name %>
+							<br>
+							<span class="profile_city"><%= @profile.city + ', ' + @profile.state %></span>
+						</h2>
 
-				<ul class="nav nav-list">
-	              <li class="nav-header">Profile</li>
-		              <p><%= @profile.bio %></p>
-		              <p><a href="<%= @profile.website %>" target="_blank"><%= @profile.website %></a></p>
-	              <li class="nav-header">Social</li>
-	              	  <p><%= @profile.facebook_social %></p>
-	              	  <p><%= @profile.twitter_social %></p>
-	              	  <p><%= @profile.pinterest_social %></p>
-	            </ul>
+					</div>
+				</div> <!-- .span3 -->
+
+				<div class="span4">
+
+					<ul class="nav nav-list">
+		              <li class="nav-header">Profile</li>
+			              <p><%= @profile.bio %></p>
+			              
+		            </ul>
+
+	            </div> <!-- .span3 -->
+
+	            <div class="span3">
+
+					<ul class="nav nav-list">
+		              <li class="nav-header">Social</li>
+		              		<p><a href="<%= @profile.website %>" target="_blank"><%= @profile.website %></a></p>
+			              	<% unless @profile.facebook_social.blank? || @profile.facebook_social.nil? %>
+	                            <a href="http://facebook.com/<%= @profile.facebook_social %>" target="_blank" class="sb circle facebook mytooltip" data-original-title="Facebook">Facebook</a>
+	                        <% end %>
+	                        <% unless @profile.twitter_social.blank? || @profile.twitter_social.nil? %>
+	                            <a href="http://twitter.com/<%= @profile.twitter_social %>" target="_blank" class="sb circle twitter mytooltip" data-original-title="Twitter">Twitter</a>
+	                        <% end %>
+	                        <% unless @profile.pinterest_social.blank? || @profile.pinterest_social.nil? %>
+	                            <a href="http://pinterest.com/<%= @profile.pinterest_social  %>" target="_blank" class="sb circle pinterest mytooltip" data-original-title="Pinterest">Pinterest</a>
+	                        <% end %>
+		              	  	
+		            </ul>
+
+	            </div> <!-- .span3 -->
+	            <div class="clear"></div>
+
 				
 			</div>
 		</div> <!-- .span3 -->
 
-		<div class="span9">
+		<div class="span12">
 		<div class="form-horizontal" style="">
 				<h2 style="font-weight:500;">Current Campaigns</h2>
 				<br>
 
 
-				<% @campaign.each_slice(3) do |slice| -%>
+				<% @campaign.each_slice(4) do |slice| -%>
                     <div class="row-fluid">
                       <div class="thumbnails">
                       <% slice.each do |c| %>
-		              <li class="span4">
+		              <li class="span3">
 		              	<a href="/campaign/<%= c.link %>" class="profile_campaign_link">
 		                <div class="thumbnail profile_campaign_thumbnails">
 		                  <!-- <img src="http://placehold.it/260x180" alt=""> -->
@@ -54,12 +94,16 @@
 		                    <p><%= truncate(c.detail, :length => 83, :omission => '...') %></p>
 		<!--                     <p><a href="#" class="btn btn-primary">Action</a> <a href="#" class="btn">Action</a></p> -->
 		                  </div>
+		                  <% @redeem = c.redeems.where(:user_id => @profile.id).first %>
+		                  <% unless @redeem.nil? %>
+						  	<div class="ribbon"><span>Awarded</span></div>
+						  <% end %>
 		                </div>
 		            	</a>
 		              </li>
 <!-- 		            </a> -->
 		          <% end %>
-		          
+		          	
                   </div> <!-- .thumbnails -->
                 </div> <!-- .row -->
                 <% end %>
@@ -76,4 +120,4 @@
 <br>
 </div><!-- missing? -->
 
-<%= render 'shared/new_footer' %>
+<%= render 'shared/footer' %>

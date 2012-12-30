@@ -28,6 +28,7 @@ class User
   field :state, :type => String
 
   field :profile_image
+  field :profile_cover
 
   field :website, :type => String
   field :bio, :type => String
@@ -38,7 +39,8 @@ class User
   field :pinterest_social, :type => String
   
   mount_uploader :profile_image, ProfileImageUploader
-  attr_accessible :profile_image, :username, :email, :password, :password_confirmation, :date, :first_name, :last_name, :gender, :phone, :city, :state, :website, :bio, :oauth_token, :oauth_expires_at, :uid
+  mount_uploader :profile_cover, ProfileCoverUploader
+  attr_accessible :profile_image, :profile_cover, :username, :email, :password, :password_confirmation, :date, :first_name, :last_name, :gender, :phone, :city, :state, :website, :bio, :oauth_token, :oauth_expires_at, :uid
   
   attr_accessor :password
   before_save :encrypt_password
@@ -157,6 +159,7 @@ class User
   
   def remove_id_directory
     FileUtils.remove_dir("#{Rails.root}/public/profile_image/#{@id}", :force => true)
+    FileUtils.remove_dir("#{Rails.root}/public/profile_cover/#{@id}", :force => true)
     #FileUtils.remove_dir("http://localhost:3000/uploads/image_test/image/4f8a6da125dc9a0816000002", :force => true)
   end
   

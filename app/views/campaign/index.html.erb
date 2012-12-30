@@ -1,4 +1,5 @@
-<%= render 'shared/new_header' %>
+<%= render 'shared/header' %>
+
 <link href="/css/social-buttons.css" rel="stylesheet">
 <script type="text/javascript" src="//assets.pinterest.com/js/pinit.js"></script>
 
@@ -7,7 +8,7 @@
     <div style="height:70px;"></div>
 <% end %>
 
-<div class="container" style="margin-top:105px;">
+<div class="container" style="margin-top:15px;">
 
 	<% if flash[:notice].nil? %><% else %>
 		<div class="alert alert-info">
@@ -24,52 +25,30 @@
     <% end %>
 
 
-    <div class="row">
-<!--         <div class="span3">
-            
-            <div class="well unit-bg">
-                <ul class="nav nav-list">
+
+    <section class="row" id="project" style="margin-top:5px;">
+
+        <h1 class="span12">
+            The Castle of Cagliostro
+        </h1>
+        <!-- portfolio item-->
+        <div class="span8 project">
+
+            <div class="thumbnail zoom">
+                <!-- image -->
+
+                <%= image_tag(@campaign.campaign_image_url().to_s, :class=>"campaign_image") %>
+
+                <!-- ribbon -->
                 <% if current_user %>
-                    <li><a href="/dashboard"><i class="icon-asterisk"></i>&nbsp;Earn Rewards</a></li>
-                    <li><a href="/<%= current_user.nickname %>"><i class="icon-headphones"></i>&nbsp;Your Rewards</a></li>
-                    <li><a href="#"><i class="icon-briefcase"></i>&nbsp;Redeem</a></li>
-                    <li><a href="#"><i class="icon-tag"></i>&nbsp;Past Rewards</a></li>
-                    <li class="divider"></li>
+                    <% @redeem = @campaign.redeems.where(:user_id => current_user.id).first %>
+                    <% if @redeem != nil %>
+                        <div class="ribbon"><span>Awarded</span></div>
+                    <% end %>
                 <% end %>
-                    <li><a href="/support/help"><i class="icon-question-sign"></i>&nbsp;Help</a></li>
-                </ul>
+
             </div>
 
-            <div class="well unit-bg">
-                <p>
-                    <i class="icon-envelope"></i>&nbsp;Invite Friends</p>
-                <div class="input-append">
-                    <input class="span2" id="inputEmail" type="text" placeholder="Enter your email">
-                    <button class="btn" type="button">
-                        OK</button>
-                </div>
-            </div>
-
-        </div> -->
-
-        <div class="span12">
-            <div class="row unit-block">
-                <div class="span12 unit-bg">
-                    <div class="unit">
-                        <legend style="margin-bottom:5px;">
-                        	<%= @campaign.title %>
-                        </legend>
-            
-            			
-                        
-                        <div class="row page-content">
-                            <div class="span8">
-
-                                <div class="campaign_image_wrap">
-                                  <%= image_tag(@campaign.campaign_image_url().to_s, :class=>"campaign_image") %>
-                                </div>
-
-                                <br>
 
 
                     <% if current_user %>
@@ -150,16 +129,9 @@
                     <% end %>
 
 
-                    <div class="well">
-                        <h4>What do I get?</h4>
-                        <p><%= @campaign.reward unless @campaign.reward.nil? %></p>
-                    </div> <!-- .well -->
-
-                    <p><%= @campaign.detail %></p>
+                    <blockquote class="campaign_reward_box"><h3>What do I get?</h3><p><%= @campaign.reward unless @campaign.reward.nil? %></p></blockquote><br>
 
 
-                    
-								<br>
 
 <!--                                 <h4>Location</h4>
                                 <iframe width="100%" height="250" frameborder="0" scrolling="no" marginheight="0"
@@ -169,18 +141,31 @@
                                 <a href="http://maps.google.com/maps?f=q&amp;source=embed&amp;hl=en&amp;geocode=&amp;q=Seattle,+WA,+United+States&amp;aq=0&amp;oq=twitter+san+fra&amp;sll=37.0625,-95.677068&amp;sspn=49.043149,74.443359&amp;ie=UTF8&amp;hq=&amp;hnear=Twitter+Bldg,+Market+St,+Seattle,+WA+94103&amp;ll=37.776606,-122.416728&amp;spn=0.00301,0.004544&amp;t=m&amp;z=14"
                                     target="_blank">View Larger Map</a><br /> -->
 
+                    <div class="entry-content">
+                        <h4>Campaign Story</h4>
+                        <p><%= @campaign.detail %></p>
+                    </div>
 
-                                <div class="">
-                                    <h4>How to Redeem</h4>
-                                    <p><%= @campaign.redeem_details %></p>
-                                    
-                                    <br><br><br>
-                                </div> <!-- .well -->
+                    <div class="redeem_details">
+                        <h4>How to Redeem</h4>
+                        <p><%= @campaign.redeem_details %></p>
+                        
+                        <br><br><br>
+                    </div> <!-- .well -->
+
+                    
+
+        </div>
 
 
 
-                            </div>
-                            <div class="span4">
+
+
+
+
+
+
+        <div class="span4 project-description" style="padding-top:0;">
 
                                 <div class="well text-center">
                                     <ul class="unstyled">
@@ -189,22 +174,22 @@
 
 <% left = @campaign.limit - @campaign.redeems.size %>
 <% if current_user %>
-			<% if current_user.campaigns.where(:_id => @campaign.id).first %>
+            <% if current_user.campaigns.where(:_id => @campaign.id).first %>
                 <% @official_pts = @share.unique_page_views + @share.trackings.size %>
-				<p>Your Points: <b style="font-size:17px;"><%= @official_pts %></b></p>
+                <p>Your Points: <b style="font-size:17px;"><%= @official_pts %></b></p>
 
                 <% unless left == 0 %>
-                	<p><span class="label label-success activated_label">Activated!</span></p>
+                    <p><span class="label label-success activated_label">Activated!</span></p>
                 <% end %>
 
-				<% if left == 0 || @campaign.end_date < Time.now %>
-					<div class="alert alert-info">
-						This campaign has finished.
-					</div> <!-- .alert -->
-				<% end %>
+                <% if left == 0 || @campaign.end_date < Time.now %>
+                    <div class="alert alert-info">
+                        This campaign has finished.
+                    </div> <!-- .alert -->
+                <% end %>
 
-				<% unless @share.unique_page_views.nil? %>
-					<% if @official_pts >= @campaign.points_required %>
+                <% unless @share.unique_page_views.nil? %>
+                    <% if @official_pts >= @campaign.points_required %>
                         <% @redeem = @campaign.redeems.where(:user_id => current_user.id).first %>
                         <% if @redeem != nil %>
                             <p><a href="#" class="btn btn-large btn-success redeem_button">Redeem</a></p>
@@ -219,25 +204,25 @@
                                 Oops, you were so close! Better luck next time! In the meantime, want more campaigns? Let your favorite brands know about <b>brandbuddee</b>!
                             </div> <!-- .alert -->
                         <% end %>
-					<% end %>
-				<% end %>
-				
+                    <% end %>
+                <% end %>
+                
 
-			<% elsif %>
+            <% elsif %>
 
-				<% if left == 0 || @campaign.end_date < Time.now %>
-					<div class="alert alert-info">
-						This campaign has finished.
-					</div> <!-- .alert -->
-				<% elsif %>
-					
-					<li>
-	                    <%= link_to "Join", { :controller=>'campaign', :action=>'activate_campaign', :_c => @campaign.id }, :class=>"btn btn-large btn-info" %>
+                <% if left == 0 || @campaign.end_date < Time.now %>
+                    <div class="alert alert-info">
+                        This campaign has finished.
+                    </div> <!-- .alert -->
+                <% elsif %>
+                    
+                    <li>
+                        <%= link_to "Join", { :controller=>'campaign', :action=>'activate_campaign', :_c => @campaign.id }, :class=>"btn btn-large btn-info" %>
 
-	                </li>
-				<% end %>
-			<% end %>
-		<% end %>
+                    </li>
+                <% end %>
+            <% end %>
+        <% end %>
                                         
                                         <li>&nbsp;</li>
                                         <li>
@@ -267,24 +252,7 @@
                                                         <% end %>
                                                     </td>
                                                 </tr>
-                                                <tr>
-                                                    <td>
-                                                        Brand
-                                                    </td>
-                                                    <td>
-                                                        <%= @campaign.brand.name %>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        Category
-                                                    </td>
-                                                    <td>
-                                                        <% @campaign.categories.each do |c| %>
-															<span class="label label-info"><%= c.name %></span>
-														<% end %>
-                                                    </td>
-                                                </tr>
+
                                                 <tr>
                                                     <td>
                                                         Location
@@ -293,101 +261,181 @@
                                                         <%= @campaign.location.city + ', ' + @campaign.location.state %>
                                                     </td>
                                                 </tr>
+
+                                                <tr>
+                                                    <td>
+                                                        Category
+                                                    </td>
+                                                    <td>
+                                                        <a href="<%= root_url %>home#<% @campaign.categories.each do |c| %><%= c.name %><% end %>">#<% @campaign.categories.each do |c| %><%= c.name %><% end %></a>
+                                                    </td>
+                                                </tr>
                                             </table>
                                         </li>
                                     </ul>
                                 </div>
 
+                                <div class="well brand_overview">
+                            
+                                <h4>Brand</h4>
+                                <p>
+                                     <%= @campaign.brand.name %>
+                                </p>
 
-                                <div class="well">
-                                    <h4>About <%= @campaign.brand.name %></h4>
-                                    <p><%= @campaign.brand.bio %></p>
-                                    <% unless @campaign.brand.website.blank? || @campaign.brand.website.nil? %>
-    									<p><a href="<%= @campaign.brand.website %>" target="_blank" class="campaign_brand_link">Website</a></p>
+                                <h4>Brand overview</h4>
+                                <p>
+                                    <%= @campaign.brand.bio %>
+                                </p>
+
+                                <h4>Website</h4>
+                                <p>
+                                     <% unless @campaign.brand.website.blank? || @campaign.brand.website.nil? %>
+                                        <p><a href="<%= @campaign.brand.website %>" target="_blank" class=""><%= @campaign.brand.website %></a></p>
                                     <% end %>
-                                    <% unless @campaign.brand.facebook.blank? || @campaign.brand.facebook.nil? %>
+                                </p>
+
+                                <h4>Social</h4>
+                                <p>
+                                     <% unless @campaign.brand.facebook.blank? || @campaign.brand.facebook.nil? %>
                                         <a href="<%= @campaign.brand.facebook %>" target="_blank" class="sb circle facebook mytooltip" data-original-title="Facebook">Facebook</a>
                                     <% end %>
                                     <% unless @campaign.brand.twitter.blank? || @campaign.brand.twitter.nil? %>
                                         <a href="<%= @campaign.brand.twitter %>" target="_blank" class="sb circle twitter mytooltip" data-original-title="Twitter">Twitter</a>
                                     <% end %>
-									<% unless @campaign.brand.pinterest.blank? || @campaign.brand.pinterest.nil? %>
+                                    <% unless @campaign.brand.pinterest.blank? || @campaign.brand.pinterest.nil? %>
                                         <a href="<%= @campaign.brand.pinterest %>" target="_blank" class="sb circle pinterest mytooltip" data-original-title="Pinterest">Pinterest</a>
                                     <% end %>
                                     <% unless @campaign.brand.gplus.blank? || @campaign.brand.pinterest.nil? %>
                                         <a href="<%= @campaign.brand.gplus %>" target="_blank" class="sb circle gplus mytooltip" data-original-title="Google Plus">Google Plus</a>
                                     <% end %>
-                                    <p>
-                            
-                            
-                            
-                            
-                        </p>
-                                </div> <!-- .well -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="span9">
-                    <ul class="thumbnails">
-                        <% @campaigns_else.each do |c| %>
-                          <li class="span3">
-                            <div class="thumbnail unit-bg" style="height:342px;">
-                                  <a href="/campaign/<%= c.link %>">
-                                      <%= image_tag(c.campaign_image_url(:standard).to_s, :width=>"100%") %>
-                                  </a>
-                                  <div class="caption">
-                                      <h4 class="campaign_profile_title_wrap">
-                                          <%= truncate(c.title, :length => 37, :omission => '...') %>
-                                      </h4>
-                                      <p class="campaign_profile_reward_wrap">
-                                          <%= truncate(c.reward, :length => 54, :omission => '...') %></p>
-                                      <p class="pull-right" style="margin:0;">
-                                          <span class="help-block"><small><i class="icon-tag"></i>&nbsp;<%= c.limit - c.redeems.size %> Available&nbsp;&nbsp;<i
-                                              class="icon-time"> </i>&nbsp;
+                                </p>
 
-                                              <% unless c.end_date.nil? %>
-                                                    <% if c.end_date > Time.now %>
-                                                        <%= time_ago_in_words(c.end_date) + ' left' %>
-                                                    <% else %>
-                                                        Campaign ended
-                                                    <% end %>
-                                                <% end %>
 
-                                            </small></span>
-                                      </p>
-                                      <div class="clear"></div>
 
-                                      <span class="campaign_details" style="margin:0;">
-                                        <span class="pts_req_wrap">
-                                            <span class="help-inline text-highlight-small pts_req">
-                                                <%= c.points_required %>
-                                            </span>
-                                            <span class="pts_req_text">pts</span>
-                                        </span> <!-- .pts_req_wrap -->
-                                        <span class="view-deal">
-                                            <a href="/campaign/<%= c.link %>" class="btn btn-success">View&nbsp;<i class="icon-chevron-right icon-white"></i></a>
-                                        </span> <!-- .view-deal -->
-                                      </span> <!-- .campaign_details -->
-                                  </div>
-                              </div>
-                          </li>
-                        <% end %>
-                    </ul>
-                </div>
-            </div>
+
+<!--                                 <h4>Technology</h4>
+                                <ul class="list-style">
+                                    <li class="icon-ok">HTML / CSS / MySQL</li>
+                                    <li class="icon-ok">Design</li>
+                                    <li class="icon-ok">Php</li>
+                                </ul> -->
+
+                            </div> <!-- .well -->
+
+                        
+
+
             
 
-            <br><br><br>
-            <%= render "shared/new_footer" %>
-
         </div>
+        <!-- end portfolio item-->
+
+    </section>
+
+    <section class="row" id="related-projects">
+
+        <h3 class="span12">
+            <hr />
+            Similar Campaigns
+        </h3>
+
+        <div class="span12">
+            <ul class="thumbnails">
+                <% @campaigns_else.each do |c| %>
+                  <li class="span3">
+                    <div class="thumbnail unit-bg" style="height:342px;">
+                          <a href="/campaign/<%= c.link %>">
+                              <%= image_tag(c.campaign_image_url(:standard).to_s, :width=>"100%") %>
+                          </a>
+                          <div class="caption">
+                              <h4 class="campaign_profile_title_wrap">
+                                  <%= truncate(c.title, :length => 37, :omission => '...') %>
+                              </h4>
+                              <p class="campaign_profile_reward_wrap">
+                                  <%= truncate(c.reward, :length => 54, :omission => '...') %></p>
+                              <p class="pull-right" style="margin:0;">
+                                  <span class="help-block"><small><i class="icon-tag"></i>&nbsp;<%= c.limit - c.redeems.size %> Available&nbsp;&nbsp;<i
+                                      class="icon-time"> </i>&nbsp;
+
+                                      <% unless c.end_date.nil? %>
+                                            <% if c.end_date > Time.now %>
+                                                <%= time_ago_in_words(c.end_date) + ' left' %>
+                                            <% else %>
+                                                Campaign ended
+                                            <% end %>
+                                        <% end %>
+
+                                    </small></span>
+                              </p>
+                              <div class="clear"></div>
+
+                              <span class="campaign_details" style="margin:0;">
+                                <span class="pts_req_wrap">
+                                    <span class="help-inline text-highlight-small pts_req">
+                                        <%= c.points_required %>
+                                    </span>
+                                    <span class="pts_req_text">pts</span>
+                                </span> <!-- .pts_req_wrap -->
+                                <span class="view-deal">
+                                    <a href="/campaign/<%= c.link %>" class="btn btn-success">View&nbsp;<i class="icon-chevron-right icon-white"></i></a>
+                                </span> <!-- .view-deal -->
+                              </span> <!-- .campaign_details -->
+                          </div>
+                      </div>
+                  </li>
+                <% end %>
+            </ul>
+        </div> <!-- .span12 -->
+
+<!--         <article class="span2 project" rel="tooltip" title="Some other project">
+            <div class="thumbnail">
+                <a href="project-other.html" title="">
+                    <img src="assets/11.gif" alt="" />
+                </a>
+            </div>
+        </article> -->
+
+ 
+
+
+    </section>  
+
+
+    <div class="row">
+
+<!--         <div class="span3">
+            
+            <div class="well unit-bg">
+                <ul class="nav nav-list">
+                <% if current_user %>
+                    <li><a href="/dashboard"><i class="icon-asterisk"></i>&nbsp;Earn Rewards</a></li>
+                    <li><a href="/<%= current_user.nickname %>"><i class="icon-headphones"></i>&nbsp;Your Rewards</a></li>
+                    <li><a href="#"><i class="icon-briefcase"></i>&nbsp;Redeem</a></li>
+                    <li><a href="#"><i class="icon-tag"></i>&nbsp;Past Rewards</a></li>
+                    <li class="divider"></li>
+                <% end %>
+                    <li><a href="/support/help"><i class="icon-question-sign"></i>&nbsp;Help</a></li>
+                </ul>
+            </div>
+
+            <div class="well unit-bg">
+                <p>
+                    <i class="icon-envelope"></i>&nbsp;Invite Friends</p>
+                <div class="input-append">
+                    <input class="span2" id="inputEmail" type="text" placeholder="Enter your email">
+                    <button class="btn" type="button">
+                        OK</button>
+                </div>
+            </div>
+
+        </div> -->
+
+        
     </div>
+
 </div>
 
-
+<%= render "shared/footer" %>   
 
 
 
