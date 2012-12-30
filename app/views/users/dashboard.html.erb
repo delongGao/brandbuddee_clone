@@ -59,7 +59,7 @@
                         <% @campaign.each do |c| %>
 <!--                           <div class="thumbnails"> -->
                           <%# slice.each do |c| %>
-                            <li class="span4 project" data-tags="<% c.categories.each do |cat| %><%= cat.name %><% end %>">
+                            <li class="span4 project" style="list-style: none outside none;" data-tags="<% c.categories.each do |cat| %><%= cat.name %><% end %>">
                               <div class="thumbnail unit-bg">
                                     <a href="/campaign/<%= c.link %>">
                                         <%= image_tag(c.campaign_image_url(:standard).to_s, :width=>"100%") %>
