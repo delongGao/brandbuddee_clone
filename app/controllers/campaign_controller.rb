@@ -3,7 +3,8 @@ class CampaignController < ApplicationController
 	def index
 		params_campaign = params[:campaign].downcase
 		campaign = Campaign.where(:link => params_campaign).first
-		@campaigns_else = Campaign.all(:limit => 4).order_by([:date, :desc])
+		#@campaigns_else = Campaign.all(:limit => 4).order_by([:date, :desc])
+		@campaigns_else = Campaign.where(:status => "active").excludes(left: false).order_by([:date, :desc]).limit(4)
 		if campaign.present?
 		  @campaign = campaign
 		  # @gallery = user.images.order_by([:date, :desc])
