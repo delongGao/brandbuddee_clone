@@ -31,9 +31,9 @@
 					<div class="profile-side-header">
 						<%= image_tag(@profile.profile_image_url(:square).to_s, :class=>"img-circle profile-image", :size=>"125x125") %>
 						<h2>
-							<%= @profile.first_name + ' ' + @profile.last_name %>
+							<%= @profile.first_name + ' ' + @profile.last_name unless @profile.first_name.nil? || @profile.last_name.nil? %>
 							<br>
-							<span class="profile_city"><%= @profile.city + ', ' + @profile.state %></span>
+							<span class="profile_city"><%= @profile.city + ', ' + @profile.state unless @profile.city.nil? || @profile.state.nil?  %></span>
 						</h2>
 
 					</div>
@@ -43,7 +43,7 @@
 
 					<ul class="nav nav-list">
 		              <li class="nav-header">Profile</li>
-			              <p><%= @profile.bio %></p>
+			              <p><%= @profile.bio unless @profile.bio.nil? %></p>
 			              
 		            </ul>
 
@@ -53,7 +53,7 @@
 
 					<ul class="nav nav-list">
 		              <li class="nav-header">Social</li>
-		              		<p><a href="<%= @profile.website %>" target="_blank"><%= @profile.website %></a></p>
+		              		<p><a href="<%= @profile.website %>" target="_blank"><%= @profile.website unless @profile.website.nil? %></a></p>
 			              	<% unless @profile.facebook_social.blank? || @profile.facebook_social.nil? %>
 	                            <a href="http://facebook.com/<%= @profile.facebook_social %>" target="_blank" class="sb circle facebook mytooltip" data-original-title="Facebook">Facebook</a>
 	                        <% end %>
