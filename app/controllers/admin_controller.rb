@@ -65,6 +65,128 @@ class AdminController < ApplicationController
 
 	def campaigns
 		@campaigns = Campaign.all.order_by([:date, :desc])
+		@location_all = Location.all.order_by([:date, :desc])
+		@category_all = Category.all.order_by([:date, :desc])
+		@brand_all = Brand.all.order_by([:name, :asc])
+		@link = Campaign.assign_link()
+	end
+
+	def campaign_delete
+		@campaign = Campaign.find(params[:_id])
+		@campaign.destroy
+		flash[:notice] = "#{@campaign.title} campaign Destroyed"
+		redirect_to(:action => 'campaigns')
+	end
+
+	def campaign_new
+		@brand = Brand.find(params[:brands])
+	    @campaign = @brand.campaigns.create!(params[:campaign])
+
+	    unless params[:date_year].blank? || params[:date_month].blank? || params[:date_day].blank? || params[:date_hour].blank? || params[:date_minute].blank?
+	      date_time = DateTime.new(params[:date_year].to_i, params[:date_month].to_i, params[:date_day].to_i, params[:date_hour].to_i, params[:date_minute].to_i, 0, "-0700")
+	      @campaign.end_date = date_time
+	    end
+
+	    if params[:campaign][:tweet].blank?
+	      @campaign.tweet = "Check out #{@campaign.title} via @brandbuddee"
+	    end
+
+	    category = Category.find(params[:categories])
+	    @campaign.category_ids << params[:categories]
+	    @campaign.location = params[:location]
+
+	    if @campaign.save
+	      flash[:notice] = "Campaign successfully created"
+	      redirect_to(:action => 'campaigns')
+	    else
+	      flash[:notice] = "Uh oh"
+	    end
+	end
+
+	def locations
+		@locations = Location.all.order_by([:date, :desc])
+	end
+
+	def location_new
+		@location = Location.create!(params[:location])
+
+	    if @location.save
+	      flash[:notice] = "Location successfully created"
+	      redirect_to(:action => 'locations')
+	    else
+	      flash[:notice] = "Uh oh"
+	    end
+	end
+
+	def location_delete
+		@location = Location.find(params[:_id])
+		@location.destroy
+		flash[:notice] = "#{@location.city} Location Destroyed"
+		redirect_to(:action => 'locations')
+	end
+
+	def redeems
+		@redeems = Redeem.all.order_by([:date, :desc])
+	end
+
+	def categories
+		@categories = Category.all.order_by([:date, :desc])
+	end
+
+	def category_new
+		@category = Category.create!(params[:category])
+
+	    if @category.save
+	      flash[:notice] = "Category successfully created"
+	      redirect_to(:action => 'categories')
+	    else
+	      flash[:notice] = "Uh oh"
+	    end
+	end
+
+	def category_delete
+		@category = Category.find(params[:_id])
+	    @category.destroy
+	    flash[:notice] = "#{@category.name} Category Destroyed"
+	    redirect_to(:action => 'categories')
+	end
+
+	def brands
+		@brands = Brand.all.order_by([:date, :desc])
+	end
+
+	def brand_new
+		@brand = Brand.create!(params[:brand])
+
+	    if @brand.save
+	      flash[:notice] = "Brand successfully created"
+	      redirect_to(:action => 'brands')
+	    else
+	      flash[:notice] = "Uh oh"
+	    end
+	end
+
+	def brand_edit
+		@brand = Brand.find(params[:_id])
+	end
+
+	def brand_update
+		@brand = Brand.find(params[:brand][:id])
+
+		if @brand.update_attributes(params[:brand])
+		  flash[:notice] = "Successfully updated."
+		  redirect_to "#{root_url}admin/brands/edit?_id=#{params[:brand][:id]}"
+		else
+		  flash[:notice] = "Uh oh... something went wrong. Please try again."
+		  redirect_to "#{root_url}admin/brands/edit?_id=#{params[:brand][:id]}"
+		end
+	end
+
+	def brand_delete
+		@brand = Brand.find(params[:_id])
+	    @brand.destroy
+	    flash[:notice] = "#{@brand.name} brand Destroyed"
+	    redirect_to(:action => 'brands')
 	end
 
 	def view_campaign

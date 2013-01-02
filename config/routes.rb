@@ -56,15 +56,34 @@ Brandbuddee::Application.routes.draw do
   match 'admin/campaigns' => 'admin#campaigns'
   match 'admin/users' => 'admin#users'
 
+  match 'admin/campaign/new' => 'admin#campaign_new'
   match 'admin/campaign/view' => 'admin#view_campaign'
   match 'admin/campaign/edit' => 'admin#edit_campaign'
   match 'admin/campaign/update' => 'admin#update_campaign'
+  match 'admin/campaign/delete' => 'admin#campaign_delete'
+
   match 'admin/campaign/create' => 'users#create_new_campaign'
   match 'admin/campaign/destroy' => 'users#campaign_destroy'
 
   match 'admin/campaign/view/users' => 'admin#view_campaign_users'
   match 'admin/campaign/view/redeems' => 'admin#view_campaign_redeems'
   match 'admin/campaign/view/trackings' => 'admin#view_campaign_trackings'
+
+  match 'admin/locations' =>  'admin#locations'
+  match 'admin/locations/new' => 'admin#location_new'
+  match 'admin/location/delete' => 'admin#location_delete'
+
+  match 'admin/redeems' => 'admin#redeems'
+
+  match 'admin/categories' =>  'admin#categories'
+  match 'admin/categories/new' => 'admin#category_new'
+  match 'admin/categories/delete' => 'admin#category_delete'
+
+  match 'admin/brands' =>  'admin#brands'
+  match 'admin/brands/new' => 'admin#brand_new'
+  match 'admin/brand/delete' => 'admin#brand_delete'
+  match 'admin/brands/edit' => 'admin#brand_edit'
+  match 'admin/brands/update' => 'admin#brand_update'
 
 
   match 'superadmin/campaign/edit' => 'campaign#edit_campaign'

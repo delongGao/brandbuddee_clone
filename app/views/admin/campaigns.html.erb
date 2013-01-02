@@ -40,6 +40,15 @@
 				</ul>
 				<hr>
 			</div>
+
+			<% if flash[:notice].nil? %><% else %>
+				<div class="alert alert-success">
+					<button class="close" data-dismiss="alert">×</button>
+					<%= flash[:notice] %>
+				</div> <!-- .alert -->
+			<% end %>
+
+			<p><a class="btn btn-mini" data-toggle="modal" href="#create_campaign" style="margin-top:8px;margin-left:15px;"><i class="icon-plus-sign icon"></i> Create New Campaign</a></p>
 			
 			<div class="row-fluid sortable">		
 				<div class="box span12">
@@ -83,621 +92,14 @@
 									<a class="btn btn-info" href="/admin/campaign/edit?_id=<%= c._id %>">
 										<i class="icon-edit icon-white"></i>  
 									</a>
-									<a class="btn btn-danger" href="#">
+									<a class="btn btn-danger" href="/admin/campaign/delete?_id=<%= c._id %>">
 										<i class="icon-trash icon-white"></i> 
 									</a>
 								</td>
 							</tr>
 							<% end %>
 
-<!-- 							<tr>
-								<td>Alphonse Ivo</td>
-								<td class="center">2012/01/01</td>
-								<td class="center">Member</td>
-								<td class="center">
-									<span class="label label-success">Active</span>
-								</td>
-								<td class="center">
-									<a class="btn btn-success" href="#">
-										<i class="icon-zoom-in icon-white"></i>  
-									</a>
-									<a class="btn btn-info" href="#">
-										<i class="icon-edit icon-white"></i>  
-									</a>
-									<a class="btn btn-danger" href="#">
-										<i class="icon-trash icon-white"></i> 
-									</a>
-								</td>
-							</tr>
-							<tr>
-								<td>Thancmar Theophanes</td>
-								<td class="center">2012/01/01</td>
-								<td class="center">Member</td>
-								<td class="center">
-									<span class="label label-success">Active</span>
-								</td>
-								<td class="center">
-									<a class="btn btn-success" href="#">
-										<i class="icon-zoom-in icon-white"></i>  
-									</a>
-									<a class="btn btn-info" href="#">
-										<i class="icon-edit icon-white"></i>  
-									</a>
-									<a class="btn btn-danger" href="#">
-										<i class="icon-trash icon-white"></i> 
-									</a>
-								</td>
-								</td>
-							</tr>
-							<tr>
-								<td>Walerian Khwaja</td>
-								<td class="center">2012/01/01</td>
-								<td class="center">Member</td>
-								<td class="center">
-									<span class="label label-success">Active</span>
-								</td>
-								<td class="center">
-									<a class="btn btn-success" href="#">
-										<i class="icon-zoom-in icon-white"></i>                                            
-									</a>
-									<a class="btn btn-info" href="#">
-										<i class="icon-edit icon-white"></i>                                            
-									</a>
-									<a class="btn btn-danger" href="#">
-										<i class="icon-trash icon-white"></i> 
-									</a>
-								</td>
-							</tr>
-							<tr>
-								<td>Clemens Janko</td>
-								<td class="center">2012/02/01</td>
-								<td class="center">Staff</td>
-								<td class="center">
-									<span class="label label-important">Banned</span>
-								</td>
-								<td class="center">
-									<a class="btn btn-success" href="#">
-										<i class="icon-zoom-in icon-white"></i>                                            
-									</a>
-									<a class="btn btn-info" href="#">
-										<i class="icon-edit icon-white"></i>                                            
-									</a>
-									<a class="btn btn-danger" href="#">
-										<i class="icon-trash icon-white"></i> 
-									</a>
-								</td>
-							</tr>
-							<tr>
-								<td>Chidubem Gottlob</td>
-								<td class="center">2012/02/01</td>
-								<td class="center">Staff</td>
-								<td class="center">
-									<span class="label label-important">Banned</span>
-								</td>
-								<td class="center">
-									<a class="btn btn-success" href="#">
-										<i class="icon-zoom-in icon-white"></i>                                            
-									</a>
-									<a class="btn btn-info" href="#">
-										<i class="icon-edit icon-white"></i>                                            
-									</a>
-									<a class="btn btn-danger" href="#">
-										<i class="icon-trash icon-white"></i> 
-									</a>
-								</td>
-							</tr>
-							<tr>
-								<td>Hristofor Sergio</td>
-								<td class="center">2012/03/01</td>
-								<td class="center">Member</td>
-								<td class="center">
-									<span class="label label-warning">Pending</span>
-								</td>
-								<td class="center">
-									<a class="btn btn-success" href="#">
-										<i class="icon-zoom-in icon-white"></i>                                            
-									</a>
-									<a class="btn btn-info" href="#">
-										<i class="icon-edit icon-white"></i>                                            
-									</a>
-									<a class="btn btn-danger" href="#">
-										<i class="icon-trash icon-white"></i> 
-									</a>
-								</td>
-							</tr>
-							<tr>
-								<td>Tadhg Griogair</td>
-								<td class="center">2012/03/01</td>
-								<td class="center">Member</td>
-								<td class="center">
-									<span class="label label-warning">Pending</span>
-								</td>
-								<td class="center">
-									<a class="btn btn-success" href="#">
-										<i class="icon-zoom-in icon-white"></i>                                            
-									</a>
-									<a class="btn btn-info" href="#">
-										<i class="icon-edit icon-white"></i>                                            
-									</a>
-									<a class="btn btn-danger" href="#">
-										<i class="icon-trash icon-white"></i> 
-									</a>
-								</td>
-							</tr>
-							<tr>
-								<td>Pollux Beaumont</td>
-								<td class="center">2012/01/21</td>
-								<td class="center">Staff</td>
-								<td class="center">
-									<span class="label label-success">Active</span>
-								</td>
-								<td class="center">
-									<a class="btn btn-success" href="#">
-										<i class="icon-zoom-in icon-white"></i>                                            
-									</a>
-									<a class="btn btn-info" href="#">
-										<i class="icon-edit icon-white"></i>                                            
-									</a>
-									<a class="btn btn-danger" href="#">
-										<i class="icon-trash icon-white"></i> 
-									</a>
-								</td>
-							</tr>
-							<tr>
-								<td>Adam Alister</td>
-								<td class="center">2012/01/21</td>
-								<td class="center">Staff</td>
-								<td class="center">
-									<span class="label label-success">Active</span>
-								</td>
-								<td class="center">
-									<a class="btn btn-success" href="#">
-										<i class="icon-zoom-in icon-white"></i>                                            
-									</a>
-									<a class="btn btn-info" href="#">
-										<i class="icon-edit icon-white"></i>                                            
-									</a>
-									<a class="btn btn-danger" href="#">
-										<i class="icon-trash icon-white"></i> 
-									</a>
-								</td>
-							</tr>
-							<tr>
-								<td>Carlito Roffe</td>
-								<td class="center">2012/08/23</td>
-								<td class="center">Staff</td>
-								<td class="center">
-									<span class="label label-important">Banned</span>
-								</td>
-								<td class="center">
-									<a class="btn btn-success" href="#">
-										<i class="icon-zoom-in icon-white"></i>                                            
-									</a>
-									<a class="btn btn-info" href="#">
-										<i class="icon-edit icon-white"></i>                                            
-									</a>
-									<a class="btn btn-danger" href="#">
-										<i class="icon-trash icon-white"></i> 
-									</a>
-								</td>
-							</tr>
-							<tr>
-								<td>Sana Amrin</td>
-								<td class="center">2012/08/23</td>
-								<td class="center">Staff</td>
-								<td class="center">
-									<span class="label label-important">Banned</span>
-								</td>
-								<td class="center">
-									<a class="btn btn-success" href="#">
-										<i class="icon-zoom-in icon-white"></i>                                            
-									</a>
-									<a class="btn btn-info" href="#">
-										<i class="icon-edit icon-white"></i>                                            
-									</a>
-									<a class="btn btn-danger" href="#">
-										<i class="icon-trash icon-white"></i> 
-									</a>
-								</td>
-							</tr>
-							<tr>
-								<td>Adinah Ralph</td>
-								<td class="center">2012/06/01</td>
-								<td class="center">Admin</td>
-								<td class="center">
-									<span class="label">Inactive</span>
-								</td>
-								<td class="center">
-									<a class="btn btn-success" href="#">
-										<i class="icon-zoom-in icon-white"></i>                                            
-									</a>
-									<a class="btn btn-info" href="#">
-										<i class="icon-edit icon-white"></i>                                            
-									</a>
-									<a class="btn btn-danger" href="#">
-										<i class="icon-trash icon-white"></i> 
-									</a>
-								</td>
-							</tr>
-							<tr>
-								<td>Dederick Mihail</td>
-								<td class="center">2012/06/01</td>
-								<td class="center">Admin</td>
-								<td class="center">
-									<span class="label">Inactive</span>
-								</td>
-								<td class="center">
-									<a class="btn btn-success" href="#">
-										<i class="icon-zoom-in icon-white"></i>                                            
-									</a>
-									<a class="btn btn-info" href="#">
-										<i class="icon-edit icon-white"></i>                                            
-									</a>
-									<a class="btn btn-danger" href="#">
-										<i class="icon-trash icon-white"></i> 
-									</a>
-								</td>
-							</tr>
-							<tr>
-								<td>Hipólito András</td>
-								<td class="center">2012/03/01</td>
-								<td class="center">Member</td>
-								<td class="center">
-									<span class="label label-warning">Pending</span>
-								</td>
-								<td class="center">
-									<a class="btn btn-success" href="#">
-										<i class="icon-zoom-in icon-white"></i>                                            
-									</a>
-									<a class="btn btn-info" href="#">
-										<i class="icon-edit icon-white"></i>                                            
-									</a>
-									<a class="btn btn-danger" href="#">
-										<i class="icon-trash icon-white"></i> 
-										
-									</a>
-								</td>
-							</tr>
-							<tr>
-								<td>Fricis Arieh</td>
-								<td class="center">2012/03/01</td>
-								<td class="center">Member</td>
-								<td class="center">
-									<span class="label label-warning">Pending</span>
-								</td>
-								<td class="center">
-									<a class="btn btn-success" href="#">
-										<i class="icon-zoom-in icon-white"></i>                                            
-									</a>
-									<a class="btn btn-info" href="#">
-										<i class="icon-edit icon-white"></i>                                            
-									</a>
-									<a class="btn btn-danger" href="#">
-										<i class="icon-trash icon-white"></i> 
-										
-									</a>
-								</td>
-							</tr>
-							<tr>
-								<td>Scottie Maximilian</td>
-								<td class="center">2012/03/01</td>
-								<td class="center">Member</td>
-								<td class="center">
-									<span class="label label-warning">Pending</span>
-								</td>
-								<td class="center">
-									<a class="btn btn-success" href="#">
-										<i class="icon-zoom-in icon-white"></i>                                            
-									</a>
-									<a class="btn btn-info" href="#">
-										<i class="icon-edit icon-white"></i>                                            
-									</a>
-									<a class="btn btn-danger" href="#">
-										<i class="icon-trash icon-white"></i> 
-										
-									</a>
-								</td>
-							</tr>
-							<tr>
-								<td>Bao Gaspar</td>
-								<td class="center">2012/01/01</td>
-								<td class="center">Member</td>
-								<td class="center">
-									<span class="label label-success">Active</span>
-								</td>
-								<td class="center">
-									<a class="btn btn-success" href="#">
-										<i class="icon-zoom-in icon-white"></i>                                            
-									</a>
-									<a class="btn btn-info" href="#">
-										<i class="icon-edit icon-white"></i>                                            
-									</a>
-									<a class="btn btn-danger" href="#">
-										<i class="icon-trash icon-white"></i> 
-										
-									</a>
-								</td>
-							</tr>
-							<tr>
-								<td>Tullio Luka</td>
-								<td class="center">2012/02/01</td>
-								<td class="center">Staff</td>
-								<td class="center">
-									<span class="label label-important">Banned</span>
-								</td>
-								<td class="center">
-									<a class="btn btn-success" href="#">
-										<i class="icon-zoom-in icon-white"></i>                                            
-									</a>
-									<a class="btn btn-info" href="#">
-										<i class="icon-edit icon-white"></i>                                            
-									</a>
-									<a class="btn btn-danger" href="#">
-										<i class="icon-trash icon-white"></i> 
-										
-									</a>
-								</td>
-							</tr>
-							<tr>
-								<td>Felice Arseniy</td>
-								<td class="center">2012/02/01</td>
-								<td class="center">Admin</td>
-								<td class="center">
-									<span class="label">Inactive</span>
-								</td>
-								<td class="center">
-									<a class="btn btn-success" href="#">
-										<i class="icon-zoom-in icon-white"></i>                                            
-									</a>
-									<a class="btn btn-info" href="#">
-										<i class="icon-edit icon-white"></i>                                            
-									</a>
-									<a class="btn btn-danger" href="#">
-										<i class="icon-trash icon-white"></i> 
-										
-									</a>
-								</td>
-							</tr>
-							<tr>
-								<td>Finlay Alf</td>
-								<td class="center">2012/02/01</td>
-								<td class="center">Admin</td>
-								<td class="center">
-									<span class="label">Inactive</span>
-								</td>
-								<td class="center">
-									<a class="btn btn-success" href="#">
-										<i class="icon-zoom-in icon-white"></i>                                            
-									</a>
-									<a class="btn btn-info" href="#">
-										<i class="icon-edit icon-white"></i>                                            
-									</a>
-									<a class="btn btn-danger" href="#">
-										<i class="icon-trash icon-white"></i> 
-										
-									</a>
-								</td>
-							</tr>
-							<tr>
-								<td>Theophilus Nala</td>
-								<td class="center">2012/03/01</td>
-								<td class="center">Member</td>
-								<td class="center">
-									<span class="label label-warning">Pending</span>
-								</td>
-								<td class="center">
-									<a class="btn btn-success" href="#">
-										<i class="icon-zoom-in icon-white"></i>                                            
-									</a>
-									<a class="btn btn-info" href="#">
-										<i class="icon-edit icon-white"></i>                                            
-									</a>
-									<a class="btn btn-danger" href="#">
-										<i class="icon-trash icon-white"></i> 
-										
-									</a>
-								</td>
-							</tr>
-							<tr>
-								<td>Sullivan Robert</td>
-								<td class="center">2012/03/01</td>
-								<td class="center">Member</td>
-								<td class="center">
-									<span class="label label-warning">Pending</span>
-								</td>
-								<td class="center">
-									<a class="btn btn-success" href="#">
-										<i class="icon-zoom-in icon-white"></i>                                            
-									</a>
-									<a class="btn btn-info" href="#">
-										<i class="icon-edit icon-white"></i>                                            
-									</a>
-									<a class="btn btn-danger" href="#">
-										<i class="icon-trash icon-white"></i> 
-										
-									</a>
-								</td>
-							</tr>
-							<tr>
-								<td>Kristóf Filiberto</td>
-								<td class="center">2012/01/21</td>
-								<td class="center">Staff</td>
-								<td class="center">
-									<span class="label label-success">Active</span>
-								</td>
-								<td class="center">
-									<a class="btn btn-success" href="#">
-										<i class="icon-zoom-in icon-white"></i>                                            
-									</a>
-									<a class="btn btn-info" href="#">
-										<i class="icon-edit icon-white"></i>                                            
-									</a>
-									<a class="btn btn-danger" href="#">
-										<i class="icon-trash icon-white"></i> 
-										
-									</a>
-								</td>
-							</tr>
-							<tr>
-								<td>Kuzma Edvard</td>
-								<td class="center">2012/01/21</td>
-								<td class="center">Staff</td>
-								<td class="center">
-									<span class="label label-success">Active</span>
-								</td>
-								<td class="center">
-									<a class="btn btn-success" href="#">
-										<i class="icon-zoom-in icon-white"></i>                                            
-									</a>
-									<a class="btn btn-info" href="#">
-										<i class="icon-edit icon-white"></i>                                            
-									</a>
-									<a class="btn btn-danger" href="#">
-										<i class="icon-trash icon-white"></i> 
-										
-									</a>
-								</td>
-							</tr>
-							<tr>
-								<td>Bünyamin Kasper</td>
-								<td class="center">2012/08/23</td>
-								<td class="center">Staff</td>
-								<td class="center">
-									<span class="label label-important">Banned</span>
-								</td>
-								<td class="center">
-									<a class="btn btn-success" href="#">
-										<i class="icon-zoom-in icon-white"></i>                                            
-									</a>
-									<a class="btn btn-info" href="#">
-										<i class="icon-edit icon-white"></i>                                            
-									</a>
-									<a class="btn btn-danger" href="#">
-										<i class="icon-trash icon-white"></i> 
-										
-									</a>
-								</td>
-							</tr>
-							<tr>
-								<td>Crofton Arran</td>
-								<td class="center">2012/08/23</td>
-								<td class="center">Staff</td>
-								<td class="center">
-									<span class="label label-important">Banned</span>
-								</td>
-								<td class="center">
-									<a class="btn btn-success" href="#">
-										<i class="icon-zoom-in icon-white"></i>                                            
-									</a>
-									<a class="btn btn-info" href="#">
-										<i class="icon-edit icon-white"></i>                                            
-									</a>
-									<a class="btn btn-danger" href="#">
-										<i class="icon-trash icon-white"></i> 
-										
-									</a>
-								</td>
-							</tr>
-							<tr>
-								<td>Bernhard Shelah</td>
-								<td class="center">2012/06/01</td>
-								<td class="center">Admin</td>
-								<td class="center">
-									<span class="label">Inactive</span>
-								</td>
-								<td class="center">
-									<a class="btn btn-success" href="#">
-										<i class="icon-zoom-in icon-white"></i>                                            
-									</a>
-									<a class="btn btn-info" href="#">
-										<i class="icon-edit icon-white"></i>                                            
-									</a>
-									<a class="btn btn-danger" href="#">
-										<i class="icon-trash icon-white"></i> 
-										
-									</a>
-								</td>
-							</tr>
-							<tr>
-								<td>Grahame Miodrag</td>
-								<td class="center">2012/03/01</td>
-								<td class="center">Member</td>
-								<td class="center">
-									<span class="label label-warning">Pending</span>
-								</td>
-								<td class="center">
-									<a class="btn btn-success" href="#">
-										<i class="icon-zoom-in icon-white"></i>                                            
-									</a>
-									<a class="btn btn-info" href="#">
-										<i class="icon-edit icon-white"></i>                                            
-									</a>
-									<a class="btn btn-danger" href="#">
-										<i class="icon-trash icon-white"></i> 
-										
-									</a>
-								</td>
-							</tr>
-							<tr>
-								<td>Innokentiy Celio</td>
-								<td class="center">2012/03/01</td>
-								<td class="center">Member</td>
-								<td class="center">
-									<span class="label label-warning">Pending</span>
-								</td>
-								<td class="center">
-									<a class="btn btn-success" href="#">
-										<i class="icon-zoom-in icon-white"></i>                                            
-									</a>
-									<a class="btn btn-info" href="#">
-										<i class="icon-edit icon-white"></i>                                            
-									</a>
-									<a class="btn btn-danger" href="#">
-										<i class="icon-trash icon-white"></i> 
-										
-									</a>
-								</td>
-							</tr>
-							<tr>
-								<td>Kostandin Warinhari</td>
-								<td class="center">2012/03/01</td>
-								<td class="center">Member</td>
-								<td class="center">
-									<span class="label label-warning">Pending</span>
-								</td>
-								<td class="center">
-									<a class="btn btn-success" href="#">
-										<i class="icon-zoom-in icon-white"></i>                                            
-									</a>
-									<a class="btn btn-info" href="#">
-										<i class="icon-edit icon-white"></i>                                            
-									</a>
-									<a class="btn btn-danger" href="#">
-										<i class="icon-trash icon-white"></i> 
 
-									</a>
-								</td>
-							</tr>
-							<tr>
-								<td>Ajith Hristijan</td>
-								<td class="center">2012/03/01</td>
-								<td class="center">Member</td>
-								<td class="center">
-									<span class="label label-warning">Pending</span>
-								</td>
-								<td class="center">
-									<a class="btn btn-success" href="#">
-										<i class="icon-zoom-in icon-white"></i>                                            
-									</a>
-									<a class="btn btn-info" href="#">
-										<i class="icon-edit icon-white"></i>                                            
-									</a>
-									<a class="btn btn-danger" href="#">
-										<i class="icon-trash icon-white"></i> 
-										
-									</a>
-								</td>
-							</tr> -->
 						  </tbody>
 					  </table>            
 					</div>
@@ -788,3 +190,92 @@
 
 		</script>
 		<!-- end: JavaScript-->
+
+
+<div class="modal fade" id="create_campaign">
+  <div class="modal-header">
+    <button class="close" data-dismiss="modal">×</button>
+    <h3>Create New Campaign</h3>
+  </div> <!-- .modal-header -->
+  <div class="modal-body">
+   <% @campaign = Campaign.new %>
+   <%= form_for @campaign, :url => url_for(:controller => 'admin', :action => 'campaign_new'), :html => {:multipart => true} do |f| %>
+    <p>
+      <%= f.label :title, :class=>'' %>
+      <%= f.text_field :title, :class=>'' %>
+    </p>
+    <p>
+      <%= f.label :detail, :class=>'' %>
+      <%= f.text_area :detail, :class=>'', :rows => '4' %>
+    </p>
+    <p>
+      <%= f.label :campaign_image, :class=>'' %>
+      <%= f.file_field :campaign_image, :class=>'' %>
+    </p>
+    <p>
+      <%= f.label :date_end, 'Campaign End Date', :class=>'' %>
+      <span class="span2 date_time_year">
+        <%= f.label :date_year, 'Year', :class=>'' %>
+        <%#= f.file_field :date_year, :class=>'' %>
+        <%= select_tag "date_year", "<option value='2012'>2012</option><option value='2013'>2013</option>".html_safe, :class => 'span2' %>
+      </span>
+
+      <span class="span1 date_time_month">
+        <%= f.label :date_month, 'Month', :class=>'' %>
+        <%= select_tag :date_month, "<option value='1'>01</option><option value='2'>02</option><option value='3'>03</option><option value='4'>04</option><option value='5'>05</option><option value='6'>06</option><option value='7'>07</option><option value='8'>08</option><option value='9'>09</option><option value='10'>10</option><option value='11'>11</option><option value='12'>12</option>".html_safe, :include_blank => true, :class => 'span1' %>
+      </span>
+
+      <span class="span1 date_time_day">
+        <%= f.label :date_day, 'Day', :class=>'' %>
+        <%= select_tag "date_day", "<option value='1'>01</option><option value='2'>02</option><option value='3'>03</option><option value='4'>04</option><option value='5'>05</option><option value='6'>06</option><option value='7'>07</option><option value='8'>08</option><option value='9'>09</option><option value='10'>10</option><option value='11'>11</option><option value='12'>12</option><option value='13'>13</option><option value='14'>14</option><option value='15'>15</option><option value='16'>16</option><option value='17'>17</option><option value='18'>18</option><option value='19'>19</option><option value='20'>20</option><option value='21'>21</option><option value='22'>22</option><option value='23'>23</option><option value='24'>24</option><option value='25'>25</option><option value='26'>26</option><option value='27'>27</option><option value='28'>28</option><option value='29'>29</option><option value='30'>30</option><option value='31'>31</option>".html_safe, :include_blank => true, :class => 'span1' %>
+      </span>
+
+      <span class="span1 date_time_hour">
+        <%= f.label :date_hour, 'Hour', :class=>'' %>
+        <%= select_tag "date_hour", "<option value='00'>00</option><option value='01'>01</option><option value='02'>02</option><option value='03'>03</option><option value='04'>04</option><option value='05'>05</option><option value='06'>06</option><option value='07'>07</option><option value='08'>08</option><option value='09'>09</option><option value='10'>10</option><option value='11'>11</option><option value='12'>12</option><option value='13'>13</option><option value='14'>14</option><option value='15'>15</option><option value='16'>16</option><option value='17'>17</option><option value='18'>18</option><option value='19'>19</option><option value='20'>20</option><option value='21'>21</option><option value='22'>22</option><option value='23'>23</option>".html_safe, :include_blank => true, :class => 'span1' %>
+      </span>
+
+      <span class="span1 date_time_min">
+        <%= f.label :date_minute, 'Minutes', :class=>'' %>
+        <%= select_tag "date_minute", "<option value='00'>00</option><option value='30'>30</option>".html_safe, :include_blank => true, :class => 'span1' %>
+      </span>
+    </p><br><br><br><br>
+    <p>
+      <%= f.label :location, 'Location', :class=>'' %>
+      <%= select_tag "location", options_from_collection_for_select(@location_all, "id", "city"), :prompt => "- Select Location -" %>
+    </p>
+    <p>
+      <%= f.label :share_link, :class=>'' %>
+      <%= f.text_field :share_link, :class=>'' %>
+    </p>
+    <p>
+      <%= f.label :points_required, :class=>'' %>
+      <%= f.text_field :points_required, :class=>'' %>
+    </p>
+    <p>
+      <%= f.label :limit, :class=>'' %>
+      <%= f.text_field :limit, :class=>'' %>
+    </p>
+    <p>
+      <%= f.label :tweet, 'Tweet', :class=>'' %>
+      <%= f.text_area :tweet, :class=>'', :rows => '3', :placeholder => 'Leave blank to use default campaign title as tweet.' %>
+    </p>
+    <p>
+      <%= f.label :reward, :class=>'' %>
+      <%= f.text_field :reward, :class=>'span6' %>
+    </p>
+
+    <%= select_tag "brands", options_from_collection_for_select(@brand_all, "id", "name"), :prompt => "- Select Brand -" %>
+    <%= select_tag "categories", options_from_collection_for_select(@category_all, "id", "name"), :prompt => "- Select Category -" %>
+
+    <%= hidden_field_tag(:date, Time.now, :name=>'campaign[date]') %>
+    <%= hidden_field_tag(:link, @link, :name=>'campaign[link]') %>
+
+  </div> <!-- .modal-body -->
+
+  <div class="modal-footer">
+    <a href="#" class="btn" data-dismiss="modal">Close</a>
+    <%= f.submit 'Create', :class=>"btn btn-success" %>
+  <% end %>
+  </div> <!-- .modal-footer -->
+</div> <!-- .modal fade -->
