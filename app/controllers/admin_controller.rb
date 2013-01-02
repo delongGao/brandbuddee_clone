@@ -256,7 +256,7 @@ class AdminController < ApplicationController
 		end
 
 	    if @campaign.update_attributes(params[:campaign])
-	      flash[:notice] = "Successfully updated. #{params[:category]}"
+	      flash[:notice] = "Successfully updated."
 	      #redirect_to(:action => 'edit_campaign')
 	      redirect_to "#{root_url}admin/campaign/edit?_id=#{params[:campaign][:id]}"
 	    else

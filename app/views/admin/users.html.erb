@@ -90,7 +90,7 @@
 								<td><%= image_tag(c.profile_image_url(:thumb).to_s, :class=>"", :style=>"border-radius:100px;" ) %></td>
 							  	<td><%= c.first_name %></td>
 							  	<td><%= c.last_name %></td>
-							  	<td><%= c.email %></td>
+							  	<td><a rel="tooltip" data-placement="top" data-original-title="<%= c._id %>"><%= c.email %></a></td>
 							  	<td><% unless c.account_type.blank? %><span class="badge badge-inverse"><%= c.account_type %><% end %></span></td>
 							  	<td><%= c.gender %></td>
 							  	<td><a href="/<%= c.nickname %>" target="_blank"><b><%= c.nickname %></b></a></td>
