@@ -43,6 +43,18 @@
 				</ul>
 				<hr>
 			</div>
+
+			<% if flash[:notice].nil? %><% else %>
+				<div class="alert alert-success">
+					<button class="close" data-dismiss="alert">×</button>
+					<%= flash[:notice] %>
+				</div> <!-- .alert -->
+			<% end %>
+
+			<% @campaign.categories.each do |c| %>
+			<%= c.name  %>
+			<% end %>
+
 			
 			<div class="row-fluid sortable">
 				<div class="box span12">
@@ -96,7 +108,7 @@
 
 
 
-							<%= form_for @campaign, :url => url_for(:controller => 'campaign', :action => 'update_campaign'), :html => {:multipart => true} do |f| %>
+							<%= form_for @campaign, :url => url_for(:controller => 'admin', :action => 'update_campaign'), :html => {:multipart => true} do |f| %>
 
 
 						    <div class="control-group hidden-phone">
@@ -171,6 +183,7 @@
 								    <div id="day_min_value" class="date_times"><%= @campaign.end_date.to_formatted_s(:min) unless @campaign.end_date.nil? %></div>
 
 								    <div id="brand_value" class="date_times"><%= @campaign.brand.name unless @campaign.brand.nil? || @campaign.brand.name.nil? %></div>
+								    <div id="category_value" class="date_times"><% @campaign.categories.each do |c| %><%= c.name unless @campaign.categories.nil? || @campaign.categories.nil? %><% end %></div>
 								
 							  </div> <!-- .controls -->
 							</div>
@@ -229,6 +242,13 @@
 							  <label class="control-label" for="textarea">Brand</label>
 							  <div class="controls">
 								<%= select_tag :brand, options_from_collection_for_select(@brand_all, "id", "name"), :prompt => "- Select Brand -" %>
+							  </div>
+							</div>
+
+							<div class="control-group hidden-phone choose_category_name">
+							  <label class="control-label" for="textarea">Category</label>
+							  <div class="controls">
+								<%= select_tag :category, options_from_collection_for_select(@category_all, "id", "name"), :prompt => "- Select Category -" %>
 							  </div>
 							</div>
 
@@ -339,6 +359,7 @@
 		  var hour = $('#day_hour_value').html();
 		  var min = $('#day_min_value').html();
 		  var brand = $('#brand_value').html();
+		  var category = $('#category_value').html();
 
 		  //alert($('.date_time_month').find('select').find('option:contains('+blah+')').text());
 		  $('.date_time_year').find('select').find('option:contains('+year+')').attr('selected', 'selected');
@@ -348,6 +369,7 @@
 		  $('.date_time_min').find('select').find('option:contains('+min+')').attr('selected', 'selected');
 
 		  $('.choose_brand_name').find('select').find('option:contains('+brand+')').attr('selected', 'selected');
+		  $('.choose_category_name').find('select').find('option:contains('+category+')').attr('selected', 'selected');
 		</script>
 		<!-- end: JavaScript-->
 
