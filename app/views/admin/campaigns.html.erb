@@ -217,7 +217,7 @@
       <span class="span2 date_time_year">
         <%= f.label :date_year, 'Year', :class=>'' %>
         <%#= f.file_field :date_year, :class=>'' %>
-        <%= select_tag "date_year", "<option value='2012'>2012</option><option value='2013'>2013</option>".html_safe, :class => 'span2' %>
+        <%= select_tag "date_year", "<option value='2013'>2013</option>".html_safe, :class => 'span2' %>
       </span>
 
       <span class="span1 date_time_month">
@@ -266,6 +266,7 @@
     </p>
 
     <%= select_tag "brands", options_from_collection_for_select(@brand_all, "id", "name"), :prompt => "- Select Brand -" %>
+
     <%= select_tag "categories", options_from_collection_for_select(@category_all, "id", "name"), :prompt => "- Select Category -" %>
 
     <%= hidden_field_tag(:date, Time.now, :name=>'campaign[date]') %>

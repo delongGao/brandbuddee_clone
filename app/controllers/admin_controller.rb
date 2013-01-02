@@ -65,8 +65,8 @@ class AdminController < ApplicationController
 
 	def campaigns
 		@campaigns = Campaign.all.order_by([:date, :desc])
-		@location_all = Location.all.order_by([:date, :desc])
-		@category_all = Category.all.order_by([:date, :desc])
+		@location_all = Location.all.order_by([:name, :asc])
+		@category_all = Category.all.order_by([:name, :asc])
 		@brand_all = Brand.all.order_by([:name, :asc])
 		@link = Campaign.assign_link()
 	end

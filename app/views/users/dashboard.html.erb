@@ -106,8 +106,12 @@
                                     </div>
 
                                   <% @redeem = c.redeems.where(:user_id => current_user.id).first %>
-                                  <% unless @redeem.nil? %>
+                                  <% campaign_new_ribbon = Time.now - 1.week %>
+                                  <% if @redeem != nil %>
                                     <div class="ribbon"><span>Awarded</span></div>
+                                  <% elsif c.date > campaign_new_ribbon %>
+                                    <div class="ribbon"><span style="background:#51A351;">New</span></div>
+                                  <% else %>
                                   <% end %>
                                 </div>
                               </li>
