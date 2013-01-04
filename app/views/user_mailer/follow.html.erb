@@ -27,7 +27,7 @@
                     </tr>
                     <tr valign="top">
                       <td style="color:#2e2e2e;text-shadow:0 1px 0 #fff;font-size:17px;font-weight:lighter;line-height:22px;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;border-spacing:0;padding-top:18px;padding-left:35px;width:100%;margin-top:18px;">
-                        <p style="font-size:15px;padding-top:18px;margin-top:18px;margin-bottom:15px;">See what stories <span style="font-weight:bold"><% unless @follower.first_name.nil? || @follower.last_name.nil? || @follower.first_name.blank? || @follower.last_name.blank? %><%= @follower.first_name %><% else %><%= @follower.first_name + ' ' + @follower.nickname unless @follower.nickname.nil? || @follower.nickname.blank? %><% end %></span> is sharing. Get started and rewarded with your friends and family now!</p>
+                        <p style="font-size:15px;padding-top:18px;margin-top:18px;margin-bottom:15px;">See what stories <a href="<%= @url %><%= @follower.nickname %>" target="_blank"><span style="font-weight:bold"><% unless @follower.first_name.nil? || @follower.last_name.nil? || @follower.first_name.blank? || @follower.last_name.blank? %><%= @follower.first_name %><% else %><%= @follower.first_name + ' ' + @follower.nickname unless @follower.nickname.nil? || @follower.nickname.blank? %><% end %></span></a> is sharing. Get started and rewarded with your friends and family now!</p>
                       </td>
                       <td width="235">
                         <img src="<%= @follower.profile_image_url(:square).to_s %>" width="96" height="96" style="margin:50px 30px 0 20px;float:left;border-radius:100px;" border="0">
