@@ -8,6 +8,16 @@
 	display: block;
 }
 
+.follow-images {
+	display: block;
+	position: relative;
+	height: 45px !important;
+	width: 45px !important;
+	float: left;
+	margin: 5px 0 !important;
+	margin-left: 10px !important;
+}
+
 .profile-side-header {
 	text-align: center;
 	background: rgba(255,255,255,0.6);
@@ -38,5 +48,37 @@
 	margin: 0;
 	padding-top: -10px;
 	display: block;
-	margin-top: -14px;
+	margin-top: -5px;
+	margin-bottom: 0;
+	line-height: 20px;
+}
+
+.profile_follow_wrap a {
+	color: #000;
+	text-decoration: none !important;
+}
+
+.profile_follow_wrap:hover {
+	text-decoration: underline;
+}
+
+.profile_follow_wrap:visited {
+	text-decoration: underline;
+}
+
+.follow-btn {
+	margin-top: 7px;
+	margin-bottom: 15px;
+}
+
+.follower_nickname {
+	margin-left: 10px;
+	margin-top: 0;
+	padding-top: 0;
+	line-height: 36px;
+	font-size: 15px;
+}
+
+.followers_follow_btn {
+	margin-top: 3px;
 }

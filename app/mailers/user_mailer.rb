@@ -27,4 +27,16 @@ class UserMailer < ActionMailer::Base
 		mail(:to => password_reset.email, :subject => "Reset your password", :from => "brandbuddee <noreply@brandbuddee.com>")
 	end
 
+	def follow(user, follower, root_url)
+		unless follower.first_name.nil? || follower.first_name.blank? || follower.last_name.nil? || follower.last_name.blank?
+			@name = follower.first_name + ' ' + follower.last_name
+		else
+			@name = follower.nickname
+		end
+		@user = user
+		@follower = follower
+		@url = root_url
+		mail(:to => user.email, :subject => "#{@name} is now following you on brandbuddee!", :from => "brandbuddee <noreply@brandbuddee.com>")
+	end
+
 end

@@ -32,6 +32,114 @@ class ProfileController < ApplicationController
 		end
 	end
 
+	def follow
+		if current_user
+			@user = User.where(:nickname => params[:profile]).first
+			@follow = User.add_following(Time.now, @user._id, current_user._id, root_url)
+			
+			if @follow
+				@return = 'true'
+				respond_to do |format|
+					format.html
+					format.js
+				end
+			else
+				respond_to do |format|
+					format.html
+					format.js
+				end
+			end
+		else
+			#redirect_to '/signup'
+		end
+	end
+
+	def unfollow
+		if current_user
+			@user = User.where(:nickname => params[:profile]).first
+			@unfollow = User.remove_follower(@user._id, current_user._id)
+			
+			if @unfollow
+				#flash[:notice] = "Unfollow"
+				#redirect_to(:action => 'index')
+				respond_to do |format|
+					format.html
+					format.js
+				end
+			else
+				#flash[:notice] = "Oops"
+				#redirect_to(:action => 'index')
+				respond_to do |format|
+					format.html
+					format.js
+				end
+			end
+		else
+			#redirect_to '/signup'
+		end
+	end
+
+	def list_follow
+		if current_user
+			@user = User.where(:nickname => params[:profile]).first
+			@follow = User.add_following(Time.now, @user._id, current_user._id, root_url)
+			
+			if @follow
+				#flash[:notice] = "Following"
+				@div = @user.nickname.to_s + '_follow'
+				#redirect_to(:action => 'index')
+				respond_to do |format|
+					format.html
+					format.js
+				end
+			else
+				flash[:notice] = "Oops"
+				#redirect_to(:action => 'index')
+				respond_to do |format|
+					format.html
+					format.js
+				end
+			end
+
+		else
+			#redirect_to '/signup'
+			respond_to do |format|
+				format.html
+				format.js
+			end
+		end
+
+	end
+
+	def list_unfollow
+		if current_user
+			@user = User.where(:nickname => params[:profile]).first
+			@unfollow = User.remove_follower(@user._id, current_user._id)
+			
+			if @unfollow
+				@div = @user.nickname.to_s + '_follow'
+				#redirect_to(:action => 'index')
+				respond_to do |format|
+					format.html
+					format.js
+				end
+			else
+				flash[:notice] = "Oops"
+				#redirect_to(:action => 'index')
+				respond_to do |format|
+					format.html
+					format.js
+				end
+			end
+		else
+			#redirect_to '/signup'
+			respond_to do |format|
+				format.html
+				format.js
+			end
+		end
+	end
+
 	def profile_settings_update
 		@user = User.find(current_user.id)
 	    if @user.update_attributes(params[:user])

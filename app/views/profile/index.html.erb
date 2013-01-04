@@ -20,40 +20,90 @@
 <link href="/css/social-buttons.css" rel="stylesheet">
 
 <div class="container main_container">
+	<% if flash[:notice].nil? %><% else %>
+		<div class="alert alert-info">
+			<button class="close" data-dismiss="alert">×</button>
+			<%= flash[:notice] %>
+		</div> <!-- .alert -->
+	<% end %>
+
+	<% follow_status = false %>
+	<% if current_user %>
+		<% follow_check = @profile.follower_ids.index {|x| x['id']==current_user.id } %>
+		<% unless follow_check.nil? %>
+			<% follow_status = true %>
+		<% end %>
+	<% end %>
+	<%#= a['date'].to_time %> <%#= a['id'] %>
+
 
 	<div class="row">
 		<div class="span12">
 			<div class="well sidebar-nav profile_main_box">
 
 				<div class="span4">
-					
 
 					<div class="profile-side-header">
 						<%= image_tag(@profile.profile_image_url(:square).to_s, :class=>"img-circle profile-image", :size=>"125x125") %>
 						<h2>
 							<%= @profile.first_name + ' ' + @profile.last_name unless @profile.first_name.nil? || @profile.last_name.nil? %>
 							<br>
-							<span class="profile_city"><%= @profile.city + ', ' + @profile.state unless @profile.city.nil? || @profile.state.nil?  %></span>
+							<span class="profile_city"><%= @profile.city + ', ' + @profile.state unless @profile.city.nil? || @profile.state.nil? || @profile.city.blank? || @profile.state.blank? %></span>
+
+							<% if current_user %>
+								<% if @profile.id == current_user.id %>
+									<div style="height:25px;"></div>
+								<% elsif follow_status %>
+									<div class="main_follow_btn_wrap">
+			                    		<%= link_to "Unfollow", {:controller=>'profile', :action=>'unfollow', :profile => @profile.nickname}, :class => 'btn  main_followers_follow_btn follow-btn', :remote => true %>
+			                    	</div> <!-- .follow_btn_wrap -->
+								<% else %>
+									<div class="main_follow_btn_wrap">
+			                    		<%= link_to "Follow", {:controller=>'profile', :action=>'follow', :profile => @profile.nickname}, :class => 'btn main_followers_follow_btn follow-btn', :remote => true %>
+			                    	</div> <!-- .follow_btn_wrap -->
+								<% end %>
+							<% else %>
+								<a type="button" href="/<%= @profile.nickname %>/follow" class="btn follow-btn">Follow</a>
+							<% end %>
+
 						</h2>
 
-					</div>
+
+					</div> <!-- .profile-side-header -->
 				</div> <!-- .span3 -->
 
 				<div class="span4">
 
 					<ul class="nav nav-list">
-		              <li class="nav-header">Profile</li>
-			              <p><%= @profile.bio unless @profile.bio.nil? %></p>
-			              
+						<% unless @profile.bio.nil? || @profile.bio.blank? %>
+							<li class="nav-header">Profile</li>
+							<p><%= @profile.bio unless @profile.bio.nil? %></p>
+						<% else %>
+							<div style="height:10px;"></div>
+			            <% end %>
 		            </ul>
 
 	            </div> <!-- .span3 -->
 
 	            <div class="span3">
 
+
 					<ul class="nav nav-list">
 		              <li class="nav-header">Social</li>
+		              		<p class="profile_follow_wrap">
+		              			<a href="#following" data-toggle="tab" id="following_total_link"><span id="following_total"><%= @profile.following_ids.size %></span> Following</a>
+		              			<br>
+		              			
+		              		</p>
+
+		              		<p class="profile_follow_wrap">
+		              			<a href="#followers" data-toggle="tab" id="follower_total_link"><span id="follower_total"><%= @profile.follower_ids.size %></span> Followers</a>
+		              		</p>
+		              		
+
+		              		<% unless @profile.website.nil? || @profile.website.blank? %>
 		              		<p><a href="<%= @profile.website %>" target="_blank"><%= @profile.website unless @profile.website.nil? %></a></p>
+		              		<% end %>
 			              	<% unless @profile.facebook_social.blank? || @profile.facebook_social.nil? %>
 	                            <a href="http://facebook.com/<%= @profile.facebook_social %>" target="_blank" class="sb circle facebook mytooltip" data-original-title="Facebook">Facebook</a>
 	                        <% end %>
@@ -75,38 +125,136 @@
 
 		<div class="span12">
 		<div class="form-horizontal" style="">
-				<h2 style="font-weight:500;">Current Campaigns</h2>
-				<br>
+				
 
 
-				<% @campaign.each_slice(4) do |slice| -%>
-                    <div class="row-fluid">
-                      <div class="thumbnails">
-                      <% slice.each do |c| %>
-		              <li class="span3">
-		              	<a href="/campaign/<%= c.link %>" class="profile_campaign_link">
-		                <div class="thumbnail profile_campaign_thumbnails">
-		                  <!-- <img src="http://placehold.it/260x180" alt=""> -->
-		                  <%= image_tag(c.campaign_image_url(:standard).to_s) %>
-		                  <div class="caption">
-		                    <h5><%= truncate(c.title, :length => 53, :omission => '...') %></h5>
-		                    <p><%= truncate(c.detail, :length => 83, :omission => '...') %></p>
-		<!--                     <p><a href="#" class="btn btn-primary">Action</a> <a href="#" class="btn">Action</a></p> -->
-		                  </div>
-		                  <% @redeem = c.redeems.where(:user_id => @profile.id).first %>
-		                  <% unless @redeem.nil? %>
-						  	<div class="ribbon"><span>Awarded</span></div>
-						  <% end %>
-		                </div>
-		            	</a>
-		              </li>
-<!-- 		            </a> -->
-		          <% end %>
-		          	
-                  </div> <!-- .thumbnails -->
-                </div> <!-- .row -->
-                <% end %>
-                <%= will_paginate @campaign, :class=>"pagination" %>
+                <div class="bs-docs-example">
+		            <ul id="myTab" class="nav nav-tabs">
+		              <li class="active" id="campaign_tab"><a href="#campaigns" data-toggle="tab">Campaigns</a></li>
+		              <li class="" id="following_tab"><a href="#following" data-toggle="tab">Following</a></li>
+		              <li class="" id="follower_tab"><a href="#followers" data-toggle="tab">Followers</a></li>
+		            </ul>
+		            <div id="myTabContent" class="tab-content">
+		              <div class="tab-pane fade active in" id="campaigns">
+
+							<% @campaign.each_slice(4) do |slice| -%>
+			                    <div class="row-fluid">
+			                      <div class="thumbnails">
+			                      <% slice.each do |c| %>
+					              <li class="span3">
+					              	<a href="/campaign/<%= c.link %>" class="profile_campaign_link">
+					                <div class="thumbnail profile_campaign_thumbnails">
+					                  <!-- <img src="http://placehold.it/260x180" alt=""> -->
+					                  <%= image_tag(c.campaign_image_url(:standard).to_s) %>
+					                  <div class="caption">
+					                    <h5><%= truncate(c.title, :length => 53, :omission => '...') %></h5>
+					                    <p><%= truncate(c.detail, :length => 83, :omission => '...') %></p>
+					<!--                     <p><a href="#" class="btn btn-primary">Action</a> <a href="#" class="btn">Action</a></p> -->
+					                  </div>
+					                  <% @redeem = c.redeems.where(:user_id => @profile.id).first %>
+					                  <% unless @redeem.nil? %>
+									  	<div class="ribbon"><span>Awarded</span></div>
+									  <% end %>
+					                </div>
+					            	</a>
+					              </li>
+			<!-- 		            </a> -->
+					          <% end %>
+					          	
+			                  </div> <!-- .thumbnails -->
+			                </div> <!-- .row -->
+			                <% end %>
+			                <%= will_paginate @campaign, :class=>"pagination" %>
+		              </div> <!-- .tab-pane fade active in -->
+		              <div class="tab-pane fade" id="following">
+		              	<% @profile.following_ids.each_slice(3) do |slice| -%>
+		              		<div class="row-fluid">
+		              			<ul class="thumbnails" style="margin:0;">
+		                <% slice.each do |a| %>
+		                	<% follower = User.find(a['id']) %>
+
+		                
+			              <li class="span4 <%= follower.nickname + '_' + 'follow' %>">
+			                <div class="thumbnail pull-left" style="width:95%;">
+			                  <a href="/<%= follower.nickname %>"><%= image_tag(follower.profile_image_url(:square).to_s, :class=>"img-circle follow-images", :size=>"45x45") %></a>
+			                  <div class="caption">
+			                    <h3 class="pull-left follower_nickname"><%= follower.nickname %></h3>
+<!-- 			                    <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p> -->
+								<% if current_user %>
+			                    	
+				                    <% if current_user.id == @profile.id %>
+<!-- 				                    	<a href="/<%= follower.nickname %>/unfollow" class="btn pull-right followers_follow_btn">Unfollow</a> -->
+										<div class="follow_btn_wrap">
+											<%= link_to "Unfollow", {:controller=>'profile', :action=>'list_unfollow', :profile => follower.nickname}, :class => 'btn pull-right followers_follow_btn', :remote => true %>
+										</div> <!-- .follow_btn_wrap -->
+				                    <% elsif current_user.id == follower.id %>
+				                    <% else %>
+				                    	<a href="/<%= follower.nickname %>/follow" class="btn pull-right followers_follow_btn">Follow</a>
+				                    <% end %>
+				                <% else %>
+				                	<a href="/<%= follower.nickname %>/follow" class="btn pull-right followers_follow_btn">Follow</a>
+			                    <% end %>
+			                  </div>
+			                </div>
+			              </li>
+
+		                <% end %>
+
+		                </ul>
+		            </div> <!-- .row-fluid -->
+
+		                <% end %>
+
+		              </div> <!-- .tab-pane fade active in -->
+		              <div class="tab-pane fade" id="followers">
+		               		
+		              	<% @profile.follower_ids.each_slice(3) do |slice| -%>
+		              		<div class="row-fluid">
+		              			<ul class="thumbnails" style="margin:0;">
+		                <% slice.each do |a| %>
+		                	<% follower = User.find(a['id']) %>
+
+		                
+			              <li class="span4 <%= follower.nickname + '_' + 'follow' %>">
+			                <div class="thumbnail pull-left" style="width:95%;">
+			                  <a href="/<%= follower.nickname %>"><%= image_tag(follower.profile_image_url(:square).to_s, :class=>"img-circle follow-images", :size=>"45x45") %></a>
+			                  <div class="caption">
+			                    <h3 class="pull-left follower_nickname"><%= follower.nickname %></h3>
+<!-- 			                    <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p> -->
+								<% if current_user %>
+			                    	<% followers_follow_check = current_user.following_ids.index {|x| x['id']==follower.id } %>
+
+			                    	<% if current_user.id == follower.id %>
+				                    <% elsif followers_follow_check.nil? %>
+				                    	<div class="follow_btn_wrap">
+				                    		<%= link_to "Follow", {:controller=>'profile', :action=>'list_follow', :profile => follower.nickname}, :class => 'btn pull-right followers_follow_btn', :remote => true %>
+				                    	</div> <!-- .follow_btn_wrap -->
+				                    <% else %>
+				                    	<div class="follow_btn_wrap">
+				                    		<%= link_to "Unfollow", {:controller=>'profile', :action=>'list_unfollow', :profile => follower.nickname}, :class => 'btn pull-right followers_follow_btn', :remote => true %>
+				                    	</div> <!-- .follow_btn_wrap -->
+				                    <% end %>
+				                <% else %>
+				                	<a href="#" class="btn pull-right followers_follow_btn">Follow</a>
+			                    <% end %>
+			                  </div>
+			                </div>
+			              </li>
+
+		                <% end %>
+
+		                </ul>
+		            </div> <!-- .row-fluid -->
+
+		                <% end %>
+
+
+
+
+		              </div>
+		              </div>
+		            </div>
+		          </div>
 
 
 

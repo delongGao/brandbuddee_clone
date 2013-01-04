@@ -32,5 +32,27 @@ $(document).ready(function () {
 		    }, { duration: 500, queue: false });
 	    $(".redeem_code").fadeIn(200);
 	});
+
+	$(".follow-btn").live('click', function(event) {
+		$(this).parent('div').html("<a href='#' class='btn main_followers_follow_btn follow-btn disabled'>Loading...</a>");
+	});
+
+	$(".followers_follow_btn").live('click', function(event) {
+		$(this).parent('div').html("<a href='#' class='btn pull-right followers_follow_btn disabled'>Loading...</a>");
+	});
+
+	$("#following_total_link").live('click', function(event) {
+		$('#campaign_tab').removeClass('active');
+		$('#follower_tab').removeClass('active');
+		$('#following_tab').addClass('active');
+	});
+
+	$("#follower_total_link").live('click', function(event) {
+		$('#campaign_tab').removeClass('active');
+		$('#following_tab').removeClass('active');
+		$('#follower_tab').addClass('active');
+	});
+
+	
 	
 });

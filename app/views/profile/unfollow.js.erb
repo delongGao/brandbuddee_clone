@@ -1,0 +1,5 @@
+var follower_total = $('#follower_total').html();
+var follow_update = parseInt(follower_total) - 1
+
+$('#follower_total').html(follow_update);
+$('.main_follow_btn_wrap').html('<a href="/ailsa/follow" class="btn main_followers_follow_btn follow-btn" data-remote="true">Follow</a>');

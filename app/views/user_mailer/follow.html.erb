@@ -1,0 +1,66 @@
+<div style="background-color:#e8e9ed">
+  <div style="max-width:545px;width:100%;margin:0 auto">
+  <table cellpadding="0" border="0" cellspacing="0" width="100%">
+    <tbody><tr>
+      <td width="100%" align="center">
+        <table cellpadding="0" border="0" style="line-height:1.2em;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;border-spacing:0;font-size:100%;border:0;margin:0;padding:0;width:100%;margin-bottom:10px;" cellspacing="0">
+          <tbody>
+            <tr>
+              <td width="115" height="75px" valign="bottom" align="center">
+                <a href="<%= @url %>" target="_blank">
+                  <img style="border-style:none;display:block" width="213" height="40" alt="brandbuddee" src="http://brandbuddee.com/assets/brandbuddee-logo.png">
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <table cellpadding="0" border="0" style="line-height:1.2em;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;border-spacing:0;font-size:100%;border:0;margin:0;padding:0;border-spacing:0;background-color:white;border:1px solid #d3d4d7;width:100%" cellspacing="0">
+          <tbody>
+            <tr>
+              <td>
+                <table cellpadding="0" border="0" style="background-color:#ffffff;border-top:1px solid #fff;line-height:1.2em;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;border-spacing:0;font-size:100%;width:100%;background:url('<%= @url %>/email/email_divider.png') no-repeat" cellspacing="0" height="85">
+                  <tbody>
+                    <tr valign="top">
+                      <td colspan="2" style="color:#2e2e2e;text-shadow:0 1px 0 #fff;font-size:17px;font-weight:lighter;line-height:22px;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;border-spacing:0;padding-top:18px;padding-left:35px;padding-right:35px;min-width:150px;width:100%">
+                        <p style="font-size:18px"><span style="font-weight:bold"><% unless @follower.first_name.nil? || @follower.last_name.nil? || @follower.first_name.blank? || @follower.last_name.blank? %><%= @follower.first_name + ' ' + @follower.last_name %><% else %><%= @follower.first_name + ' ' + @follower.nickname unless @follower.nickname.nil? || @follower.nickname.blank? %><% end %></span> is now following you!</p>
+                      </td>
+                    </tr>
+                    <tr valign="top">
+                      <td style="color:#2e2e2e;text-shadow:0 1px 0 #fff;font-size:17px;font-weight:lighter;line-height:22px;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;border-spacing:0;padding-top:18px;padding-left:35px;width:100%;margin-top:18px;">
+                        <p style="font-size:15px;padding-top:18px;margin-top:18px;margin-bottom:15px;">See what stories <span style="font-weight:bold"><% unless @follower.first_name.nil? || @follower.last_name.nil? || @follower.first_name.blank? || @follower.last_name.blank? %><%= @follower.first_name %><% else %><%= @follower.first_name + ' ' + @follower.nickname unless @follower.nickname.nil? || @follower.nickname.blank? %><% end %></span> is sharing. Get started and rewarded with your friends and family now!</p>
+                      </td>
+                      <td width="235">
+                        <img src="<%= @follower.profile_image_url(:square).to_s %>" width="96" height="96" style="margin:50px 30px 0 20px;float:left;border-radius:100px;" border="0">
+                      </td>
+                    </tr>
+
+                  </tbody>
+                </table>
+					
+
+                <div style="min-height:50px;background:url('<%= @url %>/email/email_middle.png') center no-repeat"></div>
+              </td>
+            </tr>
+            <tr valign="top">
+              	<td width="100%" style="text-shadow:0 1px 0 #fff;color:#84868b;line-height:20px;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;border-spacing:0;font-size:16px;font-weight:lighter;padding-top:5px;padding-bottom:12px;padding-left:35px;padding-right:35px;text-align:center">
+	                <p style="margin:0 0 2px 0;color:#65686e;font-weight:200;font-size:12px;color:#b3b3b4">Discover, Share, & Earn Rewards</p>
+
+	              </td>
+            </tr>
+          </tbody></table>
+          <table cellpadding="0" border="0" style="line-height:12px;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;border-spacing:0;font-size:11px !important;margin-bottom:20px;" cellspacing="0" width="100%" align="center">
+            <tbody>
+              <tr valign="top">
+                <td width="100%" valign="center" align="center">
+                  <p style="color:#9c9d9f;font-size:11px !important;font-weight:lighter;margin-top:12px;">If you received this message in error and did not sign up for brandbuddee please <a href="<%= @url %>contact" style="text-decoration:none;color:inherit" target="_blank">contact</a> us. Sign back in to Discover, Share, & Earn Rewards! <a href="<%= @url %>" style="text-decoration:none;color:inherit" target="_blank">Sign-in</a>.</p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </td>
+      </tr>
+    </tbody></table>
+  </div>
+  
+<br>
+</div>

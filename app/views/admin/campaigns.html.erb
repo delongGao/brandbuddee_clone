@@ -264,6 +264,10 @@
       <%= f.label :reward, :class=>'' %>
       <%= f.text_field :reward, :class=>'span6' %>
     </p>
+    <p>
+      <%= f.label :redeem_details, :class=>'' %>
+      <%= f.text_field :redeem_details, :class=>'span6' %>
+    </p>
 
     <%= select_tag "brands", options_from_collection_for_select(@brand_all, "id", "name"), :prompt => "- Select Brand -" %>
 

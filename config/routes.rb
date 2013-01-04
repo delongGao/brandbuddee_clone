@@ -97,6 +97,12 @@ Brandbuddee::Application.routes.draw do
   get "/:profile" => 'profile#index', :as => :profile
   resources :profile, :only => [:index]
 
+  get '/:profile/follow' => 'profile#follow', :as => :follow_id
+  get '/:profile/unfollow' => 'profile#unfollow', :as => :unfollow_id
+
+  get '/:profile/follow/update' => 'profile#list_follow'
+  get '/:profile/unfollow/update' => 'profile#list_unfollow'
+
   match 'campaign/activate' => 'campaign#activate_campaign'
   get "/campaign/:campaign" => 'campaign#index', :as => :campaign
 
