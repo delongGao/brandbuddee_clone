@@ -178,9 +178,10 @@
 			                <div class="thumbnail pull-left" style="width:95%;">
 			                  <a href="/<%= follower.nickname %>"><%= image_tag(follower.profile_image_url(:square).to_s, :class=>"img-circle follow-images", :size=>"45x45") %></a>
 			                  <div class="caption">
-			                    <h3 class="pull-left follower_nickname"><%= follower.nickname %></h3>
+			                    <a href="/<%= follower.nickname %>"><h3 class="pull-left follower_nickname"><%= follower.nickname %></h3></a>
 <!-- 			                    <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p> -->
 								<% if current_user %>
+									<% followers_following_check = current_user.following_ids.index {|x| x['id']==follower.id } %>
 			                    	
 				                    <% if current_user.id == @profile.id %>
 <!-- 				                    	<a href="/<%= follower.nickname %>/unfollow" class="btn pull-right followers_follow_btn">Unfollow</a> -->
@@ -188,6 +189,8 @@
 											<%= link_to "Unfollow", {:controller=>'profile', :action=>'list_unfollow', :profile => follower.nickname}, :class => 'btn pull-right followers_follow_btn', :remote => true %>
 										</div> <!-- .follow_btn_wrap -->
 				                    <% elsif current_user.id == follower.id %>
+				                    <% elsif followers_following_check != nil %>
+				                    	<%= link_to "Unfollow", {:controller=>'profile', :action=>'list_unfollow', :profile => follower.nickname}, :class => 'btn pull-right followers_follow_btn', :remote => true %>
 				                    <% else %>
 				                    	<a href="/<%= follower.nickname %>/follow" class="btn pull-right followers_follow_btn">Follow</a>
 				                    <% end %>
@@ -219,7 +222,7 @@
 			                <div class="thumbnail pull-left" style="width:95%;">
 			                  <a href="/<%= follower.nickname %>"><%= image_tag(follower.profile_image_url(:square).to_s, :class=>"img-circle follow-images", :size=>"45x45") %></a>
 			                  <div class="caption">
-			                    <h3 class="pull-left follower_nickname"><%= follower.nickname %></h3>
+			                    <a href="/<%= follower.nickname %>"><h3 class="pull-left follower_nickname"><%= follower.nickname %></h3></a>
 <!-- 			                    <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p> -->
 								<% if current_user %>
 			                    	<% followers_follow_check = current_user.following_ids.index {|x| x['id']==follower.id } %>
