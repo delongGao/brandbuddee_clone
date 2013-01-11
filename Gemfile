@@ -1,6 +1,9 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.1.0'
+#gem 'rails', '3.1.0'
+gem 'rails', '~> 3.2.11'
+#gem 'multi_json', '1.2.0'
+gem 'railties', '~> 3.2.11'
 
 gem "mongoid", "~> 2.4.0"
 gem 'bson_ext'
@@ -23,7 +26,7 @@ gem "fog", "~> 1.3.1"
 gem "delayed_job", "~> 3.0.2"
 gem "delayed_job_mongoid", "~> 1.0.8"
 
-gem 'mail', '2.3.3'
+gem 'mail', '~> 2.4.4'
 
 gem "will_paginate_mongoid", "~> 1.0.0"
 gem "will_paginate", "~> 3.0.3"
@@ -37,8 +40,8 @@ gem "bootstrap-will_paginate"
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'sass-rails', "  ~> 3.1.0"
-  gem 'coffee-rails', "~> 3.1.0"
+  gem 'sass-rails', "~> 3.2.5"
+  gem 'coffee-rails', "~> 3.2.2"
   gem 'uglifier'
 
   #gem "twitter-bootstrap-rails", "~> 2.0.7"
