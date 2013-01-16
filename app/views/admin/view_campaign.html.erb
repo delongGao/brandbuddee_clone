@@ -218,7 +218,7 @@
 				<a class="quick-button span4" href="/admin/campaign/view/trackings?_id=<%= @campaign._id %>">
 					<i class="fa-icon-screenshot"></i>
 					<p>Trackings</p>
-					<span class="notification green"><%= @tracking_all.size + @share_all.sum(:unique_page_views).to_i %></span>
+					<span class="notification green"><%= @tracking_all.size + @campaign.shares.sum(:unique_page_views).to_i %></span>
 				</a>
 				
 			</div>
