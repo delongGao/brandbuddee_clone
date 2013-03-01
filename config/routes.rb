@@ -21,6 +21,9 @@ Brandbuddee::Application.routes.draw do
   match 'complete/email' => 'users#complete_email'
   match 'complete/email/update' => 'users#complete_email_update'
 
+  match '/campaign_newsletter/push' => 'users#campaign_newsletter'
+  match '/campaign_newsletter_confirmation' => 'users#campaign_newsletter_confirmation'
+
   match 'home' => 'users#dashboard'
 
   match 'profile/settings' => 'profile#profile_settings'
@@ -125,6 +128,7 @@ Brandbuddee::Application.routes.draw do
   get "/b/:share_link" => "welcome#share"
   get "/share" => "welcome#share"
   
+
   
   # The priority is based upon order of creation:
   # first created -> highest priority.

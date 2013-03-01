@@ -39,6 +39,20 @@ class UsersController < ApplicationController
     redirect_to '/home'
   end
 
+  def campaign_newsletter
+    user = User.find('50cb767e858e4a4fce000001')
+    UserMailer.campaign_newsletter(user, root_url).deliver
+
+    #User.campaign_newsletter_push(root_url)
+
+    flash[:notice] = "Campaign newsletter successfully delivered."
+    redirect_to(:controller => 'users', :action => 'campaign_newsletter_confirmation')
+  end
+
+  def campaign_newsletter_confirmation
+
+  end
+
   def complete_email
     @user = User.first
   end

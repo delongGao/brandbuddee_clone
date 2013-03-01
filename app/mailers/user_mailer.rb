@@ -39,4 +39,16 @@ class UserMailer < ActionMailer::Base
 		mail(:to => user.email, :subject => "#{@name} is now following you on brandbuddee!", :from => "brandbuddee <noreply@brandbuddee.com>")
 	end
 
+	def campaign_newsletter(user, root_url)
+		@user = user
+		@url = root_url
+		#mail(:to => user.email, :subject => "New Campaigns", :from => "brandbuddee <noreply@brandbuddee.com>")
+		mail(:to => user.email, :subject => "New Campaigns", :from => "brandbuddee <noreply@brandbuddee.com>")
+
+		# 
+		# UserMailer.campaign_newsletter()
+
+
+	end
+
 end
