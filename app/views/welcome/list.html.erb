@@ -33,14 +33,18 @@
 			<td><%= sub.shared_emails %></td>
 			<td><%= sub.consolidated %></td>
 			<td>
-				<% if sub.invitation.nil? %>
+				<% if sub.consolidated == true %>
+					...
+				<% elsif sub.invitation.nil? %>
 					<%= link_to "Invite", {:controller=>'welcome', :action=>'invite', :_id => sub._id}, :class => "btn btn-small btn-primary" %>
-				<% elsif %> 
+				<% else %> 
 					<span class="badge badge-inverse">Invitation Sent</span>
 				<% end %>
 			</td>
 			<td>
-				<% if sub.invitation.nil? %>
+				<% if sub.consolidated == true %>
+					<span class="badge badge-success">User</span>
+				<% elsif sub.invitation.nil? %>
 					<span class="badge">wait list</span>
 				<% else %>
 					<% if sub.invitation.status == true %>
