@@ -35,6 +35,10 @@ class Subscriber
         subscriber.status = true
         subscriber.save
       end
+      if subscriber.campaign_newsletter_1 == false
+        subscriber.campaign_newsletter_1 = false
+        subscriber.save
+      end
     end
   end
 
