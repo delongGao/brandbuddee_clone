@@ -39,10 +39,17 @@ class UserMailer < ActionMailer::Base
 		mail(:to => user.email, :subject => "#{@name} is now following you on brandbuddee!", :from => "brandbuddee <noreply@brandbuddee.com>")
 	end
 
-	def campaign_newsletter(user, root_url)
-		@user = user
+	def campaign_newsletter(email, root_url)
+		@email = email
 		@url = root_url
-		mail(:to => user.email, :subject => "Vegas and Amazon Gift Cards Giveaway from brandbuddee", :from => "brandbuddee <noreply@brandbuddee.com>")
+		mail(:to => email, :subject => "Vegas and Amazon Gift Cards Giveaway from brandbuddee", :from => "brandbuddee <noreply@brandbuddee.com>")
+	end
+
+	def unsubscribe_confirm(email, hash, root_url)
+		@email = email
+		@hash = hash
+		@url = root_url
+		mail(:to => email, :subject => "Unsubscribe confirmation", :from => "brandbuddee <noreply@brandbuddee.com>")
 	end
 
 end

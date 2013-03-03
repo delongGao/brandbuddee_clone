@@ -25,6 +25,9 @@ Brandbuddee::Application.routes.draw do
   match '/campaign_newsletter_confirmation' => 'users#campaign_newsletter_confirmation'
   match '/admin/consolidate_subscribers' => 'welcome#consolidate_subscribers'
 
+  match '/email/unsubscribe' => 'welcome#unsubscribe'
+  match '/email/unsubscribe/confirm' => 'welcome#unsubscribe_confirm'
+
   match 'home' => 'users#dashboard'
 
   match 'profile/settings' => 'profile#profile_settings'

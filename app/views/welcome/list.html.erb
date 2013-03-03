@@ -21,6 +21,8 @@
 			<th>Consolidated</th>
 			<th>Invite to Beta</th>
 			<th>Status</th>
+			<th>Subscription</th>
+			<th>campaign_newsletter_1</th>
 		  </tr>
 
 		<% @subscriber.each do |sub| %>
@@ -52,6 +54,20 @@
 					<% elsif sub.invitation.status == false %>
 						<span class="badge badge-important">pending</span>
 					<% end %>
+				<% end %>
+			</td>
+			<td>
+				<% if sub.status == true %>
+					<span class="badge">Subscribed</span>
+				<% elsif sub.status == false %>
+					<span class="badge badge-important">Unsubscribed</span>
+				<% end %>
+			</td>
+			<td>
+				<% if sub.campaign_newsletter_1 == true %>
+					<span class="badge">Delivered</span>
+				<% elsif sub.campaign_newsletter_1 == false %>
+					<span class="badge badge-important">Undelivered</span>
 				<% end %>
 			</td>
 			<td><%= link_to "Delete", :controller=>'welcome', :action=>'destroy', :_id => sub._id %></td>

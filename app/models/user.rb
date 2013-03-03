@@ -55,12 +55,6 @@ class User
   validates :email, :presence => true, :length => { :maximum => 100 }, :format => EMAIL_REGEX, :confirmation => true
   validates_uniqueness_of :email
   
-  def self.campaign_newsletter_push(root_url)
-    self.each do |user|
-      #UserMailer.campaign_newsletter(user, root_url).deliver
-      UserMailer.campaign_newsletter(root_url).deliver
-    end
-  end
 
   def self.add_following(date, user_id, current_user_id, root_url)
     user = self.find(user_id)
@@ -79,7 +73,6 @@ class User
     else
       return false
     end
-
   end
 
   def self.remove_follower(user_id, current_user_id)

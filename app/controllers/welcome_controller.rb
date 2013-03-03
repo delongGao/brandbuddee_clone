@@ -90,6 +90,34 @@ class WelcomeController < ApplicationController
 	  	end
 	end
 
+	def unsubscribe
+		@subscriber = Subscriber.where(email: params[:u]).first
+
+		if @subscriber
+			if @subscriber.unsubscribe_hash.nil? || @subscriber.unsubscribe_hash.blank?
+				hash = Subscriber.assign_unsubscribe_hash(:link)
+				UserMailer.unsubscribe_confirm(@subscriber.email, hash, root_url).deliver
+				@subscriber.unsubscribe_hash = hash
+				@subscriber.save
+			else
+				#render unsubscribe email sent view
+			end
+		else
+			redirect_to root_url
+		end
+	end
+
+	def unsubscribe_confirm
+		@subscriber = Subscriber.where(unsubscribe_hash: params[:hash]).first
+
+		if @subscriber
+			@subscriber.status = false
+			@subscriber.save
+		else
+			redirect_to root_url
+		end
+	end
+
 	def invite_destroy
 		@invite = Invitation.find(params[:_id])
 		@invite.destroy
