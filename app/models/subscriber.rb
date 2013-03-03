@@ -20,11 +20,21 @@ class Subscriber
   
 
   def self.campaign_newsletter_push(root_url)
-    s = Subscriber.where(:status => true)
+    s = Subscriber.where(:status => true, :campaign_newsletter_1 => false)
     s.each do |subscriber|
       subscriber.campaign_newsletter_1 = true
       subscriber.save
       UserMailer.campaign_newsletter(subscriber.email, root_url).deliver
+    end
+  end
+
+  def self.boolean_validation()
+    s = Subscriber.all
+    s.each do |subscriber|
+      if subscriber.status == true
+        subscriber.status = true
+        subscriber.save
+      end
     end
   end
 
