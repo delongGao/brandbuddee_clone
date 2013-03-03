@@ -18,6 +18,7 @@
 			<th>Share Link</th>
 			<th>Share Points</th>
 			<th>Shared Emails</th>
+			<th>Consolidated</th>
 			<th>Invite to Beta</th>
 			<th>Status</th>
 		  </tr>
@@ -30,6 +31,7 @@
 			<td><%= sub.share_link %></td>
 			<td><%= sub.share_points %></td>
 			<td><%= sub.shared_emails %></td>
+			<td><%= sub.consolidated %></td>
 			<td>
 				<% if sub.invitation.nil? %>
 					<%= link_to "Invite", {:controller=>'welcome', :action=>'invite', :_id => sub._id}, :class => "btn btn-small btn-primary" %>

@@ -7,9 +7,10 @@ class Subscriber
   field :share_link, :type => String
   field :share_points, :type => Integer, :default => 0
   field :shared_emails, :type => Array, :default => []
+  field :consolidated, :type => Boolean, :default => false
 
   
-  attr_accessible :email, :date, :share_link, :share_points
+  attr_accessible :consolidated, :email, :date, :share_link, :share_points
   
   EMAIL_REGEX = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i
   validates :email, :presence => true, :length => { :maximum => 100 }, :format => EMAIL_REGEX, :confirmation => true
@@ -48,6 +49,7 @@ class Subscriber
       else
         value = Subscriber.assign_share_link(:link)
         subscriber = Subscriber.new({:email => u.email, :date => Time.now, :share_link => value})
+        subscriber.consolidated = true
         subscriber.save
       end
     end
