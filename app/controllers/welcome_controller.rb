@@ -54,6 +54,12 @@ class WelcomeController < ApplicationController
 	    end
   	end
 
+  	def consolidate_subscribers
+  		Subscriber.delay.consolidate()
+  		flash[:notice] = 'Subscribers consolidated.'
+  		redirect_to '/users/show'
+  	end
+
   	def invite
   		new_invite_code = Invitation.assign_invite_code()
 
@@ -73,7 +79,7 @@ class WelcomeController < ApplicationController
 
   	def list
   		if current_user
-	  		if current_user.account_type == "admin" || Rails.env.development?
+	  		if current_user.account_type == "super admin" || Rails.env.development?
 	  			@subscriber = Subscriber.all.order_by([:date, :desc])
 	  			@invitation = Invitation.all.order_by([:date, :desc])
 	  		else

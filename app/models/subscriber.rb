@@ -33,6 +33,26 @@ class Subscriber
     end
   end
 
+  def self.check_subscriber(email)
+    if self.exists?(conditions: { email: email })
+      return true
+    else
+      return false
+    end
+  end
+
+  def self.consolidate()
+    users = User.all
+    users.each do |u|
+      if Subscriber.check_subscriber(u.email)
+      else
+        value = Subscriber.assign_share_link(:link)
+        subscriber = Subscriber.new({:email => u.email, :date => Time.now, :share_link => value})
+        subscriber.save
+      end
+    end
+  end
+
   def self.invite(id, root_url)
     new_invite_code = Invitation.assign_invite_code()
     @subscriber = Subscriber.find(id)

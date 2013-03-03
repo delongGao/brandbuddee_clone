@@ -23,6 +23,7 @@ Brandbuddee::Application.routes.draw do
 
   match '/campaign_newsletter/push' => 'users#campaign_newsletter'
   match '/campaign_newsletter_confirmation' => 'users#campaign_newsletter_confirmation'
+  match '/admin/consolidate_subscribers' => 'welcome#consolidate_subscribers'
 
   match 'home' => 'users#dashboard'
 

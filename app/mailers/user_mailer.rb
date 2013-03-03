@@ -42,13 +42,7 @@ class UserMailer < ActionMailer::Base
 	def campaign_newsletter(user, root_url)
 		@user = user
 		@url = root_url
-		#mail(:to => user.email, :subject => "New Campaigns", :from => "brandbuddee <noreply@brandbuddee.com>")
-		mail(:to => user.email, :subject => "New Campaigns", :from => "brandbuddee <noreply@brandbuddee.com>")
-
-		# 
-		# UserMailer.campaign_newsletter()
-
-
+		mail(:to => user.email, :subject => "Vegas and Amazon Gift Cards Giveaway from brandbuddee", :from => "brandbuddee <noreply@brandbuddee.com>")
 	end
 
 end
