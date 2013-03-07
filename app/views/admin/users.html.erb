@@ -62,7 +62,6 @@
 								  <th>Date</th>
 								  <th>Last Login</th>
     						      <th>Last Activity</th>
-    						      <th>Profile Image</th>
     						      <th>First Name</th>
     						      <th>Last Name</th>
     						      <th>Email</th>
@@ -87,7 +86,6 @@
 								<td class="center"><%= c.date %> <span class="label"><%= time_ago_in_words(c.date) + " ago" unless c.date.nil? %></span></td>
 								<td><%= c.last_login %> <span class="label"><%= time_ago_in_words(c.last_login) + " ago" unless c.last_login.nil? %> </span></td>
 								<td><%= c.last_activity %> <span class="label"><%= time_ago_in_words(c.last_activity) + " ago" unless c.last_activity.nil? %> </span></td>
-								<td><%= image_tag(c.profile_image_url(:thumb).to_s, :class=>"", :style=>"border-radius:100px;" ) %></td>
 							  	<td><%= c.first_name %></td>
 							  	<td><%= c.last_name %></td>
 							  	<td><a rel="tooltip" data-placement="top" data-original-title="<%= c._id %>"><%= c.email %></a></td>
