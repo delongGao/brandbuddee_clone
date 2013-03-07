@@ -41,7 +41,7 @@ class UsersController < ApplicationController
 
   def campaign_newsletter
     #user = User.find('50cb767e858e4a4fce000001')
-    #UserMailer.campaign_newsletter(user, root_url).deliver
+    #UserMailer.campaign_newsletter(user.email, root_url).deliver
 
     Subscriber.delay.campaign_newsletter_push(root_url)
 

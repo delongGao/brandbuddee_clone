@@ -11,6 +11,7 @@ class Subscriber
   field :status, :type => Boolean, :default => true #subscribe status
   field :unsubscribe_hash, :type => String
   field :campaign_newsletter_1, :type => Boolean, :default => false
+  field :campaign_newsletter_2, :type => Boolean, :default => false
 
   
   attr_accessible :consolidated, :unsubscribe_hash, :campaign_newsletter_1, :email, :date, :share_link, :share_points
@@ -20,11 +21,12 @@ class Subscriber
   
 
   def self.campaign_newsletter_push(root_url)
-    s = Subscriber.where(:status => true, :campaign_newsletter_1 => false)
+    s = Subscriber.where(:status => true, :campaign_newsletter_2 => false)
     s.each do |subscriber|
-      subscriber.campaign_newsletter_1 = true
+      subscriber.campaign_newsletter_2 = true
       subscriber.save
-      UserMailer.campaign_newsletter(subscriber.email, root_url).deliver
+      UserMailer.campaign_newsletter(subscriber.email, root_url).delivera
+      
     end
   end
 
@@ -35,8 +37,8 @@ class Subscriber
         subscriber.status = true
         subscriber.save
       end
-      if subscriber.campaign_newsletter_1 == false
-        subscriber.campaign_newsletter_1 = false
+      if subscriber.campaign_newsletter_2 == false
+        subscriber.campaign_newsletter_2 = false
         subscriber.save
       end
     end
