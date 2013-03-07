@@ -25,7 +25,7 @@ class Subscriber
     s.each do |subscriber|
       subscriber.campaign_newsletter_2 = true
       subscriber.save
-      UserMailer.campaign_newsletter(subscriber.email, root_url).delivera
+      UserMailer.campaign_newsletter(subscriber.email, root_url).deliver
       
     end
   end
