@@ -42,7 +42,7 @@ class UserMailer < ActionMailer::Base
 	def campaign_newsletter(email, root_url)
 		@email = email
 		@url = root_url
-		mail(:to => email, :subject => "The cutting-edge of tech", :from => "brandbuddee <noreply@brandbuddee.com>")
+		mail(:to => email, :subject => "Happy Easter!", :from => "brandbuddee <noreply@brandbuddee.com>")
 	end
 
 	def unsubscribe_confirm(email, hash, root_url)

@@ -24,6 +24,7 @@
 			<th>Subscription</th>
 			<th>campaign_newsletter_1</th>
 			<th>campaign_newsletter_2</th>
+			<th>campaign_newsletter_3</th>
 		  </tr>
 
 		<% @subscriber.each do |sub| %>
@@ -75,6 +76,13 @@
 				<% if sub.campaign_newsletter_2 == true %>
 					<span class="badge">Delivered</span>
 				<% elsif sub.campaign_newsletter_2 == false %>
+					<span class="badge badge-important">Undelivered</span>
+				<% end %>
+			</td>
+			<td>
+				<% if sub.campaign_newsletter_3 == true %>
+					<span class="badge">Delivered</span>
+				<% elsif sub.campaign_newsletter_3 == false %>
 					<span class="badge badge-important">Undelivered</span>
 				<% end %>
 			</td>

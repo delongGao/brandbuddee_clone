@@ -12,18 +12,19 @@ class Subscriber
   field :unsubscribe_hash, :type => String
   field :campaign_newsletter_1, :type => Boolean, :default => false
   field :campaign_newsletter_2, :type => Boolean, :default => false
+  field :campaign_newsletter_3, :type => Boolean, :default => false
 
   
-  attr_accessible :consolidated, :unsubscribe_hash, :campaign_newsletter_1, :email, :date, :share_link, :share_points
+  attr_accessible :consolidated, :unsubscribe_hash, :campaign_newsletter_1, :campaign_newsletter_2, :campaign_newsletter_3, :email, :date, :share_link, :share_points
   
   EMAIL_REGEX = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i
   validates :email, :presence => true, :length => { :maximum => 100 }, :format => EMAIL_REGEX, :confirmation => true
   
 
   def self.campaign_newsletter_push(root_url)
-    s = Subscriber.where(:status => true, :campaign_newsletter_2 => false)
+    s = Subscriber.where(:status => true, :campaign_newsletter_3 => false)
     s.each do |subscriber|
-      subscriber.campaign_newsletter_2 = true
+      subscriber.campaign_newsletter_3 = true
       subscriber.save
       UserMailer.campaign_newsletter(subscriber.email, root_url).deliver
       
@@ -37,8 +38,8 @@ class Subscriber
         subscriber.status = true
         subscriber.save
       end
-      if subscriber.campaign_newsletter_2 == false
-        subscriber.campaign_newsletter_2 = false
+      if subscriber.campaign_newsletter_3 == false
+        subscriber.campaign_newsletter_3 = false
         subscriber.save
       end
     end
