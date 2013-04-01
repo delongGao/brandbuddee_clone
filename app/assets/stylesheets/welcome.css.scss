@@ -257,3 +257,16 @@ a.sb.gplus,
 	font-style: italic;
 	line-height: 30px;
 }
+.text-glow {
+	webkit-stroke-width: 5.3px;
+   -webkit-stroke-color: #FFFFFF;
+   -webkit-fill-color: #FFFFFF;
+   text-shadow: 1px 0px 20px #FFF;
+   -webkit-transition: width 0.3s; /*Safari & Chrome*/
+   transition: width 0.3s;
+   -moz-transition: width 0.3s; /* Firefox 4 */
+   -o-transition: width 0.3s; /* Opera */
+}
+.text-glow-dark {
+	font-weight: 700 !important;
+}
