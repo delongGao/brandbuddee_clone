@@ -53,6 +53,19 @@ $(document).ready(function () {
 		$('#follower_tab').addClass('active');
 	});
 
+	$(".location_edit").mouseover(
+	  function () {
+	    $(".location_edit_bttn").fadeIn();
+	  }
+	);
+
+	// $(".location_edit").mouseout(
+	//   function () {
+	//     $(".location_edit_bttn").fadeOut();
+	//   }
+	// );
+
+
 	
 	
 });

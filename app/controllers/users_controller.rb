@@ -22,6 +22,10 @@ class UsersController < ApplicationController
         redirect_to(:action => 'choose_username')
       end
 
+      if current_user.location.nil?
+        redirect_to(:action => 'choose_location')
+      end
+
       current_user.last_activity = Time.now
       current_user.save
 
@@ -124,6 +128,26 @@ class UsersController < ApplicationController
           end
       end
     end
+  end
+
+  def choose_location
+    @user = User.find(current_user.id)
+    if current_user.location.nil? || current_user.location.blank?
+    else
+      redirect_to root_url
+    end
+  end
+
+  def choose_location_update
+    @user = User.find(current_user.id)
+    @user.location = params[:location]
+
+    if @user.save
+        flash[:notice] = "Location updated"
+        redirect_to root_url
+      else
+        flash[:notice] = "Location was not updated. Please try again"
+      end
   end
 
   def password_resets_show

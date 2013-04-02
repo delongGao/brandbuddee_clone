@@ -22,6 +22,22 @@ class ProfileController < ApplicationController
 		@user = User.find(current_user.id)
 	end
 
+	def update_location
+		@user = User.find(current_user.id)
+		unless params[:user][:location].blank?
+			@location = Location.find(params[:user][:location])
+			@user.location_id = @location.id
+		end
+
+		if @user.update_attributes(params[:user])
+	      flash[:notice] = "Location updated."
+	      redirect_to root_url
+	    else
+	      flash[:notice] = "Uh oh... something went wrong. Please try again."
+	      redirect_to root_url
+	    end
+	end
+
 	def password_settings
 		if current_user
 			if current_user.provider.nil?

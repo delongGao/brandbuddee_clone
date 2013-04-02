@@ -31,6 +31,7 @@ Brandbuddee::Application.routes.draw do
 
   match 'home' => 'users#dashboard'
 
+  match 'profile/location' => 'profile#update_location'
   match 'profile/settings' => 'profile#profile_settings'
   match 'profile/settings/update' => 'profile#profile_settings_update'
   match 'account/settings' => 'profile#account_settings'
@@ -49,6 +50,9 @@ Brandbuddee::Application.routes.draw do
 
   match '/choose/username' => 'users#choose_username'
   match '/choose/username/update' => 'users#choose_username_update'
+
+  match '/choose/location' => 'users#choose_location'
+  match '/choose/location' => 'users#choose_location_update'
 
   match 'admin' => 'admin#index'
 

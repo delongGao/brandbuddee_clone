@@ -1,0 +1,62 @@
+<%= render 'shared/header_incomplete' %>
+
+<div class="container main_container" style="padding-left:0;margin-top:20px;">
+
+	<%#= image_tag('startupclub_logo.png', :class=>"welcome_logo", :alt=>"start club", :size=>"500x33") %>
+
+	<% if current_user %>
+	<div class="row">
+
+
+		<div class="span7 choose_username_wrap">
+		<div class="well form-horizontal">
+
+				<h2 style="font-weight:500;">Choose your location »</h2>
+				<br>
+				
+				<% if flash[:notice].nil? %><% else %>
+					<div class="alert alert-danger">
+						<button class="close" data-dismiss="alert">×</button>
+						<%= flash[:notice] %>
+					</div> <!-- .alert -->
+				<% end %>
+
+				<div class="form-horizontal" style="">
+				    <% @user = User.find(current_user.id) %>
+				    <% @location_all = Location.all.order_by([:name, :asc]) %>
+				    <%= form_for @user, :url => {:controller => 'profile', :action => 'choose_location_update'} do |f| %>
+
+				          <fieldset>
+				            <div class="control-group">
+				                  <label class="control-label" for="prependedInput"><%= f.label :location, 'Location', :class=>'' %>
+				                  </label>
+				                  <div class="controls">
+				                    <%= select_tag "location", options_from_collection_for_select(@location_all, "id", "city"), :prompt => "- Select Location -" %>
+				                  </div>
+				            </div>
+				          </fieldset>
+
+				          <fieldset>
+				            <div class="control-group">
+				                  <label class="control-label" for="prependedInput">
+				                  </label>
+				                  <div class="controls">
+				                    <%= f.submit 'Update', :class=>"btn btn-primary" %>
+				                  </div>
+				            </div>
+				          </fieldset>
+
+					    
+				  <% end %>
+			  </div> <!-- .form-horizontal -->
+
+				
+
+		</div> <!-- .form-horizontal -->
+				<% end %>
+
+		</div> <!-- .span9 -->
+	</div> <!-- .row -->
+</div><!--/.container-->
+
+<%#= render 'shared/footer' %>
