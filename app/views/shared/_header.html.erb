@@ -122,42 +122,45 @@
 
 
 <% if current_user %>
-<!-- Modal -->
-<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h3 id="myModalLabel">Edit your location</h3>
-  </div>
-  <div class="modal-body">
-    <p>Edit your location to view local campaigns in your area!</p>
-    <br>
+  <% current_uri = request.env['PATH_INFO'] %>
+  <% if current_uri == '/home' %>
+    <!-- Modal -->
+    <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel">Edit your location</h3>
+      </div>
+      <div class="modal-body">
+        <p>Edit your location to view local campaigns in your area!</p>
+        <br>
 
-    <div class="form-horizontal" style="">
-    <% @user = User.find(current_user.id) %>
-    <% @location_all = Location.all.order_by([:name, :asc]) %>
-    <%= form_for @user, :url => {:controller => 'profile', :action => 'update_location'} do |f| %>
+        <div class="form-horizontal" style="">
+        <% @user = User.find(current_user.id) %>
+        <% @location_all = Location.all.order_by([:name, :asc]) %>
+        <%= form_for @user, :url => {:controller => 'profile', :action => 'update_location'} do |f| %>
 
-          <fieldset>
-            <div class="control-group">
-                  <label class="control-label" for="prependedInput"><%= f.label :location, 'Location', :class=>'' %>
-                  </label>
-                  <div class="controls">
-                    <%#= select_tag "location", options_from_collection_for_select(@location_all, "id", "city"), :prompt => "- Select Location -" %>
-                    <% current_location_id = current_user.location.id unless current_user.location.nil? %>
-                    <%= f.select :location, options_from_collection_for_select(@location_all, "id", "city", current_location_id), :prompt => "- Select New Location -" %>
-                  </div>
-            </div>
-          </fieldset>
-
-
+              <fieldset>
+                <div class="control-group">
+                      <label class="control-label" for="prependedInput"><%= f.label :location, 'Location', :class=>'' %>
+                      </label>
+                      <div class="controls">
+                        <%#= select_tag "location", options_from_collection_for_select(@location_all, "id", "city"), :prompt => "- Select Location -" %>
+                        <% current_location_id = current_user.location.id unless current_user.location.nil? %>
+                        <%= f.select :location, options_from_collection_for_select(@location_all, "id", "city", current_location_id), :prompt => "- Select New Location -" %>
+                      </div>
+                </div>
+              </fieldset>
 
 
 
-      </div> <!-- .form-horizontal -->
-  </div>
-  <div class="modal-footer">
-    <%= f.submit 'Update', :class=>"btn btn-primary" %>
-  </div>
+
+
+          </div> <!-- .form-horizontal -->
+      </div>
+      <div class="modal-footer">
+        <%= f.submit 'Update', :class=>"btn btn-primary" %>
+      </div>
+      <% end %>
+    </div>
   <% end %>
-</div>
 <% end %>
