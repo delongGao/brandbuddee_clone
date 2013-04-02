@@ -49,6 +49,18 @@
                 <% end %>
             </ul>
 
+            <% if @campaign.nil? || @campaign.blank? %>
+
+                <div style="height:100px;"></div>
+
+                <div class="well span5 no_campaigns_alert">
+                    Unfortunately, there are no available campaigns at the moment. Please check again soon!
+                </div> <!-- .no_campaigns_alert -->
+
+                <div style="height:300px;"></div>
+
+            <% end %>
+
 
             <div class="row" id="portfolio-items">
 

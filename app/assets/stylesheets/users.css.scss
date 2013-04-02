@@ -2,6 +2,7 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+
 .left-nav {
 	//display: block;
 	//position: fixed;
@@ -57,4 +58,12 @@
 .campaign_reward_wrap {
 	display: block;
 	height: 40px;
+}
+
+.no_campaigns_alert {
+	display: block;
+	margin: 0 auto;
+	position: absolute;
+	left: 0;
+	right: 0;
 }
