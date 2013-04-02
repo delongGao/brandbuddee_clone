@@ -24,7 +24,7 @@
 				<div class="form-horizontal" style="">
 				    <% @user = User.find(current_user.id) %>
 				    <% @location_all = Location.all.order_by([:name, :asc]) %>
-				    <%= form_for @user, :url => {:controller => 'profile', :action => 'choose_location_update'} do |f| %>
+				    <%= form_for @user, :url => {:controller => 'users', :action => 'choose_location_update'} do |f| %>
 
 				          <fieldset>
 				            <div class="control-group">
