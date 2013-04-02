@@ -140,13 +140,16 @@ class UsersController < ApplicationController
 
   def choose_location_update
     @user = User.find(current_user.id)
-    @user.location = params[:location]
+    #@location = Location.find(params[:location])
+    #@user.location_id = @location.id
+    @user.location = params[:user][:location]
 
     if @user.save
         flash[:notice] = "Location updated"
         redirect_to root_url
       else
         flash[:notice] = "Location was not updated. Please try again"
+        redirect_to(:action => 'choose_location')
       end
   end
 

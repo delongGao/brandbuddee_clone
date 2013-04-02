@@ -52,7 +52,7 @@ Brandbuddee::Application.routes.draw do
   match '/choose/username/update' => 'users#choose_username_update'
 
   match '/choose/location' => 'users#choose_location'
-  match '/choose/location' => 'users#choose_location_update'
+  match '/choose/location/update' => 'users#choose_location_update'
 
   match 'admin' => 'admin#index'
 

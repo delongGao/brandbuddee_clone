@@ -7,6 +7,7 @@
 	<% if current_user %>
 	<div class="row">
 
+		<%= flash[:notice] %>
 
 		<div class="span7 choose_username_wrap">
 		<div class="well form-horizontal">
@@ -28,10 +29,10 @@
 
 				          <fieldset>
 				            <div class="control-group">
-				                  <label class="control-label" for="prependedInput"><%= f.label :location, 'Location', :class=>'' %>
+				                  <label class="control-label" for="prependedInput">Location
 				                  </label>
 				                  <div class="controls">
-				                    <%= select_tag "location", options_from_collection_for_select(@location_all, "id", "city"), :prompt => "- Select Location -" %>
+				                    <%= select_tag "location", options_from_collection_for_select(@location_all, "id", "city"), :prompt => "- Select Location -", :name => "user[location]", :id => "user_location" %>
 				                  </div>
 				            </div>
 				          </fieldset>
