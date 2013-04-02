@@ -6,13 +6,26 @@
   </div>
 
   <!-- Carousel --> 
-  <div id="carousel" class="carousel slide" rel="carousel">
-    <!-- Carousel items -->       
-    <div class="carousel-inner">
-      <div class="active item">
-        <h1 class="alt"><!-- Discover, Share, & Earn Rewards --></h1>
-        <img src="/assets/home_bg.jpg" />
+  <div id="mycarousel">
+    <div id="carousel" class="carousel slide" rel="carousel">
+      <!-- Carousel items -->       
+      <div class="carousel-inner">
+        <div class="active item">
+          <%= link_to(image_tag("homeslider1.jpg", :size => "1964x527", :alt => "brandbuddee"), "/signup") %>
+        </div>
+        <div class="item">
+          <%= link_to(image_tag("homeslider2.jpg", :size => "1964x527", :alt => "brandbuddee"), "http://www.youtube.com/watch?v=qz69Xh6NRTE") %>
+        </div>
+        <div class="item">
+          <%= link_to(image_tag("homeslider3.jpg", :size => "1964x527", :alt => "brandbuddee"), "/signup") %>
+        </div>
+        <div class="item">
+          <%= link_to(image_tag("homeslider4.jpg", :size => "1964x527", :alt => "brandbuddee"), "/brands") %>
+        </div>
       </div>
+      <!-- Carousel navigation -->
+      <a class="carousel-control left" href="#carousel" data-slide="prev">&lsaquo;</a>
+      <a class="carousel-control right" href="#carousel" data-slide="next">&rsaquo;</a>
     </div>
   </div>
 
@@ -52,14 +65,3 @@
   <script type="text/javascript" src="/js/jquery.touchSwipe.js"></script>
   <script type="text/javascript" src="/js/jquery.hotkeys.min.js"></script>
   <script type="text/javascript" src="/js/functions.min.js?v=2"></script>
-
-
-
-
-
-
-
-
-
-
-  
