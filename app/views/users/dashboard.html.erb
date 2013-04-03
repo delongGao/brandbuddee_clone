@@ -7,7 +7,7 @@
       <% if params[:c].nil? %>
         <% c = Campaign.all.order_by([:date, :desc]) %>
         <% c.each do |campaign_filter| %>
-            <% if campaign_filter.end_date < Time.now %>
+            <% if campaign_filter.end_date < Time.now || campaign_filter.left == false %>
                 <% campaign_filter.status = "expired" %>
                 <% campaign_filter.save %>
             <% else %>
