@@ -22,9 +22,9 @@ class UsersController < ApplicationController
         redirect_to(:action => 'choose_username')
       end
 
-      if current_user.location.nil?
-        redirect_to(:action => 'choose_location')
-      end
+      # if current_user.location.nil?
+      #   redirect_to(:action => 'choose_location')
+      # end
 
       current_user.last_activity = Time.now
       current_user.save

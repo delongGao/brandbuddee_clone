@@ -25,9 +25,10 @@
             <% end %>
 
         <% end %>
-        <% @user_location = Location.find(current_user.location.id) %> 
-        <% @campaign = @user_location.campaigns.where(:status => "active").order_by([:date, :desc]).paginate :page => params[:page], :per_page => 9 %>
-        <%# @campaign = Campaign.where(:status => "active").excludes(left: false).order_by([:date, :desc]).paginate :page => params[:page], :per_page => 9 %>
+        <%# location feature %>
+        <%# @user_location = Location.find(current_user.location.id) %> 
+        <%# @campaign = @user_location.campaigns.where(:status => "active").order_by([:date, :desc]).paginate :page => params[:page], :per_page => 9 %>
+        <% @campaign = Campaign.where(:status => "active").excludes(left: false).order_by([:date, :desc]).paginate :page => params[:page], :per_page => 9 %>
         <%# @campaign = Campaign.where(:status => "active").order_by([:date, :desc]).paginate :page => params[:page], :per_page => 9 %>
       <% elsif %>
         <% @category = Category.where(:name => params[:c]).first %> 

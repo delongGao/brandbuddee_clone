@@ -15,17 +15,17 @@
           <%= image_tag('brandbuddee-logo.png', :class=>"", :size=>"160x30" ) %>
         </a>
 
-        <% if current_user %>
-          <% current_uri = request.env['PATH_INFO'] %>
-          <% if current_uri == '/home' %>
-            <a href="#" class="location_edit"><span>
-              <%= current_user.location.city unless current_user.location.nil? %>
+        <%# if current_user %>
+          <%# current_uri = request.env['PATH_INFO'] %>
+          <%# if current_uri == '/home' %>
+<!--             <a href="#" class="location_edit"><span>
+              <%#= current_user.location.city unless current_user.location.nil? %>
               <a href="#myModal" role="button" data-toggle="modal" class="btn btn-mini location_edit_bttn" style="display: none;">edit</a>
-            </span></a>
+            </span></a> -->
 
             
-          <% end %>
-        <% end %>
+          <%# end %>
+        <%# end %>
 
         <% if current_user %>
 
