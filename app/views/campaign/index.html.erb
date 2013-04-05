@@ -288,7 +288,11 @@
                             
                                 <h4>Brand</h4>
                                 <p>
-                                     <%= @campaign.brand.name %>
+                                     <% if (@campaign.brand.name.first=="/" || @campaign.brand.name.first(7)=="http://" || @campaign.brand.name.first(8)=="https://") && (@campaign.brand.name.last(4)==".png" || @campaign.brand.name.last(4)==".jpg" || @campaign.brand.name.last(5)==".jpeg" || @campaign.brand.name.last(4)==".gif") %>
+                                        <img src="<%= @campaign.brand.name %>" alt="seattle-rewards" style="margin-top:-12%;" />
+                                     <% else %>
+                                        <%= @campaign.brand.name %>
+                                     <% end %>
                                 </p>
 
                                 <h4>Brand overview</h4>
