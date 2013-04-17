@@ -184,6 +184,13 @@ class User
     end
   end
 
+  def get_friends
+    facebook.get_connection("me", "friends")
+  rescue Koala::Facebook::APIError => e
+    logger.info e.to_s
+    e.to_s
+  end
+
 
   before_destroy :remember_id
   after_destroy :remove_id_directory

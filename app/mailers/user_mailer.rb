@@ -42,7 +42,7 @@ class UserMailer < ActionMailer::Base
 	def campaign_newsletter(email, root_url)
 		@email = email
 		@url = root_url
-		mail(:to => email, :subject => "Happy Easter!", :from => "brandbuddee <noreply@brandbuddee.com>")
+		mail(:to => email, :subject => "Top Stories of the Week", :from => "brandbuddee <andy@brandbuddee.com>")
 	end
 
 	def unsubscribe_confirm(email, hash, root_url)
@@ -50,6 +50,11 @@ class UserMailer < ActionMailer::Base
 		@hash = hash
 		@url = root_url
 		mail(:to => email, :subject => "Unsubscribe confirmation", :from => "brandbuddee <noreply@brandbuddee.com>")
+	end
+
+	def email_invite(email, subject, message)
+		@message = message
+		mail(:to => email, :subject => subject, :from => "brandbuddee <andy@brandbuddee.com>")
 	end
 
 end

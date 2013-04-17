@@ -1,0 +1,8 @@
+<%= form_tag("/invite/sendtweet", :method => "post", :style => "padding-top:1.5%;", :remote => true, :id => "frm_invite_#{params[:id]}") do %>
+	<%= text_area_tag(:message, nil, :placeholder => "#{params[:name]}, check out brandbuddee.com! You can discover cool things in your city, score points for sharing, and earn rewards.", :id => "txtDirectMessage#{params[:id]}", :class => "invitedmform", :rows => 4) %>
+	<div id="direct_message_counter<%= params[:id] %>" style="margin-top:-1%; padding-bottom:1%;"></div>
+	<%= hidden_field_tag(:twitterid, params[:id]) %>
+	<%= hidden_field_tag(:username, params[:name]) %>
+	<%= submit_tag("Invite", :class => "btn btn-large btn-info") %>
+	<a href="#" class="btn btn-large btn-warning" id="btnCancel<%= params[:id] %>">Cancel</a>
+<% end %>

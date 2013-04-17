@@ -1,0 +1,25 @@
+<%= form_tag("/invite/sendemail2", :method => "post", :class => "form-horizontal", :remote => true) do %>
+    <div class="control-group">
+        <%= label_tag(:to, "To:", :class => "control-label") %>
+        <div class="controls">
+            <%= text_field_tag(:to, params[:email], :placeholder => "To", :class => "span4") %>
+        </div>
+    </div>
+    <div class="control-group">
+        <%= label_tag(:subject, "Subject:", :class => "control-label") %>
+        <div class="controls">
+            <%= text_field_tag(:subject, nil, :placeholder => "Subject", :class => "span4") %>
+        </div>
+    </div>
+    <div class="control-group">
+        <%= label_tag(:message, "Message:", :class => "control-label") %>
+        <div class="controls">
+            <%= text_area_tag(:message, nil, :placeholder => "Hey, check out brandbuddee.com! You can discover cool things in your city, score points for sharing, and earn rewards.", :class => "", :rows => 5, :class => "span4") %>
+        </div>
+    </div>
+    <div class="control-group">
+        <div class="controls">
+            <%= submit_tag("Invite", :class => "btn btn-large btn-info") %>
+        </div>
+    </div>
+<% end %>

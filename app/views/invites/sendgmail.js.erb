@@ -1,0 +1,3 @@
+$('#myModalLabel').text("Invite <%= params[:email] %>");
+$('#myModalBody').html('<%= j render("formgmail") %>');
+$('#emailModal').modal('toggle');

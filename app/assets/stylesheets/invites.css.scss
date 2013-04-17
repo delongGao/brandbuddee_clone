@@ -1,0 +1,74 @@
+.inviteprofileimage { 
+	border: 1px solid #B5B4B4;
+}
+
+ul.inviteprofilelist { 
+	list-style:none;
+	margin: 0;
+	border-top: 3px double rgba(34,25,25,0.1);
+	border-bottom: 1px solid rgba(255,255,255,0.7);
+}
+
+li.inviteprofilelist { 
+	clear: both;
+	display: block;
+	margin: 0;
+	padding: 3px 0 4px;
+	list-style: none;
+	border-top: 1px solid #fcfbfb /*rgba(255,255,255,0.7)*/;
+	border-bottom: 1px solid #dfdedf /*rgba(34,25,25,0.1)*/;
+	overflow: hidden;
+}
+
+a.inviteprofilelist { 
+	float:right;
+	margin-top:1.75%;
+}
+
+input.inviteprofilelist {
+	margin-top:3%;
+}
+
+textarea.invitedmform { 
+	max-width: 94%;
+	width: 94%;
+}
+
+a.yahoogmaillist {
+	margin-top: -3.8%;
+}
+
+.well {
+	background: url('/assets/wellback.png');
+}
+
+/* class: .btn-ultraviolet-rays-5,  color theme: ultraviolet rays */
+.btn-ultraviolet-rays-5 { text-shadow: 0px -1px 0px #451044; color: #ffffff; background-color: #632E62; background-image: -moz-linear-gradient(top, #814c80, #451044); background-image: -ms-linear-gradient(top, #814c80, #451044); background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#814c80), to(#451044)); background-image: -webkit-linear-gradient(top, #814c80, #451044); background-image: -o-linear-gradient(top, #814c80, #451044); background-image: linear-gradient(top, #814c80, #451044); filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#814c80', endColorstr='#451044', GradientType=0); border-color: #632E62 #451044 #451044 #632E62; border-color: rgba(0, 0, 0, 0.25) rgba(0, 0, 0, 0.35) rgba(0, 0, 0, 0.35) rgba(0, 0, 0, 0.25); }
+.btn-ultraviolet-rays-5:hover, .btn-ultraviolet-rays-5:active, .btn-ultraviolet-rays-5.active, .btn-ultraviolet-rays-5.disabled, .btn-ultraviolet-rays-5[disabled] { background-color: #451044; }
+.btn-ultraviolet-rays-5:hover { color: #fff6ff; text-shadow: 0px -1px 0px #270026; }
+.btn-ultraviolet-rays-5:focus { color: #c792c6; -webkit-box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05); -moz-box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05); box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05); border-color: #632E62 #451044 #451044 #632E62; border-color: rgba(0, 0, 0, 0.25) rgba(0, 0, 0, 0.35) rgba(0, 0, 0, 0.35) rgba(0, 0, 0, 0.25); }
+.btn-ultraviolet-rays-5.active, .btn-ultraviolet-rays-5:active { background-image: none; -webkit-box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05); -moz-box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05); box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05); color: #c792c6; }
+/* end .btn-ultraviolet-rays-5 */
+/* class: .btn-transmorphed-2,  color theme: Transmorphed */
+.btn-transmorphed-2 { text-shadow: 0px -1px 0px #b81e0d; color: #ffffff; background-color: #D63C2B; background-image: -moz-linear-gradient(top, #f45a49, #b81e0d); background-image: -ms-linear-gradient(top, #f45a49, #b81e0d); background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#f45a49), to(#b81e0d)); background-image: -webkit-linear-gradient(top, #f45a49, #b81e0d); background-image: -o-linear-gradient(top, #f45a49, #b81e0d); background-image: linear-gradient(top, #f45a49, #b81e0d); filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f45a49', endColorstr='#b81e0d', GradientType=0); border-color: #D63C2B #b81e0d #b81e0d #D63C2B; border-color: rgba(0, 0, 0, 0.25) rgba(0, 0, 0, 0.35) rgba(0, 0, 0, 0.35) rgba(0, 0, 0, 0.25); }
+.btn-transmorphed-2:hover, .btn-transmorphed-2:active, .btn-transmorphed-2.active, .btn-transmorphed-2.disabled, .btn-transmorphed-2[disabled] { background-color: #b81e0d; }
+.btn-transmorphed-2:hover { color: #fffff3; text-shadow: 0px -1px 0px #9a0000; }
+.btn-transmorphed-2:focus { color: #ffa08f; -webkit-box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05); -moz-box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05); box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05); border-color: #D63C2B #b81e0d #b81e0d #D63C2B; border-color: rgba(0, 0, 0, 0.25) rgba(0, 0, 0, 0.35) rgba(0, 0, 0, 0.35) rgba(0, 0, 0, 0.25); }
+.btn-transmorphed-2.active, .btn-transmorphed-2:active { background-image: none; -webkit-box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05); -moz-box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05); box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05); color: #ffa08f; }
+/* end .btn-transmorphed-2 */
+/* class: .btn-fuji-splash-3,  color theme: Fuji splash */
+.btn-fuji-splash-3 { text-shadow: 0px -1px 0px #003457; color: #ffffff; background-color: #005275; background-image: -moz-linear-gradient(top, #1e7093, #003457); background-image: -ms-linear-gradient(top, #1e7093, #003457); background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#1e7093), to(#003457)); background-image: -webkit-linear-gradient(top, #1e7093, #003457); background-image: -o-linear-gradient(top, #1e7093, #003457); background-image: linear-gradient(top, #1e7093, #003457); filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#1e7093', endColorstr='#003457', GradientType=0); border-color: #005275 #003457 #003457 #005275; border-color: rgba(0, 0, 0, 0.25) rgba(0, 0, 0, 0.35) rgba(0, 0, 0, 0.35) rgba(0, 0, 0, 0.25); }
+.btn-fuji-splash-3:hover, .btn-fuji-splash-3:active, .btn-fuji-splash-3.active, .btn-fuji-splash-3.disabled, .btn-fuji-splash-3[disabled] { background-color: #003457; }
+.btn-fuji-splash-3:hover { color: #c8ffff; text-shadow: 0px -1px 0px #001639; }
+.btn-fuji-splash-3:focus { color: #64b6d9; -webkit-box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05); -moz-box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05); box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05); border-color: #005275 #003457 #003457 #005275; border-color: rgba(0, 0, 0, 0.25) rgba(0, 0, 0, 0.35) rgba(0, 0, 0, 0.35) rgba(0, 0, 0, 0.25); }
+.btn-fuji-splash-3.active, .btn-fuji-splash-3:active { background-image: none; -webkit-box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05); -moz-box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05); box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05); color: #64b6d9; }
+/* end .btn-fuji-splash-3 */
+
+@media 
+(-webkit-min-device-pixel-ratio: 2), 
+(min-resolution: 192dpi) { 
+    /* Retina-specific stuff here */
+    well {
+		background: url('/assets/wellback2x.png');
+	}
+}
