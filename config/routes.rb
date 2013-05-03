@@ -2,14 +2,10 @@ Brandbuddee::Application.routes.draw do
   
   get "invites/index"
   match '/invite' => 'invites#index'
-  match '/invite/twitter' => 'invites#twitter'
   match '/invite/facebook' => 'invites#facebook'
   match '/invite/email' => 'invites#email'
-  match '/invite/tweet' => 'invites#tweet'
-  match '/invite/sendtweet' => 'invites#sendtweet'
   match '/invite/gmail' => 'invites#gmail'
   match '/invite/yahoo' => 'invites#yahoo'
-  match '/invite/hotmail' => 'invites#hotmail'
   match '/contacts/failure' => 'invites#failure'
   match '/invite/sendemail' => 'invites#sendemail'
   match '/invite/sendgmail' => 'invites#sendgmail'

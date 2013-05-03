@@ -3,46 +3,31 @@
 <%= render 'shared/header' %>
 
 <div id="content" class="container">
-	<div class="row" style="margin-top:2%;">
-		<div class="span12">
-			<h2 style="text-align:center">Invite Your Friends To Earn Rewards on brandbuddee</h2>
-			<div style="text-align:center;">             
-                <%= link_to(image_tag("facebook.png", :size => "230x44", :alt => "seattle-rewards", :title => "Tell Friends by Facebook"), "/invite/facebook") %>
-                <%= link_to(image_tag("twitter.png", :size => "230x44", :alt => "seattle-rewards", :title => "Tell Friends by Twitter"), "/invite/twitter") %>
-            </div><!-- /Social Images -->
-            <div style="text-align:center;margin-top:0.5%;">
-                <%= link_to(image_tag("email.png", :size => "230x44", :alt => "seattle-rewards", :title => "Tell Friends by Email"), "/invite/email") %>
-                <%= link_to(image_tag("gmail.png", :size => "230x44", :alt => "seattle-rewards", :title => "Tell Friends by Gmail"), "/contacts/gmail") %>
-                <%= link_to(image_tag("yahoo.png", :size => "230x44", :alt => "seattle-rewards", :title => "Tell Friends by Yahoo"), "/contacts/yahoo") %>
-            </div><!-- /Social Images Row 2 -->
-		</div><!-- /span12 -->
+	<div class="row" style="margin-top:2%;" id="insertbeforeme">
+		<%= render 'shared/social_invite_header' %>
 	</div><!-- /row -->
     <div class="row" style="margin-top:2%;">
         <div class="span6">
             <div class="well well-large">
-                <% if current_user %>
-                    <% @friendslist = current_user.get_friends %>
-                    <% if @friendslist.class == String %>
-                        <h3 style="text-align:center;">ERROR: Your Facebook session has expired. Please <a href="/signout">re-login</a>.</h3>
-                    <% else %>
-                        <ul class="inviteprofilelist">
-                            <% @counter = 0 %>
-                            <% @friendslist.each do |friend| %>
-                                <% if @counter==(@friendslist.size / 2).floor %>
-                                    </ul>
-                                </div><!-- /well -->
-                            </div><!-- /span6 -->
-                            <div class="span6">
-                                <div class="well well-large">
-                                    <ul class="inviteprofilelist">
-                                <% end %>
-                                <li class="inviteprofilelist"><img src="https://graph.facebook.com/<%= friend["id"] %>/picture?type=square" alt="<%= friend["name"] %>'s Profile Image" width="50" height="50" class="img-circle inviteprofileimage" />&nbsp;&nbsp;&nbsp;<%= friend["name"] %> <input type="button" class="btn btn-fuji-splash-3 invite-friend inviteprofilelist pull-right" onclick="invitePerson(<%= friend["id"] %>, '<%= friend["name"] %>'); return false;" value="Invite" /></li>
-                                <% @counter += 1 %>
-                            <% end %>
-                        </ul>
-                    <% end %>
+                <% @friendslist = current_user.get_friends %>
+                <% if @friendslist.class == String %>
+                    <h3 style="text-align:center;">ERROR: Your Facebook session has expired. Please <a href="/signout">re-login</a>.</h3>
                 <% else %>
-                    <h3 style="text-align:center;">You must be <a data-toggle="modal" href="#login">Logged In</a> to invite your friends through Facebook!</h3>
+                    <ul class="inviteprofilelist">
+                        <% @counter = 0 %>
+                        <% @friendslist.each do |friend| %>
+                            <% if @counter==(@friendslist.size / 2).floor %>
+                                </ul>
+                            </div><!-- /well -->
+                        </div><!-- /span6 -->
+                        <div class="span6">
+                            <div class="well well-large">
+                                <ul class="inviteprofilelist">
+                            <% end %>
+                            <li class="inviteprofilelist"><img src="https://graph.facebook.com/<%= friend["id"] %>/picture?type=square" alt="<%= friend["name"] %>'s Profile Image" width="50" height="50" class="img-circle inviteprofileimage" />&nbsp;&nbsp;&nbsp;<%= friend["name"] %> <input type="button" class="btn btn-fuji-splash-3 invite-friend inviteprofilelist pull-right" onclick="invitePerson(<%= friend["id"] %>, '<%= friend["name"] %>'); return false;" value="Invite" /></li>
+                            <% @counter += 1 %>
+                        <% end %>
+                    </ul>
                 <% end %>
             </div><!-- /well -->
         </div><!-- /span6 -->
