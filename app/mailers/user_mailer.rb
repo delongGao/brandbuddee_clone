@@ -54,7 +54,7 @@ class UserMailer < ActionMailer::Base
 
 	def email_invite(email, subject, message)
 		@message = message
-		mail(:to => email, :subject => subject, :from => "brandbuddee <andy@brandbuddee.com>")
+		mail(:to => email, :subject => subject, :from => "brandbuddee <andykaruza@brandbuddee.com>")
 	end
 
 end
