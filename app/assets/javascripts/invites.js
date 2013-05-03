@@ -24,7 +24,7 @@ window.fbAsyncInit = function() {
   		// the user is logged in to Facebook, but has not authenticated your app
   		var oauth_url = 'https://www.facebook.com/dialog/oauth/';
   		oauth_url += '?client_id=404234572989713'; // Your client id
-  		oauth_url += '&redirect_uri=' + 'https://apps.facebook.com/bentlerdesign/'; // Send them here if they're not logged in
+  		oauth_url += '&redirect_uri=' + 'http://brandbuddee.com/'; // Send them here if they're not logged in
   		oauth_url += '&scope=user_about_me,email,user_location,user_photos,publish_actions,user_birthday,user_likes,read_friendlists';
   		//window.top.location = oauth_url;
   	} else {
@@ -38,18 +38,16 @@ function invitePerson(sendto, name) {
 	FB.ui({
 		'method': 'send',
 		'to': sendto,
-		'link': 'http://brandbuddee.com?id=insert_user_id_here',
+		'link': 'http://brandbuddee.com/',
 		//'picture': 'http://brandbuddee.com/assets/brandbuddee-logo-3b7c5781760de7cc02c093991efd0bfd.png',
 		'name': 'Check out brandbuddee.com!',
 		'caption': 'brandbuddee.com',
 		'description': name + ', check out brandbuddee.com! You can discover cool things in your city, score points for sharing, and earn rewards.'
 	}, function(response) {
-		if (response && response.post_id) {
+		if (response) {
       $('#insertbeforeme').before('<div class="row" style="margin-top:2%;"><div class="alert alert-success fade in"><button type="button" class="close" data-dismiss="alert">&times;</button><strong>Success!</strong> ' + name + ' has been invited.</div></div>');
-			// document.getElementById('mymessage').innerHTML = "Thanks. The message has been sent.";
 		} else {
-      $('#insertbeforeme').before('<div class="row" style="margin-top:2%;"><div class="alert alert-success fade in"><button type="button" class="close" data-dismiss="alert">&times;</button><strong>Success!</strong> ' + name + ' has been invited.</div></div>');
-			// document.getElementById('mymessage').innerHTML = "Thanks.";
+      // This code gets called if the user cancels the dialog before sending the message.
 		} //Response from send attempt
 	}); // Call to FB.ui
 } // End invitePerson()

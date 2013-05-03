@@ -12,6 +12,7 @@
                 <% @friendslist = current_user.get_friends %>
                 <% if @friendslist.class == String %>
                     <h3 style="text-align:center;">ERROR: Your Facebook session has expired. Please <a href="/signout">re-login</a>.</h3>
+                    <h3 style="text-align:center;"><%= @friendslist %></h3>
                 <% else %>
                     <ul class="inviteprofilelist">
                         <% @counter = 0 %>
