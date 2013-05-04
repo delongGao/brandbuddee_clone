@@ -5,7 +5,7 @@ class InvitesController < ApplicationController
 
   def facebook
   	if confirm_user_logged_in
-      if current_user.provider != "facebook"
+      if current_user.provider != "facebook" || current_user.account_type != "super admin"
         redirect_to '/invite'
       end
     end
