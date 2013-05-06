@@ -61,7 +61,7 @@ class AdminController < ApplicationController
 
 	def users
 		if current_user
-			if current_user.account_type == 'super admin' || current_user.account_type == 'admin' || Rails.env.development?
+			if current_user.account_type == 'super admin' || Rails.env.development?
 				@users = User.all.order_by([:date, :desc])
 			else
 				redirect_to root_url
@@ -89,7 +89,7 @@ class AdminController < ApplicationController
 
 	def campaign_delete
 		if current_user
-			if current_user.account_type == 'super admin' || current_user.account_type == 'admin' || Rails.env.development?
+			if current_user.account_type == 'super admin' || Rails.env.development?
 				@campaign = Campaign.find(params[:_id])
 				@campaign.destroy
 				flash[:notice] = "#{@campaign.title} campaign Destroyed"
@@ -137,7 +137,7 @@ class AdminController < ApplicationController
 
 	def locations
 		if current_user
-			if current_user.account_type == 'super admin' || current_user.account_type == 'admin' || Rails.env.development?
+			if current_user.account_type == 'super admin' || Rails.env.development?
 				@locations = Location.all.order_by([:date, :desc])
 			else
 				redirect_to root_url
@@ -149,7 +149,7 @@ class AdminController < ApplicationController
 
 	def location_new
 		if current_user
-			if current_user.account_type == 'super admin' || current_user.account_type == 'admin' || Rails.env.development?
+			if current_user.account_type == 'super admin' || Rails.env.development?
 				@location = Location.create!(params[:location])
 
 			    if @location.save
@@ -168,7 +168,7 @@ class AdminController < ApplicationController
 
 	def location_delete
 		if current_user
-			if current_user.account_type == 'super admin' || current_user.account_type == 'admin' || Rails.env.development?
+			if current_user.account_type == 'super admin' || Rails.env.development?
 				@location = Location.find(params[:_id])
 				@location.destroy
 				flash[:notice] = "#{@location.city} Location Destroyed"
@@ -183,7 +183,7 @@ class AdminController < ApplicationController
 
 	def redeems
 		if current_user
-			if current_user.account_type == 'super admin' || current_user.account_type == 'admin' || Rails.env.development?
+			if current_user.account_type == 'super admin' || Rails.env.development?
 				@redeems = Redeem.all.order_by([:date, :desc])
 			else
 				redirect_to root_url
@@ -195,7 +195,7 @@ class AdminController < ApplicationController
 
 	def categories
 		if current_user
-			if current_user.account_type == 'super admin' || current_user.account_type == 'admin' || Rails.env.development?
+			if current_user.account_type == 'super admin' || Rails.env.development?
 				@categories = Category.all.order_by([:date, :desc])
 			else
 				redirect_to root_url
@@ -207,7 +207,7 @@ class AdminController < ApplicationController
 
 	def category_new
 		if current_user
-			if current_user.account_type == 'super admin' || current_user.account_type == 'admin' || Rails.env.development?
+			if current_user.account_type == 'super admin' || Rails.env.development?
 				@category = Category.create!(params[:category])
 
 			    if @category.save
@@ -226,7 +226,7 @@ class AdminController < ApplicationController
 
 	def category_delete
 		if current_user
-			if current_user.account_type == 'super admin' || current_user.account_type == 'admin' || Rails.env.development?
+			if current_user.account_type == 'super admin' || Rails.env.development?
 				@category = Category.find(params[:_id])
 			    @category.destroy
 			    flash[:notice] = "#{@category.name} Category Destroyed"
@@ -304,7 +304,7 @@ class AdminController < ApplicationController
 
 	def brand_delete
 		if current_user
-			if current_user.account_type == 'super admin' || current_user.account_type == 'admin' || Rails.env.development?
+			if current_user.account_type == 'super admin' || Rails.env.development?
 				@brand = Brand.find(params[:_id])
 			    @brand.destroy
 			    flash[:notice] = "#{@brand.name} brand Destroyed"
