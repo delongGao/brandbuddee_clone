@@ -44,13 +44,21 @@ class UsersController < ApplicationController
   end
 
   def campaign_newsletter
-    #user = User.find('50cb767e858e4a4fce000001')
-    #UserMailer.campaign_newsletter(user.email, root_url).deliver
+    if current_user
+      if current_user.account_type == 'super admin' || Rails.env.development?
+        #user = User.find('50cb767e858e4a4fce000001')
+        #UserMailer.campaign_newsletter(user.email, root_url).deliver
 
-    Subscriber.delay.campaign_newsletter_push(root_url)
+        Subscriber.delay.campaign_newsletter_push(root_url)
 
-    flash[:notice] = "Campaign newsletter successfully delivered."
-    redirect_to(:controller => 'users', :action => 'campaign_newsletter_confirmation')
+        flash[:notice] = "Campaign newsletter successfully delivered."
+        redirect_to(:controller => 'users', :action => 'campaign_newsletter_confirmation')
+      else
+        redirect_to root_url
+      end
+    else
+      redirect_to root_url
+    end
   end
 
   def campaign_newsletter_confirmation

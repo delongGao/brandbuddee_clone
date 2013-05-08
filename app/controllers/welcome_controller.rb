@@ -55,9 +55,17 @@ class WelcomeController < ApplicationController
   	end
 
   	def consolidate_subscribers
-  		Subscriber.delay.consolidate()
-  		flash[:notice] = 'Subscribers consolidated.'
-  		redirect_to '/users/show'
+  		if current_user
+			if current_user.account_type == 'super admin' || Rails.env.development?
+		  		Subscriber.delay.consolidate()
+		  		flash[:notice] = 'Subscribers consolidated.'
+		  		redirect_to '/users/show'
+		  	else
+		  		redirect_to root_url
+		  	end
+		else
+			redirect_to root_url
+		end
   	end
 
   	def invite
