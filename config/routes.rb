@@ -12,6 +12,7 @@ Brandbuddee::Application.routes.draw do
   match '/invite/sendyahoo' => 'invites#sendyahoo'
   match '/invite/sendemail2' => 'invites#sendemail2'
   match '/invite/sendemail3' => 'invites#sendemail3'
+  match '/invite/facebook_search' => 'invites#facebook_search'
 
   root :to => 'welcome#index'
 

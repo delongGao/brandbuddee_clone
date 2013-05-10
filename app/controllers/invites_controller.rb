@@ -4,15 +4,62 @@ class InvitesController < ApplicationController
   end
 
   def facebook
-  	if confirm_user_logged_in
+    if confirm_user_logged_in
       if current_user.provider != "facebook" || current_user.account_type != "super admin"
         redirect_to '/invite'
+      else
+        @friendslist = current_user.get_friends
+        if @friendslist.class == String
+          flash[:error] = @friendslist
+          redirect_to '/invite'
+        else
+            @friendslist = params[:page] ? current_user.facebook.get_page(params[:page]) : current_user.facebook.get_connections("me", "friends", {"limit" => "100"})
+        end
+      end
+    end
+  end
+
+  def facebook_search
+    if confirm_user_logged_in
+      if current_user.provider != "facebook" || current_user.account_type != "super admin"
+        redirect_to '/invite'
+      else
+        @friendslist = current_user.get_friends
+        if @friendslist.class == String
+          flash[:error] = @friendslist
+          redirect_to '/invite'
+        else
+          if params[:query].nil? || params[:query].empty?
+            flash[:error] = "Your must enter the name of a friend you wish to search for. Please try again."
+            redirect_to '/invite'
+          else
+            query_split = params[:query].split(" ")
+            @friendslist = Array.new
+            @allfriends = current_user.get_friends
+            @allfriends.each do |friend|
+              add_me = false
+              name_split = friend["name"].split(" ")
+              name_split.each do |n|                
+                query_split.each do |q|
+                  # if n.downcase == q.downcase
+                  if n.downcase.start_with?(q.downcase) || n.downcase.end_with?(q.downcase)
+                    add_me = true
+                    break
+                  end
+                end
+              end
+              unless add_me.nil? || add_me == false
+                @friendslist << {"id" => friend["id"], "name" => friend["name"]}
+              end
+            end
+          end
+        end
       end
     end
   end
 
   def email
-  	confirm_user_logged_in
+    confirm_user_logged_in
   end
 
   def sendemail

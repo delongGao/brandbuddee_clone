@@ -7,54 +7,31 @@
         <%= render 'shared/social_invite_header' %>
     </div><!-- /row -->
     <div class="row" style="margin-top:2%;">
+        <div class="span4 pull-left">
+            <%= link_to "Back to Full List", "/invite/facebook", class: "btn btn-fuji-splash-3" %>
+        </div>
         <div class="span4 pull-right">
             <%= form_tag("/invite/facebook_search", :method => "get", :class => "form-search") do %>
-                <%= text_field_tag(:query, nil, :placeholder => "Friend's Name", :class => "input-medium search-query") %>
+                <%= text_field_tag(:query, params[:query], :placeholder => "Friend's Name", :class => "input-medium search-query") %>
                 <%= submit_tag("Search", :class => "btn btn-fuji-splash-3 pull-right") %>
             <% end %>
         </div>
     </div>
     <div class="row">
-        <div class="span6">
+        <div class="span6 offset3">
             <div class="well well-large">
-                <ul class="inviteprofilelist">
-                    <% @counter = 0 %>
-                    <% @friendslist.each do |friend| %>
-                        <% if @counter==(@friendslist.size / 2).floor %>
-                            </ul>
-                        </div><!-- /well -->
-                    </div><!-- /span6 -->
-                    <div class="span6">
-                        <div class="well well-large">
-                            <ul class="inviteprofilelist">
+                <% unless @friendslist.empty? %>
+                    <ul class="inviteprofilelist">
+                        <% @friendslist.each do |friend| %>
+                            <li class="inviteprofilelist"><img src="https://graph.facebook.com/<%= friend["id"] %>/picture?type=square" alt="<%= friend["name"] %>'s Profile Image" width="50" height="50" class="img-circle inviteprofileimage" />&nbsp;&nbsp;&nbsp;<%= friend["name"] %> <input type="button" class="btn btn-fuji-splash-3 invite-friend inviteprofilelist pull-right" onclick="invitePerson(<%= friend["id"] %>, '<%= friend["name"] %>'); return false;" value="Invite" /></li>
                         <% end %>
-                        <li class="inviteprofilelist"><img src="https://graph.facebook.com/<%= friend["id"] %>/picture?type=square" alt="<%= friend["name"] %>'s Profile Image" width="50" height="50" class="img-circle inviteprofileimage" />&nbsp;&nbsp;&nbsp;<%= friend["name"] %> <input type="button" class="btn btn-fuji-splash-3 invite-friend inviteprofilelist pull-right" onclick="invitePerson(<%= friend["id"] %>, '<%= friend["name"] %>'); return false;" value="Invite" /></li>
-                        <% @counter += 1 %>
-                    <% end %>
-                </ul>
+                    </ul>
+                <% else %>
+                    <h4 style="text-align:center;">We couldn't find any Facebook friends named <%= params[:query] %></h4>
+                <% end %>
             </div><!-- /well -->
-        </div><!-- /span6 -->
+        </div><!-- /span12 -->
     </div><!-- /row -->
-    <div class="row" style="position:relative;bottom:30px;">
-        <div class="span12">
-            <ul class="pager">
-                <li class="previous<% if @friendslist.previous_page.nil? || @friendslist.previous_page.empty? %><%= " disabled" %><% end %>">
-                    <% if @friendslist.previous_page.nil? || @friendslist.previous_page.empty? %>
-                        <a href="javascript:void(0)"> Previous </a>                        
-                    <% else %>
-                        <%= link_to ' Previous ', url_for(:page => @friendslist.previous_page_params) %>
-                    <% end %>
-                </li>
-                <li class="next<% if @friendslist.next_page.nil? || @friendslist.next_page.empty? %><%= " disabled" %><% end %>">
-                    <% if @friendslist.next_page.nil? || @friendslist.next_page.empty? %>
-                        <a href="javascript:void(0)"> Next </a>                        
-                    <% else %>
-                        <%= link_to ' Next ', url_for(:page => @friendslist.next_page_params) %>
-                    <% end %>
-                </li>
-            </ul>
-        </div>
-    </div>
     <div class="row" style="padding-bottom:5%;">
         <div class="span12">
             <div><!-- bb video -->
