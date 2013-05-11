@@ -5,12 +5,12 @@ class InvitesController < ApplicationController
 
   def facebook
     if confirm_user_logged_in
-      if current_user.provider != "facebook" || current_user.account_type != "super admin"
+      if current_user.provider != "facebook"
         redirect_to '/invite'
       else
         @friendslist = current_user.get_friends
         if @friendslist.class == String
-          flash[:error] = @friendslist
+          flash[:error] = "An error occured while trying to obtain your list of friends. Please try again after logging out and back in again."
           redirect_to '/invite'
         else
             @friendslist = params[:page] ? current_user.facebook.get_page(params[:page]) : current_user.facebook.get_connections("me", "friends", {"limit" => "100"})

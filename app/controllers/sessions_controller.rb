@@ -22,7 +22,7 @@ class SessionsController < ApplicationController
     else
 
       if User.exists?(conditions: { provider: auth["provider"], uid: auth["uid"] })
-        user = User.where(uid: auth["uid"]).first
+        user = User.where(uid: auth["uid"], provider: auth["provider"]).first
         User.update_with_omniauth(auth, user)
         # update facebook token attributes
         # User.update_with_omniauth(auth, user)

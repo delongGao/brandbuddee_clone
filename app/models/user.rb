@@ -135,6 +135,12 @@ class User
 
   def self.update_with_omniauth(auth, user)
     if self.uid_check(auth["uid"])
+      if auth["provider"]=="facebook" && user.provider=="facebook"
+        user.update_attributes!(
+          oauth_token: auth["credentials"]["token"],
+          oauth_expires_at: auth["credentials"]["expires_at"]
+        )
+      end
       return false
     else
       user.update_attributes!(
