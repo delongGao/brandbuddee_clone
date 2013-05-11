@@ -110,6 +110,8 @@ class CampaignController < ApplicationController
 					#logger.error("Problems posting to Facebook Wall..."+self.inspect+" "+exc.message)
 					if exc.message == "KoalaMissingAccessToken: Write operations require an access token"
 						flash[:error] = "Please connect to your Facebook account to post to your wall. <a href='/auth/facebook' class='btn btn-primary btn-small'>connect w/ facebook</a>"
+					else
+						flash[:error] = "An error occured while trying to post to Facebook.<br>Is it possible you changed your password?<br>Please try again after <a href='/signout'>SIGNING OUT</a> and BACK IN again."
 					end
 					redirect_to "#{root_url}campaign/#{params[:campaign_link]}"
 				end
