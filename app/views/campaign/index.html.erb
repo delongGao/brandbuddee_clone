@@ -1,4 +1,4 @@
-<%= render 'shared/campaign_header' %>
+<%= render 'shared/header' %>
 
 <link href="/css/social-buttons.css" rel="stylesheet">
 <script type="text/javascript" src="//assets.pinterest.com/js/pinit.js"></script>
@@ -176,7 +176,7 @@
 
         <div class="span4 project-description" style="padding-top:0;">
 
-                                <div class="well text-center">
+                                <div class="well">
                                     <ul class="unstyled">
                                         <li><span class="text-highlight-large"><b><%= @campaign.points_required %></b></span> pts</li>
                                         <li>&nbsp;</li>
@@ -237,10 +237,10 @@
                                         <li>
                                             <table class="table">
                                                 <tr class="firstrow">
-                                                    <td>
+                                                    <td style="border:none;">
                                                         Available
                                                     </td>
-                                                    <td>
+                                                    <td class="badge badge-<% if (@campaign.limit - @campaign.redeems.size) > 1 %>success<% elsif (@campaign.limit - @campaign.redeems.size) == 1 %>warning<% else %>important<% end %>" style="padding:0;padding-left:5px;padding-right:5px;margin-top:5%;">
                                                         
                                                         <% if left == 0 || @campaign.end_date < Time.now %>
                                                             0
@@ -267,7 +267,7 @@
                                                         Location
                                                     </td>
                                                     <td>
-                                                        <%= @campaign.location.city + ', ' + @campaign.location.state %>
+                                                        <% if @campaign.location.nil? %><% @campaign.location = Location.where(city: "Seattle").first %><% @campaign.save %><% end %><%= @campaign.location.city + ', ' + @campaign.location.state %>
                                                     </td>
                                                 </tr>
 

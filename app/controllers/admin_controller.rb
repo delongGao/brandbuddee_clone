@@ -105,28 +105,35 @@ class AdminController < ApplicationController
 	def campaign_new
 		if current_user
 			if current_user.account_type == 'super admin' || current_user.account_type == 'admin' || Rails.env.development?
-				@brand = Brand.find(params[:brands])
-			    @campaign = @brand.campaigns.create!(params[:campaign])
-
-			    unless params[:date_year].blank? || params[:date_month].blank? || params[:date_day].blank? || params[:date_hour].blank? || params[:date_minute].blank?
-			      date_time = DateTime.new(params[:date_year].to_i, params[:date_month].to_i, params[:date_day].to_i, params[:date_hour].to_i, params[:date_minute].to_i, 0, "-0700")
-			      @campaign.end_date = date_time
-			    end
-
-			    if params[:campaign][:tweet].blank?
-			      @campaign.tweet = "Check out #{@campaign.title} via @brandbuddee"
-			    end
-
-			    category = Category.find(params[:categories])
-			    @campaign.category_ids << params[:categories]
-			    @campaign.location = params[:location]
-
-			    if @campaign.save
-			      flash[:notice] = "Campaign successfully created"
-			      redirect_to(:action => 'campaigns')
+				if params[:brands].nil? || params[:brands].empty?
+					flash[:notice] = "ERROR: You forgot to select a brand!!!"
+					redirect_to "/admin/campaigns"
+			    elsif params[:categories].nil? || params[:categories].empty?
+			    	flash[:notice] = "ERROR: You forgot to select a category!!!"
+			    	redirect_to "/admin/campaigns"
 			    else
-			      flash[:notice] = "Uh oh"
-			    end
+					@brand = Brand.find(params[:brands])
+			    	@campaign = @brand.campaigns.create!(params[:campaign])
+
+				    unless params[:date_year].blank? || params[:date_month].blank? || params[:date_day].blank? || params[:date_hour].blank? || params[:date_minute].blank?
+				      date_time = DateTime.new(params[:date_year].to_i, params[:date_month].to_i, params[:date_day].to_i, params[:date_hour].to_i, params[:date_minute].to_i, 0, "-0700")
+				      @campaign.end_date = date_time
+				    end
+
+				    if params[:campaign][:tweet].blank?
+				      @campaign.tweet = "Check out #{@campaign.title} via @brandbuddee"
+				    end
+				    category = Category.find(params[:categories])
+				    @campaign.category_ids << params[:categories]
+				    @campaign.location = params[:location]
+
+				    if @campaign.save
+				      flash[:notice] = "Campaign successfully created"
+				      redirect_to(:action => 'campaigns')
+				    else
+				      flash[:notice] = "Uh oh"
+				    end
+				end
 			else
 				redirect_to root_url
 			end

@@ -7,21 +7,32 @@
       <% if params[:c].nil? %>
         <% c = Campaign.all.order_by([:date, :desc]) %>
         <% c.each do |campaign_filter| %>
-            <% if campaign_filter.end_date < Time.now || campaign_filter.left == false %>
-                <% campaign_filter.status = "expired" %>
-                <% campaign_filter.save %>
-            <% else %>
+            <% if campaign_filter.end_date.nil? %>
+                <% campaign_filter.end_date = campaign_filter.date + 1.month %>
                 <% campaign_filter.status = "active" %>
                 <% campaign_filter.save %>
+            <% else %>
+                <% if campaign_filter.end_date < Time.now || campaign_filter.left == false %>
+                    <% campaign_filter.status = "expired" %>
+                    <% campaign_filter.save %>
+                <% else %>
+                    <% campaign_filter.status = "active" %>
+                    <% campaign_filter.save %>
+                <% end %>
             <% end %>
-
-            <% left_status = campaign_filter.limit - campaign_filter.redeems.size %>
-            <% if left_status == 0 %>
+            <% if campaign_filter.limit.nil? %>
+                <% campaign_filter.limit = 0 %>
                 <% campaign_filter.left = false %>
                 <% campaign_filter.save %>
             <% else %>
-                <% campaign_filter.left = true %>
-                <% campaign_filter.save %>
+                <% left_status = campaign_filter.limit - campaign_filter.redeems.size %>
+                <% if left_status == 0 %>
+                    <% campaign_filter.left = false %>
+                    <% campaign_filter.save %>
+                <% else %>
+                    <% campaign_filter.left = true %>
+                    <% campaign_filter.save %>
+                <% end %>
             <% end %>
 
         <% end %>
