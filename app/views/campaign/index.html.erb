@@ -237,10 +237,10 @@
                                         <li>
                                             <table class="table">
                                                 <tr class="firstrow">
-                                                    <td style="border:none;">
+                                                    <td>
                                                         Available
                                                     </td>
-                                                    <td class="badge badge-<% if (@campaign.limit - @campaign.redeems.size) > 1 %>success<% elsif (@campaign.limit - @campaign.redeems.size) == 1 %>warning<% else %>important<% end %>" style="padding:0;padding-left:5px;padding-right:5px;margin-top:5%;">
+                                                    <td>
                                                         
                                                         <% if left == 0 || @campaign.end_date < Time.now %>
                                                             0
