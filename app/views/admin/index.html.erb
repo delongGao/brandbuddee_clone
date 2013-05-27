@@ -90,8 +90,16 @@
 					</div>
 					<div class="noMargin span3" onTablet="span4" onDesktop="span3">
 						<div class="circleStatsItem pink">
-							<% tracking_last_month = @trackings_month.sum(:views) - @trackings_two_months.sum(:views) %>
-							<% @tracking_change = @trackings_month.sum(:views) - tracking_last_month %>
+							<% if @trackings_month.sum(:views).nil? %>
+								<% tracking_last_month = 0 %>
+							<% else %>
+								<% tracking_last_month = @trackings_month.sum(:views) - @trackings_two_months.sum(:views) %>
+							<% end %>
+							<% if @trackings_month.sum(:views).nil? %>
+								<% @tracking_change = 0 %>
+							<% else %>
+								<% @tracking_change = @trackings_month.sum(:views) - tracking_last_month %>
+							<% end %>
 							<% if tracking_last_month == 0 %>
 								<% tracking_last_month = 1 %>
 							<% end %>

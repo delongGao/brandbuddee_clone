@@ -364,7 +364,7 @@
                               <h4 class="campaign_profile_title_wrap">
                                   <%= truncate(c.title, :length => 37, :omission => '...') %>
                               </h4>
-                              <p class="campaign_profile_reward_wrap">
+                              <p class="campaign_profile_reward_wrap bb-blue" style="font-weight:bold;line-height:120%"><i class="icon-gift" style="font-size:1.2em;color:#555555;position:relative;top:3%;"></i>
                                   <%= truncate(c.reward, :length => 54, :omission => '...') %></p>
                               <p class="pull-right" style="margin:0;">
                                   <span class="help-block"><small><i class="icon-tag"></i>&nbsp;<%= c.limit - c.redeems.size %> Available&nbsp;&nbsp;<i

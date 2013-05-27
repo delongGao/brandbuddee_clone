@@ -1,64 +1,65 @@
-  <%= render 'shared/header' %>
-
-  <!-- Content
-  ================================================== -->
-  <div id="content" class="container">
-  </div>
-
-  <!-- Carousel --> 
-  <div id="mycarousel">
-    <div id="carousel" class="carousel slide" rel="carousel">
-      <!-- Carousel items -->       
-      <div class="carousel-inner">
-        <div class="active item">
-          <%= link_to(image_tag("homeslider1.jpg", :size => "1964x527", :alt => "brandbuddee"), "/signup") %>
-        </div>
-        <div class="item">
-          <%= link_to(image_tag("homeslider2.jpg", :size => "1964x527", :alt => "brandbuddee"), "http://www.youtube.com/watch?v=qz69Xh6NRTE") %>
-        </div>
-        <div class="item">
-          <%= link_to(image_tag("homeslider3.jpg", :size => "1964x527", :alt => "brandbuddee"), "/signup") %>
-        </div>
-        <div class="item">
-          <%= link_to(image_tag("homeslider4.jpg", :size => "1964x527", :alt => "brandbuddee"), "/brands") %>
-        </div>
-      </div>
+<%= render 'shared/header' %>
+<div class="container">
+  <div class="row" style="margin-top:5%;">
+    <div class="span6">
+      <h1>Connect with <span class="bb-blue">brands</span></h1><br>
+      <p class="home-page-text">Be <span>influential</span></p>
+      <p class="home-page-text">Be the <span>media</span></p>
+      <p class="home-page-text">Be the <span>first to know</span></p>
+      <p class="home-page-text">Be a <span style="color:#a1ba5c;">buddee</span></p>
+      <p style="margin-left:10%;">
+        <a href="/signup" class="btn btn-large btn-primary" style="margin-bottom:2%;"><i class="icon-facebook"></i> | Sign Up With Facebook</a><br>
+        <a href="/signup" class="btn btn-large btn-info" style="margin-bottom:2%;"><i class="icon-twitter"></i> | Sign Up With Twitter&nbsp;&nbsp;&nbsp;</a><br>
+        <a href="/signup" class="btn btn-large"><i class="icon-envelope"></i> | Sign Up With Email&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+      </p>
     </div>
+    <div class="span6">
+      <div id="homeCarousel" class="carousel slide">
+        <ol class="carousel-indicators" style="top:105%;right:45%;">
+          <li data-target="#tellMoreCarousel" data-slide-to="0" class="active"></li>
+          <li data-target="#tellMoreCarousel" data-slide-to="1"></li>
+          <li data-target="#tellMoreCarousel" data-slide-to="2"></li>
+        </ol>
+        <div class="carousel-inner" style="width:65%;margin-left:auto;margin-right:auto;border:1px solid #a4a4a4;">
+          <div class="active item">
+            <%= link_to image_tag("/assets/home-slider1.jpg", size: "300x383", alt: "seattle-rewards", title: "brandbuddee Seattle Rewards"), "/signup" %>
+          </div>
+          <div class="item">
+            <%= link_to image_tag("/assets/home-slider2.jpg", size: "300x383", alt: "seattle-rewards", title: "brandbuddee Seattle Rewards"), "/signup" %>
+          </div>
+          <div class="item">
+            <%= link_to image_tag("/assets/home-slider3.jpg", size: "300x383", alt: "seattle-rewards", title: "brandbuddee Seattle Rewards"), "/signup" %>
+          </div>
+        </div>
+        <a class="carousel-control left" href="#homeCarousel" data-slide="prev" style="border:none;background:none;margin-left:8%;display:none;"><div class="tellMoreCarouselLeft"></div></a>
+        <a class="carousel-control right" href="#homeCarousel" data-slide="next" style="border:none;background:none;margin-right:8%;display:none;"><div class="tellMoreCarouselRight"></div></a>
+      </div><!-- /tellMoreCarousel -->
+      <div class="home-carousel-shadow"></div>
+      <div class="home-carousel-ribbon"></div>
+    </div><!-- /span6 -->
+  </div><!-- /row -->
+</div><!-- /container -->
+<div class="home-page-bottom">
+  <div class="left">
+    <%= image_tag "/assets/home-gift.png", alt: "seattle-rewards", title: "brandbuddee Seattle Rewards", style: "padding:7.4%;float:left;max-width:7.6%;height:auto;" %>
+    <h1>WHAT IS A GIFT</h1>
+    <h1>
+      <p style="padding-right:5%;">Product, Service, or discounts given to you by the brands you love.</p>
+    </h1>
   </div>
-
-  <div class="container">
-
-    <div class="row" style="margin-bottom:20px;">
-      <div class="span4 splash_features">
-        <span class="grey"><i class="icon-search splash_feature_icons"></i></span>
-        <h2><!-- <span class="grey">Discover</span> --> Discover</h2>
-         <p>Discover your favorite brands, exclusive stories, and become their buddee.</p>
-        <!-- <p><a class="" href="#">Read more &raquo;</a></p> -->
-      </div>
-      <div class="span4 splash_features">
-        <span class="grey"><i class="icon-upload splash_feature_icons"></i></span>
-        <h2>Share</h2>
-         <p>Support the brands that you already love and share them with your friends.</p>
-        <!-- <p><a class="" href="#">Read more &raquo;</a></p> -->
-      </div>
-      <div class="span4 splash_features">
-        <span class="grey"><i class="icon-gift splash_feature_icons"></i></span>
-        <h2>Earn Rewards</h2>
-        <p>Be the first to know. Earn amazing rewards just for sharing! Simple as that.</p>
-        <!-- <p><a class="" href="#">Read more &raquo;</a></p> -->
-      </div>
-    </div> <!-- .row -->
-
-  </div> <!-- .container -->
-
-  <br>
+  <span class="right">
+    <%= image_tag "/assets/home-get-gifted.png", title: "brandbuddee Seattle Rewards", alt: "seattle-rewards", style: "padding:3.7%;float:left;max-width:5.98%;height:auto;" %>
+    <h1>HOW DO I GET GIFTED</h1>
+    <h1>
+      <p style="padding-right:5%;">Talk about brands you love on your favorite social networks.</p>
+    </h1>
+  </span>
+</div>
+<%= render 'shared/footer' %>
 
 
-  <%= render 'shared/footer' %>
-  
 
-
-  <script type="text/javascript" src="/js/jquery.isotope.min.js"></script>
-  <script type="text/javascript" src="/js/jquery.touchSwipe.js"></script>
-  <script type="text/javascript" src="/js/jquery.hotkeys.min.js"></script>
-  <script type="text/javascript" src="/js/functions.min.js?v=2"></script>
+<script type="text/javascript" src="/js/jquery.isotope.min.js"></script>
+<script type="text/javascript" src="/js/jquery.touchSwipe.js"></script>
+<script type="text/javascript" src="/js/jquery.hotkeys.min.js"></script>
+<script type="text/javascript" src="/js/functions.min.js?v=2"></script>

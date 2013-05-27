@@ -22,6 +22,7 @@ Brandbuddee::Application.routes.draw do
   match '/contact' => 'welcome#contact'
   match '/support/help' => 'welcome#help'
   match '/brands' => 'welcome#brands'
+  match '/tell-me-more' => 'welcome#tell_me_more'
   
   match '/signout' => 'sessions#destroy' #, :as => "signout"
   post '/signin' => 'sessions#email_create'

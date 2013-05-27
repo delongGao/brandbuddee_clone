@@ -88,7 +88,7 @@
 }
 
 input.input-large {
-    padding: 8px 14px;
+    padding: 8px 12px;
 }
 
 div.gradient {
@@ -270,3 +270,366 @@ a.sb.gplus,
 .text-glow-dark {
 	font-weight: 700 !important;
 }
+.center-me {
+	text-align: center;
+}
+.bb-blue {
+	color: #7EC1E1;
+}
+.bb-green {
+	color: #C7E478;
+}
+.home-page-text {
+	font-size:30px;
+	margin-left:10%;
+	padding-bottom:1.5%;
+}
+.home-page-text span {
+	font-weight:bold;
+}
+// HOME PAGE BOTTOM ABOVE FOOTER GREY AREA
+.home-page-bottom {
+	border-top: 2px solid #a4a4a4;
+	background-color: #D8D8D8;
+	height: 200px;
+	margin-top:-4%;
+	.left {
+		border-right: #A4A4A4;
+		border-right-style:solid;
+		float: left;
+		width: 50%;
+		height: 200px;
+	}
+	.right {
+		width: 50%;
+		height: 200px;
+	}
+	h1 {
+		padding-top: 20px;
+	}
+	p {
+		font-size: 25px;
+		color: #848484;
+		margin-left: 10px;
+	}
+}
+// END HOME PAGE BOTTOM ABOVE FOOTER GREY AREA
+.home-carousel-shadow {
+	position: relative;
+  	margin-left: auto;
+  	margin-right: auto;
+  	-moz-user-select: none;
+  	-khtml-user-select: none;
+  	-webkit-user-select: none;
+  	-o-user-select: none;
+  	background: url(/assets/slider-shadow225.png) no-repeat;
+  	height: 30px;
+  	bottom:20px;
+  	left:120px;
+  	z-index:-1;
+}
+.pricing_table, .most-popular {
+	-webkit-transition: all .3s ease-in-out;
+	-moz-transition: all .3s ease-in-out;
+	-o-transition: all .3s ease-in-out;
+	-ms-transition: all .3s ease-in-out;
+	transition: all .3s ease-in-out;
+}
+.pricing_table, .most-popular {
+	-webkit-transform: translate(0px, 0px);
+	-moz-transform: translate(0px, 0px);
+	-o-transform: translate(0px, 0px);
+	-ms-transform: translate(0px, 0px);
+	transform: translate(0px, 0px);
+}
+.pricing_table:hover, .most-popular:hover {
+	-webkit-transform: translate(0,-10px);
+	-moz-transform: translate(0,-10px);
+	-o-transform: translate(0,-10px);
+	-ms-transform: translate(0,-10px);
+	transform: translate(0,-10px);
+}
+.home-carousel-ribbon {
+	position: relative;
+	margin-left: auto;
+	margin-right: auto;
+	-moz-user-select: none;
+	-khtml-user-select: none;
+	-webkit-user-select: none;
+	-o-user-select: none;
+	background: url(/assets/home-slider-ribbon.png) no-repeat;
+	height: 111px;
+	bottom: 437px;
+	left: 77px;
+}
+.select-share-enjoy {
+	-webkit-transition-duration: 0.7s;
+	-moz-transition-duration: 0.7s;
+	-o-transition-duration: 0.7s;
+	-ms-transition-duration: 0.7s;
+	transition-duration: 0.7s;
+	position:relative;
+	top: 0;
+	border-bottom: 4px solid #fff;
+}
+
+// /tell-me-more page testimonials slider
+.comments {
+	background-color: #fff;
+	padding: 80px 0 30px 0;
+}
+.comments ul {
+	list-style: none;
+	margin: 0;
+	position: relative;
+}
+.comments ul li {
+	position: relative;
+}
+.comments .image {
+	width: 160px;
+	margin: 0 auto;
+	height: 150px;
+	border-radius: 50%;
+	background: #000;
+	position: relative;
+	overflow: hidden;
+	border: 5px solid #7EC1E1;
+}
+// .arrow_coment {
+// 	background: url("/assets/learn-more-arrow.png") no-repeat center;
+// 	width: 100%;
+// 	height: 17px;
+// 	position: absolute;	
+// 	bottom:28.1%;
+// }
+.name {
+	border-top: 5px solid #43402f;
+	border-bottom: 5px solid #43402f;
+	padding: 20px 0;
+	width: 42%;
+	position: absolute;
+	left: 0;	
+	text-align: right;
+}
+.comments h3 {
+	padding: 0;
+	color: #222;
+	font-weight: 700;
+	line-height: 30px;
+	margin: 0;
+	font-family: 'OpenSansBold', Arial, sans-serif;
+	font-size: 24px;
+}
+.job {
+	border-top: 5px solid #43402f;
+	border-bottom: 5px solid #43402f;
+	padding: 20px 0;
+	width: 42%;
+	position: absolute;
+	right: 0;	
+	text-align: left;
+}
+.comments p {
+	margin: 0 auto;
+	width: 70%;
+	text-align: center;
+	margin-top: 25px;
+	padding: 0;
+	font-weight: 300;
+	line-height: 28px;
+	font-size: 16px;
+	color: #41413e;
+}
+// END /tell-me-more page testimonials slider
+
+// /tell-me-more Still Unsure? Keep Reading! Sign
+.headline {
+	background: url(/assets/tell-me-more-still-unsure-line.png) 0px 11px repeat-x;
+	display: block;
+	margin: auto;
+	max-width: 700px;
+	margin-right:9%;
+}
+.headline h4 {
+	background: #C7E478;
+	display: inline;
+	padding: 15px 40px;
+	color: #fff;
+	border-radius: 24px;
+	-moz-border-radius: 24px;
+	-webkit-border-radius: 24px;
+	box-shadow: 1px 1px 1px #999;
+	-moz-box-shadow: 1px 1px 1px #999;
+	-webkit-box-shadow: 1px 1px 1px #999;
+	font-size: 21.5px;
+}
+// END /tell-me-more Still Unsure? Keep Reading! Sign
+
+// /tell-me-more It's ok to share, our mission, & how you and the brand win circles
+.ch-grid {
+margin: 0px 0 0 0;
+padding: 0;
+list-style: none;
+display: block;
+text-align: center;
+width: 100%;
+&:after {
+	content: '';
+	display: table;
+	clear: both;
+}
+}
+.ch-grid li {
+width: 270px;
+height: 270px;
+display: inline-block;
+margin: 5px;
+}
+.ch-item {
+width: 100%;
+height: 100%;
+border-radius: 50%;
+position: relative;
+cursor: default;
+-webkit-perspective: 900px;
+-moz-perspective: 900px;
+-o-perspective: 900px;
+-ms-perspective: 900px;
+perspective: 900px;
+}
+.ch-info {
+position: absolute;
+width: 100%;
+height: 100%;
+-webkit-transform-style: preserve-3d;
+-moz-transform-style: preserve-3d;
+-o-transform-style: preserve-3d;
+-ms-transform-style: preserve-3d;
+transform-style: preserve-3d;
+}
+.ch-info > div {
+display: block;
+position: absolute;
+width: 100%;
+height: 100%;
+border-radius: 50%;
+background-position: center center;
+-webkit-transition: all 0.4s linear;
+-moz-transition: all 0.4s linear;
+-o-transition: all 0.4s linear;
+-ms-transition: all 0.4s linear;
+transition: all 0.4s linear;
+-webkit-transform-origin: 50% 0%;
+-moz-transform-origin: 50% 0%;
+-o-transform-origin: 50% 0%;
+-ms-transform-origin: 50% 0%;
+transform-origin: 50% 0%;
+}
+.ch-info .ch-info-front {
+box-shadow: inset 0 0 0 16px rgba(0,0,0,0.3);
+}
+.ch-info .ch-info-back {
+-webkit-transform: translate3d(0,0,-220px) rotate3d(1,0,0,90deg);
+-moz-transform: translate3d(0,0,-220px) rotate3d(1,0,0,90deg);
+-o-transform: translate3d(0,0,-220px) rotate3d(1,0,0,90deg);
+-ms-transform: translate3d(0,0,-220px) rotate3d(1,0,0,90deg);
+transform: translate3d(0,0,-220px) rotate3d(1,0,0,90deg);
+background: #000;
+opacity: 0;
+}
+.ch-img-1 {
+background:#f2f2e8 url(/assets/learn-more-icon4.png) no-repeat;
+}
+.ch-img-2 {
+background:#f2f2e8 url(/assets/learn-more-icon5.png) no-repeat;
+}
+.ch-img-3 {
+background:#f2f2e8 url(/assets/learn-more-icon6.png) no-repeat;
+}
+.ch-info h3 {
+color: #fff;
+text-transform: uppercase;
+letter-spacing: 2px;
+font-size: 24px;
+margin: 0 20px;
+padding: 30px 0 0 0;
+height: 110px;
+font-family: 'Open Sans', Arial, sans-serif;
+text-shadow: 0 0 1px #fff, 0 1px 2px rgba(0,0,0,0.3);
+border-bottom: 1px solid rgba(255,255,255,0.5);
+}
+.ch-info p {
+color: #fff;
+padding: 10px 5px;
+font-style: italic;
+margin: 0 30px;
+font-size: 16px;
+line-height: 23px;
+}
+.ch-info p a {
+display: block;
+color: #fff;
+color: rgba(255,255,255,0.7);
+font-style: normal;
+font-weight: 700;
+text-transform: uppercase;
+font-size: 18px;
+letter-spacing: 1px;
+padding-top: 25px;
+text-decoration: none;
+}
+.ch-info p a:hover {
+	color: #fff222;
+	color: rgba(239,65,53, 0.8);
+}
+
+.ch-item:hover .ch-info-front {
+	-webkit-transform: translate3d(0,280px,0) rotate3d(1,0,0,-90deg);
+	-moz-transform: translate3d(0,280px,0) rotate3d(1,0,0,-90deg);
+	-o-transform: translate3d(0,280px,0) rotate3d(1,0,0,-90deg);
+	-ms-transform: translate3d(0,280px,0) rotate3d(1,0,0,-90deg);
+	transform: translate3d(0,280px,0) rotate3d(1,0,0,-90deg);
+	opacity: 0;
+}
+
+.ch-item:hover .ch-info-back {
+	-webkit-transform: rotate3d(1,0,0,0deg);
+	-moz-transform: rotate3d(1,0,0,0deg);
+	-o-transform: rotate3d(1,0,0,0deg);
+	-ms-transform: rotate3d(1,0,0,0deg);
+	transform: rotate3d(1,0,0,0deg);
+	opacity: 1;
+}
+// END /tell-me-more It's ok to share, our mission, & how you and the brand win circles
+
+// /tell-me-more divider with dots on ends
+.divisor_services {
+	margin: 0;
+}
+.divisor {
+	position: relative;
+	width: 100%;
+	height: 1px;
+	margin: 50px 0 50px 0;
+	background-color: #cdcdcd;
+}
+.circle_right {
+	position: absolute;
+	right: 0;
+	top: -5px;
+	width: 10px;
+	height: 10px;
+	background-color: #000;
+	border-radius: 50%;
+}
+.circle_left {
+	position: absolute;
+	left: 0;
+	top: -5px;
+	width: 10px;
+	height: 10px;
+	background-color: #000;
+	border-radius: 50%;
+}
+// END /tell-me-more divider with dots on ends

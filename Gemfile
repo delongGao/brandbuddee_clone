@@ -12,6 +12,7 @@ gem 'mongo'
 gem 'omniauth', '1.1.0'
 gem "omniauth-facebook", "~> 1.2.0"
 gem "omniauth-twitter", "~> 0.0.12"
+# gem "twitter", "~> 4.6.2"
 gem 'omnicontacts', '0.2.5'
 gem 'bcrypt-ruby', :require => 'bcrypt'
 
@@ -45,7 +46,10 @@ group :assets do
   gem 'uglifier'
 
   #gem "twitter-bootstrap-rails", "~> 2.0.7"
-  gem "twitter-bootstrap-rails", "~> 2.1.3"
+  #gem "twitter-bootstrap-rails", "~> 2.1.3"
+  gem "therubyracer", "~> 0.11.4"
+  gem "less-rails", "~> 2.3.3"
+  gem "twitter-bootstrap-rails", "~> 2.2.6"
 end
 
 gem 'jquery-rails'

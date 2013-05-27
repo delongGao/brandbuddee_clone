@@ -3,7 +3,7 @@
 <%= render 'shared/header' %>
 <div class="container main_container">
 
-	<div class="signup-form-wrap well span6">
+	<div class="signup-form-wrap well span6 offset2">
 
 			<% if flash[:notice].nil? %><% else %>
 		        <div class="alert alert-info">
@@ -83,3 +83,4 @@
 	</div> <!-- .signup-form-wrap -->
 
 </div><!--/.container-->
+<%= render 'shared/footer' %>
