@@ -291,18 +291,21 @@ a.sb.gplus,
 .home-page-bottom {
 	border-top: 2px solid #a4a4a4;
 	background-color: #D8D8D8;
-	height: 200px;
+	// height: 200px;
+	min-height: 200px; // important
 	margin-top:-4%;
 	.left {
 		border-right: #A4A4A4;
 		border-right-style:solid;
 		float: left;
 		width: 50%;
-		height: 200px;
+		// height: 200px;
+		min-height: 200px; // important
 	}
 	.right {
 		width: 50%;
-		height: 200px;
+		// height: 200px;
+		min-height: 200px; // important
 	}
 	h1 {
 		padding-top: 20px;
@@ -311,6 +314,7 @@ a.sb.gplus,
 		font-size: 25px;
 		color: #848484;
 		margin-left: 10px;
+		margin-bottom: 0; // important
 	}
 }
 // END HOME PAGE BOTTOM ABOVE FOOTER GREY AREA
@@ -633,3 +637,16 @@ text-decoration: none;
 	border-radius: 50%;
 }
 // END /tell-me-more divider with dots on ends
+@media (max-width: 979px) {
+	.home-carousel-ribbon, .home-carousel-shadow {
+		display:none;
+	}
+	.home-page-bottom {
+		margin-top:0;
+	}
+}
+@media (max-width: 767px) {
+	.home-page-bottom {
+		margin-top:5%;
+	}
+}
