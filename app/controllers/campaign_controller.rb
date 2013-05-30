@@ -15,7 +15,30 @@ class CampaignController < ApplicationController
 		end
 		if campaign.nil?
 		  redirect_to root_url
-		end
+		else
+			unless @campaign.nil?
+				the_share = Share.where(:campaign_id => @campaign.id, :user_id => current_user.id).first
+				unless the_share.nil? #User has not yet shared the campaign
+					share_update = Share.find(the_share.id)
+					user_share = share_update.user_id
+					official_pts = share_update.unique_page_views + share_update.trackings.size
+					if official_pts >= share_update.campaign.points_required
+						redeem_check = Redeem.where(:user_id => user_share, :campaign_id => share_update.campaign_id).first
+						if redeem_check.nil?
+							left = share_update.campaign.limit - share_update.campaign.redeems.size
+							unless left <= 0 || share_update.campaign.end_date < Time.now
+								redeem_code = Redeem.assign_redeem_code()
+								@redeem = Redeem.create!(date: Time.now, redeem_code: redeem_code, campaign_id: share_update.campaign_id, user_id: share_update.user_id )
+								@redeem.save
+								UserMailer.redeem_confirmation(user_share, @redeem, share_update.campaign, root_url).deliver
+							end # unless left <= 0 || share_update.campaign.end_date < Time.now
+						end # if redeem_check.nil?
+					end # if official_pts >= share_update.campaign.points_required
+				end # unless the_share.nil?
+			else
+				redirect_to root_url
+			end # unless/else @campaign.nil?
+		end # If/else campaign.nil?
 	end
 
 	def activate_campaign
@@ -63,11 +86,11 @@ class CampaignController < ApplicationController
 			share_update = Share.find(share.id)
 			user_share = share_update.user_id
 			official_pts = share_update.unique_page_views + share_update.trackings.size
-			if official_pts == share_update.campaign.points_required
+			if official_pts >= share_update.campaign.points_required
 				redeem_check = Redeem.where(:user_id => user_share, :campaign_id => share_update.campaign_id).first
 				if redeem_check.nil?
 					left = share_update.campaign.limit - share_update.campaign.redeems.size
-					unless left == 0 || share_update.campaign.end_date < Time.now
+					unless left <= 0 || share_update.campaign.end_date < Time.now
 						redeem_code = Redeem.assign_redeem_code()
 						@redeem = Redeem.create!(date: Time.now, redeem_code: redeem_code, campaign_id: share_update.campaign_id, user_id: share_update.user_id )
 						@redeem.save
