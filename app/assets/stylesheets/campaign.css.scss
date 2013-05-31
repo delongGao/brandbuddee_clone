@@ -124,6 +124,12 @@
 #nav-collapse-btn {
 	margin-top: 0;
 }
+#promo-campaign-wrap .promo-campaign-bg .span4 h4 {
+	margin-top: 8px;
+}
+#promo-campaign-wrap .promo-campaign-bg .span2 {
+	margin-top:1.5%;
+}
 @media (max-width: 979px) {
 	#nav-collapse-btn {
 		margin-top:0.5%;
@@ -131,9 +137,26 @@
 	#share-page-navbar {
 		margin-bottom:1%;
 	}
+	#promo-campaign-wrap {
+		z-index: -1;
+	}
+	#promo-campaign-wrap .promo-campaign-bg .span4 h4 {
+		margin-top: 0;
+	}
+	#promo-campaign-wrap .promo-campaign-bg .span2 {
+		margin-top: 0;
+		position:relative;
+		bottom:7%;
+	}
 }
 @media (max-width: 767px) {
 	#iframeid {
 		margin-top:0.1%;
+	}
+	#promo-campaign-wrap .promo-campaign-bg .span2 {
+		display:none;
+	}
+	#promo-campaign-wrap .promo-campaign-bg .span4 {
+		margin-left:3%;
 	}
 }
