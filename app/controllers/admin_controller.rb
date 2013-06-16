@@ -255,12 +255,18 @@ class AdminController < ApplicationController
 				    	end
 				    end # Engagement Bar Right Task
 
-				    if @campaign.save
-				      flash[:notice] = "Campaign successfully created"
-				      redirect_to(:action => 'campaigns')
-				    else
-				      flash[:notice] = "Uh oh"
-				    end
+				    if !params[:campaign][:share_link].nil? && /^(https?|ftp):\/\//.match(params[:campaign][:share_link])
+					    if @campaign.save
+					      flash[:notice] = "Campaign successfully created"
+					      redirect_to(:action => 'campaigns')
+					    else
+					      flash[:notice] = "Uh oh"
+					    end
+					else
+						@campaign.destroy
+						flash[:error] = "ERROR: Campaign Share Link must start with http:// https:// or ftp://"
+						redirect_to "/admin/campaigns"
+					end
 				end
 			else
 				redirect_to root_url
@@ -721,18 +727,23 @@ class AdminController < ApplicationController
 		    		end
 			    end # Engagement Bar Right Task
 
-			    if @campaign.update_attributes(params[:campaign])
-			    	@campaign.shares.each do |s|
-						s.url = params[:campaign][:share_link]
-						s.save
-					end # Update URL for all shares belonging to campaign
-			        flash[:notice] = "Successfully updated."
-			        #redirect_to(:action => 'edit_campaign')
-			        redirect_to "#{root_url}admin/campaign/edit?_id=#{params[:campaign][:id]}"
-			    else
-			      flash[:notice] = "Uh oh... something went wrong. Please try again."
-			      redirect_to(:action => 'edit_campaign')
-			    end
+			    if !params[:campaign][:share_link].nil? && /^(https?|ftp):\/\//.match(params[:campaign][:share_link])
+				    if @campaign.update_attributes(params[:campaign])
+				    	@campaign.shares.each do |s|
+							s.url = params[:campaign][:share_link]
+							s.save
+						end # Update URL for all shares belonging to campaign
+				        flash[:notice] = "Successfully updated."
+				        #redirect_to(:action => 'edit_campaign')
+				        redirect_to "#{root_url}admin/campaign/edit?_id=#{params[:campaign][:id]}"
+				    else
+				      flash[:notice] = "Uh oh... something went wrong. Please try again."
+				      redirect_to(:action => 'edit_campaign')
+				    end
+				else
+					flash[:error] = "The Campaign Share Link must start with http:// https:// or ftp://"
+					redirect_to "#{root_url}admin/campaign/edit?_id=#{params[:campaign][:id]}"
+				end
 
 				# @campaign = Campaign.find(params[:campaign][:id])
 				

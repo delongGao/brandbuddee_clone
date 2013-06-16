@@ -45,9 +45,15 @@
 			</div>
 
 			<% if flash[:notice].nil? %><% else %>
-				<div class="alert alert-success">
+				<div class="alert alert-success fade in">
 					<button class="close" data-dismiss="alert">×</button>
 					<%= flash[:notice] %>
+				</div> <!-- .alert -->
+			<% end %>
+			<% if flash[:error].nil? %><% else %>
+				<div class="alert alert-error fade in">
+					<button class="close" data-dismiss="alert">×</button>
+					<%= flash[:error] %>
 				</div> <!-- .alert -->
 			<% end %>
 			
