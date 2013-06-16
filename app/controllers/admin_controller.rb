@@ -721,6 +721,11 @@ class AdminController < ApplicationController
 		    		end
 			    end # Engagement Bar Right Task
 
+			    @campaign.shares.each do |s|
+					s.url = params[:campaign][:share_link]
+					s.save
+				end # Update URL for all shares belonging to campaign
+
 			    if @campaign.update_attributes(params[:campaign])
 			      flash[:notice] = "Successfully updated."
 			      #redirect_to(:action => 'edit_campaign')
