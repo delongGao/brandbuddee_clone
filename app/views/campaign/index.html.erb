@@ -423,7 +423,7 @@
                     </div>
 
                     <div class="redeem_details">
-                        <a href="#redeemDetailsModal" role="button" class="btn btn-large btn-primary pull-right" style="margin-top: -11.3%;" data-toggle="modal">How To Redeem</a>
+                        <a href="#redeemDetailsModal" role="button" class="btn btn-large btn-primary pull-right" style="margin-top: -3%;" data-toggle="modal">How To Redeem</a>
                         
                         <br><br><br>
                     </div> <!-- .well -->
@@ -451,7 +451,16 @@
 <% if current_user %>
             <% if current_user.campaigns.where(:_id => @campaign.id).first %>
                 <% @task = @campaign.tasks.where(user_id: current_user.id).first %>
-                <% @official_pts = @share.unique_page_views + @share.trackings.size + @task.completed_points + (@task.task_1_uniques.to_i * @campaign.engagement_task_left_points.to_i) + (@task.task_2_uniques.to_i * @campaign.engagement_task_right_points.to_i) %>
+                <% unless @task.nil? %>
+                    <% @pts_tasks_completed = @task.completed_points %>
+                    <% @pts_engagement_1 = @task.task_1_uniques.to_i * @campaign.engagement_task_left_points.to_i %>
+                    <% @pts_engagement_2 = @task.task_2_uniques.to_i * @campaign.engagement_task_right_points.to_i %>
+                <% else %>
+                    <% @pts_tasks_completed = 0 %>
+                    <% @pts_engagement_1 = 0 %>
+                    <% @pts_engagement_2 = 0 %>
+                <% end %>
+                <% @official_pts = @share.unique_page_views + @share.trackings.size + @pts_tasks_completed + @pts_engagement_1 + @pts_engagement_2 %>
                 <p>Your Points: <b style="font-size:17px;"><%= @official_pts %></b></p>
 
                 <% unless left == 0 %>

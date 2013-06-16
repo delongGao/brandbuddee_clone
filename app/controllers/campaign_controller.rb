@@ -20,11 +20,19 @@ class CampaignController < ApplicationController
 				unless current_user.nil?
 					the_share = Share.where(:campaign_id => @campaign.id, :user_id => current_user.id).first
 					unless the_share.nil? #User has not yet joined the campaign
-						the_task = @campaign.tasks.where(user_id: current_user.id).first
+						task_update = @campaign.tasks.where(user_id: current_user.id).first
+						if task_update.nil?
+							@completed_task_points = 0
+							@engagement_1_points = 0
+							@engagement_2_points = 0
+						else
+							@completed_task_points = task_update.completed_points
+							@engagement_1_points = task_update.task_1_uniques.to_i * @campaign.engagement_task_left_points.to_i
+							@engagement_2_points = task_update.task_2_uniques.to_i * @campaign.engagement_task_right_points.to_i
+						end
 						share_update = Share.find(the_share.id)
-						task_update = Task.find(the_task.id)
 						user_share = share_update.user_id
-						official_pts = share_update.unique_page_views + share_update.trackings.size + task_update.completed_points + (task_update.task_1_uniques.to_i * @campaign.engagement_task_left_points.to_i) + (task_update.task_2_uniques.to_i * @campaign.engagement_task_right_points.to_i)
+						official_pts = share_update.unique_page_views + share_update.trackings.size + @completed_task_points + @engagement_1_points + @engagement_2_points
 						if official_pts >= share_update.campaign.points_required
 							redeem_check = Redeem.where(:user_id => user_share, :campaign_id => share_update.campaign_id).first
 							if redeem_check.nil?
@@ -79,57 +87,61 @@ class CampaignController < ApplicationController
 		if share.present?
 			@task = Task.where(user_id: share.user_id, campaign_id: share.campaign_id).first
 			unless @task.nil?
-				Share.page_view(share.id)
+				@completed_task_points = @task.completed_points
+				@engagement_1_points = @task.task_1_uniques.to_i * @task.campaign.engagement_task_left_points.to_i
+				@engagement_2_points = @task.task_2_uniques.to_i * @task.campaign.engagement_task_right_points.to_i
+			else
+				@completed_task_points = 0
+				@engagement_1_points = 0
+				@engagement_2_points = 0
+			end
+			Share.page_view(share.id)
 
-				#validates tracking based on client cookies
-				c = cookies[share.id]
-				if c == share.id
-				elsif c.nil?
-				  cookies[share.id] = share.id
-				  Share.unique_page_view(share.id)
-				end
+			#validates tracking based on client cookies
+			c = cookies[share.id]
+			if c == share.id
+			elsif c.nil?
+			  cookies[share.id] = share.id
+			  Share.unique_page_view(share.id)
+			end
 
-				#validates tracking via unique IP addresses
-				@ip_address = request.remote_ip
-				if Tracking.validates_ip_uniqueness(@ip_address, share)
-				  tracking = Tracking.where(:ip_address => @ip_address, :share_id => share.id).first
-				  Tracking.view(tracking.id)
-				else
-				  Share.unique_page_view(share.id)
-				  share.trackings.create!(date: Time.now, ip_address: @ip_address)
-				end
+			#validates tracking via unique IP addresses
+			@ip_address = request.remote_ip
+			if Tracking.validates_ip_uniqueness(@ip_address, share)
+			  tracking = Tracking.where(:ip_address => @ip_address, :share_id => share.id).first
+			  Tracking.view(tracking.id)
+			else
+			  Share.unique_page_view(share.id)
+			  share.trackings.create!(date: Time.now, ip_address: @ip_address)
+			end
 
 
-				share_update = Share.find(share.id)
-				user_share = share_update.user_id
-				official_pts = share_update.unique_page_views + share_update.trackings.size + @task.completed_points + (@task.task_1_uniques.to_i * @task.campaign.engagement_task_left_points.to_i) + (@task.task_2_uniques.to_i * @task.campaign.engagement_task_right_points.to_i)
-				if official_pts >= share_update.campaign.points_required
-					redeem_check = Redeem.where(:user_id => user_share, :campaign_id => share_update.campaign_id).first
-					if redeem_check.nil?
-						left = share_update.campaign.limit - share_update.campaign.redeems.size
-						unless left <= 0 || share_update.campaign.end_date < Time.now
-							redeem_code = Redeem.assign_redeem_code()
-							@redeem = Redeem.create!(date: Time.now, redeem_code: redeem_code, campaign_id: share_update.campaign_id, user_id: share_update.user_id )
-							@redeem.save
-							UserMailer.redeem_confirmation(user_share, @redeem, share_update.campaign, root_url).deliver
-						end
+			share_update = Share.find(share.id)
+			user_share = share_update.user_id
+			official_pts = share_update.unique_page_views + share_update.trackings.size + @completed_task_points + @engagement_1_points + @engagement_2_points
+			if official_pts >= share_update.campaign.points_required
+				redeem_check = Redeem.where(:user_id => user_share, :campaign_id => share_update.campaign_id).first
+				if redeem_check.nil?
+					left = share_update.campaign.limit - share_update.campaign.redeems.size
+					unless left <= 0 || share_update.campaign.end_date < Time.now
+						redeem_code = Redeem.assign_redeem_code()
+						@redeem = Redeem.create!(date: Time.now, redeem_code: redeem_code, campaign_id: share_update.campaign_id, user_id: share_update.user_id )
+						@redeem.save
+						UserMailer.redeem_confirmation(user_share, @redeem, share_update.campaign, root_url).deliver
 					end
 				end
-
-				#redirect to share link
-				@share = share
-				@share_link = share.url
-				@share_href = Share.get_host_without_www(share.url)
-
-				if @share_href == 'facebook.com'
-					redirect_to @share_link
-				end
-
-				#redirect_to share_link
-			else # @task.nil?
-				UserMailer.email_brice_error("Controller: campaign_controller.rb | Action: share | Issue: The statement unless @task.nil? went to the else. At this point, the user should already have had a task created, but for some reason, they do not yet have a task for the campaign, even though they already have a Share for the campaign.").deliver
-				redirect_to root_url
 			end
+
+			#redirect to share link
+			@share = share
+			@share_link = share.url
+			@share_href = Share.get_host_without_www(share.url)
+
+			if @share_href == 'facebook.com'
+				redirect_to @share_link
+			end
+
+			#redirect_to share_link
 		end
 		if share.nil?
 		  redirect_to root_url
