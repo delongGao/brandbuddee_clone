@@ -11,24 +11,26 @@
           		<ul class="nav">
           			<li style="font-size:1.3em;"><span>Help <a href="<%= root_url + @share.user.nickname unless @share.user.nickname.blank? %>" target="_blank" style="text-decoration:none;-webkit-transition:color .3s linear; -moz-transition:color .3s linear; -o-transition:color .3s linear; transition:color .3s linear;font-weight:700;" class="bb-dark-green"><% unless @share.user.first_name.blank? || @share.user.last_name.blank? %><%= @share.user.first_name + ' ' + @share.user.last_name %><% else %>This buddee<% end %></a></span> earn this gift<br />from <span class="bb-blue" style="font-weight:700;"><%= !@share.campaign.brand.name.nil? ? @share.campaign.brand.name : "This Brand" %></span>!</li>
           		</ul>
-          		<% unless @task.task_1_url=="false" && @task.task_2_url=="false" %>
-	          		<ul class="nav">
-	          			<% unless @task.task_1_url=="false" || @task.campaign.engagement_task_left_text == "false" %>
-	          				<li>
-	          					<%= link_to("/tasks/#{@task.id}/check_engage_left", class: "btn btn-info", style: "color:white;text-shadow:none;padding: 4px 12px;margin-top:3%;background-position: 0 0px;", target: "_blank") do %>
-	          						<i class="icon-external-link"></i> <%= @task.campaign.engagement_task_left_text %>
-	          					<% end %>
-	          				</li>
-	          			<% end %>
-	          			<% unless @task.task_2_url=="false" || @task.campaign.engagement_task_right_text == "false" %>
-	          				<li>
-	          					<%= link_to("/tasks/#{@task.id}/check_engage_right", class: "btn btn-success", style: "color:white;text-shadow:none;padding: 4px 12px;margin-top:3%;background-position: 0 0px;", target: "_blank") do %>
-	          						<i class="icon-external-link"></i> <%= @task.campaign.engagement_task_right_text %>
-	          					<% end %>
-	          				</li>
-	          			<% end %>
-	          		</ul>
-	          	<% end %>
+          		<% unless @task.nil? %>
+	          		<% unless @task.task_1_url=="false" && @task.task_2_url=="false" %>
+		          		<ul class="nav">
+		          			<% unless @task.task_1_url=="false" || @task.campaign.engagement_task_left_text == "false" %>
+		          				<li>
+		          					<%= link_to("/tasks/#{@task.id}/check_engage_left", class: "btn btn-info", style: "color:white;text-shadow:none;padding: 4px 12px;margin-top:3%;background-position: 0 0px;", target: "_blank") do %>
+		          						<i class="icon-external-link"></i> <%= @task.campaign.engagement_task_left_text %>
+		          					<% end %>
+		          				</li>
+		          			<% end %>
+		          			<% unless @task.task_2_url=="false" || @task.campaign.engagement_task_right_text == "false" %>
+		          				<li>
+		          					<%= link_to("/tasks/#{@task.id}/check_engage_right", class: "btn btn-success", style: "color:white;text-shadow:none;padding: 4px 12px;margin-top:3%;background-position: 0 0px;", target: "_blank") do %>
+		          						<i class="icon-external-link"></i> <%= @task.campaign.engagement_task_right_text %>
+		          					<% end %>
+		          				</li>
+		          			<% end %>
+		          		</ul>
+		          	<% end %>
+		        <% end %>
           		<ul class="nav pull-right">
           			<li>
           				<div class="btn-group" style="font-size:13px;margin-top:0;">
