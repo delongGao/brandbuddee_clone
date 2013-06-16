@@ -1,7 +1,11 @@
 // Place all the styles related to the campaign controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-
+$green: #C7E478;
+$solidborder: solid;
+$black: #000;
+$white: #fff;
+$blue: #bbc5ff;
 
 .campaign_reward_box {
 	margin-bottom: 7px;
@@ -159,4 +163,70 @@
 	#promo-campaign-wrap .promo-campaign-bg .span4 {
 		margin-left:3%;
 	}
+}
+
+// CAMPAIGN INDEX TASKS
+.accordion-heading.alt-accordion {
+	text-decoration: none;
+	// padding:10px 10px 10px 25px;
+	// margin:0 0 10px 0;
+	cursor: pointer;
+	font-weight: bold;
+	border: 1px $solidborder $black;
+	// background: #d7d7d7 url("../img/toggle.png") no-repeat right 10px;
+	background: #F6F6F6 url(/assets/campaign_tasks_toggle.png) no-repeat right 10px;
+	-webkit-transition: all .3s linear;
+	-moz-transition: all .3s linear;
+	-o-transition: all .3s linear;
+	transition: all .3s linear;
+	a {
+		color:$black;
+		text-decoration: none;
+		&:hover {
+			color:$white;
+		}
+	}
+	&.active {
+		background: $green url(/assets/campaign_tasks_toggle.png) no-repeat right -74px;
+		a {
+			color:white;
+		}
+	}
+	&:hover {
+		background-color: $green;
+		-webkit-transition: all .3s linear;
+		-moz-transition: all .3s linear;
+		-o-transition: all .3s linear;
+		transition: all .3s linear;
+	}
+}
+.accordion-inner.alt-accordion {
+	// background: #fff;
+	background: $white url(/assets/campaign_tasks_background.png);
+	border: 1px $solidborder $black;
+	border-top: none;
+	font-weight: 700;
+}
+//END CAMPAIGN INDEX TASKS
+.gift-photo {
+	-webkit-transition: color .3s linear;
+	-moz-transition: color .3s linear;
+	-o-transition: color .3s linear;
+	transition: color .3s linear;
+	cursor: pointer;
+	font-size:5em;
+	&:hover {
+		color:$blue
+	}
+}
+#gift_gallery {
+	li a {
+		text-decoration: none;
+	}
+	li.hide {
+		display:none;
+	}
+}
+.bb-dark-green {
+	color:#aac563;
 }

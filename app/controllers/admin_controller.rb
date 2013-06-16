@@ -106,10 +106,10 @@ class AdminController < ApplicationController
 		if current_user
 			if current_user.account_type == 'super admin' || current_user.account_type == 'admin' || Rails.env.development?
 				if params[:brands].nil? || params[:brands].empty?
-					flash[:notice] = "ERROR: You forgot to select a brand!!!"
+					flash[:error] = "ERROR: You forgot to select a brand!!!"
 					redirect_to "/admin/campaigns"
 			    elsif params[:categories].nil? || params[:categories].empty?
-			    	flash[:notice] = "ERROR: You forgot to select a category!!!"
+			    	flash[:error] = "ERROR: You forgot to select a category!!!"
 			    	redirect_to "/admin/campaigns"
 			    else
 					@brand = Brand.find(params[:brands])
@@ -126,6 +126,134 @@ class AdminController < ApplicationController
 				    category = Category.find(params[:categories])
 				    @campaign.category_ids << params[:categories]
 				    @campaign.location = params[:location]
+
+				    if !params[:task_blog_post].nil? && params[:task_blog_post]["0"] == "true"
+				    	if !params[:task_blog_post]["1"].empty? && !params[:task_blog_post]["2"].empty? && !params[:task_blog_post]["3"].empty?
+				    		@campaign.task_blog_post[:use_it] = true
+				    		@campaign.task_blog_post[:title] = params[:task_blog_post]["1"]
+				    		@campaign.task_blog_post[:description] = params[:task_blog_post]["2"]
+				    		@campaign.task_blog_post[:points] = params[:task_blog_post]["3"].to_i
+				    	else
+				    		flash[:error] = "WARNING: Unable to add Task: Write A Blog Post. Make sure you fill out ALL fields."
+				    	end
+				    end # Blog Post Task
+				    if !params[:task_facebook].nil? && params[:task_facebook]["0"] == "true"
+				    	if !params[:task_facebook]["1"].empty? && !params[:task_facebook]["2"].empty? && !params[:task_facebook]["3"].empty? && !params[:task_facebook]["4"].empty?
+				    		@campaign.task_facebook[:use_it] = true
+				    		@campaign.task_facebook[:title] = params[:task_facebook]["1"]
+				    		@campaign.task_facebook[:description] = params[:task_facebook]["2"]
+				    		@campaign.task_facebook[:points] = params[:task_facebook]["3"].to_i
+				    		@campaign.task_facebook[:link] = params[:task_facebook]["4"]
+				    	else
+				    		flash[:error] = "WARNING: Unable to add Task: Like On Facebook. Make sure you fill out ALL fields."
+				    	end
+				    end # Facebook Like Task
+				    if !params[:task_twitter].nil? && params[:task_twitter]["0"] == "true"
+				    	if !params[:task_twitter]["1"].empty? && !params[:task_twitter]["2"].empty? && !params[:task_twitter]["3"].empty? && !params[:task_twitter]["4"].empty?
+				    		@campaign.task_twitter[:use_it] = true
+				    		@campaign.task_twitter[:title] = params[:task_twitter]["1"]
+				    		@campaign.task_twitter[:description] = params[:task_twitter]["2"]
+				    		@campaign.task_twitter[:points] = params[:task_twitter]["3"].to_i
+				    		@campaign.task_twitter[:link] = params[:task_twitter]["4"]
+				    	else
+				    		flash[:error] = "WARNING: Unable to add Task: Follow On Twitter. Make sure you fill out ALL fields."
+				    	end
+				    end # Twitter Follow Task
+				    if !params[:task_custom_1].nil? && params[:task_custom_1]["0"] == "true"
+				    	if !params[:task_custom_1]["1"].empty? && !params[:task_custom_1]["2"].empty? && !params[:task_custom_1]["3"].empty? && !params[:task_custom_1]["4"].empty?
+				    		@campaign.task_custom_1[:use_it] = true
+				    		@campaign.task_custom_1[:title] = params[:task_custom_1]["1"]
+				    		@campaign.task_custom_1[:description] = params[:task_custom_1]["2"]
+				    		@campaign.task_custom_1[:points] = params[:task_custom_1]["3"]
+				    		@campaign.task_custom_1[:link] = params[:task_custom_1]["4"]
+				    	else
+				    		flash[:error] = "WARNING: Unable to add Task: Custom #1. Make sure you fill out ALL fields."
+				    	end
+				    end # Custom Task #1
+				    if !params[:task_custom_2].nil? && params[:task_custom_2]["0"] == "true"
+				    	if !params[:task_custom_2]["1"].empty? && !params[:task_custom_2]["2"].empty? && !params[:task_custom_2]["3"].empty? && !params[:task_custom_2]["4"].empty?
+				    		@campaign.task_custom_2[:use_it] = true
+				    		@campaign.task_custom_2[:title] = params[:task_custom_2]["1"]
+				    		@campaign.task_custom_2[:description] = params[:task_custom_2]["2"]
+				    		@campaign.task_custom_2[:points] = params[:task_custom_2]["3"]
+				    		@campaign.task_custom_2[:link] = params[:task_custom_2]["4"]
+				    	else
+				    		flash[:error] = "WARNING: Unable to add Task: Custom #2. Make sure you fill out ALL fields."
+				    	end
+				    end # Custom Task #2
+				    if !params[:task_custom_3].nil? && params[:task_custom_3]["0"] == "true"
+				    	if !params[:task_custom_3]["1"].empty? && !params[:task_custom_3]["2"].empty? && !params[:task_custom_3]["3"].empty? && !params[:task_custom_3]["4"].empty?
+				    		@campaign.task_custom_3[:use_it] = true
+				    		@campaign.task_custom_3[:title] = params[:task_custom_3]["1"]
+				    		@campaign.task_custom_3[:description] = params[:task_custom_3]["2"]
+				    		@campaign.task_custom_3[:points] = params[:task_custom_3]["3"]
+				    		@campaign.task_custom_3[:link] = params[:task_custom_3]["4"]
+				    	else
+				    		flash[:error] = "WARNING: Unable to add Task: Custom #3. Make sure you fill out ALL fields."
+				    	end
+				    end # Custom Task #3
+				    if !params[:task_custom_4].nil? && params[:task_custom_4]["0"] == "true"
+				    	if !params[:task_custom_4]["1"].empty? && !params[:task_custom_4]["2"].empty? && !params[:task_custom_4]["3"].empty? && !params[:task_custom_4]["4"].empty?
+				    		@campaign.task_custom_4[:use_it] = true
+				    		@campaign.task_custom_4[:title] = params[:task_custom_4]["1"]
+				    		@campaign.task_custom_4[:description] = params[:task_custom_4]["2"]
+				    		@campaign.task_custom_4[:points] = params[:task_custom_4]["3"]
+				    		@campaign.task_custom_4[:link] = params[:task_custom_4]["4"]
+				    	else
+				    		flash[:error] = "WARNING: Unable to add Task: Custom #4. Make sure you fill out ALL fields."
+				    	end
+				    end # Custom Task #4
+				    if !params[:task_custom_5].nil? && params[:task_custom_5]["0"] == "true"
+				    	if !params[:task_custom_5]["1"].empty? && !params[:task_custom_5]["2"].empty? && !params[:task_custom_5]["3"].empty? && !params[:task_custom_5]["4"].empty?
+				    		@campaign.task_custom_5[:use_it] = true
+				    		@campaign.task_custom_5[:title] = params[:task_custom_5]["1"]
+				    		@campaign.task_custom_5[:description] = params[:task_custom_5]["2"]
+				    		@campaign.task_custom_5[:points] = params[:task_custom_5]["3"]
+				    		@campaign.task_custom_5[:link] = params[:task_custom_5]["4"]
+				    	else
+				    		flash[:error] = "WARNING: Unable to add Task: Custom #5. Make sure you fill out ALL fields."
+				    	end
+				    end # Custom Task #5
+				    if !params[:engagement_tasks].nil? && !params[:engagement_tasks]["Left"].blank?
+				    	case params[:engagement_tasks]["Left"]
+				    	when "Facebook"
+				    		@campaign.engagement_tasks[:left] = params[:engagement_tasks]["Left"] unless @campaign.task_facebook[:use_it].nil? || @campaign.task_facebook[:use_it] != true
+				    	when "Twitter"
+				    		@campaign.engagement_tasks[:left] = params[:engagement_tasks]["Left"] unless @campaign.task_twitter[:use_it].nil? || @campaign.task_twitter[:use_it] != true
+				    	when "Custom1"
+				    		@campaign.engagement_tasks[:left] = params[:engagement_tasks]["Left"] unless @campaign.task_custom_1[:use_it].nil? || @campaign.task_custom_1[:use_it] != true
+				    	when "Custom2"
+				    		@campaign.engagement_tasks[:left] = params[:engagement_tasks]["Left"] unless @campaign.task_custom_2[:use_it].nil? || @campaign.task_custom_2[:use_it] != true
+				    	when "Custom3"
+				    		@campaign.engagement_tasks[:left] = params[:engagement_tasks]["Left"] unless @campaign.task_custom_3[:use_it].nil? || @campaign.task_custom_3[:use_it] != true
+				    	when "Custom4"
+				    		@campaign.engagement_tasks[:left] = params[:engagement_tasks]["Left"] unless @campaign.task_custom_4[:use_it].nil? || @campaign.task_custom_4[:use_it] != true
+				    	when "Custom5"
+				    		@campaign.engagement_tasks[:left] = params[:engagement_tasks]["Left"] unless @campaign.task_custom_5[:use_it].nil? || @campaign.task_custom_5[:use_it] != true
+				    	else
+				    		flash[:error] = "WARNING: Unable to assign Tasks to Engagement Bar."
+				    	end
+				    end # Engagement Bar Left Task
+				    if !params[:engagement_tasks].nil? && !params[:engagement_tasks]["Right"].blank?
+				    	case params[:engagement_tasks]["Right"]
+				    	when "Facebook"
+				    		@campaign.engagement_tasks[:right] = params[:engagement_tasks]["Right"] unless @campaign.task_facebook[:use_it].nil? || @campaign.task_facebook[:use_it] != true
+				    	when "Twitter"
+				    		@campaign.engagement_tasks[:right] = params[:engagement_tasks]["Right"] unless @campaign.task_twitter[:use_it].nil? || @campaign.task_twitter[:use_it] != true
+				    	when "Custom1"
+				    		@campaign.engagement_tasks[:right] = params[:engagement_tasks]["Right"] unless @campaign.task_custom_1[:use_it].nil? || @campaign.task_custom_1[:use_it] != true
+				    	when "Custom2"
+				    		@campaign.engagement_tasks[:right] = params[:engagement_tasks]["Right"] unless @campaign.task_custom_2[:use_it].nil? || @campaign.task_custom_2[:use_it] != true
+				    	when "Custom3"
+				    		@campaign.engagement_tasks[:right] = params[:engagement_tasks]["Right"] unless @campaign.task_custom_3[:use_it].nil? || @campaign.task_custom_3[:use_it] != true
+				    	when "Custom4"
+				    		@campaign.engagement_tasks[:right] = params[:engagement_tasks]["Right"] unless @campaign.task_custom_4[:use_it].nil? || @campaign.task_custom_4[:use_it] != true
+				    	when "Custom5"
+				    		@campaign.engagement_tasks[:right] = params[:engagement_tasks]["Right"] unless @campaign.task_custom_5[:use_it].nil? || @campaign.task_custom_5[:use_it] != true
+				    	else
+				    		flash[:error] = "WARNING: Unable to assign Tasks to Engagement Bar."
+				    	end
+				    end # Engagement Bar Right Task
 
 				    if @campaign.save
 				      flash[:notice] = "Campaign successfully created"
@@ -356,6 +484,11 @@ class AdminController < ApplicationController
 				@share_all = Share.all.order_by([:date, :desc])
 				@tracking_all = Tracking.where(:share_id.in => share_ids)
 				@redeem_all = @campaign.redeems
+
+				@total_pinterest_clicks = @campaign.pinterest_clicks
+				@total_twitter_clicks = @campaign.twitter_clicks
+				@total_facebook_clicks = @campaign.facebook_clicks
+				@total_social_clicks = @total_pinterest_clicks + @total_twitter_clicks + @total_facebook_clicks
 			else
 				redirect_to root_url
 			end
@@ -407,6 +540,186 @@ class AdminController < ApplicationController
 					@location = Location.find(params[:campaign][:location])
 					@campaign.location_id = @location.id
 				end
+
+				if !params[:task_blog_post].nil? && params[:task_blog_post]["0"] == "UPDATE"
+			    	if !params[:task_blog_post]["1"].empty? && !params[:task_blog_post]["2"].empty? && !params[:task_blog_post]["3"].empty?
+			    		@campaign.task_blog_post[:use_it] = true
+			    		@campaign.task_blog_post[:title] = params[:task_blog_post]["1"]
+			    		@campaign.task_blog_post[:description] = params[:task_blog_post]["2"]
+			    		@campaign.task_blog_post[:points] = params[:task_blog_post]["3"].to_i
+			    	else
+			    		flash[:error] = "WARNING: Unable to add Task: Write A Blog Post. Make sure you fill out ALL fields."
+			    	end
+			    else
+			    	@campaign.task_blog_post = {}
+			    end # Blog Post Task
+
+			    if !params[:task_facebook].nil? && params[:task_facebook]["0"] == "UPDATE"
+			    	if !params[:task_facebook]["1"].empty? && !params[:task_facebook]["2"].empty? && !params[:task_facebook]["3"].empty?
+			    		@campaign.task_facebook[:use_it] = true
+			    		@campaign.task_facebook[:title] = params[:task_facebook]["1"]
+			    		@campaign.task_facebook[:description] = params[:task_facebook]["2"]
+			    		@campaign.task_facebook[:points] = params[:task_facebook]["3"].to_i
+			    		@campaign.task_facebook[:link] = params[:task_facebook]["4"]
+			    	else
+			    		flash[:error] = "WARNING: Unable to add Task: Write A Blog Post. Make sure you fill out ALL fields."
+			    	end
+			    else
+			    	@campaign.task_facebook = {}
+			    end # Facebook Task
+
+			    if !params[:task_twitter].nil? && params[:task_twitter]["0"] == "UPDATE"
+			    	if !params[:task_twitter]["1"].empty? && !params[:task_twitter]["2"].empty? && !params[:task_twitter]["3"].empty?
+			    		@campaign.task_twitter[:use_it] = true
+			    		@campaign.task_twitter[:title] = params[:task_twitter]["1"]
+			    		@campaign.task_twitter[:description] = params[:task_twitter]["2"]
+			    		@campaign.task_twitter[:points] = params[:task_twitter]["3"].to_i
+			    		@campaign.task_twitter[:link] = params[:task_twitter]["4"]
+			    	else
+			    		flash[:error] = "WARNING: Unable to add Task: Write A Blog Post. Make sure you fill out ALL fields."
+			    	end
+			    else
+			    	@campaign.task_twitter = {}
+			    end # Twitter Task
+
+			    if !params[:task_custom_1].nil? && params[:task_custom_1]["0"] == "UPDATE"
+			    	if !params[:task_custom_1]["1"].empty? && !params[:task_custom_1]["2"].empty? && !params[:task_custom_1]["3"].empty?
+			    		@campaign.task_custom_1[:use_it] = true
+			    		@campaign.task_custom_1[:title] = params[:task_custom_1]["1"]
+			    		@campaign.task_custom_1[:description] = params[:task_custom_1]["2"]
+			    		@campaign.task_custom_1[:points] = params[:task_custom_1]["3"].to_i
+			    		@campaign.task_custom_1[:link] = params[:task_custom_1]["4"]
+			    	else
+			    		flash[:error] = "WARNING: Unable to add Task: Write A Blog Post. Make sure you fill out ALL fields."
+			    	end
+			    else
+			    	@campaign.task_custom_1 = {}
+			    end # Custom 1 Task
+
+			    if !params[:task_custom_2].nil? && params[:task_custom_2]["0"] == "UPDATE"
+			    	if !params[:task_custom_2]["1"].empty? && !params[:task_custom_2]["2"].empty? && !params[:task_custom_2]["3"].empty?
+			    		@campaign.task_custom_2[:use_it] = true
+			    		@campaign.task_custom_2[:title] = params[:task_custom_2]["1"]
+			    		@campaign.task_custom_2[:description] = params[:task_custom_2]["2"]
+			    		@campaign.task_custom_2[:points] = params[:task_custom_2]["3"].to_i
+			    		@campaign.task_custom_2[:link] = params[:task_custom_2]["4"]
+			    	else
+			    		flash[:error] = "WARNING: Unable to add Task: Write A Blog Post. Make sure you fill out ALL fields."
+			    	end
+			    else
+			    	@campaign.task_custom_2 = {}
+			    end # Custom 2 Task
+
+			    if !params[:task_custom_3].nil? && params[:task_custom_3]["0"] == "UPDATE"
+			    	if !params[:task_custom_3]["1"].empty? && !params[:task_custom_3]["2"].empty? && !params[:task_custom_3]["3"].empty?
+			    		@campaign.task_custom_3[:use_it] = true
+			    		@campaign.task_custom_3[:title] = params[:task_custom_3]["1"]
+			    		@campaign.task_custom_3[:description] = params[:task_custom_3]["2"]
+			    		@campaign.task_custom_3[:points] = params[:task_custom_3]["3"].to_i
+			    		@campaign.task_custom_3[:link] = params[:task_custom_3]["4"]
+			    	else
+			    		flash[:error] = "WARNING: Unable to add Task: Write A Blog Post. Make sure you fill out ALL fields."
+			    	end
+			    else
+			    	@campaign.task_custom_3 = {}
+			    end # Custom 3 Task
+
+			    if !params[:task_custom_4].nil? && params[:task_custom_4]["0"] == "UPDATE"
+			    	if !params[:task_custom_4]["1"].empty? && !params[:task_custom_4]["2"].empty? && !params[:task_custom_4]["3"].empty?
+			    		@campaign.task_custom_4[:use_it] = true
+			    		@campaign.task_custom_4[:title] = params[:task_custom_4]["1"]
+			    		@campaign.task_custom_4[:description] = params[:task_custom_4]["2"]
+			    		@campaign.task_custom_4[:points] = params[:task_custom_4]["3"].to_i
+			    		@campaign.task_custom_4[:link] = params[:task_custom_4]["4"]
+			    	else
+			    		flash[:error] = "WARNING: Unable to add Task: Write A Blog Post. Make sure you fill out ALL fields."
+			    	end
+			    else
+			    	@campaign.task_custom_4 = {}
+			    end # Custom 4 Task
+
+			    if !params[:task_custom_5].nil? && params[:task_custom_5]["0"] == "UPDATE"
+			    	if !params[:task_custom_5]["1"].empty? && !params[:task_custom_5]["2"].empty? && !params[:task_custom_5]["3"].empty?
+			    		@campaign.task_custom_5[:use_it] = true
+			    		@campaign.task_custom_5[:title] = params[:task_custom_5]["1"]
+			    		@campaign.task_custom_5[:description] = params[:task_custom_5]["2"]
+			    		@campaign.task_custom_5[:points] = params[:task_custom_5]["3"].to_i
+			    		@campaign.task_custom_5[:link] = params[:task_custom_5]["4"]
+			    	else
+			    		flash[:error] = "WARNING: Unable to add Task: Write A Blog Post. Make sure you fill out ALL fields."
+			    	end
+			    else
+			    	@campaign.task_custom_5 = {}
+			    end # Custom 5 Task
+
+			    if !params[:engagement_tasks].nil? && !params[:engagement_tasks]["left"].blank?
+			    	case params[:engagement_tasks]["left"]
+			    	when "Facebook"
+			    		@campaign.engagement_tasks[:left] = params[:engagement_tasks]["left"] unless @campaign.task_facebook[:use_it].nil? || @campaign.task_facebook[:use_it] != true
+			    	when "Twitter"
+			    		@campaign.engagement_tasks[:left] = params[:engagement_tasks]["left"] unless @campaign.task_twitter[:use_it].nil? || @campaign.task_twitter[:use_it] != true
+			    	when "Custom1"
+			    		@campaign.engagement_tasks[:left] = params[:engagement_tasks]["left"] unless @campaign.task_custom_1[:use_it].nil? || @campaign.task_custom_1[:use_it] != true
+			    	when "Custom2"
+			    		@campaign.engagement_tasks[:left] = params[:engagement_tasks]["left"] unless @campaign.task_custom_2[:use_it].nil? || @campaign.task_custom_2[:use_it] != true
+			    	when "Custom3"
+			    		@campaign.engagement_tasks[:left] = params[:engagement_tasks]["left"] unless @campaign.task_custom_3[:use_it].nil? || @campaign.task_custom_3[:use_it] != true
+			    	when "Custom4"
+			    		@campaign.engagement_tasks[:left] = params[:engagement_tasks]["left"] unless @campaign.task_custom_4[:use_it].nil? || @campaign.task_custom_4[:use_it] != true
+			    	when "Custom5"
+			    		@campaign.engagement_tasks[:left] = params[:engagement_tasks]["left"] unless @campaign.task_custom_5[:use_it].nil? || @campaign.task_custom_5[:use_it] != true
+			    	else
+			    		if @campaign.engagement_tasks[:right].nil? || @campaign.engagement_tasks[:right].empty?
+			    			@campaign.engagement_tasks = {}
+			    		else
+			    			engageright = @campaign.engagement_tasks[:right]
+			    			@campaign.engagement_tasks = {}
+			    			@campaign.engagement_tasks[:right] = engageright
+			    		end
+			    	end
+			    else
+			    	if @campaign.engagement_tasks[:right].nil? || @campaign.engagement_tasks[:right].empty?
+			    		@campaign.engagement_tasks = {}
+			    	else
+			    		engageright = @campaign.engagement_tasks[:right]
+		    			@campaign.engagement_tasks = {}
+		    			@campaign.engagement_tasks[:right] = engageright
+			    	end
+			    end # Engagement Bar Left Task
+			    if !params[:engagement_tasks].nil? && !params[:engagement_tasks]["right"].blank?
+			    	case params[:engagement_tasks]["right"]
+			    	when "Facebook"
+			    		@campaign.engagement_tasks[:right] = params[:engagement_tasks]["right"] unless @campaign.task_facebook[:use_it].nil? || @campaign.task_facebook[:use_it] != true
+			    	when "Twitter"
+			    		@campaign.engagement_tasks[:right] = params[:engagement_tasks]["right"] unless @campaign.task_twitter[:use_it].nil? || @campaign.task_twitter[:use_it] != true
+			    	when "Custom1"
+			    		@campaign.engagement_tasks[:right] = params[:engagement_tasks]["right"] unless @campaign.task_custom_1[:use_it].nil? || @campaign.task_custom_1[:use_it] != true
+			    	when "Custom2"
+			    		@campaign.engagement_tasks[:right] = params[:engagement_tasks]["right"] unless @campaign.task_custom_2[:use_it].nil? || @campaign.task_custom_2[:use_it] != true
+			    	when "Custom3"
+			    		@campaign.engagement_tasks[:right] = params[:engagement_tasks]["right"] unless @campaign.task_custom_3[:use_it].nil? || @campaign.task_custom_3[:use_it] != true
+			    	when "Custom4"
+			    		@campaign.engagement_tasks[:right] = params[:engagement_tasks]["right"] unless @campaign.task_custom_4[:use_it].nil? || @campaign.task_custom_4[:use_it] != true
+			    	when "Custom5"
+			    		@campaign.engagement_tasks[:right] = params[:engagement_tasks]["right"] unless @campaign.task_custom_5[:use_it].nil? || @campaign.task_custom_5[:use_it] != true
+			    	else
+			    		if @campaign.engagement_tasks[:left].nil? || @campaign.engagement_tasks[:left].empty?
+			    			@campaign.engagement_tasks = {}
+			    		else
+			    			engageleft = @campaign.engagement_tasks[:left]
+			    			@campaign.engagement_tasks = {}
+			    			@campaign.engagement_tasks[:left] = engageleft
+			    		end
+			    	end
+			    else
+			    	if @campaign.engagement_tasks[:left].nil? || @campaign.engagement_tasks[:left].empty?
+		    			@campaign.engagement_tasks = {}
+		    		else
+		    			engageleft = @campaign.engagement_tasks[:left]
+		    			@campaign.engagement_tasks = {}
+		    			@campaign.engagement_tasks[:left] = engageleft
+		    		end
+			    end # Engagement Bar Right Task
 
 			    if @campaign.update_attributes(params[:campaign])
 			      flash[:notice] = "Successfully updated."
@@ -486,6 +799,70 @@ class AdminController < ApplicationController
 				share_ids = Share.where(:campaign_id => @campaign._id).map(&:_id)
 
 				@campaign_trackings = Tracking.where(:share_id.in => share_ids).order_by([:date, :desc])
+			else
+				redirect_to root_url
+			end
+		else
+			redirect_to root_url
+		end
+	end
+
+	def view_campaign_tasks
+		if current_user
+			if current_user.account_type == 'super admin' || current_user.account_type == 'admin' || Rails.env.development?
+				@campaign = Campaign.find(params[:_id])
+				@total_completed_blog = @campaign.tasks.where(completed_blog: true).count
+				@total_completed_facebook = @campaign.tasks.where(completed_facebook: true).count
+				@total_completed_twitter = @campaign.tasks.where(completed_twitter: true).count
+				@total_completed_custom1 = @campaign.custom_tasks_completed(0)
+				@total_completed_custom2 = @campaign.custom_tasks_completed(1)
+				@total_completed_custom3 = @campaign.custom_tasks_completed(2)
+				@total_completed_custom4 = @campaign.custom_tasks_completed(3)
+				@total_completed_custom5 = @campaign.custom_tasks_completed(4)
+				@total_engagement_left_clicks = 0
+				@total_engagement_left_uniques = 0
+				@total_engagement_right_clicks = 0
+				@total_engagement_right_uniques = 0
+				@campaign.tasks.each do |t|
+					@total_engagement_left_clicks += t.task_1_clicks
+					@total_engagement_left_uniques += t.task_1_uniques
+					@total_engagement_right_clicks += t.task_2_clicks
+					@total_engagement_right_uniques += t.task_2_uniques
+				end
+				@engagement_left_clicks=[]
+				@engagement_left_uniques=[]
+				right_now = DateTime.now - 29.days
+				for i in 0..29
+					clicks = 0
+					uniques = 0
+					@campaign.tasks.each do |t|
+						curr_task_clicks = t.task_clicks.where(:created_at.lte => right_now).where(:task_number => 1)
+						curr_task_clicks.each do |tc|
+							clicks += tc.views.to_i
+							uniques += 1
+						end
+					end
+					@engagement_left_clicks[i] = [i+1,clicks.to_i]
+					@engagement_left_uniques[i] = [i+1,uniques.to_i]
+					right_now += 24.hours
+				end
+				@engagement_right_clicks=[]
+				@engagement_right_uniques=[]
+				right_now = DateTime.now - 29.days
+				for i in 0..29
+					clicks = 0
+					uniques = 0
+					@campaign.tasks.each do |t|
+						curr_task_clicks = t.task_clicks.where(:created_at.lte => right_now).where(:task_number => 2)
+						curr_task_clicks.each do |tc|
+							clicks += tc.views.to_i
+							uniques += 1
+						end
+					end
+					@engagement_right_clicks[i] = [i+1,clicks.to_i]
+					@engagement_right_uniques[i] = [i+1,uniques.to_i]
+					right_now += 24.hours
+				end
 			else
 				redirect_to root_url
 			end

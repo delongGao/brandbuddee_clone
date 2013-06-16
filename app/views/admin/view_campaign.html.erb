@@ -42,13 +42,36 @@
 				</ul>
 				<hr>
 			</div>
+
+			<div class="row-fluid">
+				<div class="box span12">
+					<a class="quick-button span2 offset2" href="/admin/campaign/view/users?_id=<%= @campaign._id %>">
+						<i class="fa-icon-group"></i>
+						<p>Buddees</p>
+						<span class="notification"><%= @user_all.size %></span>
+					</a>
+					<a class="quick-button span2" href="/admin/campaign/view/redeems?_id=<%= @campaign._id %>">
+						<i class="fa-icon-barcode"></i>
+						<p>Redeems</p>
+						<span class="notification"><%= @redeem_all.size %></span>
+					</a>
+					
+					<a class="quick-button span2" href="/admin/campaign/view/trackings?_id=<%= @campaign._id %>">
+						<i class="fa-icon-screenshot"></i>
+						<p>Trackings</p>
+						<span class="notification green"><%= @tracking_all.size + @campaign.shares.sum(:unique_page_views).to_i %></span>
+					</a>
+					<a class="quick-button span2" href="/admin/campaign/view/tasks?_id=<%= @campaign._id %>">
+						<i class="fa-icon-check"></i>
+						<p>Tasks</p>
+						<span class="notification"><%= @campaign.num_of_tasks %></span>
+					</a>
+				</div>
+			</div>
+			<hr>	
 			
 			<div class="row-fluid">
-
-				
-				<div class="circleStats">
-
-                    
+				<div class="circleStats">                    
 <!-- 					<div class="span2" onTablet="span4" onDesktop="span2">
                     	<div class="circleStatsItem red">
 							<i class="fa-icon-thumbs-up"></i>
@@ -58,7 +81,7 @@
                     	</div>
 						<div class="box-small-title">User satisfaction</div>
 					</div> -->
-					<div class="span6" onTablet="span4" onDesktop="span5">
+					<div class="span4" onTablet="span4" onDesktop="span4">
                     	<div class="circleStatsItem blue">
                         	<i class="fa-icon-bullhorn"></i>
                         	<% @share_change = @share_month_count - @share_last_month_count %>
@@ -71,82 +94,11 @@
 							<%# @share_stat = @share_percentage.to_f.to_i %>
 							<span class="blueCircle statCircles"><span class="statAdd">+</span><%= @share_stat.to_i %><span class="statPercent">%</span></span>
 <!--                         	<input type="text" value="<%= @share_stat %>" class="blueCircle" /> -->
-							
                     	</div>
-
 						<div class="box-small-title"><a href="#" rel="tooltip" data-placement="bottom" data-original-title="<%= @share_stat.to_i %>%">Shares</a></div>
-
-					</div>
-
-					<div class="box span4" onTablet="span6" onDesktop="span4">
-						<div class="box-header">
-							<h2><i class="icon-list"></i><span class="break"></span>Weekly Stat</h2>
-							<div class="box-icon">
-								<a href="#" class="btn-minimize"><i class="icon-chevron-up"></i></a>
-								<a href="#" class="btn-close"><i class="icon-remove"></i></a>
-							</div>
-						</div>
-						<div class="box-content">
-							<ul class="dashboard-list">
-								<li>
-									<a href="#">
-										<i class="fa-icon-arrow-up green"></i>                               
-										<span class="green"><%= @users_weekly.size %></span>
-										New Users                                    
-									</a>
-								</li>
-							  <li>
-								<a href="#">
-								  <i class="fa-icon-plus blue"></i>
-								  <span class="blue"><%= @trackings_weekly.size %></span>
-								  New Trackings
-								</a>
-							  </li>
-							  <li>
-								<a href="#">
-								  <i class="fa-icon-arrow-up green"></i>
-								  <span class="green"><%= @trackings_weekly.sum(:views).to_i %></span>
-								  New Views
-								</a>
-							  </li>
-							  <li>
-								<a href="#">
-								  <i class="fa-icon-plus blue"></i>
-								  <span class="blue"><%= @redeems_weekly.size %></span>
-								  New Redeems                                    
-								</a>
-							  </li>
-							</ul>
-						</div>
-					</div><!--/span-->
-					
-
-
-
-
-                </div>
-			
-			</div>
-			
-			<hr>
-			
-			<div class="row-fluid">
-				
-				<div class="box span8" onTablet="span12" onDesktop="span8">
-					<div class="box-header">
-						<h2><i class="icon-signal"></i><span class="break"></span>Site Statistics</h2>
-						<div class="box-icon">
-							<a href="#" class="btn-setting"><i class="icon-wrench"></i></a>
-							<a href="#" class="btn-minimize"><i class="icon-chevron-up"></i></a>
-							<a href="#" class="btn-close"><i class="icon-remove"></i></a>
-						</div>
-					</div>
-					<div class="box-content">
-						<div id="stats-chart"  class="center" style="height:300px" ></div>
 					</div>
 				</div>
-				
-				<div class="box span4 noMargin" onTablet="span12" onDesktop="span4">
+				<div class="box span4" onTablet="span6" onDesktop="span4">
 					<div class="box-header">
 						<h2><i class="icon-list"></i><span class="break"></span>Weekly Stat</h2>
 						<div class="box-icon">
@@ -155,79 +107,95 @@
 						</div>
 					</div>
 					<div class="box-content">
-						<div class="sparkLineStats">
-
-	                        <ul class="unstyled">
-	                            <li>
-									<span class="sparkLineStats1 "></span> 
-									Visits: 
-									<span class="number">356</span>
-								</li>
-	                            <li>
-	                                <span class="sparkLineStats2"></span>
-	                                Unique Visitors: 
-	                                <span class="number">252</span>
-	                            </li>
-	                            <li><span class="sparkLineStats3"></span> 
-	                                Pageviews: 
-	                                <span class="number">781</span>
-	                            </li>
-	                            <li><span class="sparkLineStats4"></span>
-	                                Pages / Visit: 
-	                                <span class="number">2,19</span>
-	                            </li>
-	                            <li><span class="sparkLineStats5"></span>
-	                                Avg. Visit Duration: 
-	                                <span class="number">00:02:58</span>
-	                            </li>
-	                            <li><span class="sparkLineStats6"></span>
-	                                Bounce Rate: <span class="number">59,83%</span>
-	                            </li>
-	                            <li><span class="sparkLineStats7"></span>
-	                                % New Visits: 
-	                                <span class="number">70,79%</span>
-	                            </li>
-	                            <li><span class="sparkLineStats8"></span>
-	                                % Returning Visitor: 
-	                                <span class="number">29,21%</span>
-	                            </li>
-
-	                        </ul>
-	
-	                    </div><!-- End .sparkStats -->
+						<ul class="dashboard-list">
+							<li>
+								<a href="#">
+									<i class="fa-icon-arrow-up green"></i>                               
+									<span class="green"><%= @users_weekly.size %></span>
+									New Users                                    
+								</a>
+							</li>
+						  <li>
+							<a href="#">
+							  <i class="fa-icon-plus blue"></i>
+							  <span class="blue"><%= @trackings_weekly.size %></span>
+							  New Trackings
+							</a>
+						  </li>
+						  <li>
+							<a href="#">
+							  <i class="fa-icon-arrow-up green"></i>
+							  <span class="green"><%= @trackings_weekly.sum(:views).to_i %></span>
+							  New Views
+							</a>
+						  </li>
+						  <li>
+							<a href="#">
+							  <i class="fa-icon-plus blue"></i>
+							  <span class="blue"><%= @redeems_weekly.size %></span>
+							  New Redeems                                    
+							</a>
+						  </li>
+						</ul>
 					</div>
 				</div><!--/span-->
-				
-			</div>
-			
-			<hr>
-			
-			<div class="sortable row-fluid">
-				
-				<a class="quick-button span4" href="/admin/campaign/view/users?_id=<%= @campaign._id %>">
-					<i class="fa-icon-group"></i>
-					<p>Buddees</p>
-					<span class="notification"><%= @user_all.size %></span>
-				</a>
-				<a class="quick-button span4" href="/admin/campaign/view/redeems?_id=<%= @campaign._id %>">
-					<i class="fa-icon-barcode"></i>
-					<p>Redeems</p>
-					<span class="notification"><%= @redeem_all.size %></span>
-				</a>
-				
-				<a class="quick-button span4" href="/admin/campaign/view/trackings?_id=<%= @campaign._id %>">
-					<i class="fa-icon-screenshot"></i>
-					<p>Trackings</p>
-					<span class="notification green"><%= @tracking_all.size + @campaign.shares.sum(:unique_page_views).to_i %></span>
-				</a>
-				
-			</div>
-			
-			<hr>
-			
-			<div class="row-fluid">
-				
 				<div class="box span4" onTablet="span6" onDesktop="span4">
+					<div class="box-header">
+						<h2><i class="icon-list"></i><span class="break"></span>Numeric Per Social Network</h2>
+						<div class="box-icon">
+							<a href="#" class="btn-minimize"><i class="icon-chevron-up"></i></a>
+							<a href="#" class="btn-close"><i class="icon-remove"></i></a>
+						</div>
+					</div>
+					<div class="box-content">
+						<ul class="dashboard-list">
+							<li>
+								<a href="#">
+									<i class="fa-icon-facebook" style="font-size:1.5em;color:#3B5998;"></i>
+									<span style="color:#3B5998;"><%= @total_facebook_clicks %></span>
+									Facebook Shares
+								</a>
+							</li>
+						  	<li>
+								<a href="#">
+								  	<i class="fa-icon-twitter blue" style="font-size:1.5em;"></i>
+								  	<span class="blue"><%= @total_twitter_clicks %></span>
+								  	Twitter Shares
+								</a>
+						  	</li>
+						  	<li>
+								<a href="#">
+								  <i class="fa-icon-pinterest" style="font-size:1.5em;color:#CB2027;"></i>
+								  <span style="color:#CB2027;"><%= @total_pinterest_clicks %></span>
+								  Pinterest Shares
+								</a>
+						  	</li>
+						  	<li>
+						  		<a href="#">
+						  			<i class="fa-icon-bullhorn green" style="font-size:1.5em;"></i>
+						  			<span class="green"><%= @total_social_clicks %></span>
+						  			Total Shares
+						  		</a>
+						  	</li>
+						</ul>
+					</div>
+				</div><!--/span-->                
+			</div>
+			<hr>
+
+			<div class="row-fluid">
+				<div class="box span4" onTablet="span6" onDesktop="span4">
+					<div class="box-header">
+						<h2><i class="icon-list-alt"></i><span class="break"></span>Social Network Comparison</h2>
+						<div class="box-icon">
+							<a href="#" class="btn-close"><i class="icon-remove"></i></a>
+						</div>
+					</div>
+					<div class="box-content">
+						<div id="social-share-comparison" style="height:300px"></div>
+					</div>
+				</div>
+				<!-- <div class="box span4" onTablet="span6" onDesktop="span4">
 					<div class="box-header">
 						<h2><i class="icon-fire"></i><span class="break"></span>Server Load</h2>
 						<div class="box-icon">
@@ -239,7 +207,7 @@
 					<div class="box-content">
 						 <div id="serverload" style="height:235px;"></div>
 					</div>
-				</div>
+				</div> -->
 
 
 				<div class="box span4" onTablet="span6" onDesktop="span4">
@@ -309,19 +277,78 @@
 						</ul> <!-- .dashboard-list -->
 					</div>
 				</div><!--/span-->
-				
-
-				
-			
 			</div>
+			<hr>
 			
-		
-			
+			<div class="row-fluid">
+				
+				<div class="box span8" onTablet="span12" onDesktop="span8">
+					<div class="box-header">
+						<h2><i class="icon-signal"></i><span class="break"></span>Site Statistics</h2>
+						<div class="box-icon">
+							<a href="#" class="btn-setting"><i class="icon-wrench"></i></a>
+							<a href="#" class="btn-minimize"><i class="icon-chevron-up"></i></a>
+							<a href="#" class="btn-close"><i class="icon-remove"></i></a>
+						</div>
+					</div>
+					<div class="box-content">
+						<div id="stats-chart"  class="center" style="height:300px" ></div>
+					</div>
+				</div>
+				
+				<div class="box span4 noMargin" onTablet="span12" onDesktop="span4">
+					<div class="box-header">
+						<h2><i class="icon-list"></i><span class="break"></span>Weekly Stat</h2>
+						<div class="box-icon">
+							<a href="#" class="btn-minimize"><i class="icon-chevron-up"></i></a>
+							<a href="#" class="btn-close"><i class="icon-remove"></i></a>
+						</div>
+					</div>
+					<div class="box-content">
+						<div class="sparkLineStats">
 
+	                        <ul class="unstyled">
+	                            <li>
+									<span class="sparkLineStats1 "></span> 
+									Visits: 
+									<span class="number">356</span>
+								</li>
+	                            <li>
+	                                <span class="sparkLineStats2"></span>
+	                                Unique Visitors: 
+	                                <span class="number">252</span>
+	                            </li>
+	                            <li><span class="sparkLineStats3"></span> 
+	                                Pageviews: 
+	                                <span class="number">781</span>
+	                            </li>
+	                            <li><span class="sparkLineStats4"></span>
+	                                Pages / Visit: 
+	                                <span class="number">2,19</span>
+	                            </li>
+	                            <li><span class="sparkLineStats5"></span>
+	                                Avg. Visit Duration: 
+	                                <span class="number">00:02:58</span>
+	                            </li>
+	                            <li><span class="sparkLineStats6"></span>
+	                                Bounce Rate: <span class="number">59,83%</span>
+	                            </li>
+	                            <li><span class="sparkLineStats7"></span>
+	                                % New Visits: 
+	                                <span class="number">70,79%</span>
+	                            </li>
+	                            <li><span class="sparkLineStats8"></span>
+	                                % Returning Visitor: 
+	                                <span class="number">29,21%</span>
+	                            </li>
 
-			
-       
-					<hr>
+	                        </ul>
+	
+	                    </div><!-- End .sparkStats -->
+					</div>
+				</div><!--/span-->
+			</div>
+			<hr>
 			<!-- end: Content -->
 			</div><!--/#content.span10-->
 				</div><!--/fluid-row-->
@@ -397,7 +424,35 @@
 
 
 		<script type="text/javascript">
-
-
+			var data = [
+				{ label: "Facebook",  data: <%= @total_facebook_clicks %>},
+				{ label: "Twitter",  data: <%= @total_twitter_clicks %>},
+				{ label: "Pinterest", data: <%= @total_pinterest_clicks %>}
+			];
+			if($("#social-share-comparison").length) {
+				$.plot($("#social-share-comparison"), data,
+				{
+					series: {
+						pie: {
+							show: true
+						}
+					},
+					grid: {
+						hoverable: true,
+						clickable: true
+					},
+					legend: {
+						show: false
+					},
+					colors: ["#3B5998", "#1DCAFF", "#CB2027"]
+				});
+				function pieHover(event, pos, obj) {
+					if (!obj)
+						return;
+					percent = parseFloat(obj.series.percent).toFixed(2);
+					$("#hover").html('<span style="font-weight: bold; color: '+obj.series.color+'">'+obj.series.label+' ('+percent+'%)</span>');
+				}
+				$("#social-share-comparison").bind("plothover", pieHover);
+			}
 		</script>
 		<!-- end: JavaScript-->

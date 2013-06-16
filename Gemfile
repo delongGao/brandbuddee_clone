@@ -52,7 +52,7 @@ group :assets do
   gem "twitter-bootstrap-rails", "~> 2.2.6"
 end
 
-gem 'jquery-rails'
+gem "jquery-rails", "~> 2.1.4"
 
 # Use unicorn as the web server
 # gem 'unicorn'

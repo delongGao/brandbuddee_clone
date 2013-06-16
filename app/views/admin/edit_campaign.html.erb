@@ -247,6 +247,327 @@
 							  </div>
 							</div>
 
+							<hr />
+							<h2>Tasks:</h2>
+							<br />
+							<label for="chkBlogPost" style="font-size:16px;font-weight:bold;">Use Write A Blog Post <input type="checkbox" name="task_blog_post[0]" id="chkBlogPost" value="UPDATE" <% unless @campaign.task_blog_post["use_it"] != true %>checked="checked"<% end %> /></label>
+							<div class="control-group hidden-phone">
+								<label class="control-label" for="task_blog_post_1" style="cursor:text;">Task Title</label>
+								<div class="controls">
+									<%= text_field "task_blog_post", "1", :class => "span3", :placeholder => "Up To 30 Characters", :value => @campaign.task_blog_post["title"], :maxlength => 30 %>
+								</div>
+							</div>
+							<div class="control-group hidden-phone">
+								<label class="control-label" for="task_blog_post_2" style="cursor:text;">Task Description</label>
+								<div class="controls">
+									<%= text_area "task_blog_post", "2", :rows => '4', :placeholder => "Up To 140 Characters", :value => @campaign.task_blog_post["description"], :maxlength => 140 %>
+								</div>
+							</div>
+							<div class="control-group hidden-phone">
+								<label class="control-label" for="task_blog_post_3" style="cursor:text;">Task Points</label>
+								<div class="controls">
+									<%= text_field "task_blog_post", "3", :class => "span3", :placeholder => "Must Be A Number", :value => @campaign.task_blog_post["points"] %>
+								</div>
+							</div>
+
+							<label for="chkFacebook" style="font-size:16px;font-weight:bold;">Use Like On Facebook <input type="checkbox" name="task_facebook[0]" id="chkFacebook" value="UPDATE" <% unless @campaign.task_facebook["use_it"] != true %>checked="checked"<% end %> /></label>
+							<div class="control-group hidden-phone">
+								<label class="control-label" for="task_facebook_1" style="cursor:text;">Task Title</label>
+								<div class="controls">
+									<%= text_field "task_facebook", "1", :class => "span3", :placeholder => "Up To 30 Characters", :value => @campaign.task_facebook["title"], :maxlength => 30 %>
+								</div>
+							</div>
+							<div class="control-group hidden-phone">
+								<label class="control-label" for="task_facebook_2" style="cursor:text;">Task Description</label>
+								<div class="controls">
+									<%= text_area "task_facebook", "2", :rows => '4', :placeholder => "Up To 140 Characters", :value => @campaign.task_facebook["description"], :maxlength => 140 %>
+								</div>
+							</div>
+							<div class="control-group hidden-phone">
+								<label class="control-label" for="task_facebook_3" style="cursor:text;">Task Points</label>
+								<div class="controls">
+									<%= text_field "task_facebook", "3", :class => "span3", :placeholder => "Must Be A Number", :value => @campaign.task_facebook["points"] %>
+								</div>
+							</div>
+							<div class="control-group hidden-phone">
+								<label class="control-label" for="task_facebook_4" style="cursor:text;">Task Link</label>
+								<div class="controls">
+									<%= text_field "task_facebook", "4", :class => "span3", :placeholder => "Must start with http:// or https://", :value => @campaign.task_facebook["link"] %>
+								</div>
+							</div>
+							<div class="control-group hidden-phone" style="margin-left:-2%;">
+								<div class="controls">
+									<label class="checkbox" for="chkFacebookEngageLeft" style="cursor:pointer;">
+										<input type="checkbox" id="chkFacebookEngageLeft" name="engagement_tasks[left]" value="Facebook" <% unless @campaign.engagement_tasks["left"] != "Facebook" %>checked="checked"<% end %>> Add To Engagement Bar Position 1 (Left)
+									</label>
+									<label class="checkbox" for="chkFacebookEngageRight" style="cursor:pointer;">
+										<input type="checkbox" id="chkFacebookEngageRight" name="engagement_tasks[right]" value="Facebook" <% unless @campaign.engagement_tasks["right"] != "Facebook" %>checked="checked"<% end %>> Add To Engagement Bar Position 1 (Right)
+									</label>
+								</div>
+							</div>
+
+							<label for="chkTwitter" style="font-size:16px;font-weight:bold;">Use Follow On Twitter <input type="checkbox" name="task_twitter[0]" id="chkTwitter" value="UPDATE" <% unless @campaign.task_twitter["use_it"] != true %>checked="checked"<% end %> /></label>
+							<div class="control-group hidden-phone">
+								<label class="control-label" for="task_twitter_1" style="cursor:text;">Task Title</label>
+								<div class="controls">
+									<%= text_field "task_twitter", "1", :class => "span3", :placeholder => "Up To 30 Characters", :value => @campaign.task_twitter["title"], :maxlength => 30 %>
+								</div>
+							</div>
+							<div class="control-group hidden-phone">
+								<label class="control-label" for="task_twitter_2" style="cursor:text;">Task Description</label>
+								<div class="controls">
+									<%= text_area "task_twitter", "2", :rows => '4', :placeholder => "Up To 140 Characters", :value => @campaign.task_twitter["description"], :maxlength => 140 %>
+								</div>
+							</div>
+							<div class="control-group hidden-phone">
+								<label class="control-label" for="task_twitter_3" style="cursor:text;">Task Points</label>
+								<div class="controls">
+									<%= text_field "task_twitter", "3", :class => "span3", :placeholder => "Must Be A Number", :value => @campaign.task_twitter["points"] %>
+								</div>
+							</div>
+							<div class="control-group hidden-phone">
+								<label class="control-label" for="task_twitter_4" style="cursor:text;">Task Link</label>
+								<div class="controls">
+									<%= text_field "task_twitter", "4", :class => "span3", :placeholder => "Must start with http:// or https://", :value => @campaign.task_twitter["link"] %>
+								</div>
+							</div>
+							<div class="control-group hidden-phone" style="margin-left:-2%;">
+								<div class="controls">
+									<label class="checkbox" for="chkTwitterEngageLeft" style="cursor:pointer;">
+										<input type="checkbox" id="chkTwitterEngageLeft" name="engagement_tasks[left]" value="Twitter" <% unless @campaign.engagement_tasks["left"] != "Twitter" %>checked="checked"<% end %>> Add To Engagement Bar Position 1 (Left)
+									</label>
+									<label class="checkbox" for="chkTwitterEngageRight" style="cursor:pointer;">
+										<input type="checkbox" id="chkTwitterEngageRight" name="engagement_tasks[right]" value="Twitter" <% unless @campaign.engagement_tasks["right"] != "Twitter" %>checked="checked"<% end %>> Add To Engagement Bar Position 1 (Right)
+									</label>
+								</div>
+							</div>
+
+							<label for="chkCustom1" style="font-size:16px;font-weight:bold;">Use Custom Task #1 <input type="checkbox" name="task_custom_1[0]" id="chkCustom1" value="UPDATE" <% unless @campaign.task_custom_1["use_it"] != true %>checked="checked"<% end %> /></label>
+							<div class="control-group hidden-phone">
+								<label class="control-label" for="task_custom_1_1" style="cursor:text;">Task Title</label>
+								<div class="controls">
+									<%= text_field "task_custom_1", "1", :class => "span3", :placeholder => "Up To 30 Characters", :value => @campaign.task_custom_1["title"], :maxlength => 30 %>
+								</div>
+							</div>
+							<div class="control-group hidden-phone">
+								<label class="control-label" for="task_custom_1_2" style="cursor:text;">Task Description</label>
+								<div class="controls">
+									<%= text_area "task_custom_1", "2", :rows => '4', :placeholder => "Up To 140 Characters", :value => @campaign.task_custom_1["description"], :maxlength => 140 %>
+								</div>
+							</div>
+							<div class="control-group hidden-phone">
+								<label class="control-label" for="task_custom_1_3" style="cursor:text;">Task Points</label>
+								<div class="controls">
+									<%= text_field "task_custom_1", "3", :class => "span3", :placeholder => "Must Be A Number", :value => @campaign.task_custom_1["points"] %>
+								</div>
+							</div>
+							<div class="control-group hidden-phone">
+								<label class="control-label" for="task_custom_1_4" style="cursor:text;">Task Link</label>
+								<div class="controls">
+									<%= text_field "task_custom_1", "4", :class => "span3", :placeholder => "Must start with http:// or https://", :value => @campaign.task_custom_1["link"] %>
+								</div>
+							</div>
+							<div class="control-group hidden-phone" style="margin-left:-2%;">
+								<div class="controls">
+									<label class="checkbox" for="chkCustom1EngageLeft" style="cursor:pointer;">
+										<input type="checkbox" id="chkCustom1EngageLeft" name="engagement_tasks[left]" value="Custom1" <% unless @campaign.engagement_tasks["left"] != "Custom1" %>checked="checked"<% end %>> Add To Engagement Bar Position 1 (Left)
+									</label>
+									<label class="checkbox" for="chkCustom1EngageRight" style="cursor:pointer;">
+										<input type="checkbox" id="chkCustom1EngageRight" name="engagement_tasks[right]" value="Custom1" <% unless @campaign.engagement_tasks["right"] != "Custom1" %>checked="checked"<% end %>> Add To Engagement Bar Position 1 (Right)
+									</label>
+								</div>
+							</div>
+
+							<label for="chkCustom2" style="font-size:16px;font-weight:bold;">Use Custom Task #2 <input type="checkbox" name="task_custom_2[0]" id="chkCustom2" value="UPDATE" <% unless @campaign.task_custom_2["use_it"] != true %>checked="checked"<% end %> /></label>
+							<div class="control-group hidden-phone">
+								<label class="control-label" for="task_custom_2_1" style="cursor:text;">Task Title</label>
+								<div class="controls">
+									<%= text_field "task_custom_2", "1", :class => "span3", :placeholder => "Up To 30 Characters", :value => @campaign.task_custom_2["title"], :maxlength => 30 %>
+								</div>
+							</div>
+							<div class="control-group hidden-phone">
+								<label class="control-label" for="task_custom_2_2" style="cursor:text;">Task Description</label>
+								<div class="controls">
+									<%= text_area "task_custom_2", "2", :rows => '4', :placeholder => "Up To 140 Characters", :value => @campaign.task_custom_2["description"], :maxlength => 140 %>
+								</div>
+							</div>
+							<div class="control-group hidden-phone">
+								<label class="control-label" for="task_custom_2_3" style="cursor:text;">Task Points</label>
+								<div class="controls">
+									<%= text_field "task_custom_2", "3", :class => "span3", :placeholder => "Must Be A Number", :value => @campaign.task_custom_2["points"] %>
+								</div>
+							</div>
+							<div class="control-group hidden-phone">
+								<label class="control-label" for="task_custom_2_4" style="cursor:text;">Task Link</label>
+								<div class="controls">
+									<%= text_field "task_custom_2", "4", :class => "span3", :placeholder => "Must start with http:// or https://", :value => @campaign.task_custom_2["link"] %>
+								</div>
+							</div>
+							<div class="control-group hidden-phone" style="margin-left:-2%;">
+								<div class="controls">
+									<label class="checkbox" for="chkCustom2EngageLeft" style="cursor:pointer;">
+										<input type="checkbox" id="chkCustom2EngageLeft" name="engagement_tasks[left]" value="Custom2" <% unless @campaign.engagement_tasks["left"] != "Custom2" %>checked="checked"<% end %>> Add To Engagement Bar Position 1 (Left)
+									</label>
+									<label class="checkbox" for="chkCustom2EngageRight" style="cursor:pointer;">
+										<input type="checkbox" id="chkCustom2EngageRight" name="engagement_tasks[right]" value="Custom2" <% unless @campaign.engagement_tasks["right"] != "Custom2" %>checked="checked"<% end %>> Add To Engagement Bar Position 1 (Right)
+									</label>
+								</div>
+							</div>
+
+							<label for="chkCustom3" style="font-size:16px;font-weight:bold;">Use Custom Task #3 <input type="checkbox" name="task_custom_3[0]" id="chkCustom3" value="UPDATE" <% unless @campaign.task_custom_3["use_it"] != true %>checked="checked"<% end %> /></label>
+							<div class="control-group hidden-phone">
+								<label class="control-label" for="task_custom_3_1" style="cursor:text;">Task Title</label>
+								<div class="controls">
+									<%= text_field "task_custom_3", "1", :class => "span3", :placeholder => "Up To 30 Characters", :value => @campaign.task_custom_3["title"], :maxlength => 30 %>
+								</div>
+							</div>
+							<div class="control-group hidden-phone">
+								<label class="control-label" for="task_custom_3_2" style="cursor:text;">Task Description</label>
+								<div class="controls">
+									<%= text_area "task_custom_3", "2", :rows => '4', :placeholder => "Up To 140 Characters", :value => @campaign.task_custom_3["description"], :maxlength => 140 %>
+								</div>
+							</div>
+							<div class="control-group hidden-phone">
+								<label class="control-label" for="task_custom_3_3" style="cursor:text;">Task Points</label>
+								<div class="controls">
+									<%= text_field "task_custom_3", "3", :class => "span3", :placeholder => "Must Be A Number", :value => @campaign.task_custom_3["points"] %>
+								</div>
+							</div>
+							<div class="control-group hidden-phone">
+								<label class="control-label" for="task_custom_3_4" style="cursor:text;">Task Link</label>
+								<div class="controls">
+									<%= text_field "task_custom_3", "4", :class => "span3", :placeholder => "Must start with http:// or https://", :value => @campaign.task_custom_3["link"] %>
+								</div>
+							</div>
+							<div class="control-group hidden-phone" style="margin-left:-2%;">
+								<div class="controls">
+									<label class="checkbox" for="chkCustom3EngageLeft" style="cursor:pointer;">
+										<input type="checkbox" id="chkCustom3EngageLeft" name="engagement_tasks[left]" value="Custom3" <% unless @campaign.engagement_tasks["left"] != "Custom3" %>checked="checked"<% end %>> Add To Engagement Bar Position 1 (Left)
+									</label>
+									<label class="checkbox" for="chkCustom3EngageRight" style="cursor:pointer;">
+										<input type="checkbox" id="chkCustom3EngageRight" name="engagement_tasks[right]" value="Custom3" <% unless @campaign.engagement_tasks["right"] != "Custom3" %>checked="checked"<% end %>> Add To Engagement Bar Position 1 (Right)
+									</label>
+								</div>
+							</div>
+
+							<label for="chkCustom4" style="font-size:16px;font-weight:bold;">Use Custom Task #4 <input type="checkbox" name="task_custom_4[0]" id="chkCustom4" value="UPDATE" <% unless @campaign.task_custom_4["use_it"] != true %>checked="checked"<% end %> /></label>
+							<div class="control-group hidden-phone">
+								<label class="control-label" for="task_custom_4_1" style="cursor:text;">Task Title</label>
+								<div class="controls">
+									<%= text_field "task_custom_4", "1", :class => "span3", :placeholder => "Up To 30 Characters", :value => @campaign.task_custom_4["title"], :maxlength => 30 %>
+								</div>
+							</div>
+							<div class="control-group hidden-phone">
+								<label class="control-label" for="task_custom_4_2" style="cursor:text;">Task Description</label>
+								<div class="controls">
+									<%= text_area "task_custom_4", "2", :rows => '4', :placeholder => "Up To 140 Characters", :value => @campaign.task_custom_4["description"], :maxlength => 140 %>
+								</div>
+							</div>
+							<div class="control-group hidden-phone">
+								<label class="control-label" for="task_custom_4_3" style="cursor:text;">Task Points</label>
+								<div class="controls">
+									<%= text_field "task_custom_4", "3", :class => "span3", :placeholder => "Must Be A Number", :value => @campaign.task_custom_4["points"] %>
+								</div>
+							</div>
+							<div class="control-group hidden-phone">
+								<label class="control-label" for="task_custom_4_4" style="cursor:text;">Task Link</label>
+								<div class="controls">
+									<%= text_field "task_custom_4", "4", :class => "span3", :placeholder => "Must start with http:// or https://", :value => @campaign.task_custom_4["link"] %>
+								</div>
+							</div>
+							<div class="control-group hidden-phone" style="margin-left:-2%;">
+								<div class="controls">
+									<label class="checkbox" for="chkCustom4EngageLeft" style="cursor:pointer;">
+										<input type="checkbox" id="chkCustom4EngageLeft" name="engagement_tasks[left]" value="Custom4" <% unless @campaign.engagement_tasks["left"] != "Custom4" %>checked="checked"<% end %>> Add To Engagement Bar Position 1 (Left)
+									</label>
+									<label class="checkbox" for="chkCustom4EngageRight" style="cursor:pointer;">
+										<input type="checkbox" id="chkCustom4EngageRight" name="engagement_tasks[right]" value="Custom4" <% unless @campaign.engagement_tasks["right"] != "Custom4" %>checked="checked"<% end %>> Add To Engagement Bar Position 1 (Right)
+									</label>
+								</div>
+							</div>
+
+							<label for="chkCustom5" style="font-size:16px;font-weight:bold;">Use Custom Task #5 <input type="checkbox" name="task_custom_5[0]" id="chkCustom5" value="UPDATE" <% unless @campaign.task_custom_5["use_it"] != true %>checked="checked"<% end %> /></label>
+							<div class="control-group hidden-phone">
+								<label class="control-label" for="task_custom_5_1" style="cursor:text;">Task Title</label>
+								<div class="controls">
+									<%= text_field "task_custom_5", "1", :class => "span3", :placeholder => "Up To 30 Characters", :value => @campaign.task_custom_5["title"], :maxlength => 30 %>
+								</div>
+							</div>
+							<div class="control-group hidden-phone">
+								<label class="control-label" for="task_custom_5_2" style="cursor:text;">Task Description</label>
+								<div class="controls">
+									<%= text_area "task_custom_5", "2", :rows => '4', :placeholder => "Up To 140 Characters", :value => @campaign.task_custom_5["description"], :maxlength => 140 %>
+								</div>
+							</div>
+							<div class="control-group hidden-phone">
+								<label class="control-label" for="task_custom_5_3" style="cursor:text;">Task Points</label>
+								<div class="controls">
+									<%= text_field "task_custom_5", "3", :class => "span3", :placeholder => "Must Be A Number", :value => @campaign.task_custom_5["points"] %>
+								</div>
+							</div>
+							<div class="control-group hidden-phone">
+								<label class="control-label" for="task_custom_5_4" style="cursor:text;">Task Link</label>
+								<div class="controls">
+									<%= text_field "task_custom_5", "4", :class => "span3", :placeholder => "Must start with http:// or https://", :value => @campaign.task_custom_5["link"] %>
+								</div>
+							</div>
+							<div class="control-group hidden-phone" style="margin-left:-2%;">
+								<div class="controls">
+									<label class="checkbox" for="chkCustom5EngageLeft" style="cursor:pointer;">
+										<input type="checkbox" id="chkCustom5EngageLeft" name="engagement_tasks[left]" value="Custom5" <% unless @campaign.engagement_tasks["left"] != "Custom5" %>checked="checked"<% end %>> Add To Engagement Bar Position 1 (Left)
+									</label>
+									<label class="checkbox" for="chkCustom5EngageRight" style="cursor:pointer;">
+										<input type="checkbox" id="chkCustom5EngageRight" name="engagement_tasks[right]" value="Custom5" <% unless @campaign.engagement_tasks["right"] != "Custom5" %>checked="checked"<% end %>> Add To Engagement Bar Position 1 (Right)
+									</label>
+								</div>
+							</div>
+
+							<div class="control-group">
+								<label class="control-label" for="gift1FileInput">Current Gift Image 1</label>
+								<div class="controls">
+									<%= image_tag(@campaign.gift_image_url(:thumb).to_s, :style => "border: 1px solid grey;") %>
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label" for="gift1FileInput"><%= f.label :gift_image, 'Change Gift Image 1' %></label>
+								<div class="controls">
+									<%= f.file_field :gift_image, :id=>'gift1FileInput' %>
+								</div>
+							</div>
+
+							<div class="control-group">
+								<label class="control-label" for="gift2FileInput">Current Gift Image 2</label>
+								<div class="controls">
+									<%= image_tag(@campaign.gift_image_two_url(:thumb).to_s, :style => "border: 1px solid grey;") %>
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label" for="gift2FileInput"><%= f.label :gift_image_two, 'Change Gift Image 2' %></label>
+								<div class="controls">
+									<%= f.file_field :gift_image_two, :id=>'gift2FileInput' %>
+								</div>
+							</div>
+
+							<div class="control-group">
+								<label class="control-label" for="gift3FileInput">Current Gift Image 3</label>
+								<div class="controls">
+									<%= image_tag(@campaign.gift_image_three_url(:thumb).to_s, :style => "border: 1px solid grey;") %>
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label" for="gift3FileInput"><%= f.label :gift_image_three, 'Change Gift Image 3' %></label>
+								<div class="controls">
+									<%= f.file_field :gift_image_three, :id=>'gift3FileInput' %>
+								</div>
+							</div>
+
+							<div class="control-group hidden-phone">
+								<%= f.label :easy_prize, "Gift Text (Up To 120 Characters)", :class=>'control-label' %>
+								<div class="controls">
+									<%= f.text_field :easy_prize, :class=>'span6', :placeholder => "Up To 120 Characters", :maxlength => 120 %>
+								</div>
+							</div>
+
 
 						    <%#= select_tag "brands", options_from_collection_for_select(@brand_all, "id", "name"), :prompt => "- Select Brand -" %>
 						    <%#= select_tag "categories", options_from_collection_for_select(@category_all, "id", "name"), :prompt => "- Select Category -" %>

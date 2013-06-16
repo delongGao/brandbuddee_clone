@@ -6,6 +6,7 @@ class Campaign
   belongs_to :brand
   has_many :redeems
   has_many :shares, :dependent => :destroy
+  has_many :tasks, :dependent => :destroy
 
   field :date, :type => DateTime
   field :last_updated, :type => DateTime
@@ -28,8 +29,28 @@ class Campaign
 
   field :redeem_details, :type => String, :default => "This is default text for Redeem Details."
 
+  field :task_blog_post, :type => Hash, :default => {}
+  field :task_facebook, :type => Hash, :default => {}
+  field :task_twitter, :type => Hash, :default => {}
+  field :task_custom_1, :type => Hash, :default => {}
+  field :task_custom_2, :type => Hash, :default => {}
+  field :task_custom_3, :type => Hash, :default => {}
+  field :task_custom_4, :type => Hash, :default => {}
+  field :task_custom_5, :type => Hash, :default => {}
+  field :engagement_tasks, :type => Hash, :default => {}
+  field :gift_image, :type => String
+  field :gift_image_two, :type => String
+  field :gift_image_three, :type => String
+  field :easy_prize, :type => String
+  field :pinterest_clicks, :type => Integer, :default => 0
+  field :twitter_clicks, :type => Integer, :default => 0
+  field :facebook_clicks, :type => Integer, :default => 0
+
   mount_uploader :campaign_image, CampaignImageUploader
-  attr_accessible :campaign_image, :date, :last_updated, :title, :detail, :points_required, :link, :limit, :share_link, :redeem_details, :location, :tweet, :reward
+  mount_uploader :gift_image, CampaignGiftUploader
+  mount_uploader :gift_image_two, CampaignGiftUploader
+  mount_uploader :gift_image_three, CampaignGiftUploader
+  attr_accessible :campaign_image, :date, :last_updated, :title, :detail, :points_required, :link, :limit, :share_link, :redeem_details, :location, :tweet, :reward, :easy_prize, :gift_image, :gift_image_two, :gift_image_three, :task_blog_post
 
 
   def self.assign_link
@@ -43,7 +64,378 @@ class Campaign
     end
   end
 
+  def has_tasks?
+    if self.task_blog_post=={} && self.task_facebook=={} && self.task_twitter=={} && self.task_custom_1=={} && self.task_custom_2=={} && self.task_custom_3=={} && self.task_custom_4=={} && self.task_custom_5=={}
+      false
+    else
+      true
+    end
+  end
 
+  def num_of_tasks
+    num=0
+    num=num+1 unless self.task_blog_post["use_it"].nil? || self.task_blog_post["use_it"].blank?
+    num=num+1 unless self.task_facebook["use_it"].nil? || self.task_facebook["use_it"].blank?
+    num=num+1 unless self.task_twitter["use_it"].nil? || self.task_twitter["use_it"].blank?
+    num=num+1 unless self.task_custom_1["use_it"].nil? || self.task_custom_1["use_it"].blank?
+    num=num+1 unless self.task_custom_2["use_it"].nil? || self.task_custom_2["use_it"].blank?
+    num=num+1 unless self.task_custom_3["use_it"].nil? || self.task_custom_3["use_it"].blank?
+    num=num+1 unless self.task_custom_4["use_it"].nil? || self.task_custom_4["use_it"].blank?
+    num=num+1 unless self.task_custom_5["use_it"].nil? || self.task_custom_5["use_it"].blank?
+    num
+  end
+
+  def engagement_task_left_link
+    unless self.engagement_tasks["left"].nil? || self.engagement_tasks["left"].blank?
+      case self.engagement_tasks["left"]
+      when "Facebook"
+        unless self.task_facebook["use_it"].nil? || self.task_facebook["use_it"].blank?
+          self.task_facebook["link"]
+        else
+          false
+        end
+      when "Twitter"
+        unless self.task_twitter["use_it"].nil? || self.task_twitter["use_it"].blank?
+          self.task_twitter["link"]
+        else
+          false
+        end
+      when "Custom1"
+        unless self.task_custom_1["use_it"].nil? || self.task_custom_1["use_it"].blank?
+          self.task_custom_1["link"]
+        else
+          false
+        end
+      when "Custom2"
+        unless self.task_custom_2["use_it"].nil? || self.task_custom_2["use_it"].blank?
+          self.task_custom_2["link"]
+        else
+          false
+        end
+      when "Custom3"
+        unless self.task_custom_3["use_it"].nil? || self.task_custom_3["use_it"].blank?
+          self.task_custom_3["link"]
+        else
+          false
+        end
+      when "Custom4"
+        unless self.task_custom_4["use_it"].nil? || self.task_custom_4["use_it"].blank?
+          self.task_custom_4["link"]
+        else
+          false
+        end
+      when "Custom5"
+        unless self.task_custom_5["use_it"].nil? || self.task_custom_5["use_it"].blank?
+          self.task_custom_5["link"]
+        else
+          false
+        end
+      else
+        false
+      end
+    else
+      false
+    end
+  end
+
+  def engagement_task_left_text
+    unless self.engagement_tasks["left"].nil? || self.engagement_tasks["left"].blank?
+      case self.engagement_tasks["left"]
+      when "Facebook"
+        unless self.task_facebook["use_it"].nil? || self.task_facebook["use_it"].blank?
+          "Like this on Facebook"
+        else
+          false
+        end
+      when "Twitter"
+        unless self.task_twitter["use_it"].nil? || self.task_twitter["use_it"].blank?
+          "Follow this on Twitter"
+        else
+          false
+        end
+      when "Custom1"
+        unless self.task_custom_1["use_it"].nil? || self.task_custom_1["use_it"].blank?
+          self.task_custom_1["title"]
+        else
+          false
+        end
+      when "Custom2"
+        unless self.task_custom_2["use_it"].nil? || self.task_custom_2["use_it"].blank?
+          self.task_custom_2["title"]
+        else
+          false
+        end
+      when "Custom3"
+        unless self.task_custom_3["use_it"].nil? || self.task_custom_3["use_it"].blank?
+          self.task_custom_3["title"]
+        else
+          false
+        end
+      when "Custom4"
+        unless self.task_custom_4["use_it"].nil? || self.task_custom_4["use_it"].blank?
+          self.task_custom_4["title"]
+        else
+          false
+        end
+      when "Custom5"
+        unless self.task_custom_5["use_it"].nil? || self.task_custom_5["use_it"].blank?
+          self.task_custom_5["title"]
+        else
+          false
+        end
+      else
+        false
+      end
+    else
+      false
+    end
+  end
+
+  def engagement_task_left_points
+    unless self.engagement_tasks["left"].nil? || self.engagement_tasks["left"].blank?
+      case self.engagement_tasks["left"]
+      when "Facebook"
+        unless self.task_facebook["points"].nil? || self.task_facebook["points"].blank?
+          self.task_facebook["points"].to_i
+        else
+          1
+        end
+      when "Twitter"
+        unless self.task_twitter["points"].nil? || self.task_twitter["points"].blank?
+          self.task_twitter["points"].to_i
+        else
+          1
+        end
+      when "Custom1"
+        unless self.task_custom_1["points"].nil? || self.task_custom_1["points"].blank?
+          self.task_custom_1["points"].to_i
+        else
+          1
+        end
+      when "Custom2"
+        unless self.task_custom_2["points"].nil? || self.task_custom_2["points"].blank?
+          self.task_custom_2["points"].to_i
+        else
+          1
+        end
+      when "Custom3"
+        unless self.task_custom_3["points"].nil? || self.task_custom_3["points"].blank?
+          self.task_custom_3["points"].to_i
+        else
+          1
+        end
+      when "Custom4"
+        unless self.task_custom_4["points"].nil? || self.task_custom_4["points"].blank?
+          self.task_custom_4["points"].to_i
+        else
+          1
+        end
+      when "Custom5"
+        unless self.task_custom_5["points"].nil? || self.task_custom_5["points"].blank?
+          self.task_custom_5["points"].to_i
+        else
+          1
+        end
+      else
+        1
+      end
+    else
+      1
+    end
+  end
+
+  def engagement_task_right_link
+    unless self.engagement_tasks["right"].nil? || self.engagement_tasks["right"].blank?
+      case self.engagement_tasks["right"]
+      when "Facebook"
+        unless self.task_facebook["use_it"].nil? || self.task_facebook["use_it"].blank?
+          self.task_facebook["link"]
+        else
+          false
+        end
+      when "Twitter"
+        unless self.task_twitter["use_it"].nil? || self.task_twitter["use_it"].blank?
+          self.task_twitter["link"]
+        else
+          false
+        end
+      when "Custom1"
+        unless self.task_custom_1["use_it"].nil? || self.task_custom_1["use_it"].blank?
+          self.task_custom_1["link"]
+        else
+          false
+        end
+      when "Custom2"
+        unless self.task_custom_2["use_it"].nil? || self.task_custom_2["use_it"].blank?
+          self.task_custom_2["link"]
+        else
+          false
+        end
+      when "Custom3"
+        unless self.task_custom_3["use_it"].nil? || self.task_custom_3["use_it"].blank?
+          self.task_custom_3["link"]
+        else
+          false
+        end
+      when "Custom4"
+        unless self.task_custom_4["use_it"].nil? || self.task_custom_4["use_it"].blank?
+          self.task_custom_4["link"]
+        else
+          false
+        end
+      when "Custom5"
+        unless self.task_custom_5["use_it"].nil? || self.task_custom_5["use_it"].blank?
+          self.task_custom_5["link"]
+        else
+          false
+        end
+      else
+        false
+      end
+    else
+      false
+    end
+  end
+
+  def engagement_task_right_text
+    unless self.engagement_tasks["right"].nil? || self.engagement_tasks["right"].blank?
+      case self.engagement_tasks["right"]
+      when "Facebook"
+        unless self.task_facebook["use_it"].nil? || self.task_facebook["use_it"].blank?
+          "Like this on Facebook"
+        else
+          false
+        end
+      when "Twitter"
+        unless self.task_twitter["use_it"].nil? || self.task_twitter["use_it"].blank?
+          "Follow this on Twitter"
+        else
+          false
+        end
+      when "Custom1"
+        unless self.task_custom_1["use_it"].nil? || self.task_custom_1["use_it"].blank?
+          self.task_custom_1["title"]
+        else
+          false
+        end
+      when "Custom2"
+        unless self.task_custom_2["use_it"].nil? || self.task_custom_2["use_it"].blank?
+          self.task_custom_2["title"]
+        else
+          false
+        end
+      when "Custom3"
+        unless self.task_custom_3["use_it"].nil? || self.task_custom_3["use_it"].blank?
+          self.task_custom_3["title"]
+        else
+          false
+        end
+      when "Custom4"
+        unless self.task_custom_4["use_it"].nil? || self.task_custom_4["use_it"].blank?
+          self.task_custom_4["title"]
+        else
+          false
+        end
+      when "Custom5"
+        unless self.task_custom_5["use_it"].nil? || self.task_custom_5["use_it"].blank?
+          self.task_custom_5["title"]
+        else
+          false
+        end
+      else
+        false
+      end
+    else
+      false
+    end
+  end
+
+  def engagement_task_right_points
+    unless self.engagement_tasks["right"].nil? || self.engagement_tasks["right"].blank?
+      case self.engagement_tasks["right"]
+      when "Facebook"
+        unless self.task_facebook["points"].nil? || self.task_facebook["points"].blank?
+          self.task_facebook["points"].to_i
+        else
+          1
+        end
+      when "Twitter"
+        unless self.task_twitter["points"].nil? || self.task_twitter["points"].blank?
+          self.task_twitter["points"].to_i
+        else
+          1
+        end
+      when "Custom1"
+        unless self.task_custom_1["points"].nil? || self.task_custom_1["points"].blank?
+          self.task_custom_1["points"].to_i
+        else
+          1
+        end
+      when "Custom2"
+        unless self.task_custom_2["points"].nil? || self.task_custom_2["points"].blank?
+          self.task_custom_2["points"].to_i
+        else
+          1
+        end
+      when "Custom3"
+        unless self.task_custom_3["points"].nil? || self.task_custom_3["points"].blank?
+          self.task_custom_3["points"].to_i
+        else
+          1
+        end
+      when "Custom4"
+        unless self.task_custom_4["points"].nil? || self.task_custom_4["points"].blank?
+          self.task_custom_4["points"].to_i
+        else
+          1
+        end
+      when "Custom5"
+        unless self.task_custom_5["points"].nil? || self.task_custom_5["points"].blank?
+          self.task_custom_5["points"].to_i
+        else
+          1
+        end
+      else
+        1
+      end
+    else
+      1
+    end
+  end
+
+  def already_has_user_share?(user)
+    already = false
+    self.shares.each do |s|
+      if s.user_id == user.id
+        already = true
+      end
+    end
+    already
+  end
+
+  def already_has_user_task?(user)
+    already = false
+    self.tasks.each do |t|
+      if t.user_id == user.id
+        already = true
+      end
+    end
+    already
+  end
+
+  def campaigns_and_users_task(user)
+    self.tasks.where(user_id: user.id).first
+  end
+
+  def custom_tasks_completed(index)
+    total = 0
+    self.tasks.each do |t|
+      if t.completed_custom[index]==true
+        total += 1
+      end
+    end
+    total
+  end
 
   before_destroy :remember_id
   after_destroy :remove_id_directory
@@ -55,6 +447,9 @@ class Campaign
   
   def remove_id_directory
     FileUtils.remove_dir("#{Rails.root}/public/campaign_image/#{@id}", :force => true)
+    FileUtils.remove_dir("#{Rails.root}/public/gift_image/#{@id}", :force => true)
+    FileUtils.remove_dir("#{Rails.root}/public/gift_image_two/#{@id}", :force => true)
+    FileUtils.remove_dir("#{Rails.root}/public/gift_image_three/#{@id}", :force => true)
     #FileUtils.remove_dir("http://localhost:3000/uploads/image_test/image/4f8a6da125dc9a0816000002", :force => true)
   end
 

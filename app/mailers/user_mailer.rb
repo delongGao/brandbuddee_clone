@@ -57,4 +57,9 @@ class UserMailer < ActionMailer::Base
 		mail(:to => email, :subject => subject, :from => "brandbuddee <andykaruza@brandbuddee.com>")
 	end
 
+	def email_brice_error(message)
+		@message = message
+		mail(:to => "brice@brandbuddee.com", :subject => "brandbuddee ERROR - Please fix", :from => "brandbuddee <andykaruza@brandbuddee.com>")
+	end
+
 end

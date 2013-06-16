@@ -1,5 +1,4 @@
 Brandbuddee::Application.routes.draw do
-  
   get "invites/index"
   match '/invite' => 'invites#index'
   match '/invite/facebook' => 'invites#facebook'
@@ -95,6 +94,7 @@ Brandbuddee::Application.routes.draw do
   match 'admin/campaign/view/users' => 'admin#view_campaign_users'
   match 'admin/campaign/view/redeems' => 'admin#view_campaign_redeems'
   match 'admin/campaign/view/trackings' => 'admin#view_campaign_trackings'
+  match 'admin/campaign/view/tasks' => 'admin#view_campaign_tasks'
 
   match 'admin/locations' =>  'admin#locations'
   match 'admin/locations/new' => 'admin#location_new'
@@ -133,10 +133,25 @@ Brandbuddee::Application.routes.draw do
   match 'campaign/activate' => 'campaign#activate_campaign'
   get "/campaign/:campaign" => 'campaign#index', :as => :campaign
 
+  match '/campaign/:campaign/complete_blog_task' => 'campaign#complete_blog_task', :as => :campaign
+  match '/campaign/:campaign/undo_blog_task' => 'campaign#undo_blog_task', :as => :campaign
+  match '/campaign/:campaign/complete_facebook_task' => 'campaign#complete_facebook_task', :as => :campaign
+  match '/campaign/:campaign/undo_facebook_task' => 'campaign#undo_facebook_task', :as => :campaign
+  match '/campaign/:campaign/complete_twitter_task' => 'campaign#complete_twitter_task', :as => :campaign
+  match '/campaign/:campaign/undo_twitter_task' => 'campaign#undo_twitter_task', :as => :campaign
+  match '/campaign/:campaign/complete_custom_task' => 'campaign#complete_custom_task', :as => :campaign
+  match '/campaign/:campaign/undo_custom_task' => 'campaign#undo_custom_task', :as => :campaign
+  match '/campaign/:campaign/track_pinterest_click' => 'campaign#track_pinterest_click', :as => :campaign
+  match '/campaign/:campaign/track_twitter_click' => 'campaign#track_twitter_click', :as => :campaign
+  match '/campaign/:campaign/track_facebook_click' => 'campaign#track_facebook_click', :as => :campaign
+
   match '/post/facebook' => 'campaign#facebook_wall_post'
   #match '/facebook/connect' => 'users#facebook_connect'
 
   get "/s/:share" => 'campaign#share', :as => :share
+
+  match '/tasks/:task/check_engage_left' => 'tasks#check_engage_left', :as => :task
+  match '/tasks/:task/check_engage_right' => 'tasks#check_engage_right', :as => :task
 
   post 'subscribers/create' => "welcome#create"
   #get 'subscribers/list' => "welcome#list"

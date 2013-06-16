@@ -19,10 +19,12 @@ class CampaignController < ApplicationController
 			unless @campaign.nil?
 				unless current_user.nil?
 					the_share = Share.where(:campaign_id => @campaign.id, :user_id => current_user.id).first
-					unless the_share.nil? #User has not yet shared the campaign
+					unless the_share.nil? #User has not yet joined the campaign
+						the_task = @campaign.tasks.where(user_id: current_user.id).first
 						share_update = Share.find(the_share.id)
+						task_update = Task.find(the_task.id)
 						user_share = share_update.user_id
-						official_pts = share_update.unique_page_views + share_update.trackings.size
+						official_pts = share_update.unique_page_views + share_update.trackings.size + task_update.completed_points + (task_update.task_1_uniques.to_i * @campaign.engagement_task_left_points.to_i) + (task_update.task_2_uniques.to_i * @campaign.engagement_task_right_points.to_i)
 						if official_pts >= share_update.campaign.points_required
 							redeem_check = Redeem.where(:user_id => user_share, :campaign_id => share_update.campaign_id).first
 							if redeem_check.nil?
@@ -45,72 +47,89 @@ class CampaignController < ApplicationController
 
 	def activate_campaign
 		@campaign = Campaign.find(params[:_c])
-		@campaign.user_ids << current_user.id
-		share_link = Share.assign_link
-		@campaign.shares.create!(date: Time.now, link: share_link, user_id: current_user.id, campaign_id: @campaign.id, url: @campaign.share_link )
-		#@campaign.shares.user_id = current_user.id
-		#@campaign.shares.campaign_id = @campaign.id
+		unless @campaign.already_has_user_share?(current_user)
+			@campaign.user_ids << current_user.id
+			share_link = Share.assign_link
+			@campaign.shares.create!(date: Time.now, link: share_link, user_id: current_user.id, campaign_id: @campaign.id, url: @campaign.share_link )
+			#@campaign.shares.user_id = current_user.id
+			#@campaign.shares.campaign_id = @campaign.id
+			unless @campaign.already_has_user_task?(current_user)
+				@campaign.tasks.create!(task_1_url: @campaign.engagement_task_left_link, task_2_url: @campaign.engagement_task_right_link, user_id: current_user.id, campaign_id: @campaign.id)
 
-		url = root_url + "campaign/" + @campaign.link
-		if @campaign.save
-	      flash[:notice] = "Campaign Activated"
-	      redirect_to url
+				url = root_url + "campaign/" + @campaign.link
+				if @campaign.save
+	      			flash[:notice] = "Campaign Activated"
+	      			redirect_to url
+	    		else
+	      			flash[:notice] = "Uh oh"
+	      			redirect_to url
+	    		end
+	    	else
+	    		flash[:notice] = "You have already activated this campaign!"
+	    		redirect_to "#{root_url}campaign/#{@campaign.link}"
+	    	end
 	    else
-	      flash[:notice] = "Uh oh"
-	      redirect_to url
+	    	flash[:notice] = "You have already activated this campaign!"
+	    	redirect_to "#{root_url}campaign/#{@campaign.link}"
 	    end
 	end
 
 	def share
 		share = Share.where(:link => params[:share]).first
 		if share.present?
-			Share.page_view(share.id)
+			@task = Task.where(user_id: share.user_id, campaign_id: share.campaign_id).first
+			unless @task.nil?
+				Share.page_view(share.id)
 
-			#validates tracking based on client cookies
-			c = cookies[share.id]
-			if c == share.id
-			elsif c.nil?
-			  cookies[share.id] = share.id
-			  Share.unique_page_view(share.id)
-			end
+				#validates tracking based on client cookies
+				c = cookies[share.id]
+				if c == share.id
+				elsif c.nil?
+				  cookies[share.id] = share.id
+				  Share.unique_page_view(share.id)
+				end
 
-			#validates tracking via unique IP addresses
-			ip_address = request.remote_ip
-			if Tracking.validates_ip_uniqueness(ip_address, share)
-			  tracking = Tracking.where(:ip_address => ip_address, :share_id => share.id).first
-			  Tracking.view(tracking.id)
-			else
-			  Share.unique_page_view(share.id)
-			  share.trackings.create!(date: Time.now, ip_address: ip_address)
-			end
+				#validates tracking via unique IP addresses
+				@ip_address = request.remote_ip
+				if Tracking.validates_ip_uniqueness(@ip_address, share)
+				  tracking = Tracking.where(:ip_address => @ip_address, :share_id => share.id).first
+				  Tracking.view(tracking.id)
+				else
+				  Share.unique_page_view(share.id)
+				  share.trackings.create!(date: Time.now, ip_address: @ip_address)
+				end
 
 
-			share_update = Share.find(share.id)
-			user_share = share_update.user_id
-			official_pts = share_update.unique_page_views + share_update.trackings.size
-			if official_pts >= share_update.campaign.points_required
-				redeem_check = Redeem.where(:user_id => user_share, :campaign_id => share_update.campaign_id).first
-				if redeem_check.nil?
-					left = share_update.campaign.limit - share_update.campaign.redeems.size
-					unless left <= 0 || share_update.campaign.end_date < Time.now
-						redeem_code = Redeem.assign_redeem_code()
-						@redeem = Redeem.create!(date: Time.now, redeem_code: redeem_code, campaign_id: share_update.campaign_id, user_id: share_update.user_id )
-						@redeem.save
-						UserMailer.redeem_confirmation(user_share, @redeem, share_update.campaign, root_url).deliver
+				share_update = Share.find(share.id)
+				user_share = share_update.user_id
+				official_pts = share_update.unique_page_views + share_update.trackings.size + @task.completed_points + (@task.task_1_uniques.to_i * @task.campaign.engagement_task_left_points.to_i) + (@task.task_2_uniques.to_i * @task.campaign.engagement_task_right_points.to_i)
+				if official_pts >= share_update.campaign.points_required
+					redeem_check = Redeem.where(:user_id => user_share, :campaign_id => share_update.campaign_id).first
+					if redeem_check.nil?
+						left = share_update.campaign.limit - share_update.campaign.redeems.size
+						unless left <= 0 || share_update.campaign.end_date < Time.now
+							redeem_code = Redeem.assign_redeem_code()
+							@redeem = Redeem.create!(date: Time.now, redeem_code: redeem_code, campaign_id: share_update.campaign_id, user_id: share_update.user_id )
+							@redeem.save
+							UserMailer.redeem_confirmation(user_share, @redeem, share_update.campaign, root_url).deliver
+						end
 					end
 				end
+
+				#redirect to share link
+				@share = share
+				@share_link = share.url
+				@share_href = Share.get_host_without_www(share.url)
+
+				if @share_href == 'facebook.com'
+					redirect_to @share_link
+				end
+
+				#redirect_to share_link
+			else # @task.nil?
+				UserMailer.email_brice_error("Controller: campaign_controller.rb | Action: share | Issue: The statement unless @task.nil? went to the else. At this point, the user should already have had a task created, but for some reason, they do not yet have a task for the campaign, even though they already have a Share for the campaign.").deliver
+				redirect_to root_url
 			end
-
-			#redirect to share link
-			@share = share
-			@share_link = share.url
-			@share_href = Share.get_host_without_www(share.url)
-
-			if @share_href == 'facebook.com'
-				redirect_to @share_link
-			end
-
-			#redirect_to share_link
 		end
 		if share.nil?
 		  redirect_to root_url
@@ -190,6 +209,675 @@ class CampaignController < ApplicationController
 	      flash[:notice] = "Uh oh... something went wrong. Please try again."
 	      redirect_to(:action => 'edit_campaign')
 	    end
+	end
+
+	def complete_blog_task
+		if current_user
+			params_campaign = params[:campaign].downcase
+			campaign = Campaign.where(:link => params_campaign).first
+			if campaign.present?
+				@campaign = campaign
+			end
+			if campaign.nil?
+				redirect_to root_url
+			else
+				unless @campaign.task_blog_post["points"].nil?
+					if !params[:txtBlogAddress].nil? && !params[:txtBlogAddress].empty?
+						@task = @campaign.tasks.where(user_id: current_user.id).first
+						unless @task.nil?
+							unless @task.completed_blog == true
+								@task.completed_blog = true
+								@task.completed_points += @campaign.task_blog_post["points"].to_i
+								@task.blog_post_url = params[:txtBlogAddress]
+								if @task.save
+									flash[:notice] = "You have completed the blog post task!"
+									redirect_to "#{root_url}campaign/#{@campaign.link}"
+								else
+									UserMailer.email_brice_error("Controller: campaign_controller.rb | Action: complete_blog_task | Issue: The statement: if @task.save, did not save and instead went to the else portion below.").deliver
+									flash[:error] = "An error occurred while trying to save. We have been notified. Please try again later."
+									redirect_to "#{root_url}campaign/#{@campaign.link}"
+								end
+							else
+								flash[:error] = "You have already completed this task!"
+								redirect_to "#{root_url}campaign/#{@campaign.link}"
+							end
+						else
+							UserMailer.email_brice_error("Controller: campaign_controller.rb | Action: complete_blog_task | Issue: The statement unless @task.nil? went to the else. At this point, the user should already have had a task created, but for some reason, they do not yet have a task for the campaign.").deliver
+							flash[:error] = "An error occurred while trying to find your information. We have been notified. Please try again later."
+							redirect_to "#{root_url}campaign/#{@campaign.link}"
+						end
+					else
+						flash[:error] = "You need to fill out the Blog Post Web Address"
+						redirect_to "#{root_url}campaign/#{@campaign.link}"
+					end
+				else
+					redirect_to root_url
+				end
+			end
+		else
+			redirect_to root_url
+		end
+	end
+
+	def undo_blog_task
+		if current_user
+			params_campaign = params[:campaign].downcase
+			campaign = Campaign.where(:link => params_campaign).first
+			if campaign.present?
+				@campaign = campaign
+			end
+			if campaign.nil?
+				redirect_to root_url
+			else
+				unless @campaign.task_blog_post["points"].nil?
+					@task = @campaign.tasks.where(user_id: current_user.id).first
+					unless @task.nil?
+						if Redeem.where(user_id: @task.user_id, campaign_id: @campaign.id).first.nil?
+							if @task.completed_blog == true
+								@task.completed_blog = false
+								@task.completed_points -= @campaign.task_blog_post["points"].to_i
+								@task.blog_post_url = nil
+								if @task.save
+									flash[:notice] = "You have undone the completion of the blog post task!"
+									redirect_to "#{root_url}campaign/#{@campaign.link}"
+								else
+									UserMailer.email_brice_error("Controller: campaign_controller.rb | Action: undo_blog_task | Issue: The statement: if @task.save, did not save and instead went to the else portion below.").deliver
+									flash[:error] = "An error occurred while trying to save. We have been notified. Please try again later."
+									redirect_to "#{root_url}campaign/#{@campaign.link}"
+								end
+							else
+								flash[:error] = "You have not yet completed this task!"
+								redirect_to "#{root_url}campaign/#{@campaign.link}"
+							end
+						else
+							flash[:error] = "Your have already completed this campaign and earned it's gift. Once a campaign is completed, you can no longer undo tasks."
+							redirect_to "#{root_url}campaign/#{@campaign.link}"
+						end
+					else
+						UserMailer.email_brice_error("Controller: campaign_controller.rb | Action: undo_blog_task | Issue: The statement unless @task.nil? went to the else. At this point, the user should already have had a task created, but for some reason, they do not yet have a task for the campaign.").deliver
+						flash[:error] = "An error occurred while trying to find your information. We have been notified. Please try again later."
+						redirect_to "#{root_url}campaign/#{@campaign.link}"
+					end
+				else
+					redirect_to root_url
+				end
+			end
+		else
+			redirect_to root_url
+		end
+	end
+
+	def complete_facebook_task
+		if current_user
+			params_campaign = params[:campaign].downcase
+			campaign = Campaign.where(:link => params_campaign).first
+			if campaign.present?
+				@campaign = campaign
+			end
+			if campaign.nil?
+				redirect_to root_url
+			else
+				unless @campaign.task_facebook["points"].nil?
+					@task = @campaign.tasks.where(user_id: current_user.id).first
+					unless @task.nil?
+						if current_user.follows.where(brand_name: @campaign.brand.name, provider: "facebook").first.nil? && current_user.follows.where(provider: "facebook", link: @campaign.task_facebook["link"]).first.nil?
+							unless @task.completed_facebook == true
+								@task.completed_facebook = true
+								@task.completed_points += @campaign.task_facebook["points"].to_i
+								current_user.follows.create!(brand_name: @campaign.brand.name, provider: "facebook", link: @campaign.task_facebook["link"])
+								if @task.save
+									flash[:notice] = "You have completed the Facebook like task!"
+									redirect_to "#{root_url}campaign/#{@campaign.link}"
+								else
+									UserMailer.email_brice_error("Controller: campaign_controller.rb | Action: complete_facebook_task | Issue: The statement: if @task.save, did not save and instead went to the else portion below.").deliver
+									flash[:error] = "An error occurred while trying to save. We have been notified. Please try again later."
+									redirect_to "#{root_url}campaign/#{@campaign.link}"
+								end
+							else
+								flash[:error] = "You have already completed this task!"
+								redirect_to "#{root_url}campaign/#{@campaign.link}"
+							end
+						else
+							flash[:error] = "You are already following the brand on Facebook!"
+							redirect_to "#{root_url}campaign/#{@campaign.link}"
+						end
+					else
+						UserMailer.email_brice_error("Controller: campaign_controller.rb | Action: complete_facebook_task | Issue: The statement unless @task.nil? went to the else. At this point, the user should already have had a task created, but for some reason, they do not yet have a task for the campaign.").deliver
+						flash[:error] = "An error occurred while trying to find your information. We have been notified. Please try again later."
+						redirect_to "#{root_url}campaign/#{@campaign.link}"
+					end
+				else
+					redirect_to root_url
+				end
+			end
+		else
+			redirect_to root_url
+		end
+	end
+
+	def undo_facebook_task
+		if current_user
+			params_campaign = params[:campaign].downcase
+			campaign = Campaign.where(:link => params_campaign).first
+			if campaign.present?
+				@campaign = campaign
+			end
+			if campaign.nil?
+				redirect_to root_url
+			else
+				unless @campaign.task_facebook["points"].nil?
+					@task = @campaign.tasks.where(user_id: current_user.id).first
+					unless @task.nil?
+						if Redeem.where(user_id: @task.user_id, campaign_id: @campaign.id).first.nil?
+							unless @task.completed_facebook == false
+								@task.completed_facebook = false
+								@task.completed_points -= @campaign.task_facebook["points"].to_i
+								t = current_user.follows.where(brand_name: @campaign.brand.name, provider: "facebook", link: @campaign.task_facebook["link"]).first
+								unless t.nil?
+									t.destroy
+								end
+								if @task.save
+									flash[:notice] = "You have undone the completion of the Facebook like task!"
+									redirect_to "#{root_url}campaign/#{@campaign.link}"
+								else
+									UserMailer.email_brice_error("Controller: campaign_controller.rb | Action: undo_facebook_task | Issue: The statement: if @task.save, did not save and instead went to the else portion below.").deliver
+									flash[:error] = "An error occurred while trying to save. We have been notified. Please try again later."
+									redirect_to "#{root_url}campaign/#{@campaign.link}"
+								end
+							else
+								flash[:error] = "You have already completed this task!"
+								redirect_to "#{root_url}campaign/#{@campaign.link}"
+							end
+						else
+							flash[:error] = "Your have already completed this campaign and earned it's gift. Once a campaign is completed, you can no longer undo tasks."
+							redirect_to "#{root_url}campaign/#{@campaign.link}"
+						end
+					else
+						UserMailer.email_brice_error("Controller: campaign_controller.rb | Action: undo_facebook_task | Issue: The statement unless @task.nil? went to the else. At this point, the user should already have had a task created, but for some reason, they do not yet have a task for the campaign.").deliver
+						flash[:error] = "An error occurred while trying to find your information. We have been notified. Please try again later."
+						redirect_to "#{root_url}campaign/#{@campaign.link}"
+					end
+				else
+					redirect_to root_url
+				end
+			end
+		else
+			redirect_to root_url
+		end
+	end
+
+	def complete_twitter_task
+		if current_user
+			params_campaign = params[:campaign].downcase
+			campaign = Campaign.where(:link => params_campaign).first
+			if campaign.present?
+				@campaign = campaign
+			end
+			if campaign.nil?
+				redirect_to root_url
+			else
+				unless @campaign.task_twitter["points"].nil?
+					@task = @campaign.tasks.where(user_id: current_user.id).first
+					unless @task.nil?
+						if current_user.follows.where(brand_name: @campaign.brand.name, provider: "twitter").first.nil? && current_user.follows.where(provider: "twitter", link: @campaign.task_twitter["link"]).first.nil?
+							unless @task.completed_twitter == true
+								@task.completed_twitter = true
+								@task.completed_points += @campaign.task_twitter["points"].to_i
+								current_user.follows.create!(brand_name: @campaign.brand.name, provider: "twitter", link: @campaign.task_twitter["link"])
+								if @task.save
+									flash[:notice] = "You have completed the Twitter follow task!"
+									redirect_to "#{root_url}campaign/#{@campaign.link}"
+								else
+									UserMailer.email_brice_error("Controller: campaign_controller.rb | Action: complete_twitter_task | Issue: The statement: if @task.save, did not save and instead went to the else portion below.").deliver
+									flash[:error] = "An error occurred while trying to save. We have been notified. Please try again later."
+									redirect_to "#{root_url}campaign/#{@campaign.link}"
+								end
+							else
+								flash[:error] = "You have already completed this task!"
+								redirect_to "#{root_url}campaign/#{@campaign.link}"
+							end
+						else
+							flash[:error] = "You are already following the brand on Twitter!"
+							redirect_to "#{root_url}campaign/#{@campaign.link}"
+						end
+					else
+						UserMailer.email_brice_error("Controller: campaign_controller.rb | Action: complete_twitter_task | Issue: The statement unless @task.nil? went to the else. At this point, the user should already have had a task created, but for some reason, they do not yet have a task for the campaign.").deliver
+						flash[:error] = "An error occurred while trying to find your information. We have been notified. Please try again later."
+						redirect_to "#{root_url}campaign/#{@campaign.link}"
+					end
+				else
+					redirect_to root_url
+				end
+			end
+		else
+			redirect_to root_url
+		end
+	end
+
+	def undo_twitter_task
+		if current_user
+			params_campaign = params[:campaign].downcase
+			campaign = Campaign.where(:link => params_campaign).first
+			if campaign.present?
+				@campaign = campaign
+			end
+			if campaign.nil?
+				redirect_to root_url
+			else
+				unless @campaign.task_twitter["points"].nil?
+					@task = @campaign.tasks.where(user_id: current_user.id).first
+					unless @task.nil?
+						if Redeem.where(user_id: @task.user_id, campaign_id: @campaign.id).first.nil?
+							unless @task.completed_twitter == false
+								@task.completed_twitter = false
+								@task.completed_points -= @campaign.task_twitter["points"].to_i
+								t = current_user.follows.where(brand_name: @campaign.brand.name, provider: "twitter", link: @campaign.task_twitter["link"]).first
+								unless t.nil?
+									t.destroy
+								end
+								if @task.save
+									flash[:notice] = "You have undone the completion of the Twitter follow task!"
+									redirect_to "#{root_url}campaign/#{@campaign.link}"
+								else
+									UserMailer.email_brice_error("Controller: campaign_controller.rb | Action: undo_twitter_task | Issue: The statement: if @task.save, did not save and instead went to the else portion below.").deliver
+									flash[:error] = "An error occurred while trying to save. We have been notified. Please try again later."
+									redirect_to "#{root_url}campaign/#{@campaign.link}"
+								end
+							else
+								flash[:error] = "You have already completed this task!"
+								redirect_to "#{root_url}campaign/#{@campaign.link}"
+							end
+						else
+							flash[:error] = "Your have already completed this campaign and earned it's gift. Once a campaign is completed, you can no longer undo tasks."
+							redirect_to "#{root_url}campaign/#{@campaign.link}"
+						end
+					else
+						UserMailer.email_brice_error("Controller: campaign_controller.rb | Action: undo_twitter_task | Issue: The statement unless @task.nil? went to the else. At this point, the user should already have had a task created, but for some reason, they do not yet have a task for the campaign.").deliver
+						flash[:error] = "An error occurred while trying to find your information. We have been notified. Please try again later."
+						redirect_to "#{root_url}campaign/#{@campaign.link}"
+					end
+				else
+					redirect_to root_url
+				end
+			end
+		else
+			redirect_to root_url
+		end
+	end
+
+	def complete_custom_task
+		if current_user
+			params_campaign = params[:campaign].downcase
+			campaign = Campaign.where(:link => params_campaign).first
+			if campaign.present?
+				@campaign = campaign
+			end
+			if campaign.nil?
+				redirect_to root_url
+			else
+				if !params[:custom_num].nil? && !params[:custom_num].empty?
+					@task = @campaign.tasks.where(user_id: current_user.id).first
+					unless @task.nil?
+						case params[:custom_num]
+						when "1"
+							unless @campaign.task_custom_1["points"].nil?
+								unless @task.completed_custom[0] == true
+									@task.completed_custom[0] = true
+									@task.completed_points += @campaign.task_custom_1["points"].to_i
+									if @task.save
+										flash[:notice] = "You have completed the task!"
+										redirect_to "#{root_url}campaign/#{@campaign.link}"
+									else
+										UserMailer.email_brice_error("Controller: campaign_controller.rb | Action: complete_custom_task | Issue: The statement: if @task.save, did not save and instead went to the else portion below.").deliver
+										flash[:error] = "An error occurred while trying to save. We have been notified. Please try again later."
+										redirect_to "#{root_url}campaign/#{@campaign.link}"
+									end
+								else
+									flash[:error] = "You have already completed this task!"
+									redirect_to "#{root_url}campaign/#{@campaign.link}"
+								end
+							else
+								flash[:error] = "An error occurred while trying to look up the campaign. We have been notified. Please try again later."
+								redirect_to "#{root_url}campaign/#{@campaign.link}"
+							end
+						when "2"
+							unless @campaign.task_custom_2["points"].nil?
+								unless @task.completed_custom[1] == true
+									@task.completed_custom[1] = true
+									@task.completed_points += @campaign.task_custom_2["points"].to_i
+									if @task.save
+										flash[:notice] = "You have completed the task!"
+										redirect_to "#{root_url}campaign/#{@campaign.link}"
+									else
+										UserMailer.email_brice_error("Controller: campaign_controller.rb | Action: complete_custom_task | Issue: The statement: if @task.save, did not save and instead went to the else portion below.").deliver
+										flash[:error] = "An error occurred while trying to save. We have been notified. Please try again later."
+										redirect_to "#{root_url}campaign/#{@campaign.link}"
+									end
+								else
+									flash[:error] = "You have already completed this task!"
+									redirect_to "#{root_url}campaign/#{@campaign.link}"
+								end
+							else
+								flash[:error] = "An error occurred while trying to look up the campaign. We have been notified. Please try again later."
+								redirect_to "#{root_url}campaign/#{@campaign.link}"
+							end
+						when "3"
+							unless @campaign.task_custom_3["points"].nil?
+								unless @task.completed_custom[2] == true
+									@task.completed_custom[2] = true
+									@task.completed_points += @campaign.task_custom_3["points"].to_i
+									if @task.save
+										flash[:notice] = "You have completed the task!"
+										redirect_to "#{root_url}campaign/#{@campaign.link}"
+									else
+										UserMailer.email_brice_error("Controller: campaign_controller.rb | Action: complete_custom_task | Issue: The statement: if @task.save, did not save and instead went to the else portion below.").deliver
+										flash[:error] = "An error occurred while trying to save. We have been notified. Please try again later."
+										redirect_to "#{root_url}campaign/#{@campaign.link}"
+									end
+								else
+									flash[:error] = "You have already completed this task!"
+									redirect_to "#{root_url}campaign/#{@campaign.link}"
+								end
+							else
+								flash[:error] = "An error occurred while trying to look up the campaign. We have been notified. Please try again later."
+								redirect_to "#{root_url}campaign/#{@campaign.link}"
+							end
+						when "4"
+							unless @campaign.task_custom_4["points"].nil?
+								unless @task.completed_custom[3] == true
+									@task.completed_custom[3] = true
+									@task.completed_points += @campaign.task_custom_4["points"].to_i
+									if @task.save
+										flash[:notice] = "You have completed the task!"
+										redirect_to "#{root_url}campaign/#{@campaign.link}"
+									else
+										UserMailer.email_brice_error("Controller: campaign_controller.rb | Action: complete_custom_task | Issue: The statement: if @task.save, did not save and instead went to the else portion below.").deliver
+										flash[:error] = "An error occurred while trying to save. We have been notified. Please try again later."
+										redirect_to "#{root_url}campaign/#{@campaign.link}"
+									end
+								else
+									flash[:error] = "You have already completed this task!"
+									redirect_to "#{root_url}campaign/#{@campaign.link}"
+								end
+							else
+								flash[:error] = "An error occurred while trying to look up the campaign. We have been notified. Please try again later."
+								redirect_to "#{root_url}campaign/#{@campaign.link}"
+							end
+						when "5"
+							unless @campaign.task_custom_5["points"].nil?
+								unless @task.completed_custom[4] == true
+									@task.completed_custom[4] = true
+									@task.completed_points += @campaign.task_custom_5["points"].to_i
+									if @task.save
+										flash[:notice] = "You have completed the task!"
+										redirect_to "#{root_url}campaign/#{@campaign.link}"
+									else
+										UserMailer.email_brice_error("Controller: campaign_controller.rb | Action: complete_custom_task | Issue: The statement: if @task.save, did not save and instead went to the else portion below.").deliver
+										flash[:error] = "An error occurred while trying to save. We have been notified. Please try again later."
+										redirect_to "#{root_url}campaign/#{@campaign.link}"
+									end
+								else
+									flash[:error] = "You have already completed this task!"
+									redirect_to "#{root_url}campaign/#{@campaign.link}"
+								end
+							else
+								flash[:error] = "An error occurred while trying to look up the campaign. We have been notified. Please try again later."
+								redirect_to "#{root_url}campaign/#{@campaign.link}"
+							end
+						else
+							UserMailer.email_brice_error("Controller: campaign_controller.rb | Action: complete_custom_task | Issue: The statement case params[:custom_num] went to the else. This is probably because someone changed the param using a webkit browser").deliver
+							flash[:error] = "An error occurred while trying to look up the campaign. We have been notified. Please try again later."
+							redirect_to "#{root_url}campaign/#{@campaign.link}"
+						end
+					else
+						UserMailer.email_brice_error("Controller: campaign_controller.rb | Action: complete_custom_task | Issue: The statement unless @task.nil? went to the else. At this point, the user should already have had a task created, but for some reason, they do not yet have a task for the campaign.").deliver
+						flash[:error] = "An error occurred while trying to find your information. We have been notified. Please try again later."
+						redirect_to "#{root_url}campaign/#{@campaign.link}"
+					end
+				else
+					UserMailer.email_brice_error("Controller: campaign_controller.rb | Action: complete_custom_task | Issue: The statement if !params[:custom_num].nil? && !params[:custom_num].empty? went to the else. Since we hardcoded this param into the url on the campaign index page, odds are someone is using a webkit browser to fuck with the site.").deliver
+					flash[:error] = "An error occurred. We have been notified. Please try again later."
+					redirect_to "#{root_url}campaign/#{@campaign.link}"
+				end
+			end
+		else
+			redirect_to root_url
+		end
+	end
+
+	def undo_custom_task
+		if current_user
+			params_campaign = params[:campaign].downcase
+			campaign = Campaign.where(:link => params_campaign).first
+			if campaign.present?
+				@campaign = campaign
+			end
+			if campaign.nil?
+				redirect_to root_url
+			else
+				if !params[:custom_num].nil? && !params[:custom_num].empty?
+					@task = @campaign.tasks.where(user_id: current_user.id).first
+					unless @task.nil?
+						if Redeem.where(user_id: @task.user_id, campaign_id: @campaign.id).first.nil?
+							case params[:custom_num]
+							when "1"
+								unless @campaign.task_custom_1["points"].nil?
+									unless @task.completed_custom[0] == false
+										@task.completed_custom[0] = false
+										@task.completed_points -= @campaign.task_custom_1["points"].to_i
+										if @task.save
+											flash[:notice] = "You have undone the task!"
+											redirect_to "#{root_url}campaign/#{@campaign.link}"
+										else
+											UserMailer.email_brice_error("Controller: campaign_controller.rb | Action: undo_custom_task | Issue: The statement: if @task.save, did not save and instead went to the else portion below.").deliver
+											flash[:error] = "An error occurred while trying to save. We have been notified. Please try again later."
+											redirect_to "#{root_url}campaign/#{@campaign.link}"
+										end
+									else
+										flash[:error] = "You have already completed this task!"
+										redirect_to "#{root_url}campaign/#{@campaign.link}"
+									end
+								else
+									flash[:error] = "An error occurred while trying to look up the campaign. We have been notified. Please try again later."
+									redirect_to "#{root_url}campaign/#{@campaign.link}"
+								end
+							when "2"
+								unless @campaign.task_custom_2["points"].nil?
+									unless @task.completed_custom[1] == false
+										@task.completed_custom[1] = false
+										@task.completed_points -= @campaign.task_custom_2["points"].to_i
+										if @task.save
+											flash[:notice] = "You have undone the task!"
+											redirect_to "#{root_url}campaign/#{@campaign.link}"
+										else
+											UserMailer.email_brice_error("Controller: campaign_controller.rb | Action: undo_custom_task | Issue: The statement: if @task.save, did not save and instead went to the else portion below.").deliver
+											flash[:error] = "An error occurred while trying to save. We have been notified. Please try again later."
+											redirect_to "#{root_url}campaign/#{@campaign.link}"
+										end
+									else
+										flash[:error] = "You have already completed this task!"
+										redirect_to "#{root_url}campaign/#{@campaign.link}"
+									end
+								else
+									flash[:error] = "An error occurred while trying to look up the campaign. We have been notified. Please try again later."
+									redirect_to "#{root_url}campaign/#{@campaign.link}"
+								end
+							when "3"
+								unless @campaign.task_custom_3["points"].nil?
+									unless @task.completed_custom[2] == false
+										@task.completed_custom[2] = false
+										@task.completed_points -= @campaign.task_custom_3["points"].to_i
+										if @task.save
+											flash[:notice] = "You have undone the task!"
+											redirect_to "#{root_url}campaign/#{@campaign.link}"
+										else
+											UserMailer.email_brice_error("Controller: campaign_controller.rb | Action: undo_custom_task | Issue: The statement: if @task.save, did not save and instead went to the else portion below.").deliver
+											flash[:error] = "An error occurred while trying to save. We have been notified. Please try again later."
+											redirect_to "#{root_url}campaign/#{@campaign.link}"
+										end
+									else
+										flash[:error] = "You have already completed this task!"
+										redirect_to "#{root_url}campaign/#{@campaign.link}"
+									end
+								else
+									flash[:error] = "An error occurred while trying to look up the campaign. We have been notified. Please try again later."
+									redirect_to "#{root_url}campaign/#{@campaign.link}"
+								end
+							when "4"
+								unless @campaign.task_custom_4["points"].nil?
+									unless @task.completed_custom[3] == false
+										@task.completed_custom[3] = false
+										@task.completed_points -= @campaign.task_custom_4["points"].to_i
+										if @task.save
+											flash[:notice] = "You have undone the task!"
+											redirect_to "#{root_url}campaign/#{@campaign.link}"
+										else
+											UserMailer.email_brice_error("Controller: campaign_controller.rb | Action: undo_custom_task | Issue: The statement: if @task.save, did not save and instead went to the else portion below.").deliver
+											flash[:error] = "An error occurred while trying to save. We have been notified. Please try again later."
+											redirect_to "#{root_url}campaign/#{@campaign.link}"
+										end
+									else
+										flash[:error] = "You have already completed this task!"
+										redirect_to "#{root_url}campaign/#{@campaign.link}"
+									end
+								else
+									flash[:error] = "An error occurred while trying to look up the campaign. We have been notified. Please try again later."
+									redirect_to "#{root_url}campaign/#{@campaign.link}"
+								end
+							when "5"
+								unless @campaign.task_custom_5["points"].nil?
+									unless @task.completed_custom[4] == false
+										@task.completed_custom[4] = false
+										@task.completed_points -= @campaign.task_custom_5["points"].to_i
+										if @task.save
+											flash[:notice] = "You have undone the task!"
+											redirect_to "#{root_url}campaign/#{@campaign.link}"
+										else
+											UserMailer.email_brice_error("Controller: campaign_controller.rb | Action: undo_custom_task | Issue: The statement: if @task.save, did not save and instead went to the else portion below.").deliver
+											flash[:error] = "An error occurred while trying to save. We have been notified. Please try again later."
+											redirect_to "#{root_url}campaign/#{@campaign.link}"
+										end
+									else
+										flash[:error] = "You have already completed this task!"
+										redirect_to "#{root_url}campaign/#{@campaign.link}"
+									end
+								else
+									flash[:error] = "An error occurred while trying to look up the campaign. We have been notified. Please try again later."
+									redirect_to "#{root_url}campaign/#{@campaign.link}"
+								end
+							else
+								UserMailer.email_brice_error("Controller: campaign_controller.rb | Action: undo_custom_task | Issue: The statement case params[:custom_num] went to the else. This is probably because someone changed the param using a webkit browser").deliver
+								flash[:error] = "An error occurred while trying to look up the campaign. We have been notified. Please try again later."
+								redirect_to "#{root_url}campaign/#{@campaign.link}"
+							end
+						else
+							flash[:error] = "Your have already completed this campaign and earned it's gift. Once a campaign is completed, you can no longer undo tasks."
+							redirect_to "#{root_url}campaign/#{@campaign.link}"
+						end
+					else
+						UserMailer.email_brice_error("Controller: campaign_controller.rb | Action: undo_custom_task | Issue: The statement unless @task.nil? went to the else. At this point, the user should already have had a task created, but for some reason, they do not yet have a task for the campaign.").deliver
+						flash[:error] = "An error occurred while trying to find your information. We have been notified. Please try again later."
+						redirect_to "#{root_url}campaign/#{@campaign.link}"
+					end
+				else
+					UserMailer.email_brice_error("Controller: campaign_controller.rb | Action: undo_custom_task | Issue: The statement if !params[:custom_num].nil? && !params[:custom_num].empty? went to the else. Since we hardcoded this param into the url on the campaign index page, odds are someone is using a webkit browser to fuck with the site.").deliver
+					flash[:error] = "An error occurred. We have been notified. Please try again later."
+					redirect_to "#{root_url}campaign/#{@campaign.link}"
+				end
+			end
+		else
+			redirect_to root_url
+		end
+	end
+
+	def track_pinterest_click
+		if request.xhr?
+			if current_user
+				params_campaign = params[:campaign].downcase
+				campaign = Campaign.where(:link => params_campaign).first
+				if campaign.present?
+					@campaign = campaign
+				end
+				if campaign.nil?
+					render :text => "ERROR"
+				else
+					unless params[:addClick].nil? || params[:campaignLink].nil? || params[:addClick]!="true" || params[:campaignLink].downcase!=params_campaign
+						@campaign.pinterest_clicks += 1
+						if @campaign.save
+							render :text => "SUCCESS"
+						else
+							render :text => "ERROR"
+						end
+					else
+						render :text => "ERROR"
+					end
+				end
+			else
+				render :text => "ERROR"
+			end
+		else
+			redirect_to root_url
+		end
+	end
+
+	def track_twitter_click
+		if request.xhr?
+			if current_user
+				params_campaign = params[:campaign].downcase
+				campaign = Campaign.where(:link => params_campaign).first
+				if campaign.present?
+					@campaign = campaign
+				end
+				if campaign.nil?
+					render :text => "ERROR"
+				else
+					unless params[:addClick].nil? || params[:addClick]!="true"
+						@campaign.twitter_clicks += 1
+						if @campaign.save
+							render :text => "SUCCESS"
+						else
+							render :text => "ERROR"
+						end
+					else
+						render :text => "ERROR"
+					end
+				end
+			else
+				render :text => "ERROR"
+			end
+		else
+			redirect_to root_url
+		end
+	end
+
+	def track_facebook_click
+		if request.xhr?
+			if current_user
+				params_campaign = params[:campaign].downcase
+				campaign = Campaign.where(:link => params_campaign).first
+				if campaign.present?
+					@campaign = campaign
+				end
+				if campaign.nil?
+					render :text => "ERROR"
+				else
+					unless params[:addClick].nil? || params[:campaignLink].nil? || params[:addClick]!="true" || params[:campaignLink].downcase!=params_campaign
+						@campaign.facebook_clicks += 1
+						if @campaign.save
+							render :text => "SUCCESS"
+						else
+							render :text => "ERROR"
+						end
+					else
+						render :text => "ERROR"
+					end
+				end
+			else
+				render :text => "ERROR"
+			end
+		else
+			redirect_to root_url
+		end
 	end
 
 end

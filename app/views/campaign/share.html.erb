@@ -1,50 +1,46 @@
 <div class="navbar navbar-fixed-top" style="margin-top:0;">
-      <div class="navbar-inner" id="share-page-navbar">
-        <div class="container-fluid" style="padding-right:0;padding-left:0;">
-          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse" id="nav-collapse-btn">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </a>
-          <a class="brand share_header_links" href="<%= root_url %>"><div class="logo_header"></div></a>
-			
-			<% if current_user %>
-<!--           <div class="btn-group pull-right">
-            <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-              <%= current_user.email %>
-              <span class="caret"></span>
-            </a>
-
-            <ul class="dropdown-menu">
-              <li style="padding-top:7px;"><a href="/profile"><i class="icon-user"></i> Profile</a></li>
-				  <li><a href="/settings"><i class="icon-cog"></i> Settings</a></li>
-              <li class="divider"></li>
-              <li><a href="/signout"><i class="icon-off"></i> Sign Out</a></li>
-            </ul>
-          </div> -->
-			 <div class="btn-group pull-right">
-			 	<a rel="external" href="<%= root_url + 'campaign/' + @share.campaign.link.to_s %>" class="login btn btn-info share_campaign_join_button"><i class="icon-gift icon-white"></i> View</a>
-			 	<a href="<%= @share_link %>" class="btn btn-success"><i class="icon-remove-sign icon-white"></i></a>
-			 	<div class="share_link_href" style="display:none;"><%= @share_href %></div>
-			 </div>
-			<% else %>
-			 <div class="btn-group pull-right">
-			 	<a rel="external" href="<%= root_url + 'campaign/' + @share.campaign.link.to_s %>" class="login btn btn-info share_campaign_join_button"><i class="icon-gift icon-white"></i> Join</a>
-
-			 </div>
-			<% end %>
-			 <div class="nav-collapse">
-            <ul class="nav">
-					<li><a href="<%= root_url + @share.user.nickname unless @share.user.nickname.blank? %>" class="share_header_links">Shared by <b><%= @share.user.first_name + ' ' + @share.user.last_name unless @share.user.first_name.blank? || @share.user.last_name.blank? %></b></a></li>
-
-<!-- 					<li><a href="/profile">Profile</a></li> -->
-					<!-- <li><a href="/favorites">Favorites</a></li> -->
-              <!-- <li><a href="#contact">Contact</a></li> -->
-            </ul>
-          </div><!--/.nav-collapse -->
-        </div>
-   	</div>
-</div>
+	<div class="navbar-inner" id="share-page-navbar">
+		<div class="container-fluid">
+			<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse" id="nav-collapse-btn">
+            	<span class="icon-bar"></span>
+            	<span class="icon-bar"></span>
+            	<span class="icon-bar"></span>
+          	</a>
+          	<a class="brand share_header_links" href="<%= root_url %>"><div class="logo_header"></div></a>
+          	<div class="nav-collapse collapse" style="float:none;">
+          		<ul class="nav">
+          			<li style="font-size:1.3em;"><span>Help <a href="<%= root_url + @share.user.nickname unless @share.user.nickname.blank? %>" target="_blank" style="text-decoration:none;-webkit-transition:color .3s linear; -moz-transition:color .3s linear; -o-transition:color .3s linear; transition:color .3s linear;font-weight:700;" class="bb-dark-green"><% unless @share.user.first_name.blank? || @share.user.last_name.blank? %><%= @share.user.first_name + ' ' + @share.user.last_name %><% else %>This buddee<% end %></a></span> earn this gift<br />from <span class="bb-blue" style="font-weight:700;"><%= !@share.campaign.brand.name.nil? ? @share.campaign.brand.name : "This Brand" %></span>!</li>
+          		</ul>
+          		<% unless @task.task_1_url=="false" && @task.task_2_url=="false" %>
+	          		<ul class="nav">
+	          			<% unless @task.task_1_url=="false" || @task.campaign.engagement_task_left_text == "false" %>
+	          				<li>
+	          					<%= link_to("/tasks/#{@task.id}/check_engage_left", class: "btn btn-info", style: "color:white;text-shadow:none;padding: 4px 12px;margin-top:3%;background-position: 0 0px;", target: "_blank") do %>
+	          						<i class="icon-external-link"></i> <%= @task.campaign.engagement_task_left_text %>
+	          					<% end %>
+	          				</li>
+	          			<% end %>
+	          			<% unless @task.task_2_url=="false" || @task.campaign.engagement_task_right_text == "false" %>
+	          				<li>
+	          					<%= link_to("/tasks/#{@task.id}/check_engage_right", class: "btn btn-success", style: "color:white;text-shadow:none;padding: 4px 12px;margin-top:3%;background-position: 0 0px;", target: "_blank") do %>
+	          						<i class="icon-external-link"></i> <%= @task.campaign.engagement_task_right_text %>
+	          					<% end %>
+	          				</li>
+	          			<% end %>
+	          		</ul>
+	          	<% end %>
+          		<ul class="nav pull-right">
+          			<li>
+          				<div class="btn-group" style="font-size:13px;margin-top:0;">
+          					<a href="<%= root_url + 'campaign/' + @share.campaign.link.to_s %>" class="btn btn-info" style="position:relative; left:2%;margin-top:5%;"><i class="icon-gift"></i> <%= current_user ? "View" : "Join" %></a>
+          					<a href="<%= @share_link %>" class="btn btn-success" style="margin-top:5%;"><i class="icon-remove-sign"></i></a>
+          				</div>
+          			</li>
+          		</ul>
+        	</div><!-- /.nav-collapse -->
+        </div><!-- /.container-fluid -->
+   	</div><!-- /.navbar-inner -->
+</div><!-- /.navbar -->
 
 
 

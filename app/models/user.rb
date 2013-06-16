@@ -4,6 +4,8 @@ class User
   belongs_to :location
   has_many :redeems, :dependent => :destroy
   has_many :shares, :dependent => :destroy
+  has_many :tasks, :dependent => :destroy
+  has_many :follows, :dependent => :destroy
   
   field :provider, :type => String
   field :uid, :type => String
