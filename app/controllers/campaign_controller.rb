@@ -166,9 +166,12 @@ class CampaignController < ApplicationController
 					#logger.error("Problems posting to Facebook Wall..."+self.inspect+" "+exc.message)
 					if exc.message == "KoalaMissingAccessToken: Write operations require an access token"
 						flash[:error] = "Please connect to your Facebook account to post to your wall. <a href='/auth/facebook' class='btn btn-primary btn-small'>connect w/ facebook</a>"
+					elsif exc.message == "OAuthException: Error validating access token: The session has been invalidated because the user has changed the password."
+						flash[:error] = "An error occurred while trying to post to Facebook.<br>Is it possible you changed your Facebook password?<br>If so, please try again after <a href='/signout'>SIGNING OUT</a> of brandbuddee and signing BACK IN again."
 					else
-						flash[:error] = "An error occured while trying to post to Facebook.<br>Is it possible you changed your password?<br>Please try again after <a href='/signout'>SIGNING OUT</a> and BACK IN again."
-					end
+						flash[:error] = "An error occurred while trying to post to Facebook.<br>We have been notified about this issue and we'll investigate it shortly.<br>Please try again later."
+						UserMailer.email_brice_error("Controller: campaign_controller.rb | Action: facebook_wall_post | Issue: The statement: rescue Koala::Facebook::APIError => exc went to the else. Here is exc.message: #{exc.message}").deliver
+					end					
 					redirect_to "#{root_url}campaign/#{params[:campaign_link]}"
 				end
 			else
