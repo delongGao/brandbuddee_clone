@@ -733,6 +733,11 @@ class AdminController < ApplicationController
 							s.url = params[:campaign][:share_link]
 							s.save
 						end # Update URL for all shares belonging to campaign
+						@campaign.tasks.each do |t|
+							t.task_1_url = Campaign.find(params[:campaign][:id]).engagement_task_left_link.to_s
+							t.task_2_url = Campaign.find(params[:campaign][:id]).engagement_task_right_link.to_s
+							t.save
+						end # Update URLs for all tasks belonging to campaign
 				        flash[:notice] = "Successfully updated."
 				        #redirect_to(:action => 'edit_campaign')
 				        redirect_to "#{root_url}admin/campaign/edit?_id=#{params[:campaign][:id]}"
