@@ -55,30 +55,3 @@ jQuery ->
 	$("#btnDoneTaskCustom5").click (event) ->
 		if $(this).attr("disabled") == "disabled"
 			event.preventDefault()
-	$("a.pin-it-button").click (event) ->
-		campaign_link = $(this).data("campaign")
-		$.ajax({
-			type: 'POST',
-			url: '/campaign/' + campaign_link + '/track_pinterest_click',
-			data: {addClick: 'true', campaignLink: $(this).data("campaign")},
-			success: (data) ->
-				if data == 'SUCCESS'
-					console.log("Campaign #" + campaign_link + ": pinterest_clicks UPDATED")
-				else
-					console.log("Campaign #" + campaign_link + ": Error updating pinterest_clicks")
-			,
-			error: ->
-				console.log("Campaign #" + campaign_link + ": Error updating pinterest_clicks")
-		})
-	$("#btnSubmitFbPost").click (event) ->
-		campaign_link = $("a.pin-it-button").data("campaign")
-		$.ajax({
-			type: 'POST',
-			url: '/campaign/' + campaign_link + '/track_facebook_click',
-			data: {addClick: 'true', campaignLink: campaign_link},
-			success: (data) ->
-				if data == 'SUCCESS'
-					console.log("Campaign #" + campaign_link + ": facebook_clicks UPDATED")
-				else
-					console.log("Campaign #" + campaign_link + ": Error updating facebook_clicks")
-		})
