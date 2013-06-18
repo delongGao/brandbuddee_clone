@@ -110,7 +110,7 @@
                                     <div class="clear"></div>
                                     Share Link:
                                     <input id="share_link_copy" class="input-large span4" type="text" value="<%= root_url + 's/' + @share.link %>">
-                                    <a href="#facebookModal" class="btn btn-primary btn-large" data-toggle="modal" style="margin-bottom:8px;"><i class="icon-circle-arrow-up icon-white"></i> Post to Facebook</a>
+                                    <a href="#facebookModal" class="btn btn-primary btn-large" data-toggle="modal" style="margin-bottom:8px;" id="btnSubmitFbPost"><i class="icon-circle-arrow-up icon-white"></i> Post to Facebook</a>
                                     <div class="clear"></div>
                                 </div><br>
                                 <div class="divisor divisor_services"><!-- /divisor above tasks -->
@@ -381,7 +381,7 @@
                                   </div>
                                   <div class="modal-footer">
                                     <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-                                        <%= submit_tag 'Post', :class=>"btn btn-primary", :id => "btnSubmitFbPost" %>
+                                        <%= submit_tag 'Post', :class=>"btn btn-primary" %>
                                     <% end %>
                                   </div>
                                 </div>
