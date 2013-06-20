@@ -11,7 +11,7 @@ gem 'mongo'
 
 gem 'omniauth', '1.1.0'
 gem "omniauth-facebook", "~> 1.2.0"
-gem "omniauth-twitter", "~> 0.0.12"
+gem "omniauth-twitter", "~> 0.0.17"
 # gem "twitter", "~> 4.6.2"
 gem 'omnicontacts', '0.2.5'
 gem 'bcrypt-ruby', :require => 'bcrypt'

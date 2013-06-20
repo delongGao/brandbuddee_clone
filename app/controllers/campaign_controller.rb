@@ -172,7 +172,12 @@ class CampaignController < ApplicationController
 						flash[:error] = "An error occurred while trying to post to Facebook.<br>Is it possible you changed your Facebook password?<br>Please try again after <a href='/signout'>SIGNING OUT</a> of brandbuddee and signing BACK IN again."
 					else
 						flash[:error] = "An error occurred while trying to post to Facebook.<br>We have been notified about this issue and we'll investigate it shortly.<br>Please try again later."
-						UserMailer.email_brice_error("Controller: campaign_controller.rb | Action: facebook_wall_post | Issue: The statement: rescue Koala::Facebook::APIError => exc went to the else. Here is exc.message: #{exc.message}").deliver
+						unless current_user.email.nil? || current_user.email.blank?
+							theemail = current_user.email
+						else
+							theemail = "No Email Available"
+						end
+						UserMailer.email_brice_error("Controller: campaign_controller.rb | Action: facebook_wall_post | Issue: The statement: rescue Koala::Facebook::APIError => exc went to the else. Here is exc.message: #{exc.message} | Here is the user's email: #{theemail}").deliver
 					end					
 					redirect_to "#{root_url}campaign/#{params[:campaign_link]}"
 				end

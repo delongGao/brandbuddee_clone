@@ -650,3 +650,56 @@ text-decoration: none;
 		margin-top:5%;
 	}
 }
+
+// BRANDS PAGE
+.ch-brand-img-1 {
+background:#fff url(/assets/brand-gauranteed.png) no-repeat;
+}
+.ch-brand-img-2 {
+background:#fff url(/assets/brand-graph.png) no-repeat;
+}
+.ch-brand-img-3 {
+background:#fff url(/assets/brand-cogs.png) no-repeat;
+}
+.ch-brand-img-none {
+	background: none;
+}
+.pricing-plans-signup {
+	color: white;
+	border: 2px solid white;
+	font-size: 19px;
+	padding-left: 3%;
+	padding-right: 3%;
+	font-weight: bold;
+	padding-bottom: 1%;
+	-webkit-transition: all .2s ease-in-out;
+	-moz-transition: all .2s ease-in-out;
+	-o-transition: all .2s ease-in-out;
+	-ms-transition: all .2s ease-in-out;
+	transition: all .2s ease-in-out;
+}
+.pricing-plans-signup:hover {
+	background:white;
+	color:black;
+}
+.pricing-plans-features {
+	color:white;
+	font-size:16px;
+	padding-bottom:1%;
+}
+.brand-features-modal-text {
+	font-size:1.5em;
+	line-height:120%;
+}
+a.brand-sign-up-link {
+	color:white;
+	-webkit-transition: all .5s ease-in-out;
+	-moz-transition: all .5s ease-in-out;
+	-o-transition: all .5s ease-in-out;
+	-ms-transition: all .5s ease-in-out;
+	transition: all .5s ease-in-out;
+	&:hover {
+		color:#5f89d5;
+	}
+}
+// END BRANDS PAGE
