@@ -23,15 +23,15 @@
 
 <div class="container" style="margin-top:15px;">
 
-	<% if flash[:notice].nil? %><% else %>
-		<div class="alert alert-info">
+	<% unless flash[:notice].nil? %>
+		<div class="alert alert-info fade in">
 		  <button class="close" data-dismiss="alert">×</button>
 		  <%= flash[:notice] %>
 		</div> <!-- .alert -->
 	<% end %>
 
-    <% if flash[:error].nil? %><% else %>
-        <div class="alert alert-danger">
+    <% unless flash[:error].nil? %>
+        <div class="alert alert-danger fade in">
           <button class="close" data-dismiss="alert">×</button>
           <%= flash[:error].html_safe %>
         </div> <!-- .alert -->
