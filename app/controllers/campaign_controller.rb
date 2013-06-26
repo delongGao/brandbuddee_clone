@@ -1025,38 +1025,43 @@ class CampaignController < ApplicationController
 								flash[:error] = "Uh Oh! It doesn't look like you added the link to your Share Page to the content. Please try again."
 								redirect_to "#{root_url}campaign/#{@campaign.link}/tumblr_content?#{{link: params[:link]}.to_query}&#{{title_text: params[:title]}.to_query}&#{{content_text: params[:content]}.to_query}"
 							else
-								if URI.unescape(params[:content]).length >= 200
-									Tumblr.configure do |config|
-										if Rails.env.production?
-											config.consumer_key = "n0UjPDfQllFWOqYvxudHIez5nc4cMTmLeoFabJXn0VvBIYqM8E"
-											config.consumer_secret = "xbjErcTpXvfnrHpuUM1rHNY7VcqBMAdv5GIXcRHNYYh5wDhnZU"
-										else
-											config.consumer_key = "FdB7CU7UBPtvVULdOzWjcz0oGThl10jPQdQb2j89GbBgRBjFZY"
-											config.consumer_secret = "j2R5FJnIoDjtjQXFZULSdb6hYkH4Ur5b84IQZrLAxsoFdOvdND"
-										end
-										config.oauth_token = current_user.tumblr_token
-										config.oauth_token_secret = current_user.tumblr_secret
-									end
-									client = Tumblr::Client.new
-									post_result = client.text(params[:link], {:title => params[:title], :body => params[:content]})
-									unless post_result["id"].nil?
-										@campaign.tumblr_clicks += 1
-										@campaign.save
-										flash[:notice] = "You have successfully posted to Tumblr! Here is the link to your blog post: http://#{params[:link]}/post/#{post_result["id"]}"
-										redirect_to "#{root_url}campaign/#{@campaign.link}"
-									else
-										flash[:error] = "An error occured while trying to post to Tumblr. We have been notified. Please try again later"
-										unless current_user.email.nil? || current_user.email.blank?
-											theemail = current_user.email
-										else
-											theemail = "No Email Available"
-										end
-										UserMailer.email_brice_error("Controller: campaign_controller.rb | Action: tumblr_post | Issue: The statement: unless post_result[\"id\"].nil? went to the else. | Here is the post_result status: #{post_result["status"]} | Here is the message: #{post_result["msg"]} | Here is the user's email: #{theemail}").deliver
-										redirect_to "#{root_url}campaign/#{@campaign.link}"
-									end
-								else
-									flash[:error] = "Uh Oh! Your blog content is not at least 200 characters! It's only #{URI.unescape(params[:content]).length}. Please make it longer, then try again!"
+								unless params[:content].match(@campaign.campaign_image_url(:standard).to_s)
+									flash[:error] = 'Uh Oh! You forgot to add the Campaign Image! Click the "Copy Image Link to Clipboard" button, then click the "Insert Image" button (in the text editor on the far right), and paste in the link!'
 									redirect_to "#{root_url}campaign/#{@campaign.link}/tumblr_content?#{{link: params[:link]}.to_query}&#{{title_text: params[:title]}.to_query}&#{{content_text: params[:content]}.to_query}"
+								else
+									if URI.unescape(params[:content]).length >= 200
+										Tumblr.configure do |config|
+											if Rails.env.production?
+												config.consumer_key = "n0UjPDfQllFWOqYvxudHIez5nc4cMTmLeoFabJXn0VvBIYqM8E"
+												config.consumer_secret = "xbjErcTpXvfnrHpuUM1rHNY7VcqBMAdv5GIXcRHNYYh5wDhnZU"
+											else
+												config.consumer_key = "FdB7CU7UBPtvVULdOzWjcz0oGThl10jPQdQb2j89GbBgRBjFZY"
+												config.consumer_secret = "j2R5FJnIoDjtjQXFZULSdb6hYkH4Ur5b84IQZrLAxsoFdOvdND"
+											end
+											config.oauth_token = current_user.tumblr_token
+											config.oauth_token_secret = current_user.tumblr_secret
+										end
+										client = Tumblr::Client.new
+										post_result = client.text(params[:link], {:title => params[:title], :body => params[:content]})
+										unless post_result["id"].nil?
+											@campaign.tumblr_clicks += 1
+											@campaign.save
+											flash[:notice] = "You have successfully posted to Tumblr! Here is the link to your blog post: http://#{params[:link]}/post/#{post_result["id"]}"
+											redirect_to "#{root_url}campaign/#{@campaign.link}"
+										else
+											flash[:error] = "An error occured while trying to post to Tumblr. We have been notified. Please try again later"
+											unless current_user.email.nil? || current_user.email.blank?
+												theemail = current_user.email
+											else
+												theemail = "No Email Available"
+											end
+											UserMailer.email_brice_error("Controller: campaign_controller.rb | Action: tumblr_post | Issue: The statement: unless post_result[\"id\"].nil? went to the else. | Here is the post_result status: #{post_result["status"]} | Here is the message: #{post_result["msg"]} | Here is the user's email: #{theemail}").deliver
+											redirect_to "#{root_url}campaign/#{@campaign.link}"
+										end
+									else
+										flash[:error] = "Uh Oh! Your blog content is not at least 200 characters! It's only #{URI.unescape(params[:content]).length}. Please make it longer, then try again!"
+										redirect_to "#{root_url}campaign/#{@campaign.link}/tumblr_content?#{{link: params[:link]}.to_query}&#{{title_text: params[:title]}.to_query}&#{{content_text: params[:content]}.to_query}"
+									end
 								end
 							end
 						else
