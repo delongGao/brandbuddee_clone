@@ -10,49 +10,84 @@ class SessionsController < ApplicationController
   def create
     auth = request.env["omniauth.auth"]
     # check_user = User.exists?(provider: auth["provider"], uid: auth["uid"])
-    if current_user
-      if User.update_with_omniauth(auth, current_user)
-        flash[:notice] = "Successfully connected with Facebook"
-        redirect_to '/home'
+    if auth.provider == 'tumblr'
+      the_user = current_user
+      unless current_user.nil?
+        the_user.tumblr_token = auth.credentials.token
+        the_user.tumblr_secret = auth.credentials.secret
+        if the_user.save
+          flash[:notice] = "You have just connected your brandbuddee and Tumblr accounts. You may post to Tumblr whenever you like!"
+          redirect_to "#{root_url}campaign/#{session[:tumblr_campaign]}/tumblr_blogs"
+          session[:tumblr_campaign] = nil
+        else
+          flash[:error] = "An error occured while trying to update your Tumblr information. We have been notified. Please try again later."
+          unless current_user.email.nil? || current_user.email.blank?
+            theemail = current_user.email
+          else
+            theemail = "No Email Available"
+          end
+          UserMailer.email_brice_error("Controller: sessions_controller.rb | Action: create | Issue: The statement: if the_user.save went to the else. | Here is the user's email: #{theemail}").deliver
+          redirect_to root_url
+        end
       else
-        flash[:error] = "This Facebook account is already associated with a brandbuddee account"
-        redirect_to '/home'
+        flash[:error] = "Please log in before attempting to post to Tumblr"
+        redirect_to root_url
       end
-
     else
+      if current_user
+        if User.update_with_omniauth(auth, current_user)
+          flash[:notice] = "Successfully connected with Facebook"
+          redirect_to '/home'
+        else
+          flash[:error] = "This Facebook account is already associated with a brandbuddee account"
+          redirect_to '/home'
+        end
 
-      if User.exists?(conditions: { provider: auth["provider"], uid: auth["uid"] })
-        user = User.where(uid: auth["uid"], provider: auth["provider"]).first
-        User.update_with_omniauth(auth, user)
-        # update facebook token attributes
-        # User.update_with_omniauth(auth, user)
-        user.last_login = Time.now
-        user.save
-        session[:user_id] = user.id
-
-        #flash[:notice] = "Signed in!"
-        redirect_to '/home', :notice => "Signed in!"
-      # elsif User.exists?(conditions: { twitter_handle: auth["user_info"]["nickname"] })
-      #  user = User.where(twitter_handle: auth["user_info"]["nickname"]).first
-      #  User.update_with_omniauth(auth, user)
-      #  session[:user_id] = user.id
-      #  redirect_to root_url, :notice => "Signed in!"
       else
-        # c = cookies[:invite]
 
-        # @invite = Invitation.where(:invite_code => c).first
+        if User.exists?(conditions: { provider: auth["provider"], uid: auth["uid"] })
+          user = User.where(uid: auth["uid"], provider: auth["provider"]).first
+          User.update_with_omniauth(auth, user)
+          # update facebook token attributes
+          # User.update_with_omniauth(auth, user)
+          user.last_login = Time.now
+          user.save
+          session[:user_id] = user.id
 
-        # if @invite.nil?
-        #   flash[:notice] = "Due to the unexpected amount of signups we have temporarily closed our beta. Feel free to sign up on the <a href='#{root_url}' style='color:green;'>beta list</a> to get an invite!"
-        #   redirect_to "#{root_url}signup"
-        # else
-        #   unless @invite.status == true
-             email = cookies[:e]
-            if auth["provider"] == "twitter"
-              if email.nil?
-                redirect_to(:controller => 'users', :action => 'complete_email')
+          #flash[:notice] = "Signed in!"
+          redirect_to '/home', :notice => "Signed in!"
+        # elsif User.exists?(conditions: { twitter_handle: auth["user_info"]["nickname"] })
+        #  user = User.where(twitter_handle: auth["user_info"]["nickname"]).first
+        #  User.update_with_omniauth(auth, user)
+        #  session[:user_id] = user.id
+        #  redirect_to root_url, :notice => "Signed in!"
+        else
+          # c = cookies[:invite]
+
+          # @invite = Invitation.where(:invite_code => c).first
+
+          # if @invite.nil?
+          #   flash[:notice] = "Due to the unexpected amount of signups we have temporarily closed our beta. Feel free to sign up on the <a href='#{root_url}' style='color:green;'>beta list</a> to get an invite!"
+          #   redirect_to "#{root_url}signup"
+          # else
+          #   unless @invite.status == true
+               email = cookies[:e]
+              if auth["provider"] == "twitter"
+                if email.nil?
+                  redirect_to(:controller => 'users', :action => 'complete_email')
+                else
+                  user = User.create_with_omniauth_twitter(auth, Time.now, email)
+
+                  # @invite.status = true
+                  # @invite.success_date = Time.now
+                  # @invite.save
+                  session[:user_id] = user.id
+                  #WelcomeMailer.welcome_email(current_user).deliver
+                  #redirect_to root_url
+                  redirect_to(:controller => 'users', :action => 'new')
+                end
               else
-                user = User.create_with_omniauth_twitter(auth, Time.now, email)
+                user = User.create_with_omniauth(auth, Time.now)
 
                 # @invite.status = true
                 # @invite.success_date = Time.now
@@ -62,25 +97,15 @@ class SessionsController < ApplicationController
                 #redirect_to root_url
                 redirect_to(:controller => 'users', :action => 'new')
               end
-            else
-              user = User.create_with_omniauth(auth, Time.now)
+          #   else
+          #     flash[:notice] = "This invitation is no longer valid."
+          #     redirect_to "#{root_url}signup"
+          #   end
+          # end
 
-              # @invite.status = true
-              # @invite.success_date = Time.now
-              # @invite.save
-              session[:user_id] = user.id
-              #WelcomeMailer.welcome_email(current_user).deliver
-              #redirect_to root_url
-              redirect_to(:controller => 'users', :action => 'new')
-            end
-        #   else
-        #     flash[:notice] = "This invitation is no longer valid."
-        #     redirect_to "#{root_url}signup"
-        #   end
-        # end
-
+        end
       end
-    end
+    end # End Facebook/Twitter Auth
   end
 
   def email_create

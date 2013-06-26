@@ -116,22 +116,22 @@
 		
 		<div class="box span4">
 			<div class="box-header">
-				<h2><i class="icon-map-marker"></i><span class="break"></span>Blog Post Addresses</h2>
+				<h2><i class="fa-icon-book"></i><span class="break"></span>Blog Post Addresses</h2>
 				<div class="box-icon">
 					<a href="#" class="btn-minimize"><i class="icon-chevron-up"></i></a>
 					<a href="#" class="btn-close"><i class="icon-remove"></i></a>
 				</div>
 			</div>
 			<% unless @campaign.task_blog_post["use_it"].nil? || @campaign.task_blog_post["use_it"].blank? %>
-				<div class="box-content">
+				<div class="box-content" style="overflow:hidden;">
 					<a href="#" id="btnCopyToClipboard" class="btn btn-info btn-mini pull-right" data-clipboard-target="lstAllBlogAddresses" style="margin-bottom:1%;">COPY ALL TO CLIPBOARD</a>
-<ul id="lstAllBlogAddresses">
+<ol id="lstAllBlogAddresses">
 <% @campaign.tasks.each do |t| %>
 <% unless t.blog_post_url.nil? || t.blog_post_url.blank? %>
 <li><a href="<%= t.blog_post_url.to_s %>" target="_blank"><%= t.blog_post_url.to_s %></a></li>
 <% end %>
 <% end %>
-</ul>
+</ol>
 	            </div>
              <% else %>
              	<div class="box-content" style="text-align:center;">

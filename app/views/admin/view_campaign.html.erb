@@ -172,6 +172,13 @@
 						  	</li>
 						  	<li>
 						  		<a href="#">
+						  			<i class="fa-icon-pencil" style="font-size:1.5em;color:#365472;"></i>
+						  			<span style="color:#365472;"><%= @total_tumblr_clicks %></span>
+						  			Tumblr Shares
+						  		</a>
+						  	</li>
+						  	<li>
+						  		<a href="#">
 						  			<i class="fa-icon-bullhorn green" style="font-size:1.5em;"></i>
 						  			<span class="green"><%= @total_social_clicks %></span>
 						  			Total Shares
@@ -427,7 +434,8 @@
 			var data = [
 				{ label: "Facebook",  data: <%= @total_facebook_clicks %>},
 				{ label: "Twitter",  data: <%= @total_twitter_clicks %>},
-				{ label: "Pinterest", data: <%= @total_pinterest_clicks %>}
+				{ label: "Pinterest", data: <%= @total_pinterest_clicks %>},
+				{ label: "Tumblr", data: <%= @total_tumblr_clicks %>}
 			];
 			if($("#social-share-comparison").length) {
 				$.plot($("#social-share-comparison"), data,
@@ -444,7 +452,7 @@
 					legend: {
 						show: false
 					},
-					colors: ["#3B5998", "#1DCAFF", "#CB2027"]
+					colors: ["#3B5998", "#1DCAFF", "#CB2027", "#365472"]
 				});
 				function pieHover(event, pos, obj) {
 					if (!obj)

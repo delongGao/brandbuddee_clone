@@ -42,6 +42,9 @@ class User
 
   field :follower_ids, :type => Array, :default => []
   field :following_ids, :type => Array, :default => []
+
+  field :tumblr_token, :type => String
+  field :tumblr_secret, :type => String
   
   mount_uploader :profile_image, ProfileImageUploader
   mount_uploader :profile_cover, ProfileCoverUploader

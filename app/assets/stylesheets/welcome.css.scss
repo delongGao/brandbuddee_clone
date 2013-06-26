@@ -702,4 +702,12 @@ a.brand-sign-up-link {
 		color:#5f89d5;
 	}
 }
+@media (min-width: 768px) {
+	.responsive-center-btn {
+		text-align:center;
+	}
+	.responsive-right-btn {
+		float: right;
+	}
+}
 // END BRANDS PAGE

@@ -14,6 +14,8 @@ gem "omniauth-facebook", "~> 1.2.0"
 gem "omniauth-twitter", "~> 0.0.17"
 # gem "twitter", "~> 4.6.2"
 gem 'omnicontacts', '0.2.5'
+gem "omniauth-tumblr", "~> 1.1"
+gem "tumblr_client", "~> 0.7.3"
 gem 'bcrypt-ruby', :require => 'bcrypt'
 
 gem "koala", "~> 1.5.0"
@@ -32,6 +34,8 @@ gem 'mail', '~> 2.4.4'
 gem "will_paginate_mongoid", "~> 1.0.0"
 gem "will_paginate", "~> 3.0.3"
 gem "bootstrap-will_paginate"
+
+gem "bootstrap-wysihtml5-rails", "~> 0.3.1.20"
 
 
 # Bundle edge Rails instead:

@@ -13,6 +13,7 @@
 //= require jquery-easing
 //= require jquerytransit
 //= require layerslider-transitions
+//= require bootstrap-wysihtml5
 //= require_tree .
 
 //addEventListener("load", function() { setTimeout(promo_campaign_wrap, 200); }, false);

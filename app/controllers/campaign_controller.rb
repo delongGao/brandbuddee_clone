@@ -902,4 +902,178 @@ class CampaignController < ApplicationController
 		end
 	end
 
+	def tumblr_auth
+		if current_user
+			params_campaign = params[:campaign].downcase
+			campaign = Campaign.where(:link => params_campaign).first
+			if campaign.present?
+				@campaign = campaign
+			end
+			if campaign.nil?
+				flash[:error] = "The campaign you want to post to Tumblr could not be found. Please try again."
+				redirect_to root_url
+			else
+				if current_user.tumblr_token.nil? || current_user.tumblr_secret.nil? || current_user.tumblr_token.blank? || current_user.tumblr_secret.blank?
+					session[:tumblr_campaign] = @campaign.link
+					redirect_to '/auth/tumblr'
+				else
+					Tumblr.configure do |config|
+						if Rails.env.production?
+							config.consumer_key = "n0UjPDfQllFWOqYvxudHIez5nc4cMTmLeoFabJXn0VvBIYqM8E"
+							config.consumer_secret = "xbjErcTpXvfnrHpuUM1rHNY7VcqBMAdv5GIXcRHNYYh5wDhnZU"
+						else
+							config.consumer_key = "FdB7CU7UBPtvVULdOzWjcz0oGThl10jPQdQb2j89GbBgRBjFZY"
+							config.consumer_secret = "j2R5FJnIoDjtjQXFZULSdb6hYkH4Ur5b84IQZrLAxsoFdOvdND"
+						end
+						config.oauth_token = current_user.tumblr_token
+						config.oauth_token_secret = current_user.tumblr_secret
+					end
+					client = Tumblr::Client.new
+					if client.info["status"] == 401 && client.info["msg"]=="Not Authorized" # CHANGE THIS
+						session[:tumblr_campaign] = @campaign.link
+						redirect_to '/auth/tumblr'
+					else
+						unless client.info["user"]["blogs"].nil?
+							redirect_to "/campaign/#{@campaign.link}/tumblr_blogs"
+						else
+							flash[:error] = "An error occured while trying to retrieve your Tumblr account information. We have been notified. Please try again later."
+							unless current_user.email.nil? || current_user.email.blank?
+								theemail = current_user.email
+							else
+								theemail = "No Email Available"
+							end
+							UserMailer.email_brice_error("Controller: campaign_controller.rb | Action: tumblr_auth | Issue: The statement: unless client.info[\"user\"][\"blogs\"].nil? went to the else. This means there was an error authenticating, but it wasn't the usual 'Not Authorized' error. | Here is the client status: #{client.info["status"]} | Here is the message: #{client.info["msg"]} | Here is the user's email: #{theemail}").deliver
+							redirect_to "#{root_url}campaign/#{@campaign.link}"
+						end
+					end
+				end
+			end
+		else
+			redirect_to "#{root_url}campaign/#{@campaign.link}"
+		end
+	end
+
+	def tumblr_blogs
+		if current_user
+			params_campaign = params[:campaign].downcase
+			campaign = Campaign.where(:link => params_campaign).first
+			if campaign.present?
+				@campaign = campaign
+			end
+			if campaign.nil?
+				flash[:error] = "The campaign you want to post to Tumblr could not be found. Please try again."
+				redirect_to root_url
+			else
+				Tumblr.configure do |config|
+					if Rails.env.production?
+						config.consumer_key = "n0UjPDfQllFWOqYvxudHIez5nc4cMTmLeoFabJXn0VvBIYqM8E"
+						config.consumer_secret = "xbjErcTpXvfnrHpuUM1rHNY7VcqBMAdv5GIXcRHNYYh5wDhnZU"
+					else
+						config.consumer_key = "FdB7CU7UBPtvVULdOzWjcz0oGThl10jPQdQb2j89GbBgRBjFZY"
+						config.consumer_secret = "j2R5FJnIoDjtjQXFZULSdb6hYkH4Ur5b84IQZrLAxsoFdOvdND"
+					end
+					config.oauth_token = current_user.tumblr_token
+					config.oauth_token_secret = current_user.tumblr_secret
+				end
+				@client = Tumblr::Client.new
+			end
+		else
+			redirect_to "#{root_url}campaign/#{@campaign.link}"
+		end
+	end
+
+	def tumblr_content
+		if current_user
+			params_campaign = params[:campaign].downcase
+			campaign = Campaign.where(:link => params_campaign).first
+			if campaign.present?
+				@campaign = campaign
+			end
+			if campaign.nil?
+				flash[:error] = "The campaign you want to post to Tumblr could not be found. Please try again."
+				redirect_to root_url
+			else
+				@share = @campaign.shares.where(user_id: current_user.id).first
+				unless @share.nil?
+					@link = params[:link]
+				else
+					flash[:error] = "The share you are trying to post to Tumblr could not be found. Please try again."
+					redirect_to "#{root_url}campaign/#{@campaign.link}"
+				end
+			end
+		else
+			redirect_to "#{root_url}campaign/#{@campaign.link}"
+		end
+	end
+
+	def tumblr_post
+		params_campaign = params[:campaign].downcase
+		campaign = Campaign.where(:link => params_campaign).first
+		if campaign.present?
+			@campaign = campaign
+		end
+		if campaign.nil?
+			flash[:error] = "The campaign you want to post to Tumblr could not be found. Please try again."
+			redirect_to root_url
+		else
+			unless params[:link].nil? || params[:link].empty?
+				unless params[:content].nil? || params[:title].nil? || params[:content].empty? || params[:title].empty?
+					if current_user
+						share = @campaign.shares.where(user_id: current_user.id).first
+						unless share.nil?
+							unless params[:content].match(share.link)
+								flash[:error] = "Uh Oh! It doesn't look like you added the link to your Share Page to the content. Please try again."
+								redirect_to "#{root_url}campaign/#{@campaign.link}/tumblr_content?#{{link: params[:link]}.to_query}&#{{title_text: params[:title]}.to_query}&#{{content_text: params[:content]}.to_query}"
+							else
+								if URI.unescape(params[:content]).length >= 200
+									Tumblr.configure do |config|
+										if Rails.env.production?
+											config.consumer_key = "n0UjPDfQllFWOqYvxudHIez5nc4cMTmLeoFabJXn0VvBIYqM8E"
+											config.consumer_secret = "xbjErcTpXvfnrHpuUM1rHNY7VcqBMAdv5GIXcRHNYYh5wDhnZU"
+										else
+											config.consumer_key = "FdB7CU7UBPtvVULdOzWjcz0oGThl10jPQdQb2j89GbBgRBjFZY"
+											config.consumer_secret = "j2R5FJnIoDjtjQXFZULSdb6hYkH4Ur5b84IQZrLAxsoFdOvdND"
+										end
+										config.oauth_token = current_user.tumblr_token
+										config.oauth_token_secret = current_user.tumblr_secret
+									end
+									client = Tumblr::Client.new
+									post_result = client.text(params[:link], {:title => params[:title], :body => params[:content]})
+									unless post_result["id"].nil?
+										@campaign.tumblr_clicks += 1
+										@campaign.save
+										flash[:notice] = "You have successfully posted to Tumblr! Here is the link to your blog post: http://#{params[:link]}/post/#{post_result["id"]}"
+										redirect_to "#{root_url}campaign/#{@campaign.link}"
+									else
+										flash[:error] = "An error occured while trying to post to Tumblr. We have been notified. Please try again later"
+										unless current_user.email.nil? || current_user.email.blank?
+											theemail = current_user.email
+										else
+											theemail = "No Email Available"
+										end
+										UserMailer.email_brice_error("Controller: campaign_controller.rb | Action: tumblr_post | Issue: The statement: unless post_result[\"id\"].nil? went to the else. | Here is the post_result status: #{post_result["status"]} | Here is the message: #{post_result["msg"]} | Here is the user's email: #{theemail}").deliver
+										redirect_to "#{root_url}campaign/#{@campaign.link}"
+									end
+								else
+									flash[:error] = "Uh Oh! Your blog content is not at least 200 characters! It's only #{URI.unescape(params[:content]).length}. Please make it longer, then try again!"
+									redirect_to "#{root_url}campaign/#{@campaign.link}/tumblr_content?#{{link: params[:link]}.to_query}&#{{title_text: params[:title]}.to_query}&#{{content_text: params[:content]}.to_query}"
+								end
+							end
+						else
+							flash[:error] = "The share you are trying to post to Tumblr could not be found. Please try again."
+							redirect_to "#{root_url}campaign/#{@campaign.link}"
+						end
+					else
+						redirect_to "#{root_url}campaign/#{@campaign.link}"
+					end
+				else
+					flash[:error] = "You must fill out all fields in the Tumblr Post form. Please try again."
+					redirect_to "#{root_url}campaign/#{@campaign.link}/tumblr_content?#{{link: params[:link]}.to_query}&#{{title_text: params[:title]}.to_query}&#{{content_text: params[:content]}.to_query}"
+				end
+			else
+				redirect_to "#{root_url}campaign/#{@campaign.link}"
+			end
+		end
+	end
+
 end

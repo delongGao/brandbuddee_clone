@@ -494,7 +494,8 @@ class AdminController < ApplicationController
 				@total_pinterest_clicks = @campaign.pinterest_clicks
 				@total_twitter_clicks = @campaign.twitter_clicks
 				@total_facebook_clicks = @campaign.facebook_clicks
-				@total_social_clicks = @total_pinterest_clicks + @total_twitter_clicks + @total_facebook_clicks
+				@total_tumblr_clicks = @campaign.tumblr_clicks
+				@total_social_clicks = @total_pinterest_clicks + @total_twitter_clicks + @total_facebook_clicks + @total_tumblr_clicks
 			else
 				redirect_to root_url
 			end

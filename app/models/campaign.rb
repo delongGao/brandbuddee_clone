@@ -45,6 +45,7 @@ class Campaign
   field :pinterest_clicks, :type => Integer, :default => 0
   field :twitter_clicks, :type => Integer, :default => 0
   field :facebook_clicks, :type => Integer, :default => 0
+  field :tumblr_clicks, :type => Integer, :default => 0
 
   mount_uploader :campaign_image, CampaignImageUploader
   mount_uploader :gift_image, CampaignGiftUploader
