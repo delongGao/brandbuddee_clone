@@ -84,7 +84,7 @@ class EmbedWidgetsController < ApplicationController
 	end
 
 	def facebook_signup
-		if current_user || current_brand
+		if current_user #|| current_brand
 			redirect_to "/fb-campaign-embed"
 		else
 			@user = User.new
