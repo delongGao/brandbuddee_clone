@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>brandbuddee</title>
+	<meta name="description" content="Earn rewards for sharing brands' stories on your favorite social networks like Facebook, Twitter, Pinterest, and Tumblr.">
+	<meta name="author" content="brandbuddee.com">
+	<%= csrf_meta_tags %>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<%= stylesheet_link_tag "application", :media => "all" %>
+	<!-- <link rel="stylesheet" type="text/css" href="/css/brands/embed_widget_overrides.css"> -->
+	<link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800' rel='stylesheet' type='text/css'>
+	<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<link rel="icon" type="image/png" href="/assets/favicon.png">
+	<script type="text/javascript">
+	  var _gaq = _gaq || [];
+	  _gaq.push(['_setAccount', 'UA-41362801-1']);
+	  _gaq.push(['_trackPageview']);
+	  (function() {
+	    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	  })();
+	</script>
+</head>
+<body>
+
+	<%= yield %>
+	<%= javascript_include_tag "application" %>
+	<!--<script src="/js/brands/embed_widget_overrides.js" type="text/javascript"></script>-->
+</body>
+</html>

@@ -1081,15 +1081,4 @@ class CampaignController < ApplicationController
 		end
 	end
 
-	def testisfbtest
-		if params[:signed_request].nil?
-			@signed_request = "The signed request param is nil"
-			@result = "The result is nil"
-		else
-			@signed_request = params[:signed_request]
-			@oauth = Koala::Facebook::OAuth.new(479922585431487, "6e313eda5412f9ac3023a17a99e80b31")
-			@result = @oauth.parse_signed_request(@signed_request)
-		end
-	end
-
 end

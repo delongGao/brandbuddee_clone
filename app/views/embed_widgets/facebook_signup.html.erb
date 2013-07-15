@@ -1,0 +1,48 @@
+<div class="container">
+	<div class="row">
+		<div class="span8 offset2">
+			<div class="well well-large text-center" id="fb-embed-index">
+				<%= form_for @user, url: {action: 'facebook_create'} do |f| %>
+					<% if @user.errors.any? %>
+						<% @user.errors.full_messages.each do |message| %>
+							<div class="alert alert-error fade in">
+								<a href="#" class="close" data-dismiss="alert">&times;</a>
+								<strong>Uh Oh!</strong> <%= message %>
+							</div>
+						<% end %>
+					<% end %>
+					<div class="control-group">
+						<%= f.label :first_name, "First Name", class: "control-label" %>
+						<div class="controls">
+							<%= f.text_field :first_name %>
+						</div>
+					</div>
+					<div class="control-group">
+						<%= f.label :last_name, "Last Name", class: "control-label" %>
+						<div class="controls">
+							<%= f.text_field :last_name %>
+						</div>
+					</div>
+					<div class="control-group">
+						<%= f.label :email, "Email Address", class: "control-label" %>
+						<div class="controls">
+							<%= f.email_field :email %>
+						</div>
+					</div>
+					<div class="control-group">
+						<%= f.label :password, "Password", class: "control-label" %>
+						<div class="controls">
+							<%= f.password_field :password %>
+						</div>
+					</div>
+					<div class="control-group">
+						<div class="controls">
+							<%= f.submit "Sign Up!", class: "btn btn-large btn-success", style: "font-weight:700;" %>
+						</div>
+					</div>
+				<% end %>
+				<br><%= link_to image_tag("bb-logo.png", alt: "brandbuddee-seattle-rewards", title: "brandbuddee Seattle Rewards", size: "250x47", style: "margin-top:1%;"), "/", target: "_blank", title: "brandbuddee Seattle Rewards" %>
+			</div>
+		</div>
+	</div>
+</div>

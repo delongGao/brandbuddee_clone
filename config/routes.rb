@@ -12,7 +12,9 @@ Brandbuddee::Application.routes.draw do
   match '/invite/sendemail2' => 'invites#sendemail2'
   match '/invite/sendemail3' => 'invites#sendemail3'
   match '/invite/facebook_search' => 'invites#facebook_search'
-  match '/testisfbtest' => 'campaign#testisfbtest'
+  match '/fb-campaign-embed' => 'embed_widgets#facebook_index'
+  match '/fb-embed-signup' => 'embed_widgets#facebook_signup'
+  match '/fb-joined-campaign' => 'embed_widgets#facebook_joined_camp'
   root :to => 'welcome#index'
 
   match '/about' => 'welcome#about'
