@@ -35,7 +35,7 @@ class EmbedWidgetsController < ApplicationController
 					# @embed = Embed.where(fb_page_id: @result["page"]["id"].to_s).last
 					# unless @embed.nil? || @embed.campaign_link.empty?
 						# @campaign = Campaign.where(link: @embed.campaign_link).first
-						@campaign = Campaign.where(link: "7938298")
+						@campaign = Campaign.where(link: "7938298").first
 						unless @campaign.nil?
 							# if current_user
 							# 	already_joined = false
