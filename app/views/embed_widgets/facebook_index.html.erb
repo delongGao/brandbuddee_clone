@@ -3,74 +3,42 @@
 		<div class="span8 offset2">
 			<div class="well well-large text-center" id="fb-embed-index">
 				<% if @continue == true %>
-					<% unless @campaign.nil? %>
-						<!-- User has already liked the page so display the widget -->
-						<% if @result["page"]["admin"] == true %>
-							<h2 class="whats-new"><i class="icon-cogs bb-blue"></i> Admin Panel</h2>
-						<% else %>
-							<h2 class="whats-new">Discover what's new with<br>"<%= @campaign.brand.name %>"<br>Earn <span class="bb-blue">points</span> and <span class="bb-blue">win</span></h2>
-						<% end %>
-						<div class="row stats-top">
-							<div class="span2">
-								<h3 class="whats-new"><%= @campaign.limit - @campaign.redeems.size < 1 ? "0" : @campaign.limit - @campaign.redeems.size %><br><span>Available Qty</span></h3>
-							</div>
-							<div class="span2">
-								<h3 class="whats-new"><%= @total_page_views %><br><span>Page Visits</span></h3>
-							</div>
-							<div class="span2">
-								<h3 class="whats-new"><%= "#{@campaign.end_date.month.to_s}-#{@campaign.end_date.day.to_s}-#{@campaign.end_date.year.to_s[2..-1]}" %><br><span>End Date</span></h3>
-							</div>
+					<h2 class="whats-new">Discover what's new with<br>"<%= @campaign.brand.name %>"<br>Earn <span class="bb-blue">points</span> and <span class="bb-blue">win</span></h2>
+					<div class="row stats-top">
+						<div class="span2">
+							<h3 class="whats-new"><%= @campaign.limit - @campaign.redeems.size < 1 ? "0" : @campaign.limit - @campaign.redeems.size %><br><span>Available Qty</span></h3>
 						</div>
-						<div class="divisor divisor_services">
-						    <div class="circle_left"></div>
-						    <div class="circle_right"></div>
+						<div class="span2">
+							<h3 class="whats-new"><%= @total_page_views %><br><span>Page Visits</span></h3>
 						</div>
-						<img src="/assets/bb-logo.png" alt="<%= "#{@campaign.brand.name.parameterize}-#{@campaign.title.parameterize}" %>" title="<%= "#{@campaign.brand.name} - #{@campaign.title}" %>" />
-						<div class="divisor divisor_services">
-						    <div class="circle_left"></div>
-						    <div class="circle_right"></div>
+						<div class="span2">
+							<h3 class="whats-new"><%= "#{@campaign.end_date.month.to_s}-#{@campaign.end_date.day.to_s}-#{@campaign.end_date.year.to_s[2..-1]}" %><br><span>End Date</span></h3>
 						</div>
-						<% if @result["page"]["admin"] == true %>
-							<h3 class="rewards-text">This is what your fans are sharing with their friends</h3>
-							<div class="stats-rewards" style="padding-left: 2%; padding-right: 2%; text-align: justify;">
-								<h3 class="rewards-text"><%= @campaign.detail %></h3>
-							</div>
-						<% else %>
-							<div class="stats-rewards">
-								<h3 class="rewards-text"><i class="icon-gift"></i>&nbsp;&nbsp;&nbsp;What do I get (<%= pluralize(@campaign.points_required, 'point') %>): <%= @campaign.reward %></h3>
-								<% unless @campaign.easy_prize.blank? %><h3 class="rewards-text"><i class="icon-gift"></i>&nbsp;&nbsp;&nbsp;What do I get (3 points): <%= @campaign.easy_prize %></h3><% end %>
-							</div>
-						<% end %>
-						<div class="divisor divisor_services">
-						    <div class="circle_left"></div>
-						    <div class="circle_right"></div>
-						</div>
-						<% if @result["page"]["admin"] == true %>
-							<h3 class="rewards-text">Share this campaign to help build the buzz for your Brand and drive the metrics you want!</h3>
-							<%= link_to "#", class: "btn btn-primary btn-large" do %>
-								<i class="icon-facebook-sign"></i> Post to Facebook
-							<% end %><br>
-							<%= link_to image_tag("facebook.png", size: "246x47"), "#" %><%= link_to image_tag("email.png", size: "246x47"), "#" %><br>
-							<%= link_to image_tag("gmail.png", size: "246x47"), "#" %><%= link_to image_tag("yahoo.png", size: "246x47"), "#" %>
-						<% else %>
-							<% if !@logged_in.nil? && @logged_in==true %>
-								<a href="#" class="btn btn-primary"><i class="icon-thumbs-up"></i> Join This Campaign</a>
-							<% else %>
-								<a href="/fb-embed-signup" class="btn btn-primary"><i class="icon-pencil"></i> Signup to get this gift</a>&nbsp;&nbsp;<a href="#loginModal" role="button" data-toggle="modal" class="btn btn-primary"><i class="icon-key"></i> Login to get this gift</a><br>
-								<a href="/tell-me-more" target="_blank" class="btn btn-success" style="margin-top:1%;"><i class="icon-cogs"></i> How it works</a>
-							<% end %>
-						<% end %>
+					</div>
+					<div class="divisor divisor_services">
+					    <div class="circle_left"></div>
+					    <div class="circle_right"></div>
+					</div>
+					<img src="/assets/bb-logo.png<%# @campaign.get_random_image %>" alt="<%= "#{@campaign.brand.name.parameterize}-#{@campaign.title.parameterize}" %>" title="<%= "#{@campaign.brand.name} - #{@campaign.title}" %>" />
+					<div class="divisor divisor_services">
+					    <div class="circle_left"></div>
+					    <div class="circle_right"></div>
+					</div>
+					<div class="stats-rewards">
+						<h3 class="rewards-text"><i class="icon-gift"></i>&nbsp;&nbsp;&nbsp;What do I get (<%= pluralize(@campaign.points_required, 'point') %>): <%= @campaign.reward %></h3>
+						<% unless @campaign.easy_prize.blank? %><h3 class="rewards-text"><i class="icon-gift"></i>&nbsp;&nbsp;&nbsp;What do I get (3 points): <%= @campaign.easy_prize %></h3><% end %>
+					</div>
+					<div class="divisor divisor_services">
+					    <div class="circle_left"></div>
+					    <div class="circle_right"></div>
+					</div>
+					<% if !@logged_in.nil? && @logged_in==true %>
+						<a href="#" class="btn btn-primary"><i class="icon-thumbs-up"></i> Join This Campaign</a>
 					<% else %>
-						<% if @result["page"]["admin"] == true %>
-							<!-- Display same as else, but have button that allows admin to skip the like and proceed -->
-							<h1><i class="icon-thumbs-up bb-blue"></i> Please Like This Page To Participate <i class="icon-unlock bb-green"></i></h1>
-							<a class="btn btn-info" style="font-weight:700;"><i class="icon-share-alt"></i> Skip This Message *</a>
-							<h5 style="margin-top:1%;">* Only Admins of this Facebook Page see this button</h5>
-						<% else %>
-							<!-- Display a page that forces the user to like the FB page. Once they do, display the widget -->
-							<h1><i class="icon-thumbs-up bb-blue"></i> Please Like This Page To Participate <i class="icon-unlock bb-green"></i></h1>
-						<% end %>
+						<a href="/fb-embed-signup" class="btn btn-primary"><i class="icon-pencil"></i> Signup to get this gift</a>&nbsp;&nbsp;<a href="#loginModal" role="button" data-toggle="modal" class="btn btn-primary"><i class="icon-key"></i> Login to get this gift</a>
 					<% end %>
+					<br>
+					<a href="/tell-me-more" target="_blank" class="btn btn-success" style="margin-top:1%;"><i class="icon-cogs"></i> How it works</a>
 				<% else %>
 					<h2><%= @error %></h2>
 				<% end %>
@@ -79,16 +47,18 @@
 		</div>
 	</div>
 </div>
-<div id="loginModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-header">
-		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-		<h3 id="myModalLabel">Login to get this gift</h3>
+<% if @continue == true %>
+	<div id="loginModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			<h3 id="myModalLabel">Login to get this gift</h3>
+		</div>
+		<div class="modal-body">
+			<p>One fine body…</p>
+		</div>
+		<div class="modal-footer">
+			<button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+			<button class="btn btn-success">Login</button>
+		</div>
 	</div>
-	<div class="modal-body">
-		<p>One fine body…</p>
-	</div>
-	<div class="modal-footer">
-		<button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
-		<button class="btn btn-success">Login</button>
-	</div>
-</div>
+<% end %>

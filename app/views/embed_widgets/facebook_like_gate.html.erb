@@ -1,0 +1,16 @@
+<div class="container">
+	<div class="row">
+		<% if @continue == true %>
+			<% if @result["page"]["admin"] == true %>
+				<a href="/fb-embed-admin" class="btn btn-info" style="font-weight:700;margin-bottom:1%;"><i class="icon-share-alt"></i> Continue to Embed Widget</a>
+			<% end %>
+				<%= image_tag "likegate.png", size: "800x400", alt: "brandbuddee-seattle-rewards", title: "brandbuddee Seattle Rewards" %>
+		<% else %>
+			<div class="span8 offset2">
+				<div class="well well-large text-center" id="fb-embed-index">
+					<h2><%= @error %></h2>
+				</div>
+			</div>
+		<% end %>
+	</div>
+</div>

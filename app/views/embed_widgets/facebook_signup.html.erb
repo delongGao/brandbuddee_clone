@@ -2,7 +2,7 @@
 	<div class="row">
 		<div class="span8 offset2">
 			<div class="well well-large text-center" id="fb-embed-index">
-				<%= form_for @user, url: {action: 'facebook_create'} do |f| %>
+				<%= form_for @user, url: {action: 'facebook_create'}, html: { class: "form-horizontal" } do |f| %>
 					<% if @user.errors.any? %>
 						<% @user.errors.full_messages.each do |message| %>
 							<div class="alert alert-error fade in">
@@ -14,25 +14,25 @@
 					<div class="control-group">
 						<%= f.label :first_name, "First Name", class: "control-label" %>
 						<div class="controls">
-							<%= f.text_field :first_name %>
+							<%= f.text_field :first_name, class: "span4", autofocus: true %>
 						</div>
 					</div>
 					<div class="control-group">
 						<%= f.label :last_name, "Last Name", class: "control-label" %>
 						<div class="controls">
-							<%= f.text_field :last_name %>
+							<%= f.text_field :last_name, class: "span4" %>
 						</div>
 					</div>
 					<div class="control-group">
 						<%= f.label :email, "Email Address", class: "control-label" %>
 						<div class="controls">
-							<%= f.email_field :email %>
+							<%= f.email_field :email, class: "span4" %>
 						</div>
 					</div>
 					<div class="control-group">
 						<%= f.label :password, "Password", class: "control-label" %>
 						<div class="controls">
-							<%= f.password_field :password %>
+							<%= f.password_field :password, class: "span4" %>
 						</div>
 					</div>
 					<div class="control-group">

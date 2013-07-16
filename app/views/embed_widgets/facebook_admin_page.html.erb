@@ -1,0 +1,48 @@
+<div class="container">
+	<div class="row">
+		<div class="span8 offset2">
+			<div class="well well-large text-center" id="fb-embed-index">
+				<% if @continue == true %>
+					<h2 class="whats-new"><i class="icon-cogs bb-blue"></i> Admin Panel</h2>
+					<div class="row stats-top">
+						<div class="span2">
+							<h3 class="whats-new"><%= @campaign.limit - @campaign.redeems.size < 1 ? "0" : @campaign.limit - @campaign.redeems.size %><br><span>Available Qty</span></h3>
+						</div>
+						<div class="span2">
+							<h3 class="whats-new"><%= @total_page_views %><br><span>Page Visits</span></h3>
+						</div>
+						<div class="span2">
+							<h3 class="whats-new"><%= "#{@campaign.end_date.month.to_s}-#{@campaign.end_date.day.to_s}-#{@campaign.end_date.year.to_s[2..-1]}" %><br><span>End Date</span></h3>
+						</div>
+					</div>
+					<div class="divisor divisor_services">
+					    <div class="circle_left"></div>
+					    <div class="circle_right"></div>
+					</div>
+					<img src="/assets/bb-logo.png<%# @campaign.get_random_image %>" alt="<%= "#{@campaign.brand.name.parameterize}-#{@campaign.title.parameterize}" %>" title="<%= "#{@campaign.brand.name} - #{@campaign.title}" %>" />
+					<div class="divisor divisor_services">
+					    <div class="circle_left"></div>
+					    <div class="circle_right"></div>
+					</div>
+					<h3 class="rewards-text">This is what your fans are sharing with their friends</h3>
+					<div class="stats-rewards" style="padding-left: 2%; padding-right: 2%; text-align: justify;">
+						<h3 class="rewards-text"><%= @campaign.detail %></h3>
+					</div>
+					<div class="divisor divisor_services">
+					    <div class="circle_left"></div>
+					    <div class="circle_right"></div>
+					</div>
+					<h3 class="rewards-text">Share this campaign to help build the buzz for your Brand and drive the metrics you want!</h3>
+					<%= link_to "#", class: "btn btn-primary btn-large" do %>
+						<i class="icon-facebook-sign"></i> Post to Facebook
+					<% end %><br>
+					<%= link_to image_tag("facebook.png", size: "246x47"), "#" %><%= link_to image_tag("email.png", size: "246x47"), "#" %><br>
+					<%= link_to image_tag("gmail.png", size: "246x47"), "#" %><%= link_to image_tag("yahoo.png", size: "246x47"), "#" %>
+				<% else %>
+					<h2><%= @error %></h2>
+				<% end %>
+				<br><%= link_to image_tag("bb-logo.png", alt: "brandbuddee-seattle-rewards", title: "brandbuddee Seattle Rewards", size: "250x47", style: "margin-top:1%;"), "/", target: "_blank", title: "brandbuddee Seattle Rewards" %>
+			</div>
+		</div>
+	</div>
+</div>
