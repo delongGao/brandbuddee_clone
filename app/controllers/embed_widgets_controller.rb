@@ -24,13 +24,16 @@ class EmbedWidgetsController < ApplicationController
 
 	def facebook_like_gate
 		@continue = false
-		if params[:signed_request].nil? # The page is not being viewed on Facebook
-			@error = "This is the Go Viral! Facebook App built by brandbuddee. Become a brand, create a campaign, and watch it go viral by installing this app to your Facebook Page!"
-			# BEGIN BULLSHIT TO KILL LATER
-				# @error = nil
-				# @continue = true
-				# @result = {"page" => {"admin" => true, "liked" => false}}
-			# END BULLSHIT TO KILL LATER
+		if params[:signed_request].nil?
+			if params[:page_id].nil? || params[:liked].nil? || params[:admin].nil?
+				@error = "This is the Go Viral! Facebook App built by brandbuddee. Become a brand, create a campaign, and watch it go viral by installing this app to your Facebook Page!"
+			else
+				if params[:liked] == "true"
+					redirect_to "/fb-campaign-embed?page_id=#{@result["page"]["id"]}&liked=#{@result["page"]["liked"]}&admin=#{@result["page"]["admin"]}"
+				else
+					@continue = true
+				end
+			end
 		else
 			@signed_request = params[:signed_request]
 			@oauth = Koala::Facebook::OAuth.new(479922585431487, "6e313eda5412f9ac3023a17a99e80b31")
@@ -51,22 +54,11 @@ class EmbedWidgetsController < ApplicationController
 		@continue = false
 		if params[:page_id].nil? || params[:liked].nil? || params[:admin].nil?
 			@error = "This is the Go Viral! Facebook App built by brandbuddee. Become a brand, create a campaign, and watch it go viral by installing this app to your Facebook Page!"
-			# BEGIN SHIT TO KILL LATER
-				# @error = nil
-				# @result = {"page" => {"admin" => false, "liked" => true}}
-				# @campaign = Campaign.where(link:"3664591").first
-				# @continue = true
-				# @total_page_views = 0
-				# @campaign.shares.each do |s|
-				# 	@total_page_views += s.cookie_unique_page_views
-				# end
-				# @logged_in = false
-			# END SHIT TO KILL LATER
 		else
-			if params[:admin] == true
+			if params[:admin] == "true"
 				redirect_to '/fb-embed-admin'
 			else
-				if params[:liked] == true
+				if params[:liked] == "true"
 					# @embed = Embed.where(fb_page_id: params[:page_id].to_s).last
 					# unless @embed.nil? || @embed.campaign_link.empty?
 						# @campaign = Campaign.where(link: @embed.campaign_link).first
@@ -110,7 +102,7 @@ class EmbedWidgetsController < ApplicationController
 					# 	@error = "An error occured while trying to find the campaign associated with this Facebook Page."
 					# end
 				else
-					redirect_to '/fb-like-gate'
+					redirect_to "/fb-like-gate?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
 				end
 			end
 		end
@@ -197,7 +189,7 @@ class EmbedWidgetsController < ApplicationController
 		if params[:page_id].nil? || params[:liked].nil? || params[:admin].nil?
 			@error = "This is the Go Viral! Facebook App built by brandbuddee. Become a brand, create a campaign, and watch it go viral by installing this app to your Facebook Page!"
 		else
-			if params[:admin] == true
+			if params[:admin] == "true"
 				# @embed = Embed.where(fb_page_id: params[:page_id].to_s).last
 				# unless @embed.nil? || @embed.campaign_link.empty?
 					# @campaign = Campaign.where(link: @embed.campaign_link).first
