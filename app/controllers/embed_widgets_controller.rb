@@ -26,7 +26,7 @@ class EmbedWidgetsController < ApplicationController
 		@continue = false
 		if params[:signed_request].nil?
 			if params[:page_id].nil? || params[:liked].nil? || params[:admin].nil?
-				@error = "UHOH!"
+				@error = "This is the Go Viral! Facebook App built by brandbuddee. Become a brand, create a campaign, and watch it go viral by installing this app to your Facebook Page!"
 			else
 				if params[:liked] == "true"
 					redirect_to "/fb-campaign-embed?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
@@ -56,7 +56,7 @@ class EmbedWidgetsController < ApplicationController
 			@error = "This is the Go Viral! Facebook App built by brandbuddee. Become a brand, create a campaign, and watch it go viral by installing this app to your Facebook Page!"
 		else
 			if params[:admin] == "true"
-				redirect_to '/fb-embed-admin'
+				redirect_to "/fb-embed-admin?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
 			else
 				if params[:liked] == "true"
 					# @embed = Embed.where(fb_page_id: params[:page_id].to_s).last
