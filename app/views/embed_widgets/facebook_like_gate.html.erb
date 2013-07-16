@@ -2,7 +2,7 @@
 	<div class="row">
 		<% if @continue == true %>
 			<% if @result["page"]["admin"] == true %>
-				<a href="/fb-embed-admin" class="btn btn-info" style="font-weight:700;margin-bottom:1%;"><i class="icon-share-alt"></i> Continue to Embed Widget</a>
+				<a href="/fb-embed-admin<%= "?page_id=#{@result["page"]["id"]}&liked=#{@result["page"]["liked"]}&admin=#{@result["page"]["admin"]}" %>" class="btn btn-info" style="font-weight:700;margin-bottom:1%;"><i class="icon-share-alt"></i> Continue to Embed Widget</a>
 			<% end %>
 				<%= image_tag "likegate.png", size: "800x400", alt: "brandbuddee-seattle-rewards", title: "brandbuddee Seattle Rewards" %>
 		<% else %>
