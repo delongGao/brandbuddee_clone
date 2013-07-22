@@ -439,22 +439,27 @@ class Campaign
   end
 
   def get_random_image
-    arr = []
-    arr<<0 unless self.campaign_image.blank?
-    arr<<1 unless self.gift_image.blank?
-    arr<<2 unless self.gift_image_two.blank?
-    arr<<3 unless self.gift_image_three.blank?
-    unless arr.size < 1
-      the_num = arr[Random.rand(0..arr.size-1)]
-      if the_num==3
-        self.gift_image_three_url(:standard).to_s # 800x800
-      elsif the_num==2
-        self.gift_image_two_url(:standard).to_s # 800x800
-      elsif the_num==1
-        self.gift_image_url(:standard).to_s # 800x800
-      else # the_num==0
-        self.campaign_image_url(:email).to_s # 600x300
-      end
+    # arr = []
+    # arr<<0 unless self.campaign_image.blank?
+    # arr<<1 unless self.gift_image.blank?
+    # arr<<2 unless self.gift_image_two.blank?
+    # arr<<3 unless self.gift_image_three.blank?
+    # unless arr.size < 1
+    #   the_num = arr[Random.rand(0..arr.size-1)]
+    #   if the_num==3
+    #     self.gift_image_three_url(:standard).to_s # 800x800
+    #   elsif the_num==2
+    #     self.gift_image_two_url(:standard).to_s # 800x800
+    #   elsif the_num==1
+    #     self.gift_image_url(:standard).to_s # 800x800
+    #   else # the_num==0
+    #     self.campaign_image_url(:email).to_s # 600x300
+    #   end
+    # else
+    #   "/assets/bb-logo.png"
+    # end
+    unless self.campaign_image.blank?
+      self.campaign_image_url(:email).to_s
     else
       "/assets/bb-logo.png"
     end
