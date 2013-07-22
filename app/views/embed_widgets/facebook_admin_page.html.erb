@@ -98,12 +98,10 @@
                 <%= hidden_field_tag(:liked, params[:liked], :name=>'liked') %>
                 <%= hidden_field_tag(:admin, params[:admin], :name=>'admin') %>
 	            <% if Rails.env.development? %>
-	                <%= hidden_field_tag(:link, 'http://brandbuddee.com/s/B6JcpS5E7A1') %>
+	                <%= hidden_field_tag(:link, 'http://brandbuddee.com/campaign/' + @campaign.link) %>
 	                <%= hidden_field_tag(:picture, 'http://brandbuddee.com/assets/bb-logo.png') %>
 	            <% elsif Rails.env.production? %>
-	                <% unless @share.link.nil? %>
-	                   <%= hidden_field_tag(:link, root_url + 's/' + @share.link) %>
-	                <% end %>
+	            	<%= hidden_field_tag(:link, root_url + 'campaign/' + @campaign.link) %>
 	                <%= hidden_field_tag(:picture, @campaign.campaign_image_url(:standard).to_s) %>
 	            <% end %>
 		</div>
