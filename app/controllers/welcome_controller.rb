@@ -140,4 +140,109 @@ class WelcomeController < ApplicationController
 		redirect_to(:controller=>"welcome", :action => 'list')
 	end
 
+	def new_brand
+		if current_user
+	      	flash[:error] = "You can't be logged in as a buddee and sign up as a brand."
+	      	redirect_to "/home"
+	    elsif current_brand
+	      	flash[:error] = "You are already logged in as a brand!"
+	      	redirect_to "/brands/dashboard"
+	    else
+	    	@brand = Brand.new
+	    end
+	end
+
+	def create_brand
+		if current_user
+	      	flash[:error] = "You can't be logged in as a buddee and sign up as a brand."
+	      	redirect_to "/home"
+	    elsif current_brand
+	      	flash[:error] = "You are already logged in as a brand!"
+	      	redirect_to "/brands/dashboard"
+	    else
+			@brand = Brand.new(params[:brand])
+			@brand.email = @brand.email.downcase
+			@brand.provider = "email"
+			@brand.last_login = DateTime.now
+			@brand.date = DateTime.now
+			if @brand.save
+				session[:brand_id] = @brand.id
+				flash[:info] = "You are now signed up! Please choose a nickname to complete the process."
+				redirect_to '/brands/enter-nickname'
+			else
+				render "new_brand"
+			end
+		end
+	end
+
+	def brands_get_email
+		if current_brand.nil?
+			flash[:notice] = "You must be logged in as a brand to perform that action."
+			redirect_to "/brands/login"
+		else
+			@current_brand = current_brand
+		end
+	end
+
+	def brands_update_email
+		if current_brand.nil?
+			flash[:notice] = "You must be logged in as a brand to perform that action."
+			redirect_to "/brands/login"
+		else
+			@current_brand = current_brand
+			unless params[:email_address].nil? || params[:email_address].blank? || !params[:email_address].match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i) || params[:email_address].length < 6 || params[:email_address].length > 100
+				if Brand.is_unique_email(params[:email_address])
+					@current_brand.email = params[:email_address].downcase
+					@current_brand.last_updated = DateTime.now
+					@current_brand.save!(validate: false)
+					if @current_brand.nickname.nil? || @current_brand.nickname.blank?
+						redirect_to "/brands/enter-nickname"
+					else
+						flash[:info] = "You are now logged in!"
+						redirect_to "/brands/dashboard"
+					end
+				else
+					flash[:error] = "That email address has already been taken. Please choose another."
+					redirect_to "/brands/enter-email"
+				end
+			else
+				flash[:error] = "You must enter a valid email address between 6-100 characters."
+				redirect_to "/brands/enter-email"
+			end			
+		end			
+	end
+
+	def brands_get_nickname
+		if current_brand.nil?
+			flash[:notice] = "You must be logged in as a brand to perform that action."
+			redirect_to "/brands/login"
+		else
+			@current_brand = current_brand
+		end
+	end
+
+	def brands_update_nickname
+		unless current_brand.nil?
+			@current_brand = current_brand
+			unless params[:nickname].nil? || params[:nickname].blank? || !params[:nickname].match(/\A[-\w]*\z/) || params[:nickname].length > 45
+				if Brand.is_unique_nickname(params[:nickname])
+					@current_brand.nickname = params[:nickname].downcase
+					@current_brand.last_updated = DateTime.now
+					@current_brand.save!(validate: false)
+					flash[:info] = "You are now logged in!"
+					redirect_to "/brands/dashboard"
+				else
+					flash[:error] = "That nickname has already been taken. Please choose another."
+					redirect_to "/brands/enter-nickname"
+				end
+			else
+				flash[:error] = "You must enter a valid nickname. Only lowercase letters, numbers, dashes, and underscores. Up to (and including) 45 characters."
+				redirect_to "/brands/enter-nickname"
+			end
+		else
+			flash[:notice] = "You must be logged in as a brand to perform that action."
+			redirect_to "/brands/login"
+		end
+	end
+
 end

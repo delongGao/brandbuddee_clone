@@ -1,0 +1,54 @@
+<%= render 'shared/header' %>
+
+<div class="container">
+	<div class="row">
+		<div class="span6 offset3">
+			<div class="page-header">
+				<h1 style="text-align:center;">Brand Login</h1>
+			</div>
+		</div>
+	</div>
+	<% flash.each do |name, msg| %>
+	<div class="row">
+		<div class="span6 offset3">
+			<div class="alert alert-<%= name %> fade in">
+				<a href="#" class="close" data-dismiss="alert">&times;</a>
+				<%= msg %>
+			</div>
+		</div>
+	</div>
+	<% end %>
+	<div class="row" style="margin-top:3%;margin-bottom:7%;">
+		<div class="span6 offset3">
+			<div class="well well-large" style="overflow:hidden;padding:4%;">
+				<div style="display:block;margin-bottom:4%;">
+					<%= link_to(image_tag("/assets/facebook_login.png", size: "207x39", alt: "Log in with Facebook", title: "Log in with Facebook"), "/brands/facebook", style: "margin-left:0.5%;") %>
+					<%= link_to(image_tag("/assets/twitter_login.png", size: "207x39", alt: "Log in with Twitter", title: "Log in with Twitter"), "/brands/twitter") %>
+				</div>
+				<%= form_tag "/brands/email-login", class: "form-horizontal" do %>
+					<div class="control-group">
+						<%= label_tag :email_address, "Email Address", class: "control-label" %>
+						<div class="controls">
+							<%= text_field_tag :email_address, params[:email_address] %>
+						</div>
+					</div>
+					<div class="control-group">
+						<%= label_tag :password_field, "Password", class: "control-label" %>
+						<div class="controls">
+							<%= password_field_tag :password_field %>
+						</div>
+					</div>
+					<div class="control-group">
+						<div class="controls">
+							<%= submit_tag "Log In!", class: "btn btn-large btn-info pull-right", style: "font-weight:700;margin-right:9%;" %>
+						</div>
+					</div>
+				<% end %>
+				<%= link_to "Need to sign up?", "/brands/signup", class: "btn btn-info pull-left", style: "font-weight:700;" %>
+				<%= link_to "I forgot my password!", new_reset_password_path, class: "pull-right", style: "font-size: 1.25em; margin-top: 1.3%;" %>
+			</div><!-- /.well -->
+		</div><!-- /.span6 -->
+	</div><!-- /.row -->
+</div><!-- /.container -->
+
+<%= render 'shared/footer' %>

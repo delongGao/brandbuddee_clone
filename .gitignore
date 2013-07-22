@@ -5,3 +5,9 @@ tmp/
 .sass-cache/
 public/assets/campaign_image/*
 public/assets/profile_image/*
+public/campaign_image/*
+public/gift_image/*
+public/gift_image_three/*
+public/gift_image_two/*
+public/brand_logo/*
+public/profile_image/*

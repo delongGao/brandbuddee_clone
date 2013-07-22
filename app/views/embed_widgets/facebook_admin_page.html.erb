@@ -2,6 +2,13 @@
 	<div class="row">
 		<div class="span8 offset2">
 			<div class="well well-large text-center" id="fb-embed-index">
+				<% flash.each do |name, msg| %>
+					<div class="alert alert-block alert-<%= name %> fade in">
+						<a href="#" class="close" data-dismiss="alert">&times;</a>
+						<h4 class="alert-heading">Just so You Know...</h4>
+						<p><%= msg.html_safe %></p>
+					</div>
+				<% end %>
 				<% if @continue == true %>
 					<h2 class="whats-new"><i class="icon-cogs bb-blue"></i> Admin Panel</h2>
 					<div class="row stats-top">
@@ -19,7 +26,7 @@
 					    <div class="circle_left"></div>
 					    <div class="circle_right"></div>
 					</div>
-					<img src="/assets/bb-logo.png<%# @campaign.get_random_image %>" alt="<%= "#{@campaign.brand.name.parameterize}-#{@campaign.title.parameterize}" %>" title="<%= "#{@campaign.brand.name} - #{@campaign.title}" %>" />
+					<img src="<%= @campaign.get_random_image %>" alt="<%= "#{@campaign.brand.name.parameterize}-#{@campaign.title.parameterize}" %>" title="<%= "#{@campaign.brand.name} - #{@campaign.title}" %>", class="img-rounded" />
 					<div class="divisor divisor_services">
 					    <div class="circle_left"></div>
 					    <div class="circle_right"></div>
@@ -33,11 +40,13 @@
 					    <div class="circle_right"></div>
 					</div>
 					<h3 class="rewards-text">Share this campaign to help build the buzz for your Brand and drive the metrics you want!</h3>
-					<%= link_to "#", class: "btn btn-primary btn-large" do %>
-						<i class="icon-facebook-sign"></i> Post to Facebook
-					<% end %><br>
-					<%= link_to image_tag("facebook.png", size: "246x47"), "#" %><%= link_to image_tag("email.png", size: "246x47"), "#" %><br>
-					<%= link_to image_tag("gmail.png", size: "246x47"), "#" %><%= link_to image_tag("yahoo.png", size: "246x47"), "#" %>
+					<% if @logged_in == true %>
+						<a href="#facebookModal" class="btn btn-primary btn-large" style="margin-bottom: 1%;" data-toggle="modal" role="button"><i class="icon-facebook-sign"></i> Post to Facebook Wall</a><br>
+						<%= link_to image_tag("facebook.png", size: "246x47", style: "margin-right: 1%; margin-left: 1%;"), "/fb-invite-fb-list?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}" %><%= link_to image_tag("email.png", size: "246x47"), "/fb-invite-email-form?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}" %><br>
+						<%= link_to image_tag("gmail.png", size: "246x47", style: "margin-right: 1%; margin-left: 1%; margin-top:1%;"), "/invite", target: "_blank" %><%= link_to image_tag("yahoo.png", size: "246x47", style: "margin-top:1%;"), "/invite", target: "_blank" %>
+					<% else %>
+						<a href="#loginModal" role="button" data-toggle="modal" class="btn btn-primary btn-large"><i class="icon-key"></i> Login to Share this Campaign!</a>
+					<% end %>
 				<% else %>
 					<h2><%= @error %></h2>
 				<% end %>
@@ -46,3 +55,62 @@
 		</div>
 	</div>
 </div>
+<% if @continue == true && @logged_in == false %>
+	<div id="loginModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			<h3 id="myModalLabel">Login to Share this Campaign</h3>
+		</div>
+		<div class="modal-body">
+			<div class="text-center">
+				<%= link_to image_tag("facebook_login.png", class: "social_login", size: "230x44", alt: "brandbuddee-seattle-rewards", title: "Login with Facebook"), "/fb-embed-oauth?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}&campaign_id=#{@campaign.id}", title: "Login with Facebook" %>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<div class="email-signup">
+				<%= form_tag url_for(:controller => "embed_widgets", :action => 'facebook_email_signin'), :class => "form-inline" do %>
+					<%= text_field_tag :email, params[:email], :class=>"signin-field signin-default span2 input-large", :placeholder=>"Email" %>
+					<%= password_field_tag :password, nil, :class=>"signin-field span2 input-large", :placeholder=>"Password" %>
+					<%= hidden_field_tag(:page_id, params[:page_id], :name=>'page_id') %>
+					<%= hidden_field_tag(:liked, params[:liked], :name=>'liked') %>
+					<%= hidden_field_tag(:admin, params[:admin], :name=>'admin') %><br>
+					<%= hidden_field_tag(:campaign_id, @campaign.id, :name=>'campaign_id') %><br>
+					<%= submit_tag "Login", :class=>"btn btn-success" %>
+					<button class="btn btn-info" data-dismiss="modal" aria-hidden="true">Cancel</button>
+				<% end %>
+			</div>
+		</div>
+	</div>
+<% end %>
+<% if @continue == true && @logged_in == true %>
+	<div id="facebookModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			<h3 id="myModalLabel">Post to Facebook</h3>
+		</div>
+		<div class="modal-body">
+			<%= form_tag url_for(:controller => 'embed_widgets', :action => 'facebook_wall_post'), :id => "", :class => "form-horizontal" do %>
+	            <%= text_area_tag :personal_message, "#{@campaign.title}", :class => "input-large facebook_wall_post", :placeholder=>"your personal message...", :rows => 3 %>
+	            <%= hidden_field_tag(:name, @campaign.title) %>
+	            <%= hidden_field_tag(:caption, @campaign.reward) %>
+	            <%= hidden_field_tag(:description, @campaign.detail) %>
+                <%= hidden_field_tag(:page_id, params[:page_id], :name=>'page_id') %>
+                <%= hidden_field_tag(:liked, params[:liked], :name=>'liked') %>
+                <%= hidden_field_tag(:admin, params[:admin], :name=>'admin') %>
+	            <% if Rails.env.development? %>
+	                <%= hidden_field_tag(:link, 'http://brandbuddee.com/s/B6JcpS5E7A1') %>
+	                <%= hidden_field_tag(:picture, 'http://brandbuddee.com/assets/bb-logo.png') %>
+	            <% elsif Rails.env.production? %>
+	                <% unless @share.link.nil? %>
+	                   <%= hidden_field_tag(:link, root_url + 's/' + @share.link) %>
+	                <% end %>
+	                <%= hidden_field_tag(:picture, @campaign.campaign_image_url(:standard).to_s) %>
+	            <% end %>
+		</div>
+		<div class="modal-footer">
+			<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+	            <%= submit_tag 'Post', :class=>"btn btn-primary" %>
+	        <% end %>
+		</div>
+	</div>
+<% end %>

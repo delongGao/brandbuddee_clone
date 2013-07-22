@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>brandbuddee</title>
+	<meta name="description" content="Earn rewards for sharing brands' stories on your favorite social networks like Facebook, Twitter, Pinterest, and Tumblr.">
+	<meta name="author" content="brandbuddee.com">
+	<%= csrf_meta_tags %>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link id="bootstrap-style" href="/css/brands/bootstrap.min.css" rel="stylesheet">
+	<link href="/css/brands/bootstrap-responsive.min.css" rel="stylesheet">
+	<link id="base-style" href="/css/brands/style.css" rel="stylesheet">
+	<link id="base-style-responsive" href="/css/brands/style-responsive.css" rel="stylesheet">
+	<!--[if lt IE 7 ]>
+		<link id="ie-style" href="/css/brands/style-ie.css" rel="stylesheet">
+	<![endif]-->
+	<!--[if IE 8 ]>
+		<link id="ie-style" href="/css/brands/style-ie.css" rel="stylesheet">
+	<![endif]-->
+	<!--[if IE 9 ]>
+	<![endif]-->
+	<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<link rel="icon" type="image/png" href="/assets/favicon.png">
+	<script type="text/javascript">
+	  var _gaq = _gaq || [];
+	  _gaq.push(['_setAccount', 'UA-41362801-1']);
+	  _gaq.push(['_trackPageview']);
+	  (function() {
+	    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	  })();
+	</script>
+</head>
+<body>
+	<div id="overlay">
+		<ul>
+		  <li class="li1"></li>
+		  <li class="li2"></li>
+		  <li class="li3"></li>
+		  <li class="li4"></li>
+		  <li class="li5"></li>
+		  <li class="li6"></li>
+		</ul>
+	</div>	
+	<%= yield %>
+</body>
+</html>

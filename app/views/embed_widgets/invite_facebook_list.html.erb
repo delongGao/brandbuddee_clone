@@ -1,0 +1,62 @@
+<div class="container">
+	<div class="row">
+		<div class="span8 offset2">
+			<div class="well well-large" id="fb-embed-index" style="padding-left:0;padding-right:0;">
+                <% flash.each do |name, msg| %>
+                    <div class="alert alert-block alert-<%= name %> fade in" style="text-align: left;">
+                        <a href="#" class="close" data-dismiss="alert">&times;</a>
+                        <h4 class="alert-heading">Just so You Know...</h4>
+                        <p><%= msg.html_safe %></p>
+                    </div>
+                <% end %>
+                <div class="pull-right" id="insertbeforeme">
+                    <%= form_tag("/fb-invite-fb-search", :method => "get", :class => "form-search", :style => "position: relative; right: 5%;") do %>
+                        <%= text_field_tag(:query, nil, :placeholder => "Friend's Name", :class => "input-medium search-query") %>
+                        <%= hidden_field_tag(:page_id, params[:page_id], :name=>'page_id') %>
+                        <%= hidden_field_tag(:liked, params[:liked], :name=>'liked') %>
+                        <%= hidden_field_tag(:admin, params[:admin], :name=>'admin') %>
+                        <%= submit_tag("Search", :class => "btn btn-fuji-splash-3") %>
+                    <% end %>
+                </div>
+                <a href="/fb-embed-admin<%= "?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}" %>" class="btn btn-info pull-left" style="margin-left:2%;"><i class="icon-reply" style="font-size:inherit;"></i> Go Back</a>
+                <div class="clearfix"></div>
+                <% unless @friendslist.blank? %>
+                    <ul class="pull-left fb-invite-fb">
+                    <% @counter = 0 %>
+                    <% @friendslist.each do |friend| %>
+                        <% if @counter==(@friendslist.size / 2).floor %>
+                    </ul>
+                    <ul class="pull-right fb-invite-fb">
+                        <% end %>
+                        <li><img src="https://graph.facebook.com/<%= friend["id"] %>/picture?type=square" alt="<%= friend["name"] %>'s Profile Image" width="35" height="35" class="img-circle inviteprofileimage" /> <%= friend["name"] %>&nbsp;<input type="button" class="btn btn-fuji-splash-3 btn-mini" onclick="fbInvitePerson(<%= friend["id"] %>, '<%= friend["name"] %>'); return false;" value="Invite" style="float:right;margin-top:3%;" /></li>
+                        <% @counter += 1 %>
+                    <% end %>
+                    </ul>
+                    <div class="clearfix"></div>
+                    <ul class="pager">
+                        <li class="previous<% if @friendslist.previous_page.blank? %><%= " disabled" %><% end %>">
+                            <% if @friendslist.previous_page.blank? %>
+                                <a href="javascript:void(0)" style="margin-left:2%;">&larr;PREVIOUS </a>
+                            <% else %>
+                                <%= link_to url_for(:page => @friendslist.previous_page_params, :page_id => params[:page_id], :liked => params[:liked], :admin => params[:admin]), style: "margin-left:2%;" do %>&larr;PREVIOUS <% end %>
+                            <% end %>
+                        </li>
+                        <li class="next<% if @friendslist.next_page.blank? %><%= " disabled" %><% end %>">
+                            <% if @friendslist.next_page.blank? %>
+                                <a href="javascript:void(0)" style="margin-right:2%;"> NEXT&rarr;</a>
+                            <% else %>
+                                <%= link_to url_for(:page => @friendslist.next_page_params, :page_id => params[:page_id], :liked => params[:liked], :admin => params[:admin]), style: "margin-right:2%;" do %> NEXT&rarr;<% end %>
+                            <% end %>
+                        </li>
+                    </ul>
+                <% else %>
+                    <div class="alert alert-block alert-error fade in" style="width: 88%; margin-left: 2%;">
+                        <a class="close" data-dismiss="alert" href="#">&times;</a>
+                        <h4>Uh Oh!</h4>
+                        We couldn't find any friends in your Facebook Friends List. Are you sure brandbuddee is connected to the correct Facebook account? If not, login to the right Facebook account, and <a href="/fb-connect-with-fb<%= "?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}" %>" class="btn btn-warning btn-mini">Reconnect with Facebook</a>.</h4>
+                <% end %>
+                <br><div class="text-center" style="margin-top:-12%;"><%= link_to image_tag("bb-logo.png", alt: "brandbuddee-seattle-rewards", title: "brandbuddee Seattle Rewards", size: "250x47"), "/", target: "_blank", title: "brandbuddee Seattle Rewards" %></div>
+            </div>
+        </div>
+    </div>
+</div>

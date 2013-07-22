@@ -17,7 +17,22 @@ Brandbuddee::Application.routes.draw do
   match '/fb-campaign-embed' => 'embed_widgets#facebook_index'
   match '/fb-embed-signup' => 'embed_widgets#facebook_signup'
   match '/fb-embed-create' => 'embed_widgets#facebook_create'
+  match '/fb-embed-login' => 'embed_widgets#facebook_email_signin'
+  match '/fb-embed-oauth' => 'embed_widgets#facebook_signup_fb_auth'
   match '/fb-joined-campaign' => 'embed_widgets#facebook_joined_camp'
+  match '/fb-error-page' => 'embed_widgets#facebook_error_page'
+  match '/fb-create-username' => 'embed_widgets#facebook_create_username'
+  match '/fb-update-username' => 'embed_widgets#facebook_update_username'
+  match '/fb-add-campaign' => 'embed_widgets#facebook_add_campaign'
+  match '/fb-wall-post' => 'embed_widgets#facebook_wall_post'
+  match '/fb-connect-with-fb' => 'embed_widgets#facebook_reauthenticate'
+  match '/fb-task-complete' => 'embed_widgets#facebook_task_complete'
+  match '/fb-task-undo' => 'embed_widgets#facebook_task_undo'
+  match '/fb-invite-fb-list' => 'embed_widgets#invite_facebook_list'
+  match '/fb-invite-fb-search' => 'embed_widgets#invite_facebook_search'
+  match '/fb-invite-email-form' => 'embed_widgets#invite_email_form'
+  match '/fb-invite-email-send' => 'embed_widgets#invite_email_send'
+
   root :to => 'welcome#index'
 
   match '/about' => 'welcome#about'
@@ -37,6 +52,37 @@ Brandbuddee::Application.routes.draw do
   post 'users/create' => "users#create"
   match 'users/show' => 'users#show'
   match 'users/destroy' => 'users#destroy'
+
+  match '/brands/signup' => 'welcome#new_brand'
+  match '/brands/create' => 'welcome#create_brand'
+  match '/brands/facebook' => 'brands#facebook_auth'
+  match '/brands/twitter' => 'brands#twitter_auth'
+  match '/brands/login' => 'sessions#brand_login'
+  match '/brands/email-login' => 'sessions#brand_email_login'
+  match '/brands/dashboard' => 'brands#dashboard'
+  match '/brands/logout' => 'sessions#brand_destroy'
+  match '/brands/profile' => 'brands#view_edit_profile'
+  match '/brands/enter-email' => 'welcome#brands_get_email'
+  match '/brands/update-email' => 'welcome#brands_update_email'
+  match '/brands/enter-nickname' => 'welcome#brands_get_nickname'
+  match '/brands/update-nickname' => 'welcome#brands_update_nickname'
+  match '/brands/update-profile' => 'brands#update_profile'
+  match '/brands/change-password' => 'brands#change_password'
+  match '/brands/update-password' => 'brands#update_password'
+  match '/brands/change-email' => 'brands#change_email'
+  match '/brands/update-email-address' => 'brands#update_email'
+  match '/brands/campaigns' => 'brands#list_campaigns'
+  match '/brands/campaigns/view' => 'brands#view_campaign'
+  match '/brands/campaigns/buddees' => 'brands#view_campaign_buddees'
+  match '/brands/campaigns/redeems' => 'brands#view_campaign_redeems'
+  match '/brands/campaigns/tasks' => 'brands#view_campaign_tasks'
+  match '/brands/redeems' => 'brands#all_redeems'
+  match '/brands/go-viral' => 'brands#go_viral_page'
+  match '/brands/campaigns/viral' => 'brands#viral_campaign_picked'
+  match '/brands/campaigns/viral-install-fb' =>'brands#viral_campaign_install_fb'
+  match '/brands/campaigns/viral-page-chosen' => 'brands#viral_campaign_fb_page_chosen'
+  match '/brands/facebook-re-connect' => 'brands#facebook_reconnect'
+  #resources :brands
   
   match 'complete/email' => 'users#complete_email'
   match 'complete/email/update' => 'users#complete_email_update'
@@ -154,6 +200,9 @@ Brandbuddee::Application.routes.draw do
   match '/campaign/:campaign/tumblr_content' => 'campaign#tumblr_content', :as => :campaign
   match '/campaign/:campaign/tumblr_post' => 'campaign#tumblr_post', :as => :campaign
 
+  # match '/campaign/:campaign/go_viral' => 'embed_widgets#index', :as => :campaign #Website Embed Widget
+  # match '/campaign/:campaign/go_viral_new_user' => 'embed_widgets#create_user', :as => :campaign #Website Embed Widget
+
   match '/post/facebook' => 'campaign#facebook_wall_post'
   #match '/facebook/connect' => 'users#facebook_connect'
 
@@ -175,6 +224,8 @@ Brandbuddee::Application.routes.draw do
   
   get "/b/:share_link" => "welcome#share"
   get "/share" => "welcome#share"
+
+  resources :reset_passwords
   
 
   

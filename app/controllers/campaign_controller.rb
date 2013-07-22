@@ -407,7 +407,7 @@ class CampaignController < ApplicationController
 									redirect_to "#{root_url}campaign/#{@campaign.link}"
 								end
 							else
-								flash[:error] = "You have already completed this task!"
+								flash[:error] = "You have not yet completed this task!"
 								redirect_to "#{root_url}campaign/#{@campaign.link}"
 							end
 						else
@@ -506,7 +506,7 @@ class CampaignController < ApplicationController
 									redirect_to "#{root_url}campaign/#{@campaign.link}"
 								end
 							else
-								flash[:error] = "You have already completed this task!"
+								flash[:error] = "You have not yet completed this task!"
 								redirect_to "#{root_url}campaign/#{@campaign.link}"
 							end
 						else
@@ -696,7 +696,7 @@ class CampaignController < ApplicationController
 											redirect_to "#{root_url}campaign/#{@campaign.link}"
 										end
 									else
-										flash[:error] = "You have already completed this task!"
+										flash[:error] = "You have not yet completed this task!"
 										redirect_to "#{root_url}campaign/#{@campaign.link}"
 									end
 								else
@@ -717,7 +717,7 @@ class CampaignController < ApplicationController
 											redirect_to "#{root_url}campaign/#{@campaign.link}"
 										end
 									else
-										flash[:error] = "You have already completed this task!"
+										flash[:error] = "You have not yet completed this task!"
 										redirect_to "#{root_url}campaign/#{@campaign.link}"
 									end
 								else
@@ -738,7 +738,7 @@ class CampaignController < ApplicationController
 											redirect_to "#{root_url}campaign/#{@campaign.link}"
 										end
 									else
-										flash[:error] = "You have already completed this task!"
+										flash[:error] = "You have not yet completed this task!"
 										redirect_to "#{root_url}campaign/#{@campaign.link}"
 									end
 								else
@@ -759,7 +759,7 @@ class CampaignController < ApplicationController
 											redirect_to "#{root_url}campaign/#{@campaign.link}"
 										end
 									else
-										flash[:error] = "You have already completed this task!"
+										flash[:error] = "You have not yet completed this task!"
 										redirect_to "#{root_url}campaign/#{@campaign.link}"
 									end
 								else
@@ -780,7 +780,7 @@ class CampaignController < ApplicationController
 											redirect_to "#{root_url}campaign/#{@campaign.link}"
 										end
 									else
-										flash[:error] = "You have already completed this task!"
+										flash[:error] = "You have not yet completed this task!"
 										redirect_to "#{root_url}campaign/#{@campaign.link}"
 									end
 								else

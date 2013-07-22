@@ -47,7 +47,7 @@
                 </li>
                 <li class="next<% if @friendslist.next_page.nil? || @friendslist.next_page.empty? %><%= " disabled" %><% end %>">
                     <% if @friendslist.next_page.nil? || @friendslist.next_page.empty? %>
-                        <a href="javascript:void(0)"> Next </a>                        
+                        <a href="javascript:void(0)"> Next </a>
                     <% else %>
                         <%= link_to ' Next ', url_for(:page => @friendslist.next_page_params) %>
                     <% end %>

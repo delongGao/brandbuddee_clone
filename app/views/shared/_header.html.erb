@@ -48,8 +48,31 @@
 
 
             </ul>
-          </div><!--/.nav-collapse -->
+          </div><!--/.navEmailBuddee  -collapse -->
       
+      <% elsif current_brand %>
+
+        <div class="nav-collapse">
+          <ul class="nav pull-right" style="margin-right:0;">
+            <li><a href="/brands/profile" style="color:#7EC1E1;font-weight:700;"><i class="icon-user"></i> <%= current_brand.email %></a></li>
+            <li><a href="/brands/dashboard"><i class="icon-home"></i> Dashboard </a></li>
+            <li class="dropdown pull-right">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="/brands/campaigns">Campaigns</a></li>
+                <li><a href="/brands/redeems">Redeems</a></li>
+                <li><a href="/brands/go-viral">Go Viral!</a></li>
+                <li class="divider"></li>
+                <li><a href="/brands/profile">Edit Profile</a></li>
+                <li><a href="/brands/change-email">Change Email Address</a></li>
+                <% if current_brand.provider=="email" %><li><a href="/brands/change-password">Change Password</a></li><% end %>
+                <li class="divider"></li>
+                <li><a href="/brands/logout">Logout</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+
       <% else %>
 
         <div class="nav-collapse">
@@ -109,7 +132,7 @@
         <a href="/password/reset" class="password_reset_link pull-right" style="display:block;width:130px;">Forgot your password?</a>
       </div> <!-- .email-signup -->
       <div class="email_signup_flash"></div>
-
+      <%= link_to "Are you a brand?", "/brands/login", class: "btn btn-info pull-left", style: "font-weight:700;" %>
     </div>  <!-- .modal-footer -->
   </div> <!-- .modal fade -->
 

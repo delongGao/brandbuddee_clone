@@ -1,0 +1,56 @@
+<%= render 'shared/header' %>
+
+<div class="container">
+	<div class="row">
+		<div class="span8 offset2">
+			<div class="page-header">
+				<h1 style="text-align:center;"><i class="icon-unlock bb-blue"></i> Reset Brand Account Password</h1>
+			</div>
+		</div>
+	</div>
+	<% flash.each do |name, msg| %>
+	<div class="row">
+		<div class="span6 offset3">
+			<div class="alert alert-<%= name %> fade in">
+				<a href="#" class="close" data-dismiss="alert">&times;</a>
+				<%= msg %>
+			</div>
+		</div>
+	</div>
+	<% end %>
+	<div class="row" style="margin-top:2%;margin-bottom:25%;">
+		<div class="span6 offset3">
+			<div class="well well-large" style="overflow:hidden;">
+				<%= form_for @brand, :url => reset_password_path(params[:id]), html: { class: "form-horizontal" } do |f| %>
+					<% if @brand.errors.any? %>
+						<% for message in @brand.errors.full_messages %>
+							<div class="alert alert-error fade in">
+								<a href="#" class="close" data-dismiss="alert">&times;</a>
+								<strong>Uh Oh!</strong> <%= message %>
+							</div>
+						<% end %>
+					<% end %>
+					<div class="control-group">
+						<%= f.label :password, "New Password", class: "control-label" %>
+						<div class="controls">
+							<%= f.password_field :password %>
+						</div>
+					</div>
+					<div class="control-group">
+						<%= f.label :password_confirmation, "Password Confirmation", class: "control-label" %>
+						<div class="controls">
+							<%= f.password_field :password_confirmation %>
+						</div>
+					</div>
+					<div class="control-group">
+						<div class="controls">
+							<%= f.submit "Update Password", class: "btn btn-large btn-info", style: "font-weight:700;" %>
+						</div>
+					</div>
+				<% end %>
+			</div><!-- /.well -->
+		</div><!-- /.span6 -->
+	</div><!-- /.row -->
+</div><!-- /.container -->
+
+<%= render 'shared/footer' %>

@@ -1,0 +1,51 @@
+<%= render 'shared/header' %>
+
+<div class="container">
+	<div class="row">
+		<div class="span8 offset2">
+			<div class="page-header">
+				<h1 style="text-align:center;"><i class="icon-unlock bb-blue"></i> Reset Brand Account Password</h1>
+			</div>
+		</div>
+	</div>
+	<% flash.each do |name, msg| %>
+	<div class="row">
+		<div class="span6 offset3">
+			<div class="alert alert-<%= name %> fade in">
+				<a href="#" class="close" data-dismiss="alert">&times;</a>
+				<%= msg %>
+			</div>
+		</div>
+	</div>
+	<% end %>
+	<div class="row" style="margin-top:2%;margin-bottom:25%;">
+		<div class="span6 offset3">
+			<div class="well well-large" style="overflow:hidden;">
+				<%= form_tag reset_passwords_path, :method => :post, :class => "form-horizontal" do %>
+					<div class="control-group">
+						<%= label_tag :email_address, "Brand Email Address", class: "control-label" %>
+						<div class="controls">
+							<%= text_field_tag :email_address, params[:email_address] %>
+						</div>
+					</div>
+					<div class="control-group">
+						<div class="controls">
+							<%= submit_tag "Reset Password", class: "btn btn-info", style: "font-weight:700;" %>
+						</div>
+					</div>
+				<% end %>
+				<h4 style="margin-top:10%;font-size:1.3em;" id="email-tooltip" class="text-success">Why do you need my email address?</h4>
+			</div><!-- /.well -->
+		</div><!-- /.span6 -->
+	</div><!-- /.row -->
+</div><!-- /.container -->
+
+<%= render 'shared/footer' %>
+<script type="text/javascript">
+	$("#email-tooltip").popover({
+		placement: "bottom",
+		title: "Why we need your email address:",
+		content: "We use this to validate you indeed own the email address used to create the account. We then send information used to reset your password to this address.",
+		trigger: "hover"
+	});
+</script>

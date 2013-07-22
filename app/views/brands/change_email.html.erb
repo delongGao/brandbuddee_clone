@@ -1,0 +1,97 @@
+<%= render 'shared/brands_header' %>
+<div class="container-fluid">
+<div class="row-fluid">
+<%= render 'shared/brands_side' %>
+<noscript>
+	<div class="alert alert-block span10">
+		<h4 class="alert-heading">Warning!</h4>
+		<p>You need to have <a href="http://en.wikipedia.org/wiki/JavaScript" target="_blank">JavaScript</a> enabled to use this site.</p>
+	</div>
+</noscript>
+<div id="content" class="span10">
+<% flash.each do |name, msg| %>
+<div class="row">
+	<div class="span6 offset3">
+		<div class="alert alert-<%= name %> fade in">
+			<a href="#" class="close" data-dismiss="alert">&times;</a>
+			<%= msg.html_safe %>
+		</div>
+	</div>
+</div>
+<% end %>
+<!-- Begin: Content -->
+<div>
+	<hr>
+	<ul class="breadcrumb">
+		<li>
+			<a href="/brands/dashboard">Dashboard</a> <span class="divider">/</span>
+		</li>
+		<li>
+			<a href="#">Change Email Address</a>
+		</li>
+		<% unless @brand.manager_first.nil? %><li class="pull-right">Welcome back, <%= @brand.manager_first %></li><% end %>
+	</ul>
+	<hr>
+</div>
+<div class="row-fluid sortable">
+	<div class="box span8">
+		<div class="box-header">
+			<h2><i class="icon-envelope"></i><span class="break"></span>Change Brand Email Address</h2>
+			<div class="box-icon">
+				<a href="#" class="btn-minimize"><i class="icon-chevron-up"></i></a>
+			</div>
+		</div>
+		<div class="box-content">
+			<%= form_for @brand, url: '/brands/update-email-address', html: {class: "form-horizontal"} do |f| %>
+				<% if @brand.errors.any? %>
+					<% @brand.errors.full_messages.each do |message| %>
+						<div class="alert alert-error fade in">
+							<a href="#" class="close" data-dismiss="alert">&times;</a>
+							<strong>Uh Oh!</strong> <%= message %>
+						</div>
+					<% end %>
+				<% end %>
+				<div class="control-group">
+      				<%= f.label :email, "Brand Email", class: "control-label" %>
+      				<div class="controls">
+      					<%= f.email_field :email, class: "span6", autofocus: true %>
+      				</div>
+      			</div>
+				<div class="control-group">
+					<div class="controls">
+						<%= f.submit "Update Password", class: "btn btn-info btn-large", style: "font-weight:700;" %>
+					</div>
+				</div>
+			<% end %>
+      	</div>
+	</div><!--/span-->
+	<div class="box span4">
+		<div class="box-header">
+			<h2><i class="icon-question"></i><span class="break"></span>Page Information</h2>
+			<div class="box-icon">
+				<a href="#" class="btn-minimize"><i class="icon-chevron-up"></i></a>
+			</div>
+		</div>
+		<div class="box-content">
+	      	<h1 class="text-center text-info">About These Fields</h1>
+	      	<dl>
+	      		<dt>Brand Email</dt>
+	      		<dd>Please only use an email you check frequently, as we will use it to contact you about your campaigns.</dd>
+	      		<dd>This will be your new email address associated with your account.</dd>
+	      		<dd>If you log in with an email and password, this will replace your current email login.</dd>
+	      		<dd>If you log in with Facebook or Twitter, your log in will not be affected.</dd>
+	      	</dl>
+      	</div>
+	</div><!--/span-->
+</div><!--/row-->
+<hr>
+<!-- end: Content -->
+</div><!--/#content.span10-->
+	</div><!--/fluid-row-->
+
+<div class="clearfix"></div>
+
+<%= render 'shared/brands_footer' %>
+
+</div><!--/.fluid-container-->
+<%= render 'shared/brands_scripts' %>

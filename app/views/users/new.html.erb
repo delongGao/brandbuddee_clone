@@ -2,7 +2,13 @@
 
 <%= render 'shared/header' %>
 <div class="container main_container">
-
+	<div class="row">
+	<div class="span8 offset2">
+		<div class="page-header">
+			<h1 style="text-align:center;">Buddee Sign Up <small>enter your information below</small></h1>
+		</div>
+	</div>
+</div>
 	<div class="signup-form-wrap well span6 offset2">
 
 			<% if flash[:notice].nil? %><% else %>
@@ -11,8 +17,6 @@
 		          <%= flash[:notice].html_safe %>
 		        </div> <!-- .alert -->
 		    <% end %>
-	
-			<h2>Sign Up</h2>
 
 			<div class="social_logins">
 				<a rel="external" href="/auth/facebook" class="social_link" style="margin-right:3px;"><%= image_tag('facebook_login.png', :class=>"social_login", :alt=>"facebook-login", :size=>"230x44") %></a>
@@ -74,12 +78,13 @@
 					        <div class="controls">
 					          <%= hidden_field_tag(:date, Time.now, :name=>'user[date]') %>
 					          <%= hidden_field_tag(:invite, params[:invite], :name=>'invite') %>
-				  			  <%= f.submit 'Signup', :class => "btn" %>
+				  			  <%= f.submit 'Sign Up!', :class => "btn btn-large btn-success", :style => "font-weight:700;" %>
 					        </div>
 						</div>
 					</fieldset>
 				<% end %>
-			</div> <!-- .signup-form -->
+				<%= link_to("Are you a brand?", "/brands/signup", class: "btn btn-info", style: "font-weight:700;") %>
+			</div> <!-- .signup-form -->			
 	</div> <!-- .signup-form-wrap -->
 
 </div><!--/.container-->

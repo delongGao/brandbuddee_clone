@@ -728,7 +728,7 @@ class AdminController < ApplicationController
 		    		end
 			    end # Engagement Bar Right Task
 
-			    if !params[:campaign][:share_link].nil? && /^(https?|ftp):\/\//.match(params[:campaign][:share_link])
+			    if !params[:campaign][:share_link].nil? && params[:campaign][:share_link].match(/^(https?|ftp):\/\//)
 				    if @campaign.update_attributes(params[:campaign])
 				    	@campaign.shares.each do |s|
 							s.url = params[:campaign][:share_link]

@@ -1,0 +1,43 @@
+<%= render 'shared/header' %>
+
+<div class="container" style="margin-top:2%;">
+	<div class="row">
+		<div class="span8 offset2">
+			<div class="page-header">
+				<h1 style="text-align:center;">Brand Nickname <small>enter a nickname below</small></h1>
+			</div>
+		</div>
+	</div>
+	<% flash.each do |name, msg| %>
+	<div class="row">
+		<div class="span6 offset3">
+			<div class="alert alert-<%= name %> fade in">
+				<a href="#" class="close" data-dismiss="alert">&times;</a>
+				<%= msg %>
+			</div>
+		</div>
+	</div>
+	<% end %>
+	<div class="row" style="margin-bottom:10%;">
+		<div class="span8 offset2">
+			<div class="well well-large">
+				<%= form_tag "/brands/update-nickname", class: "form-horizontal" do %>
+					<div class="control-group">
+						<%= label_tag "nickname", nil, class: "control-label" %>
+						<div class="controls">
+							<%= text_field_tag "nickname", nil, class: "span4", autofocus: true %>
+						</div>
+					</div>
+					<div class="control-group">
+						<div class="controls">
+							<%= submit_tag "Update", class: "btn btn-info btn-large", style: "font-weight:700;" %>
+						</div>
+					</div>
+				<% end %>
+				<h4 class="text-<%= flash[:error].nil? ? "success" : "error" %>" style="width:75%;">Your nickname should be between 1 and 45 characters.<br>It should only contain: &#8226; lowercase letters &#8226; numbers &#8226; dashes &#8226; underscores.<br>No spaces.</h4>
+			</div>
+		</div>
+	</div>
+</div>
+
+<%= render 'shared/footer' %>

@@ -21,12 +21,12 @@ class InvitesController < ApplicationController
 
   def facebook_search
     if confirm_user_logged_in
-      if current_user.provider != "facebook" || current_user.account_type != "super admin"
+      if current_user.provider != "facebook"
         redirect_to '/invite'
       else
-        @friendslist = current_user.get_friends
-        if @friendslist.class == String
-          flash[:error] = @friendslist
+        @allfriends = current_user.get_friends
+        if @allfriends.class == String
+          flash[:error] = @allfriends
           redirect_to '/invite'
         else
           if params[:query].nil? || params[:query].empty?
@@ -35,11 +35,10 @@ class InvitesController < ApplicationController
           else
             query_split = params[:query].split(" ")
             @friendslist = Array.new
-            @allfriends = current_user.get_friends
             @allfriends.each do |friend|
               add_me = false
               name_split = friend["name"].split(" ")
-              name_split.each do |n|                
+              name_split.each do |n|
                 query_split.each do |q|
                   # if n.downcase == q.downcase
                   if n.downcase.start_with?(q.downcase) || n.downcase.end_with?(q.downcase)

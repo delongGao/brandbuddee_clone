@@ -4,6 +4,17 @@
 
 <div id="content" class="container">
 
+    <% flash.each do |name, msg| %>
+    <div class="row" style="margin-top:2%;">
+        <div class="span6 offset3">
+            <div class="alert alert-<%= name %> fade in">
+                <a href="#" class="close" data-dismiss="alert">&times;</a>
+                <%= msg %>
+            </div>
+        </div>
+    </div>
+    <% end %>
+
       <% if params[:c].nil? %>
         <% c = Campaign.all.order_by([:date, :desc]) %>
         <% c.each do |campaign_filter| %>

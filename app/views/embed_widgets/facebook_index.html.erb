@@ -2,24 +2,38 @@
 	<div class="row">
 		<div class="span8 offset2">
 			<div class="well well-large text-center" id="fb-embed-index">
+				<% flash.each do |name, msg| %>
+					<div class="alert alert-block alert-<%= name %> fade in">
+						<a href="#" class="close" data-dismiss="alert">&times;</a>
+						<h4 class="alert-heading">Just so You Know...</h4>
+						<p><%= msg.html_safe %></p>
+					</div>
+				<% end %>
 				<% if @continue == true %>
 					<h2 class="whats-new">Discover what's new with<br>"<%= @campaign.brand.name %>"<br>Earn <span class="bb-blue">points</span> and <span class="bb-blue">win</span></h2>
-					<div class="row stats-top">
-						<div class="span2">
-							<h3 class="whats-new"><%= @campaign.limit - @campaign.redeems.size < 1 ? "0" : @campaign.limit - @campaign.redeems.size %><br><span>Available Qty</span></h3>
+					<% unless @left < 1 || @campaign.end_date < Time.now %>
+						<div class="row stats-top">
+							<div class="span2">
+								<h3 class="whats-new"><%= @campaign.limit - @campaign.redeems.size < 1 ? "0" : @campaign.limit - @campaign.redeems.size %><br><span>Available Qty</span></h3>
+							</div>
+							<div class="span2">
+								<h3 class="whats-new"><%= @total_page_views %><br><span>Page Visits</span></h3>
+							</div>
+							<div class="span2">
+								<h3 class="whats-new"><%= "#{@campaign.end_date.month.to_s}-#{@campaign.end_date.day.to_s}-#{@campaign.end_date.year.to_s[2..-1]}" %><br><span>End Date</span></h3>
+							</div>
 						</div>
-						<div class="span2">
-							<h3 class="whats-new"><%= @total_page_views %><br><span>Page Visits</span></h3>
+					<% else %>
+						<div class="alert alert-block alert-info fade in" style="text-align:left;">
+							<h4>You Missed Out!</h4>
+							This campaign just ended, check back soon for the next opportunity and win more prizes!
 						</div>
-						<div class="span2">
-							<h3 class="whats-new"><%= "#{@campaign.end_date.month.to_s}-#{@campaign.end_date.day.to_s}-#{@campaign.end_date.year.to_s[2..-1]}" %><br><span>End Date</span></h3>
-						</div>
-					</div>
+					<% end %>
 					<div class="divisor divisor_services">
 					    <div class="circle_left"></div>
 					    <div class="circle_right"></div>
 					</div>
-					<img src="/assets/bb-logo.png<%# @campaign.get_random_image %>" alt="<%= "#{@campaign.brand.name.parameterize}-#{@campaign.title.parameterize}" %>" title="<%= "#{@campaign.brand.name} - #{@campaign.title}" %>" />
+					<img src="<%= @campaign.get_random_image %>" alt="<%= "#{@campaign.brand.name.parameterize}-#{@campaign.title.parameterize}" %>" title="<%= "#{@campaign.brand.name} - #{@campaign.title}" %>" class="img-rounded" />
 					<div class="divisor divisor_services">
 					    <div class="circle_left"></div>
 					    <div class="circle_right"></div>
@@ -31,11 +45,13 @@
 					<div class="divisor divisor_services">
 					    <div class="circle_left"></div>
 					    <div class="circle_right"></div>
-					</div>
-					<% if !@logged_in.nil? && @logged_in==true %>
-						<a href="#" class="btn btn-primary"><i class="icon-thumbs-up"></i> Join This Campaign</a>
-					<% else %>
-						<a href="/fb-embed-signup" class="btn btn-primary"><i class="icon-pencil"></i> Signup to get this gift</a>&nbsp;&nbsp;<a href="#loginModal" role="button" data-toggle="modal" class="btn btn-primary"><i class="icon-key"></i> Login to get this gift</a>
+					</div>					
+					<% unless @left < 1 || @campaign.end_date < Time.now %>
+						<% if !@logged_in.nil? && @logged_in==true %>
+							<a href="/fb-add-campaign<%= "?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}" %>" class="btn btn-primary"><i class="icon-thumbs-up"></i> Join This Campaign</a>
+						<% else %>
+							<a href="/fb-embed-signup<%= "?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}" %>" class="btn btn-primary"><i class="icon-pencil"></i> Signup to get this gift</a>&nbsp;&nbsp;<a href="#loginModal" role="button" data-toggle="modal" class="btn btn-primary"><i class="icon-key"></i> Login to get this gift</a>
+						<% end %>
 					<% end %>
 					<br>
 					<a href="/tell-me-more" target="_blank" class="btn btn-success" style="margin-top:1%;"><i class="icon-cogs"></i> How it works</a>
@@ -48,17 +64,33 @@
 	</div>
 </div>
 <% if @continue == true %>
-	<div id="loginModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-		<div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-			<h3 id="myModalLabel">Login to get this gift</h3>
-		</div>
-		<div class="modal-body">
-			<p>One fine body…</p>
-		</div>
-		<div class="modal-footer">
-			<button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
-			<button class="btn btn-success">Login</button>
-		</div>
-	</div>
+	<% unless @left < 1 || @campaign.end_date < Time.now %>
+		<% if @logged_in.nil? %>
+			<div id="loginModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+					<h3 id="myModalLabel">Login to get this gift</h3>
+				</div>
+				<div class="modal-body">
+					<div class="text-center">
+						<%= link_to image_tag("facebook_login.png", class: "social_login", size: "230x44", alt: "brandbuddee-seattle-rewards", title: "Login with Facebook"), "/fb-embed-oauth?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}&campaign_id=#{@campaign.id}", title: "Login with Facebook" %>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<div class="email-signup">
+						<%= form_tag url_for(:controller => "embed_widgets", :action => 'facebook_email_signin'), :class => "form-inline" do %>
+							<%= text_field_tag :email, params[:email], :class=>"signin-field signin-default span2 input-large", :placeholder=>"Email" %>
+							<%= password_field_tag :password, nil, :class=>"signin-field span2 input-large", :placeholder=>"Password" %>
+							<%= hidden_field_tag(:page_id, params[:page_id], :name=>'page_id') %>
+							<%= hidden_field_tag(:liked, params[:liked], :name=>'liked') %>
+							<%= hidden_field_tag(:admin, params[:admin], :name=>'admin') %><br>
+							<%= hidden_field_tag(:campaign_id, @campaign.id, :name=>'campaign_id') %><br>
+							<%= submit_tag "Login", :class=>"btn btn-success" %>
+							<button class="btn btn-info" data-dismiss="modal" aria-hidden="true">Cancel</button>
+						<% end %>
+					</div>
+				</div>
+			</div>
+		<% end %>
+	<% end %>
 <% end %>

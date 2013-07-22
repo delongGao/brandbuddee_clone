@@ -1,0 +1,19 @@
+<div class="container">
+	<div class="row">
+		<div class="span8 offset2">
+			<div class="well well-large" id="fb-embed-index">
+				<% flash.each do |name, msg| %>
+					<div class="alert alert-block alert-<%= name %> fade in">
+						<a href="#" class="close" data-dismiss="alert">&times;</a>
+						<h4 class="alert-heading">Just so You Know...</h4>
+						<p><%= msg.html_safe %></p>
+					</div>
+				<% end %>
+				<% unless params[:page_id].nil? || params[:liked].nil? || params[:admin].nil? %>
+					<a href="<%= "/fb-campaign-embed?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}" %>" class="btn btn-info">Go Back</a>
+				<% end %>
+				<br><div class="text-center"><%= link_to image_tag("bb-logo.png", alt: "brandbuddee-seattle-rewards", title: "brandbuddee Seattle Rewards", size: "250x47", style: "margin-top:1%;"), "/", target: "_blank", title: "brandbuddee Seattle Rewards" %></div>
+			</div>
+		</div>
+	</div>
+</div>
