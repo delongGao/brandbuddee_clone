@@ -1,28 +1,35 @@
-<%= render 'shared/header_incomplete' %>
+<%= render 'shared/header' %>
 
-<div class="container main_container" style="padding-left:0;margin-top:20px;">
-
-	<%#= image_tag('startupclub_logo.png', :class=>"welcome_logo", :alt=>"start club", :size=>"500x33") %>
-
-	<% if current_user %>
+<div class="container main_container" style="padding-left:0;margin-top:20px;margin-bottom:20%;">
+	<% flash.each do |name, msg| %>
+		<div class="row">
+			<div class="span6 offset3">
+				<div class="alert alert-<%= name %> fade in">
+					<a href="#" class="close" data-dismiss="alert">&times;</a>
+					<%= msg.html_safe %>
+				</div>
+			</div>
+		</div>
+	<% end %>
 	<div class="row">
-
-
-		<div class="span7 choose_username_wrap">
-		<div class="well form-horizontal">
-
-				<h2 style="font-weight:500;">We have sent an unsubscribe confirmation email to you. Please check your inbox.</h2>
-				<br>
-				
-
-
-				
-
-		</div> <!-- .form-horizontal -->
+		<div class="span6 offset3">
+			<div class="well well-large">
+				<% unless @subscriber.status == false %>
+					<h3 class="text-center" style="line-height:125%; margin-bottom:2%;">Are you sure you want to<br><span class="bb-green" style="font-size:1.75em;">unsubscribe</span><br>from all future Campaign Newsletters?</h3>
+					<%= form_tag "/email/unsubscribe/confirm", class: "form-inline", style: "margin-left:17%;" do %>
+						<label class="checkbox">
+							<%= check_box_tag 'unsubscribe_email', 'yes' %> Yes, Unsubscribe My Email
+						</label>
+						<%= submit_tag "Submit", class: "btn btn-success" %>
+						<%= hidden_field_tag 'email_address', params[:u] %>
+					<% end %>
+					<p class="text-right" style="font-size:1.25em;">Email: <%= @subscriber.email %></p>
+				<% else %>
+					<h3 class="text-center" style="link-height:125%; margin-botom:2%;">Your email, <%= @subscriber.email %>, has already been<br><span class="bb-green" style="font-size:1.75em;">unsubscribed!</span></h3>
 				<% end %>
-
-		</div> <!-- .span9 -->
-	</div> <!-- .row -->
+			</div>
+		</div>
+	</div>
 </div><!--/.container-->
 
-<%#= render 'shared/footer' %>
+<%= render 'shared/footer' %>

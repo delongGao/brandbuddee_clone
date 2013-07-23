@@ -100,27 +100,27 @@ class WelcomeController < ApplicationController
 
 	def unsubscribe
 		@subscriber = Subscriber.where(email: params[:u]).first
-
-		if @subscriber
-			if @subscriber.unsubscribe_hash.nil? || @subscriber.unsubscribe_hash.blank?
-				hash = Subscriber.assign_unsubscribe_hash(:link)
-				UserMailer.unsubscribe_confirm(@subscriber.email, hash, root_url).deliver
-				@subscriber.unsubscribe_hash = hash
-				@subscriber.save
-			else
-				#render unsubscribe email sent view
-			end
-		else
+		unless @subscriber
 			redirect_to root_url
 		end
 	end
 
 	def unsubscribe_confirm
-		@subscriber = Subscriber.where(unsubscribe_hash: params[:hash]).first
-
-		if @subscriber
-			@subscriber.status = false
-			@subscriber.save
+		unless params[:email_address].nil?
+			unless params[:unsubscribe_email] != "yes"
+				@subscriber = Subscriber.where(email: params[:email_address]).first
+				if @subscriber
+					@subscriber.status = false
+					unless @subscriber.save
+						redirect_to root_url
+					end
+				else
+					redirect_to root_url
+				end
+			else
+				flash[:error] = "To unsubscribe from campaign newsletters, you must check the yes box."
+				redirect_to "/email/unsubscribe?u=#{params[:email_address]}"
+			end
 		else
 			redirect_to root_url
 		end
