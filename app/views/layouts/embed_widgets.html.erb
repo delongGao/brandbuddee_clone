@@ -25,6 +25,7 @@
 	</script>
 </head>
 <body>
+	<%= yield :facebook_init_permissions %>
 
 	<%= yield %>
 	<%= javascript_include_tag "application" %>

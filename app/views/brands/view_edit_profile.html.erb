@@ -154,7 +154,8 @@
       			<div class="control-group">
       				<%= f.label :brand_logo, "Upload Brand Logo From File", class: "control-label" %>
       				<div class="controls">
-      					<%= f.file_field :brand_logo, accept: 'image/png,image/gif,image/jpeg' %>
+      					<%= f.file_field :brand_logo, accept: 'image/png,image/gif,image/jpeg' %><br>
+                                    Valid Image Files Only (.jpg, .jpeg, .png, .gif)
       				</div>
       			</div>
       			<div class="control-group">
