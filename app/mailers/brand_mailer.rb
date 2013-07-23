@@ -14,6 +14,9 @@ class BrandMailer < ActionMailer::Base
   end
 
   def profile_completion(brand, root_url)
-  	
+  	@brand = brand
+    email = @brand.email
+    @url = root_url
+    mail :to => email, :subject => "brandbuddee - Creating Campaigns", :from => "brandbuddee <andykaruza@brandbuddee.com>", bcc: ["andy.karuza@gmail.com", "erin@brandbuddee.com"]
   end
 end

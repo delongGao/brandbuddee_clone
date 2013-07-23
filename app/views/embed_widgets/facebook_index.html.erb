@@ -38,7 +38,7 @@
 					    <div class="circle_left"></div>
 					    <div class="circle_right"></div>
 					</div>
-					<div class="stats-rewards">
+					<div class="stats-rewards" style="padding-left:1%;padding-right:1%;">
 						<h3 class="rewards-text"><i class="icon-gift"></i>&nbsp;&nbsp;&nbsp;What do I get (<%= pluralize(@campaign.points_required, 'point') %>): <%= @campaign.reward %></h3>
 						<% unless @campaign.easy_prize.blank? %><h3 class="rewards-text"><i class="icon-gift"></i>&nbsp;&nbsp;&nbsp;What do I get (3 points): <%= @campaign.easy_prize %></h3><% end %>
 					</div>

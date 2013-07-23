@@ -51,6 +51,10 @@ class BrandsController < ApplicationController
 			@brand.attributes = params[:brand]
 			@brand.last_updated = DateTime.now
 			if @brand.save
+				if !session[:brand_profile_unfinished].nil? && session[:brand_profile_unfinished].to_s == "true"
+					session[:brand_profile_unfinished] = nil
+					BrandMailer.profile_completion(@brand, root_url).deliver
+				end
 				flash[:info] = "Your Brand Profile has been updated!"
 				redirect_to "/brands/profile"
 			else

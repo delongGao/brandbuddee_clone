@@ -166,7 +166,9 @@ class WelcomeController < ApplicationController
 			@brand.last_login = DateTime.now
 			@brand.date = DateTime.now
 			if @brand.save
+				session[:brand_profile_unfinished] = true
 				session[:brand_id] = @brand.id
+				BrandMailer.post_signup(@brand.email, root_url).deliver
 				flash[:info] = "You are now signed up! Please choose a nickname to complete the process."
 				redirect_to '/brands/enter-nickname'
 			else
@@ -195,6 +197,7 @@ class WelcomeController < ApplicationController
 					@current_brand.email = params[:email_address].downcase
 					@current_brand.last_updated = DateTime.now
 					@current_brand.save!(validate: false)
+					BrandMailer.post_signup(@current_brand.email, root_url).deliver
 					if @current_brand.nickname.nil? || @current_brand.nickname.blank?
 						redirect_to "/brands/enter-nickname"
 					else

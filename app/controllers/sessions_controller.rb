@@ -45,6 +45,9 @@ class SessionsController < ApplicationController
         else
           if auth.provider == "facebook"
             brand = Brand.from_omniauth_facebook(auth)
+            if brand.date > DateTime.now - 1.minute # If Brand created in the last minute
+              session[:brand_profile_unfinished] = true
+            end
             brand.last_login = DateTime.now
             brand.save(validate: false)
             session[:brand_id] = brand.id
@@ -58,6 +61,9 @@ class SessionsController < ApplicationController
             end
           elsif auth.provider == "twitter"
             brand = Brand.from_omniauth_twitter(auth)
+            if brand.date > DateTime.now - 1.minute # If Brand created in the last minute
+              session[:brand_profile_unfinished] = true
+            end
             brand.last_login = DateTime.now
             brand.save(validate: false)
             session[:brand_id] = brand.id

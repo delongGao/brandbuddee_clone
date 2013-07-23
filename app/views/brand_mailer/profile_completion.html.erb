@@ -197,7 +197,8 @@
 						
 						<!-- Title Here -->
 						<td width="560" valign="top" align="left" class="inside" style="font-size: 19px; color: #353535; text-align: center; font-family: Helvetica, Arial, sans-serif; vertical-align: top;">
-							Thanks for becoming a <span style="color: #7cc04c;"> brand </span> at brandbuddee!
+							Thanks for filling out your <span style="color: #7cc04c;"> brand profile</span>!<br>
+							Now we can get some campaigns built.
 						</td>	
 						<!-- End of Title -->
 						
@@ -225,7 +226,7 @@
 															
 									<!-- Hideable Icon -->
 									<td width="120" align="right" valign="top">													
-										<a href="<%= @url %>brands/profile" target="_blank"><img src="http://www.applecrateseo.com/imagehosting/bb-newsletter/letter-icon.jpg" width="120" height="120" border="0" alt="Hideable Image" style="display:block; border:none; outline:none; text-decoration:none;"/></a>
+										<a href="mailto:andykaruza@brandbuddee.com" target="_blank"><img src="http://www.applecrateseo.com/imagehosting/bb-newsletter/phone-image.jpg" width="120" height="120" border="0" alt="Hideable Image" style="display:block; border:none; outline:none; text-decoration:none;"/></a>
 									</td>
 									<!-- End of Hideable Icon -->
 									
@@ -253,7 +254,7 @@
 									
 									<!-- Content Text Here -->
 									<td width="420" valign="top" align="left" class="inside" style="font-size: 14px; color: #353535; text-align: left; font-family: Helvetica, Arial, sans-serif; vertical-align: top;">
-										The next step is to completely fill out your profile. Once it has been filled out, we can begin creating campaigns for you!
+										Contact us to get your free 2 week trial started. You'll stick around after it's over, we promise!
 									</td>	
 									<!-- End of Content Text -->
 									
@@ -265,8 +266,8 @@
 									<td width="420" align="right" class="inside">
 									
 										<!-- Button Link -->										
-											<a href="<%= @url %>brands/profile" target="_blank" style="text-decoration: none;">
-												<img src="http://www.applecrateseo.com/imagehosting/bb-newsletter/finish-profile.jpg" width="142" height="39" border="0" alt="Read More" title="Read More" style="display:block;" class="button-center"/>
+											<a href="mailto:andykaruza@brandbuddee.com" target="_blank" style="text-decoration: none;">
+												<img src="http://www.applecrateseo.com/imagehosting/bb-newsletter/contact-us-btn.jpg" width="142" height="39" border="0" alt="Read More" title="Read More" style="display:block;" class="button-center"/>
 											</a>
 										<!-- End of Button Link -->
 										
@@ -284,6 +285,32 @@
 		</tr>
 		<tr><td align="center" valign="top" class="image600"><img src="http://www.applecrateseo.com/imagehosting/bb-newsletter/divider.jpg" width="600" height="60" border="0" alt="" style="display:block; border:none; outline:none; text-decoration:none;"/></td></tr>
 	</table>
+
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" align="center" style="width:100% !important; margin:0; padding:0; border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;">
+		<tr>
+			<td bgcolor="#f8f8f8">						
+				<!-- Tables Width -->
+				<table width="600" bgcolor="#f8f8f8" cellpadding="0" cellspacing="0" border="0" align="center" class="table">
+					<tr><td colspan="3" height="20" bgcolor="#f8f8f8"></td></tr>
+					<tr>
+						<td width="20"></td>
+						
+						<!-- Content Text Here -->
+						<td width="560" valign="top" align="left" class="inside" style="font-size: 19px; color: #353535; text-align: center; font-family: Helvetica, Arial, sans-serif; vertical-align: top;">
+							If you have any questions, please: <span style="color: #7cc04c;"><a href="mailto:andykaruza@brandbuddee.com" target="_blank" style="color: #7cc04c;">Contact Us!</a></span><br><br>Have a wonderful day, and thank you again for choosing brandbuddee!
+						</td>	
+						<!-- End of Content Text -->
+						
+						<td width="20"></td>
+					</tr>	
+					<tr><td colspan="3" height="20" bgcolor="#f8f8f8"></td></tr>
+				</table>
+				<!-- End of Tables Width -->
+			</td>
+		</tr>
+		<tr><td align="center" valign="top" class="image600"><img src="http://www.applecrateseo.com/imagehosting/bb-newsletter/divider.jpg" width="600" height="60" border="0" alt="" style="display:block; border:none; outline:none; text-decoration:none;"/></td></tr>	
+	</table>	
+	<!-- * Promo Module * -->
 	
 	<table width="100%" border="0" cellpadding="0" cellspacing="0" align="center" style="width:100% !important; margin:0; padding:0; border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;">
 		<tr>
@@ -296,7 +323,19 @@
 						
 						<!-- Content Text Here -->
 						<td width="560" valign="top" align="left" class="inside" style="font-size: 19px; color: #353535; text-align: center; font-family: Helvetica, Arial, sans-serif; vertical-align: top;">
-							To begin creating campaigns, or if you have any questions, please: <span style="color: #7cc04c;"><a href="mailto:andykaruza@brandbuddee.com" target="_blank" style="color: #7cc04c;">Contact Us!</a></span><br><br>Have a wonderful day, and thank you again for choosing brandbuddee!
+							<span>Your Profile Details:</span><br><br>
+							<span style="color: #7cc04c;">Brand Name:</span> <%= @brand.name %><br><br>
+							<span style="color: #7cc04c;">Bio:</span> <%= @brand.bio %><br><br>
+							<span style="color: #7cc04c;">Website:</span> <%= @brand.website %><br><br>
+							<% unless @brand.facebook.blank? %><span style="color: #7cc04c;">Facebook Page:</span> <%= @brand.facebook %><br><br><% end %>
+							<% unless @brand.twitter.blank? %><span style="color: #7cc04c;">Twitter Page:</span> <%= @brand.twitter %><br><br><% end %>
+							<% unless @brand.pinterest.blank? %><span style="color: #7cc04c;">Pinterest Page:</span> <%= @brand.pinterest %><br><br><% end %>
+							<% unless @brand.gplus.blank? %><span style="color: #7cc04c;">Google+ Page:</span> <%= @brand.gplus %><br><br><% end %>
+							<span style="color: #7cc04c;">Manager Name:</span> <%= @brand.manager_first %> <%= @brand.manager_last %><br><br>
+							<% unless @brand.phone.blank? %><span style="color: #7cc04c;">Phone:</span> <%= @brand.phone %><br><br><% end %>
+							<% unless @brand.city.blank? %><span style="color: #7cc04c;">City:</span> <%= @brand.city %><br><br><% end %>
+							<% unless @brand.state.blank? %><span style="color: #7cc04c;">State:</span> <%= @brand.state %><br><br><% end %>
+							<span style="color: #7cc04c;">Account Nickname:</span> <%= @brand.nickname %>
 						</td>	
 						<!-- End of Content Text -->
 						
