@@ -39,7 +39,8 @@ class EmbedWidgetsController < ApplicationController
 			end
 		else
 			@signed_request = params[:signed_request]
-			@oauth = Koala::Facebook::OAuth.new(479922585431487, "6e313eda5412f9ac3023a17a99e80b31")
+			# @oauth = Koala::Facebook::OAuth.new(479922585431487, "6e313eda5412f9ac3023a17a99e80b31")
+			@oauth = Koala::Facebook::OAuth.new(278238152312772, "fbf139910f26420742f3d88f3b25f9a9")
 			@result = @oauth.parse_signed_request(@signed_request)
 			unless @result["page"].nil? || @result["page"]["id"].nil? || @result["page"]["liked"].nil? || @result["page"]["admin"].nil?
 				if @result["page"]["liked"]==true
