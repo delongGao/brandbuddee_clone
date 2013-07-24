@@ -25,44 +25,6 @@
 	</script>
 </head>
 <body>
-	<div id="fb-root"></div>
-	<script>
-	window.fbAsyncInit = function() {
-		FB.init({
-			appId      : <% if Rails.env.development? %>'253857021420655'<% elsif Rails.env.production? %>'278238152312772'<% end %>,
-			channelUrl : '//brandbuddee.herokuapp.com/fb/channel.html',
-			status     : true,
-			cookie     : true,
-			frictionlessRequests : true,
-			xfbml      : true
-		}); // FB.init()
-	  	FB.getLoginStatus(function(response) {
-	    	if (response.status === 'connected') {
-	      		// var uid = response.authResponse.userID;
-	      		// var accessToken = response.authResponse.accessToken;
-	      		// FB.api('/me', function(info) {
-	        // 		console.log(info);
-	      		// });      
-	    	} else if (response.status === 'not_authorized') {
-	      		var oauth_url = 'https://www.facebook.com/dialog/oauth/';
-	      		oauth_url += '?client_id=<% if Rails.env.development? %>253857021420655<% elsif Rails.env.production? %>278238152312772<% end %>'; // Your client id
-	      		oauth_url += '&redirect_uri=' + '<% if Rails.env.development? %>http://localhost:3000/<% elsif Rails.env.production? %>http://brandbuddee.com/<% end %>'; // Send them here if they're not logged in
-	      		oauth_url += '&scope=email,offline_access,publish_actions,publish_stream,user_birthday,user_about_me,user_location,user_likes,user_education_history,user_website,read_friendlists,user_interests,user_hometown,user_status,manage_pages';
-	      		window.top.location = oauth_url;
-	    	} else {
-	      		window.top.location = 'https://www.facebook.com/index.php';
-	    	} // End else
-	  	}); // getLoginStatus
-	}; // fbAsyncInit
-	(function(d, debug){
-		var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
-	  	if (d.getElementById(id)) {return;}
-	  	js = d.createElement('script'); js.id = id; js.async = true;
-	  	js.src = "//connect.facebook.net/en_US/all" + (debug ? "/debug" : "") + ".js";
-	  	ref.parentNode.insertBefore(js, ref);
-	}(document, /*debug*/ false));
-	</script>
-
 	<%= yield %>
 	<%= javascript_include_tag "application" %>
 	<script src="/js/brands/embed_widget_overrides.js" type="text/javascript"></script>

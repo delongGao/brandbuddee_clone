@@ -299,13 +299,11 @@ class BrandsController < ApplicationController
 				fb_page_name = URI.unescape(params[:pagename])
 				fb_page_name.gsub!(/\+/, " ")
 				@page_graph = Koala::Facebook::API.new(fb_page_token)
-				# @result = @page_graph.put_connections(fb_page_id, 'tabs', :app_id => "479922585431487")
 				@result = @page_graph.put_connections(fb_page_id, 'tabs', :app_id => "278238152312772")
 				if @result==true
 					@result = @page_graph.get_connection('me', 'tabs')
 					@result.each do |tab|
 						unless tab["application"].blank?
-							# if tab["application"]["id"] == "479922585431487"
 							if tab["application"]["id"] == "278238152312772"
 								@tab_id = tab["id"]
 								@tab_link = tab["link"]
@@ -326,7 +324,6 @@ class BrandsController < ApplicationController
 					else
 						@embed = @brand.embeds.where(fb_page_id: fb_page_id).first
 						if @embed.nil?
-							# @brand.embeds.create!(campaign_link: @campaign.link, fb_page_id: fb_page_id, fb_page_name: fb_page_name, fb_tab_id: "#{fb_page_id}/tabs/app_479922585431487")
 							@brand.embeds.create!(campaign_link: @campaign.link, fb_page_id: fb_page_id, fb_page_name: fb_page_name, fb_tab_id: "#{fb_page_id}/tabs/app_278238152312772")
 						else
 							@embed.campaign_link = @campaign.link
