@@ -1,5 +1,6 @@
 <div class="container">
 	<div class="row">
+		<% unless @result.nil? %><p><%= @result %></p><% end %>
 		<% if @continue == true %>
 			<% if (!@result.nil? && @result["page"]["admin"] == true) || params[:admin] == "true" %>
 				<a href="/fb-embed-admin<%= "?page_id=#{@page_id}&liked=#{@liked}&admin=#{@admin}" %>" class="btn btn-info" style="font-weight:700;margin-bottom:1%;"><i class="icon-share-alt"></i> Continue to Embed Widget</a>
