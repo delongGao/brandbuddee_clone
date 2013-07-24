@@ -392,17 +392,77 @@ class AdminController < ApplicationController
 		end
 	end
 
+	def brand_new_index
+		if current_user
+			if current_user.account_type == 'super admin' || current_user.account_type == 'admin' || Rails.env.development?
+				@brand = Brand.new
+			else
+				redirect_to root_url
+			end
+		else
+			redirect_to root_url
+		end
+	end
+
 	def brand_new
 		if current_user
 			if current_user.account_type == 'super admin' || current_user.account_type == 'admin' || Rails.env.development?
-				@brand = Brand.create!(params[:brand])
-
-			    if @brand.save
-			      flash[:notice] = "Brand successfully created"
-			      redirect_to(:action => 'brands')
-			    else
-			      flash[:notice] = "Uh oh"
-			    end
+				begin
+					@brand = Brand.new(params[:brand])
+					unless @brand.bio.blank?
+						unless @brand.website.blank? || !@brand.website.match(/\b((http(s?):\/\/)([a-z0-9\-]+\.)+(MUSEUM|TRAVEL|AERO|ARPA|ASIA|EDU|GOV|MIL|MOBI|COOP|INFO|NAME|BIZ|CAT|COM|INT|JOBS|NET|ORG|PRO|TEL|A[CDEFGILMNOQRSTUWXZ]|B[ABDEFGHIJLMNORSTVWYZ]|C[ACDFGHIKLMNORUVXYZ]|D[EJKMOZ]|E[CEGHRSTU]|F[IJKMOR]|G[ABDEFGHILMNPQRSTUWY]|H[KMNRTU]|I[DELMNOQRST]|J[EMOP]|K[EGHIMNPRWYZ]|L[ABCIKRSTUVY]|M[ACDEFGHKLMNOPQRSTUVWXYZ]|N[ACEFGILOPRUZ]|OM|P[AEFGHKLMNRSTWY]|QA|R[EOSUW]|S[ABCDEGHIJKLMNORTUVYZ]|T[CDFGHJKLMNOPRTVWZ]|U[AGKMSYZ]|V[ACEGINU]|W[FS]|Y[ETU]|Z[AMW])(:[0-9]{1,5})?((\/([a-z0-9_\-\.~]*)*)?((\/)?\?[a-z0-9+_\-\.%=&amp;]*)?)?(#[a-zA-Z0-9!$&'()*+.=-_~:@\/?]*)?)/i)
+							unless @brand.manager_first.blank? || @brand.manager_first.size > 75
+								unless @brand.manager_last.blank? || @brand.manager_last.size > 75
+									unless @brand.nickname.blank? || !@brand.nickname.match(/^[a-z0-9_-]+$/) || @brand.nickname.size > 45
+										@brand.email = @brand.email.downcase
+										@brand.provider = "email"
+										@brand.last_login = DateTime.now
+										@brand.date = DateTime.now
+										if @brand.save
+											flash[:success] = "Brand successfully created"
+											redirect_to(:action => 'brands')
+										else
+											render "brand_new_index"
+										end
+									else
+										@brand.errors.add(:nickname, "cannot be blank, must contain only lowercase letters, numbers, dashes, and underscores, and cannot be longer than 45 characters.")
+										render "brand_new_index"
+									end
+								else
+									@brand.errors.add(:manager_last, "cannot be blank or longer than 75 characters.")
+									render "brand_new_index"
+								end
+							else
+								@brand.errors.add(:manager_first, "cannot be blank or longer than 75 characters.")
+								render "brand_new_index"
+							end
+						else
+							@brand.errors.add(:website, "cannot be blank and must be valid, starting with http:// or https://.")
+							render "brand_new_index"
+						end
+					else
+						@brand.errors.add(:bio, "cannot be blank.")
+						render "brand_new_index"
+					end
+				rescue OpenURI::HTTPError
+					flash[:error] = "The URL you are trying to upload an image from does not appear to be valid. Please enter a new one and try again. Or, you can download and then upload the image yourself."
+					redirect_to(:action => 'brands')
+				rescue CarrierWave::IntegrityError
+					flash[:error] = "The URL you are trying to upload an image from does not appear to point to an image file. You may only use the following file types: .jpg, .jpeg, .gif, & .png"
+					redirect_to(:action => 'brands')
+				rescue CarrierWave::DownloadError
+					flash[:error] = "The URL you are trying to upload an image from does not appear to be valid. Please enter a new one and try again. Or, you can download and then upload the image yourself."
+					redirect_to(:action => 'brands')
+				rescue CarrierWave::InvalidParameter
+					flash[:error] = "The URL you are trying to upload an image from does not appear to be valid. Please enter a new one and try again. Or, you can download and then upload the image yourself."
+					redirect_to(:action => 'brands')
+				rescue CarrierWave::ProcessingError
+					flash[:error] = "An error occured while processing the image you wish to upload from the web. Are you sure the URL points to a valid image file? If so, please try again. Alternatively you can download and then upload the image yourself."
+					redirect_to(:action => 'brands')
+				rescue CarrierWave::UploadError
+					flash[:error] = "The URL you are trying to upload an image from caused an error. Are you sure it points to a valid image file? If so, please try again. Alternatively you can download and then upload the image yourself."
+					redirect_to(:action => 'brands')
+				end
 			else
 				redirect_to root_url
 			end
@@ -427,14 +487,47 @@ class AdminController < ApplicationController
 		if current_user
 			if current_user.account_type == 'super admin' || current_user.account_type == 'admin' || Rails.env.development?
 				@brand = Brand.find(params[:brand][:id])
-
-				if @brand.update_attributes(params[:brand])
-				  flash[:notice] = "Successfully updated."
-				  redirect_to "#{root_url}admin/brands/edit?_id=#{params[:brand][:id]}"
-				else
-				  flash[:notice] = "Uh oh... something went wrong. Please try again."
-				  redirect_to "#{root_url}admin/brands/edit?_id=#{params[:brand][:id]}"
+				begin
+					if !params[:brand][:remove_brand_logo].nil? && params[:brand][:remove_brand_logo] == "1"
+						@brand.remove_brand_logo!
+						@brand.brand_logo = nil
+						@brand.save!(validate: false)
+					end
+					@brand.attributes = params[:brand]
+					@brand.last_updated = DateTime.now
+					if @brand.save
+						flash[:success] = "Successfully updated."
+						redirect_to "#{root_url}admin/brands/edit?_id=#{params[:brand][:id]}"
+					else
+						render "brand_edit"
+					end
+				rescue OpenURI::HTTPError
+					flash[:error] = "The URL you are trying to upload an image from does not appear to be valid. Please enter a new one and try again. Or, you can download and then upload the image yourself."
+					redirect_to "#{root_url}admin/brands/edit?_id=#{params[:brand][:id]}"
+				rescue CarrierWave::IntegrityError
+					flash[:error] = "The URL you are trying to upload an image from does not appear to point to an image file. You may only use the following file types: .jpg, .jpeg, .gif, & .png"
+					redirect_to "#{root_url}admin/brands/edit?_id=#{params[:brand][:id]}"
+				rescue CarrierWave::DownloadError
+					flash[:error] = "The URL you are trying to upload an image from does not appear to be valid. Please enter a new one and try again. Or, you can download and then upload the image yourself."
+					redirect_to "#{root_url}admin/brands/edit?_id=#{params[:brand][:id]}"
+				rescue CarrierWave::InvalidParameter
+					flash[:error] = "The URL you are trying to upload an image from does not appear to be valid. Please enter a new one and try again. Or, you can download and then upload the image yourself."
+					redirect_to "#{root_url}admin/brands/edit?_id=#{params[:brand][:id]}"
+				rescue CarrierWave::ProcessingError
+					flash[:error] = "An error occured while processing the image you wish to upload from the web. Are you sure the URL points to a valid image file? If so, please try again. Alternatively you can download and then upload the image yourself."
+					redirect_to "#{root_url}admin/brands/edit?_id=#{params[:brand][:id]}"
+				rescue CarrierWave::UploadError
+					flash[:error] = "The URL you are trying to upload an image from caused an error. Are you sure it points to a valid image file? If so, please try again. Alternatively you can download and then upload the image yourself."
+					redirect_to "#{root_url}admin/brands/edit?_id=#{params[:brand][:id]}"
 				end
+
+				# if @brand.update_attributes(params[:brand])
+				#   flash[:notice] = "Successfully updated."
+				#   redirect_to "#{root_url}admin/brands/edit?_id=#{params[:brand][:id]}"
+				# else
+				#   flash[:notice] = "Uh oh... something went wrong. Please try again."
+				#   redirect_to "#{root_url}admin/brands/edit?_id=#{params[:brand][:id]}"
+				# end
 			else
 				redirect_to root_url
 			end
@@ -460,7 +553,7 @@ class AdminController < ApplicationController
 
 	def view_campaign
 		if current_user
-			if current_user.account_type == 'super admin' || current_user.account_type == 'admin' || Rails.env.development?
+			if current_user.account_type == 'super admin' || current_user.account_type == 'admin' || current_user.account_type == 'mini admin' || Rails.env.development?
 				@campaign = Campaign.find(params[:_id])
 
 				@share_month = Share.where(:date.gt => Time.now - 1.month, :campaign_id => params[:_id])
@@ -830,7 +923,7 @@ class AdminController < ApplicationController
 
 	def view_campaign_tasks
 		if current_user
-			if current_user.account_type == 'super admin' || current_user.account_type == 'admin' || Rails.env.development?
+			if current_user.account_type == 'super admin' || current_user.account_type == 'admin' || current_user.account_type == 'mini admin' || Rails.env.development?
 				@campaign = Campaign.find(params[:_id])
 				@total_completed_blog = @campaign.tasks.where(completed_blog: true).count
 				@total_completed_facebook = @campaign.tasks.where(completed_facebook: true).count

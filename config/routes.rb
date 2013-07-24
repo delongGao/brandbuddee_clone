@@ -158,6 +158,7 @@ Brandbuddee::Application.routes.draw do
   match 'admin/categories/delete' => 'admin#category_delete'
 
   match 'admin/brands' =>  'admin#brands'
+  match '/admin/brands/new-index' => 'admin#brand_new_index'
   match 'admin/brands/new' => 'admin#brand_new'
   match 'admin/brand/delete' => 'admin#brand_delete'
   match 'admin/brands/edit' => 'admin#brand_edit'

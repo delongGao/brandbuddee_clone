@@ -41,7 +41,18 @@
 				<hr>
 			</div>
 
-			<p><a class="btn btn-mini" data-toggle="modal" href="#create_brand" style="margin-top:8px;margin-left:15px;"><i class="icon-plus-sign icon"></i> Create New Brand</a></p>
+			<p><a class="btn btn-mini" href="/admin/brands/new-index" style="margin-top:8px;margin-left:15px;"><i class="icon-plus-sign icon"></i> Create New Brand</a></p>
+
+			<% flash.each do |name, msg| %>
+			<div class="row">
+				<div class="span6 offset3">
+					<div class="alert alert-<%= name %> fade in">
+						<a href="#" class="close" data-dismiss="alert">&times;</a>
+						<%= msg.html_safe %>
+					</div>
+				</div>
+			</div>
+			<% end %>
 			
 			<div class="row-fluid sortable">		
 				<div class="box span12">
@@ -191,52 +202,3 @@
 
 		</script>
 		<!-- end: JavaScript-->
-
-
-<div class="modal fade" id="create_brand">
-  <div class="modal-header">
-    <button class="close" data-dismiss="modal">×</button>
-    <h3>Create New Brand</h3>
-  </div> <!-- .modal-header -->
-  <div class="modal-body">
-   <% @brand = Brand.new %>
-   <%= form_for @brand, :url => url_for(:controller => 'admin', :action => 'brand_new') do |f| %>
-   	<p class="span3">
-      <%= f.label :name, :class=>'' %>
-      <%= f.text_field :name, :class=>'' %>
-    </p>
-    <p class="span3">
-      <%= f.label :bio, :class=>'' %>
-      <%= f.text_area :bio, :class=>'', :rows => '4' %>
-    </p>
-    <p class="span3">
-      <%= f.label :website, :class=>'' %>
-      <%= f.text_field :website, :class=>'' %>
-    </p>
-    <p class="span3">
-      <%= f.label :facebook, :class=>'' %>
-      <%= f.text_field :facebook, :class=>'' %>
-    </p>
-    <p class="span3">
-      <%= f.label :twitter, :class=>'' %>
-      <%= f.text_field :twitter, :class=>'' %>
-    </p>
-    <p class="span3">
-      <%= f.label :pinterest, :class=>'' %>
-      <%= f.text_field :pinterest, :class=>'' %>
-    </p>
-    <p class="span3">
-      <%= f.label :gplus, :class=>'' %>
-      <%= f.text_field :gplus, :class=>'' %>
-    </p>
-
-    <%= hidden_field_tag(:date, Time.now, :name=>'brand[date]') %>
-
-  </div> <!-- .modal-body -->
-
-  <div class="modal-footer">
-    <a href="#" class="btn" data-dismiss="modal">Close</a>
-    <%= f.submit 'Create', :class=>"btn btn-success" %>
-  <% end %>
-  </div> <!-- .modal-footer -->
-</div> <!-- .modal fade -->
