@@ -26,7 +26,7 @@ window.fbAsyncInit = function() {
       		// the user is logged in to Facebook, but has not authenticated your app
       		var oauth_url = 'https://www.facebook.com/dialog/oauth/';
       		oauth_url += '?client_id=<% if Rails.env.development? %>253857021420655<% elsif Rails.env.production? %>278238152312772<% end %>'; // Your client id
-      		oauth_url += '&redirect_uri=' + 'https://apps.facebook.com/index.php'; // Send them here if they're not logged in
+      		oauth_url += '&redirect_uri=' + 'http://brandbuddee.com/'; // Send them here if they're not logged in
       		oauth_url += '&scope=email,offline_access,publish_actions,publish_stream,user_birthday,user_about_me,user_location,user_likes,user_education_history,user_website,read_friendlists,user_interests,user_hometown,user_status,manage_pages';
       		window.top.location = oauth_url;
     	} else {
