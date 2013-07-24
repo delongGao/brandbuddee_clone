@@ -30,7 +30,7 @@
 	window.fbAsyncInit = function() {
 		FB.init({
 			appId      : <% if Rails.env.development? %>'253857021420655'<% elsif Rails.env.production? %>'278238152312772'<% end %>,
-			channelUrl : '//brandbuddee.com/fb/channel.html',
+			channelUrl : '//brandbuddee.herokuapp.com/fb/channel.html',
 			status     : true,
 			cookie     : true,
 			frictionlessRequests : true,
