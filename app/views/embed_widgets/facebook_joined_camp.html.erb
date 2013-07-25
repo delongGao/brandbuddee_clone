@@ -1,7 +1,7 @@
 <div class="container">
 	<div class="row">
 		<div class="span8 offset2">
-			<div class="well well-large text-center" id="fb-embed-index">
+			<div class="well well-large text-center" id="fb-embed-index" style="padding-top:3%;">
                 <% flash.each do |name, msg| %>
                     <div class="alert alert-block alert-<%= name %> fade in" style="text-align: left;">
                         <a href="#" class="close" data-dismiss="alert">&times;</a>
@@ -16,10 +16,10 @@
 							<h3 class="whats-new"><%= "#{@campaign.end_date.month.to_s}-#{@campaign.end_date.day.to_s}-#{@campaign.end_date.year.to_s[2..-1]}" %><br><span>End Date</span></h3>
 						</div>
 						<div class="span2">
-							<h3 class="whats-new"><%= @campaign.limit - @campaign.redeems.size < 1 ? "0" : @campaign.limit - @campaign.redeems.size %><br><span>Available Qty</span></h3>
+							<h3 class="whats-new"><%= @campaign.limit - @campaign.redeems.size < 1 ? "0" : @campaign.limit - @campaign.redeems.size %><br><span>Qty Left</span></h3>
 						</div>
 						<div class="span2">
-                            <h3 class="whats-new"><% if @gift_earned == true %><i class="icon-star text-info"></i> <% end %><%= "#{@total_pts} / #{@campaign.points_required}" %><br><span>Points Earned</span></h3>
+                            <h3 class="whats-new"><% if @gift_earned == true %><i class="icon-star text-info"></i> <% end %><%= "#{@total_pts} / #{@campaign.points_required}" %><br><span>Pts Earned</span></h3>
 						</div>
 					</div>
 					<div class="divisor divisor_services">
@@ -27,7 +27,7 @@
 					    <div class="circle_right"></div>
 					</div>
 					<div class="row">
-						<img src="<%= @campaign.get_random_image %>" alt="<%= "#{@campaign.brand.name.parameterize}-#{@campaign.title.parameterize}" %>" title="<%= "#{@campaign.brand.name} - #{@campaign.title}" %>" class="pull-left img-rounded" style="max-width: 250px;margin-left:5%;" />
+						<img src="<%= @campaign.get_random_image %>" alt="<%= "#{@campaign.brand.name.parameterize}-#{@campaign.title.parameterize}" %>" title="<%= "#{@campaign.brand.name} - #{@campaign.title}" %>" class="pull-left img-rounded" style="max-width: 205px;margin-left:4%;" />
                         <% if @gift_earned == true %>
                             <div style="border: 2px solid green;width: 45%;padding-bottom: 2%;margin-top:0;border-radius:9px;padding-left:1%;padding-right:1%;" class="pull-right">
                                 <h3 class="whats-new" style="font-size:1.2em;line-height:110%;"><%= @campaign.title %></h3>
@@ -37,8 +37,8 @@
                                 <span class="label label-success pull-right" style="margin-top:-2.1%;display:none;" id="lblRedeemCodeDisplay"><%= Redeem.where(user_id: current_user.id, campaign_id: @campaign.id).first.redeem_code %></span>
                             </div>
                         <% else %>
-    						<div style="border: 2px solid green;width: 45%;padding-bottom: 2.5%;margin-top:2%;border-radius:9px;" class="pull-right">
-    							<h3 class="whats-new" style="font-size:1.25em;"><%= @campaign.title %></h3>
+    						<div style="border: 2px solid green;width: 45%;padding-bottom: 2.5%;border-radius:9px;" class="pull-right">
+    							<h3 class="whats-new" style="font-size:1.25em;padding-left:1%;padding-right:1%;"><%= @campaign.title %></h3>
     							<a href="#redeemModal" role="button" data-toggle="modal" class="btn btn-info btn-mini" style="margin-top:-3%;">How to Redeem</a>
     						</div>
                         <% end %>
@@ -51,16 +51,7 @@
 						<%= javascript_include_tag "http://platform.twitter.com/widgets.js" %>
 						<h3 class="whats-new"><i class="icon-bullhorn" style="font-size: 2em; line-height: 30%; margin-right: 1%;"></i> Share the Story to Earn Points</h3>
 						<div class="clear"></div>
-                        <div class="sharing-campaign campaign-twitter-share" style="margin-left:12%;">
-                            <div id="twitter-button">
-                                <a href="http://twitter.com/share" class="twitter-share-button"
-                                    data-text="<%= @campaign.tweet.html_safe unless @campaign.tweet.nil? %> <%= root_url + 's/' + @share.link %>"
-                                    data-count="none"
-                                    data-url=""
-                                    data-size="">Tweet</a>
-                            </div>
-                        </div>
-                        <div class="sharing-campaign campaign-pinterest-share">
+                        <div class="sharing-campaign campaign-pinterest-share" style="margin-left:5%;">
                             <a href="http://pinterest.com/pin/create/button/?url=<%= root_url + 's/' + @share.link %>&media=<%= @campaign.campaign_image_url() %>&description=<%= @campaign.title %>" class="pin-it-button" target="_blank" count-layout="none" data-campaign="<%= @campaign.link %>"><img border="0" src="//assets.pinterest.com/images/PinExt.png" title="Pin It" /></a>
                         </div>
                         <div class="sharing-campaign campaign-facebook-share">
@@ -79,7 +70,7 @@
 						<% counter = 0 %>
                         <% unless @campaign.task_blog_post["use_it"].nil? || @campaign.task_blog_post["use_it"].blank? %>
                         <% counter = counter + 1 %>
-                        <div class="accordion span3" id="accordion1" style="margin-left:9%;">
+                        <div class="accordion span3" id="accordion1" style="width:200px;">
                             <div class="accordion-group">
                                 <div class="accordion-heading alt-accordion" style="height:56px;">
                                     <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion1" href="#collapse1">
@@ -116,7 +107,7 @@
                         <% end %>
                         <% unless @campaign.task_facebook["use_it"].nil? || @campaign.task_facebook["use_it"].blank? %>
                         <% counter = counter + 1 %>
-                        <div class="accordion span3" id="accordion2" style="margin-left:9%;">
+                        <div class="accordion span3" id="accordion2" style="width:200px;">
                             <div class="accordion-group">
                                 <div class="accordion-heading alt-accordion" style="height:56px;">
                                     <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse2">
@@ -144,7 +135,7 @@
                         <% if counter % 2 == 0 %><div class="clearfix"></div><% end %>
                         <% unless @campaign.task_twitter["use_it"].nil? || @campaign.task_twitter["use_it"].blank? %>
                         <% counter = counter + 1 %>
-                        <div class="accordion span3" id="accordion3" style="margin-left:9%;">
+                        <div class="accordion span3" id="accordion3" style="width:200px;">
                             <div class="accordion-group">
                                 <div class="accordion-heading alt-accordion" style="height:56px;">
                                     <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion3" href="#collapse3">
@@ -172,7 +163,7 @@
                         <% if counter % 2 == 0 %><div class="clearfix"></div><% end %>
                         <% unless @campaign.task_custom_1["use_it"].nil? || @campaign.task_custom_1["use_it"].blank? %>
                         <% counter = counter + 1 %>
-                        <div class="accordion span3" id="accordion4" style="margin-left:9%;">
+                        <div class="accordion span3" id="accordion4" style="width:200px;">
                             <div class="accordion-group">
                                 <div class="accordion-heading alt-accordion" style="height:56px;">
                                     <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion4" href="#collapse4">
@@ -200,7 +191,7 @@
                         <% if counter % 2 == 0 %><div class="clearfix"></div><% end %>
                         <% unless @campaign.task_custom_2["use_it"].nil? || @campaign.task_custom_2["use_it"].blank? %>
                         <% counter = counter + 1 %>
-                        <div class="accordion span3" id="accordion5" style="margin-left:9%;">
+                        <div class="accordion span3" id="accordion5" style="width:200px;">
                             <div class="accordion-group">
                                 <div class="accordion-heading alt-accordion" style="height:56px;">
                                     <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion5" href="#collapse5">
@@ -228,7 +219,7 @@
                         <% if counter % 2 == 0 %><div class="clearfix"></div><% end %>
                         <% unless @campaign.task_custom_3["use_it"].nil? || @campaign.task_custom_3["use_it"].blank? %>
                         <% counter = counter + 1 %>
-                        <div class="accordion span3" id="accordion6" style="margin-left:9%;">
+                        <div class="accordion span3" id="accordion6" style="width:200px;">
                             <div class="accordion-group">
                                 <div class="accordion-heading alt-accordion" style="height:56px;">
                                     <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion6" href="#collapse6">
@@ -256,7 +247,7 @@
                         <% if counter % 2 == 0 %><div class="clearfix"></div><% end %>
                         <% unless @campaign.task_custom_4["use_it"].nil? || @campaign.task_custom_4["use_it"].blank? %>
                         <% counter = counter + 1 %>
-                        <div class="accordion span3" id="accordion7" style="margin-left:9%;">
+                        <div class="accordion span3" id="accordion7" style="width:200px;">
                             <div class="accordion-group">
                                 <div class="accordion-heading alt-accordion" style="height:56px;">
                                     <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion7" href="#collapse7">
@@ -284,7 +275,7 @@
                         <% if counter % 2 == 0 %><div class="clearfix"></div><% end %>
                         <% unless @campaign.task_custom_5["use_it"].nil? || @campaign.task_custom_5["use_it"].blank? %>
                         <% counter = counter + 1 %>
-                        <div class="accordion span3" id="accordion8" style="margin-left:9%;">
+                        <div class="accordion span3" id="accordion8" style="width:200px;">
                             <div class="accordion-group">
                                 <div class="accordion-heading alt-accordion" style="height:56px;">
                                     <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion8" href="#collapse8">
