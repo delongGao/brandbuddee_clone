@@ -21,34 +21,20 @@
     							<button type="button" class="btn btn-large btn-success disabled" disabled="disabled" style="font-weight:700;margin-top:2%;" id="btnRefreshThisPage" onclick="location.reload();">
     								<i class="icon-refresh"></i> OK, Refresh This Page
     							</button>
-    							<button type="button" class="btn btn-large btn-success" style="font-weight:700; margin-top:2%;" onclick="window.location.reload(true);">
-    								<i class="icon-refresh"></i> window.location.reload(true);
+    							<button type="button" class="btn btn-large btn-success" style="font-weight:700;margin-top:2%;" id="btnRefreshThisPage" onclick="window.top.location.reload();">
+    								<i class="icon-refresh"></i> window.top.location.reload();
     							</button>
-    							<button type="button" class="btn btn-large btn-success" style="font-weight:700; margin-top:2%;" onclick="history.go(0);">
-    								<i class="icon-refresh"></i> history.go(0);
+    							<button type="button" class="btn btn-large btn-success" style="font-weight:700;margin-top:2%;" id="btnRefreshThisPage" onclick="window.parent.location.reload();">
+    								<i class="icon-refresh"></i> window.parent.location.reload();
     							</button>
-    							<button type="button" class="btn btn-large btn-success" style="font-weight:700; margin-top:2%;" onclick="window.location.href=window.location.href;">
-    								<i class="icon-refresh"></i> window.location.href=window.location.href;
+    							<button type="button" class="btn btn-large btn-success" style="font-weight:700;margin-top:2%;" id="btnRefreshThisPage" onclick="window.parent.location.href = window.parent.location.href;">
+    								<i class="icon-refresh"></i> window.parent.location.href = window.parent.location.href;
     							</button>
-    							<button type="button" class="btn btn-large btn-success" style="font-weight:700; margin-top:2%;" onclick="window.location = window.location.pathname;">
-    								<i class="icon-refresh"></i> window.location = window.location.pathname;
+    							<button type="button" class="btn btn-large btn-success" style="font-weight:700;margin-top:2%;" id="btnRefreshThisPage" onclick="parent.location.href=parent.location.href;">
+    								<i class="icon-refresh"></i> parent.location.href=parent.location.href;
     							</button>
-    							BEGIN TEST WITH PARAMS VARIABLES
-    							<button type="button" class="btn btn-large btn-success" style="font-weight:700; margin-top:2%;" onclick="window.location = window.location.pathname + '?page_id=<%= @page_id %>&liked=<%= @liked %>&admin=<%= @admin %>';">
-    								<i class="icon-refresh"></i> window.location = window.location.pathname;
-    							</button>
-    							END TEST WITH PARAMS VARIABLES
-    							<button type="button" class="btn btn-large btn-success" style="font-weight:700; margin-top:2%;" onclick="$.ajax({
-								  url: '',
-								  context: document.body,
-								  success: function(s,x){
-								    $(this).html(s);
-								  }
-								});">
-    								<i class="icon-refresh"></i> Using AJAX
-    							</button>
-    							<button type="button" class="btn btn-large btn-success" style="font-weight:700; margin-top:2%;" onclick="location.reload('forceGet');">
-    								<i class="icon-refresh"></i> location.reload('forceGet');
+    							<button type="button" class="btn btn-large btn-success" style="font-weight:700;margin-top:2%;" id="btnRefreshThisPage" onclick="parent.location.reload();">
+    								<i class="icon-refresh"></i> parent.location.reload();
     							</button>
   							</p>
 						</div>
