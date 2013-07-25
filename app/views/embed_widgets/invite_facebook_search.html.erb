@@ -1,7 +1,7 @@
 <div class="container">
 	<div class="row">
 		<div class="span8 offset2">
-			<div class="well well-large" id="fb-embed-index" style="padding-left:0;padding-right:0;">
+			<div class="well well-large" id="fb-embed-index" style="padding-left:1%;padding-right:1%;padding-top:2%;padding-bottom:2%;">
                 <% flash.each do |name, msg| %>
                     <div class="alert alert-block alert-<%= name %> fade in" style="text-align: left;">
                         <a href="#" class="close" data-dismiss="alert">&times;</a>
@@ -34,22 +34,16 @@
                 </div>
                 <div class="clearfix"></div>
                 <% unless @friendslist.blank? %>
-                    <ul class="pull-left fb-invite-fb">
-                    <% @counter = 0 %>
+                    <ul class="fb-invite-fb">
                     <% @friendslist.each do |friend| %>
-                        <% if @counter==(@friendslist.size / 2).floor %>
-                    </ul>
-                    <ul class="pull-right fb-invite-fb">
-                        <% end %>
-                        <li><img src="https://graph.facebook.com/<%= friend["id"] %>/picture?type=square" alt="<%= friend["name"] %>'s Profile Image" width="35" height="35" class="img-circle inviteprofileimage" /> <%= friend["name"] %>&nbsp;<input type="button" class="btn btn-fuji-splash-3 btn-mini" onclick="fbInvitePerson(<%= friend["id"] %>, '<%= friend["name"] %>'); return false;" value="Invite" style="float:right;margin-top:3%;" /></li>
-                        <% @counter += 1 %>
+                        <li><img src="https://graph.facebook.com/<%= friend["id"] %>/picture?type=square" alt="<%= friend["name"] %>'s Profile Image" width="35" height="35" class="img-circle inviteprofileimage" /> <%= friend["name"] %>&nbsp;<input type="button" class="btn btn-fuji-splash-3 btn-mini" onclick="fbInvitePerson(<%= friend["id"] %>, '<%= friend["name"] %>'); return false;" value="Invite" style="float:right;margin-right:20%;" /></li>
                     <% end %>
                     </ul>
                     <div class="clearfix"></div>
                 <% else %>
                     <h4 class="text-center">We couldn't find any Facebook friends named "<%= params[:query] %>"</h4>
                 <% end %>
-                <br><div class="text-center" style="margin-top:-4%;"><%= link_to image_tag("bb-logo.png", alt: "brandbuddee-seattle-rewards", title: "brandbuddee Seattle Rewards", size: "250x47"), "/", target: "_blank", title: "brandbuddee Seattle Rewards" %></div>
+                <br><div class="text-center" style="margin-top:-4%;"><%= link_to image_tag("bb-logo.png", alt: "brandbuddee-seattle-rewards", title: "brandbuddee Seattle Rewards", size: "188x35"), "/", target: "_blank", title: "brandbuddee Seattle Rewards" %></div>
             </div>
         </div>
     </div>

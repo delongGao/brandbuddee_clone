@@ -13,7 +13,7 @@
 					<h2 class="whats-new"><i class="icon-cogs bb-blue"></i> Admin Panel</h2>
 					<div class="row stats-top">
 						<div class="span2">
-							<h3 class="whats-new"><%= @campaign.limit - @campaign.redeems.size < 1 ? "0" : @campaign.limit - @campaign.redeems.size %><br><span>Available Qty</span></h3>
+							<h3 class="whats-new"><%= @campaign.limit - @campaign.redeems.size < 1 ? "0" : @campaign.limit - @campaign.redeems.size %><br><span>Qty Left</span></h3>
 						</div>
 						<div class="span2">
 							<h3 class="whats-new"><%= @total_page_views %><br><span>Page Visits</span></h3>
@@ -42,15 +42,15 @@
 					<h3 class="rewards-text">Share this campaign to help build the buzz for your Brand and drive the metrics you want!</h3>
 					<% if @logged_in == true %>
 						<a href="#facebookModal" class="btn btn-primary btn-large" style="margin-bottom: 1%;" data-toggle="modal" role="button"><i class="icon-facebook-sign"></i> Post to Facebook Wall</a><br>
-						<%= link_to image_tag("facebook.png", size: "246x47", style: "margin-right: 1%; margin-left: 1%;"), "/fb-invite-fb-list?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}" %><%= link_to image_tag("email.png", size: "246x47"), "/fb-invite-email-form?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}" %><br>
-						<%= link_to image_tag("gmail.png", size: "246x47", style: "margin-right: 1%; margin-left: 1%; margin-top:1%;"), "/invite", target: "_blank" %><%= link_to image_tag("yahoo.png", size: "246x47", style: "margin-top:1%;"), "/invite", target: "_blank" %>
+						<%= link_to image_tag("facebook.png", size: "185x35", style: "margin-right: 1%; margin-left: 1%;"), "/fb-invite-fb-list?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}" %><%= link_to image_tag("email.png", size: "185x35"), "/fb-invite-email-form?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}" %><br>
+						<%= link_to image_tag("gmail.png", size: "185x35", style: "margin-right: 1%; margin-left: 1%; margin-top:1%;"), "/invite", target: "_blank" %><%= link_to image_tag("yahoo.png", size: "185x35", style: "margin-top:1%;"), "/invite", target: "_blank" %>
 					<% else %>
 						<a href="#loginModal" role="button" data-toggle="modal" class="btn btn-primary btn-large"><i class="icon-key"></i> Login to Share this Campaign!</a>
 					<% end %>
 				<% else %>
 					<h2><%= @error %></h2>
 				<% end %>
-				<br><%= link_to image_tag("bb-logo.png", alt: "brandbuddee-seattle-rewards", title: "brandbuddee Seattle Rewards", size: "250x47", style: "margin-top:1%;"), "/", target: "_blank", title: "brandbuddee Seattle Rewards" %>
+				<br><%= link_to image_tag("bb-logo.png", alt: "brandbuddee-seattle-rewards", title: "brandbuddee Seattle Rewards", size: "188x35", style: "margin-top:2.5%;"), "/", target: "_blank", title: "brandbuddee Seattle Rewards" %>
 			</div>
 		</div>
 	</div>

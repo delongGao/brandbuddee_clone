@@ -1,7 +1,7 @@
 <div class="container">
 	<div class="row">
 		<div class="span8 offset2">
-			<div class="well well-large" id="fb-embed-index" style="padding-left:0;padding-right:0;">
+			<div class="well well-large" id="fb-embed-index" style="padding-left:1%;padding-right:1%;padding-top:2%;padding-bottom:2%;">
                 <% flash.each do |name, msg| %>
                     <div class="alert alert-block alert-<%= name %> fade in" style="text-align: left;">
                         <a href="#" class="close" data-dismiss="alert">&times;</a>
@@ -21,19 +21,13 @@
                 <a href="/fb-embed-admin<%= "?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}" %>" class="btn btn-info pull-left" style="margin-left:2%;"><i class="icon-reply" style="font-size:inherit;"></i> Go Back</a>
                 <div class="clearfix"></div>
                 <% unless @friendslist.blank? %>
-                    <ul class="pull-left fb-invite-fb">
-                    <% @counter = 0 %>
+                    <ul class="fb-invite-fb">
                     <% @friendslist.each do |friend| %>
-                        <% if @counter==(@friendslist.size / 2).floor %>
-                    </ul>
-                    <ul class="pull-right fb-invite-fb">
-                        <% end %>
-                        <li><img src="https://graph.facebook.com/<%= friend["id"] %>/picture?type=square" alt="<%= friend["name"] %>'s Profile Image" width="35" height="35" class="img-circle inviteprofileimage" /> <%= friend["name"] %>&nbsp;<input type="button" class="btn btn-fuji-splash-3 btn-mini" onclick="fbInvitePerson(<%= friend["id"] %>, '<%= friend["name"] %>'); return false;" value="Invite" style="float:right;margin-top:3%;" /></li>
-                        <% @counter += 1 %>
+                        <li><img src="https://graph.facebook.com/<%= friend["id"] %>/picture?type=square" alt="<%= friend["name"] %>'s Profile Image" width="35" height="35" class="img-circle inviteprofileimage" /> <%= friend["name"] %>&nbsp;<input type="button" class="btn btn-fuji-splash-3 btn-mini" onclick="fbInvitePerson(<%= friend["id"] %>, '<%= friend["name"] %>'); return false;" value="Share" style="float:right;margin-right:20%;" /></li>
                     <% end %>
                     </ul>
                     <div class="clearfix"></div>
-                    <ul class="pager">
+                    <ul class="pager" style="margin-top:-2%:">
                         <li class="previous<% if @friendslist.previous_page.blank? %><%= " disabled" %><% end %>">
                             <% if @friendslist.previous_page.blank? %>
                                 <a href="javascript:void(0)" style="margin-left:2%;">&larr;PREVIOUS </a>
@@ -55,7 +49,7 @@
                         <h4>Uh Oh!</h4>
                         We couldn't find any friends in your Facebook Friends List. Are you sure brandbuddee is connected to the correct Facebook account? If not, login to the right Facebook account, and <a href="/fb-connect-with-fb<%= "?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}" %>" class="btn btn-warning btn-mini">Reconnect with Facebook</a>.</h4>
                 <% end %>
-                <br><div class="text-center" style="margin-top:-12%;"><%= link_to image_tag("bb-logo.png", alt: "brandbuddee-seattle-rewards", title: "brandbuddee Seattle Rewards", size: "250x47"), "/", target: "_blank", title: "brandbuddee Seattle Rewards" %></div>
+                <br><div class="text-center" style="margin-top:-5%;"><%= link_to image_tag("bb-logo.png", alt: "brandbuddee-seattle-rewards", title: "brandbuddee Seattle Rewards", size: "188x35"), "/", target: "_blank", title: "brandbuddee Seattle Rewards" %></div>
             </div>
         </div>
     </div>

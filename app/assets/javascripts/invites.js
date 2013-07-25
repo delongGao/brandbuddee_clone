@@ -63,7 +63,7 @@ function fbInvitePerson(sendto, name) {
     'description': name + ', check out brandbuddee.com! You can discover cool things in your city, score points for sharing, and earn rewards.'
   }, function(response) {
     if (response) {
-      $('#insertbeforeme').before('<div class="alert alert-success fade in" style="margin-top:2%; width:88%; margin-left:2%;"><button type="button" class="close" data-dismiss="alert">&times;</button><strong>Success!</strong> ' + name + ' has been invited.</div>');
+      $('#insertbeforeme').before('<div class="alert alert-success fade in" style="margin-top:2%; width:82%; margin-left:2%;"><button type="button" class="close" data-dismiss="alert">&times;</button><strong>Success!</strong> ' + name + ' has been invited.</div>');
     } else {
       // This code gets called if the user cancels the dialog before sending the message.
     } //Response from send attempt
