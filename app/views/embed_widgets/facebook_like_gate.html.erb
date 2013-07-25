@@ -11,13 +11,16 @@
 					<% unless @error=="redirect_to_permissions_oauth" %>
 						<h2><%= @error %></h2>
 					<% else %>
-						<div class="hero-unit" style="margin-top:2%;margin-bottom:2%;">
+						<div class="hero-unit" style="margin-top:4%;margin-bottom:3%;">
   							<h1>Important</h1>
   							<p>To use the brandbuddee Facebook App, you need to Enable Certain Permissions</p>
   							<p>
-    							<a href="https://www.facebook.com/dialog/oauth/?client_id=278238152312772&redirect_uri=http://brandbuddee.com/&scope=email,offline_access,publish_actions,publish_stream,user_birthday,user_about_me,user_location,user_likes,user_education_history,user_website,read_friendlists,user_interests,user_hometown,user_status,manage_pages" target="_blank" class="btn btn-info btn-large">
+    							<a href="https://www.facebook.com/dialog/oauth/?client_id=278238152312772&redirect_uri=http://brandbuddee.com/&scope=email,offline_access,publish_actions,publish_stream,user_birthday,user_about_me,user_location,user_likes,user_education_history,user_website,read_friendlists,user_interests,user_hometown,user_status,manage_pages" target="_blank" class="btn btn-info btn-large" style="width: 48%;" onclick="enableBtnRefresh();">
     								<i class="icon-thumbs-up"></i> Enable Permissions
     							</a>
+    							<button type="button" class="btn btn-large btn-success disabled" disabled="disabled" style="font-weight:700;margin-top:2%;" id="btnRefreshThisPage" onclick="location.reload();">
+    								<i class="icon-refresh"></i> OK, Refresh This Page
+    							</button>
   							</p>
 						</div>
 					<% end %>
