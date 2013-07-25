@@ -59,13 +59,13 @@ class EmbedWidgetsController < ApplicationController
 							@error = "This App is not intended to be viewed on its own. To function properly, it should be viewed from a Facebook Page."
 						end
 					else
-						@error = "To use the brandbuddee Facebook App, you need to <a href='https://www.facebook.com/dialog/oauth/?client_id=278238152312772&redirect_uri=http://brandbuddee.com/&scope=email,offline_access,publish_actions,publish_stream,user_birthday,user_about_me,user_location,user_likes,user_education_history,user_website,read_friendlists,user_interests,user_hometown,user_status,manage_pages' target='_blank' class='btn btn-info'><i class='icon-thumbs-up'></i> Enable Certain Permissions</a>"
+						@error = "redirect_to_permissions_oauth"
 					end
 				else
-					@error = "To use the brandbuddee Facebook App, you need to <a href='https://www.facebook.com/dialog/oauth/?client_id=278238152312772&redirect_uri=http://brandbuddee.com/&scope=email,offline_access,publish_actions,publish_stream,user_birthday,user_about_me,user_location,user_likes,user_education_history,user_website,read_friendlists,user_interests,user_hometown,user_status,manage_pages' target='_blank' class='btn btn-info'><i class='icon-thumbs-up'></i> Enable Certain Permissions</a>"
+					@error = "redirect_to_permissions_oauth"
 				end
 			else
-				@error = "To use the brandbuddee Facebook App, you need to <a href='https://www.facebook.com/dialog/oauth/?client_id=278238152312772&redirect_uri=http://brandbuddee.com/&scope=email,offline_access,publish_actions,publish_stream,user_birthday,user_about_me,user_location,user_likes,user_education_history,user_website,read_friendlists,user_interests,user_hometown,user_status,manage_pages' target='_blank' class='btn btn-info'><i class='icon-thumbs-up'></i> Enable Certain Permissions</a>"
+				@error = "redirect_to_permissions_oauth"
 			end
 		end
 	end
