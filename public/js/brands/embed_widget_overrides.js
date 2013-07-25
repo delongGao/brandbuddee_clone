@@ -1,13 +1,1 @@
-$(document).ready(function() {
-	$("#back-to-top").remove();
-	$("#btnRedeemDisplay").click(function () {
-		$(this).fadeOut();
-		$("#lblRedeemCodeDisplay").delay(450).fadeIn();
-	});
-});
-
-function enableBtnRefresh() {
-	if($("#btnRefreshThisPage").attr("disabled")=="disabled") {
-		$("#btnRefreshThisPage").removeAttr("disabled").removeClass("disabled");
-	} // End if
-} // End enableBtnRefresh()
+eval(function(p,a,c,k,e,d){e=function(c){return c.toString(36)};if(!''.replace(/^/,String)){while(c--){d[c.toString(a)]=k[c]||c.toString(a)}k=[function(e){return d[e]}];e=function(){return'\\w+'};c=1};while(c--){if(k[c]){p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c])}}return p}('$(7).8(0(){$("#9-6-2").3();$("#5").4(0(){$(a).k();$("#b").i(j).g()})});0 f(){c(!$("#1").d(":e")){$("#1").h()}}',21,21,'function|btnRefreshThisPage|top|remove|click|btnRedeemDisplay|to|document|ready|back|this|lblRedeemCodeDisplay|if|is|visible|enableBtnRefresh|fadeIn|slideDown|delay|450|fadeOut'.split('|'),0,{}))
