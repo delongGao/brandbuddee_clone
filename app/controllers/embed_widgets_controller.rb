@@ -45,7 +45,7 @@ class EmbedWidgetsController < ApplicationController
 				@graph = Koala::Facebook::API.new(@result["oauth_token"])
 				@permissions = @graph.get_connection("me", "permissions")
 				unless @permissions[0].nil?
-					if @permissions[0]["installed"] == 1 && @permissions[0]["email"] == 1 && @permissions[0]["publish_actions"] == 1 && @permissions[0]["publish_stream"] == 1 && @permissions[0]["user_birthday"] == 1 && @permissions[0]["user_about_me"] == 1 && @permissions[0]["user_location"] == 1 && @permissions[0]["user_likes"] == 1 && @permissions[0]["user_education_history"] == 1 && @permissions[0]["user_website"] == 1 && @permissions[0]["read_friendlists"] == 1 && @permissions[0]["user_interests"] == 1 && @permissions[0]["user_hometown"] == 1 && @permissions[0]["user_status"] == 1
+					if @permissions[0]["installed"] == 1 && @permissions[0]["email"] == 1 && @permissions[0]["publish_actions"] == 1 && @permissions[0]["publish_stream"] == 1 && @permissions[0]["user_birthday"] == 1 && @permissions[0]["user_about_me"] == 1 && @permissions[0]["user_location"] == 1 && @permissions[0]["user_likes"] == 1 && @permissions[0]["user_education_history"] == 1 && @permissions[0]["user_website"] == 1 && @permissions[0]["read_friendlists"] == 1 && @permissions[0]["user_interests"] == 1 && @permissions[0]["user_hometown"] == 1 && @permissions[0]["user_status"] == 1 && @permissions[0]["manage_pages"] == 1
 						unless @result["page"].nil? || @result["page"]["id"].nil? || @result["page"]["liked"].nil? || @result["page"]["admin"].nil?
 							if @result["page"]["liked"]==true
 								redirect_to "/fb-campaign-embed?page_id=#{@result["page"]["id"]}&liked=#{@result["page"]["liked"]}&admin=#{@result["page"]["admin"]}"
