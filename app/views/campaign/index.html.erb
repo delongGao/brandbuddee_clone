@@ -366,7 +366,7 @@
                                   <div class="modal-body">
                                     <%= form_tag url_for(:controller => 'campaign', :action => 'facebook_wall_post'), :id => "", :class => "form-horizontal" do %>
 
-                                        <%= text_area_tag :personal_message, nil, :class => "input-large facebook_wall_post", :placeholder=>"your personal message...", :rows => 3 %>
+                                        <%= text_area_tag :personal_message, @campaign.title, :class => "input-large facebook_wall_post", :placeholder=>"your personal message...", :rows => 3 %>
                                         <%= hidden_field_tag(:name, @campaign.title) %>
                                         <%= hidden_field_tag(:caption, @campaign.reward) %>
                                         <%= hidden_field_tag(:description, @campaign.detail) %>
