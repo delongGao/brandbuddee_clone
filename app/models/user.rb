@@ -145,15 +145,29 @@ class User
           oauth_token: auth["credentials"]["token"],
           oauth_expires_at: auth["credentials"]["expires_at"]
         )
+      elsif auth["provider"]=="twitter" && user.provider=="twitter"
+        user.update_attributes!(
+          oauth_token: auth["credentials"]["token"]
+        )
       end
       return false
     else
-      user.update_attributes!(
-        provider: auth["provider"],
-        uid: auth["uid"],
-        oauth_token: auth["credentials"]["token"],
-        oauth_expires_at: auth["credentials"]["expires_at"]
-      )
+      if auth["provider"]=="facebook"
+        user.update_attributes!(
+          uid: auth["uid"],
+          oauth_token: auth["credentials"]["token"],
+          oauth_expires_at: auth["credentials"]["expires_at"]
+        )
+        user.provider = auth["provider"]
+        user.save!
+      else
+        user.update_attributes!(
+          uid: auth["uid"],
+          oauth_token: auth["credentials"]["token"]
+        )
+        user.provider = auth["provider"]
+        user.save!
+      end
       return true
     end
   end

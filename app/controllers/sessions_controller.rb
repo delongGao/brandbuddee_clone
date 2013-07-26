@@ -296,10 +296,10 @@ class SessionsController < ApplicationController
           else # Regular User Auth
             if current_user
               if User.update_with_omniauth(auth, current_user)
-                flash[:notice] = "Successfully connected with Facebook"
+                flash[:notice] = "Successfully connected with #{auth.provider.titleize}"
                 redirect_to '/home'
               else
-                flash[:error] = "This Facebook account is already associated with a brandbuddee account"
+                flash[:error] = "This #{auth.provider.titleize} account is already associated with a brandbuddee account"
                 redirect_to '/home'
               end
             elsif current_brand

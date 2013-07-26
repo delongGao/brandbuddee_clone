@@ -151,34 +151,30 @@ class CampaignController < ApplicationController
 	def facebook_wall_post
 		if current_user
 			unless params[:personal_message].blank?
-				begin
-					facebook_graph = Koala::Facebook::GraphAPI.new(current_user.oauth_token)
-					object_from_koala = facebook_graph.put_wall_post(params[:personal_message], {
-						"name" => params[:name],
-						"link" => params[:link],
-						"caption" => params[:caption],
-						"description" => params[:description],
-						"picture" => params[:picture]
-					})
-					flash[:notice] = "Awesome! You've posted to your wall!"
-					redirect_to "#{root_url}campaign/#{params[:campaign_link]}"
-				rescue Koala::Facebook::APIError => exc
-					#logger.error("Problems posting to Facebook Wall..."+self.inspect+" "+exc.message)
-					if exc.message == "KoalaMissingAccessToken: Write operations require an access token"
-						flash[:error] = "Please connect to your Facebook account to post to your wall. <a href='/auth/facebook' class='btn btn-primary btn-small'>connect w/ facebook</a>"
-					elsif exc.message == "OAuthException: Error validating access token: The session has been invalidated because the user has changed the password."
-						flash[:error] = "An error occurred while trying to post to Facebook.<br>Is it possible you changed your Facebook password?<br>Please try again after <a href='/signout'>SIGNING OUT</a> of brandbuddee and signing BACK IN again."
-					elsif exc.message == "OAuthException: Error validating access token: Session does not match current stored session. This may be because the user changed the password since the time the session was created or Facebook has changed the session for security reasons."
-						flash[:error] = "An error occurred while trying to post to Facebook.<br>Is it possible you changed your Facebook password?<br>Please try again after <a href='/signout'>SIGNING OUT</a> of brandbuddee and signing BACK IN again."
-					else
-						flash[:error] = "An error occurred while trying to post to Facebook.<br>We have been notified about this issue and we'll investigate it shortly.<br>Please try again later."
-						unless current_user.email.nil? || current_user.email.blank?
-							theemail = current_user.email
-						else
-							theemail = "No Email Available"
+				unless current_user.provider == "twitter"
+					unless current_user.oauth_token.blank?
+						begin
+							# facebook_graph = Koala::Facebook::GraphAPI.new(current_user.oauth_token)
+							facebook_graph = Koala::Facebook::API.new(current_user.oauth_token)
+							object_from_koala = facebook_graph.put_wall_post(params[:personal_message], {
+								"name" => params[:name],
+								"link" => params[:link],
+								"caption" => params[:caption],
+								"description" => params[:description],
+								"picture" => params[:picture]
+							})
+							flash[:notice] = "Awesome! You've posted to your wall!"
+							redirect_to "#{root_url}campaign/#{params[:campaign_link]}"
+						rescue Koala::Facebook::APIError => exc
+							flash[:error] = "An error occurred while trying to post to your Facebook Wall. Please <a href='/auth/facebook' class='btn btn-mini btn-warning'>Reconnect With Facebook</a> and try again. If messages that say \"brandbuddee would like to...\" occur, make sure you enable these permissions."
+							redirect_to "#{root_url}campaign/#{params[:campaign_link]}"
 						end
-						UserMailer.email_brice_error("Controller: campaign_controller.rb | Action: facebook_wall_post | Issue: The statement: rescue Koala::Facebook::APIError => exc went to the else. Here is exc.message: #{exc.message} | Here is the user's email: #{theemail}").deliver
-					end					
+					else
+						flash[:error] = "Before posting to your wall, you must first <a href='/auth/facebook' class='btn btn-mini btn-warning'>connect your account with Facebook</a>"
+						redirect_to "#{root_url}campaign/#{params[:campaign_link]}"
+					end
+				else
+					flash[:error] = "Because your account is uses Twitter to login, you cannot post to a facebook wall. You can either use the Post to Twitter button on this page, or <a href='/auth/facebook' class='btn btn-mini btn-warning'>switch to a Facebook Login account</a>"
 					redirect_to "#{root_url}campaign/#{params[:campaign_link]}"
 				end
 			else
