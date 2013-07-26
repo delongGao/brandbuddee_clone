@@ -49,7 +49,8 @@ class UsersController < ApplicationController
         #user = User.find('50cb767e858e4a4fce000001')
         #UserMailer.campaign_newsletter(user.email, root_url).deliver
 
-        Subscriber.delay.campaign_newsletter_push(root_url)
+        # Subscriber.delay.campaign_newsletter_push(root_url)
+        Subscriber.delay.new_campaign_newsletter_push(root_url)
 
         flash[:notice] = "Campaign newsletter successfully delivered."
         redirect_to(:controller => 'users', :action => 'campaign_newsletter_confirmation')

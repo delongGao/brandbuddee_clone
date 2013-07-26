@@ -3,7 +3,7 @@ class AdminController < ApplicationController
 	def index
 
 		if current_user
-			if current_user.account_type == 'super admin' || current_user.account_type == 'admin' || Rails.env.development?
+			if current_user.account_type == 'super admin' || current_user.account_type == 'admin' || current_user.account_type == 'mini admin' || Rails.env.development?
 				@share_month = Share.where(:date.gt => Time.now - 1.month)
 				@share_two_months = Share.where(:date.gt => Time.now - 2.month)
 				@share_month_count = @share_month.count
@@ -382,7 +382,7 @@ class AdminController < ApplicationController
 
 	def brands
 		if current_user
-			if current_user.account_type == 'super admin' || current_user.account_type == 'admin' || Rails.env.development?
+			if current_user.account_type == 'super admin' || current_user.account_type == 'admin' || current_user.account_type == 'mini admin' || Rails.env.development?
 				@brands = Brand.all.order_by([:date, :desc])
 			else
 				redirect_to root_url
