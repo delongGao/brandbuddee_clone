@@ -241,27 +241,32 @@ class CampaignController < ApplicationController
 			else
 				unless @campaign.task_blog_post["points"].nil?
 					if !params[:txtBlogAddress].nil? && !params[:txtBlogAddress].empty?
-						@task = @campaign.tasks.where(user_id: current_user.id).first
-						unless @task.nil?
-							unless @task.completed_blog == true
-								@task.completed_blog = true
-								@task.completed_points += @campaign.task_blog_post["points"].to_i
-								@task.blog_post_url = params[:txtBlogAddress]
-								if @task.save
-									flash[:notice] = "You have completed the blog post task!"
-									redirect_to "#{root_url}campaign/#{@campaign.link}"
+						if str_is_valid_url(params[:txtBlogAddress])
+							@task = @campaign.tasks.where(user_id: current_user.id).first
+							unless @task.nil?
+								unless @task.completed_blog == true
+									@task.completed_blog = true
+									@task.completed_points += @campaign.task_blog_post["points"].to_i
+									@task.blog_post_url = params[:txtBlogAddress]
+									if @task.save
+										flash[:notice] = "You have completed the blog post task!"
+										redirect_to "#{root_url}campaign/#{@campaign.link}"
+									else
+										UserMailer.email_brice_error("Controller: campaign_controller.rb | Action: complete_blog_task | Issue: The statement: if @task.save, did not save and instead went to the else portion below.").deliver
+										flash[:error] = "An error occurred while trying to save. We have been notified. Please try again later."
+										redirect_to "#{root_url}campaign/#{@campaign.link}"
+									end
 								else
-									UserMailer.email_brice_error("Controller: campaign_controller.rb | Action: complete_blog_task | Issue: The statement: if @task.save, did not save and instead went to the else portion below.").deliver
-									flash[:error] = "An error occurred while trying to save. We have been notified. Please try again later."
+									flash[:error] = "You have already completed this task!"
 									redirect_to "#{root_url}campaign/#{@campaign.link}"
 								end
 							else
-								flash[:error] = "You have already completed this task!"
+								UserMailer.email_brice_error("Controller: campaign_controller.rb | Action: complete_blog_task | Issue: The statement unless @task.nil? went to the else. At this point, the user should already have had a task created, but for some reason, they do not yet have a task for the campaign.").deliver
+								flash[:error] = "An error occurred while trying to find your information. We have been notified. Please try again later."
 								redirect_to "#{root_url}campaign/#{@campaign.link}"
 							end
 						else
-							UserMailer.email_brice_error("Controller: campaign_controller.rb | Action: complete_blog_task | Issue: The statement unless @task.nil? went to the else. At this point, the user should already have had a task created, but for some reason, they do not yet have a task for the campaign.").deliver
-							flash[:error] = "An error occurred while trying to find your information. We have been notified. Please try again later."
+							flash[:error] = "You did not enter a valid URL for the Blog Post Web Address. It must start with http:// or https://."
 							redirect_to "#{root_url}campaign/#{@campaign.link}"
 						end
 					else
@@ -337,25 +342,30 @@ class CampaignController < ApplicationController
 			else
 				unless @campaign.task_yelp["points"].nil?
 					if !params[:txtYelpAddress].nil? && !params[:txtYelpAddress].empty?
-						@task = @campaign.tasks.where(user_id: current_user.id).first
-						unless @task.nil?
-							unless @task.completed_yelp == true
-								@task.completed_yelp = true
-								@task.completed_points += @campaign.task_yelp["points"].to_i
-								@task.yelp_review = params[:txtYelpAddress]
-								if @task.save
-									flash[:notice] = "You have completed this task!"
-									redirect_to "#{root_url}campaign/#{@campaign.link}"
+						if str_is_valid_url(params[:txtYelpAddress])
+							@task = @campaign.tasks.where(user_id: current_user.id).first
+							unless @task.nil?
+								unless @task.completed_yelp == true
+									@task.completed_yelp = true
+									@task.completed_points += @campaign.task_yelp["points"].to_i
+									@task.yelp_review = params[:txtYelpAddress]
+									if @task.save
+										flash[:notice] = "You have completed this task!"
+										redirect_to "#{root_url}campaign/#{@campaign.link}"
+									else
+										flash[:error] = "An error occurred while trying to save. Please try again later."
+										redirect_to "#{root_url}campaign/#{@campaign.link}"
+									end
 								else
-									flash[:error] = "An error occurred while trying to save. Please try again later."
+									flash[:error] = "You have already completed this task!"
 									redirect_to "#{root_url}campaign/#{@campaign.link}"
 								end
 							else
-								flash[:error] = "You have already completed this task!"
+								flash[:error] = "An error occurred while trying to find your information. Please try again later."
 								redirect_to "#{root_url}campaign/#{@campaign.link}"
 							end
 						else
-							flash[:error] = "An error occurred while trying to find your information. Please try again later."
+							flash[:error] = "You must enter a valid URL that starts with http:// or https://."
 							redirect_to "#{root_url}campaign/#{@campaign.link}"
 						end
 					else

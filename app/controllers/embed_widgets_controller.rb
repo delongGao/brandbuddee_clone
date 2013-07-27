@@ -739,16 +739,21 @@ class EmbedWidgetsController < ApplicationController
 					if params[:task].to_s == "blog"
 						unless @campaign.task_blog_post["points"].nil?
 							if !params[:txtBlogAddress].nil? && !params[:txtBlogAddress].empty?
-								@task = @campaign.tasks.where(user_id: current_user.id).first
-								unless @task.completed_blog == true
-									@task.completed_blog = true
-									@task.completed_points += @campaign.task_blog_post["points"].to_i
-									@task.blog_post_url = params[:txtBlogAddress]
-									@task.save
-									flash[:success] = "You Have Completed the Blog Post Task!"
-									redirect_to "/fb-joined-campaign?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
+								if str_is_valid_url(params[:txtBlogAddress])
+									@task = @campaign.tasks.where(user_id: current_user.id).first
+									unless @task.completed_blog == true
+										@task.completed_blog = true
+										@task.completed_points += @campaign.task_blog_post["points"].to_i
+										@task.blog_post_url = params[:txtBlogAddress]
+										@task.save
+										flash[:success] = "You Have Completed the Blog Post Task!"
+										redirect_to "/fb-joined-campaign?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
+									else
+										flash[:error] = "You have already completed this task!"
+										redirect_to "/fb-joined-campaign?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
+									end
 								else
-									flash[:error] = "You have already completed this task!"
+									flash[:error] = "You must enter a valid URL that starts with http:// or https://."
 									redirect_to "/fb-joined-campaign?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
 								end
 							else
@@ -761,16 +766,21 @@ class EmbedWidgetsController < ApplicationController
 					elsif params[:task].to_s == "yelp"
 						unless @campaign.task_yelp["points"].nil?
 							if !params[:txtYelpAddress].nil? && !params[:txtYelpAddress].empty?
-								@task = @campaign.tasks.where(user_id: current_user.id).first
-								unless @task.completed_yelp == true
-									@task.completed_yelp = true
-									@task.completed_points += @campaign.task_yelp["points"].to_i
-									@task.yelp_review = params[:txtYelpAddress]
-									@task.save
-									flash[:success] = "You Have Completed this task!"
-									redirect_to "/fb-joined-campaign?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
+								if str_is_valid_url(params[:txtYelpAddress])
+									@task = @campaign.tasks.where(user_id: current_user.id).first
+									unless @task.completed_yelp == true
+										@task.completed_yelp = true
+										@task.completed_points += @campaign.task_yelp["points"].to_i
+										@task.yelp_review = params[:txtYelpAddress]
+										@task.save
+										flash[:success] = "You Have Completed this task!"
+										redirect_to "/fb-joined-campaign?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
+									else
+										flash[:error] = "You have already completed this task!"
+										redirect_to "/fb-joined-campaign?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
+									end
 								else
-									flash[:error] = "You have already completed this task!"
+									flash[:error] = "You must enter a valid URL that starts with http:// or https://."
 									redirect_to "/fb-joined-campaign?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
 								end
 							else
