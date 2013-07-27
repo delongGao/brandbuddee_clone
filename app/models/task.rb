@@ -14,6 +14,8 @@ class Task
   field :completed_blog, :type => Boolean, :default => false
   field :completed_facebook, :type => Boolean, :default => false
   field :completed_twitter, :type => Boolean, :default => false
+  field :completed_yelp, :type => Boolean, :default => false
   field :blog_post_url, :type => String
+  field :yelp_review, :type => String
   field :completed_points, :type => Integer, :default => 0
 end

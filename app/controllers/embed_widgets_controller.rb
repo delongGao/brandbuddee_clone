@@ -758,6 +758,28 @@ class EmbedWidgetsController < ApplicationController
 						else
 							redirect_to "/fb-joined-campaign?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
 						end
+					elsif params[:task].to_s == "yelp"
+						unless @campaign.task_yelp["points"].nil?
+							if !params[:txtYelpAddress].nil? && !params[:txtYelpAddress].empty?
+								@task = @campaign.tasks.where(user_id: current_user.id).first
+								unless @task.completed_yelp == true
+									@task.completed_yelp = true
+									@task.completed_points += @campaign.task_yelp["points"].to_i
+									@task.yelp_review = params[:txtYelpAddress]
+									@task.save
+									flash[:success] = "You Have Completed this task!"
+									redirect_to "/fb-joined-campaign?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
+								else
+									flash[:error] = "You have already completed this task!"
+									redirect_to "/fb-joined-campaign?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
+								end
+							else
+								flash[:error] = "You need to fill out the Web Address"
+								redirect_to "/fb-joined-campaign?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
+							end
+						else
+							redirect_to "/fb-joined-campaign?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
+						end
 					elsif params[:task].to_s == "facebook"
 						unless @campaign.task_facebook["points"].nil?
 							@task = @campaign.tasks.where(user_id: current_user.id).first
@@ -923,6 +945,28 @@ class EmbedWidgetsController < ApplicationController
 									@task.blog_post_url = nil
 									@task.save
 									flash[:info] = "You have undone the completion of the blog post task!"
+									redirect_to "/fb-joined-campaign?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
+								else
+									flash[:error] = "You have not yet completed this task!"
+									redirect_to "/fb-joined-campaign?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
+								end
+							else
+								flash[:error] = "Your have already completed this campaign and earned it's gift. Once a campaign is completed, you can no longer undo tasks."
+								redirect_to "/fb-joined-campaign?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
+							end
+						else
+							redirect_to "/fb-joined-campaign?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
+						end
+					elsif params[:task].to_s == "yelp"
+						unless @campaign.task_yelp["points"].nil?
+							@task = @campaign.tasks.where(user_id: current_user.id).first
+							if Redeem.where(user_id: @task.user_id, campaign_id: @campaign.id).first.nil?
+								if @task.completed_yelp == true
+									@task.completed_yelp = false
+									@task.completed_points -= @campaign.task_yelp["points"].to_i
+									@task.yelp_review = nil
+									@task.save
+									flash[:info] = "You have undone the completion of this task!"
 									redirect_to "/fb-joined-campaign?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
 								else
 									flash[:error] = "You have not yet completed this task!"

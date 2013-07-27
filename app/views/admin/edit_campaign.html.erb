@@ -276,6 +276,26 @@
 								</div>
 							</div>
 
+							<label for="chkYelpReview" style="font-size:16px;font-weight:bold;">Use Yelp Review / Image Contest <input type="checkbox" name="task_yelp[0]" id="chkYelpReview" value="UPDATE" <% unless @campaign.task_yelp["use_it"] != true %>checked="checked"<% end %> /></label>
+							<div class="control-group hidden-phone">
+								<label class="control-label" for="task_yelp_1" style="cursor:text;">Task Title</label>
+								<div class="controls">
+									<%= text_field "task_yelp", "1", :class => "span3", :placeholder => "Up To 30 Characters", :value => @campaign.task_yelp["title"], :maxlength => 30 %>
+								</div>
+							</div>
+							<div class="control-group hidden-phone">
+								<label class="control-label" for="task_yelp_2" style="cursor:text;">Task Description</label>
+								<div class="controls">
+									<%= text_area "task_yelp", "2", :rows => '4', :placeholder => "Up To 140 Characters", :value => @campaign.task_yelp["description"], :maxlength => 140 %>
+								</div>
+							</div>
+							<div class="control-group hidden-phone">
+								<label class="control-label" for="task_yelp_3" style="cursor:text;">Task Points</label>
+								<div class="controls">
+									<%= text_field "task_yelp", "3", :class => "span3", :placeholder => "Must Be A Number", :value => @campaign.task_yelp["points"] %>
+								</div>
+							</div>
+
 							<label for="chkFacebook" style="font-size:16px;font-weight:bold;">Use Like On Facebook <input type="checkbox" name="task_facebook[0]" id="chkFacebook" value="UPDATE" <% unless @campaign.task_facebook["use_it"] != true %>checked="checked"<% end %> /></label>
 							<div class="control-group hidden-phone">
 								<label class="control-label" for="task_facebook_1" style="cursor:text;">Task Title</label>
@@ -591,108 +611,59 @@
 						  
 
 				</div><!--/span-->
-<br><br>
+				<br><br>
 			</div><!--/row-->
-
-
-			
-    
-					<hr>
+			<hr>
 			<!-- end: Content -->
 			</div><!--/#content.span10-->
-				</div><!--/fluid-row-->
-				
-		<div class="modal hide fade" id="myModal">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal">×</button>
-				<h3>Settings</h3>
-			</div>
-			<div class="modal-body">
-				<p>Here settings can be configured...</p>
-			</div>
-			<div class="modal-footer">
-				<a href="#" class="btn" data-dismiss="modal">Close</a>
-				<a href="#" class="btn btn-primary">Save changes</a>
-			</div>
-		</div>
+		</div><!--/fluid-row-->
 
-
-		
 		<div class="clearfix"></div>
-		
 
 		<%= render 'shared/admin_footer' %>
-				
+
 	</div><!--/.fluid-container-->
 
-
-
-		<!-- start: JavaScript-->
-
-		<script src="/js/admin/jquery-1.7.2.min.js"></script>
-		<script src="/js/admin/jquery-ui-1.8.21.custom.min.js"></script>
-	
-	
-		<script src="/js/admin/jquery.cookie.js"></script>
-	
-		<script src='/js/admin/fullcalendar.min.js'></script>
-	
-		<script src='/js/admin/jquery.dataTables.min.js'></script>
-
-		<script src="/js/admin/excanvas.js"></script>
-		<script src="/js/admin/jquery.flot.min.js"></script>
-		<script src="/js/admin/jquery.flot.pie.min.js"></script>
-		<script src="/js/admin/jquery.flot.stack.js"></script>
-		<script src="/js/admin/jquery.flot.resize.min.js"></script>
-	
-		<script src="/js/admin/jquery.chosen.min.js"></script>
-	
-		<script src="/js/admin/jquery.uniform.min.js"></script>
-		
-		<script src="/js/admin/jquery.cleditor.min.js"></script>
-	
-		<script src="/js/admin/jquery.noty.js"></script>
-	
-		<script src="/js/admin/jquery.elfinder.min.js"></script>
-	
-		<script src="/js/admin/jquery.raty.min.js"></script>
-	
-		<script src="/js/admin/jquery.iphone.toggle.js"></script>
-	
-		<script src="/js/admin/jquery.uploadify-3.1.min.js"></script>
-	
-		<script src="/js/admin/jquery.gritter.min.js"></script>
-	
-		<script src="/js/admin/jquery.imagesloaded.js"></script>
-	
-		<script src="/js/admin/jquery.masonry.min.js"></script>
-	
-		<script src="/js/admin/jquery.knob.js"></script>
-	
-		<script src="/js/admin/jquery.sparkline.min.js"></script>
-
-		<script src="/js/admin/custom.js"></script>
-
-
-		<script type="text/javascript">
-		  var year = $('#day_year_value').html();
-		  var month = $('#day_month_value').html();
-		  var day = $('#day_day_value').html();
-		  var hour = $('#day_hour_value').html();
-		  var min = $('#day_min_value').html();
-		  var brand = $('#brand_value').html();
-		  var category = $('#category_value').html();
-
-		  //alert($('.date_time_month').find('select').find('option:contains('+blah+')').text());
-		  $('.date_time_year').find('select').find('option:contains('+year+')').attr('selected', 'selected');
-		  $('.date_time_month').find('select').find('option:contains('+month+')').attr('selected', 'selected');
-		  $('.date_time_day').find('select').find('option:contains('+day+')').attr('selected', 'selected');
-		  $('.date_time_hour').find('select').find('option:contains('+hour+')').attr('selected', 'selected');
-		  $('.date_time_min').find('select').find('option:contains('+min+')').attr('selected', 'selected');
-
-		  $('.choose_brand_name').find('select').find('option:contains('+brand+')').attr('selected', 'selected');
-		  $('.choose_category_name').find('select').find('option:contains('+category+')').attr('selected', 'selected');
-		</script>
-		<!-- end: JavaScript-->
-
-
+	<!-- start: JavaScript-->
+	<script src="/js/admin/jquery-1.7.2.min.js"></script>
+	<script src="/js/admin/jquery-ui-1.8.21.custom.min.js"></script>
+	<script src="/js/admin/jquery.cookie.js"></script>
+	<script src='/js/admin/fullcalendar.min.js'></script>
+	<script src='/js/admin/jquery.dataTables.min.js'></script>
+	<script src="/js/admin/excanvas.js"></script>
+	<script src="/js/admin/jquery.flot.min.js"></script>
+	<script src="/js/admin/jquery.flot.pie.min.js"></script>
+	<script src="/js/admin/jquery.flot.stack.js"></script>
+	<script src="/js/admin/jquery.flot.resize.min.js"></script>
+	<script src="/js/admin/jquery.chosen.min.js"></script>
+	<script src="/js/admin/jquery.uniform.min.js"></script>
+	<script src="/js/admin/jquery.cleditor.min.js"></script>
+	<script src="/js/admin/jquery.noty.js"></script>
+	<script src="/js/admin/jquery.elfinder.min.js"></script>
+	<script src="/js/admin/jquery.raty.min.js"></script>
+	<script src="/js/admin/jquery.iphone.toggle.js"></script>
+	<script src="/js/admin/jquery.uploadify-3.1.min.js"></script>
+	<script src="/js/admin/jquery.gritter.min.js"></script>
+	<script src="/js/admin/jquery.imagesloaded.js"></script>
+	<script src="/js/admin/jquery.masonry.min.js"></script>
+	<script src="/js/admin/jquery.knob.js"></script>
+	<script src="/js/admin/jquery.sparkline.min.js"></script>
+	<script src="/js/admin/custom.js"></script>
+	<script type="text/javascript">
+		var year = $('#day_year_value').html();
+		var month = $('#day_month_value').html();
+		var day = $('#day_day_value').html();
+		var hour = $('#day_hour_value').html();
+		var min = $('#day_min_value').html();
+		var brand = $('#brand_value').html();
+		var category = $('#category_value').html();
+		//alert($('.date_time_month').find('select').find('option:contains('+blah+')').text());
+		$('.date_time_year').find('select').find('option:contains('+year+')').attr('selected', 'selected');
+		$('.date_time_month').find('select').find('option:contains('+month+')').attr('selected', 'selected');
+		$('.date_time_day').find('select').find('option:contains('+day+')').attr('selected', 'selected');
+		$('.date_time_hour').find('select').find('option:contains('+hour+')').attr('selected', 'selected');
+		$('.date_time_min').find('select').find('option:contains('+min+')').attr('selected', 'selected');
+		$('.choose_brand_name').find('select').find('option:contains('+brand+')').attr('selected', 'selected');
+		$('.choose_category_name').find('select').find('option:contains('+category+')').attr('selected', 'selected');
+	</script>
+	<!-- end: JavaScript-->

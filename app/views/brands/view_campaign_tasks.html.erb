@@ -698,6 +698,61 @@
 	</div><!--/span-->
 </div><!--/row-->
 <hr>
+<div class="row-fluid sortable">
+	<div class="box span4 offset2">
+		<div class="box-header">
+			<h2><i class="icon-pencil"></i><span class="break"></span>Yelp Review / Image Contest</h2>
+			<div class="box-icon">
+				<a href="#" class="btn-minimize"><i class="icon-chevron-up"></i></a>
+				<a href="#" class="btn-close"><i class="icon-remove"></i></a>
+			</div>
+		</div>
+		<% unless @campaign.task_yelp["use_it"].blank? %>
+			<div class="box-content">
+              	<ul class="dashboard-list">
+					<li>
+						<a href="#">
+							<i class="icon-file green" style="font-size:1.5em;"></i>
+							<span class="green"><%= @total_completed_yelp %></span>
+							URLs Posted
+						</a>
+					</li>
+				</ul>
+            </div>
+         <% else %>
+         	<div class="box-content" style="text-align:center;">
+         		<p style="font-size:6em; margin-top:4%;"><i class="icon-ban-circle"></i></p>
+         	</div>
+         <% end %>
+	</div><!--/span-->
+	
+	<div class="box span4">
+		<div class="box-header">
+			<h2><i class="icon-book"></i><span class="break"></span>Yelp/Image URLs</h2>
+			<div class="box-icon">
+				<a href="#" class="btn-minimize"><i class="icon-chevron-up"></i></a>
+				<a href="#" class="btn-close"><i class="icon-remove"></i></a>
+			</div>
+		</div>
+		<% unless @campaign.task_yelp["use_it"].blank? %>
+			<div class="box-content" style="overflow:hidden;">
+				<a href="#" id="btnCopyToClipboardAlt" class="btn btn-info btn-mini pull-right" data-clipboard-target="lstAllBlogAddressesAlt" style="margin-bottom:1%;">COPY ALL TO CLIPBOARD</a>
+<ol id="lstAllBlogAddressesAlt">
+<% @campaign.tasks.each do |t| %>
+<% unless t.yelp_review.blank? %>
+<li><a href="<%= t.yelp_review.to_s %>" target="_blank"><%= t.yelp_review.to_s %></a></li>
+<% end %>
+<% end %>
+</ol>
+            </div>
+         <% else %>
+         	<div class="box-content" style="text-align:center;">
+         		<p style="font-size:6em; margin-top:4%;"><i class="icon-ban-circle"></i></p>
+         	</div>
+         <% end %>
+	</div><!--/span-->
+</div>
+<hr>
 <% unless @campaign.engagement_tasks["left"].nil? %>
 <div class="row-fluid">
 			
@@ -863,5 +918,6 @@
 <script type="text/javascript" src="/js/ZeroClipboard.min.js"></script>
 <script type="text/javascript">
 	ZeroClipboard.setDefaults( { moviePath: '/js/ZeroClipboard.swf' } );
-	var clip = new ZeroClipboard($("#btnCopyToClipboard"));			
+	var clip = new ZeroClipboard($("#btnCopyToClipboard"));
+	var clipAlt = new ZeroClipboard($("#btnCopyToClipboardAlt"));
 </script>

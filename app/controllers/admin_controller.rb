@@ -137,6 +137,16 @@ class AdminController < ApplicationController
 				    		flash[:error] = "WARNING: Unable to add Task: Write A Blog Post. Make sure you fill out ALL fields."
 				    	end
 				    end # Blog Post Task
+				    if !params[:task_yelp].nil? && params[:task_yelp]["0"] == "true"
+				    	if !params[:task_yelp]["1"].empty? && !params[:task_yelp]["2"].empty? && !params[:task_yelp]["3"].empty?
+				    		@campaign.task_yelp[:use_it] = true
+				    		@campaign.task_yelp[:title] = params[:task_yelp]["1"]
+				    		@campaign.task_yelp[:description] = params[:task_yelp]["2"]
+				    		@campaign.task_yelp[:points] = params[:task_yelp]["3"].to_i
+				    	else
+				    		flash[:error] = "WARNING: Unable to add Task: Write A Yelp Review. Make sure you fill out ALL fields."
+				    	end
+				    end # Yelp Review Task
 				    if !params[:task_facebook].nil? && params[:task_facebook]["0"] == "true"
 				    	if !params[:task_facebook]["1"].empty? && !params[:task_facebook]["2"].empty? && !params[:task_facebook]["3"].empty? && !params[:task_facebook]["4"].empty?
 				    		@campaign.task_facebook[:use_it] = true
@@ -255,7 +265,7 @@ class AdminController < ApplicationController
 				    	end
 				    end # Engagement Bar Right Task
 
-				    if !params[:campaign][:share_link].nil? && /^(https?|ftp):\/\//.match(params[:campaign][:share_link])
+				    if !params[:campaign][:share_link].nil? && params[:campaign][:share_link].match(/^(https?|ftp):\/\//)
 					    if @campaign.save
 					      flash[:notice] = "Campaign successfully created"
 					      redirect_to(:action => 'campaigns')
@@ -520,14 +530,6 @@ class AdminController < ApplicationController
 					flash[:error] = "The URL you are trying to upload an image from caused an error. Are you sure it points to a valid image file? If so, please try again. Alternatively you can download and then upload the image yourself."
 					redirect_to "#{root_url}admin/brands/edit?_id=#{params[:brand][:id]}"
 				end
-
-				# if @brand.update_attributes(params[:brand])
-				#   flash[:notice] = "Successfully updated."
-				#   redirect_to "#{root_url}admin/brands/edit?_id=#{params[:brand][:id]}"
-				# else
-				#   flash[:notice] = "Uh oh... something went wrong. Please try again."
-				#   redirect_to "#{root_url}admin/brands/edit?_id=#{params[:brand][:id]}"
-				# end
 			else
 				redirect_to root_url
 			end
@@ -653,6 +655,19 @@ class AdminController < ApplicationController
 			    else
 			    	@campaign.task_blog_post = {}
 			    end # Blog Post Task
+
+			    if !params[:task_yelp].nil? && params[:task_yelp]["0"] == "UPDATE"
+			    	if !params[:task_yelp]["1"].empty? && !params[:task_yelp]["2"].empty? && !params[:task_yelp]["3"].empty?
+			    		@campaign.task_yelp[:use_it] = true
+			    		@campaign.task_yelp[:title] = params[:task_yelp]["1"]
+			    		@campaign.task_yelp[:description] = params[:task_yelp]["2"]
+			    		@campaign.task_yelp[:points] = params[:task_yelp]["3"].to_i
+			    	else
+			    		flash[:error] = "WARNING: Unable to add Task: Write A Yelp Review. Make sure you fill out ALL fields."
+			    	end
+			    else
+			    	@campaign.task_yelp = {}
+			    end # Yelp Review Task
 
 			    if !params[:task_facebook].nil? && params[:task_facebook]["0"] == "UPDATE"
 			    	if !params[:task_facebook]["1"].empty? && !params[:task_facebook]["2"].empty? && !params[:task_facebook]["3"].empty?
@@ -843,41 +858,12 @@ class AdminController < ApplicationController
 					flash[:error] = "The Campaign Share Link must start with http:// https:// or ftp://"
 					redirect_to "#{root_url}admin/campaign/edit?_id=#{params[:campaign][:id]}"
 				end
-
-				# @campaign = Campaign.find(params[:campaign][:id])
-				
-				# unless params[:brand].blank?
-				# 	@campaign.brand_id = params[:brand]
-				# end
-
-				# unless params[:category].blank?
-				# 	@campaign.categories << params[:category]
-				# end
-
-				# unless params[:date_year].blank? || params[:date_month].blank? || params[:date_day].blank? || params[:date_hour].blank? || params[:date_minute].blank?
-				# 	date_time = DateTime.new(params[:date_year].to_i, params[:date_month].to_i, params[:date_day].to_i, params[:date_hour].to_i, params[:date_minute].to_i, 0, "-0700")
-				# 	@campaign.end_date = date_time
-				# end
-				
-				# unless params[:campaign][:location].blank?
-				# 	@location = Location.find(params[:campaign][:location])
-				# 	@campaign.location_id = @location.id
-				# end
 			else
 				redirect_to root_url
 			end
 		else
 			redirect_to root_url
 		end
-
-	 #    if @campaign.update_attributes(params[:campaign])
-	 #      flash[:notice] = "Successfully updated. #{params[:brand]} b"
-	 #      #redirect_to(:action => 'edit_campaign')
-	 #      redirect_to "#{root_url}admin/campaign/edit?_id=#{params[:campaign][:id]}"
-	 #    else
-	 #      flash[:notice] = "Uh oh... something went wrong. Please try again."
-	 #      redirect_to(:action => 'edit_campaign')
-	 #    end
 	end
 
 	def view_campaign_users
@@ -926,6 +912,7 @@ class AdminController < ApplicationController
 			if current_user.account_type == 'super admin' || current_user.account_type == 'admin' || current_user.account_type == 'mini admin' || Rails.env.development?
 				@campaign = Campaign.find(params[:_id])
 				@total_completed_blog = @campaign.tasks.where(completed_blog: true).count
+				@total_completed_yelp = @campaign.tasks.where(completed_yelp: true).count
 				@total_completed_facebook = @campaign.tasks.where(completed_facebook: true).count
 				@total_completed_twitter = @campaign.tasks.where(completed_twitter: true).count
 				@total_completed_custom1 = @campaign.custom_tasks_completed(0)

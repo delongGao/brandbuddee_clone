@@ -37,6 +37,7 @@ class Campaign
   field :task_custom_3, :type => Hash, :default => {}
   field :task_custom_4, :type => Hash, :default => {}
   field :task_custom_5, :type => Hash, :default => {}
+  field :task_yelp, :type => Hash, :default => {}
   field :engagement_tasks, :type => Hash, :default => {}
   field :gift_image, :type => String
   field :gift_image_two, :type => String
@@ -83,6 +84,7 @@ class Campaign
     num=num+1 unless self.task_custom_3["use_it"].nil? || self.task_custom_3["use_it"].blank?
     num=num+1 unless self.task_custom_4["use_it"].nil? || self.task_custom_4["use_it"].blank?
     num=num+1 unless self.task_custom_5["use_it"].nil? || self.task_custom_5["use_it"].blank?
+    num=num+1 unless self.task_yelp["use_it"].nil? || self.task_yelp["use_it"].blank?
     num
   end
 
@@ -128,6 +130,12 @@ class Campaign
       when "Custom5"
         unless self.task_custom_5["use_it"].nil? || self.task_custom_5["use_it"].blank?
           self.task_custom_5["link"]
+        else
+          false
+        end
+      when "Yelp"
+        unless self.task_yelp["use_it"].nil? || self.task_yelp["use_it"].blank?
+          self.task_yelp["link"]
         else
           false
         end
@@ -184,6 +192,12 @@ class Campaign
         else
           false
         end
+      when "Yelp"
+        unless self.task_yelp["use_it"].nil? || self.task_yelp["use_it"].blank?
+          self.task_yelp["title"]
+        else
+          false
+        end
       else
         false
       end
@@ -234,6 +248,12 @@ class Campaign
       when "Custom5"
         unless self.task_custom_5["points"].nil? || self.task_custom_5["points"].blank?
           self.task_custom_5["points"].to_i
+        else
+          1
+        end
+      when "Yelp"
+        unless self.task_yelp["points"].nil? || self.task_yelp["points"].blank?
+          self.task_yelp["points"].to_i
         else
           1
         end
@@ -290,6 +310,12 @@ class Campaign
         else
           false
         end
+      when "Yelp"
+        unless self.task_yelp["use_it"].nil? || self.task_yelp["use_it"].blank?
+          self.task_yelp["link"]
+        else
+          false
+        end
       else
         false
       end
@@ -340,6 +366,12 @@ class Campaign
       when "Custom5"
         unless self.task_custom_5["use_it"].nil? || self.task_custom_5["use_it"].blank?
           self.task_custom_5["title"]
+        else
+          false
+        end
+      when "Yelp"
+        unless self.task_yelp["use_it"].nil? || self.task_yelp["use_it"].blank?
+          self.task_yelp["title"]
         else
           false
         end
@@ -396,6 +428,12 @@ class Campaign
         else
           1
         end
+      when "Yelp"
+        unless self.task_yelp["points"].nil? || self.task_yelp["points"].blank?
+          self.task_yelp["points"].to_i
+        else
+          false
+        end
       else
         1
       end
@@ -439,25 +477,6 @@ class Campaign
   end
 
   def get_random_image
-    # arr = []
-    # arr<<0 unless self.campaign_image.blank?
-    # arr<<1 unless self.gift_image.blank?
-    # arr<<2 unless self.gift_image_two.blank?
-    # arr<<3 unless self.gift_image_three.blank?
-    # unless arr.size < 1
-    #   the_num = arr[Random.rand(0..arr.size-1)]
-    #   if the_num==3
-    #     self.gift_image_three_url(:standard).to_s # 800x800
-    #   elsif the_num==2
-    #     self.gift_image_two_url(:standard).to_s # 800x800
-    #   elsif the_num==1
-    #     self.gift_image_url(:standard).to_s # 800x800
-    #   else # the_num==0
-    #     self.campaign_image_url(:email).to_s # 600x300
-    #   end
-    # else
-    #   "/assets/bb-logo.png"
-    # end
     unless self.campaign_image.blank?
       self.campaign_image_url(:email).to_s
     else

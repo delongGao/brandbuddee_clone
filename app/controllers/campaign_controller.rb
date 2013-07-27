@@ -325,6 +325,98 @@ class CampaignController < ApplicationController
 		end
 	end
 
+	def complete_yelp_task
+		if current_user
+			params_campaign = params[:campaign].downcase
+			campaign = Campaign.where(:link => params_campaign).first
+			if campaign.present?
+				@campaign = campaign
+			end
+			if campaign.nil?
+				redirect_to root_url
+			else
+				unless @campaign.task_yelp["points"].nil?
+					if !params[:txtYelpAddress].nil? && !params[:txtYelpAddress].empty?
+						@task = @campaign.tasks.where(user_id: current_user.id).first
+						unless @task.nil?
+							unless @task.completed_yelp == true
+								@task.completed_yelp = true
+								@task.completed_points += @campaign.task_yelp["points"].to_i
+								@task.yelp_review = params[:txtYelpAddress]
+								if @task.save
+									flash[:notice] = "You have completed this task!"
+									redirect_to "#{root_url}campaign/#{@campaign.link}"
+								else
+									flash[:error] = "An error occurred while trying to save. Please try again later."
+									redirect_to "#{root_url}campaign/#{@campaign.link}"
+								end
+							else
+								flash[:error] = "You have already completed this task!"
+								redirect_to "#{root_url}campaign/#{@campaign.link}"
+							end
+						else
+							flash[:error] = "An error occurred while trying to find your information. Please try again later."
+							redirect_to "#{root_url}campaign/#{@campaign.link}"
+						end
+					else
+						flash[:error] = "You need to fill out the URL."
+						redirect_to "#{root_url}campaign/#{@campaign.link}"
+					end
+				else
+					redirect_to root_url
+				end
+			end
+		else
+			redirect_to root_url
+		end
+	end
+
+	def undo_yelp_task
+		if current_user
+			params_campaign = params[:campaign].downcase
+			campaign = Campaign.where(:link => params_campaign).first
+			if campaign.present?
+				@campaign = campaign
+			end
+			if campaign.nil?
+				redirect_to root_url
+			else
+				unless @campaign.task_yelp["points"].nil?
+					@task = @campaign.tasks.where(user_id: current_user.id).first
+					unless @task.nil?
+						if Redeem.where(user_id: @task.user_id, campaign_id: @campaign.id).first.nil?
+							if @task.completed_yelp == true
+								@task.completed_yelp = false
+								@task.completed_points -= @campaign.task_yelp["points"].to_i
+								@task.yelp_review = nil
+								if @task.save
+									flash[:notice] = "You have undone the completion of this task!"
+									redirect_to "#{root_url}campaign/#{@campaign.link}"
+								else
+									flash[:error] = "An error occurred while trying to save. Please try again later."
+									redirect_to "#{root_url}campaign/#{@campaign.link}"
+								end
+							else
+								flash[:error] = "You have not yet completed this task!"
+								redirect_to "#{root_url}campaign/#{@campaign.link}"
+							end
+						else
+							flash[:error] = "Your have already completed this campaign and earned it's gift. Once a campaign is completed, you can no longer undo tasks."
+							redirect_to "#{root_url}campaign/#{@campaign.link}"
+						end
+					else
+						flash[:error] = "An error occurred while trying to find your information. Please try again later."
+						redirect_to "#{root_url}campaign/#{@campaign.link}"
+					end
+				else
+					redirect_to root_url
+				end
+			end
+		else
+			redirect_to root_url
+		end
+	end
+
 	def complete_facebook_task
 		if current_user
 			params_campaign = params[:campaign].downcase

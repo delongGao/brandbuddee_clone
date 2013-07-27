@@ -188,6 +188,7 @@ class BrandsController < ApplicationController
 			redirect_to "/brands/dashboard"
 		else
 			@total_completed_blog = @campaign.tasks.where(completed_blog: true).count
+			@total_completed_yelp = @campaign.tasks.where(completed_yelp: true).count
 			@total_completed_facebook = @campaign.tasks.where(completed_facebook: true).count
 			@total_completed_twitter = @campaign.tasks.where(completed_twitter: true).count
 			@total_completed_custom1 = @campaign.custom_tasks_completed(0)

@@ -13,6 +13,17 @@ jQuery ->
 			$("#task_blog_post_1").attr("disabled", "disabled").parent().slideUp()
 			$("#task_blog_post_2").attr("disabled", "disabled").parent().slideUp()
 			$("#task_blog_post_3").attr("disabled", "disabled").parent().slideUp()
+	$("#task_yelp_0").click ->
+		if $(this).attr("checked")=="checked"
+			$("#lblEnableTask9").removeClass "muted"
+			$("#task_yelp_1").removeAttr("disabled").parent().slideDown()
+			$("#task_yelp_2").removeAttr("disabled").parent().slideDown()
+			$("#task_yelp_3").removeAttr("disabled").parent().slideDown()
+		else
+			$("#lblEnableTask9").addClass "muted"
+			$("#task_yelp_1").attr("disabled", "disabled").parent().slideUp()
+			$("#task_yelp_2").attr("disabled", "disabled").parent().slideUp()
+			$("#task_yelp_3").attr("disabled", "disabled").parent().slideUp()
 	$("#task_facebook_0").click ->
 		if $(this).attr("checked")=="checked"
 			$("#lblEnableTask2").removeClass "muted"
@@ -133,6 +144,15 @@ jQuery ->
 			$("#task_blog_post_1").attr("disabled", "disabled")
 			$("#task_blog_post_2").attr("disabled", "disabled")
 			$("#task_blog_post_3").attr("disabled", "disabled")
+	$("#chkYelpReview").click ->
+		if $(this).attr("checked")=="checked"
+			$("#task_yelp_1").removeAttr("disabled")
+			$("#task_yelp_2").removeAttr("disabled")
+			$("#task_yelp_3").removeAttr("disabled")
+		else
+			$("#task_yelp_1").attr("disabled", "disabled")
+			$("#task_yelp_2").attr("disabled", "disabled")
+			$("#task_yelp_3").attr("disabled", "disabled")
 	$("#chkFacebook").click ->
 		if $(this).attr("checked")=="checked"
 			$("#task_facebook_1").removeAttr("disabled")

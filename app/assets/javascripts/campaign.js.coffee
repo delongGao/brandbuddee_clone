@@ -20,6 +20,19 @@ jQuery ->
 			if $("#txtBlogAddress").val().length < 1
 				event.preventDefault()
 				$(this).parent().parent().parent().append('<div class="alert alert-error fade in"><a href="#" class="close" data-dismiss="alert">&times;</a>Please make sure you enter a URL for the blog post.</div>')
+	$("#btnDoItTaskYelp").click (event) ->
+		if $(this).attr("disabled") == "disabled"
+			event.preventDefault()
+		else
+			$("#btnDoneTaskYelp").removeClass("disabled").removeAttr("disabled")
+			$("#txtYelpAddress").removeAttr("disabled").focus()
+	$("#btnDoneTaskYelp").click (event) ->
+		if $(this).attr("disabled") == "disabled"
+			event.preventDefault()
+		else
+			if $("#txtYelpAddress").val().length < 1
+				event.preventDefault()
+				$(this).parent().parent().parent().append('<div class="alert alert-error fade in"><a href="#" class="close" data-dismiss="alert">&times;</a>Please make sure you enter a URL for the web address.</div>')
 	$("#btnDoItTaskFacebook").click ->
 		$("#btnDoneTaskFacebook").removeClass("disabled").removeAttr("disabled")
 	$("#btnDoneTaskFacebook").click (event) ->
