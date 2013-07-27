@@ -110,6 +110,7 @@ GEM
     net-scp (1.0.4)
       net-ssh (>= 1.99.1)
     net-ssh (2.3.0)
+    newrelic_rpm (3.6.6.147)
     nokogiri (1.5.2)
     oauth (0.4.7)
     oauth2 (0.6.1)
@@ -225,6 +226,7 @@ DEPENDENCIES
   mail (~> 2.4.4)
   mongo
   mongoid (~> 2.4.0)
+  newrelic_rpm
   omniauth (= 1.1.0)
   omniauth-facebook (~> 1.2.0)
   omniauth-tumblr (~> 1.1)

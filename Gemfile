@@ -37,6 +37,8 @@ gem "bootstrap-will_paginate"
 
 gem "bootstrap-wysihtml5-rails", "~> 0.3.1.20"
 
+gem 'newrelic_rpm'
+
 
 # Bundle edge Rails instead:
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
