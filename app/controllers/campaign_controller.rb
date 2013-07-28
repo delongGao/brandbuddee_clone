@@ -5,11 +5,9 @@ class CampaignController < ApplicationController
 		campaign = Campaign.where(:link => params_campaign).first
 		#campaign_array = Campaign.where(:link => params_campaign)
 		#@campaigns_else = Campaign.all(:limit => 4).order_by([:date, :desc])
-		@campaigns_else = Campaign.where(:status => "active").excludes(left: false).excludes(id: campaign.id).order_by([:date, :desc]).limit(4)
-
-
 		if campaign.present?
 		  @campaign = campaign
+		  @campaigns_else = Campaign.where(:status => "active").excludes(left: false).excludes(id: campaign.id).order_by([:date, :desc]).limit(4)
 		  # @gallery = user.images.order_by([:date, :desc])
 		  # @images = Image.all.order_by([:date, :desc])
 		end
