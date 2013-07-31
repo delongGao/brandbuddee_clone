@@ -105,17 +105,17 @@
                                         <div class="sharing-campaign campaign-pinterest-share" style="position:relative; top:1px;">
                                             <a href="http://pinterest.com/pin/create/button/?url=<%= root_url + 's/' + @share.link %>&media=<%= @campaign.campaign_image_url() %>&description=<%= @campaign.title %>" class="pin-it-button" target="_blank" count-layout="none" data-campaign="<%= @campaign.link %>"><img border="0" src="//assets.pinterest.com/images/PinExt.png" title="Pin It" /></a>
                                         </div>
-                                        <div class="sharing-campaign campaign-facebook-share" style="position:relative; bottom:1px;">
-                                            <div class="fb-like" data-href="http://brandbuddee.com/s/<%= @share.link %>" data-width="375" data-layout="button_count" data-show-faces="true" data-send="true"></div>
-                                        </div>
                                         <div style="padding-top:9px;">
-                                            <div class="g-plus" data-action="share" data-annotation="none" data-href="http://brandbuddee.com/s/<%= @share.link %>"></div>
-                                        </div>
-                                        <div class="pull-right linked-in-share-button">
+                                            <div class="g-plus" data-action="share" data-annotation="none" data-href="http://brandbuddee.com/s/<%= @share.link %>" data-onendinteraction="addGooglePlusSharePoint"></div>
+                                        </div><br>
+                                        <div class="pull-left linked-in-share-button" style="margin-top:-2%;">
                                             <script src="//platform.linkedin.com/in.js" type="text/javascript">
                                              lang: en_US
                                             </script>
-                                            <script type="IN/Share" data-url="http://brandbuddee.com/" data-onSuccess="addLinkedInSharePoint"></script>
+                                            <script type="IN/Share" data-url="http://brandbuddee.com/s/<%= @share.link %>" data-onSuccess="addLinkedInSharePoint"></script>
+                                        </div>
+                                        <div class="sharing-campaign campaign-facebook-share" style="margin-top:-2.3%;margin-left:3%;">
+                                            <div class="fb-like" data-href="http://brandbuddee.com/s/<%= @share.link %>" data-width="375" data-layout="button_count" data-show-faces="true" data-send="true"></div>
                                         </div>
                                     </div>
                                     <div class="clear"></div>
@@ -864,6 +864,9 @@
                     console.log("Campaign #" + campaign_link + ": Error updating linkedin_clicks")
                 }
             })
+        }
+        function addGooglePlusSharePoint(jsonParam) {
+            console.log(jsonParam);
         }
         $(document).ready(function () {
             $("a.pin-it-button").click(function (event) {
