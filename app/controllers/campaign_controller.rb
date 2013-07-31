@@ -998,6 +998,36 @@ class CampaignController < ApplicationController
 		end
 	end
 
+	def track_linkedin_click
+		if request.xhr?
+			if current_user
+				params_campaign = params[:campaign].downcase
+				campaign = Campaign.where(:link => params_campaign).first
+				if campaign.present?
+					@campaign = campaign
+				end
+				if campaign.nil?
+					render :text => "ERROR"
+				else
+					unless params[:addClick].nil? || params[:campaignLink].nil? || params[:addClick]!="true" || params[:campaignLink].downcase!=params_campaign
+						@campaign.linkedin_clicks += 1
+						if @campaign.save
+							render :text => "SUCCESS"
+						else
+							render :text => "ERROR"
+						end
+					else
+						render :text => "ERROR"
+					end
+				end
+			else
+				render :text => "ERROR"
+			end
+		else
+			redirect_to root_url
+		end
+	end
+
 	def tumblr_auth
 		if current_user
 			params_campaign = params[:campaign].downcase

@@ -14,7 +14,6 @@
     </div>
 <% end %>
 <link href="/css/social-buttons.css" rel="stylesheet">
-<script type="text/javascript" src="//assets.pinterest.com/js/pinit.js"></script>
 
 <% if current_user %>
 <% else %>
@@ -110,6 +109,12 @@
                                         </div>
                                         <div style="padding-top:9px;">
                                             <div class="g-plus" data-action="share" data-annotation="none" data-href="http://brandbuddee.com/s/<%= @share.link %>"></div>
+                                        </div>
+                                        <div class="pull-right linked-in-share-button">
+                                            <script src="//platform.linkedin.com/in.js" type="text/javascript">
+                                             lang: en_US
+                                            </script>
+                                            <script type="IN/Share" data-url="http://brandbuddee.com/" data-onSuccess="addLinkedInSharePoint"></script>
                                         </div>
                                     </div>
                                     <div class="clear"></div>
@@ -803,6 +808,15 @@
         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
       })();
     </script>
+    <script type="text/javascript">
+    (function(d){
+      var f = d.getElementsByTagName('SCRIPT')[0], p = d.createElement('SCRIPT');
+      p.type = 'text/javascript';
+      p.async = true;
+      p.src = '//assets.pinterest.com/js/pinit.js';
+      f.parentNode.insertBefore(p, f);
+    }(document));
+    </script>
 
     <script>
         window.onload = function()
@@ -817,7 +831,87 @@
     </script>
     <script type="text/javascript">
         var campaign_link = "<%= @campaign.link %>";
-        eval(function(p,a,c,k,e,d){e=function(c){return(c<a?'':e(parseInt(c/a)))+((c=c%a)>35?String.fromCharCode(c+29):c.toString(36))};if(!''.replace(/^/,String)){while(c--){d[e(c)]=k[c]||e(c)}k=[function(e){return d[e]}];e=function(){return'\\w+'};c=1};while(c--){if(k[c]){p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c])}}return p}('e.t(2(e){e.x.w(\'h\',2(8){$.c({9:\'b\',i:\'/f/\'+0+\'/v\',1:{o:\'p\'},m:2(1){j(1==\'k\'){3.4("5 #"+0+": d l")}n{3.4("5 #"+0+": 6 7 d")}},s:2(1){3.4("5 #"+0+": 6 7 d")}})})});$(u).t(2(){$("a.D-C-B").h(2(8){$.c({9:\'b\',i:\'/f/\'+0+\'/y\',1:{o:\'p\',q:0},m:2(1){j(1==\'k\'){3.4("5 #"+0+": g l")}n{3.4("5 #"+0+": 6 7 g")}},s:2(){3.4("5 #"+0+": 6 7 g")}})});$("#A").h(2(8){$.c({9:\'b\',i:\'/f/\'+0+\'/z\',1:{o:\'p\',q:0},m:2(1){j(1==\'k\'){3.4("5 #"+0+": r l")}n{3.4("5 #"+0+": 6 7 r")}}})})});',40,40,'campaign_link|data|function|console|log|Campaign|Error|updating|event|type||POST|ajax|twitter_clicks|twttr|campaign|pinterest_clicks|click|url|if|SUCCESS|UPDATED|success|else|addClick|true|campaignLink|facebook_clicks|error|ready|document|track_twitter_click|bind|events|track_pinterest_click|track_facebook_click|btnSubmitFbPost|button|it|pin'.split('|'),0,{}))
+        twttr.ready(function (twttr) {
+            twttr.events.bind('tweet', function (event) {
+                $.ajax({
+                    type: 'POST',
+                    url: '/campaign/' + campaign_link + '/track_twitter_click',
+                    data: {
+                        addClick: 'true'
+                    },
+                    success: function (data) {
+                        if (data == 'SUCCESS') {
+                            console.log("Campaign #" + campaign_link + ": twitter_clicks UPDATED")
+                        } else {
+                            console.log("Campaign #" + campaign_link + ": Error updating twitter_clicks")
+                        }
+                    },
+                    error: function (data) {
+                        console.log("Campaign #" + campaign_link + ": Error updating twitter_clicks")
+                    }
+                })
+            })
+        });
+
+        function addLinkedInSharePoint() {
+            $.ajax({
+                type: 'POST',
+                url: '/campaign/' + campaign_link + '/track_linkedin_click',
+                data: {
+                    addClick: 'true',
+                    campaignLink: campaign_link
+                },
+                success: function (data) {
+                    if (data == 'SUCCESS') {
+                        console.log("Campaign #" + campaign_link + ": linkedin_clicks UPDATED")
+                    } else {
+                        console.log("Campaign #" + campaign_link + ": Error updating linkedin_clicks")
+                    }
+                },
+                error: function () {
+                    console.log("Campaign #" + campaign_link + ": Error updating linkedin_clicks")
+                }
+            })
+        }
+        $(document).ready(function () {
+            $("a.pin-it-button").click(function (event) {
+                $.ajax({
+                    type: 'POST',
+                    url: '/campaign/' + campaign_link + '/track_pinterest_click',
+                    data: {
+                        addClick: 'true',
+                        campaignLink: campaign_link
+                    },
+                    success: function (data) {
+                        if (data == 'SUCCESS') {
+                            console.log("Campaign #" + campaign_link + ": pinterest_clicks UPDATED")
+                        } else {
+                            console.log("Campaign #" + campaign_link + ": Error updating pinterest_clicks")
+                        }
+                    },
+                    error: function () {
+                        console.log("Campaign #" + campaign_link + ": Error updating pinterest_clicks")
+                    }
+                })
+            });
+            $("#btnSubmitFbPost").click(function (event) {
+                $.ajax({
+                    type: 'POST',
+                    url: '/campaign/' + campaign_link + '/track_facebook_click',
+                    data: {
+                        addClick: 'true',
+                        campaignLink: campaign_link
+                    },
+                    success: function (data) {
+                        if (data == 'SUCCESS') {
+                            console.log("Campaign #" + campaign_link + ": facebook_clicks UPDATED")
+                        } else {
+                            console.log("Campaign #" + campaign_link + ": Error updating facebook_clicks")
+                        }
+                    }
+                })
+            })
+        });
     </script>
     <script type="text/javascript" src="/js/ilightbox.js"></script>
     <script type="text/javascript">

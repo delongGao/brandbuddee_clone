@@ -248,3 +248,24 @@ $blue: #bbc5ff;
 	color:#375673;
 }
 // END POST TO TUMBLR BUTTON
+
+// POST TO LINKEDIN BUTTON
+@media (min-width: 980px) {
+	div.linked-in-share-button {
+		margin-top:-3.8%;
+		margin-right:27%;
+	}
+}
+@media (max-width: 979px) and (min-width: 768px) {
+	div.linked-in-share-button {
+		margin-top:-4.95%;
+		margin-right:5%;
+	}
+}
+@media (max-width: 767px) {
+	div.linked-in-share-button {
+		margin-top:-3.45%;
+		margin-right:34.5%;
+	}
+}
+// END POST TO LINKEDIN BUTTON
