@@ -73,7 +73,7 @@ class AdminController < ApplicationController
 
 	def campaigns
 		if current_user
-			if current_user.account_type == 'super admin' || current_user.account_type == 'admin' || Rails.env.development?
+			if current_user.account_type == 'super admin' || current_user.account_type == 'admin' || current_user.account_type == 'mini admin' || Rails.env.development?
 				@campaigns = Campaign.all.order_by([:date, :desc])
 				@location_all = Location.all.order_by([:name, :asc])
 				@category_all = Category.all.order_by([:name, :asc])
@@ -868,7 +868,7 @@ class AdminController < ApplicationController
 
 	def view_campaign_users
 		if current_user
-			if current_user.account_type == 'super admin' || current_user.account_type == 'admin' || Rails.env.development?
+			if current_user.account_type == 'super admin' || current_user.account_type == 'admin' || current_user.account_type == 'mini admin' || Rails.env.development?
 				@campaign = Campaign.find(params[:_id])
 				@campaign_users = @campaign.users.order_by([:date, :desc])
 			else
@@ -881,7 +881,7 @@ class AdminController < ApplicationController
 
 	def view_campaign_redeems
 		if current_user
-			if current_user.account_type == 'super admin' || current_user.account_type == 'admin' || Rails.env.development?
+			if current_user.account_type == 'super admin' || current_user.account_type == 'admin' || current_user.account_type == 'mini admin' || Rails.env.development?
 				@campaign = Campaign.find(params[:_id])
 				@campaign_redeems = @campaign.redeems.order_by([:date, :desc])
 			else
