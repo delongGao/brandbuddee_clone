@@ -96,18 +96,21 @@
                                         <div class="sharing-campaign campaign-twitter-share">
                                             <div id="twitter-button">
                                                 <a href="http://twitter.com/share" class="twitter-share-button"
-                                                    data-text="<%= @campaign.tweet.html_safe unless @campaign.tweet.nil? %> <%= root_url + 's/' + @share.link %>"
+                                                    data-text="<%= @campaign.tweet.html_safe unless @campaign.tweet.nil? %>"
                                                     data-count="none"
-                                                    data-url=""
+                                                    data-url="<%= root_url + 's/' + @share.link %>"
                                                     data-size="">Tweet</a>
                                             </div>
                                         </div>
-                                        <div class="sharing-campaign campaign-pinterest-share">
+                                        <div class="sharing-campaign campaign-pinterest-share" style="position:relative; top:1px;">
                                             <a href="http://pinterest.com/pin/create/button/?url=<%= root_url + 's/' + @share.link %>&media=<%= @campaign.campaign_image_url() %>&description=<%= @campaign.title %>" class="pin-it-button" target="_blank" count-layout="none" data-campaign="<%= @campaign.link %>"><img border="0" src="//assets.pinterest.com/images/PinExt.png" title="Pin It" /></a>
                                         </div>
-                                        <div class="sharing-campaign campaign-facebook-share">
-                                            <div class="fb-like" data-href="<%= root_url + 's/' + @share.link %>" data-send="true" data-width="375" data-show-faces="false" data-action=""></div>
+                                        <div class="sharing-campaign campaign-facebook-share" style="position:relative; bottom:1px;">
+                                            <div class="fb-like" data-href="http://brandbuddee.com/s/<%= @share.link %>" data-width="375" data-layout="button_count" data-show-faces="true" data-send="true"></div>
                                         </div>
+                                        <!-- <div style="position:relative; top:9px;" class="pull-right">
+                                            <div class="g-plus" data-action="share" data-annotation="none" data-href="http://brandbuddee.com/s/<%# @share.link %>"></div>
+                                        </div> -->
                                     </div>
                                     <div class="clear"></div>
                                     Share Link:
@@ -793,6 +796,13 @@
             fjs.parentNode.insertBefore(js, fjs);
         } (document, 'script', 'facebook-jssdk'));
     </script>
+    <!--<script type="text/javascript">
+      (function() {
+        var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+        po.src = 'https://apis.google.com/js/plusone.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+      })();
+    </script>-->
 
     <script>
         window.onload = function()

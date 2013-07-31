@@ -2,14 +2,14 @@
 <div class="span2 main-menu-span">
 	<div class="nav-collapse sidebar-nav">
 		<ul class="nav nav-tabs nav-stacked main-menu">
-			<li><a href="/brands/dashboard"><i class="icon-home"></i><span class="hidden-tablet"> Dashboard</span></a></li>
-			<li><a href="/brands/campaigns"><i class="icon-tasks"></i><span class="hidden-tablet"> Campaigns</span></a></li>
-			<li><a href="/brands/redeems"><i class="icon-barcode"></i><span class="hidden-tablet"> Redeems</span></a></li>
-			<li><a href="/brands/go-viral"><i class="icon-beaker"></i><span class="hidden-tablet"> Go Viral!</span></a></li>
-			<li><a href="/brands/profile"><i class="icon-list-alt"></i><span class="hidden-tablet"> Edit Profile</span></a></li>
-			<li><a href="/brands/change-email"><i class="icon-envelope"></i><span class="hidden-tablet"> Change Email Address</span></a></li>
-			<% if @brand.provider=="email" %><li><a href="/brands/change-password"><i class="icon-lock"></i><span class="hidden-tablet"> Change Password</span></a></li><% end %>
-			<li><a href="/brands/logout"><i class="icon-off"></i><span class="hidden-tablet"> Logout</span></a></li>
+			<li data-toggle="popover" data-content="View overall analytics for all your campaigns" class="brand-left-popover"><a href="/brands/dashboard"><i class="icon-home"></i><span class="hidden-tablet"> Dashboard</span></a></li>
+			<li data-toggle="popover" data-content="View all of your campaigns" class="brand-left-popover"><a href="/brands/campaigns"><i class="icon-tasks"></i><span class="hidden-tablet"> Campaigns</span></a></li>
+			<li data-toggle="popover" data-content="Find out who has earned rewards from your campaigns" class="brand-left-popover"><a href="/brands/redeems"><i class="icon-barcode"></i><span class="hidden-tablet"> Redeems</span></a></li>
+			<li data-toggle="popover" data-content="Embed a campaign to a Facebook Page so it can Go Viral!" class="brand-left-popover"><a href="/brands/go-viral"><i class="icon-beaker"></i><span class="hidden-tablet"> Go Viral!</span></a></li>
+			<li data-toggle="popover" data-content="Change your profile and what appears on your campaigns" class="brand-left-popover"><a href="/brands/profile"><i class="icon-list-alt"></i><span class="hidden-tablet"> Edit Profile</span></a></li>
+			<li data-toggle="popover" data-content="Change the email address associated with this account" class="brand-left-popover"><a href="/brands/change-email"><i class="icon-envelope"></i><span class="hidden-tablet"> Change Email Address</span></a></li>
+			<% if @brand.provider=="email" %><li data-toggle="popover" data-content="Change your login password" class="brand-left-popover"><a href="/brands/change-password"><i class="icon-lock"></i><span class="hidden-tablet"> Change Password</span></a></li><% end %>
+			<li data-toggle="popover" data-content="Logout of brandbuddee" class="brand-left-popover"><a href="/brands/logout"><i class="icon-off"></i><span class="hidden-tablet"> Logout</span></a></li>
 		</ul>
 	</div><!--/.well -->
 </div><!--/span-->

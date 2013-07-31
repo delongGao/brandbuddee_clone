@@ -37,4 +37,10 @@
 	$("#back-to-top").click(function(){
 		$("body,html").animate({scrollTop:0},600)
 	});
+	$(document).ready(function() {
+		$(".brand-left-popover").popover({
+			placement: "right",
+			trigger: "hover"
+		});
+	});
 </script>
