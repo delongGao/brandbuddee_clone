@@ -89,7 +89,7 @@ class AdminController < ApplicationController
 
 	def campaign_delete
 		if current_user
-			if current_user.account_type == 'super admin' || Rails.env.development?
+			if current_user.account_type == 'super admin' || current_user.account_type == 'admin' || Rails.env.development?
 				@campaign = Campaign.find(params[:_id])
 				@campaign.destroy
 				flash[:notice] = "#{@campaign.title} campaign Destroyed"
@@ -601,7 +601,7 @@ class AdminController < ApplicationController
 
 	def edit_campaign
 		if current_user
-			if current_user.account_type == 'super admin' || current_user.account_type == 'admin' || Rails.env.development?
+			if current_user.account_type == 'super admin' || current_user.account_type == 'admin' || current_user.account_type == 'mini admin' || Rails.env.development?
 				@category_all = Category.all.order_by([:name, :asc])
 		    	@brand_all = Brand.all.order_by([:name, :asc])
 		    	@location_all = Location.all.order_by([:city, :desc])
