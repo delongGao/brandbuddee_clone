@@ -179,6 +179,20 @@
 						  	</li>
 						  	<li>
 						  		<a href="#">
+						  			<i class="fa-icon-linkedin-sign" style="font-size:1.5em;color:#0073B2;"></i>
+						  			<span style="color:#0073B2;"><%= @total_linkedin_clicks %></span>
+						  			LinkedIn Shares
+						  		</a>
+						  	</li>
+						  	<li>
+						  		<a href="#">
+						  			<i class="fa-icon-google-plus-sign" style="font-size:1.5em;color:#CB3C2C;"></i>
+						  			<span style="color:#CB3C2C;"><%= @total_google_plus_clicks %></span>
+						  			Google+ Shares
+						  		</a>
+						  	</li>
+						  	<li>
+						  		<a href="#">
 						  			<i class="fa-icon-bullhorn green" style="font-size:1.5em;"></i>
 						  			<span class="green"><%= @total_social_clicks %></span>
 						  			Total Shares
@@ -435,7 +449,9 @@
 				{ label: "Facebook",  data: <%= @total_facebook_clicks %>},
 				{ label: "Twitter",  data: <%= @total_twitter_clicks %>},
 				{ label: "Pinterest", data: <%= @total_pinterest_clicks %>},
-				{ label: "Tumblr", data: <%= @total_tumblr_clicks %>}
+				{ label: "Tumblr", data: <%= @total_tumblr_clicks %>},
+				{ label: "Linkedin", data: <%= @total_linkedin_clicks %>},
+				{ label: "Google+", data: <%= @total_google_plus_clicks %>}
 			];
 			if($("#social-share-comparison").length) {
 				$.plot($("#social-share-comparison"), data,
@@ -452,7 +468,7 @@
 					legend: {
 						show: false
 					},
-					colors: ["#3B5998", "#1DCAFF", "#CB2027", "#365472"]
+					colors: ["#3B5998", "#1DCAFF", "#CB2027", "#365472", "#0073B2", "#CB3C2C"]
 				});
 				function pieHover(event, pos, obj) {
 					if (!obj)

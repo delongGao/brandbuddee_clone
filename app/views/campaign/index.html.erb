@@ -866,7 +866,24 @@
             })
         }
         function addGooglePlusSharePoint(jsonParam) {
-            console.log(jsonParam);
+            $.ajax({
+                type: 'POST',
+                url: '/campaign/' + campaign_link + '/track_google_plus_click',
+                data: {
+                    addClick: 'true',
+                    campaignLink: campaign_link
+                },
+                success: function (data) {
+                    if (data == 'SUCCESS') {
+                        console.log("Campaign #" + campaign_link + ": google_plus_clicks UPDATED")
+                    } else {
+                        console.log("Campaign #" + campaign_link + ": Error updating google_plus_clicks")
+                    }
+                },
+                error: function () {
+                    console.log("Campaign #" + campaign_link + ": Error updating google_plus_clicks")
+                }
+            })
         }
         $(document).ready(function () {
             $("a.pin-it-button").click(function (event) {
@@ -889,23 +906,6 @@
                     }
                 })
             });
-            $("#btnSubmitFbPost").click(function (event) {
-                $.ajax({
-                    type: 'POST',
-                    url: '/campaign/' + campaign_link + '/track_facebook_click',
-                    data: {
-                        addClick: 'true',
-                        campaignLink: campaign_link
-                    },
-                    success: function (data) {
-                        if (data == 'SUCCESS') {
-                            console.log("Campaign #" + campaign_link + ": facebook_clicks UPDATED")
-                        } else {
-                            console.log("Campaign #" + campaign_link + ": Error updating facebook_clicks")
-                        }
-                    }
-                })
-            })
         });
     </script>
     <script type="text/javascript" src="/js/ilightbox.js"></script>

@@ -161,6 +161,11 @@ class CampaignController < ApplicationController
 								"description" => params[:description],
 								"picture" => params[:picture]
 							})
+							@campaign = Campaign.where(link: params[:campaign_link]).first
+							unless @campaign.nil?
+								@campaign.facebook_clicks += 1
+								@campaign.save
+							end
 							flash[:notice] = "Awesome! You've posted to your wall!"
 							redirect_to "#{root_url}campaign/#{params[:campaign_link]}"
 						rescue Koala::Facebook::APIError => exc
@@ -968,7 +973,7 @@ class CampaignController < ApplicationController
 		end
 	end
 
-	def track_facebook_click
+	def track_linkedin_click
 		if request.xhr?
 			if current_user
 				params_campaign = params[:campaign].downcase
@@ -980,7 +985,7 @@ class CampaignController < ApplicationController
 					render :text => "ERROR"
 				else
 					unless params[:addClick].nil? || params[:campaignLink].nil? || params[:addClick]!="true" || params[:campaignLink].downcase!=params_campaign
-						@campaign.facebook_clicks += 1
+						@campaign.linkedin_clicks += 1
 						if @campaign.save
 							render :text => "SUCCESS"
 						else
@@ -998,7 +1003,7 @@ class CampaignController < ApplicationController
 		end
 	end
 
-	def track_linkedin_click
+	def track_google_plus_click
 		if request.xhr?
 			if current_user
 				params_campaign = params[:campaign].downcase
@@ -1010,7 +1015,7 @@ class CampaignController < ApplicationController
 					render :text => "ERROR"
 				else
 					unless params[:addClick].nil? || params[:campaignLink].nil? || params[:addClick]!="true" || params[:campaignLink].downcase!=params_campaign
-						@campaign.linkedin_clicks += 1
+						@campaign.google_plus_clicks += 1
 						if @campaign.save
 							render :text => "SUCCESS"
 						else

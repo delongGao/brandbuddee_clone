@@ -540,7 +540,7 @@ class AdminController < ApplicationController
 
 	def brand_delete
 		if current_user
-			if current_user.account_type == 'super admin' || Rails.env.development?
+			if current_user.account_type == 'super admin' || current_user.account_type == 'admin' || Rails.env.development?
 				@brand = Brand.find(params[:_id])
 			    @brand.destroy
 			    flash[:notice] = "#{@brand.name} brand Destroyed"
@@ -590,7 +590,9 @@ class AdminController < ApplicationController
 				@total_twitter_clicks = @campaign.twitter_clicks
 				@total_facebook_clicks = @campaign.facebook_clicks
 				@total_tumblr_clicks = @campaign.tumblr_clicks
-				@total_social_clicks = @total_pinterest_clicks + @total_twitter_clicks + @total_facebook_clicks + @total_tumblr_clicks
+				@total_linkedin_clicks = @campaign.linkedin_clicks
+				@total_google_plus_clicks = @campaign.google_plus_clicks
+				@total_social_clicks = @total_pinterest_clicks + @total_twitter_clicks + @total_facebook_clicks + @total_tumblr_clicks + @total_linkedin_clicks + @total_google_plus_clicks
 			else
 				redirect_to root_url
 			end

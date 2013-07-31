@@ -22,17 +22,20 @@ class BrandsController < ApplicationController
 		@total_twitter_clicks = 0
 		@total_facebook_clicks = 0
 		@total_tumblr_clicks = 0
-		@total_social_clicks = 0
+		@total_linkedin_clicks = 0
+		@total_google_plus_clicks = 0
 		@brand.campaigns.each do |c|
 			@total_pinterest_clicks += c.pinterest_clicks
 			@total_twitter_clicks += c.twitter_clicks
 			@total_facebook_clicks += c.facebook_clicks
 			@total_tumblr_clicks += c.tumblr_clicks
-			@total_social_clicks += @total_pinterest_clicks + @total_twitter_clicks + @total_facebook_clicks + @total_tumblr_clicks
+			@total_linkedin_clicks += c.linkedin_clicks
+			@total_google_plus_clicks += c.google_plus_clicks
 			c.users.each do |u|
 				@users_list << u
 			end
 		end
+		@total_social_clicks = @total_pinterest_clicks + @total_twitter_clicks + @total_facebook_clicks + @total_tumblr_clicks + @total_linkedin_clicks + @total_google_plus_clicks
 		@users_list = @users_list.uniq.last(5)
 	end
 
@@ -154,7 +157,9 @@ class BrandsController < ApplicationController
 			@total_twitter_clicks = @campaign.twitter_clicks
 			@total_facebook_clicks = @campaign.facebook_clicks
 			@total_tumblr_clicks = @campaign.tumblr_clicks
-			@total_social_clicks = @total_pinterest_clicks + @total_twitter_clicks + @total_facebook_clicks + @total_tumblr_clicks
+			@total_linkedin_clicks = @campaign.linkedin_clicks
+			@total_google_plus_clicks = @campaign.google_plus_clicks
+			@total_social_clicks = @total_pinterest_clicks + @total_twitter_clicks + @total_facebook_clicks + @total_tumblr_clicks + @total_linkedin_clicks + @total_google_plus_clicks
 			@users_monthly = Share.where(:date.gt => Time.now - 1.month, :campaign_id => @campaign.id).count
 			@trackings_monthly = Tracking.where(:date.gt => Time.now - 1.month, :share_id.in => share_ids)
 			@redeems_monthly = Redeem.where(:date.gt => Time.now - 1.month, :campaign_id => @campaign.id).order_by([:date, :desc]).count

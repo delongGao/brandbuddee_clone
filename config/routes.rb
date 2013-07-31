@@ -197,8 +197,8 @@ Brandbuddee::Application.routes.draw do
   match '/campaign/:campaign/undo_custom_task' => 'campaign#undo_custom_task', :as => :campaign
   match '/campaign/:campaign/track_pinterest_click' => 'campaign#track_pinterest_click', :as => :campaign
   match '/campaign/:campaign/track_twitter_click' => 'campaign#track_twitter_click', :as => :campaign
-  match '/campaign/:campaign/track_facebook_click' => 'campaign#track_facebook_click', :as => :campaign
   match '/campaign/:campaign/track_linkedin_click' => 'campaign#track_linkedin_click', :as => :campaign
+  match '/campaign/:campaign/track_google_plus_click' => 'campaign#track_google_plus_click', :as => :campaign
   match '/campaign/:campaign/tumblr_auth' => 'campaign#tumblr_auth', :as => :campaign
   match '/campaign/:campaign/tumblr_blogs' => 'campaign#tumblr_blogs', :as => :campaign
   match '/campaign/:campaign/tumblr_content' => 'campaign#tumblr_content', :as => :campaign
