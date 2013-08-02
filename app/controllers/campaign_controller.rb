@@ -63,7 +63,7 @@ class CampaignController < ApplicationController
 				@campaign.tasks.create!(task_1_url: @campaign.engagement_task_left_link, task_2_url: @campaign.engagement_task_right_link, user_id: current_user.id, campaign_id: @campaign.id)
 
 				url = root_url + "campaign/" + @campaign.link
-				if @campaign.save
+				if @campaign.save(validate: false)
 	      			flash[:notice] = "Campaign Activated"
 	      			redirect_to url
 	    		else

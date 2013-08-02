@@ -154,7 +154,7 @@ class SessionsController < ApplicationController
                     @campaign.shares.create!(date: Time.now, link: share_link, user_id: user.id, campaign_id: @campaign.id, url: @campaign.share_link)
                     unless @campaign.already_has_user_task?(user)
                       @campaign.tasks.create!(task_1_url: @campaign.engagement_task_left_link, task_2_url: @campaign.engagement_task_right_link, user_id: user.id, campaign_id: @campaign.id)
-                      if @campaign.save
+                      if @campaign.save(validate: false)
                         if user.nickname.nil? || user.nickname.blank?
                           redirect_to "/fb-create-username?page_id=#{page_id}&liked=#{liked}&admin=#{admin}"
                         else
@@ -197,7 +197,7 @@ class SessionsController < ApplicationController
                   share_link = Share.assign_link
                   @campaign.shares.create!(date: Time.now, link: share_link, user_id: user.id, campaign_id: @campaign.id, url: @campaign.share_link)
                   @campaign.tasks.create!(task_1_url: @campaign.engagement_task_left_link, task_2_url: @campaign.engagement_task_right_link, user_id: user.id, campaign_id: @campaign.id)
-                  if @campaign.save
+                  if @campaign.save(validate: false)
                     redirect_to "/fb-create-username?page_id=#{page_id}&liked=#{liked}&admin=#{admin}"
                   else
                     redirect_to "/fb-campaign-embed?page_id=#{page_id}&liked=#{liked}&admin=#{admin}"

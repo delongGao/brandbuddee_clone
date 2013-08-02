@@ -178,7 +178,7 @@ class EmbedWidgetsController < ApplicationController
 		                share_link = Share.assign_link
 		                @campaign.shares.create!(date: Time.now, link: share_link, user_id: @user.id, campaign_id: @campaign.id, url: @campaign.share_link)
 		                @campaign.tasks.create!(task_1_url: @campaign.engagement_task_left_link, task_2_url: @campaign.engagement_task_right_link, user_id: @user.id, campaign_id: @campaign.id)
-		                if @campaign.save
+		                if @campaign.save(validate: false)
 		                  redirect_to "/fb-connect-with-fb?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
 		                else
 		                  redirect_to "/fb-campaign-embed?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
@@ -225,7 +225,7 @@ class EmbedWidgetsController < ApplicationController
 					                @campaign.shares.create!(date: Time.now, link: share_link, user_id: user.id, campaign_id: @campaign.id, url: @campaign.share_link)
 					                unless @campaign.already_has_user_task?(user)
 					                  	@campaign.tasks.create!(task_1_url: @campaign.engagement_task_left_link, task_2_url: @campaign.engagement_task_right_link, user_id: user.id, campaign_id: @campaign.id)
-					                  	if @campaign.save
+					                  	if @campaign.save(validate: false)
 					                    	if user.nickname.nil? || user.nickname.blank?
 					                    		redirect_to "/fb-create-username?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
 					                    	else
@@ -291,7 +291,7 @@ class EmbedWidgetsController < ApplicationController
 				                @campaign.shares.create!(date: Time.now, link: share_link, user_id: current_user.id, campaign_id: @campaign.id, url: @campaign.share_link)
 				                unless @campaign.already_has_user_task?(user)
 					                @campaign.tasks.create!(task_1_url: @campaign.engagement_task_left_link, task_2_url: @campaign.engagement_task_right_link, user_id: current_user.id, campaign_id: @campaign.id)
-					                if @campaign.save
+					                if @campaign.save(validate: false)
 					                	redirect_to "/fb-joined-campaign?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
 					                else
 					                	flash[:error] = "An error occurred while trying to add your buddee account to the campaign. Please try again."

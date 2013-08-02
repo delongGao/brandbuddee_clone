@@ -586,7 +586,7 @@
                                                         Location
                                                     </td>
                                                     <td>
-                                                        <% if @campaign.location.nil? %><% @campaign.location = Location.where(city: "Seattle").first %><% @campaign.save %><% end %><%= @campaign.location.city + ', ' + @campaign.location.state %>
+                                                        <% if @campaign.location.nil? %><% @campaign.location = Location.where(city: "Seattle").first %><% @campaign.save(validate: false) %><% end %><%= @campaign.location.city + ', ' + @campaign.location.state %>
                                                     </td>
                                                 </tr>
 
