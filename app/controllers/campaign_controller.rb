@@ -164,7 +164,7 @@ class CampaignController < ApplicationController
 							@campaign = Campaign.where(link: params[:campaign_link]).first
 							unless @campaign.nil?
 								@campaign.facebook_clicks += 1
-								@campaign.save
+								@campaign.save(validate: false)
 							end
 							flash[:notice] = "Awesome! You've posted to your wall!"
 							redirect_to "#{root_url}campaign/#{params[:campaign_link]}"
@@ -926,7 +926,7 @@ class CampaignController < ApplicationController
 				else
 					unless params[:addClick].nil? || params[:campaignLink].nil? || params[:addClick]!="true" || params[:campaignLink].downcase!=params_campaign
 						@campaign.pinterest_clicks += 1
-						if @campaign.save
+						if @campaign.save(validate: false)
 							render :text => "SUCCESS"
 						else
 							render :text => "ERROR"
@@ -956,7 +956,7 @@ class CampaignController < ApplicationController
 				else
 					unless params[:addClick].nil? || params[:addClick]!="true"
 						@campaign.twitter_clicks += 1
-						if @campaign.save
+						if @campaign.save(validate: false)
 							render :text => "SUCCESS"
 						else
 							render :text => "ERROR"
@@ -986,7 +986,7 @@ class CampaignController < ApplicationController
 				else
 					unless params[:addClick].nil? || params[:campaignLink].nil? || params[:addClick]!="true" || params[:campaignLink].downcase!=params_campaign
 						@campaign.linkedin_clicks += 1
-						if @campaign.save
+						if @campaign.save(validate: false)
 							render :text => "SUCCESS"
 						else
 							render :text => "ERROR"
@@ -1016,7 +1016,7 @@ class CampaignController < ApplicationController
 				else
 					unless params[:addClick].nil? || params[:campaignLink].nil? || params[:addClick]!="true" || params[:campaignLink].downcase!=params_campaign
 						@campaign.google_plus_clicks += 1
-						if @campaign.save
+						if @campaign.save(validate: false)
 							render :text => "SUCCESS"
 						else
 							render :text => "ERROR"
@@ -1176,8 +1176,8 @@ class CampaignController < ApplicationController
 										post_result = client.text(params[:link], {:title => params[:title], :body => params[:content]})
 										unless post_result["id"].nil?
 											@campaign.tumblr_clicks += 1
-											@campaign.save
-											flash[:notice] = "You have successfully posted to Tumblr! Here is the link to your blog post: http://#{params[:link]}/post/#{post_result["id"]}"
+											@campaign.save(validate: false)
+											flash[:notice] = "You have successfully posted to Tumblr! Here is the link to your blog post: <a href='http://#{params[:link]}/post/#{post_result["id"]}' target='_blank'>http://#{params[:link]}/post/#{post_result["id"]}</a>"
 											redirect_to "#{root_url}campaign/#{@campaign.link}"
 										else
 											flash[:error] = "An error occured while trying to post to Tumblr. We have been notified. Please try again later"

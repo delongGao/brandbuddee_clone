@@ -27,7 +27,15 @@ class Campaign
   field :reward, :type => String
   field :tweet, :type => String
 
-  field :redeem_details, :type => String, :default => "This is default text for Redeem Details."
+  field :redeem_details, :type => String # Depreciated as of 07/31/2013. Only kept for old campaigns. DO NOT USE OR REMOVE.
+  field :redeem_name, :type => String
+  field :redeem_email, :type => String
+  field :redeem_phone, :type => String
+  field :redeem_value, :type => String
+  field :redeem_expires, :type => String
+  field :redeem_event_date, :type => String
+  field :redeem_is_raffle, :type => Boolean, :default => false
+  field :redeem_special_circ, :type => String
 
   field :task_blog_post, :type => Hash, :default => {}
   field :task_facebook, :type => Hash, :default => {}
@@ -54,8 +62,16 @@ class Campaign
   mount_uploader :gift_image, CampaignGiftUploader
   mount_uploader :gift_image_two, CampaignGiftUploader
   mount_uploader :gift_image_three, CampaignGiftUploader
-  attr_accessible :campaign_image, :date, :last_updated, :title, :detail, :points_required, :link, :limit, :share_link, :redeem_details, :location, :tweet, :reward, :easy_prize, :gift_image, :gift_image_two, :gift_image_three, :task_blog_post
+  attr_accessible :campaign_image, :date, :last_updated, :title, :detail, :points_required, :link, :limit, :share_link, :redeem_details, :location, :tweet, :reward, :easy_prize, :gift_image, :gift_image_two, :gift_image_three, :task_blog_post, :redeem_name, :redeem_email, :redeem_phone, :redeem_value, :redeem_expires, :redeem_event_date, :redeem_is_raffle, :redeem_special_circ
 
+  EMAIL_REGEX = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i
+  MONEY_REGEX = /^\$\d+\.?\d{2}?+$/
+  validates :redeem_name, presence: true, length: { maximum: 60, too_long: "cannot be longer than 60 characters." }
+  validates :redeem_email, presence: true, length: { minimum: 6, maximum: 100, too_short: "must be at least 6 chars long.", too_long: "cannot be more than 100 chars long." }, format: { with: EMAIL_REGEX, message: "is not in a valid format." }
+  validates :redeem_value, presence: true, format: { with: MONEY_REGEX, message: "must be in the format: $123456.78" }
+  validates :redeem_expires, presence: true
+  validates :redeem_special_circ, length: { maximum: 140, too_long: "cannot be longer than 140 characters." }
+  
 
   def self.assign_link
     o =  [(1..9)].map{|i| i.to_a}.flatten;

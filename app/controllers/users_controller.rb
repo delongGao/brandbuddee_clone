@@ -287,26 +287,6 @@ class UsersController < ApplicationController
     end
   end
   
-  def show
-    if current_user
-      if current_user.account_type == "super admin" || Rails.env.development?
-          @user = User.all.order_by([:date, :desc]).paginate :page => params[:page], :per_page => 25
-          @campaign_all = Campaign.all.order_by([:date, :desc]).paginate :page => params[:page], :per_page => 25
-          @category_all = Category.all.order_by([:date, :desc]).paginate :page => params[:page], :per_page => 25
-          @location_all = Location.all.order_by([:date, :desc]).paginate :page => params[:page], :per_page => 25
-          @brand_all = Brand.all.order_by([:name, :asc]).paginate :page => params[:page], :per_page => 25
-          @share_all = Share.all.order_by([:date, :desc]).paginate :page => params[:page], :per_page => 25
-          @tracking_all = Tracking.all.order_by([:date, :desc]).paginate :page => params[:page], :per_page => 25
-          @redeem_all = Redeem.all.order_by([:date, :desc]).paginate :page => params[:page], :per_page => 25
-          @link = Campaign.assign_link()
-      else
-        redirect_to root_url
-      end
-    else
-      redirect_to root_url
-    end
-  end
-
   def create_new_campaign
     @brand = Brand.find(params[:brands])
     @campaign = @brand.campaigns.create!(params[:campaign])

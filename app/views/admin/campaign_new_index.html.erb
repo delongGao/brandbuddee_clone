@@ -1,0 +1,537 @@
+<%= content_for :additional_link_tags, stylesheet_link_tag("/css/admin/datetimepicker.css") %>
+	<div id="overlay">
+		<ul>
+		  <li class="li1"></li>
+		  <li class="li2"></li>
+		  <li class="li3"></li>
+		  <li class="li4"></li>
+		  <li class="li5"></li>
+		  <li class="li6"></li>
+		</ul>
+	</div>	
+
+	<%= render 'shared/admin_header' %>
+	
+		<div class="container-fluid">
+		<div class="row-fluid">
+
+
+			<%= render 'shared/admin_side' %>
+			
+			<noscript>
+				<div class="alert alert-block span10">
+					<h4 class="alert-heading">Warning!</h4>
+					<p>You need to have <a href="http://en.wikipedia.org/wiki/JavaScript" target="_blank">JavaScript</a> enabled to use this site.</p>
+				</div>
+			</noscript>
+			
+			<div id="content" class="span10">
+			<!-- start: Content -->
+			
+
+			<div>
+				<hr>
+				<ul class="breadcrumb">
+					<li>
+						<a href="/admin">Dashboard</a> <span class="divider">/</span>
+					</li>
+					<li>
+						<a href="/admin/campaigns">Campaigns</a> <span class="divider">/</span>
+					</li>
+					<li>
+						<a href="#">Create New</a>
+					</li>
+				</ul>
+				<hr>
+			</div>
+
+			<% flash.each do |name, msg| %>
+			<div class="row">
+				<div class="span6 offset3">
+					<div class="alert alert-<%= name %> fade in">
+						<a href="#" class="close" data-dismiss="alert">&times;</a>
+						<%= msg.html_safe %>
+					</div>
+				</div>
+			</div>
+			<% end %>
+			
+			<div class="row-fluid sortable">
+				<div class="box span12">
+					<div class="box-header" data-original-title>
+						<h2><i class="icon-edit"></i><span class="break"></span>Create New Campaign</h2>
+						<div class="box-icon">
+							<a href="#" class="btn-setting"><i class="icon-wrench"></i></a>
+							<a href="#" class="btn-minimize"><i class="icon-chevron-up"></i></a>
+							<a href="#" class="btn-close"><i class="icon-remove"></i></a>
+						</div>
+					</div>
+					<div class="box-content form-horizontal">
+					     <%= form_for @campaign, url: "/admin/campaign/new", html: { class: "form-horizontal", multipart: true } do |f| %>
+					     	<% if @campaign.errors.any? %>
+								<% @campaign.errors.full_messages.each do |message| %>
+									<div class="alert alert-error fade in">
+										<a href="#" class="close" data-dismiss="alert">&times;</a>
+										<strong>Uh Oh!</strong> <%= message %>
+									</div>
+								<% end %>
+							<% end %>
+	      					<div class="row">
+								<div class="control-group span6">
+									<label for="brands" class="control-label">Select Brand</label>
+									<div class="controls">
+	    								<%= select_tag "brands", options_from_collection_for_select(@brand_all, "id", "name"), :prompt => "- Select Brand -" %>
+	      							</div>
+	      						</div>
+								<div class="control-group span6">
+									<label for="categories" class="control-label">Select Category</label>
+									<div class="controls">
+										<%= select_tag "categories", options_from_collection_for_select(@category_all, "id", "name"), :prompt => "- Select Category -" %>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="control-group span6">
+									<%= f.label :title, "Campaign Title", class: 'control-label' %>
+									<div class="controls">
+										<%= f.text_field :title %>
+									</div>
+								</div>
+								<div class="control-group span6">
+	      							<%= f.label :detail, "Campaign Details", class: 'control-label' %>
+									<div class="controls">
+	      								<%= f.text_area :detail, rows: '4' %>
+	      							</div>
+	      						</div>
+	      					</div>
+	      					<div class="row">
+								<div class="control-group span6">
+	      							<%= f.label :date_end, 'Campaign End Date', class: 'control-label' %>
+									<div class="controls">
+										<div class="input-append date dtpCampaignEnd">
+	      									<%= text_field :date_end, nil %>
+	    									<span class="add-on"><i class="icon-remove"></i></span>
+	      									<span class="add-on"><i class="icon-th"></i></span>
+	      								</div>
+	      							</div>
+	      						</div>
+								<div class="control-group span6">
+	      							<%= f.label :campaign_image, class: 'control-label' %>
+									<div class="controls">
+	      								<%= f.file_field :campaign_image %>
+	      							</div>
+	      						</div>
+	      					</div>
+	      					<div class="row">
+								<div class="control-group span6">
+	      							<%= f.label :location, 'Location', :class=>'control-label' %>
+									<div class="controls">
+	      								<%= select_tag "location", options_from_collection_for_select(@location_all, "id", "city"), :prompt => "- Select Location -" %>
+	      							</div>
+	      						</div>
+								<div class="control-group span6">
+	      							<%= f.label :share_link, :class=>'control-label' %>
+									<div class="controls">
+	      								<%= f.text_field :share_link, :class=>'', :placeholder => "Must Start With http:// or https://" %>
+	      							</div>
+	      						</div>
+	      					</div>
+	      					<div class="row">
+								<div class="control-group span6">
+	      							<%= f.label :points_required, :class=>'control-label' %>
+									<div class="controls">
+	      								<%= f.text_field :points_required, :class=>'' %>
+	      							</div>
+	      						</div>
+								<div class="control-group span6">
+	      							<%= f.label :limit, :class=>'control-label' %>
+									<div class="controls">
+	      								<%= f.text_field :limit, :class=>'' %>
+	      							</div>
+	      						</div>
+	      					</div>
+	      					<div class="row">
+								<div class="control-group span6">
+	      							<%= f.label :tweet, 'Tweet', :class=>'control-label' %>
+									<div class="controls">
+	      								<%= f.text_area :tweet, :class=>'', :rows => '3', :placeholder => 'Leave blank to use default campaign title as tweet.' %>
+	      							</div>
+	      						</div>
+								<div class="control-group span6">
+	      							<%= f.label :reward, :class=>'control-label' %>
+									<div class="controls">
+	      								<%= f.text_field :reward %>
+	      							</div>
+	      						</div>
+	      					</div>
+							<hr />
+							<h2>Redeem Details:</h2>
+							<div class="row">
+								<div class="control-group span6">
+									<%= f.label :redeem_name, "Contact Name", class: "control-label" %>
+									<div class="controls">
+	    								<%= f.text_field :redeem_name %>
+	    							</div>
+	    						</div>
+	    						<div class="control-group span6">
+	    							<%= f.label :redeem_email, "Contact Email", class: "control-label" %>
+	    							<div class="controls">
+	    								<%= f.email_field :redeem_email %>
+	    							</div>
+	    						</div>
+	    					</div>
+	    					<div class="row">
+	    						<div class="control-group span6">
+	    							<%= f.label :redeem_phone, "Contact Phone (OPTIONAL)", class: "control-label" %>
+	    							<div class="controls">
+	    								<%= f.telephone_field :redeem_phone %>
+	    							</div>
+	    						</div>
+	    						<div class="control-group span6">
+	    							<%= f.label :redeem_value, "Monetary Value of Primary Reward", class: "control-label" %>
+	    							<div class="controls">
+	    								<%= f.text_field :redeem_value %>
+	    							</div>
+	    						</div>
+	    					</div>
+	    					<div class="row">
+	    						<div class="control-group span6">
+	    							<%= f.label :redeem_expires, "Expiration Date", class: "control-label" %>
+	    							<div class="controls">
+	    								<%= f.text_field :redeem_expires %>
+	    							</div>
+	    						</div>
+	    						<div class="control-group span6">
+	    							<%= f.label :redeem_event_date, "Event Date (OPTIONAL)", class: "control-label" %>
+	    							<div class="controls">
+	    								<%= f.text_field :redeem_event_date %>
+	    							</div>
+	    						</div>
+	    					</div>
+	    					<div class="row">
+	    						<div class="control-group span5 offset1">
+	    							<%= f.label :redeem_is_raffle, "Is the Primary Reward a Raffle?", class: "control-label" %>
+	    							<div class="controls">
+								    	<label for="campaign_redeem_is_raffle_true">Yes, it is a Raffle<%= f.radio_button :redeem_is_raffle, "true" %></label>
+								    	<label for="campaign_redeem_is_raffle_false">No, it is Not a Raffle<%= f.radio_button :redeem_is_raffle, "false" %></label>
+								    </div>
+								</div>
+								<div class="control-group span6">
+	    							<%= f.label :redeem_special_circ, "Special Circumstances (OPTIONAL)", class: "control-label" %>
+	    							<div class="controls">
+	    								<%= f.text_area :redeem_special_circ, :rows => '4', :placeholder => "Up To 140 Characters", :maxlength => 140 %>
+	    							</div>
+	    						</div>
+	    					</div>
+    						<hr />
+    						<h2>Tasks:</h2>
+    						<div class="row">
+							    <div class="well well-small span5 offset1">
+							    	<label for="task_blog_post_0" class="muted" style="font-size:16px;font-weight:bold;cursor:pointer;" id="lblEnableTask1">Use Write A Blog Post <%= check_box("task_blog_post", "0", {}, true, false) %></label>
+							    	<p style="display:none;">
+							    		<%= f.label :task_blog_post, "Title For Task (Up To 30 Characters)" %>
+							    		<%= text_field "task_blog_post", "1", :placeholder => "Up To 30 Characters", :disabled => true, :maxlength => 30 %>
+							    	</p>
+							    	<p style="display:none;">
+							    		<%= f.label :task_blog_post, "Task Description (Up To 140 Characters)" %>
+							    		<%= text_area "task_blog_post", "2", :rows => '4', :placeholder => "Up To 140 Characters", :disabled => true, :maxlength => 140 %>
+							    	</p>
+							    	<p style="display:none;">
+							    		<%= f.label :task_blog_post, "Number of Points buddee Recieves" %>
+							    		<%= text_field "task_blog_post", "3", :placeholder => "Must be a number", :disabled => true %>
+							    	</p>
+							    </div>
+							    <div class="well well-small span5">
+							    	<label for="task_yelp_0" class="muted" style="font-size:16px;font-weight:bold;cursor:pointer;" id="lblEnableTask9">Use Yelp Review / Image Contest <%= check_box("task_yelp", "0", {}, true, false) %></label>
+							    	<p style="display:none;">
+							    		<%= f.label :task_yelp, "Title For Task (Up To 30 Characters)" %>
+							    		<%= text_field "task_yelp", "1", :placeholder => "Up To 30 Characters", :disabled => true, :maxlength => 30 %>
+							    	</p>
+							    	<p style="display:none;">
+							    		<%= f.label :task_yelp, "Task Description (Up To 140 Characters)" %>
+							    		<%= text_area "task_yelp", "2", :rows => '4', :placeholder => "Up To 140 Characters", :disabled => true, :maxlength => 140 %>
+							    	</p>
+							    	<p style="display:none;">
+							    		<%= f.label :task_yelp, "Number of Points buddee Recieves" %>
+							    		<%= text_field "task_yelp", "3", :placeholder => "Must be a number", :disabled => true %>
+							    	</p>
+							    </div>
+							</div>
+    						<div class="row">
+							    <div class="well well-small span5 offset1">
+							    	<label for="task_facebook_0" class="muted" style="font-size:16px;font-weight:bold;cursor:pointer;" id="lblEnableTask2">Use Like On Facebook <%= check_box("task_facebook", "0", {}, true, false) %></label>
+							    	<p style="display:none;">
+							    		<%= f.label :task_facebook, "Title For Task (Up To 30 Characters)" %>
+							    		<%= text_field "task_facebook", "1", :placeholder => "Up To 30 Characters", :disabled => true, :maxlength => 30 %>
+							    	</p>
+							    	<p style="display:none;">
+							    		<%= f.label :task_facebook, "Task Description (Up To 140 Characters)" %>
+							    		<%= text_area "task_facebook", "2", :rows => '4', :placeholder => "Up To 140 Characters", :disabled => true, :maxlength => 140 %>
+							    	</p>
+							    	<p style="display:none;">
+							    		<%= f.label :task_facebook, "Number of Points buddee Recieves" %>
+							    		<%= text_field "task_facebook", "3", :placeholder => "Must be a number", :disabled => true %>
+							    	</p>
+							    	<p style="display:none;">
+							    		<%= f.label :task_facebook, "Facebook Page Address" %>
+							    		<%= text_field "task_facebook", "4", :placeholder => "Must start with http:// or https://", :disabled => true %>
+							    	</p>
+							    	<p style="display:none;">
+							    		<label for="chkEngageLeftFacebook" class="muted">Add To Engagement Bar Position 1 (Left) <%= check_box("engagement_tasks", "Left", {:id => "chkEngageLeftFacebook", :class => "chkTrackLeft"}, "Facebook", false) %></label>
+							    		<label for="chkEngageRightFacebook" class="muted">Add To Engagement Bar Position 2 (Right) <%= check_box("engagement_tasks", "Right", {:id => "chkEngageRightFacebook", :class => "chkTrackRight"}, "Facebook", false) %></label>
+							    	</p>
+							    </div>
+							    <div class="well well-small span5">
+							    	<label for="task_twitter_0" class="muted" style="font-size:16px;font-weight:bold;cursor:pointer;" id="lblEnableTask3">Use Follow On Twitter <%= check_box("task_twitter", "0", {}, true, false) %></label>
+							    	<p style="display:none;">
+							    		<%= f.label :task_twitter, "Title For Task (Up To 30 Characters)" %>
+							    		<%= text_field "task_twitter", "1", :placeholder => "Up To 30 Characters", :disabled => true, :maxlength => 30 %>
+							    	</p>
+							    	<p style="display:none;">
+							    		<%= f.label :task_twitter, "Task Description (Up To 140 Characters)" %>
+							    		<%= text_area "task_twitter", "2", :rows => '4', :placeholder => "Up To 140 Characters", :disabled => true, :maxlength => 140 %>
+							    	</p>
+							    	<p style="display:none;">
+							    		<%= f.label :task_twitter, "Number of Points buddee Recieves" %>
+							    		<%= text_field "task_twitter", "3", :placeholder => "Must be a number", :disabled => true %>
+							    	</p>
+							    	<p style="display:none;">
+							    		<%= f.label :task_twitter, "Twitter Page Address" %>
+							    		<%= text_field "task_twitter", "4", :placeholder => "Must start with http:// or https://", :disabled => true %>
+							    	</p>
+							    	<p style="display:none;">
+							    		<label for="chkEngageLeftTwitter" class="muted">Add To Engagement Bar Position 1 (Left) <%= check_box("engagement_tasks", "Left", {:id => "chkEngageLeftTwitter", :class => "chkTrackLeft"}, "Twitter", false) %></label>
+							    		<label for="chkEngageRightTwitter" class="muted">Add To Engagement Bar Position 2 (Right) <%= check_box("engagement_tasks", "Right", {:id => "chkEngageRightTwitter", :class => "chkTrackRight"}, "Twitter", false) %></label>
+							    	</p>
+							    </div>
+							</div>
+    						<div class="row">
+							    <div class="well well-small span5 offset1">
+							    	<label for="task_custom_1_0" class="muted" style="font-size:16px;font-weight:bold;cursor:pointer;" id="lblEnableTask4">Use Custom Task #1 <%= check_box("task_custom_1", "0", {}, true, false) %></label>
+							    	<p style="display:none;">
+							    		<%= f.label :task_custom_1, "Title For Task (Up To 30 Characters)" %>
+							    		<%= text_field "task_custom_1", "1", :placeholder => "Up To 30 Characters", :disabled => true, :maxlength => 30 %>
+							    	</p>
+							    	<p style="display:none;">
+							    		<%= f.label :task_custom_1, "Task Description (Up To 140 Characters)" %>
+							    		<%= text_area "task_custom_1", "2", :rows => '4', :placeholder => "Up To 140 Characters", :disabled => true, :maxlength => 140 %>
+							    	</p>
+							    	<p style="display:none;">
+							    		<%= f.label :task_custom_1, "Number of Points buddee Recieves" %>
+							    		<%= text_field "task_custom_1", "3", :placeholder => "Must be a number", :disabled => true %>
+							    	</p>
+							    	<p style="display:none;">
+							    		<%= f.label :task_custom_1, "Link to Send buddee To" %>
+							    		<%= text_field "task_custom_1", "4", :placeholder => "Must start with http:// or https://", :disabled => true %>
+							    	</p>
+							    	<p style="display:none;">
+							    		<label for="chkEngageLeftCustom1" class="muted">Add To Engagement Bar Position 1 (Left) <%= check_box("engagement_tasks", "Left", {:id => "chkEngageLeftCustom1", :class => "chkTrackLeft"}, "Custom1", false) %></label>
+							    		<label for="chkEngageRightCustom1" class="muted">Add To Engagement Bar Position 2 (Right) <%= check_box("engagement_tasks", "Right", {:id => "chkEngageRightCustom1", :class => "chkTrackRight"}, "Custom1", false) %></label>
+							    	</p>
+							    </div>
+							    <div class="well well-small span5">
+							    	<label for="task_custom_2_0" class="muted" style="font-size:16px;font-weight:bold;cursor:pointer;" id="lblEnableTask5">Use Custom Task #2 <%= check_box("task_custom_2", "0", {}, true, false) %></label>
+							    	<p style="display:none;">
+							    		<%= f.label :task_custom_2_1, "Title For Task (Up To 30 Characters)" %>
+							    		<%= text_field "task_custom_2", "1", :placeholder => "Up To 30 Characters", :disabled => true, :maxlength => 30 %>
+							    	</p>
+							    	<p style="display:none;">
+							    		<%= f.label :task_custom_2_2, "Task Description (Up To 140 Characters)" %>
+							    		<%= text_area "task_custom_2", "2", :rows => '4', :placeholder => "Up To 140 Characters", :disabled => true, :maxlength => 140 %>
+							    	</p>
+							    	<p style="display:none;">
+							    		<%= f.label :task_custom_2_3, "Number of Points buddee Recieves" %>
+							    		<%= text_field "task_custom_2", "3", :placeholder => "Must be a number", :disabled => true %>
+							    	</p>
+							    	<p style="display:none;">
+							    		<%= f.label :task_custom_2_4, "Link to Send buddee To" %>
+							    		<%= text_field "task_custom_2", "4", :placeholder => "Must start with http:// or https://", :disabled => true %>
+							    	</p>
+							    	<p style="display:none;">
+							    		<label for="chkEngageLeftCustom2" class="muted">Add To Engagement Bar Position 1 (Left) <%= check_box("engagement_tasks", "Left", {:id => "chkEngageLeftCustom2", :class => "chkTrackLeft"}, "Custom2", false) %></label>
+							    		<label for="chkEngageRightCustom2" class="muted">Add To Engagement Bar Position 2 (Right) <%= check_box("engagement_tasks", "Right", {:id => "chkEngageRightCustom2", :class => "chkTrackRight"}, "Custom2", false) %></label>
+							    	</p>
+							    </div>
+							</div>
+							<div class="row">
+							    <div class="well well-small span5 offset1">
+							    	<label for="task_custom_3_0" class="muted" style="font-size:16px;font-weight:bold;cursor:pointer;" id="lblEnableTask6">Use Custom Task #3 <%= check_box("task_custom_3", "0", {}, true, false) %></label>
+							    	<p style="display:none;">
+							    		<%= f.label :task_custom_3_1, "Title For Task (Up To 30 Characters)" %>
+							    		<%= text_field "task_custom_3", "1", :placeholder => "Up To 30 Characters", :disabled => true, :maxlength => 30 %>
+							    	</p>
+							    	<p style="display:none;">
+							    		<%= f.label :task_custom_3_2, "Task Description (Up To 140 Characters)" %>
+							    		<%= text_area "task_custom_3", "2", :rows => '4', :placeholder => "Up To 140 Characters", :disabled => true, :maxlength => 140 %>
+							    	</p>
+							    	<p style="display:none;">
+							    		<%= f.label :task_custom_3_3, "Number of Points buddee Recieves" %>
+							    		<%= text_field "task_custom_3", "3", :placeholder => "Must be a number", :disabled => true %>
+							    	</p>
+							    	<p style="display:none;">
+							    		<%= f.label :task_custom_3_4, "Link to Send buddee To" %>
+							    		<%= text_field "task_custom_3", "4", :placeholder => "Must start with http:// or https://", :disabled => true %>
+							    	</p>
+							    	<p style="display:none;">
+							    		<label for="chkEngageLeftCustom3" class="muted">Add To Engagement Bar Position 1 (Left) <%= check_box("engagement_tasks", "Left", {:id => "chkEngageLeftCustom3", :class => "chkTrackLeft"}, "Custom3", false) %></label>
+							    		<label for="chkEngageRightCustom3" class="muted">Add To Engagement Bar Position 2 (Right) <%= check_box("engagement_tasks", "Right", {:id => "chkEngageRightCustom3", :class => "chkTrackRight"}, "Custom3", false) %></label>
+							    	</p>
+							    </div>
+							    <div class="well well-small span5">
+							    	<label for="task_custom_4_0" class="muted" style="font-size:16px;font-weight:bold;cursor:pointer;" id="lblEnableTask7">Use Custom Task #4 <%= check_box("task_custom_4", "0", {}, true, false) %></label>
+							    	<p style="display:none;">
+							    		<%= f.label :task_custom_4_1, "Title For Task (Up To 30 Characters)" %>
+							    		<%= text_field "task_custom_4", "1", :placeholder => "Up To 30 Characters", :disabled => true, :maxlength => 30 %>
+							    	</p>
+							    	<p style="display:none;">
+							    		<%= f.label :task_custom_4_2, "Task Description (Up To 140 Characters)" %>
+							    		<%= text_area "task_custom_4", "2", :rows => '4', :placeholder => "Up To 140 Characters", :disabled => true, :maxlength => 140 %>
+							    	</p>
+							    	<p style="display:none;">
+							    		<%= f.label :task_custom_4_3, "Number of Points buddee Recieves" %>
+							    		<%= text_field "task_custom_4", "3", :placeholder => "Must be a number", :disabled => true %>
+							    	</p>
+							    	<p style="display:none;">
+							    		<%= f.label :task_custom_4_4, "Link to Send buddee To" %>
+							    		<%= text_field "task_custom_4", "4", :placeholder => "Must start with http:// or https://", :disabled => true %>
+							    	</p>
+							    	<p style="display:none;">
+							    		<label for="chkEngageLeftCustom4" class="muted">Add To Engagement Bar Position 1 (Left) <%= check_box("engagement_tasks", "Left", {:id => "chkEngageLeftCustom4", :class => "chkTrackLeft"}, "Custom4", false) %></label>
+							    		<label for="chkEngageRightCustom4" class="muted">Add To Engagement Bar Position 2 (Right) <%= check_box("engagement_tasks", "Right", {:id => "chkEngageRightCustom4", :class => "chkTrackRight"}, "Custom4", false) %></label>
+							    	</p>
+							    </div>
+							</div>
+							<div class="row">
+							    <div class="well well-small span5 offset1">
+							    	<label for="task_custom_5_0" class="muted" style="font-size:16px;font-weight:bold;cursor:pointer;" id="lblEnableTask8">Use Custom Task #5 <%= check_box("task_custom_5", "0", {}, true, false) %></label>
+							    	<p style="display:none;">
+							    		<%= f.label :task_custom_5_1, "Title For Task (Up To 30 Characters)" %>
+							    		<%= text_field "task_custom_5", "1", :placeholder => "Up To 30 Characters", :disabled => true, :maxlength => 30 %>
+							    	</p>
+							    	<p style="display:none;">
+							    		<%= f.label :task_custom_5_2, "Task Description (Up To 140 Characters)" %>
+							    		<%= text_area "task_custom_5", "2", :rows => '4', :placeholder => "Up To 140 Characters", :disabled => true, :maxlength => 140 %>
+							    	</p>
+							    	<p style="display:none;">
+							    		<%= f.label :task_custom_5_3, "Number of Points buddee Recieves" %>
+							    		<%= text_field "task_custom_5", "3", :placeholder => "Must be a number", :disabled => true %>
+							    	</p>
+							    	<p style="display:none;">
+							    		<%= f.label :task_custom_5_4, "Link to Send buddee To" %>
+							    		<%= text_field "task_custom_5", "4", :placeholder => "Must start with http:// or https://", :disabled => true %>
+							    	</p>
+							    	<p style="display:none;">
+							    		<label for="chkEngageLeftCustom5" class="muted">Add To Engagement Bar Position 1 (Left) <%= check_box("engagement_tasks", "Left", {:id => "chkEngageLeftCustom5", :class => "chkTrackLeft"}, "Custom5", false) %></label>
+							    		<label for="chkEngageRightCustom5" class="muted">Add To Engagement Bar Position 2 (Right) <%= check_box("engagement_tasks", "Right", {:id => "chkEngageRightCustom5", :class => "chkTrackRight"}, "Custom5", false) %></label>
+							    	</p>
+							    </div>
+							    <div class="well well-small span5">
+							    	<h2>Pictures of Reward (Up To 3)</h2>
+							    	<p>
+							    		<%= f.file_field :gift_image %>
+							    	</p>
+							    	<p style="display:none;">
+							    		<%= f.file_field :gift_image_two %>
+							    	</p>
+							    	<p style="display:none;">
+							    		<%= f.file_field :gift_image_three %>
+							    	</p>
+							    </div>
+							</div>
+							<hr />
+    						<h2>Small Gift User Gets After Gaining 3pts</h2>
+    						<div class="control-group">
+    							<%= f.label :easy_prize, "Gift Text (Up To 120 Characters)", :class=>'control-label' %>
+    							<div class="controls">
+    								<%= f.text_field :easy_prize, :class=>'span6', :placeholder => "Up To 120 Characters", :maxlength => 120 %>
+    							</div>
+    						</div>
+    						<div class="control-group">
+    							<div class="controls">
+    								<%= hidden_field_tag(:date, Time.now, :name=>'campaign[date]') %>
+								    <%= hidden_field_tag(:link, @link, :name=>'campaign[link]') %>
+								    <%= f.submit 'Create Campaign', :class=>"btn btn-success" %>
+								</div>
+							</div>
+					     <% end %>
+					</div><!-- /box-content -->
+				</div><!--/span-->
+			
+			</div><!--/row-->
+
+					<hr>
+			<!-- end: Content -->
+			</div><!--/#content.span10-->
+				</div><!--/fluid-row-->
+		
+		<div class="clearfix"></div>
+		
+
+		<%= render 'shared/admin_footer' %>
+				
+	</div><!--/.fluid-container-->
+
+
+
+		<!-- start: JavaScript-->
+
+		<script src="/js/admin/jquery-1.7.2.min.js"></script>
+		<script src="/js/admin/jquery-ui-1.8.21.custom.min.js"></script>
+	
+	
+		<script src="/js/admin/jquery.cookie.js"></script>
+	
+		<script src='/js/admin/fullcalendar.min.js'></script>
+	
+		<script src='/js/admin/jquery.dataTables.min.js'></script>
+
+		<script src="/js/admin/excanvas.js"></script>
+		<script src="/js/admin/jquery.flot.min.js"></script>
+		<script src="/js/admin/jquery.flot.pie.min.js"></script>
+		<script src="/js/admin/jquery.flot.stack.js"></script>
+		<script src="/js/admin/jquery.flot.resize.min.js"></script>
+	
+		<script src="/js/admin/jquery.chosen.min.js"></script>
+	
+		<script src="/js/admin/jquery.uniform.min.js"></script>
+		
+		<script src="/js/admin/jquery.cleditor.min.js"></script>
+	
+		<script src="/js/admin/jquery.noty.js"></script>
+	
+		<script src="/js/admin/jquery.elfinder.min.js"></script>
+	
+		<script src="/js/admin/jquery.raty.min.js"></script>
+	
+		<script src="/js/admin/jquery.iphone.toggle.js"></script>
+	
+		<script src="/js/admin/jquery.uploadify-3.1.min.js"></script>
+	
+		<script src="/js/admin/jquery.gritter.min.js"></script>
+	
+		<script src="/js/admin/jquery.imagesloaded.js"></script>
+	
+		<script src="/js/admin/jquery.masonry.min.js"></script>
+	
+		<script src="/js/admin/jquery.knob.js"></script>
+	
+		<script src="/js/admin/jquery.sparkline.min.js"></script>
+
+		<script src="/js/admin/custom.js"></script>
+		<script src="/js/admin/bootstrap-datetimepicker.min.js"></script>
+
+
+		<script type="text/javascript">
+			$(document).ready(function() {
+				$(".dtpCampaignEnd").datetimepicker({
+					format: 'yyyy-mm-dd hh:ii',
+					startDate: '<%= Time.now.year %>-01-01 10:00',
+					endDate: '<%= (Time.now + 15.years).year %>-12-31 23:00',
+					autoclose: true,
+					startView: 4,
+					todayBtn: true,
+					showMeridian: true
+				});
+			});
+		</script>
+		<!-- end: JavaScript-->

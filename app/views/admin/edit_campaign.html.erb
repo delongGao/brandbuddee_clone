@@ -1,3 +1,4 @@
+<%= content_for :additional_link_tags, stylesheet_link_tag("/css/admin/datetimepicker.css") %>
 	<div id="overlay">
 		<ul>
 		  <li class="li1"></li>
@@ -44,17 +45,15 @@
 				<hr>
 			</div>
 
-			<% if flash[:notice].nil? %><% else %>
-				<div class="alert alert-success fade in">
-					<button class="close" data-dismiss="alert">×</button>
-					<%= flash[:notice] %>
-				</div> <!-- .alert -->
-			<% end %>
-			<% if flash[:error].nil? %><% else %>
-				<div class="alert alert-error fade in">
-					<button class="close" data-dismiss="alert">×</button>
-					<%= flash[:error] %>
-				</div> <!-- .alert -->
+			<% flash.each do |name, msg| %>
+				<div class="row">
+					<div class="span6 offset3">
+						<div class="alert alert-<%= name %> fade in">
+							<a href="#" class="close" data-dismiss="alert">&times;</a>
+							<%= msg.html_safe %>
+						</div>
+					</div>
+				</div>
 			<% end %>
 			
 			<div class="row-fluid sortable">
@@ -70,44 +69,13 @@
 					<div class="box-content form-horizontal">
 
 						  <fieldset>
-<!-- 							  <label class="control-label" for="typeahead">Auto complete </label>
-							  <div class="controls">
-								<input type="text" class="span6 typeahead" id="typeahead"  data-provide="typeahead" data-items="4" data-source='["Alabama","Alaska","Arizona","Arkansas","California","Colorado","Connecticut","Delaware","Florida","Georgia","Hawaii","Idaho","Illinois","Indiana","Iowa","Kansas","Kentucky","Louisiana","Maine","Maryland","Massachusetts","Michigan","Minnesota","Mississippi","Missouri","Montana","Nebraska","Nevada","New Hampshire","New Jersey","New Mexico","New York","North Dakota","North Carolina","Ohio","Oklahoma","Oregon","Pennsylvania","Rhode Island","South Carolina","South Dakota","Tennessee","Texas","Utah","Vermont","Virginia","Washington","West Virginia","Wisconsin","Wyoming"]'>
-								<p class="help-block">Start typing to activate auto complete!</p>
-							  </div>
-							</div>
-							<div class="control-group">
-							  <label class="control-label" for="date01">Date input</label>
-							  <div class="controls">
-								<input type="text" class="input-xlarge datepicker" id="date01" value="02/16/12">
-							  </div>
-							</div> -->
 
-							
-
-							<div class="control-group" style="margin-top:15px;">
+						  	<div class="control-group" style="margin-top:15px;">
 							  <label class="control-label" for="fileInput">Current Image</label>
 							  <div class="controls">
 								<%= image_tag(@campaign.campaign_image_url(:standard).to_s) %>
 							  </div>
 							</div>
-
-<!-- 							<div class="control-group">
-							  <label class="control-label" for="fileInput">File input</label>
-							  <div class="controls">
-								<input class="input-file uniform_on" id="fileInput" type="file">
-							  </div>
-							</div>          
-							<div class="control-group hidden-phone">
-							  <label class="control-label" for="textarea">Textarea</label>
-							  <div class="controls">
-								<textarea class="" id="textarea2" rows="3"></textarea>
-							  </div>
-							</div> -->
-							
-
-
-
 
 							<%= form_for @campaign, :url => url_for(:controller => 'admin', :action => 'update_campaign'), :html => {:multipart => true} do |f| %>
 
@@ -134,59 +102,21 @@
 							</div>
 
 							<div class="control-group hidden-phone">
-							  <label class="control-label" for="textarea"><%= f.label :date_end, 'Campaign End Date', :class=>'pull-left' %></label>
-							  <div class="controls">
-							  		<% unless @campaign.end_date.nil? %>
-								      <span class="badge pull-left" style="margin-left:10px;"><%= @campaign.end_date %></span>
-								    <% end %>
-								    <span class="pull-left" style="margin-left:10px;">
-								      <% unless @campaign.end_date.nil? %>
-								        <% if @campaign.end_date > Time.now %>
-								          <span class="badge badge-info"><%= time_ago_in_words(@campaign.end_date) + ' left' %></span>
-								        <% else %>
-								          <span class="badge badge-important">Campaign Ended</span>
-								        <% end %>
-								      <% end %>
-								    </span>
-
-								    <div class="clear"></div>
-
-								    <span class="span1 date_time_year">
-								      <%= f.label :date_year, 'Year', :class=>'' %>
-								      <%#= f.file_field :date_year, :class=>'' %>
-								      <%= select_tag "date_year", "<option value='2012'>2012</option><option value='2013'>2013</option>".html_safe, :style => 'width:75px;' %>
-								    </span>
-
-								    <span class="span1 date_time_month">
-								      <%= f.label :date_month, 'Month', :class=>'' %>
-								      <%= select_tag :date_month, "<option value='1'>01</option><option value='2'>02</option><option value='3'>03</option><option value='4'>04</option><option value='5'>05</option><option value='6'>06</option><option value='7'>07</option><option value='8'>08</option><option value='9'>09</option><option value='10'>10</option><option value='11'>11</option><option value='12'>12</option>".html_safe, :include_blank => true, :style => 'width:55px;' %>
-								    </span>
-
-								    <span class="span1 date_time_day">
-								      <%= f.label :date_day, 'Day', :class=>'' %>
-								      <%= select_tag "date_day", "<option value='1'>01</option><option value='2'>02</option><option value='3'>03</option><option value='4'>04</option><option value='5'>05</option><option value='6'>06</option><option value='7'>07</option><option value='8'>08</option><option value='9'>09</option><option value='10'>10</option><option value='11'>11</option><option value='12'>12</option><option value='13'>13</option><option value='14'>14</option><option value='15'>15</option><option value='16'>16</option><option value='17'>17</option><option value='18'>18</option><option value='19'>19</option><option value='20'>20</option><option value='21'>21</option><option value='22'>22</option><option value='23'>23</option><option value='24'>24</option><option value='25'>25</option><option value='26'>26</option><option value='27'>27</option><option value='28'>28</option><option value='29'>29</option><option value='30'>30</option><option value='31'>31</option>".html_safe, :include_blank => true, :style => 'width:55px;' %>
-								    </span>
-
-								    <span class="span1 date_time_hour">
-								      <%= f.label :date_hour, 'Hour', :class=>'' %>
-								      <%= select_tag "date_hour", "<option value='00'>00</option><option value='01'>01</option><option value='02'>02</option><option value='03'>03</option><option value='04'>04</option><option value='05'>05</option><option value='06'>06</option><option value='07'>07</option><option value='08'>08</option><option value='09'>09</option><option value='10'>10</option><option value='11'>11</option><option value='12'>12</option><option value='13'>13</option><option value='14'>14</option><option value='15'>15</option><option value='16'>16</option><option value='17'>17</option><option value='18'>18</option><option value='19'>19</option><option value='20'>20</option><option value='21'>21</option><option value='22'>22</option><option value='23'>23</option>".html_safe, :include_blank => true, :style => 'width:55px;' %>
-								    </span>
-
-								    <span class="span1 date_time_min">
-								      <%= f.label :date_minute, 'Minutes', :class=>'' %>
-								      <%= select_tag "date_minute", "<option value='00'>00</option><option value='30'>30</option>".html_safe, :include_blank => true, :style => 'width:55px;' %>
-								    </span>
-
-								    <div id="day_year_value" class="date_times"><%= @campaign.end_date.to_formatted_s(:year) unless @campaign.end_date.nil? %></div>
-								    <div id="day_month_value" class="date_times"><%= @campaign.end_date.to_formatted_s(:month) unless @campaign.end_date.nil? %></div>
-								    <div id="day_day_value" class="date_times"><%= @campaign.end_date.to_formatted_s(:day) unless @campaign.end_date.nil? %></div>
-								    <div id="day_hour_value" class="date_times"><%= @campaign.end_date.to_formatted_s(:hour) unless @campaign.end_date.nil? %></div>
-								    <div id="day_min_value" class="date_times"><%= @campaign.end_date.to_formatted_s(:min) unless @campaign.end_date.nil? %></div>
-
-								    <div id="brand_value" class="date_times"><%= @campaign.brand.name unless @campaign.brand.nil? || @campaign.brand.name.nil? %></div>
-								    <div id="category_value" class="date_times"><% @campaign.categories.each do |c| %><%= c.name unless @campaign.categories.nil? || @campaign.categories.nil? %><% end %></div>
-								
-							  </div> <!-- .controls -->
+								<%= f.label :date_end, 'Campaign End Date', class: 'control-label' %>
+								<div class="controls">
+									<div class="input-append date dtpCampaignEnd">
+										<%= text_field :date_end, nil, value: @campaign.end_date.strftime("%Y-%m-%d %H:%M") %>
+										<span class="add-on"><i class="icon-remove"></i></span>
+										<span class="add-on"><i class="icon-th"></i></span>
+									</div>
+									<div class="pull-right" style="margin-right:45%;">
+										<% if @campaign.end_date > Time.now %>
+											<span class="badge badge-info"><%= time_ago_in_words(@campaign.end_date) + ' left' %></span>
+										<% else %>
+											<span class="badge badge-important">Campaign Ended</span>
+										<% end %>
+									</div>
+								</div>
 							</div>
 
 							<div class="control-group hidden-phone">
@@ -233,11 +163,68 @@
 							</div>
 
 							<div class="control-group hidden-phone">
-							  <label class="control-label" for="textarea"><%= f.label :redeem_details, :class=>'' %></label>
-							  <div class="controls">
-								<%= f.text_area :redeem_details, :class=>'span6', :rows => '7' %>
-							  </div>
+								<%= f.label :redeem_name, "Redeem Contact Name", class: "control-label" %>
+								<div class="controls">
+									<%= f.text_field :redeem_name %>
+								</div>
 							</div>
+
+							<div class="control-group hidden-phone">
+								<%= f.label :redeem_email, "Redeem Contact Email", class: "control-label" %>
+								<div class="controls">
+									<%= f.email_field :redeem_email %>
+								</div>
+							</div>
+
+							<div class="control-group hidden-phone">
+								<%= f.label :redeem_phone, "Redeem Contact Phone (OPTIONAL)", class: "control-label" %>
+								<div class="controls">
+									<%= f.telephone_field :redeem_phone %>
+								</div>
+							</div>
+
+							<div class="control-group hidden-phone">
+								<%= f.label :redeem_value, "Redeem Monetary Value of Primary Reward", class: "control-label" %>
+								<div class="controls">
+									<%= f.text_field :redeem_value %>
+								</div>
+							</div>
+
+							<div class="control-group hidden-phone">
+								<%= f.label :redeem_expires, "Redeem Expiration Date", class: "control-label" %>
+								<div class="controls">
+									<%= f.text_field :redeem_expires %>
+								</div>
+							</div>
+
+							<div class="control-group hidden-phone">
+								<%= f.label :redeem_event_date, "Redeem Event Date (OPTIONAL)", class: "control-label" %>
+								<div class="controls">
+									<%= f.text_field :redeem_event_date %>
+								</div>
+							</div>
+
+							<div class="control-group hidden-phone">
+    							<%= f.label :redeem_is_raffle, "Is the Primary Reward a Raffle?", class: "control-label" %>
+    							<div class="controls">
+							    	<label for="campaign_redeem_is_raffle_true">Yes, it is a Raffle<%= f.radio_button :redeem_is_raffle, "true" %></label>
+							    	<label for="campaign_redeem_is_raffle_false">No, it is Not a Raffle<%= f.radio_button :redeem_is_raffle, "false" %></label>
+							    </div>
+							</div>
+
+							<div class="control-group hidden-phone">
+								<%= f.label :redeem_special_circ, "Redeem Special Circumstances (OPTIONAL)", class: "control-label" %>
+								<div class="controls">
+									<%= f.text_area :redeem_special_circ, rows: 4, maxlength: 140, placeholder: "Max  140 Chars" %>
+								</div>
+							</div>
+
+							<div class="control-group hidden-phone">
+								<label class="control-label">Current Brand</label>
+								<div class="controls">
+									<div id="brand_value" class="date_times" style="margin-top:0.5%;"><%= @campaign.brand.name unless @campaign.brand.nil? || @campaign.brand.name.nil? %></div>
+						    	</div>
+						    </div>
 
 							<div class="control-group hidden-phone choose_brand_name">
 							  <label class="control-label" for="textarea">Brand</label>
@@ -245,6 +232,13 @@
 								<%= select_tag :brand, options_from_collection_for_select(@brand_all, "id", "name"), :prompt => "- Select Brand -" %>
 							  </div>
 							</div>
+
+							<div class="control-group hidden-phone">
+								<label class="control-label">Current Category</label>
+								<div class="controls">
+						    		<div style="margin-top:0.5%;" id="category_value" class="date_times"><% @campaign.categories.each do |c| %><%= c.name unless @campaign.categories.nil? || @campaign.categories.nil? %><% end %></div>
+						    	</div>
+						    </div>
 
 							<div class="control-group hidden-phone choose_category_name">
 							  <label class="control-label" for="textarea">Category</label>
@@ -649,6 +643,7 @@
 	<script src="/js/admin/jquery.knob.js"></script>
 	<script src="/js/admin/jquery.sparkline.min.js"></script>
 	<script src="/js/admin/custom.js"></script>
+	<script src="/js/admin/bootstrap-datetimepicker.min.js"></script>
 	<script type="text/javascript">
 		var year = $('#day_year_value').html();
 		var month = $('#day_month_value').html();
@@ -665,5 +660,16 @@
 		$('.date_time_min').find('select').find('option:contains('+min+')').attr('selected', 'selected');
 		$('.choose_brand_name').find('select').find('option:contains('+brand+')').attr('selected', 'selected');
 		$('.choose_category_name').find('select').find('option:contains('+category+')').attr('selected', 'selected');
+		$(document).ready(function() {
+			$(".dtpCampaignEnd").datetimepicker({
+				format: 'yyyy-mm-dd hh:ii',
+				startDate: '<%= Time.now.year %>-01-01 10:00',
+				endDate: '<%= (Time.now + 15.years).year %>-12-31 23:00',
+				autoclose: true,
+				startView: 4,
+				todayBtn: true,
+				showMeridian: true
+			});
+		});
 	</script>
 	<!-- end: JavaScript-->

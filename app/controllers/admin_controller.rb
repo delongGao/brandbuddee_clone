@@ -102,180 +102,216 @@ class AdminController < ApplicationController
 		end
 	end
 
+	def campaign_new_index
+		if current_user
+			if current_user.account_type == 'super admin' || current_user.account_type == 'admin' || Rails.env.development?
+				@campaign = Campaign.new
+				@link = Campaign.assign_link()
+				@location_all = Location.all.order_by([:name, :asc])
+				@brand_all = Brand.all.order_by([:name, :asc])
+				@category_all = Category.all.order_by([:name, :asc])
+			else
+				redirect_to root_url
+			end
+		else
+			redirect_to root_url
+		end
+	end
+
 	def campaign_new
 		if current_user
 			if current_user.account_type == 'super admin' || current_user.account_type == 'admin' || Rails.env.development?
 				if params[:brands].nil? || params[:brands].empty?
 					flash[:error] = "ERROR: You forgot to select a brand!!!"
-					redirect_to "/admin/campaigns"
+					redirect_to "/admin/campain/new-index"
 			    elsif params[:categories].nil? || params[:categories].empty?
 			    	flash[:error] = "ERROR: You forgot to select a category!!!"
-			    	redirect_to "/admin/campaigns"
+			    	redirect_to "/admin/campain/new-index"
 			    else
-					@brand = Brand.find(params[:brands])
-			    	@campaign = @brand.campaigns.create!(params[:campaign])
+			    	begin
+						@brand = Brand.find(params[:brands])
+				    	@campaign = @brand.campaigns.create!(params[:campaign])
 
-				    unless params[:date_year].blank? || params[:date_month].blank? || params[:date_day].blank? || params[:date_hour].blank? || params[:date_minute].blank?
-				      date_time = DateTime.new(params[:date_year].to_i, params[:date_month].to_i, params[:date_day].to_i, params[:date_hour].to_i, params[:date_minute].to_i, 0, "-0700")
-				      @campaign.end_date = date_time
-				    end
+				    	unless params[:date_end].blank?
+				    		date_time_str = params[:date_end].to_s[2..-3]
+				    		@campaign.end_date = DateTime.parse(date_time_str).utc
+				    	else
+				    		@campaign.end_date = DateTime.now + 30.days
+				    	end
 
-				    if params[:campaign][:tweet].blank?
-				      @campaign.tweet = "Check out #{@campaign.title} via @brandbuddee"
-				    end
-				    category = Category.find(params[:categories])
-				    @campaign.category_ids << params[:categories]
-				    @campaign.location = params[:location]
-
-				    if !params[:task_blog_post].nil? && params[:task_blog_post]["0"] == "true"
-				    	if !params[:task_blog_post]["1"].empty? && !params[:task_blog_post]["2"].empty? && !params[:task_blog_post]["3"].empty?
-				    		@campaign.task_blog_post[:use_it] = true
-				    		@campaign.task_blog_post[:title] = params[:task_blog_post]["1"]
-				    		@campaign.task_blog_post[:description] = params[:task_blog_post]["2"]
-				    		@campaign.task_blog_post[:points] = params[:task_blog_post]["3"].to_i
-				    	else
-				    		flash[:error] = "WARNING: Unable to add Task: Write A Blog Post. Make sure you fill out ALL fields."
-				    	end
-				    end # Blog Post Task
-				    if !params[:task_yelp].nil? && params[:task_yelp]["0"] == "true"
-				    	if !params[:task_yelp]["1"].empty? && !params[:task_yelp]["2"].empty? && !params[:task_yelp]["3"].empty?
-				    		@campaign.task_yelp[:use_it] = true
-				    		@campaign.task_yelp[:title] = params[:task_yelp]["1"]
-				    		@campaign.task_yelp[:description] = params[:task_yelp]["2"]
-				    		@campaign.task_yelp[:points] = params[:task_yelp]["3"].to_i
-				    	else
-				    		flash[:error] = "WARNING: Unable to add Task: Write A Yelp Review. Make sure you fill out ALL fields."
-				    	end
-				    end # Yelp Review Task
-				    if !params[:task_facebook].nil? && params[:task_facebook]["0"] == "true"
-				    	if !params[:task_facebook]["1"].empty? && !params[:task_facebook]["2"].empty? && !params[:task_facebook]["3"].empty? && !params[:task_facebook]["4"].empty?
-				    		@campaign.task_facebook[:use_it] = true
-				    		@campaign.task_facebook[:title] = params[:task_facebook]["1"]
-				    		@campaign.task_facebook[:description] = params[:task_facebook]["2"]
-				    		@campaign.task_facebook[:points] = params[:task_facebook]["3"].to_i
-				    		@campaign.task_facebook[:link] = params[:task_facebook]["4"]
-				    	else
-				    		flash[:error] = "WARNING: Unable to add Task: Like On Facebook. Make sure you fill out ALL fields."
-				    	end
-				    end # Facebook Like Task
-				    if !params[:task_twitter].nil? && params[:task_twitter]["0"] == "true"
-				    	if !params[:task_twitter]["1"].empty? && !params[:task_twitter]["2"].empty? && !params[:task_twitter]["3"].empty? && !params[:task_twitter]["4"].empty?
-				    		@campaign.task_twitter[:use_it] = true
-				    		@campaign.task_twitter[:title] = params[:task_twitter]["1"]
-				    		@campaign.task_twitter[:description] = params[:task_twitter]["2"]
-				    		@campaign.task_twitter[:points] = params[:task_twitter]["3"].to_i
-				    		@campaign.task_twitter[:link] = params[:task_twitter]["4"]
-				    	else
-				    		flash[:error] = "WARNING: Unable to add Task: Follow On Twitter. Make sure you fill out ALL fields."
-				    	end
-				    end # Twitter Follow Task
-				    if !params[:task_custom_1].nil? && params[:task_custom_1]["0"] == "true"
-				    	if !params[:task_custom_1]["1"].empty? && !params[:task_custom_1]["2"].empty? && !params[:task_custom_1]["3"].empty? && !params[:task_custom_1]["4"].empty?
-				    		@campaign.task_custom_1[:use_it] = true
-				    		@campaign.task_custom_1[:title] = params[:task_custom_1]["1"]
-				    		@campaign.task_custom_1[:description] = params[:task_custom_1]["2"]
-				    		@campaign.task_custom_1[:points] = params[:task_custom_1]["3"]
-				    		@campaign.task_custom_1[:link] = params[:task_custom_1]["4"]
-				    	else
-				    		flash[:error] = "WARNING: Unable to add Task: Custom #1. Make sure you fill out ALL fields."
-				    	end
-				    end # Custom Task #1
-				    if !params[:task_custom_2].nil? && params[:task_custom_2]["0"] == "true"
-				    	if !params[:task_custom_2]["1"].empty? && !params[:task_custom_2]["2"].empty? && !params[:task_custom_2]["3"].empty? && !params[:task_custom_2]["4"].empty?
-				    		@campaign.task_custom_2[:use_it] = true
-				    		@campaign.task_custom_2[:title] = params[:task_custom_2]["1"]
-				    		@campaign.task_custom_2[:description] = params[:task_custom_2]["2"]
-				    		@campaign.task_custom_2[:points] = params[:task_custom_2]["3"]
-				    		@campaign.task_custom_2[:link] = params[:task_custom_2]["4"]
-				    	else
-				    		flash[:error] = "WARNING: Unable to add Task: Custom #2. Make sure you fill out ALL fields."
-				    	end
-				    end # Custom Task #2
-				    if !params[:task_custom_3].nil? && params[:task_custom_3]["0"] == "true"
-				    	if !params[:task_custom_3]["1"].empty? && !params[:task_custom_3]["2"].empty? && !params[:task_custom_3]["3"].empty? && !params[:task_custom_3]["4"].empty?
-				    		@campaign.task_custom_3[:use_it] = true
-				    		@campaign.task_custom_3[:title] = params[:task_custom_3]["1"]
-				    		@campaign.task_custom_3[:description] = params[:task_custom_3]["2"]
-				    		@campaign.task_custom_3[:points] = params[:task_custom_3]["3"]
-				    		@campaign.task_custom_3[:link] = params[:task_custom_3]["4"]
-				    	else
-				    		flash[:error] = "WARNING: Unable to add Task: Custom #3. Make sure you fill out ALL fields."
-				    	end
-				    end # Custom Task #3
-				    if !params[:task_custom_4].nil? && params[:task_custom_4]["0"] == "true"
-				    	if !params[:task_custom_4]["1"].empty? && !params[:task_custom_4]["2"].empty? && !params[:task_custom_4]["3"].empty? && !params[:task_custom_4]["4"].empty?
-				    		@campaign.task_custom_4[:use_it] = true
-				    		@campaign.task_custom_4[:title] = params[:task_custom_4]["1"]
-				    		@campaign.task_custom_4[:description] = params[:task_custom_4]["2"]
-				    		@campaign.task_custom_4[:points] = params[:task_custom_4]["3"]
-				    		@campaign.task_custom_4[:link] = params[:task_custom_4]["4"]
-				    	else
-				    		flash[:error] = "WARNING: Unable to add Task: Custom #4. Make sure you fill out ALL fields."
-				    	end
-				    end # Custom Task #4
-				    if !params[:task_custom_5].nil? && params[:task_custom_5]["0"] == "true"
-				    	if !params[:task_custom_5]["1"].empty? && !params[:task_custom_5]["2"].empty? && !params[:task_custom_5]["3"].empty? && !params[:task_custom_5]["4"].empty?
-				    		@campaign.task_custom_5[:use_it] = true
-				    		@campaign.task_custom_5[:title] = params[:task_custom_5]["1"]
-				    		@campaign.task_custom_5[:description] = params[:task_custom_5]["2"]
-				    		@campaign.task_custom_5[:points] = params[:task_custom_5]["3"]
-				    		@campaign.task_custom_5[:link] = params[:task_custom_5]["4"]
-				    	else
-				    		flash[:error] = "WARNING: Unable to add Task: Custom #5. Make sure you fill out ALL fields."
-				    	end
-				    end # Custom Task #5
-				    if !params[:engagement_tasks].nil? && !params[:engagement_tasks]["Left"].blank?
-				    	case params[:engagement_tasks]["Left"]
-				    	when "Facebook"
-				    		@campaign.engagement_tasks[:left] = params[:engagement_tasks]["Left"] unless @campaign.task_facebook[:use_it].nil? || @campaign.task_facebook[:use_it] != true
-				    	when "Twitter"
-				    		@campaign.engagement_tasks[:left] = params[:engagement_tasks]["Left"] unless @campaign.task_twitter[:use_it].nil? || @campaign.task_twitter[:use_it] != true
-				    	when "Custom1"
-				    		@campaign.engagement_tasks[:left] = params[:engagement_tasks]["Left"] unless @campaign.task_custom_1[:use_it].nil? || @campaign.task_custom_1[:use_it] != true
-				    	when "Custom2"
-				    		@campaign.engagement_tasks[:left] = params[:engagement_tasks]["Left"] unless @campaign.task_custom_2[:use_it].nil? || @campaign.task_custom_2[:use_it] != true
-				    	when "Custom3"
-				    		@campaign.engagement_tasks[:left] = params[:engagement_tasks]["Left"] unless @campaign.task_custom_3[:use_it].nil? || @campaign.task_custom_3[:use_it] != true
-				    	when "Custom4"
-				    		@campaign.engagement_tasks[:left] = params[:engagement_tasks]["Left"] unless @campaign.task_custom_4[:use_it].nil? || @campaign.task_custom_4[:use_it] != true
-				    	when "Custom5"
-				    		@campaign.engagement_tasks[:left] = params[:engagement_tasks]["Left"] unless @campaign.task_custom_5[:use_it].nil? || @campaign.task_custom_5[:use_it] != true
-				    	else
-				    		flash[:error] = "WARNING: Unable to assign Tasks to Engagement Bar."
-				    	end
-				    end # Engagement Bar Left Task
-				    if !params[:engagement_tasks].nil? && !params[:engagement_tasks]["Right"].blank?
-				    	case params[:engagement_tasks]["Right"]
-				    	when "Facebook"
-				    		@campaign.engagement_tasks[:right] = params[:engagement_tasks]["Right"] unless @campaign.task_facebook[:use_it].nil? || @campaign.task_facebook[:use_it] != true
-				    	when "Twitter"
-				    		@campaign.engagement_tasks[:right] = params[:engagement_tasks]["Right"] unless @campaign.task_twitter[:use_it].nil? || @campaign.task_twitter[:use_it] != true
-				    	when "Custom1"
-				    		@campaign.engagement_tasks[:right] = params[:engagement_tasks]["Right"] unless @campaign.task_custom_1[:use_it].nil? || @campaign.task_custom_1[:use_it] != true
-				    	when "Custom2"
-				    		@campaign.engagement_tasks[:right] = params[:engagement_tasks]["Right"] unless @campaign.task_custom_2[:use_it].nil? || @campaign.task_custom_2[:use_it] != true
-				    	when "Custom3"
-				    		@campaign.engagement_tasks[:right] = params[:engagement_tasks]["Right"] unless @campaign.task_custom_3[:use_it].nil? || @campaign.task_custom_3[:use_it] != true
-				    	when "Custom4"
-				    		@campaign.engagement_tasks[:right] = params[:engagement_tasks]["Right"] unless @campaign.task_custom_4[:use_it].nil? || @campaign.task_custom_4[:use_it] != true
-				    	when "Custom5"
-				    		@campaign.engagement_tasks[:right] = params[:engagement_tasks]["Right"] unless @campaign.task_custom_5[:use_it].nil? || @campaign.task_custom_5[:use_it] != true
-				    	else
-				    		flash[:error] = "WARNING: Unable to assign Tasks to Engagement Bar."
-				    	end
-				    end # Engagement Bar Right Task
-
-				    if !params[:campaign][:share_link].nil? && params[:campaign][:share_link].match(/^(https?|ftp):\/\//)
-					    if @campaign.save
-					      flash[:notice] = "Campaign successfully created"
-					      redirect_to(:action => 'campaigns')
-					    else
-					      flash[:notice] = "Uh oh"
+					    if params[:campaign][:tweet].blank?
+					      @campaign.tweet = "Check out #{@campaign.title} via @brandbuddee"
 					    end
-					else
-						@campaign.destroy
-						flash[:error] = "ERROR: Campaign Share Link must start with http:// https:// or ftp://"
-						redirect_to "/admin/campaigns"
+					    category = Category.find(params[:categories])
+					    @campaign.category_ids << params[:categories]
+					    @campaign.location = params[:location]
+
+					    if !params[:task_blog_post].nil? && params[:task_blog_post]["0"] == "true"
+					    	if !params[:task_blog_post]["1"].empty? && !params[:task_blog_post]["2"].empty? && !params[:task_blog_post]["3"].empty?
+					    		@campaign.task_blog_post[:use_it] = true
+					    		@campaign.task_blog_post[:title] = params[:task_blog_post]["1"]
+					    		@campaign.task_blog_post[:description] = params[:task_blog_post]["2"]
+					    		@campaign.task_blog_post[:points] = params[:task_blog_post]["3"].to_i
+					    	else
+					    		flash[:error] = "WARNING: Unable to add Task: Write A Blog Post. Make sure you fill out ALL fields."
+					    	end
+					    end # Blog Post Task
+					    if !params[:task_yelp].nil? && params[:task_yelp]["0"] == "true"
+					    	if !params[:task_yelp]["1"].empty? && !params[:task_yelp]["2"].empty? && !params[:task_yelp]["3"].empty?
+					    		@campaign.task_yelp[:use_it] = true
+					    		@campaign.task_yelp[:title] = params[:task_yelp]["1"]
+					    		@campaign.task_yelp[:description] = params[:task_yelp]["2"]
+					    		@campaign.task_yelp[:points] = params[:task_yelp]["3"].to_i
+					    	else
+					    		flash[:error] = "WARNING: Unable to add Task: Write A Yelp Review. Make sure you fill out ALL fields."
+					    	end
+					    end # Yelp Review Task
+					    if !params[:task_facebook].nil? && params[:task_facebook]["0"] == "true"
+					    	if !params[:task_facebook]["1"].empty? && !params[:task_facebook]["2"].empty? && !params[:task_facebook]["3"].empty? && !params[:task_facebook]["4"].empty?
+					    		@campaign.task_facebook[:use_it] = true
+					    		@campaign.task_facebook[:title] = params[:task_facebook]["1"]
+					    		@campaign.task_facebook[:description] = params[:task_facebook]["2"]
+					    		@campaign.task_facebook[:points] = params[:task_facebook]["3"].to_i
+					    		@campaign.task_facebook[:link] = params[:task_facebook]["4"]
+					    	else
+					    		flash[:error] = "WARNING: Unable to add Task: Like On Facebook. Make sure you fill out ALL fields."
+					    	end
+					    end # Facebook Like Task
+					    if !params[:task_twitter].nil? && params[:task_twitter]["0"] == "true"
+					    	if !params[:task_twitter]["1"].empty? && !params[:task_twitter]["2"].empty? && !params[:task_twitter]["3"].empty? && !params[:task_twitter]["4"].empty?
+					    		@campaign.task_twitter[:use_it] = true
+					    		@campaign.task_twitter[:title] = params[:task_twitter]["1"]
+					    		@campaign.task_twitter[:description] = params[:task_twitter]["2"]
+					    		@campaign.task_twitter[:points] = params[:task_twitter]["3"].to_i
+					    		@campaign.task_twitter[:link] = params[:task_twitter]["4"]
+					    	else
+					    		flash[:error] = "WARNING: Unable to add Task: Follow On Twitter. Make sure you fill out ALL fields."
+					    	end
+					    end # Twitter Follow Task
+					    if !params[:task_custom_1].nil? && params[:task_custom_1]["0"] == "true"
+					    	if !params[:task_custom_1]["1"].empty? && !params[:task_custom_1]["2"].empty? && !params[:task_custom_1]["3"].empty? && !params[:task_custom_1]["4"].empty?
+					    		@campaign.task_custom_1[:use_it] = true
+					    		@campaign.task_custom_1[:title] = params[:task_custom_1]["1"]
+					    		@campaign.task_custom_1[:description] = params[:task_custom_1]["2"]
+					    		@campaign.task_custom_1[:points] = params[:task_custom_1]["3"]
+					    		@campaign.task_custom_1[:link] = params[:task_custom_1]["4"]
+					    	else
+					    		flash[:error] = "WARNING: Unable to add Task: Custom #1. Make sure you fill out ALL fields."
+					    	end
+					    end # Custom Task #1
+					    if !params[:task_custom_2].nil? && params[:task_custom_2]["0"] == "true"
+					    	if !params[:task_custom_2]["1"].empty? && !params[:task_custom_2]["2"].empty? && !params[:task_custom_2]["3"].empty? && !params[:task_custom_2]["4"].empty?
+					    		@campaign.task_custom_2[:use_it] = true
+					    		@campaign.task_custom_2[:title] = params[:task_custom_2]["1"]
+					    		@campaign.task_custom_2[:description] = params[:task_custom_2]["2"]
+					    		@campaign.task_custom_2[:points] = params[:task_custom_2]["3"]
+					    		@campaign.task_custom_2[:link] = params[:task_custom_2]["4"]
+					    	else
+					    		flash[:error] = "WARNING: Unable to add Task: Custom #2. Make sure you fill out ALL fields."
+					    	end
+					    end # Custom Task #2
+					    if !params[:task_custom_3].nil? && params[:task_custom_3]["0"] == "true"
+					    	if !params[:task_custom_3]["1"].empty? && !params[:task_custom_3]["2"].empty? && !params[:task_custom_3]["3"].empty? && !params[:task_custom_3]["4"].empty?
+					    		@campaign.task_custom_3[:use_it] = true
+					    		@campaign.task_custom_3[:title] = params[:task_custom_3]["1"]
+					    		@campaign.task_custom_3[:description] = params[:task_custom_3]["2"]
+					    		@campaign.task_custom_3[:points] = params[:task_custom_3]["3"]
+					    		@campaign.task_custom_3[:link] = params[:task_custom_3]["4"]
+					    	else
+					    		flash[:error] = "WARNING: Unable to add Task: Custom #3. Make sure you fill out ALL fields."
+					    	end
+					    end # Custom Task #3
+					    if !params[:task_custom_4].nil? && params[:task_custom_4]["0"] == "true"
+					    	if !params[:task_custom_4]["1"].empty? && !params[:task_custom_4]["2"].empty? && !params[:task_custom_4]["3"].empty? && !params[:task_custom_4]["4"].empty?
+					    		@campaign.task_custom_4[:use_it] = true
+					    		@campaign.task_custom_4[:title] = params[:task_custom_4]["1"]
+					    		@campaign.task_custom_4[:description] = params[:task_custom_4]["2"]
+					    		@campaign.task_custom_4[:points] = params[:task_custom_4]["3"]
+					    		@campaign.task_custom_4[:link] = params[:task_custom_4]["4"]
+					    	else
+					    		flash[:error] = "WARNING: Unable to add Task: Custom #4. Make sure you fill out ALL fields."
+					    	end
+					    end # Custom Task #4
+					    if !params[:task_custom_5].nil? && params[:task_custom_5]["0"] == "true"
+					    	if !params[:task_custom_5]["1"].empty? && !params[:task_custom_5]["2"].empty? && !params[:task_custom_5]["3"].empty? && !params[:task_custom_5]["4"].empty?
+					    		@campaign.task_custom_5[:use_it] = true
+					    		@campaign.task_custom_5[:title] = params[:task_custom_5]["1"]
+					    		@campaign.task_custom_5[:description] = params[:task_custom_5]["2"]
+					    		@campaign.task_custom_5[:points] = params[:task_custom_5]["3"]
+					    		@campaign.task_custom_5[:link] = params[:task_custom_5]["4"]
+					    	else
+					    		flash[:error] = "WARNING: Unable to add Task: Custom #5. Make sure you fill out ALL fields."
+					    	end
+					    end # Custom Task #5
+					    if !params[:engagement_tasks].nil? && !params[:engagement_tasks]["Left"].blank?
+					    	case params[:engagement_tasks]["Left"]
+					    	when "Facebook"
+					    		@campaign.engagement_tasks[:left] = params[:engagement_tasks]["Left"] unless @campaign.task_facebook[:use_it].nil? || @campaign.task_facebook[:use_it] != true
+					    	when "Twitter"
+					    		@campaign.engagement_tasks[:left] = params[:engagement_tasks]["Left"] unless @campaign.task_twitter[:use_it].nil? || @campaign.task_twitter[:use_it] != true
+					    	when "Custom1"
+					    		@campaign.engagement_tasks[:left] = params[:engagement_tasks]["Left"] unless @campaign.task_custom_1[:use_it].nil? || @campaign.task_custom_1[:use_it] != true
+					    	when "Custom2"
+					    		@campaign.engagement_tasks[:left] = params[:engagement_tasks]["Left"] unless @campaign.task_custom_2[:use_it].nil? || @campaign.task_custom_2[:use_it] != true
+					    	when "Custom3"
+					    		@campaign.engagement_tasks[:left] = params[:engagement_tasks]["Left"] unless @campaign.task_custom_3[:use_it].nil? || @campaign.task_custom_3[:use_it] != true
+					    	when "Custom4"
+					    		@campaign.engagement_tasks[:left] = params[:engagement_tasks]["Left"] unless @campaign.task_custom_4[:use_it].nil? || @campaign.task_custom_4[:use_it] != true
+					    	when "Custom5"
+					    		@campaign.engagement_tasks[:left] = params[:engagement_tasks]["Left"] unless @campaign.task_custom_5[:use_it].nil? || @campaign.task_custom_5[:use_it] != true
+					    	else
+					    		flash[:error] = "WARNING: Unable to assign Tasks to Engagement Bar."
+					    	end
+					    end # Engagement Bar Left Task
+					    if !params[:engagement_tasks].nil? && !params[:engagement_tasks]["Right"].blank?
+					    	case params[:engagement_tasks]["Right"]
+					    	when "Facebook"
+					    		@campaign.engagement_tasks[:right] = params[:engagement_tasks]["Right"] unless @campaign.task_facebook[:use_it].nil? || @campaign.task_facebook[:use_it] != true
+					    	when "Twitter"
+					    		@campaign.engagement_tasks[:right] = params[:engagement_tasks]["Right"] unless @campaign.task_twitter[:use_it].nil? || @campaign.task_twitter[:use_it] != true
+					    	when "Custom1"
+					    		@campaign.engagement_tasks[:right] = params[:engagement_tasks]["Right"] unless @campaign.task_custom_1[:use_it].nil? || @campaign.task_custom_1[:use_it] != true
+					    	when "Custom2"
+					    		@campaign.engagement_tasks[:right] = params[:engagement_tasks]["Right"] unless @campaign.task_custom_2[:use_it].nil? || @campaign.task_custom_2[:use_it] != true
+					    	when "Custom3"
+					    		@campaign.engagement_tasks[:right] = params[:engagement_tasks]["Right"] unless @campaign.task_custom_3[:use_it].nil? || @campaign.task_custom_3[:use_it] != true
+					    	when "Custom4"
+					    		@campaign.engagement_tasks[:right] = params[:engagement_tasks]["Right"] unless @campaign.task_custom_4[:use_it].nil? || @campaign.task_custom_4[:use_it] != true
+					    	when "Custom5"
+					    		@campaign.engagement_tasks[:right] = params[:engagement_tasks]["Right"] unless @campaign.task_custom_5[:use_it].nil? || @campaign.task_custom_5[:use_it] != true
+					    	else
+					    		flash[:error] = "WARNING: Unable to assign Tasks to Engagement Bar."
+					    	end
+					    end # Engagement Bar Right Task
+
+					    if !params[:campaign][:share_link].nil? && params[:campaign][:share_link].match(/^(https?|ftp):\/\//)
+						    if @campaign.save
+						      flash[:notice] = "Campaign successfully created"
+						      redirect_to(:action => 'campaigns')
+						    else
+						      flash[:notice] = "Uh oh"
+						      render "campaign_new_index"
+						    end
+						else
+							@campaign.destroy
+							flash[:error] = "ERROR: Campaign Share Link must start with http:// https:// or ftp://"
+							redirect_to "/admin/campain/new-index"
+						end
+					rescue Mongoid::Errors::Validations
+						if params[:campaign][:redeem_name].blank? || params[:campaign][:redeem_name].length > 60
+							flash[:error] = "Redeem Contact Name is Required and cannot be longer than 60 characters"
+						elsif params[:campaign][:redeem_email].blank? || params[:campaign][:redeem_email].length < 6 || params[:campaign][:redeem_email].length > 100 || !params[:campaign][:redeem_email].match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i)
+							flash[:error] = "Redeem Contact Email is Required, must be between 6-100 characters, and must be in a valid format"
+						elsif params[:campaign][:redeem_value].blank? || !params[:campaign][:redeem_value].match(/^\$\d+\.?\d{2}?+$/)
+							flash[:error] = "Redeem Value of Primary Reward is Required and must be in the format $1234.67"
+						elsif params[:campaign][:redeem_expires].blank?
+							flash[:error] = "Redeem Expiration Date is Required"
+						elsif !params[:campaign][:redeem_special_circ].blank? && params[:campaign][:redeem_special_circ].length > 140
+							flash[:error] = "Redeem Special Circumstances is OPTIONAL, but if used, cannot be longer than 140 characters."
+						else
+							flash[:error] = "One or more fields that are required were left blank. Please make sure you fill out all fields and try again."
+						end
+						redirect_to "/admin/campain/new-index"
 					end
 				end
 			else
@@ -635,10 +671,12 @@ class AdminController < ApplicationController
 					@campaign.categories << category
 				end
 
-				unless params[:date_year].blank? || params[:date_month].blank? || params[:date_day].blank? || params[:date_hour].blank? || params[:date_minute].blank?
-					date_time = DateTime.new(params[:date_year].to_i, params[:date_month].to_i, params[:date_day].to_i, params[:date_hour].to_i, params[:date_minute].to_i, 0, "-0700")
-					@campaign.end_date = date_time
-				end
+				unless params[:date_end].blank?
+		    		date_time_str = params[:date_end].to_s[2..-3]
+		    		@campaign.end_date = DateTime.parse(date_time_str).utc
+		    	else
+		    		@campaign.end_date = DateTime.now + 30.days
+		    	end
 				
 				unless params[:campaign][:location].blank?
 					@location = Location.find(params[:campaign][:location])
@@ -853,8 +891,20 @@ class AdminController < ApplicationController
 				        #redirect_to(:action => 'edit_campaign')
 				        redirect_to "#{root_url}admin/campaign/edit?_id=#{params[:campaign][:id]}"
 				    else
-				      flash[:notice] = "Uh oh... something went wrong. Please try again."
-				      redirect_to(:action => 'edit_campaign')
+				      	if params[:campaign][:redeem_name].blank? || params[:campaign][:redeem_name].length > 60
+							flash[:error] = "Redeem Contact Name is Required and cannot be longer than 60 characters"
+						elsif params[:campaign][:redeem_email].blank? || params[:campaign][:redeem_email].length < 6 || params[:campaign][:redeem_email].length > 100 || !params[:campaign][:redeem_email].match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i)
+							flash[:error] = "Redeem Contact Email is Required, must be between 6-100 characters, and must be in a valid format"
+						elsif params[:campaign][:redeem_value].blank? || !params[:campaign][:redeem_value].match(/^\$\d+\.?\d{2}?+$/)
+							flash[:error] = "Redeem Value of Primary Reward is Required and must be in the format $1234.67"
+						elsif params[:campaign][:redeem_expires].blank?
+							flash[:error] = "Redeem Expiration Date is Required"
+						elsif !params[:campaign][:redeem_special_circ].blank? && params[:campaign][:redeem_special_circ].length > 140
+							flash[:error] = "Redeem Special Circumstances is OPTIONAL, but if used, cannot be longer than 140 characters."
+						else
+							flash[:error] = "One or more fields that are required were left blank. Please make sure you fill out all fields and try again."
+						end
+				      	redirect_to "/admin/campaign/edit?_id=#{params[:campaign][:id]}"
 				    end
 				else
 					flash[:error] = "The Campaign Share Link must start with http:// https:// or ftp://"

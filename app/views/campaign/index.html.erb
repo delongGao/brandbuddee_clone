@@ -84,7 +84,12 @@
                     
 
                         <% if current_user.campaigns.where(:_id => @campaign.id).first %>
-                            <div style="margin-top:2%; margin-bottom:-2%;"><%= image_tag "/assets/learn-more-icon2.png", size: "100x100", alt: "seattle-rewards", title: "Share the story to earn pts", style: "padding-right:5%;", class: "img-circle" %> <span style="font-size: 24px; font-weight: bold; border: 1px solid #666; padding-left: 1%; padding-right: 1%; padding-bottom: 0.75%; border-radius: 8px;background:#fff url(/assets/campaign_tasks_background.png);margin-left:1.5%;" class="campaign_index_descriptions">Share the story to earn points</span></div>
+                            <div style="margin-top:2%; margin-bottom:-2%;"><%= image_tag "/assets/learn-more-icon2.png", size: "100x100", alt: "seattle-rewards", title: "Share the story to earn pts", style: "padding-right:5%;", class: "img-circle" %> <span style="font-size: 24px; font-weight: bold; border: 1px solid #666; padding-left: 1%; padding-right: 1%; padding-bottom: 0.75%; border-radius: 8px;background:#fff url(/assets/campaign_tasks_background.png);margin-left:1.5%;" class="campaign_index_descriptions">Share this story to earn points</span></div>
+                            <% if @campaign.detail.length > 400 %>
+                                <div style="margin-top:5%;" data-placement="right" data-content="<%= @campaign.detail %>" data-toggle="popover" id="campaign_detail_tooltip"><%= @campaign.detail.truncate(400, omission: "...") %></div>
+                            <% else %>
+                                <div style="margin-top:5%;"><%= @campaign.detail %></div>
+                            <% end %>
                             <div id="fb-root"></div>
 
                                 <div id="campaign-share">
@@ -452,6 +457,10 @@
                     <% end %>
                     <blockquote class="campaign_reward_box"><h3>What do I get? (<%= pluralize(@campaign.points_required, 'pt', 'pts') %>)</h3><p><%= @campaign.reward unless @campaign.reward.nil? %></p><% unless @campaign.easy_prize.nil? || @campaign.easy_prize.empty? %><h3>Or get this just for sharing! (3 pts)</h3><p><%= @campaign.easy_prize %></p><% end %></blockquote><br>
 
+                    <div class="redeem_details">
+                        <a href="#redeemDetailsModal" role="button" class="btn btn-large btn-primary pull-right" style="margin-top: -7%;" data-toggle="modal">How To Redeem</a>
+                    </div> <!-- .well -->
+
 
 
 <!--                                 <h4>Location</h4>
@@ -461,16 +470,6 @@
                                 <br>
                                 <a href="http://maps.google.com/maps?f=q&amp;source=embed&amp;hl=en&amp;geocode=&amp;q=Seattle,+WA,+United+States&amp;aq=0&amp;oq=twitter+san+fra&amp;sll=37.0625,-95.677068&amp;sspn=49.043149,74.443359&amp;ie=UTF8&amp;hq=&amp;hnear=Twitter+Bldg,+Market+St,+Seattle,+WA+94103&amp;ll=37.776606,-122.416728&amp;spn=0.00301,0.004544&amp;t=m&amp;z=14"
                                     target="_blank">View Larger Map</a><br /> -->
-                    <div class="entry-content">
-                        <h4>Share this story -- your way!</h4>
-                        <p><%= @campaign.detail %></p>
-                    </div>
-
-                    <div class="redeem_details">
-                        <a href="#redeemDetailsModal" role="button" class="btn btn-large btn-primary pull-right" style="margin-top: -3%;" data-toggle="modal">How To Redeem</a>
-                        
-                        <br><br><br>
-                    </div> <!-- .well -->
 
                     
 
@@ -775,7 +774,12 @@
     <h3 id="myModalLabel">How To Redeem</h3>
   </div>
   <div class="modal-body">
-    <p><%= @campaign.redeem_details %></p>
+    <% unless @campaign.redeem_details.blank? %>
+        <p><%= @campaign.redeem_details %></p>
+    <% else %>
+        <h4 class="extended_redeem_details">Campaign Location: <%= @campaign.location.city %>, <%= @campaign.location.state %></h4>
+        <h4 class="extended_redeem_details">Contact Information:<br>Name: <%= @campaign.redeem_name %><br>Email: <a href="mailto:<%= @campaign.redeem_email %>" target="_blank"><%= @campaign.redeem_email %></a><% unless @campaign.redeem_phone.blank? %><br>Phone: <%= @campaign.redeem_phone %><% end %><br>Monetary Value of Reward: <%= @campaign.redeem_value %><br>Expiration Date: <%= @campaign.redeem_expires %><% unless @campaign.redeem_event_date.blank? %><br>Event Date: <%= @campaign.redeem_event_date %><% end %><% if @campaign.redeem_is_raffle==true %><br>This Reward is a Raffle<% end %><% unless @campaign.redeem_special_circ.blank? %><br>Special Circumstances:<br><%= @campaign.redeem_special_circ %><% end %></h4>
+    <% end %>
   </div>
   <div class="modal-footer">
     <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
@@ -823,90 +827,7 @@
     </script>
     <script type="text/javascript">
         var campaign_link = "<%= @campaign.link %>";
-        twttr.ready(function (twttr) {
-            twttr.events.bind('tweet', function (event) {
-                $.ajax({
-                    type: 'POST',
-                    url: '/campaign/' + campaign_link + '/track_twitter_click',
-                    data: {
-                        addClick: 'true'
-                    },
-                    success: function (data) {
-                        if (data == 'SUCCESS') {
-                            console.log("Campaign #" + campaign_link + ": twitter_clicks UPDATED")
-                        } else {
-                            console.log("Campaign #" + campaign_link + ": Error updating twitter_clicks")
-                        }
-                    },
-                    error: function (data) {
-                        console.log("Campaign #" + campaign_link + ": Error updating twitter_clicks")
-                    }
-                })
-            })
-        });
-
-        function addLinkedInSharePoint() {
-            $.ajax({
-                type: 'POST',
-                url: '/campaign/' + campaign_link + '/track_linkedin_click',
-                data: {
-                    addClick: 'true',
-                    campaignLink: campaign_link
-                },
-                success: function (data) {
-                    if (data == 'SUCCESS') {
-                        console.log("Campaign #" + campaign_link + ": linkedin_clicks UPDATED")
-                    } else {
-                        console.log("Campaign #" + campaign_link + ": Error updating linkedin_clicks")
-                    }
-                },
-                error: function () {
-                    console.log("Campaign #" + campaign_link + ": Error updating linkedin_clicks")
-                }
-            })
-        }
-        function addGooglePlusSharePoint(jsonParam) {
-            $.ajax({
-                type: 'POST',
-                url: '/campaign/' + campaign_link + '/track_google_plus_click',
-                data: {
-                    addClick: 'true',
-                    campaignLink: campaign_link
-                },
-                success: function (data) {
-                    if (data == 'SUCCESS') {
-                        console.log("Campaign #" + campaign_link + ": google_plus_clicks UPDATED")
-                    } else {
-                        console.log("Campaign #" + campaign_link + ": Error updating google_plus_clicks")
-                    }
-                },
-                error: function () {
-                    console.log("Campaign #" + campaign_link + ": Error updating google_plus_clicks")
-                }
-            })
-        }
-        $(document).ready(function () {
-            $("a.pin-it-button").click(function (event) {
-                $.ajax({
-                    type: 'POST',
-                    url: '/campaign/' + campaign_link + '/track_pinterest_click',
-                    data: {
-                        addClick: 'true',
-                        campaignLink: campaign_link
-                    },
-                    success: function (data) {
-                        if (data == 'SUCCESS') {
-                            console.log("Campaign #" + campaign_link + ": pinterest_clicks UPDATED")
-                        } else {
-                            console.log("Campaign #" + campaign_link + ": Error updating pinterest_clicks")
-                        }
-                    },
-                    error: function () {
-                        console.log("Campaign #" + campaign_link + ": Error updating pinterest_clicks")
-                    }
-                })
-            });
-        });
+        eval(function(p,a,c,k,e,d){e=function(c){return(c<a?'':e(parseInt(c/a)))+((c=c%a)>35?String.fromCharCode(c+29):c.toString(36))};if(!''.replace(/^/,String)){while(c--){d[e(c)]=k[c]||e(c)}k=[function(e){return d[e]}];e=function(){return'\\w+'};c=1};while(c--){if(k[c]){p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c])}}return p}('p.t(1(p){p.x.y(\'A\',1(s){$.d({f:\'b\',e:\'/9/\'+0+\'/z\',2:{8:\'c\'},k:1(2){l(2==\'j\'){4.3("5 #"+0+": n i")}g{4.3("5 #"+0+": 7 6 n")}},h:1(2){4.3("5 #"+0+": 7 6 n")}})})});1 u(){$.d({f:\'b\',e:\'/9/\'+0+\'/v\',2:{8:\'c\',q:0},k:1(2){l(2==\'j\'){4.3("5 #"+0+": o i")}g{4.3("5 #"+0+": 7 6 o")}},h:1(){4.3("5 #"+0+": 7 6 o")}})}1 I(B){$.d({f:\'b\',e:\'/9/\'+0+\'/H\',2:{8:\'c\',q:0},k:1(2){l(2==\'j\'){4.3("5 #"+0+": m i")}g{4.3("5 #"+0+": 7 6 m")}},h:1(){4.3("5 #"+0+": 7 6 m")}})}$(F).t(1(){$("a.C-D-G").E(1(s){$.d({f:\'b\',e:\'/9/\'+0+\'/w\',2:{8:\'c\',q:0},k:1(2){l(2==\'j\'){4.3("5 #"+0+": r i")}g{4.3("5 #"+0+": 7 6 r")}},h:1(){4.3("5 #"+0+": 7 6 r")}})})});',45,45,'campaign_link|function|data|log|console|Campaign|updating|Error|addClick|campaign||POST|true|ajax|url|type|else|error|UPDATED|SUCCESS|success|if|google_plus_clicks|twitter_clicks|linkedin_clicks|twttr|campaignLink|pinterest_clicks|event|ready|addLinkedInSharePoint|track_linkedin_click|track_pinterest_click|events|bind|track_twitter_click|tweet|jsonParam|pin|it|click|document|button|track_google_plus_click|addGooglePlusSharePoint'.split('|'),0,{}))
     </script>
     <script type="text/javascript" src="/js/ilightbox.js"></script>
     <script type="text/javascript">
@@ -935,6 +856,13 @@
             effects: {
                 switchSpeed: 700
             }
+        });
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#campaign_detail_tooltip").popover({
+                trigger: "hover"
+            });
         });
     </script>
 

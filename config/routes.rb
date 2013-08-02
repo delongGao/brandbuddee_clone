@@ -50,7 +50,6 @@ Brandbuddee::Application.routes.draw do
   match '/auth/:provider/callback' => 'sessions#create'
   
   post 'users/create' => "users#create"
-  match 'users/show' => 'users#show'
   match 'users/destroy' => 'users#destroy'
 
   match '/brands/signup' => 'welcome#new_brand'
@@ -134,6 +133,7 @@ Brandbuddee::Application.routes.draw do
   match 'admin/users' => 'admin#users'
 
   match 'admin/campaign/new' => 'admin#campaign_new'
+  match '/admin/campaign/new-index' => 'admin#campaign_new_index'
   match 'admin/campaign/view' => 'admin#view_campaign'
   match 'admin/campaign/edit' => 'admin#edit_campaign'
   match 'admin/campaign/update' => 'admin#update_campaign'
