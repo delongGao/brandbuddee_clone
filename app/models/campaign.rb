@@ -502,6 +502,25 @@ class Campaign
     end
   end
 
+  def single_users_total_pts(user)
+    s=self.shares.where(user_id: user.id).first
+    unless s.nil?
+      t=self.tasks.where(user_id: user.id).first
+      if t.nil?
+        completed_task_points = 0
+        engagement_1_points = 0
+        engagement_2_points = 0
+      else
+        completed_task_points = t.completed_points
+        engagement_1_points = t.task_1_uniques.to_i * self.engagement_task_left_points.to_i
+        engagement_2_points = t.task_2_uniques.to_i * self.engagement_task_right_points.to_i
+      end
+      s.unique_page_views + s.trackings.size + completed_task_points + engagement_1_points + engagement_2_points
+    else
+      false
+    end
+  end
+
   before_destroy :remember_id
   after_destroy :remove_id_directory
   

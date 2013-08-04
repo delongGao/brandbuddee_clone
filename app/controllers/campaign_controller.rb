@@ -3,13 +3,9 @@ class CampaignController < ApplicationController
 	def index
 		params_campaign = params[:campaign].downcase
 		campaign = Campaign.where(:link => params_campaign).first
-		#campaign_array = Campaign.where(:link => params_campaign)
-		#@campaigns_else = Campaign.all(:limit => 4).order_by([:date, :desc])
 		if campaign.present?
 		  @campaign = campaign
 		  @campaigns_else = Campaign.where(:status => "active").excludes(left: false).excludes(id: campaign.id).order_by([:date, :desc]).limit(4)
-		  # @gallery = user.images.order_by([:date, :desc])
-		  # @images = Image.all.order_by([:date, :desc])
 		end
 		if campaign.nil?
 		  redirect_to root_url
@@ -43,6 +39,14 @@ class CampaignController < ApplicationController
 								end # unless left <= 0 || share_update.campaign.end_date < Time.now
 							end # if redeem_check.nil?
 						end # if official_pts >= share_update.campaign.points_required
+						unless task_update.nil?
+							if official_pts >= 3 && task_update.sent_3pt_email == false && !task_update.campaign.easy_prize.blank?
+								task_update.sent_3pt_email = true
+								if task_update.save
+									UserMailer.secondary_gift_email(current_user, @campaign, root_url).deliver
+								end
+							end
+						end
 					end # unless the_share.nil?
 				end # unless current_user.nil?
 			else
@@ -126,6 +130,15 @@ class CampaignController < ApplicationController
 						@redeem = Redeem.create!(date: Time.now, redeem_code: redeem_code, campaign_id: share_update.campaign_id, user_id: share_update.user_id )
 						@redeem.save
 						UserMailer.redeem_confirmation(user_share, @redeem, share_update.campaign, root_url).deliver
+					end
+				end
+			end
+
+			unless @task.nil?
+				if official_pts >= 3 && @task.sent_3pt_email == false && !@task.campaign.easy_prize.blank?
+					@task.sent_3pt_email = true
+					if @task.save
+						UserMailer.secondary_gift_email(@task.user, @task.campaign, root_url).deliver
 					end
 				end
 			end
@@ -1018,6 +1031,47 @@ class CampaignController < ApplicationController
 						@campaign.google_plus_clicks += 1
 						if @campaign.save(validate: false)
 							render :text => "SUCCESS"
+						else
+							render :text => "ERROR"
+						end
+					else
+						render :text => "ERROR"
+					end
+				end
+			else
+				render :text => "ERROR"
+			end
+		else
+			redirect_to root_url
+		end
+	end
+
+	def track_facebook_click
+		if request.xhr?
+			if current_user
+				params_campaign = params[:campaign].downcase
+				campaign = Campaign.where(:link => params_campaign).first
+				if campaign.present?
+					@campaign = campaign
+				end
+				if campaign.nil?
+					render :text => "ERROR"
+				else
+					unless params[:addClick].nil? || params[:campaignLink].nil? || params[:campaignLink].downcase!=params_campaign
+						updated = false
+						if params[:addClick] == "true"
+							@campaign.facebook_clicks += 1
+							updated = true
+						elsif params[:addClick] == "false"
+							@campaign.facebook_clicks -= 1
+							updated = true
+						end
+						if updated == true
+							if @campaign.save(validate: false)
+								render :text => "SUCCESS"
+							else
+								render :text => "ERROR"
+							end
 						else
 							render :text => "ERROR"
 						end

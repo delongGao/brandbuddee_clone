@@ -197,7 +197,7 @@
 						
 						<!-- Title Here -->
 						<td width="560" valign="top" align="left" class="inside" style="font-size: 19px; color: #353535; text-align: center; font-family: Helvetica, Arial, sans-serif; vertical-align: top;">
-							Congratulations, <% unless @user.first_name.nil? %><span style="color: #7cc04c;"><%= @user.first_name %></span><% end %> you successfully earned the following reward from brandbuddee:<br><%= @campaign.reward %>
+							Congratulations, <% unless @user.first_name.nil? %><span style="color: #7cc04c;"><%= @user.first_name %></span><% end %> you successfully earned the following reward from brandbuddee:<br><%= @campaign.easy_prize %>
 						</td>	
 						<!-- End of Title -->
 						
@@ -227,71 +227,6 @@
 		<tr><td align="center" valign="top" class="image600"><img src="http://www.applecrateseo.com/imagehosting/bb-newsletter/divider.jpg" width="600" height="60" border="0" alt="" style="display:block; border:none; outline:none; text-decoration:none;"/></td></tr>	
 	</table>	
 	<!-- * Promo Module * -->
-
-
-	<!-- * Left Image Module * -->
-	<table width="100%" border="0" cellpadding="0" cellspacing="0" align="center" style="width:100% !important; margin:0; padding:0; border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;">
-		<tr>
-			<td bgcolor="#f8f8f8">						
-				<!-- Tables Width -->
-				<table width="600" cellpadding="0" cellspacing="0" border="0" align="center" class="table" bgcolor="#f8f8f8">
-					<tr>
-						<td>
-						
-							<!-- B1 -->
-							<table align="left" bgcolor="#f8f8f8" width="300" cellpadding="0" cellspacing="0" border="0" class="image270">										
-								<tr>
-									<td width="20"></td>
-									
-									<!-- Image 270x200 -->
-									<td width="270" align="left" valign="top">													
-										<a href="<%= "#{@url}campaign/#{@campaign.link}" %>" target="_blank"><% unless @campaign.gift_image.blank? %><%= image_tag(@campaign.gift_image_url(:standard).to_s, title: @campaign.title, alt: @campaign.title.parameterize, style: "max-width:270px;max-height:130px;display:block; border:1px solid #666666; outline:none; text-decoration:none;margin-top:2%;") %><% else %><%= image_tag(@campaign.campaign_image_url(:standard).to_s, title: @campaign.title, alt: @campaign.title.parameterize, style: "max-width:260px;max-height:130px;display:block; border:1px solid #666666; outline:none; text-decoration:none;margin-top:2%;") %><% end %></a>
-									</td>
-									<!-- End of 270x200 Image -->																	
-
-								</tr>	
-							</table>
-							<!-- End of B1 -->	
-
-							<!-- B2 -->					
-							<table align="right" bgcolor="#f8f8f8" width="295" cellpadding="0" cellspacing="0" border="0" class="text270">
-								<tr><td colspan="3" height="10" bgcolor="#f8f8f8"></td></tr>
-								<tr>
-									<td width="10"></td>
-									
-									<!-- Title Here -->
-									<td width="265" valign="top" align="left" class="inside" style="font-size: 19px; color: #7cc04c; text-align: left; line-height:135% ;font-family: Helvetica, Arial, sans-serif; vertical-align: top;">
-										Here is your Redeem Code:
-									</td>	
-									<!-- End of Title -->
-									
-									<td width="20"></td>
-								</tr>
-								<tr><td colspan="3" height="10" bgcolor="#f8f8f8"></td></tr>
-								<tr>
-									<td width="10"></td>
-									
-									<!-- Content Text Here -->
-									<td width="265" valign="top" align="left" class="inside" style="font-size: 14px; color: #353535; text-align: left; font-family: Helvetica, Arial, sans-serif; vertical-align: top;">
-										<%= @redeem_code %>
-									</td>	
-									<!-- End of Content Text -->
-									
-									<td width="20"></td>
-								</tr>	
-								<tr><td colspan="3" height="15" bgcolor="#f8f8f8"></td></tr>
-							</table>
-							<!-- End of B2 -->
-							
-						</td>
-					</tr>				
-				</table>
-				<!-- End of Tables Width -->				
-			</td>
-		</tr>
-		<tr><td align="center" valign="top" class="image600"><img src="http://www.applecrateseo.com/imagehosting/bb-newsletter/divider.jpg" width="600" height="60" border="0" alt="" style="display:block; border:none; outline:none; text-decoration:none;"/></td></tr>	
-	</table>
-	<!-- * End of Left Image Module * -->
 
 	<!-- * Text + Hideable Content Module 2 * -->
 	<table width="100%" border="0" cellpadding="0" cellspacing="0" align="center" style="width:100% !important; margin:0; padding:0; border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;">
@@ -340,14 +275,13 @@
 										<%= @campaign.redeem_details %>
 										<% else %>
 										Contact Information:<br>
-										<span style="color: #7cc04c;">Name:</span> <%= @campaign.redeem_name %><br>
-										<span style="color: #7cc04c;">Email:</span> <a href="mailto:<%= @campaign.redeem_email %>" target="_blank"><%= @campaign.redeem_email %></a><br>
-										<% unless @campaign.redeem_phone.blank? %><span style="color: #7cc04c;">Phone:</span> <%= @campaign.redeem_phone %><br><% end %><br>
-										<span style="color: #7cc04c;">Monetary Value of Primary Reward:</span> <%= @campaign.redeem_value %><br>
-										<span style="color: #7cc04c;">Expiration Date:</span> <%= @campaign.redeem_expires %><br>
-										<% unless @campaign.redeem_event_date.blank? %><span style="color: #7cc04c;">Event Date: </span> <%= @campaign.redeem_event_date %><br><% end %>
-										<% if @campaign.redeem_is_raffle == true %><span style="color: #7cc04c;">Primary Reward is a Raffle</span><br><% end %>
-										<% unless @campaign.redeem_special_circ.blank? %><span style="color: #7cc04c;">Special Circumstances:</span><br><%= @campaign.redeem_special_circ %><br><% end %>
+										Name: <%= @campaign.redeem_name %><br>
+										Email: <%= @campaign.redeem_email %><br>
+										<% unless @campaign.redeem_phone.blank? %>Phone: <%= @campaign.redeem_phone %><br><% end %>
+										Redeem Expiration Date: <%= @campaign.redeem_expires %><br>
+										<% unless @campaign.redeem_special_circ.blank? %>Special Circumstances:<br>
+										<%= @campaign.redeem_special_circ %><br>
+										<% end %>
 										<% end %>
 									</td>	
 									<!-- End of Content Text -->

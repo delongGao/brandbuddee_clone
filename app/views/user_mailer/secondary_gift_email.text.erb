@@ -1,0 +1,32 @@
+You have earned a brandbuddee reward!
+
+Congratulations, <% unless @user.first_name.nil? %><%= @user.first_name %><% end %> you successfully earned the following reward from brandbuddee:
+<%= @campaign.easy_prize %>
+
+<% unless @campaign.redeem_details.blank? %>
+Redeem Details:
+<%= @campaign.redeem_details %>
+<% else %>
+Redeem Contact Information:
+Name: <%= @campaign.redeem_name %>
+Email: <%= @campaign.redeem_email %>
+<% unless @campaign.redeem_phone.blank? %>Phone: <%= @campaign.redeem_phone %><% end %>
+Redeem Expiration Date: <%= @campaign.redeem_expires %>
+<% unless @campaign.redeem_special_circ.blank? %>
+Special Circumstances:
+<%= @campaign.redeem_special_circ %>
+<% end %>
+<% end %>
+
+brandbuddee.com
+989 112th Ave NE #2308
+Bellevue, WA 98004 
+
+Brands - http://brandbuddee.com/brands
+About - http://brandbuddee.com/tell-me-more
+Contact - http://brandbuddee.com/contact
+Signup - http://brandbuddee.com/signup
+Terms - http://brandbuddee.com/terms
+Privacy - http://brandbuddee.com/privacy
+
+Copyright 2013 brandbuddee - 360 920 1637 - info@brandbuddee.com

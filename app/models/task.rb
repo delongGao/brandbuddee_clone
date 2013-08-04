@@ -18,4 +18,5 @@ class Task
   field :blog_post_url, :type => String
   field :yelp_review, :type => String
   field :completed_points, :type => Integer, :default => 0
+  field :sent_3pt_email, :type => Boolean, :default => false
 end

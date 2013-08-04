@@ -14,6 +14,13 @@ class UserMailer < ActionMailer::Base
 		mail(:to => @user.email, :subject => "You've just redeemed a brandbuddee reward!", :from => "brandbuddee <andy@brandbuddee.com>")
 	end
 
+	def secondary_gift_email(user, campaign, root_url)
+		@user = user
+		@campaign = campaign
+		@url = root_url
+		mail(:to => @user.email, :subject => "You've just earned a brandbuddee reward!", :from => "brandbuddee <andy@brandbuddee.com>")
+	end
+
 	def beta_invite(subscriber_email, invite_code, root_url)
 		@invite_code = invite_code
 		@url = root_url
