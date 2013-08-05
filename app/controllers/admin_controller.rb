@@ -306,8 +306,8 @@ class AdminController < ApplicationController
 							flash[:error] = "Redeem Value of Primary Reward is Required and must be in the format $1234.67"
 						elsif params[:campaign][:redeem_expires].blank?
 							flash[:error] = "Redeem Expiration Date is Required"
-						elsif !params[:campaign][:redeem_special_circ].blank? && params[:campaign][:redeem_special_circ].length > 140
-							flash[:error] = "Redeem Special Circumstances is OPTIONAL, but if used, cannot be longer than 140 characters."
+						elsif !params[:campaign][:redeem_special_circ].blank? && params[:campaign][:redeem_special_circ].length > 5000
+							flash[:error] = "Redeem Special Circumstances is OPTIONAL, but if used, cannot be longer than 5000 characters."
 						else
 							flash[:error] = "One or more fields that are required were left blank. Please make sure you fill out all fields and try again."
 						end
@@ -905,8 +905,8 @@ class AdminController < ApplicationController
 							flash[:error] = "Redeem Value of Primary Reward is Required and must be in the format $1234.67"
 						elsif params[:campaign][:redeem_expires].blank?
 							flash[:error] = "Redeem Expiration Date is Required"
-						elsif !params[:campaign][:redeem_special_circ].blank? && params[:campaign][:redeem_special_circ].length > 140
-							flash[:error] = "Redeem Special Circumstances is OPTIONAL, but if used, cannot be longer than 140 characters."
+						elsif !params[:campaign][:redeem_special_circ].blank? && params[:campaign][:redeem_special_circ].length > 5000
+							flash[:error] = "Redeem Special Circumstances is OPTIONAL, but if used, cannot be longer than 5000 characters."
 						else
 							flash[:error] = "One or more fields that are required were left blank. Please make sure you fill out all fields and try again."
 						end

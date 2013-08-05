@@ -54,7 +54,7 @@
 				<div class="control-group">
       				<%= f.label :email, "Brand Email", class: "control-label" %>
       				<div class="controls">
-      					<%= f.email_field :email, class: "span6", autofocus: true %>
+      					<%= f.email_field :email, class: "span6", maxlength: 100, class: "txtMaximumLength" %>
       				</div>
       			</div>
 				<div class="control-group">
@@ -95,3 +95,14 @@
 
 </div><!--/.fluid-container-->
 <%= render 'shared/brands_scripts' %>
+<script src="/js/brands/bootstrap-maxlength.min.js"></script>
+<script type="text/javascript">
+      $(document).ready(function() {
+            $('.txtMaximumLength').maxlength({
+                  alwaysShow: true,
+                  separator: ' of ',
+                  postText: ' chars',
+                  placement: 'bottom-left'
+            });
+      });
+</script>

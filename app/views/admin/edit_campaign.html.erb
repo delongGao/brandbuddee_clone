@@ -215,7 +215,7 @@
 							<div class="control-group hidden-phone">
 								<%= f.label :redeem_special_circ, "Redeem Special Circumstances (OPTIONAL)", class: "control-label" %>
 								<div class="controls">
-									<%= f.text_area :redeem_special_circ, rows: 4, maxlength: 140, placeholder: "Max  140 Chars" %>
+									<%= f.text_area :redeem_special_circ, rows: 4, maxlength: 5000, placeholder: "Max  5000 Chars", id: "txtSpecialCircum" %>
 								</div>
 							</div>
 
@@ -254,13 +254,13 @@
 							<div class="control-group hidden-phone">
 								<label class="control-label" for="task_blog_post_1" style="cursor:text;">Task Title</label>
 								<div class="controls">
-									<%= text_field "task_blog_post", "1", :class => "span3", :placeholder => "Up To 30 Characters", :value => @campaign.task_blog_post["title"], :maxlength => 30 %>
+									<%= text_field "task_blog_post", "1", :class => "span3", :placeholder => "Up To 30 Characters", :value => @campaign.task_blog_post["title"], :maxlength => 30, :class => "txtTaskInput" %>
 								</div>
 							</div>
 							<div class="control-group hidden-phone">
 								<label class="control-label" for="task_blog_post_2" style="cursor:text;">Task Description</label>
 								<div class="controls">
-									<%= text_area "task_blog_post", "2", :rows => '4', :placeholder => "Up To 140 Characters", :value => @campaign.task_blog_post["description"], :maxlength => 140 %>
+									<%= text_area "task_blog_post", "2", :rows => '4', :placeholder => "Up To 140 Characters", :value => @campaign.task_blog_post["description"], :maxlength => 140, :class => "txtTaskInput" %>
 								</div>
 							</div>
 							<div class="control-group hidden-phone">
@@ -274,13 +274,13 @@
 							<div class="control-group hidden-phone">
 								<label class="control-label" for="task_yelp_1" style="cursor:text;">Task Title</label>
 								<div class="controls">
-									<%= text_field "task_yelp", "1", :class => "span3", :placeholder => "Up To 30 Characters", :value => @campaign.task_yelp["title"], :maxlength => 30 %>
+									<%= text_field "task_yelp", "1", :class => "span3", :placeholder => "Up To 30 Characters", :value => @campaign.task_yelp["title"], :maxlength => 30, :class => "txtTaskInput" %>
 								</div>
 							</div>
 							<div class="control-group hidden-phone">
 								<label class="control-label" for="task_yelp_2" style="cursor:text;">Task Description</label>
 								<div class="controls">
-									<%= text_area "task_yelp", "2", :rows => '4', :placeholder => "Up To 140 Characters", :value => @campaign.task_yelp["description"], :maxlength => 140 %>
+									<%= text_area "task_yelp", "2", :rows => '4', :placeholder => "Up To 140 Characters", :value => @campaign.task_yelp["description"], :maxlength => 140, :class => "txtTaskInput" %>
 								</div>
 							</div>
 							<div class="control-group hidden-phone">
@@ -294,13 +294,13 @@
 							<div class="control-group hidden-phone">
 								<label class="control-label" for="task_facebook_1" style="cursor:text;">Task Title</label>
 								<div class="controls">
-									<%= text_field "task_facebook", "1", :class => "span3", :placeholder => "Up To 30 Characters", :value => @campaign.task_facebook["title"], :maxlength => 30 %>
+									<%= text_field "task_facebook", "1", :class => "span3", :placeholder => "Up To 30 Characters", :value => @campaign.task_facebook["title"], :maxlength => 30, :class => "txtTaskInput" %>
 								</div>
 							</div>
 							<div class="control-group hidden-phone">
 								<label class="control-label" for="task_facebook_2" style="cursor:text;">Task Description</label>
 								<div class="controls">
-									<%= text_area "task_facebook", "2", :rows => '4', :placeholder => "Up To 140 Characters", :value => @campaign.task_facebook["description"], :maxlength => 140 %>
+									<%= text_area "task_facebook", "2", :rows => '4', :placeholder => "Up To 140 Characters", :value => @campaign.task_facebook["description"], :maxlength => 140, :class => "txtTaskInput" %>
 								</div>
 							</div>
 							<div class="control-group hidden-phone">
@@ -330,13 +330,13 @@
 							<div class="control-group hidden-phone">
 								<label class="control-label" for="task_twitter_1" style="cursor:text;">Task Title</label>
 								<div class="controls">
-									<%= text_field "task_twitter", "1", :class => "span3", :placeholder => "Up To 30 Characters", :value => @campaign.task_twitter["title"], :maxlength => 30 %>
+									<%= text_field "task_twitter", "1", :class => "span3", :placeholder => "Up To 30 Characters", :value => @campaign.task_twitter["title"], :maxlength => 30, :class => "txtTaskInput" %>
 								</div>
 							</div>
 							<div class="control-group hidden-phone">
 								<label class="control-label" for="task_twitter_2" style="cursor:text;">Task Description</label>
 								<div class="controls">
-									<%= text_area "task_twitter", "2", :rows => '4', :placeholder => "Up To 140 Characters", :value => @campaign.task_twitter["description"], :maxlength => 140 %>
+									<%= text_area "task_twitter", "2", :rows => '4', :placeholder => "Up To 140 Characters", :value => @campaign.task_twitter["description"], :maxlength => 140, :class => "txtTaskInput" %>
 								</div>
 							</div>
 							<div class="control-group hidden-phone">
@@ -366,13 +366,13 @@
 							<div class="control-group hidden-phone">
 								<label class="control-label" for="task_custom_1_1" style="cursor:text;">Task Title</label>
 								<div class="controls">
-									<%= text_field "task_custom_1", "1", :class => "span3", :placeholder => "Up To 30 Characters", :value => @campaign.task_custom_1["title"], :maxlength => 30 %>
+									<%= text_field "task_custom_1", "1", :class => "span3", :placeholder => "Up To 30 Characters", :value => @campaign.task_custom_1["title"], :maxlength => 30, :class => "txtTaskInput" %>
 								</div>
 							</div>
 							<div class="control-group hidden-phone">
 								<label class="control-label" for="task_custom_1_2" style="cursor:text;">Task Description</label>
 								<div class="controls">
-									<%= text_area "task_custom_1", "2", :rows => '4', :placeholder => "Up To 140 Characters", :value => @campaign.task_custom_1["description"], :maxlength => 140 %>
+									<%= text_area "task_custom_1", "2", :rows => '4', :placeholder => "Up To 140 Characters", :value => @campaign.task_custom_1["description"], :maxlength => 140, :class => "txtTaskInput" %>
 								</div>
 							</div>
 							<div class="control-group hidden-phone">
@@ -402,13 +402,13 @@
 							<div class="control-group hidden-phone">
 								<label class="control-label" for="task_custom_2_1" style="cursor:text;">Task Title</label>
 								<div class="controls">
-									<%= text_field "task_custom_2", "1", :class => "span3", :placeholder => "Up To 30 Characters", :value => @campaign.task_custom_2["title"], :maxlength => 30 %>
+									<%= text_field "task_custom_2", "1", :class => "span3", :placeholder => "Up To 30 Characters", :value => @campaign.task_custom_2["title"], :maxlength => 30, :class => "txtTaskInput" %>
 								</div>
 							</div>
 							<div class="control-group hidden-phone">
 								<label class="control-label" for="task_custom_2_2" style="cursor:text;">Task Description</label>
 								<div class="controls">
-									<%= text_area "task_custom_2", "2", :rows => '4', :placeholder => "Up To 140 Characters", :value => @campaign.task_custom_2["description"], :maxlength => 140 %>
+									<%= text_area "task_custom_2", "2", :rows => '4', :placeholder => "Up To 140 Characters", :value => @campaign.task_custom_2["description"], :maxlength => 140, :class => "txtTaskInput" %>
 								</div>
 							</div>
 							<div class="control-group hidden-phone">
@@ -438,13 +438,13 @@
 							<div class="control-group hidden-phone">
 								<label class="control-label" for="task_custom_3_1" style="cursor:text;">Task Title</label>
 								<div class="controls">
-									<%= text_field "task_custom_3", "1", :class => "span3", :placeholder => "Up To 30 Characters", :value => @campaign.task_custom_3["title"], :maxlength => 30 %>
+									<%= text_field "task_custom_3", "1", :class => "span3", :placeholder => "Up To 30 Characters", :value => @campaign.task_custom_3["title"], :maxlength => 30, :class => "txtTaskInput" %>
 								</div>
 							</div>
 							<div class="control-group hidden-phone">
 								<label class="control-label" for="task_custom_3_2" style="cursor:text;">Task Description</label>
 								<div class="controls">
-									<%= text_area "task_custom_3", "2", :rows => '4', :placeholder => "Up To 140 Characters", :value => @campaign.task_custom_3["description"], :maxlength => 140 %>
+									<%= text_area "task_custom_3", "2", :rows => '4', :placeholder => "Up To 140 Characters", :value => @campaign.task_custom_3["description"], :maxlength => 140, :class => "txtTaskInput" %>
 								</div>
 							</div>
 							<div class="control-group hidden-phone">
@@ -474,13 +474,13 @@
 							<div class="control-group hidden-phone">
 								<label class="control-label" for="task_custom_4_1" style="cursor:text;">Task Title</label>
 								<div class="controls">
-									<%= text_field "task_custom_4", "1", :class => "span3", :placeholder => "Up To 30 Characters", :value => @campaign.task_custom_4["title"], :maxlength => 30 %>
+									<%= text_field "task_custom_4", "1", :class => "span3", :placeholder => "Up To 30 Characters", :value => @campaign.task_custom_4["title"], :maxlength => 30, :class => "txtTaskInput" %>
 								</div>
 							</div>
 							<div class="control-group hidden-phone">
 								<label class="control-label" for="task_custom_4_2" style="cursor:text;">Task Description</label>
 								<div class="controls">
-									<%= text_area "task_custom_4", "2", :rows => '4', :placeholder => "Up To 140 Characters", :value => @campaign.task_custom_4["description"], :maxlength => 140 %>
+									<%= text_area "task_custom_4", "2", :rows => '4', :placeholder => "Up To 140 Characters", :value => @campaign.task_custom_4["description"], :maxlength => 140, :class => "txtTaskInput" %>
 								</div>
 							</div>
 							<div class="control-group hidden-phone">
@@ -510,13 +510,13 @@
 							<div class="control-group hidden-phone">
 								<label class="control-label" for="task_custom_5_1" style="cursor:text;">Task Title</label>
 								<div class="controls">
-									<%= text_field "task_custom_5", "1", :class => "span3", :placeholder => "Up To 30 Characters", :value => @campaign.task_custom_5["title"], :maxlength => 30 %>
+									<%= text_field "task_custom_5", "1", :class => "span3", :placeholder => "Up To 30 Characters", :value => @campaign.task_custom_5["title"], :maxlength => 30, :class => "txtTaskInput" %>
 								</div>
 							</div>
 							<div class="control-group hidden-phone">
 								<label class="control-label" for="task_custom_5_2" style="cursor:text;">Task Description</label>
 								<div class="controls">
-									<%= text_area "task_custom_5", "2", :rows => '4', :placeholder => "Up To 140 Characters", :value => @campaign.task_custom_5["description"], :maxlength => 140 %>
+									<%= text_area "task_custom_5", "2", :rows => '4', :placeholder => "Up To 140 Characters", :value => @campaign.task_custom_5["description"], :maxlength => 140, :class => "txtTaskInput" %>
 								</div>
 							</div>
 							<div class="control-group hidden-phone">
@@ -644,6 +644,7 @@
 	<script src="/js/admin/jquery.sparkline.min.js"></script>
 	<script src="/js/admin/custom.js"></script>
 	<script src="/js/admin/bootstrap-datetimepicker.min.js"></script>
+	<script src="/js/brands/bootstrap-maxlength.min.js"></script>
 	<script type="text/javascript">
 		var year = $('#day_year_value').html();
 		var month = $('#day_month_value').html();
@@ -669,6 +670,18 @@
 				startView: 4,
 				todayBtn: true,
 				showMeridian: true
+			});
+			$('#txtSpecialCircum').maxlength({
+				alwaysShow: true,
+				separator: ' of ',
+				postText: ' chars',
+				placement: 'right'
+			});
+			$('.txtTaskInput').maxlength({
+				alwaysShow: true,
+				separator: ' of ',
+				postText: ' chars',
+				placement: 'right'
 			});
 		});
 	</script>

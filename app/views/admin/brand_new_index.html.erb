@@ -78,28 +78,28 @@
 							<div class="control-group">
 								<%= f.label :name, :class=>'control-label' %>
 								<div class="controls">
-									<%= f.text_field :name, :class=>'' %>
+									<%= f.text_field :name, :class=>'', maxlength: 100, class: "txtMaximumLength" %>
 									<span class="help-inline">REQUIRED</span>
 								</div>
 							</div>
 							<div class="control-group">
 								<%= f.label :email, :class=>'control-label' %>
 								<div class="controls">
-									<%= f.email_field :email, :class=>'' %>
+									<%= f.email_field :email, :class=>'', maxlength: 100, class: "txtMaximumLength" %>
 									<span class="help-inline">REQUIRED</span>
 								</div>
 							</div>
 							<div class="control-group">
 								<%= f.label :password, class: "control-label" %>
 								<div class="controls">
-									<%= f.password_field :password %>
+									<%= f.password_field :password, maxlength: 30, class: "txtMaximumLength" %>
 									<span class="help-inline">REQUIRED</span>
 								</div>
 							</div>
 							<div class="control-group">
 								<%= f.label :password_confirmation, class: "control-label" %>
 								<div class="controls">
-									<%= f.password_field :password_confirmation %>
+									<%= f.password_field :password_confirmation, maxlength: 30, class: "txtMaximumLength" %>
 									<span class="help-inline">REQUIRED</span>
 								</div>
 							</div>
@@ -113,7 +113,7 @@
 						    <div class="control-group">
 						    	<%= f.label :website, :class=>'control-label' %>
 								<div class="controls">
-						      		<%= f.text_field :website, :class=>'' %>
+						      		<%= f.text_field :website, :class=>'', maxlength: 125, class: "txtMaximumLength" %>
 									<span class="help-inline">REQUIRED</span>
 								</div>
 							</div>
@@ -144,39 +144,39 @@
 			      			<div class="control-group">
 			      				<%= f.label :manager_first, "Manager's First Name", class: "control-label" %>
 			      				<div class="controls">
-			      					<%= f.text_field :manager_first %>
+			      					<%= f.text_field :manager_first, maxlength: 75, class: "txtMaximumLength" %>
 			      					<span class="help-inline">REQUIRED</span>
 			      				</div>
 			      			</div>
 			      			<div class="control-group">
 			      				<%= f.label :manager_last, "Manager's Last Name", class: "control-label" %>
 			      				<div class="controls">
-			      					<%= f.text_field :manager_last %>
+			      					<%= f.text_field :manager_last, maxlength: 75, class: "txtMaximumLength" %>
 			      					<span class="help-inline">REQUIRED</span>
 			      				</div>
 			      			</div>
 			      			<div class="control-group">
 			      				<%= f.label :phone, "Brand Phone Number", class: "control-label" %>
 			      				<div class="controls">
-			      					<%= f.telephone_field :phone %>
+			      					<%= f.telephone_field :phone, maxlength: 14, class: "txtMaximumLength" %>
 			      				</div>
 			      			</div>
 			      			<div class="control-group">
 			      				<%= f.label :city, "Brand City", class: "control-label" %>
 			      				<div class="controls">
-			      					<%= f.text_field :city %>
+			      					<%= f.text_field :city, maxlength: 75, class: "txtMaximumLength" %>
 			      				</div>
 			      			</div>
 			      			<div class="control-group">
 			      				<%= f.label :state, "Brand State", class: "control-label" %>
 			      				<div class="controls">
-			      					<%= f.text_field :state %>
+			      					<%= f.text_field :state, maxlength: 2, class: "txtMaximumLength" %>
 			      				</div>
 			      			</div>
 			      			<div class="control-group">
 			      				<%= f.label :nickname, "Account Nickname", class: "control-label" %>
 			      				<div class="controls">
-			      					<%= f.text_field :nickname %>
+			      					<%= f.text_field :nickname, maxlength: 45, class: "txtMaximumLength" %>
 			      					<span class="help-inline">REQUIRED</span>
 			      				</div>
 			      			</div>
@@ -237,49 +237,39 @@
 
 
 		<!-- start: JavaScript-->
-
 		<script src="/js/admin/jquery-1.7.2.min.js"></script>
 		<script src="/js/admin/jquery-ui-1.8.21.custom.min.js"></script>
-	
-	
 		<script src="/js/admin/jquery.cookie.js"></script>
-	
 		<script src='/js/admin/fullcalendar.min.js'></script>
-	
 		<script src='/js/admin/jquery.dataTables.min.js'></script>
-
 		<script src="/js/admin/excanvas.js"></script>
 		<script src="/js/admin/jquery.flot.min.js"></script>
 		<script src="/js/admin/jquery.flot.pie.min.js"></script>
 		<script src="/js/admin/jquery.flot.stack.js"></script>
 		<script src="/js/admin/jquery.flot.resize.min.js"></script>
-	
 		<script src="/js/admin/jquery.chosen.min.js"></script>
-	
 		<script src="/js/admin/jquery.uniform.min.js"></script>
-		
 		<script src="/js/admin/jquery.cleditor.min.js"></script>
-	
 		<script src="/js/admin/jquery.noty.js"></script>
-	
 		<script src="/js/admin/jquery.elfinder.min.js"></script>
-	
 		<script src="/js/admin/jquery.raty.min.js"></script>
-	
 		<script src="/js/admin/jquery.iphone.toggle.js"></script>
-	
 		<script src="/js/admin/jquery.uploadify-3.1.min.js"></script>
-	
 		<script src="/js/admin/jquery.gritter.min.js"></script>
-	
 		<script src="/js/admin/jquery.imagesloaded.js"></script>
-	
 		<script src="/js/admin/jquery.masonry.min.js"></script>
-	
 		<script src="/js/admin/jquery.knob.js"></script>
-	
 		<script src="/js/admin/jquery.sparkline.min.js"></script>
-
 		<script src="/js/admin/custom.js"></script>
-
+		<script src="/js/brands/bootstrap-maxlength.min.js"></script>
+		<script type="text/javascript">
+			$(document).ready(function() {
+				$('.txtMaximumLength').maxlength({
+					alwaysShow: true,
+					separator: ' of ',
+					postText: ' chars',
+					placement: 'bottom-left'
+				});
+			});
+		</script>
 		<!-- end: JavaScript-->

@@ -55,7 +55,7 @@
       			<div class="control-group">
       				<%= f.label :name, "Brand Name", class: "control-label" %>
       				<div class="controls">
-      					<%= f.text_field :name, class: "span8" %>
+      					<%= f.text_field :name, class: "span8", maxlength: 100, class: "txtMaximumLength" %>
       					<span class="help-inline">REQUIRED</span>
       				</div>
       			</div>
@@ -69,7 +69,7 @@
       			<div class="control-group">
       				<%= f.label :website, "Brand Website", class: "control-label" %>
       				<div class="controls">
-      					<%= f.url_field :website, class: "span8" %>
+      					<%= f.url_field :website, class: "span8", maxlength: 125, class: "txtMaximumLength" %>
       					<span class="help-inline">REQUIRED</span>
       				</div>
       			</div>
@@ -100,39 +100,39 @@
       			<div class="control-group">
       				<%= f.label :manager_first, "Manager's First Name", class: "control-label" %>
       				<div class="controls">
-      					<%= f.text_field :manager_first, class: "span8" %>
+      					<%= f.text_field :manager_first, class: "span8", maxlength: 100, class: "txtMaximumLength" %>
       					<span class="help-inline">REQUIRED</span>
       				</div>
       			</div>
       			<div class="control-group">
       				<%= f.label :manager_last, "Manager's Last Name", class: "control-label" %>
       				<div class="controls">
-      					<%= f.text_field :manager_last, class: "span8" %>
+      					<%= f.text_field :manager_last, class: "span8", maxlength: 100, class: "txtMaximumLength" %>
       					<span class="help-inline">REQUIRED</span>
       				</div>
       			</div>
       			<div class="control-group">
       				<%= f.label :phone, "Brand Phone Number", class: "control-label" %>
       				<div class="controls">
-      					<%= f.telephone_field :phone, class: "span8" %>
+      					<%= f.telephone_field :phone, class: "span8", maxlength: 14, class: "txtMaximumLength" %>
       				</div>
       			</div>
       			<div class="control-group">
       				<%= f.label :city, "Brand City", class: "control-label" %>
       				<div class="controls">
-      					<%= f.text_field :city, class: "span8" %>
+      					<%= f.text_field :city, class: "span8", maxlength: 75, class: "txtMaximumLength" %>
       				</div>
       			</div>
       			<div class="control-group">
       				<%= f.label :state, "Brand State", class: "control-label" %>
       				<div class="controls">
-      					<%= f.text_field :state, class: "span8" %>
+      					<%= f.text_field :state, class: "span8", maxlength: 2, class: "txtMaximumLength" %>
       				</div>
       			</div>
       			<div class="control-group">
       				<%= f.label :nickname, "Account Nickname", class: "control-label" %>
       				<div class="controls">
-      					<%= f.text_field :nickname, class: "span8" %>
+      					<%= f.text_field :nickname, class: "span8", maxlength: 45, class: "txtMaximumLength" %>
       					<span class="help-inline">REQUIRED</span>
       				</div>
       			</div>
@@ -236,3 +236,14 @@
 
 </div><!--/.fluid-container-->
 <%= render 'shared/brands_scripts' %>
+<script src="/js/brands/bootstrap-maxlength.min.js"></script>
+<script type="text/javascript">
+      $(document).ready(function() {
+            $('.txtMaximumLength').maxlength({
+                  alwaysShow: true,
+                  separator: ' of ',
+                  postText: ' chars',
+                  placement: 'bottom-left'
+            });
+      });
+</script>

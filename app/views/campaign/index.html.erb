@@ -696,7 +696,7 @@
         <p><%= @campaign.redeem_details %></p>
     <% else %>
         <h4 class="extended_redeem_details">Campaign Location: <%= @campaign.location.city %>, <%= @campaign.location.state %></h4>
-        <h4 class="extended_redeem_details">Contact Information:<br>Name: <%= @campaign.redeem_name %><br>Email: <a href="mailto:<%= @campaign.redeem_email %>" target="_blank"><%= @campaign.redeem_email %></a><% unless @campaign.redeem_phone.blank? %><br>Phone: <%= @campaign.redeem_phone %><% end %><br>Monetary Value of Reward: <%= @campaign.redeem_value %><br>Expiration Date: <%= @campaign.redeem_expires %><% unless @campaign.redeem_event_date.blank? %><br>Event Date: <%= @campaign.redeem_event_date %><% end %><% if @campaign.redeem_is_raffle==true %><br>This Reward is a Raffle<% end %><% unless @campaign.redeem_special_circ.blank? %><br>Special Circumstances:<br><%= @campaign.redeem_special_circ %><% end %></h4>
+        <h4 class="extended_redeem_details">Contact Information:<br>Name: <%= @campaign.redeem_name %><br>Email: <a href="mailto:<%= @campaign.redeem_email %>" target="_blank"><%= @campaign.redeem_email %></a><% unless @campaign.redeem_phone.blank? %><br>Phone: <%= @campaign.redeem_phone %><% end %><br>Monetary Value of Reward: <%= @campaign.redeem_value %><br>Expiration Date: <%= @campaign.redeem_expires %><% unless @campaign.redeem_event_date.blank? %><br>Event Date: <%= @campaign.redeem_event_date %><% end %><% if @campaign.redeem_is_raffle==true %><br>This Reward is a Raffle<% end %><% unless @campaign.redeem_special_circ.blank? %><br>Special Circumstances:<br><span class="special-circ"><%= @campaign.redeem_special_circ %></span><% end %></h4>
     <% end %>
   </div>
   <div class="modal-footer">

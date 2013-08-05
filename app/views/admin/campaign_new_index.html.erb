@@ -219,7 +219,7 @@
 								<div class="control-group span6">
 	    							<%= f.label :redeem_special_circ, "Special Circumstances (OPTIONAL)", class: "control-label" %>
 	    							<div class="controls">
-	    								<%= f.text_area :redeem_special_circ, :rows => '4', :placeholder => "Up To 140 Characters", :maxlength => 140 %>
+	    								<%= f.text_area :redeem_special_circ, :rows => '4', :placeholder => "Up To 5000 Characters", :maxlength => 5000, :id => "txtSpecialCircum" %>
 	    							</div>
 	    						</div>
 	    					</div>
@@ -230,11 +230,11 @@
 							    	<label for="task_blog_post_0" class="muted" style="font-size:16px;font-weight:bold;cursor:pointer;" id="lblEnableTask1">Use Write A Blog Post <%= check_box("task_blog_post", "0", {}, true, false) %></label>
 							    	<p style="display:none;">
 							    		<%= f.label :task_blog_post, "Title For Task (Up To 30 Characters)" %>
-							    		<%= text_field "task_blog_post", "1", :placeholder => "Up To 30 Characters", :disabled => true, :maxlength => 30 %>
+							    		<%= text_field "task_blog_post", "1", :placeholder => "Up To 30 Characters", :disabled => true, :maxlength => 30, :class => 'txtTaskInput' %>
 							    	</p>
 							    	<p style="display:none;">
 							    		<%= f.label :task_blog_post, "Task Description (Up To 140 Characters)" %>
-							    		<%= text_area "task_blog_post", "2", :rows => '4', :placeholder => "Up To 140 Characters", :disabled => true, :maxlength => 140 %>
+							    		<%= text_area "task_blog_post", "2", :rows => '4', :placeholder => "Up To 140 Characters", :disabled => true, :maxlength => 140, :class => 'txtTaskInput' %>
 							    	</p>
 							    	<p style="display:none;">
 							    		<%= f.label :task_blog_post, "Number of Points buddee Recieves" %>
@@ -245,11 +245,11 @@
 							    	<label for="task_yelp_0" class="muted" style="font-size:16px;font-weight:bold;cursor:pointer;" id="lblEnableTask9">Use Yelp Review / Image Contest <%= check_box("task_yelp", "0", {}, true, false) %></label>
 							    	<p style="display:none;">
 							    		<%= f.label :task_yelp, "Title For Task (Up To 30 Characters)" %>
-							    		<%= text_field "task_yelp", "1", :placeholder => "Up To 30 Characters", :disabled => true, :maxlength => 30 %>
+							    		<%= text_field "task_yelp", "1", :placeholder => "Up To 30 Characters", :disabled => true, :maxlength => 30, :class => 'txtTaskInput' %>
 							    	</p>
 							    	<p style="display:none;">
 							    		<%= f.label :task_yelp, "Task Description (Up To 140 Characters)" %>
-							    		<%= text_area "task_yelp", "2", :rows => '4', :placeholder => "Up To 140 Characters", :disabled => true, :maxlength => 140 %>
+							    		<%= text_area "task_yelp", "2", :rows => '4', :placeholder => "Up To 140 Characters", :disabled => true, :maxlength => 140, :class => 'txtTaskInput' %>
 							    	</p>
 							    	<p style="display:none;">
 							    		<%= f.label :task_yelp, "Number of Points buddee Recieves" %>
@@ -262,11 +262,11 @@
 							    	<label for="task_facebook_0" class="muted" style="font-size:16px;font-weight:bold;cursor:pointer;" id="lblEnableTask2">Use Like On Facebook <%= check_box("task_facebook", "0", {}, true, false) %></label>
 							    	<p style="display:none;">
 							    		<%= f.label :task_facebook, "Title For Task (Up To 30 Characters)" %>
-							    		<%= text_field "task_facebook", "1", :placeholder => "Up To 30 Characters", :disabled => true, :maxlength => 30 %>
+							    		<%= text_field "task_facebook", "1", :placeholder => "Up To 30 Characters", :disabled => true, :maxlength => 30, :class => 'txtTaskInput' %>
 							    	</p>
 							    	<p style="display:none;">
 							    		<%= f.label :task_facebook, "Task Description (Up To 140 Characters)" %>
-							    		<%= text_area "task_facebook", "2", :rows => '4', :placeholder => "Up To 140 Characters", :disabled => true, :maxlength => 140 %>
+							    		<%= text_area "task_facebook", "2", :rows => '4', :placeholder => "Up To 140 Characters", :disabled => true, :maxlength => 140, :class => 'txtTaskInput' %>
 							    	</p>
 							    	<p style="display:none;">
 							    		<%= f.label :task_facebook, "Number of Points buddee Recieves" %>
@@ -285,11 +285,11 @@
 							    	<label for="task_twitter_0" class="muted" style="font-size:16px;font-weight:bold;cursor:pointer;" id="lblEnableTask3">Use Follow On Twitter <%= check_box("task_twitter", "0", {}, true, false) %></label>
 							    	<p style="display:none;">
 							    		<%= f.label :task_twitter, "Title For Task (Up To 30 Characters)" %>
-							    		<%= text_field "task_twitter", "1", :placeholder => "Up To 30 Characters", :disabled => true, :maxlength => 30 %>
+							    		<%= text_field "task_twitter", "1", :placeholder => "Up To 30 Characters", :disabled => true, :maxlength => 30, :class => 'txtTaskInput' %>
 							    	</p>
 							    	<p style="display:none;">
 							    		<%= f.label :task_twitter, "Task Description (Up To 140 Characters)" %>
-							    		<%= text_area "task_twitter", "2", :rows => '4', :placeholder => "Up To 140 Characters", :disabled => true, :maxlength => 140 %>
+							    		<%= text_area "task_twitter", "2", :rows => '4', :placeholder => "Up To 140 Characters", :disabled => true, :maxlength => 140, :class => 'txtTaskInput' %>
 							    	</p>
 							    	<p style="display:none;">
 							    		<%= f.label :task_twitter, "Number of Points buddee Recieves" %>
@@ -310,11 +310,11 @@
 							    	<label for="task_custom_1_0" class="muted" style="font-size:16px;font-weight:bold;cursor:pointer;" id="lblEnableTask4">Use Custom Task #1 <%= check_box("task_custom_1", "0", {}, true, false) %></label>
 							    	<p style="display:none;">
 							    		<%= f.label :task_custom_1, "Title For Task (Up To 30 Characters)" %>
-							    		<%= text_field "task_custom_1", "1", :placeholder => "Up To 30 Characters", :disabled => true, :maxlength => 30 %>
+							    		<%= text_field "task_custom_1", "1", :placeholder => "Up To 30 Characters", :disabled => true, :maxlength => 30, :class => 'txtTaskInput' %>
 							    	</p>
 							    	<p style="display:none;">
 							    		<%= f.label :task_custom_1, "Task Description (Up To 140 Characters)" %>
-							    		<%= text_area "task_custom_1", "2", :rows => '4', :placeholder => "Up To 140 Characters", :disabled => true, :maxlength => 140 %>
+							    		<%= text_area "task_custom_1", "2", :rows => '4', :placeholder => "Up To 140 Characters", :disabled => true, :maxlength => 140, :class => 'txtTaskInput' %>
 							    	</p>
 							    	<p style="display:none;">
 							    		<%= f.label :task_custom_1, "Number of Points buddee Recieves" %>
@@ -333,11 +333,11 @@
 							    	<label for="task_custom_2_0" class="muted" style="font-size:16px;font-weight:bold;cursor:pointer;" id="lblEnableTask5">Use Custom Task #2 <%= check_box("task_custom_2", "0", {}, true, false) %></label>
 							    	<p style="display:none;">
 							    		<%= f.label :task_custom_2_1, "Title For Task (Up To 30 Characters)" %>
-							    		<%= text_field "task_custom_2", "1", :placeholder => "Up To 30 Characters", :disabled => true, :maxlength => 30 %>
+							    		<%= text_field "task_custom_2", "1", :placeholder => "Up To 30 Characters", :disabled => true, :maxlength => 30, :class => 'txtTaskInput' %>
 							    	</p>
 							    	<p style="display:none;">
 							    		<%= f.label :task_custom_2_2, "Task Description (Up To 140 Characters)" %>
-							    		<%= text_area "task_custom_2", "2", :rows => '4', :placeholder => "Up To 140 Characters", :disabled => true, :maxlength => 140 %>
+							    		<%= text_area "task_custom_2", "2", :rows => '4', :placeholder => "Up To 140 Characters", :disabled => true, :maxlength => 140, :class => 'txtTaskInput' %>
 							    	</p>
 							    	<p style="display:none;">
 							    		<%= f.label :task_custom_2_3, "Number of Points buddee Recieves" %>
@@ -358,11 +358,11 @@
 							    	<label for="task_custom_3_0" class="muted" style="font-size:16px;font-weight:bold;cursor:pointer;" id="lblEnableTask6">Use Custom Task #3 <%= check_box("task_custom_3", "0", {}, true, false) %></label>
 							    	<p style="display:none;">
 							    		<%= f.label :task_custom_3_1, "Title For Task (Up To 30 Characters)" %>
-							    		<%= text_field "task_custom_3", "1", :placeholder => "Up To 30 Characters", :disabled => true, :maxlength => 30 %>
+							    		<%= text_field "task_custom_3", "1", :placeholder => "Up To 30 Characters", :disabled => true, :maxlength => 30, :class => 'txtTaskInput' %>
 							    	</p>
 							    	<p style="display:none;">
 							    		<%= f.label :task_custom_3_2, "Task Description (Up To 140 Characters)" %>
-							    		<%= text_area "task_custom_3", "2", :rows => '4', :placeholder => "Up To 140 Characters", :disabled => true, :maxlength => 140 %>
+							    		<%= text_area "task_custom_3", "2", :rows => '4', :placeholder => "Up To 140 Characters", :disabled => true, :maxlength => 140, :class => 'txtTaskInput' %>
 							    	</p>
 							    	<p style="display:none;">
 							    		<%= f.label :task_custom_3_3, "Number of Points buddee Recieves" %>
@@ -381,11 +381,11 @@
 							    	<label for="task_custom_4_0" class="muted" style="font-size:16px;font-weight:bold;cursor:pointer;" id="lblEnableTask7">Use Custom Task #4 <%= check_box("task_custom_4", "0", {}, true, false) %></label>
 							    	<p style="display:none;">
 							    		<%= f.label :task_custom_4_1, "Title For Task (Up To 30 Characters)" %>
-							    		<%= text_field "task_custom_4", "1", :placeholder => "Up To 30 Characters", :disabled => true, :maxlength => 30 %>
+							    		<%= text_field "task_custom_4", "1", :placeholder => "Up To 30 Characters", :disabled => true, :maxlength => 30, :class => 'txtTaskInput' %>
 							    	</p>
 							    	<p style="display:none;">
 							    		<%= f.label :task_custom_4_2, "Task Description (Up To 140 Characters)" %>
-							    		<%= text_area "task_custom_4", "2", :rows => '4', :placeholder => "Up To 140 Characters", :disabled => true, :maxlength => 140 %>
+							    		<%= text_area "task_custom_4", "2", :rows => '4', :placeholder => "Up To 140 Characters", :disabled => true, :maxlength => 140, :class => 'txtTaskInput' %>
 							    	</p>
 							    	<p style="display:none;">
 							    		<%= f.label :task_custom_4_3, "Number of Points buddee Recieves" %>
@@ -406,11 +406,11 @@
 							    	<label for="task_custom_5_0" class="muted" style="font-size:16px;font-weight:bold;cursor:pointer;" id="lblEnableTask8">Use Custom Task #5 <%= check_box("task_custom_5", "0", {}, true, false) %></label>
 							    	<p style="display:none;">
 							    		<%= f.label :task_custom_5_1, "Title For Task (Up To 30 Characters)" %>
-							    		<%= text_field "task_custom_5", "1", :placeholder => "Up To 30 Characters", :disabled => true, :maxlength => 30 %>
+							    		<%= text_field "task_custom_5", "1", :placeholder => "Up To 30 Characters", :disabled => true, :maxlength => 30, :class => 'txtTaskInput' %>
 							    	</p>
 							    	<p style="display:none;">
 							    		<%= f.label :task_custom_5_2, "Task Description (Up To 140 Characters)" %>
-							    		<%= text_area "task_custom_5", "2", :rows => '4', :placeholder => "Up To 140 Characters", :disabled => true, :maxlength => 140 %>
+							    		<%= text_area "task_custom_5", "2", :rows => '4', :placeholder => "Up To 140 Characters", :disabled => true, :maxlength => 140, :class => 'txtTaskInput' %>
 							    	</p>
 							    	<p style="display:none;">
 							    		<%= f.label :task_custom_5_3, "Number of Points buddee Recieves" %>
@@ -519,6 +519,7 @@
 
 		<script src="/js/admin/custom.js"></script>
 		<script src="/js/admin/bootstrap-datetimepicker.min.js"></script>
+		<script src="/js/brands/bootstrap-maxlength.min.js"></script>
 
 
 		<script type="text/javascript">
@@ -531,6 +532,18 @@
 					startView: 4,
 					todayBtn: true,
 					showMeridian: true
+				});
+				$('#txtSpecialCircum').maxlength({
+					alwaysShow: true,
+					separator: ' of ',
+					postText: ' chars',
+					placement: 'bottom-left'
+				});
+				$('.txtTaskInput').maxlength({
+					alwaysShow: true,
+					separator: ' of ',
+					postText: ' chars',
+					placement: 'right'
 				});
 			});
 		</script>

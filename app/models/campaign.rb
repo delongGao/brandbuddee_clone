@@ -70,7 +70,7 @@ class Campaign
   validates :redeem_email, presence: true, length: { minimum: 6, maximum: 100, too_short: "must be at least 6 chars long.", too_long: "cannot be more than 100 chars long." }, format: { with: EMAIL_REGEX, message: "is not in a valid format." }
   validates :redeem_value, presence: true, format: { with: MONEY_REGEX, message: "must be in the format: $123456.78" }
   validates :redeem_expires, presence: true
-  validates :redeem_special_circ, length: { maximum: 140, too_long: "cannot be longer than 140 characters." }
+  validates :redeem_special_circ, length: { maximum: 5000, too_long: "cannot be longer than 5000 characters." }
   
 
   def self.assign_link
