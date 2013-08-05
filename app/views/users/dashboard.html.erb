@@ -51,7 +51,6 @@
         <%# @user_location = Location.find(current_user.location.id) %> 
         <%# @campaign = @user_location.campaigns.where(:status => "active").order_by([:date, :desc]).paginate :page => params[:page], :per_page => 9 %>
         <% @campaign = Campaign.where(:status => "active").excludes(left: false).order_by([:date, :desc]).paginate :page => params[:page], :per_page => 9 %>
-        <%# @campaign = Campaign.where(:status => "active").order_by([:date, :desc]).paginate :page => params[:page], :per_page => 9 %>
       <% elsif %>
         <% @category = Category.where(:name => params[:c]).first %> 
         <% @campaign = @category.campaigns.where(:status => "active").order_by([:date, :desc]).paginate :page => params[:page], :per_page => 9 %>
@@ -67,7 +66,7 @@
                 <li class="active"><a href="#" class="filter" data-filter="*">All</a></li>
                 <% @categories.each do |c| %>
                     
-                    <li><a href="#" class="filter" data-filter=".<%= c.name %>"><% if c.name == "Technology" %>Tech<% else %><%= c.name %><% end %></a></li>
+                    <li><a href="#" class="filter" data-filter=".<%= c.name.gsub(/\//, "-") %>"><% if c.name == "Technology" %>Tech<% else %><%= c.name %><% end %></a></li>
 
                 <% end %>
             </ul>
@@ -93,7 +92,7 @@
                         <% @campaign.each do |c| %>                            
 <!--                           <div class="thumbnails"> -->
                           <%# slice.each do |c| %>
-                            <li class="span4 project" style="list-style: none outside none;" data-tags="<% c.categories.each do |cat| %><%= cat.name %><% end %>">
+                            <li class="span4 project" style="list-style: none outside none;" data-tags="<% c.categories.each do |cat| %><%= cat.name.gsub(/\//, "-") %><% end %>">
                               <div class="thumbnail unit-bg">
                                     <a href="/campaign/<%= c.link %>">
                                         <%= image_tag(c.campaign_image_url(:standard).to_s, :alt=>"#{c.brand.name.parameterize}-brandbuddee", :title=>"#{c.brand.name} brandbuddee", :width=>"100%") %>
@@ -186,10 +185,6 @@
             fjs.parentNode.insertBefore(js, fjs);
         } (document, 'script', 'facebook-jssdk'));</script>
 
-
-
-
-    <script type="text/javascript" src="js/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/jquery.isotope.min.js"></script>
     <script type="text/javascript" src="js/jquery.touchSwipe.js"></script>
     <script type="text/javascript" src="js/jquery.hotkeys.min.js"></script>
