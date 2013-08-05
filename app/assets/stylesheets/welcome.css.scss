@@ -2,6 +2,11 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+// vraiables
+// @bb-blue: #7EC1E1;
+// @bb-green: #C7E478;
+
+
 
 .welcome-logo {
 	display: block;
@@ -279,6 +284,32 @@ a.sb.gplus,
 .bb-green {
 	color: #C7E478;
 }
+
+// HOME page new
+.thumb-title {
+	text-align:center;
+}
+.home-thumblock {
+	background: url(/assets/headerbg-new.png);
+	border-radius: 3px;
+	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+	-moz-box-sizing: border-box;    /* Firefox, other Gecko */
+	box-sizing: border-box;         /* Opera/IE 8+ */
+}
+#thumb-brand {
+	border: solid 5px #7EC1E1;
+}
+#thumb-buddee {
+	border: solid 5px #C7E478;
+}
+.well-small {
+	margin: 0 0 30px; 
+}
+.thumb-content {
+	padding: 15px 30px;
+	color: #ffffff;
+}
+
 .home-page-text {
 	font-size:30px;
 	margin-left:10%;

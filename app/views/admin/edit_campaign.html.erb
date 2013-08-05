@@ -21,7 +21,7 @@
 			<noscript>
 				<div class="alert alert-block span10">
 					<h4 class="alert-heading">Warning!</h4>
-					<p>You need to have <a href="http://en.wikipedia.org/wiki/JavaScript" target="_blank">JavaScript</a> enabled to use this site.</p>
+					<p>You need to have <a title="sweepstakes contests giveaways brandbuddee" href="http://www.enable-javascript.com/" target="_blank">JavaScript</a> enabled to use this site.</p>
 				</div>
 			</noscript>
 			
@@ -33,13 +33,13 @@
 				<hr>
 				<ul class="breadcrumb">
 					<li>
-						<a href="/admin">Dashboard</a> <span class="divider">/</span>
+						<a title="sweepstakes contests giveaways brandbuddee" href="/admin">Dashboard</a> <span class="divider">/</span>
 					</li>
 					<li>
-						<a href="/admin/campaigns">Campaigns</a> <span class="divider">/</span>
+						<a title="sweepstakes contests giveaways brandbuddee" href="/admin/campaigns">Campaigns</a> <span class="divider">/</span>
 					</li>
 					<li>
-						<a href="#">Edit</a>
+						<a title="sweepstakes contests giveaways brandbuddee" href="#">Edit</a>
 					</li>
 				</ul>
 				<hr>
@@ -61,9 +61,9 @@
 					<div class="box-header" data-original-title>
 						<h2><i class="icon-edit"></i><span class="break"></span>Edit Campaign</h2>
 						<div class="box-icon">
-							<a href="#" class="btn-setting"><i class="icon-wrench"></i></a>
-							<a href="#" class="btn-minimize"><i class="icon-chevron-up"></i></a>
-							<a href="#" class="btn-close"><i class="icon-remove"></i></a>
+							<a title="sweepstakes contests giveaways brandbuddee" href="#" class="btn-setting"><i class="icon-wrench"></i></a>
+							<a title="sweepstakes contests giveaways brandbuddee" href="#" class="btn-minimize"><i class="icon-chevron-up"></i></a>
+							<a title="sweepstakes contests giveaways brandbuddee" href="#" class="btn-close"><i class="icon-remove"></i></a>
 						</div>
 					</div>
 					<div class="box-content form-horizontal">
@@ -73,7 +73,7 @@
 						  	<div class="control-group" style="margin-top:15px;">
 							  <label class="control-label" for="fileInput">Current Image</label>
 							  <div class="controls">
-								<%= image_tag(@campaign.campaign_image_url(:standard).to_s) %>
+								<%= image_tag(@campaign.campaign_image_url(:standard).to_s, :alt =>"#{@campaign.brand.name.parameterize}-brandbuddee", :title => "#{@campaign.brand.name.parameterize} brandbuddee") %>
 							  </div>
 							</div>
 
@@ -545,7 +545,7 @@
 							<div class="control-group">
 								<label class="control-label" for="gift1FileInput">Current Gift Image 1</label>
 								<div class="controls">
-									<%= image_tag(@campaign.gift_image_url(:thumb).to_s, :style => "border: 1px solid grey;") %>
+									<% if @campaign.gift_image.blank? %><img src="http://www.placehold.it/200x125/EFEFEF/AAAAAA&text=no+image" alt="<%= @campaign.brand.name.parameterize %>-brandbuddee" title="<%= @campaign.brand.name %> brandbuddee" width="200" height="125" style="border: 1px solid #666666;" /><% else %><%= image_tag(@campaign.gift_image_url(:thumb).to_s, :alt =>"#{@campaign.brand.name.parameterize}-brandbuddee", :title => "#{@campaign.brand.name.parameterize} brandbuddee", :style => "border: 1px solid grey;") %><% end %>
 								</div>
 							</div>
 							<div class="control-group">
@@ -558,7 +558,7 @@
 							<div class="control-group">
 								<label class="control-label" for="gift2FileInput">Current Gift Image 2</label>
 								<div class="controls">
-									<%= image_tag(@campaign.gift_image_two_url(:thumb).to_s, :style => "border: 1px solid grey;") %>
+									<% if @campaign.gift_image_two.blank? %><img src="http://www.placehold.it/200x125/EFEFEF/AAAAAA&text=no+image" alt="<%= @campaign.brand.name.parameterize %>-brandbuddee" title="<%= @campaign.brand.name %> brandbuddee" width="200" height="125" style="border: 1px solid #666666;" /><% else %><%= image_tag(@campaign.gift_image_two_url(:thumb).to_s, :alt =>"#{@campaign.brand.name.parameterize}-brandbuddee", :title => "#{@campaign.brand.name.parameterize} brandbuddee", :style => "border: 1px solid grey;") %><% end %>
 								</div>
 							</div>
 							<div class="control-group">
@@ -571,7 +571,7 @@
 							<div class="control-group">
 								<label class="control-label" for="gift3FileInput">Current Gift Image 3</label>
 								<div class="controls">
-									<%= image_tag(@campaign.gift_image_three_url(:thumb).to_s, :style => "border: 1px solid grey;") %>
+									<% if @campaign.gift_image_three.blank? %><img src="http://www.placehold.it/200x125/EFEFEF/AAAAAA&text=no+image" alt="<%= @campaign.brand.name.parameterize %>-brandbuddee" title="<%= @campaign.brand.name %> brandbuddee" width="200" height="125" style="border: 1px solid #666666;" /><% else %><%= image_tag(@campaign.gift_image_three_url(:thumb).to_s, :title => "#{@campaign.brand.name.parameterize} brandbuddee", :alt =>"#{@campaign.brand.name.parameterize}-brandbuddee", :style => "border: 1px solid grey;") %><% end %>
 								</div>
 							</div>
 							<div class="control-group">
@@ -598,7 +598,7 @@
 
 						    <div class="form-actions">
 							  <%= f.submit 'Save changes', :class=>"btn btn-primary" %>
-							  <a href="/admin/campaigns" class="btn">Cancel</a>
+							  <a title="Sweepstakes Contests Giveaways brandbuddee" href="/admin/campaigns" class="btn">Cancel</a>
 							</div>
 						</fieldset>
 						<% end %>

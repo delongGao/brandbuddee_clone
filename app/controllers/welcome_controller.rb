@@ -3,6 +3,8 @@ class WelcomeController < ApplicationController
 	def index
 		if current_user
 			redirect_to '/home'
+		elsif current_brand
+			redirect_to '/brands/dashboard'
 		end
 	end
 

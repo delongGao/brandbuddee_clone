@@ -96,7 +96,7 @@
                             <li class="span4 project" style="list-style: none outside none;" data-tags="<% c.categories.each do |cat| %><%= cat.name %><% end %>">
                               <div class="thumbnail unit-bg">
                                     <a href="/campaign/<%= c.link %>">
-                                        <%= image_tag(c.campaign_image_url(:standard).to_s, :width=>"100%") %>
+                                        <%= image_tag(c.campaign_image_url(:standard).to_s, :alt=>"#{c.brand.name.parameterize}-brandbuddee", :title=>"#{c.brand.name} brandbuddee", :width=>"100%") %>
                                     </a>
                                     <div class="caption">
                                         <h4 class="campaign_title_wrap">

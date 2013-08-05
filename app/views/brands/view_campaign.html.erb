@@ -5,7 +5,7 @@
 <noscript>
 	<div class="alert alert-block span10">
 		<h4 class="alert-heading">Warning!</h4>
-		<p>You need to have <a href="http://en.wikipedia.org/wiki/JavaScript" target="_blank">JavaScript</a> enabled to use this site.</p>
+		<p>You need to have <a title="sweepstakes contests giveaways brandbuddee" href="http://www.enable-javascript.com/" target="_blank">JavaScript</a> enabled to use this site.</p>
 	</div>
 </noscript>
 <div id="content" class="span10">
@@ -13,7 +13,7 @@
 <div class="row">
 	<div class="span6 offset3">
 		<div class="alert alert-<%= name %> fade in">
-			<a href="#" class="close" data-dismiss="alert">&times;</a>
+			<a title="sweepstakes contests giveaways brandbuddee" href="#" class="close" data-dismiss="alert">&times;</a>
 			<%= msg.html_safe %>
 		</div>
 	</div>
@@ -24,34 +24,34 @@
 	<hr>
 	<ul class="breadcrumb">
 		<li>
-			<a href="/brands/dashboard">Dashboard</a> <span class="divider">/</span>
+			<a title="sweepstakes contests giveaways brandbuddee" href="/brands/dashboard">Dashboard</a> <span class="divider">/</span>
 		</li>
 		<li>
-			<a href="/brands/campaigns">View All Campaigns</a> <span class="divider">/</span>
+			<a title="sweepstakes contests giveaways brandbuddee" href="/brands/campaigns">View All Campaigns</a> <span class="divider">/</span>
 		</li>
 		<li>
-			<a href="#">View Campaign: <%= truncate @campaign.title, length: 45, separator: ' ', omission: '...' %></a>
+			<a title="sweepstakes contests giveaways brandbuddee" href="#">View Campaign: <%= truncate @campaign.title, length: 45, separator: ' ', omission: '...' %></a>
 		</li>
 		<% unless @brand.manager_first.nil? %><li class="pull-right">Welcome back, <%= @brand.manager_first %></li><% end %>
 	</ul>
 	<hr>
 </div>
 <div class="row-fluid">
-	<a class="quick-button span2 offset2" href="/brands/campaigns/viral?_id=<%= @campaign.id %>" style="border-color: #FF4646; -webkit-box-shadow: 0px 0px 3px rgba(255,0,0,.5); -moz-box-shadow: 0px 0px 3px rgba(255,0,0,.5); box-shadow: 0px 0px 3px rgba(255,0,0,.5);">
+	<a title="sweepstakes contests giveaways brandbuddee" class="quick-button span2 offset2 go-viral-button" href="/brands/campaigns/viral?_id=<%= @campaign.id %>">
 		<i class="icon-beaker" style="color:#FF5D5D;"></i>
 		<p>Go Viral!</p>
 	</a>
-	<a class="quick-button span2" href="/brands/campaigns/buddees?_id=<%= @campaign.id %>">
+	<a title="sweepstakes contests giveaways brandbuddee" class="quick-button span2" href="/brands/campaigns/buddees?_id=<%= @campaign.id %>">
 		<i class="icon-group"></i>
 		<p>Buddees</p>
 		<span class="notification green"><%= @campaign.users.count %></span>
 	</a>
-	<a class="quick-button span2" href="/brands/campaigns/redeems?_id=<%= @campaign.id %>">
+	<a title="sweepstakes contests giveaways brandbuddee" class="quick-button span2" href="/brands/campaigns/redeems?_id=<%= @campaign.id %>">
 		<i class="icon-barcode"></i>
 		<p>Redeems</p>
 		<span class="notification"><%= @campaign.redeems.count %></span>
 	</a>
-	<a class="quick-button span2" href="/brands/campaigns/tasks?_id=<%= @campaign.id %>">
+	<a title="sweepstakes contests giveaways brandbuddee" class="quick-button span2" href="/brands/campaigns/tasks?_id=<%= @campaign.id %>">
 		<i class="icon-check"></i>
 		<p>Tasks</p>
 		<span class="notification yellow"><%= @campaign.num_of_tasks %></span>
@@ -68,41 +68,41 @@
 				<span id="share_stat" class="hidden"><%= @share_percentage %></span>
 				<span class="blueCircle statCircles"><span class="statAdd">+</span><%= @share_percentage.to_i %><span class="statPercent">%</span></span>
         	</div>
-			<div class="box-small-title"><a href="#" rel="tooltip" data-placement="bottom" data-original-title="<%= @share_percentage.to_i %>%" style="font-size:1.5em;color:#08c;text-decoration:none;cursor:default;">Shares</a></div>
+			<div class="box-small-title"><a title="sweepstakes contests giveaways brandbuddee" href="#" rel="tooltip" data-placement="bottom" data-original-title="<%= @share_percentage.to_i %>%" style="font-size:1.5em;color:#08c;text-decoration:none;cursor:default;">Shares</a></div>
 		</div><!-- /.span4 -->
 	</div><!-- /.circleStats -->
 	<div class="box span4" onTablet="span6" onDesktop="span4">
 		<div class="box-header">
 			<h2><i class="icon-list"></i><span class="break"></span>Weekly Stat</h2>
 			<div class="box-icon">
-				<a href="#" class="btn-minimize"><i class="icon-chevron-up"></i></a>
+				<a title="sweepstakes contests giveaways brandbuddee" href="#" class="btn-minimize"><i class="icon-chevron-up"></i></a>
 			</div>
 		</div>
 		<div class="box-content">
 			<ul class="dashboard-list">
 				<li>
-					<a href="#">
+					<a title="sweepstakes contests giveaways brandbuddee" href="#">
 						<i class="icon-arrow-up green" style="display: inline-block; width: 1.25em; text-align: center;"></i>
 						<span class="green"><%= @users_weekly %></span>
 						New Users
 					</a>
 				</li>
 			  	<li>
-					<a href="#">
+					<a title="sweepstakes contests giveaways brandbuddee" href="#">
 				  		<i class="icon-plus blue" style="display: inline-block; width: 1.25em; text-align: center;"></i>
 				  		<span class="blue"><%= @trackings_weekly.size %></span>
 				  		New Trackings
 					</a>
 			  	</li>
 			  	<li>
-					<a href="#">
+					<a title="sweepstakes contests giveaways brandbuddee" href="#">
 				  		<i class="icon-arrow-up green" style="display: inline-block; width: 1.25em; text-align: center;"></i>
 				  		<span class="green"><%= @trackings_weekly.sum(:views).to_i %></span>
 				  		New Views
 					</a>
 			  	</li>
 			  	<li>
-					<a href="#">
+					<a title="sweepstakes contests giveaways brandbuddee" href="#">
 				  		<i class="icon-plus blue" style="display: inline-block; width: 1.25em; text-align: center;"></i>
 				  		<span class="blue"><%= @redeems_weekly %></span>
 				  		New Redeems                                    
@@ -115,55 +115,55 @@
 		<div class="box-header">
 			<h2><i class="icon-list"></i><span class="break"></span>Shares Per Social Network</h2>
 			<div class="box-icon">
-				<a href="#" class="btn-minimize"><i class="icon-chevron-up"></i></a>
+				<a title="sweepstakes contests giveaways brandbuddee" href="#" class="btn-minimize"><i class="icon-chevron-up"></i></a>
 			</div>
 		</div>
 		<div class="box-content">
 			<ul class="dashboard-list">
 				<li>
-					<a href="#">
+					<a title="sweepstakes contests giveaways brandbuddee" href="#">
 						<i class="icon-facebook" style="font-size:1.35em;color:#3B5998;display: inline-block; width: 1.25em; text-align: center;"></i>
 						<span style="color:#3B5998;"><%= @total_facebook_clicks %></span>
 						Facebook Shares
 					</a>
 				</li>
 			  	<li>
-					<a href="#">
+					<a title="sweepstakes contests giveaways brandbuddee" href="#">
 					  	<i class="icon-twitter blue" style="font-size:1.35em;display: inline-block; width: 1.25em; text-align: center;"></i>
 					  	<span class="blue"><%= @total_twitter_clicks %></span>
 					  	Twitter Shares
 					</a>
 			  	</li>
 			  	<li>
-					<a href="#">
+					<a title="sweepstakes contests giveaways brandbuddee" href="#">
 					  <i class="icon-pinterest" style="font-size:1.35em;color:#CB2027;display: inline-block; width: 1.25em; text-align: center;"></i>
 					  <span style="color:#CB2027;"><%= @total_pinterest_clicks %></span>
 					  Pinterest Shares
 					</a>
 			  	</li>
 			  	<li>
-			  		<a href="#">
+			  		<a title="sweepstakes contests giveaways brandbuddee" href="#">
 			  			<i class="icon-tumblr" style="font-size:1.35em;color:#365472;display: inline-block; width: 1.25em; text-align: center;"></i>
 			  			<span style="color:#365472;"><%= @total_tumblr_clicks %></span>
 			  			Tumblr Shares
 			  		</a>
 			  	</li>
 			  	<li>
-			  		<a href="#">
+			  		<a title="sweepstakes contests giveaways brandbuddee" href="#">
 			  			<i class="icon-linkedin-sign" style="font-size:1.35em;color:#0073B2;display: inline-block; width: 1.25em; text-align: center;"></i>
 			  			<span style="color:#0073B2;"><%= @total_linkedin_clicks %></span>
 			  			LinkedIn Shares
 			  		</a>
 			  	</li>
 			  	<li>
-			  		<a href="#">
+			  		<a title="sweepstakes contests giveaways brandbuddee" href="#">
 			  			<i class="icon-google-plus-sign" style="font-size:1.35em;color:#CB3C2C;display: inline-block; width: 1.25em; text-align: center;"></i>
 			  			<span style="color:#CB3C2C;"><%= @total_google_plus_clicks %></span>
 			  			Google+ Shares
 			  		</a>
 			  	</li>
 			  	<li>
-			  		<a href="#">
+			  		<a title="sweepstakes contests giveaways brandbuddee" href="#">
 			  			<i class="icon-bullhorn green" style="font-size:1.35em;display: inline-block; width: 1.25em; text-align: center;"></i>
 			  			<span class="green"><%= @total_social_clicks %></span>
 			  			Total Shares
@@ -180,7 +180,7 @@
 		<div class="box-header">
 			<h2><i class="icon-bar-chart"></i><span class="break"></span>Social Network Comparison</h2>
 			<div class="box-icon">
-				<a href="#" class="btn-close"><i class="icon-remove"></i></a>
+				<a title="sweepstakes contests giveaways brandbuddee" href="#" class="btn-close"><i class="icon-remove"></i></a>
 			</div>
 		</div>
 		<div class="box-content">
@@ -192,34 +192,34 @@
 		<div class="box-header">
 			<h2><i class="icon-list"></i><span class="break"></span>Monthly Stat</h2>
 			<div class="box-icon">
-				<a href="#" class="btn-minimize"><i class="icon-chevron-up"></i></a>
+				<a title="sweepstakes contests giveaways brandbuddee" href="#" class="btn-minimize"><i class="icon-chevron-up"></i></a>
 			</div>
 		</div>
 		<div class="box-content">
 			<ul class="dashboard-list">
 				<li>
-					<a href="#">
+					<a title="sweepstakes contests giveaways brandbuddee" href="#">
 						<i class="icon-arrow-up green" style="display: inline-block; width: 1.25em; text-align: center;"></i>
 						<span class="green"><%= @users_monthly %></span>
 						New Users                                    
 					</a>
 				</li>
 			  <li>
-				<a href="#">
+				<a title="sweepstakes contests giveaways brandbuddee" href="#">
 				  <i class="icon-plus blue" style="display: inline-block; width: 1.25em; text-align: center;"></i>
 				  <span class="blue"><%= @trackings_monthly.size %></span>
 				  New Trackings
 				</a>
 			  </li>
 			  <li>
-				<a href="#">
+				<a title="sweepstakes contests giveaways brandbuddee" href="#">
 				  <i class="icon-arrow-up green" style="display: inline-block; width: 1.25em; text-align: center;"></i>
 				  <span class="green"><%= @trackings_monthly.sum(:views).to_i %></span>
 				  New Views
 				</a>
 			  </li>
 			  <li>
-				<a href="#">
+				<a title="sweepstakes contests giveaways brandbuddee" href="#">
 				  <i class="icon-plus blue" style="display: inline-block; width: 1.25em; text-align: center;"></i>
 				  <span class="blue"><%= @redeems_monthly %></span>
 				  New Redeems                                    
@@ -232,18 +232,18 @@
 		<div class="box-header">
 			<h2><i class="icon-user"></i><span class="break"></span>Last Users</h2>
 			<div class="box-icon">
-				<a href="#" class="btn-minimize"><i class="icon-chevron-up"></i></a>
+				<a title="sweepstakes contests giveaways brandbuddee" href="#" class="btn-minimize"><i class="icon-chevron-up"></i></a>
 			</div>
 		</div>
 		<div class="box-content">
 			<ul class="dashboard-list">
 				<% @last_users.each do |l| %>
 				<li>
-					<a href="/<%= l.nickname unless l.nickname.nil? %>">
+					<a title="sweepstakes contests giveaways brandbuddee" href="/<%= l.nickname unless l.nickname.nil? %>">
 						<%= image_tag(l.profile_image_url(:thumb).to_s, :class=>'avatar') %>
 
 					</a>
-					<strong>Name:</strong> <a href="/<%= l.nickname unless l.nickname.nil? %>" target="_blank"><%= l.first_name unless l.first_name.nil? %> <%= l.last_name unless l.last_name.nil? %><% if l.first_name.nil? || l.last_name.nil? %> <%= l.email %> <% end %></a><br>
+					<strong>Name:</strong> <a title="sweepstakes contests giveaways brandbuddee" href="/<%= l.nickname unless l.nickname.nil? %>" target="_blank"><%= l.first_name unless l.first_name.nil? %> <%= l.last_name unless l.last_name.nil? %><% if l.first_name.nil? || l.last_name.nil? %> <%= l.email %> <% end %></a><br>
 					<strong>Since:</strong> <%= time_ago_in_words(l.date) + " ago" unless l.date.nil? %><br>
 					<strong>Status:</strong> <span class="label label-info"><%= l.provider %></span>                                  
 				</li>

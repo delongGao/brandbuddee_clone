@@ -7,8 +7,8 @@
                 <h5 style="padding:0;font-weight:400;color:rgba(0,0,0,0.7);">Share this brand’s story, gain points, & earn the gift</h5>
             </div>
             <div class="span2" style="float:right;margin-right:25px;">
-                <a data-toggle="modal" href="#login" class="btn btn-success pull-right">Login</a>
-                <a href="<%= root_url %>signup" class="btn btn-info pull-right" style="margin-right:7px;">Join</a>
+                <a title="#{@campaign.brand.name} brandbuddee" data-toggle="modal" href="#login" class="btn btn-success pull-right">Login</a>
+                <a title="#{@campaign.brand.name} brandbuddee" href="<%= root_url %>signup" class="btn btn-info pull-right" style="margin-right:7px;">Join</a>
             </div>
         </div> <!-- .promo-campaign-bg -->
     </div>
@@ -50,7 +50,7 @@
             <div class="thumbnail zoom">
                 <!-- image -->
 
-                <%= image_tag(@campaign.campaign_image_url().to_s, :class=>"campaign_image") %>
+                <%= image_tag(@campaign.campaign_image_url().to_s, :class=>"campaign_image", :title => "#{@campaign.brand.name} brandbuddee", :alt =>"#{@campaign.brand.name.parameterize}-brandbuddee") %>
 
                 <!-- ribbon -->
                 <% if current_user %>
@@ -71,20 +71,10 @@
 
             </div>
 
-
-
                     <% if current_user %>
-<!--                         <a href="#" class="btn btn-primary">Share to Facebook</a>
-                        <a href="#" class="btn btn-info">Share to Twitter</a>
-                        <div class="clear"></div><br>
                         <% @share = Share.where(:campaign_id => @campaign.id, :user_id => current_user.id).first %>
-                        <b>Share Link:</b>
-                                    <input id="share_link_copy" class="input-large span4" type="text" value="<%#= root_url + 's/' + @share.link %>"> -->
-
-                    
-
                         <% if current_user.campaigns.where(:_id => @campaign.id).first %>
-                            <div style="margin-top:2%; margin-bottom:-2%;"><%= image_tag "/assets/learn-more-icon2.png", size: "100x100", alt: "seattle-rewards", title: "Share the story to earn pts", style: "padding-right:5%;", class: "img-circle" %> <span style="font-size: 24px; font-weight: bold; border: 1px solid #666; padding-left: 1%; padding-right: 1%; padding-bottom: 0.75%; border-radius: 8px;background:#fff url(/assets/campaign_tasks_background.png);margin-left:1.5%;" class="campaign_index_descriptions">Share this story to earn points</span></div>
+                            <div style="margin-top:2%; margin-bottom:-2%;"><%= image_tag "/assets/learn-more-icon2.png", size: "100x100", alt: "#{@campaign.brand.name.parameterize}-brandbuddee", :title => "#{@campaign.brand.name} brandbuddee", style: "padding-right:5%;", class: "img-circle" %> <span style="font-size: 24px; font-weight: bold; border: 1px solid #666; padding-left: 1%; padding-right: 1%; padding-bottom: 0.75%; border-radius: 8px;background:#fff url(/assets/campaign_tasks_background.png);margin-left:1.5%;" class="campaign_index_descriptions">Share the story to earn points</span></div>
                             <% if @campaign.detail.length > 400 %>
                                 <div style="margin-top:5%;" data-placement="right" data-content="<%= @campaign.detail %>" data-toggle="popover" id="campaign_detail_tooltip"><%= @campaign.detail.truncate(400, omission: "...") %></div>
                             <% else %>
@@ -96,7 +86,7 @@
                                     <%= javascript_include_tag "http://platform.twitter.com/widgets.js" %>
                                     <div class="sharing-wrap">
                                         <div class="pull-left tumblr-div">
-                                            <a href="/campaign/<%= @campaign.link %>/tumblr_auth" class="btn btn-mini" title="post-to-tumblr"><i class="icon-pencil"></i> Tumblr</a>
+                                            <a href="/campaign/<%= @campaign.link %>/tumblr_auth" class="btn btn-mini" title="<%= @campaign.brand.name %> brandbuddee"><i class="icon-pencil"></i> Tumblr</a>
                                         </div>
                                         <div class="sharing-campaign campaign-twitter-share">
                                             <div id="twitter-button">
@@ -104,11 +94,11 @@
                                                     data-text="<%= @campaign.tweet.html_safe unless @campaign.tweet.nil? %>"
                                                     data-count="none"
                                                     data-url="<%= root_url + 's/' + @share.link %>"
-                                                    data-size="">Tweet</a>
+                                                    data-size="" title="<%= @campaign.brand.name %> brandbuddee">Tweet</a>
                                             </div>
                                         </div>
                                         <div class="sharing-campaign campaign-pinterest-share" style="position:relative; top:1px;">
-                                            <a href="http://pinterest.com/pin/create/button/?url=<%= root_url + 's/' + @share.link %>&media=<%= @campaign.campaign_image_url() %>&description=<%= @campaign.title %>" class="pin-it-button" target="_blank" count-layout="none" data-campaign="<%= @campaign.link %>"><img border="0" src="//assets.pinterest.com/images/PinExt.png" title="Pin It" /></a>
+                                            <a href="http://pinterest.com/pin/create/button/?url=<%= root_url + 's/' + @share.link %>&media=<%= @campaign.campaign_image_url() %>&description=<%= @campaign.title %>" class="pin-it-button" target="_blank" count-layout="none" data-campaign="<%= @campaign.link %>" title="<%= @campaign.brand.name %> brandbuddee"><img border="0" src="//assets.pinterest.com/images/PinExt.png" title="Pin It" /></a>
                                         </div>
                                         <div style="padding-top:9px;">
                                             <div class="g-plus" data-action="share" data-annotation="none" data-href="http://brandbuddee.com/s/<%= @share.link %>" data-onendinteraction="addGooglePlusSharePoint"></div>
@@ -126,7 +116,7 @@
                                     <div class="clear"></div>
                                     Share Link:
                                     <input id="share_link_copy" class="input-large span4" type="text" value="<%= root_url + 's/' + @share.link %>">
-                                    <a href="#facebookModal" class="btn btn-primary btn-large" data-toggle="modal" style="margin-bottom:8px;" id="btnSubmitFbPost"><i class="icon-circle-arrow-up icon-white"></i> Post to Facebook</a>
+                                    <a href="#facebookModal" class="btn btn-primary btn-large" data-toggle="modal" style="margin-bottom:8px;" id="btnSubmitFbPost" title="<%= @campaign.brand.name %> brandbuddee"><i class="icon-circle-arrow-up icon-white"></i> Post to Facebook</a>
                                     <div class="clear"></div>
                                 </div><br>
                                 <div class="divisor divisor_services"><!-- /divisor above tasks -->
@@ -134,14 +124,14 @@
                                     <div class="circle_right"></div>
                                 </div>
                                 <% if @campaign.has_tasks? %>
-                                <div style="margin-top: -5%; margin-bottom: 3%;"><%= image_tag "/assets/campaign_index_be_buddee.png", size: "100x100", alt: "seattle-rewards", title: "Share the story to earn pts", style: "padding-right:5%;", class: "img-circle" %> <span style="font-size: 24px; font-weight: bold; border: 1px solid #666; padding-left: 1%; padding-right: 1%; padding-bottom: 0.75%; border-radius: 8px;background:#fff url(/assets/campaign_tasks_background.png);">Or complete the following tasks</span></div>
+                                <div style="margin-top: -5%; margin-bottom: 3%;"><%= image_tag "/assets/campaign_index_be_buddee.png", size: "100x100", alt: "#{@campaign.brand.name.parameterize}-brandbuddee", :title => "#{@campaign.brand.name} brandbuddee", style: "padding-right:5%;", class: "img-circle" %> <span style="font-size: 24px; font-weight: bold; border: 1px solid #666; padding-left: 1%; padding-right: 1%; padding-bottom: 0.75%; border-radius: 8px;background:#fff url(/assets/campaign_tasks_background.png);">Or complete the following tasks</span></div>
                                 <% counter = 0 %>
                                 <% unless @campaign.task_blog_post["use_it"].nil? || @campaign.task_blog_post["use_it"].blank? %>
                                 <% counter = counter + 1 %>
                                 <div class="accordion span4" id="accordion1" style="margin-left:0;">
                                     <div class="accordion-group">
                                         <div class="accordion-heading alt-accordion">
-                                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion1" href="#collapse1">
+                                            <a class="accordion-toggle" title="<%= @campaign.brand.name %> brandbuddee" data-toggle="collapse" data-parent="#accordion1" href="#collapse1">
                                                 <%= @campaign.task_blog_post["title"] %><span class="pull-right" style="margin-right:5%;"><%= pluralize(@campaign.task_blog_post["points"], 'pt', 'pts') %></span>
                                             </a>
                                         </div>
@@ -152,7 +142,7 @@
                                                     <label for="completedBlogTasksAddress" style="font-size: 1em; margin-top: 2%; margin-bottom: 0;">Your Blog's Address</label>
                                                     <input type="text" value="<%= @campaign.campaigns_and_users_task(current_user).blog_post_url %>" style="height:1em;" class="input-medium disabled" id="completedBlogTasksAddress" disabled="disabled" />
                                                 <% if Redeem.where(user_id: current_user.id, campaign_id: @campaign.id).first.nil? %>
-                                                    <a href="/campaign/<%= @campaign.link %>/undo_blog_task" class="btn btn-small btn-success" style="margin-left:55%;margin-top:2%;">Start Over</a>
+                                                    <a href="/campaign/<%= @campaign.link %>/undo_blog_task" class="btn btn-small btn-success" style="margin-left:55%;margin-top:2%;" title="<%= @campaign.brand.name %> brandbuddee">Start Over</a>
                                                 <% end %>
                                                 <% else %>
                                                     <%= form_tag "/campaign/#{@campaign.link}/complete_blog_task" do %>
@@ -173,7 +163,7 @@
                                 <div class="accordion span4" id="accordion2" style="margin-left:0;">
                                     <div class="accordion-group">
                                         <div class="accordion-heading alt-accordion">
-                                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse2">
+                                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse2" title="<%= @campaign.brand.name %> brandbuddee">
                                                 <%= @campaign.task_facebook["title"] %><span class="pull-right" style="margin-right:5%;"><%= pluralize(@campaign.task_facebook["points"], 'pt', 'pts') %></span>
                                             </a>
                                         </div>
@@ -182,12 +172,12 @@
                                                 <%= @campaign.task_facebook["description"] %><br />
                                                 <% if @campaign.campaigns_and_users_task(current_user).completed_facebook %>
                                                 <% if Redeem.where(user_id: current_user.id, campaign_id: @campaign.id).first.nil? %>
-                                                    <a href="/campaign/<%= @campaign.link %>/undo_facebook_task" class="btn btn-small btn-success" style="margin-left:55%;margin-top:2%;">Start Over</a>
+                                                    <a href="/campaign/<%= @campaign.link %>/undo_facebook_task" class="btn btn-small btn-success" style="margin-left:55%;margin-top:2%;" title="<%= @campaign.brand.name %> brandbuddee">Start Over</a>
                                                 <% end %>
                                                 <% else %>
                                                     <div class="btn-group" style="margin-left:45%;padding-top:2%;">
-                                                        <a href="<%= @campaign.task_facebook["link"] %>" target="_blank" class="btn btn-small btn-primary" id="btnDoItTaskFacebook">Do It</a>
-                                                        <a href="/campaign/<%= @campaign.link %>/complete_facebook_task" class="btn btn-small btn-danger disabled" disabled="disabled" id="btnDoneTaskFacebook">Done</a>
+                                                        <a href="<%= @campaign.task_facebook["link"] %>" target="_blank" class="btn btn-small btn-primary" id="btnDoItTaskFacebook" title="<%= @campaign.brand.name %> brandbuddee">Do It</a>
+                                                        <a href="/campaign/<%= @campaign.link %>/complete_facebook_task" class="btn btn-small btn-danger disabled" disabled="disabled" id="btnDoneTaskFacebook" title="<%= @campaign.brand.name %> brandbuddee">Done</a>
                                                     </div>
                                                 <% end %>
                                             </div>
@@ -201,7 +191,7 @@
                                 <div class="accordion span4" id="accordion3" style="margin-left:0;">
                                     <div class="accordion-group">
                                         <div class="accordion-heading alt-accordion">
-                                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion3" href="#collapse3">
+                                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion3" href="#collapse3" title="<%= @campaign.brand.name %> brandbuddee">
                                                 <%= @campaign.task_twitter["title"] %><span class="pull-right" style="margin-right:5%;"><%= pluralize(@campaign.task_twitter["points"], 'pt', 'pts') %></span>
                                             </a>
                                         </div>
@@ -210,12 +200,12 @@
                                                 <%= @campaign.task_twitter["description"] %><br />
                                                 <% if @campaign.campaigns_and_users_task(current_user).completed_twitter %>
                                                 <% if Redeem.where(user_id: current_user.id, campaign_id: @campaign.id).first.nil? %>
-                                                    <a href="/campaign/<%= @campaign.link %>/undo_twitter_task" class="btn btn-small btn-success" style="margin-left:55%;margin-top:2%;">Start Over</a>
+                                                    <a href="/campaign/<%= @campaign.link %>/undo_twitter_task" class="btn btn-small btn-success" style="margin-left:55%;margin-top:2%;" title="<%= @campaign.brand.name %> brandbuddee">Start Over</a>
                                                 <% end %>
                                                 <% else %>
                                                     <div class="btn-group" style="margin-left:45%;padding-top:2%;">
-                                                        <a href="<%= @campaign.task_twitter["link"] %>" target="_blank" class="btn btn-small btn-primary" id="btnDoItTaskTwitter">Do It</a>
-                                                        <a href="/campaign/<%= @campaign.link %>/complete_twitter_task" class="btn btn-small btn-danger disabled" disabled="disabled" id="btnDoneTaskTwitter">Done</a>
+                                                        <a href="<%= @campaign.task_twitter["link"] %>" target="_blank" class="btn btn-small btn-primary" id="btnDoItTaskTwitter" title="<%= @campaign.brand.name %> brandbuddee">Do It</a>
+                                                        <a href="/campaign/<%= @campaign.link %>/complete_twitter_task" class="btn btn-small btn-danger disabled" disabled="disabled" id="btnDoneTaskTwitter" title="<%= @campaign.brand.name %> brandbuddee">Done</a>
                                                     </div>
                                                 <% end %>
                                             </div>
@@ -229,7 +219,7 @@
                                 <div class="accordion span4" id="accordion4" style="margin-left:0;">
                                     <div class="accordion-group">
                                         <div class="accordion-heading alt-accordion">
-                                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion4" href="#collapse4">
+                                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion4" href="#collapse4" title="<%= @campaign.brand.name %> brandbuddee">
                                                 <%= @campaign.task_custom_1["title"] %><span class="pull-right" style="margin-right:5%;"><%= pluralize(@campaign.task_custom_1["points"], 'pt', 'pts') %></span>
                                             </a>
                                         </div>
@@ -238,12 +228,12 @@
                                                 <%= @campaign.task_custom_1["description"] %><br />
                                                 <% if @campaign.campaigns_and_users_task(current_user).completed_custom[0] %>
                                                 <% if Redeem.where(user_id: current_user.id, campaign_id: @campaign.id).first.nil? %>
-                                                    <a href="/campaign/<%= @campaign.link %>/undo_custom_task?custom_num=1" class="btn btn-small btn-success" style="margin-left:55%;margin-top:2%;">Start Over</a>
+                                                    <a href="/campaign/<%= @campaign.link %>/undo_custom_task?custom_num=1" class="btn btn-small btn-success" style="margin-left:55%;margin-top:2%;" title="<%= @campaign.brand.name %> brandbuddee">Start Over</a>
                                                 <% end %>
                                                 <% else %>
                                                     <div class="btn-group" style="margin-left:45%;padding-top:2%;">
-                                                        <a href="<%= @campaign.task_custom_1["link"] %>" target="_blank" class="btn btn-small btn-primary" id="btnDoItTaskCustom1">Do It</a>
-                                                        <a href="/campaign/<%= @campaign.link %>/complete_custom_task?custom_num=1" class="btn btn-small btn-danger disabled" disabled="disabled" id="btnDoneTaskCustom1">Done</a>
+                                                        <a href="<%= @campaign.task_custom_1["link"] %>" target="_blank" class="btn btn-small btn-primary" id="btnDoItTaskCustom1" title="<%= @campaign.brand.name %> brandbuddee">Do It</a>
+                                                        <a href="/campaign/<%= @campaign.link %>/complete_custom_task?custom_num=1" class="btn btn-small btn-danger disabled" disabled="disabled" id="btnDoneTaskCustom1" title="<%= @campaign.brand.name %> brandbuddee">Done</a>
                                                     </div>
                                                 <% end %>
                                             </div>
@@ -257,7 +247,7 @@
                                 <div class="accordion span4" id="accordion5" style="margin-left:0;">
                                     <div class="accordion-group">
                                         <div class="accordion-heading alt-accordion">
-                                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion5" href="#collapse5">
+                                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion5" href="#collapse5" title="<%= @campaign.brand.name %> brandbuddee">
                                                 <%= @campaign.task_custom_2["title"] %><span class="pull-right" style="margin-right:5%;"><%= pluralize(@campaign.task_custom_2["points"], 'pt', 'pts') %></span>
                                             </a>
                                         </div>
@@ -266,12 +256,12 @@
                                                 <%= @campaign.task_custom_2["description"] %><br />
                                                 <% if @campaign.campaigns_and_users_task(current_user).completed_custom[1] %>
                                                 <% if Redeem.where(user_id: current_user.id, campaign_id: @campaign.id).first.nil? %>
-                                                    <a href="/campaign/<%= @campaign.link %>/undo_custom_task?custom_num=2" class="btn btn-small btn-success" style="margin-left:55%;margin-top:2%;">Start Over</a>
+                                                    <a href="/campaign/<%= @campaign.link %>/undo_custom_task?custom_num=2" class="btn btn-small btn-success" style="margin-left:55%;margin-top:2%;" title="<%= @campaign.brand.name %> brandbuddee">Start Over</a>
                                                 <% end %>
                                                 <% else %>
                                                     <div class="btn-group" style="margin-left:45%;padding-top:2%;">
-                                                        <a href="<%= @campaign.task_custom_2["link"] %>" target="_blank" class="btn btn-small btn-primary" id="btnDoItTaskCustom2">Do It</a>
-                                                        <a href="/campaign/<%= @campaign.link %>/complete_custom_task?custom_num=2" class="btn btn-small btn-danger disabled" disabled="disabled" id="btnDoneTaskCustom2">Done</a>
+                                                        <a href="<%= @campaign.task_custom_2["link"] %>" target="_blank" class="btn btn-small btn-primary" id="btnDoItTaskCustom2" title="<%= @campaign.brand.name %> brandbuddee">Do It</a>
+                                                        <a href="/campaign/<%= @campaign.link %>/complete_custom_task?custom_num=2" class="btn btn-small btn-danger disabled" disabled="disabled" id="btnDoneTaskCustom2" title="<%= @campaign.brand.name %> brandbuddee">Done</a>
                                                     </div>
                                                 <% end %>
                                             </div>
@@ -285,7 +275,7 @@
                                 <div class="accordion span4" id="accordion6" style="margin-left:0;">
                                     <div class="accordion-group">
                                         <div class="accordion-heading alt-accordion">
-                                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion6" href="#collapse6">
+                                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion6" href="#collapse6" title="<%= @campaign.brand.name %> brandbuddee">
                                                 <%= @campaign.task_custom_3["title"] %><span class="pull-right" style="margin-right:5%;"><%= pluralize(@campaign.task_custom_3["points"], 'pt', 'pts') %></span>
                                             </a>
                                         </div>
@@ -294,12 +284,12 @@
                                                 <%= @campaign.task_custom_3["description"] %><br />
                                                 <% if @campaign.campaigns_and_users_task(current_user).completed_custom[2] %>
                                                 <% if Redeem.where(user_id: current_user.id, campaign_id: @campaign.id).first.nil? %>
-                                                    <a href="/campaign/<%= @campaign.link %>/undo_custom_task?custom_num=3" class="btn btn-small btn-success" style="margin-left:55%;margin-top:2%;">Start Over</a>
+                                                    <a href="/campaign/<%= @campaign.link %>/undo_custom_task?custom_num=3" class="btn btn-small btn-success" style="margin-left:55%;margin-top:2%;" title="<%= @campaign.brand.name %> brandbuddee">Start Over</a>
                                                 <% end %>
                                                 <% else %>
                                                     <div class="btn-group" style="margin-left:45%;padding-top:2%;">
-                                                        <a href="<%= @campaign.task_custom_3["link"] %>" target="_blank" class="btn btn-small btn-primary" id="btnDoItTaskCustom3">Do It</a>
-                                                        <a href="/campaign/<%= @campaign.link %>/complete_custom_task?custom_num=3" class="btn btn-small btn-danger disabled" disabled="disabled" id="btnDoneTaskCustom3">Done</a>
+                                                        <a href="<%= @campaign.task_custom_3["link"] %>" target="_blank" class="btn btn-small btn-primary" id="btnDoItTaskCustom3" title="<%= @campaign.brand.name %> brandbuddee">Do It</a>
+                                                        <a href="/campaign/<%= @campaign.link %>/complete_custom_task?custom_num=3" class="btn btn-small btn-danger disabled" disabled="disabled" id="btnDoneTaskCustom3" title="<%= @campaign.brand.name %> brandbuddee">Done</a>
                                                     </div>
                                                 <% end %>
                                             </div>
@@ -313,7 +303,7 @@
                                 <div class="accordion span4" id="accordion7" style="margin-left:0;">
                                     <div class="accordion-group">
                                         <div class="accordion-heading alt-accordion">
-                                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion7" href="#collapse7">
+                                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion7" href="#collapse7" title="<%= @campaign.brand.name %> brandbuddee">
                                                 <%= @campaign.task_custom_4["title"] %><span class="pull-right" style="margin-right:5%;"><%= pluralize(@campaign.task_custom_4["points"], 'pt', 'pts') %></span>
                                             </a>
                                         </div>
@@ -322,12 +312,12 @@
                                                 <%= @campaign.task_custom_4["description"] %><br />
                                                 <% if @campaign.campaigns_and_users_task(current_user).completed_custom[3] %>
                                                 <% if Redeem.where(user_id: current_user.id, campaign_id: @campaign.id).first.nil? %>
-                                                    <a href="/campaign/<%= @campaign.link %>/undo_custom_task?custom_num=4" class="btn btn-small btn-success" style="margin-left:55%;margin-top:2%;">Start Over</a>
+                                                    <a href="/campaign/<%= @campaign.link %>/undo_custom_task?custom_num=4" class="btn btn-small btn-success" style="margin-left:55%;margin-top:2%;" title="<%= @campaign.brand.name %> brandbuddee">Start Over</a>
                                                 <% end %>
                                                 <% else %>
                                                     <div class="btn-group" style="margin-left:45%;padding-top:2%;">
-                                                        <a href="<%= @campaign.task_custom_4["link"] %>" target="_blank" class="btn btn-small btn-primary" id="btnDoItTaskCustom4">Do It</a>
-                                                        <a href="/campaign/<%= @campaign.link %>/complete_custom_task?custom_num=4" class="btn btn-small btn-danger disabled" disabled="disabled" id="btnDoneTaskCustom4">Done</a>
+                                                        <a href="<%= @campaign.task_custom_4["link"] %>" target="_blank" class="btn btn-small btn-primary" id="btnDoItTaskCustom4" title="<%= @campaign.brand.name %> brandbuddee">Do It</a>
+                                                        <a href="/campaign/<%= @campaign.link %>/complete_custom_task?custom_num=4" class="btn btn-small btn-danger disabled" disabled="disabled" id="btnDoneTaskCustom4" title="<%= @campaign.brand.name %> brandbuddee">Done</a>
                                                     </div>
                                                 <% end %>
                                             </div>
@@ -341,7 +331,7 @@
                                 <div class="accordion span4" id="accordion8" style="margin-left:0;">
                                     <div class="accordion-group">
                                         <div class="accordion-heading alt-accordion">
-                                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion8" href="#collapse8">
+                                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion8" href="#collapse8" title="<%= @campaign.brand.name %> brandbuddee">
                                                 <%= @campaign.task_custom_5["title"] %><span class="pull-right" style="margin-right:5%;"><%= pluralize(@campaign.task_custom_5["points"], 'pt', 'pts') %></span>
                                             </a>
                                         </div>
@@ -350,12 +340,12 @@
                                                 <%= @campaign.task_custom_5["description"] %><br />
                                                 <% if @campaign.campaigns_and_users_task(current_user).completed_custom[4] %>
                                                 <% if Redeem.where(user_id: current_user.id, campaign_id: @campaign.id).first.nil? %>
-                                                    <a href="/campaign/<%= @campaign.link %>/undo_custom_task?custom_num=5" class="btn btn-small btn-success" style="margin-left:55%;margin-top:2%;">Start Over</a>
+                                                    <a href="/campaign/<%= @campaign.link %>/undo_custom_task?custom_num=5" class="btn btn-small btn-success" style="margin-left:55%;margin-top:2%;" title="<%= @campaign.brand.name %> brandbuddee">Start Over</a>
                                                 <% end %>
                                                 <% else %>
                                                     <div class="btn-group" style="margin-left:45%;padding-top:2%;">
-                                                        <a href="<%= @campaign.task_custom_5["link"] %>" target="_blank" class="btn btn-small btn-primary" id="btnDoItTaskCustom5">Do It</a>
-                                                        <a href="/campaign/<%= @campaign.link %>/complete_custom_task?custom_num=5" class="btn btn-small btn-danger disabled" disabled="disabled" id="btnDoneTaskCustom5">Done</a>
+                                                        <a href="<%= @campaign.task_custom_5["link"] %>" target="_blank" class="btn btn-small btn-primary" id="btnDoItTaskCustom5" title="<%= @campaign.brand.name %> brandbuddee">Do It</a>
+                                                        <a href="/campaign/<%= @campaign.link %>/complete_custom_task?custom_num=5" class="btn btn-small btn-danger disabled" disabled="disabled" id="btnDoneTaskCustom5" title="<%= @campaign.brand.name %> brandbuddee">Done</a>
                                                     </div>
                                                 <% end %>
                                             </div>
@@ -369,7 +359,7 @@
                                 <div class="accordion span4" id="accordion9" style="margin-left:0;">
                                     <div class="accordion-group">
                                         <div class="accordion-heading alt-accordion">
-                                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion9" href="#collapse9">
+                                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion9" href="#collapse9" title="<%= @campaign.brand.name %> brandbuddee">
                                                 <%= @campaign.task_yelp["title"] %><span class="pull-right" style="margin-right:5%;"><%= pluralize(@campaign.task_yelp["points"], 'pt', 'pts') %></span>
                                             </a>
                                         </div>
@@ -380,7 +370,7 @@
                                                     <label for="completedYelpTasksAddress" style="font-size: 1em; margin-top: 2%; margin-bottom: 0;">Web Address</label>
                                                     <input type="text" value="<%= @campaign.campaigns_and_users_task(current_user).yelp_review %>" style="height:1em;" class="input-medium disabled" id="completedYelpTasksAddress" disabled="disabled" />
                                                 <% if Redeem.where(user_id: current_user.id, campaign_id: @campaign.id).first.nil? %>
-                                                    <a href="/campaign/<%= @campaign.link %>/undo_yelp_task" class="btn btn-small btn-success" style="margin-left:55%;margin-top:2%;">Start Over</a>
+                                                    <a href="/campaign/<%= @campaign.link %>/undo_yelp_task" class="btn btn-small btn-success" style="margin-left:55%;margin-top:2%;" title="<%= @campaign.brand.name %> brandbuddee">Start Over</a>
                                                 <% end %>
                                                 <% else %>
                                                     <%= form_tag "/campaign/#{@campaign.link}/complete_yelp_task" do %>
@@ -435,7 +425,7 @@
                                   </div>
                                 </div>
 
-                            <div style="margin-top: -5%; margin-bottom: 3%;"><%= image_tag "/assets/campaign_index_everyone_win.png", size: "100x100", alt: "seattle-rewards", title: "Share the story to earn pts", style: "padding-right:5%;", class: "img-circle" %> <span style="font-size: 24px; font-weight: bold; border: 1px solid #666; padding-left: 1%; padding-right: 1%; padding-bottom: 0.75%; border-radius: 8px;background:#fff url(/assets/campaign_tasks_background.png);margin-left:9%;">And score these gifts</span></div>
+                            <div style="margin-top: -5%; margin-bottom: 3%;"><%= image_tag "/assets/campaign_index_everyone_win.png", size: "100x100", alt: "#{@campaign.brand.name.parameterize}-brandbuddee", title: "#{@campaign.brand.name} brandbuddee", style: "padding-right:5%;", class: "img-circle" %> <span style="font-size: 24px; font-weight: bold; border: 1px solid #666; padding-left: 1%; padding-right: 1%; padding-bottom: 0.75%; border-radius: 8px;background:#fff url(/assets/campaign_tasks_background.png);margin-left:9%;">And score these gifts</span></div>
                         <% end %>
 
                     <% end %>
@@ -444,44 +434,31 @@
                     <ul class="pull-right" id="gift_gallery" style="margin-top:2%;">
                         <li>
                             <a href="<%= @campaign.gift_image_url(:standard).to_s %>" data-options="thumbnail: '<%= @campaign.gift_image_url(:thumb).to_s %>'">
-                                <i class="icon-camera-retro gift-photo" style="border: 5px outset #0088CC; padding-top: 12px; padding-bottom: 0; padding-left: 5px; background:#fff url(/assets/campaign_tasks_background.png); padding-right: 5px;"></i>
+                                <i class="icon-camera-retro gift-photo" style="border: 5px outset #0088CC; padding-top: 12px; padding-bottom: 0; padding-left: 5px; background:#fff url(/assets/campaign_tasks_background.png); padding-right: 5px;" title="<%= @campaign.brand.name %> brandbuddee"></i>
                             </a>
                         </li><% unless @campaign.gift_image_two.nil? || @campaign.gift_image_two.blank? %>
                         <li class="hide">
-                            <a href="<%= @campaign.gift_image_two_url(:standard).to_s %>" data-options="thumbnail: '<%= @campaign.gift_image_two_url(:thumb).to_s %>'"></a>
+                            <a href="<%= @campaign.gift_image_two_url(:standard).to_s %>" data-options="thumbnail: '<%= @campaign.gift_image_two_url(:thumb).to_s %>'" title="<%= @campaign.brand.name %> brandbuddee"></a>
                         </li><% end %><% unless @campaign.gift_image_three.nil? || @campaign.gift_image_three.blank? %>
                         <li class="hide">
-                            <a href="<%= @campaign.gift_image_three_url(:standard).to_s %>" data-options="thumbnail: '<%= @campaign.gift_image_three_url(:thumb).to_s %>'"></a>
+                            <a href="<%= @campaign.gift_image_three_url(:standard).to_s %>" data-options="thumbnail: '<%= @campaign.gift_image_three_url(:thumb).to_s %>'" title="<%= @campaign.brand.name %> brandbuddee"></a>
                         </li><% end %>
                     </ul>
                     <% end %>
                     <blockquote class="campaign_reward_box"><h3>What do I get? (<%= pluralize(@campaign.points_required, 'pt', 'pts') %>)</h3><p><%= @campaign.reward unless @campaign.reward.nil? %></p><% unless @campaign.easy_prize.nil? || @campaign.easy_prize.empty? %><h3>Or get this just for sharing! (3 pts)</h3><p><%= @campaign.easy_prize %></p><% end %></blockquote><br>
 
                     <div class="redeem_details">
-                        <a href="#redeemDetailsModal" role="button" class="btn btn-large btn-primary pull-right" style="margin-top: -7%;" data-toggle="modal">How To Redeem</a>
+                        <a href="#redeemDetailsModal" role="button" class="btn btn-large btn-primary pull-right" style="margin-top: -7%;" data-toggle="modal" title="<%= @campaign.brand.name %> brandbuddee">How To Redeem</a>
                     </div> <!-- .well -->
 
-
-
-<!--                                 <h4>Location</h4>
+                                <!-- <h4>Location</h4>
                                 <iframe width="100%" height="250" frameborder="0" scrolling="no" marginheight="0"
                                     marginwidth="0" src="https://maps.google.com/maps?f=q&amp;source=embed&amp;hl=en&amp;geocode=&amp;q=Seattle,+WA,+United+States&amp;aq=0&amp;sll=37.0625,-95.677068&amp;sspn=49.043149,74.443359&amp;ie=UTF8&amp;hq=&amp;hnear=Seattle,+Washington&amp;spn=0.00301,0.004544&amp;t=m&amp;z=14">
                                 </iframe>
                                 <br>
                                 <a href="http://maps.google.com/maps?f=q&amp;source=embed&amp;hl=en&amp;geocode=&amp;q=Seattle,+WA,+United+States&amp;aq=0&amp;oq=twitter+san+fra&amp;sll=37.0625,-95.677068&amp;sspn=49.043149,74.443359&amp;ie=UTF8&amp;hq=&amp;hnear=Twitter+Bldg,+Market+St,+Seattle,+WA+94103&amp;ll=37.776606,-122.416728&amp;spn=0.00301,0.004544&amp;t=m&amp;z=14"
                                     target="_blank">View Larger Map</a><br /> -->
-
-                    
-
         </div>
-
-
-
-
-
-
-
-
 
         <div class="span4 project-description" style="padding-top:0;">
 
@@ -520,7 +497,7 @@
                     <% if @official_pts >= @campaign.points_required %>
                         <% @redeem = @campaign.redeems.where(:user_id => current_user.id).first %>
                         <% if @redeem != nil %>
-                            <p><a href="#" class="btn btn-large btn-success redeem_button">Redeem</a></p>
+                            <p><a href="#" class="btn btn-large btn-success redeem_button" title="<%= @campaign.brand.name %> brandbuddee">Redeem</a></p>
                             
                             <h5 class="redeem_code alert alert-success"><%= @redeem.redeem_code unless @redeem.redeem_code.nil? %></h5>
 
@@ -545,7 +522,7 @@
                 <% elsif %>
                     
                     <li>
-                        <%= link_to "Join", { :controller=>'campaign', :action=>'activate_campaign', :_c => @campaign.id }, :class=>"btn btn-large btn-info" %>
+                        <%= link_to "Join", { :controller=>'campaign', :action=>'activate_campaign', :_c => @campaign.id }, :class=>"btn btn-large btn-info", :title =>"#{@campaign.brand.name} brandbuddee" %>
 
                     </li>
                 <% end %>
@@ -595,7 +572,7 @@
                                                         Category
                                                     </td>
                                                     <td>
-                                                        <a href="<%= root_url %>home#<% @campaign.categories.each do |c| %><%= c.name %><% end %>">#<% @campaign.categories.each do |c| %><%= c.name %><% end %></a>
+                                                        <a href="<%= root_url %>home#<% @campaign.categories.each do |c| %><%= c.name %><% end %>" title="<%= @campaign.brand.name %> brandbuddee">#<% @campaign.categories.each do |c| %><%= c.name %><% end %></a>
                                                     </td>
                                                 </tr>
                                             </table>
@@ -608,9 +585,13 @@
                                 <h4>Brand</h4>
                                 <p>
                                      <% if (@campaign.brand.name.first=="/" || @campaign.brand.name.first(7)=="http://" || @campaign.brand.name.first(8)=="https://") && (@campaign.brand.name.last(4)==".png" || @campaign.brand.name.last(4)==".jpg" || @campaign.brand.name.last(5)==".jpeg" || @campaign.brand.name.last(4)==".gif") %>
-                                        <img src="<%= @campaign.brand.name %>" alt="seattle-rewards" style="margin-top:-12%;" />
+                                        <img src="<%= @campaign.brand.name %>" alt="<%= @campaign.brand.name.parameterize %>-brandbuddee" title="<%= @campaign.brand.name %> brandbuddee" style="margin-top:-12%;" />
                                      <% else %>
-                                        <%= @campaign.brand.name %>
+                                        <% if @campaign.brand.brand_logo.blank? %>
+                                            <%= @campaign.brand.name %>
+                                        <% else %>
+                                            <%= image_tag @campaign.brand.brand_logo_url().to_s, alt: "#{@campaign.brand.name.parameterize}-brandbuddee", title: "#{@campaign.brand.name} brandbuddee", style: "max-height:65px; max-width:100%; margin-top:-4%;" %>
+                                        <% end %>
                                      <% end %>
                                 </p>
 
@@ -622,7 +603,7 @@
                                 <h4>Website</h4>
                                 <p>
                                      <% unless @campaign.brand.website.blank? || @campaign.brand.website.nil? %>
-                                        <p><a href="<%= @campaign.brand.website %>" target="_blank" class=""><%= @campaign.brand.website %></a></p>
+                                        <p><a title="<%= @campaign.brand.name %> brandbuddee" href="<%= @campaign.brand.website %>" target="_blank" class=""><%= @campaign.brand.website %></a></p>
                                     <% end %>
                                 </p>
 
@@ -641,24 +622,7 @@
                                         <a href="<%= @campaign.brand.gplus %>" target="_blank" class="sb circle gplus mytooltip" data-original-title="Google Plus">Google Plus</a>
                                     <% end %>
                                 </p>
-
-
-
-
-<!--                                 <h4>Technology</h4>
-                                <ul class="list-style">
-                                    <li class="icon-ok">HTML / CSS / MySQL</li>
-                                    <li class="icon-ok">Design</li>
-                                    <li class="icon-ok">Php</li>
-                                </ul> -->
-
                             </div> <!-- .well -->
-
-                        
-
-
-            
-
         </div>
         <!-- end portfolio item-->
 
@@ -676,8 +640,8 @@
                 <% @campaigns_else.each do |c| %>
                   <li class="span3">
                     <div class="thumbnail unit-bg" style="height:342px;">
-                          <a href="/campaign/<%= c.link %>">
-                              <%= image_tag(c.campaign_image_url(:standard).to_s, :width=>"100%") %>
+                          <a href="/campaign/<%= c.link %>" title="<%= @campaign.brand.name %> brandbuddee">
+                              <%= image_tag(c.campaign_image_url(:standard).to_s, :title => "#{@campaign.brand.name.parameterize} brandbuddee", :alt=> "#{@campaign.brand.name.parameterize}-brandbuddee", :width=>"100%") %>
                           </a>
                           <div class="caption">
                               <h4 class="campaign_profile_title_wrap">
@@ -709,7 +673,7 @@
                                     <span class="pts_req_text">pts</span>
                                 </span> <!-- .pts_req_wrap -->
                                 <span class="view-deal">
-                                    <a href="/campaign/<%= c.link %>" class="btn btn-success">View&nbsp;<i class="icon-chevron-right icon-white"></i></a>
+                                    <a href="/campaign/<%= c.link %>" class="btn btn-success" title="<%= @campaign.brand.name %> brandbuddee">View&nbsp;<i class="icon-chevron-right icon-white"></i></a>
                                 </span> <!-- .view-deal -->
                               </span> <!-- .campaign_details -->
                           </div>
@@ -718,53 +682,7 @@
                 <% end %>
             </ul>
         </div> <!-- .span12 -->
-
-<!--         <article class="span2 project" rel="tooltip" title="Some other project">
-            <div class="thumbnail">
-                <a href="project-other.html" title="">
-                    <img src="assets/11.gif" alt="" />
-                </a>
-            </div>
-        </article> -->
-
- 
-
-
-    </section>  
-
-
-    <div class="row">
-
-<!--         <div class="span3">
-            
-            <div class="well unit-bg">
-                <ul class="nav nav-list">
-                <% if current_user %>
-                    <li><a href="/dashboard"><i class="icon-asterisk"></i>&nbsp;Earn Rewards</a></li>
-                    <li><a href="/<%= current_user.nickname %>"><i class="icon-headphones"></i>&nbsp;Your Rewards</a></li>
-                    <li><a href="#"><i class="icon-briefcase"></i>&nbsp;Redeem</a></li>
-                    <li><a href="#"><i class="icon-tag"></i>&nbsp;Past Rewards</a></li>
-                    <li class="divider"></li>
-                <% end %>
-                    <li><a href="/support/help"><i class="icon-question-sign"></i>&nbsp;Help</a></li>
-                </ul>
-            </div>
-
-            <div class="well unit-bg">
-                <p>
-                    <i class="icon-envelope"></i>&nbsp;Invite Friends</p>
-                <div class="input-append">
-                    <input class="span2" id="inputEmail" type="text" placeholder="Enter your email">
-                    <button class="btn" type="button">
-                        OK</button>
-                </div>
-            </div>
-
-        </div> -->
-
-        
-    </div>
-
+    </section>
 </div>
 
 <%= render "shared/footer" %>
@@ -785,8 +703,6 @@
     <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
   </div>
 </div>
-
-
 
     <script>        
     !function (d, s, id) {
@@ -831,32 +747,7 @@
     </script>
     <script type="text/javascript" src="/js/ilightbox.js"></script>
     <script type="text/javascript">
-        var thewidth = $(window).width();
-        var thumbwidth = 767 < thewidth ? !0 : !1;
-        $("ul#gift_gallery li a").iLightBox({
-            skin: "smooth",
-            path: "horizontal",
-            maxScale: 1.3,
-            overlay: {
-                opacity: 0.9
-            },
-            controls: {
-                thumbnail: thumbwidth
-            },
-            styles: {
-                nextOffsetX: 75,
-                nextOpacity: 0.55,
-                prevOffsetX: 75,
-                prevOpacity: 0.55
-            },
-            thumbnails: {
-                normalOpacity: 0.3,
-                activeOpacity: 1
-            },
-            effects: {
-                switchSpeed: 700
-            }
-        });
+        eval(function(p,a,c,k,e,d){e=function(c){return(c<a?'':e(parseInt(c/a)))+((c=c%a)>35?String.fromCharCode(c+29):c.toString(36))};if(!''.replace(/^/,String)){while(c--){d[e(c)]=k[c]||e(c)}k=[function(e){return d[e]}];e=function(){return'\\w+'};c=1};while(c--){if(k[c]){p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c])}}return p}('7 5=$(g).h();7 4=n<5?!0:!1;$("j#i k a").m({f:"b",8:"c",d:1.3,e:{l:0.9},o:{x:4},y:{A:2,z:0.6,v:2,q:0.6},r:{s:0.3,u:1},t:{p:w}});',37,37,'||75||thumbwidth|thewidth|55|var|path|||smooth|horizontal|maxScale|overlay|skin|window|width|gift_gallery|ul|li|opacity|iLightBox|767|controls|switchSpeed|prevOpacity|thumbnails|normalOpacity|effects|activeOpacity|prevOffsetX|700|thumbnail|styles|nextOpacity|nextOffsetX'.split('|'),0,{}))
     </script>
     <!-- backstretch -->
     <!--<script src="/js/jquery.backstretch.min.js"></script>

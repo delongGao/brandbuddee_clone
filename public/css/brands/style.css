@@ -975,7 +975,8 @@ ul.messages li .message {
 
 .quick-button:hover {
 	text-decoration: none;
-	border-color: #a5a5a5;
+	/*border-color: #a5a5a5;*/
+	border-color: #FF4646;
 	color: #444444;
 	text-shadow: 0 1px 0px rgba(255, 255, 255, 1);
 	-webkit-transition: all 0.3s ease;
@@ -983,9 +984,26 @@ ul.messages li .message {
 	-ms-transition: all 0.3s ease;
 	-o-transition: all 0.3s ease;
 	transition: all 0.3s ease;
-  	-webkit-box-shadow: 0px 0px 3px rgba(0,0,0,.25);
-       -moz-box-shadow: 0px 0px 3px rgba(0,0,0,.25);
-          	box-shadow: 0px 0px 3px rgba(0,0,0,.25);
+  	/*-webkit-box-shadow: 0px 0px 3px rgba(0,0,0,.25);*/
+  	-webkit-box-shadow: 0px 0px 3px rgba(255,0,0,.5);
+       /*-moz-box-shadow: 0px 0px 3px rgba(0,0,0,.25);*/
+       -moz-box-shadow: 0px 0px 3px rgba(255,0,0,.5);
+          	/*box-shadow: 0px 0px 3px rgba(0,0,0,.25);*/
+          	box-shadow: 0px 0px 3px rgba(255,0,0,.5);
+}
+.go-viral-button {
+	text-decoration: none;
+	border-color: #FF4646;
+	color: #444444;
+	text-shadow: 0 1px 0px rgba(255, 255, 255, 1);
+	-webkit-transition: all 0.3s ease;
+	-moz-transition: all 0.3s ease;
+	-ms-transition: all 0.3s ease;
+	-o-transition: all 0.3s ease;
+	transition: all 0.3s ease;
+  	-webkit-box-shadow: 0px 0px 3px rgba(255,0,0,.5);
+       -moz-box-shadow: 0px 0px 3px rgba(255,0,0,.5);
+          	box-shadow: 0px 0px 3px rgba(255,0,0,.5);
 }
 .quick-button:hover .notification {
 	-webkit-transition: all 0.3s ease;
@@ -993,9 +1011,12 @@ ul.messages li .message {
 	-ms-transition: all 0.3s ease;
 	-o-transition: all 0.3s ease;
 	transition: all 0.3s ease;
-	-webkit-box-shadow: 0px 0px 3px rgba(0,0,0,.6);
-       -moz-box-shadow: 0px 0px 3px rgba(0,0,0,.6);
-          	box-shadow: 0px 0px 3px rgba(0,0,0,.6);
+	/*-webkit-box-shadow: 0px 0px 3px rgba(0,0,0,.6);*/
+	-webkit-box-shadow: 0px 0px 3px rgba(255,0,0,.9);
+       /*-moz-box-shadow: 0px 0px 3px rgba(0,0,0,.6);*/
+       -moz-box-shadow: 0px 0px 3px rgba(255,0,0,.9);
+          	/*box-shadow: 0px 0px 3px rgba(0,0,0,.6);*/
+          	box-shadow: 0px 0px 3px rgba(255,0,0,.9);
 }
 
 .quick-button i {

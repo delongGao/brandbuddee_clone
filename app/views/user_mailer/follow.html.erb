@@ -8,7 +8,7 @@
             <tr>
               <td width="115" height="75px" valign="bottom" align="center">
                 <a href="<%= @url %>" target="_blank">
-                  <img style="border-style:none;display:block" width="213" height="40" alt="brandbuddee" src="http://brandbuddee.com/assets/brandbuddee-logo.png">
+                  <img style="border-style:none;display:block" width="213" height="40" alt="sweepstakes-contests-giveaways-brandbuddee" title="Sweepstakes Contests Giveaways brandbuddee" src="http://brandbuddee.com/assets/brandbuddee-logo.png">
                 </a>
               </td>
             </tr>
@@ -30,7 +30,7 @@
                         <p style="font-size:15px;padding-top:18px;margin-top:18px;margin-bottom:15px;">See what stories <a href="<%= @url %><%= @follower.nickname %>" target="_blank"><span style="font-weight:bold"><% unless @follower.first_name.nil? || @follower.last_name.nil? || @follower.first_name.blank? || @follower.last_name.blank? %><%= @follower.first_name %><% else %><%= @follower.first_name + ' ' + @follower.nickname unless @follower.nickname.nil? || @follower.nickname.blank? %><% end %></span></a> is sharing. Get started and rewarded with your friends and family now!</p>
                       </td>
                       <td width="235">
-                        <img src="<%= @follower.profile_image_url(:square).to_s %>" width="96" height="96" style="margin:50px 30px 0 20px;float:left;border-radius:100px;" border="0">
+                        <img src="<%= @follower.profile_image_url(:square).to_s %>" alt="sweepstakes-contests-giveaways-brandbuddee" title="Sweepstakes Contests Giveaways brandbuddee" width="96" height="96" style="margin:50px 30px 0 20px;float:left;border-radius:100px;" border="0">
                       </td>
                     </tr>
 

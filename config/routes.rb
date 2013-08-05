@@ -164,10 +164,6 @@ Brandbuddee::Application.routes.draw do
   match 'admin/brands/edit' => 'admin#brand_edit'
   match 'admin/brands/update' => 'admin#brand_update'
 
-
-  match 'superadmin/campaign/edit' => 'campaign#edit_campaign'
-  match 'superadmin/campaign/update' => 'campaign#update_campaign'
-
   match 'admin/brand/edit' => 'users#edit_brand'
   match 'admin/brand/update' => 'users#update_brand'
 

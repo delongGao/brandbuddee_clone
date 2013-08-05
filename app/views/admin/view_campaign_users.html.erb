@@ -14,34 +14,32 @@
 		<div class="container-fluid">
 		<div class="row-fluid">
 
-
 			<%= render 'shared/admin_side' %>
 			
 			<noscript>
 				<div class="alert alert-block span10">
 					<h4 class="alert-heading">Warning!</h4>
-					<p>You need to have <a href="http://en.wikipedia.org/wiki/JavaScript" target="_blank">JavaScript</a> enabled to use this site.</p>
+					<p>You need to have <a title="sweepstakes contests giveaways brandbuddee" href="http://www.enable-javascript.com/" target="_blank">JavaScript</a> enabled to use this site.</p>
 				</div>
 			</noscript>
 			
 			<div id="content" class="span10">
 			<!-- start: Content -->
-			
 
 			<div>
 				<hr>
 				<ul class="breadcrumb">
 					<li>
-						<a href="/admin">Dashboard</a> <span class="divider">/</span>
+						<a title="sweepstakes contests giveaways brandbuddee" href="/admin">Dashboard</a> <span class="divider">/</span>
 					</li>
 					<li>
-						<a href="/admin/campaigns">Campaigns</a> <span class="divider">/</span>
+						<a title="sweepstakes contests giveaways brandbuddee" href="/admin/campaigns">Campaigns</a> <span class="divider">/</span>
 					</li>
 					<li>
-						<a href="/admin/campaign/view?_id=<%= @campaign._id %>"><b><%= @campaign.title %></b></a> <span class="divider">/</span>
+						<a title="sweepstakes contests giveaways brandbuddee" href="/admin/campaign/view?_id=<%= @campaign._id %>"><b><%= @campaign.title %></b></a> <span class="divider">/</span>
 					</li>
 					<li>
-						<a href="#">Users</a>
+						<a title="sweepstakes contests giveaways brandbuddee" href="#">Users</a>
 					</li>
 				</ul>
 				<hr>
@@ -52,133 +50,78 @@
 					<div class="box-header" data-original-title>
 						<h2><i class="fa-icon-group"></i><span class="break"></span>Campaign Users</h2>
 						<div class="box-icon">
-							<a href="#" class="btn-setting"><i class="icon-wrench"></i></a>
-							<a href="#" class="btn-minimize"><i class="icon-chevron-up"></i></a>
-							<a href="#" class="btn-close"><i class="icon-remove"></i></a>
+							<a title="sweepstakes contests giveaways brandbuddee" href="#" class="btn-setting"><i class="icon-wrench"></i></a>
+							<a title="sweepstakes contests giveaways brandbuddee" href="#" class="btn-minimize"><i class="icon-chevron-up"></i></a>
+							<a title="sweepstakes contests giveaways brandbuddee" href="#" class="btn-close"><i class="icon-remove"></i></a>
 						</div>
 					</div>
 					<div class="box-content">
 						<table class="table table-striped table-bordered bootstrap-datatable datatable">
-						  <thead>
-							  <tr>
-							  	  <th>Date</th>
-								  <th>First Name</th>
-								  <th>Last Name</th>
-								  <th>Email</th>
-								  <th>Actions</th>
-							  </tr>
-						  </thead>   
-						  <tbody>
-
+						  	<thead>
+							  	<tr>
+							  	  	<th>Date</th>
+								  	<th>First Name</th>
+								  	<th>Last Name</th>
+								  	<th>Email</th>
+								  	<th>Actions</th>
+							  	</tr>
+						  	</thead>   
+						  	<tbody>
 						  	<% @campaign_users.each do |c| %>
-							<tr>
-								<td class="center"><%= c.date %> <span class="label"><%= time_ago_in_words(c.date) + " ago" unless c.date.nil? %></span></td>
-								<td><%= c.first_name %></td>
-								<td><%= c.last_name %></td>
-								<td><%= c.email %></td>
-								
-								<td class="center">
-									<a class="btn btn-success" target="_blank" href="/<%= c.nickname unless c.nickname.nil? %>">
-										<i class="icon-zoom-in icon-white"></i>  
-									</a>
-<!-- 									<a class="btn btn-info" href="/admin/campaign/edit?_id=<%= c._id %>">
-										<i class="icon-edit icon-white"></i>  
-									</a>
-									<a class="btn btn-danger" href="#">
-										<i class="icon-trash icon-white"></i> 
-									</a> -->
-								</td>
-							</tr>
+								<tr>
+									<td class="center"><%= c.date %> <span class="label"><%= time_ago_in_words(c.date) + " ago" unless c.date.nil? %></span></td>
+									<td><%= c.first_name %></td>
+									<td><%= c.last_name %></td>
+									<td><%= c.email %></td>
+									
+									<td class="center">
+										<a title="sweepstakes contests giveaways brandbuddee" class="btn btn-success" target="_blank" href="/<%= c.nickname unless c.nickname.nil? %>">
+											<i class="icon-zoom-in icon-white"></i>  
+										</a>
+									</td>
+								</tr>
 							<% end %>
-
-
-						  </tbody>
-					  </table>            
+							</tbody>
+						</table>
 					</div>
 				</div><!--/span-->
-			
 			</div><!--/row-->
-
-
-			
-    
-					<hr>
+			<hr>
 			<!-- end: Content -->
-			</div><!--/#content.span10-->
-				</div><!--/fluid-row-->
+		</div><!--/#content.span10-->
+	</div><!--/fluid-row-->
+		
+	<div class="clearfix"></div>
+
+	<%= render 'shared/admin_footer' %>
 				
-		<div class="modal hide fade" id="myModal">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal">×</button>
-				<h3>Settings</h3>
-			</div>
-			<div class="modal-body">
-				<p>Here settings can be configured...</p>
-			</div>
-			<div class="modal-footer">
-				<a href="#" class="btn" data-dismiss="modal">Close</a>
-				<a href="#" class="btn btn-primary">Save changes</a>
-			</div>
-		</div>
-		
-		<div class="clearfix"></div>
-		
+</div><!--/.fluid-container-->
 
-		<%= render 'shared/admin_footer' %>
-				
-	</div><!--/.fluid-container-->
-
-
-
-		<!-- start: JavaScript-->
-
-		<script src="/js/admin/jquery-1.7.2.min.js"></script>
-		<script src="/js/admin/jquery-ui-1.8.21.custom.min.js"></script>
-	
-	
-		<script src="/js/admin/jquery.cookie.js"></script>
-	
-		<script src='/js/admin/fullcalendar.min.js'></script>
-	
-		<script src='/js/admin/jquery.dataTables.min.js'></script>
-
-		<script src="/js/admin/excanvas.js"></script>
-		<script src="/js/admin/jquery.flot.min.js"></script>
-		<script src="/js/admin/jquery.flot.pie.min.js"></script>
-		<script src="/js/admin/jquery.flot.stack.js"></script>
-		<script src="/js/admin/jquery.flot.resize.min.js"></script>
-	
-		<script src="/js/admin/jquery.chosen.min.js"></script>
-	
-		<script src="/js/admin/jquery.uniform.min.js"></script>
-		
-		<script src="/js/admin/jquery.cleditor.min.js"></script>
-	
-		<script src="/js/admin/jquery.noty.js"></script>
-	
-		<script src="/js/admin/jquery.elfinder.min.js"></script>
-	
-		<script src="/js/admin/jquery.raty.min.js"></script>
-	
-		<script src="/js/admin/jquery.iphone.toggle.js"></script>
-	
-		<script src="/js/admin/jquery.uploadify-3.1.min.js"></script>
-	
-		<script src="/js/admin/jquery.gritter.min.js"></script>
-	
-		<script src="/js/admin/jquery.imagesloaded.js"></script>
-	
-		<script src="/js/admin/jquery.masonry.min.js"></script>
-	
-		<script src="/js/admin/jquery.knob.js"></script>
-	
-		<script src="/js/admin/jquery.sparkline.min.js"></script>
-
-		<script src="/js/admin/custom.js"></script>
-
-
-		<script type="text/javascript">
-
-
-		</script>
-		<!-- end: JavaScript-->
+<!-- start: JavaScript-->
+<script src="/js/admin/jquery-1.7.2.min.js"></script>
+<script src="/js/admin/jquery-ui-1.8.21.custom.min.js"></script>
+<script src="/js/admin/jquery.cookie.js"></script>
+<script src='/js/admin/fullcalendar.min.js'></script>
+<script src='/js/admin/jquery.dataTables.min.js'></script>
+<script src="/js/admin/excanvas.js"></script>
+<script src="/js/admin/jquery.flot.min.js"></script>
+<script src="/js/admin/jquery.flot.pie.min.js"></script>
+<script src="/js/admin/jquery.flot.stack.js"></script>
+<script src="/js/admin/jquery.flot.resize.min.js"></script>
+<script src="/js/admin/jquery.chosen.min.js"></script>
+<script src="/js/admin/jquery.uniform.min.js"></script>
+<script src="/js/admin/jquery.cleditor.min.js"></script>
+<script src="/js/admin/jquery.noty.js"></script>
+<script src="/js/admin/jquery.elfinder.min.js"></script>
+<script src="/js/admin/jquery.raty.min.js"></script>
+<script src="/js/admin/jquery.iphone.toggle.js"></script>
+<script src="/js/admin/jquery.uploadify-3.1.min.js"></script>
+<script src="/js/admin/jquery.gritter.min.js"></script>
+<script src="/js/admin/jquery.imagesloaded.js"></script>
+<script src="/js/admin/jquery.masonry.min.js"></script>
+<script src="/js/admin/jquery.knob.js"></script>
+<script src="/js/admin/jquery.sparkline.min.js"></script>
+<script src="/js/admin/custom.js"></script>
+<script type="text/javascript">
+</script>
+<!-- end: JavaScript-->

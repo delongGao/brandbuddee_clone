@@ -7,20 +7,19 @@
 		  <li class="li5"></li>
 		  <li class="li6"></li>
 		</ul>
-	</div>	
+	</div>
 
 	<%= render 'shared/admin_header' %>
 	
 		<div class="container-fluid">
 		<div class="row-fluid">
 
-
 			<%= render 'shared/admin_side' %>
 			
 			<noscript>
 				<div class="alert alert-block span10">
 					<h4 class="alert-heading">Warning!</h4>
-					<p>You need to have <a href="http://en.wikipedia.org/wiki/JavaScript" target="_blank">JavaScript</a> enabled to use this site.</p>
+					<p>You need to have <a title="sweepstakes contests giveaways brandbuddee" href="http://www.enable-javascript.com/" target="_blank">JavaScript</a> enabled to use this site.</p>
 				</div>
 			</noscript>
 			
@@ -31,13 +30,13 @@
 				<hr>
 				<ul class="breadcrumb">
 					<li>
-						<a href="/admin">Dashboard</a> <span class="divider">/</span>
+						<a title="sweepstakes contests giveaways brandbuddee" href="/admin">Dashboard</a> <span class="divider">/</span>
 					</li>
 					<li>
-						<a href="/admin/campaigns">Campaigns</a> <span class="divider">/</span>
+						<a title="sweepstakes contests giveaways brandbuddee" href="/admin/campaigns">Campaigns</a> <span class="divider">/</span>
 					</li>
 					<li>
-						<a href="#"><b><%= @campaign.title %></b></a>
+						<a title="sweepstakes contests giveaways brandbuddee" href="#"><b><%= @campaign.title %></b></a>
 					</li>
 				</ul>
 				<hr>
@@ -45,23 +44,23 @@
 
 			<div class="row-fluid">
 				<div class="box span12">
-					<a class="quick-button span2 offset2" href="/admin/campaign/view/users?_id=<%= @campaign._id %>">
+					<a title="sweepstakes contests giveaways brandbuddee" class="quick-button span2 offset2" href="/admin/campaign/view/users?_id=<%= @campaign._id %>">
 						<i class="fa-icon-group"></i>
 						<p>Buddees</p>
 						<span class="notification"><%= @user_all.size %></span>
 					</a>
-					<a class="quick-button span2" href="/admin/campaign/view/redeems?_id=<%= @campaign._id %>">
+					<a title="sweepstakes contests giveaways brandbuddee" class="quick-button span2" href="/admin/campaign/view/redeems?_id=<%= @campaign._id %>">
 						<i class="fa-icon-barcode"></i>
 						<p>Redeems</p>
 						<span class="notification"><%= @redeem_all.size %></span>
 					</a>
 					
-					<a class="quick-button span2" href="/admin/campaign/view/trackings?_id=<%= @campaign._id %>">
+					<a title="sweepstakes contests giveaways brandbuddee" class="quick-button span2" href="/admin/campaign/view/trackings?_id=<%= @campaign._id %>">
 						<i class="fa-icon-screenshot"></i>
 						<p>Trackings</p>
 						<span class="notification green"><%= @tracking_all.size + @campaign.shares.sum(:unique_page_views).to_i %></span>
 					</a>
-					<a class="quick-button span2" href="/admin/campaign/view/tasks?_id=<%= @campaign._id %>">
+					<a title="sweepstakes contests giveaways brandbuddee" class="quick-button span2" href="/admin/campaign/view/tasks?_id=<%= @campaign._id %>">
 						<i class="fa-icon-check"></i>
 						<p>Tasks</p>
 						<span class="notification"><%= @campaign.num_of_tasks %></span>
@@ -71,7 +70,7 @@
 			<hr>	
 			
 			<div class="row-fluid">
-				<div class="circleStats">                    
+				<div class="circleStats">
 <!-- 					<div class="span2" onTablet="span4" onDesktop="span2">
                     	<div class="circleStatsItem red">
 							<i class="fa-icon-thumbs-up"></i>
@@ -95,47 +94,47 @@
 							<span class="blueCircle statCircles"><span class="statAdd">+</span><%= @share_stat.to_i %><span class="statPercent">%</span></span>
 <!--                         	<input type="text" value="<%= @share_stat %>" class="blueCircle" /> -->
                     	</div>
-						<div class="box-small-title"><a href="#" rel="tooltip" data-placement="bottom" data-original-title="<%= @share_stat.to_i %>%">Shares</a></div>
+						<div class="box-small-title"><a title="sweepstakes contests giveaways brandbuddee" href="#" rel="tooltip" data-placement="bottom" data-original-title="<%= @share_stat.to_i %>%">Shares</a></div>
 					</div>
 				</div>
 				<div class="box span4" onTablet="span6" onDesktop="span4">
 					<div class="box-header">
 						<h2><i class="icon-list"></i><span class="break"></span>Weekly Stat</h2>
 						<div class="box-icon">
-							<a href="#" class="btn-minimize"><i class="icon-chevron-up"></i></a>
-							<a href="#" class="btn-close"><i class="icon-remove"></i></a>
+							<a title="sweepstakes contests giveaways brandbuddee" href="#" class="btn-minimize"><i class="icon-chevron-up"></i></a>
+							<a title="sweepstakes contests giveaways brandbuddee" href="#" class="btn-close"><i class="icon-remove"></i></a>
 						</div>
 					</div>
 					<div class="box-content">
 						<ul class="dashboard-list">
 							<li>
-								<a href="#">
+								<a title="sweepstakes contests giveaways brandbuddee" href="#">
 									<i class="fa-icon-arrow-up green"></i>                               
 									<span class="green"><%= @users_weekly.size %></span>
 									New Users                                    
 								</a>
 							</li>
-						  <li>
-							<a href="#">
-							  <i class="fa-icon-plus blue"></i>
-							  <span class="blue"><%= @trackings_weekly.size %></span>
-							  New Trackings
-							</a>
-						  </li>
-						  <li>
-							<a href="#">
-							  <i class="fa-icon-arrow-up green"></i>
-							  <span class="green"><%= @trackings_weekly.sum(:views).to_i %></span>
-							  New Views
-							</a>
-						  </li>
-						  <li>
-							<a href="#">
-							  <i class="fa-icon-plus blue"></i>
-							  <span class="blue"><%= @redeems_weekly.size %></span>
-							  New Redeems                                    
-							</a>
-						  </li>
+						  	<li>
+								<a title="sweepstakes contests giveaways brandbuddee" href="#">
+							  		<i class="fa-icon-plus blue"></i>
+							  		<span class="blue"><%= @trackings_weekly.size %></span>
+							  		New Trackings
+								</a>
+						  	</li>
+						  	<li>
+								<a title="sweepstakes contests giveaways brandbuddee" href="#">
+							  		<i class="fa-icon-arrow-up green"></i>
+							  		<span class="green"><%= @trackings_weekly.sum(:views).to_i %></span>
+							  		New Views
+								</a>
+						  	</li>
+						  	<li>
+								<a title="sweepstakes contests giveaways brandbuddee" href="#">
+							  		<i class="fa-icon-plus blue"></i>
+							  		<span class="blue"><%= @redeems_weekly.size %></span>
+							  		New Redeems                                    
+								</a>
+						  	</li>
 						</ul>
 					</div>
 				</div><!--/span-->
@@ -143,56 +142,56 @@
 					<div class="box-header">
 						<h2><i class="icon-list"></i><span class="break"></span>Numeric Per Social Network</h2>
 						<div class="box-icon">
-							<a href="#" class="btn-minimize"><i class="icon-chevron-up"></i></a>
-							<a href="#" class="btn-close"><i class="icon-remove"></i></a>
+							<a title="sweepstakes contests giveaways brandbuddee" href="#" class="btn-minimize"><i class="icon-chevron-up"></i></a>
+							<a title="sweepstakes contests giveaways brandbuddee" href="#" class="btn-close"><i class="icon-remove"></i></a>
 						</div>
 					</div>
 					<div class="box-content">
 						<ul class="dashboard-list">
 							<li>
-								<a href="#">
+								<a title="sweepstakes contests giveaways brandbuddee" href="#">
 									<i class="fa-icon-facebook" style="font-size:1.5em;color:#3B5998;"></i>
 									<span style="color:#3B5998;"><%= @total_facebook_clicks %></span>
 									Facebook Shares
 								</a>
 							</li>
 						  	<li>
-								<a href="#">
+								<a title="sweepstakes contests giveaways brandbuddee" href="#">
 								  	<i class="fa-icon-twitter blue" style="font-size:1.5em;"></i>
 								  	<span class="blue"><%= @total_twitter_clicks %></span>
 								  	Twitter Shares
 								</a>
 						  	</li>
 						  	<li>
-								<a href="#">
-								  <i class="fa-icon-pinterest" style="font-size:1.5em;color:#CB2027;"></i>
-								  <span style="color:#CB2027;"><%= @total_pinterest_clicks %></span>
-								  Pinterest Shares
+								<a title="sweepstakes contests giveaways brandbuddee" href="#">
+								  	<i class="fa-icon-pinterest" style="font-size:1.5em;color:#CB2027;"></i>
+								  	<span style="color:#CB2027;"><%= @total_pinterest_clicks %></span>
+								  	Pinterest Shares
 								</a>
 						  	</li>
 						  	<li>
-						  		<a href="#">
+						  		<a title="sweepstakes contests giveaways brandbuddee" href="#">
 						  			<i class="fa-icon-pencil" style="font-size:1.5em;color:#365472;"></i>
 						  			<span style="color:#365472;"><%= @total_tumblr_clicks %></span>
 						  			Tumblr Shares
 						  		</a>
 						  	</li>
 						  	<li>
-						  		<a href="#">
+						  		<a title="sweepstakes contests giveaways brandbuddee" href="#">
 						  			<i class="fa-icon-linkedin-sign" style="font-size:1.5em;color:#0073B2;"></i>
 						  			<span style="color:#0073B2;"><%= @total_linkedin_clicks %></span>
 						  			LinkedIn Shares
 						  		</a>
 						  	</li>
 						  	<li>
-						  		<a href="#">
+						  		<a title="sweepstakes contests giveaways brandbuddee" href="#">
 						  			<i class="fa-icon-google-plus-sign" style="font-size:1.5em;color:#CB3C2C;"></i>
 						  			<span style="color:#CB3C2C;"><%= @total_google_plus_clicks %></span>
 						  			Google+ Shares
 						  		</a>
 						  	</li>
 						  	<li>
-						  		<a href="#">
+						  		<a title="sweepstakes contests giveaways brandbuddee" href="#">
 						  			<i class="fa-icon-bullhorn green" style="font-size:1.5em;"></i>
 						  			<span class="green"><%= @total_social_clicks %></span>
 						  			Total Shares
@@ -209,66 +208,52 @@
 					<div class="box-header">
 						<h2><i class="icon-list-alt"></i><span class="break"></span>Social Network Comparison</h2>
 						<div class="box-icon">
-							<a href="#" class="btn-close"><i class="icon-remove"></i></a>
+							<a title="sweepstakes contests giveaways brandbuddee" href="#" class="btn-close"><i class="icon-remove"></i></a>
 						</div>
 					</div>
 					<div class="box-content">
 						<div id="social-share-comparison" style="height:300px"></div>
 					</div>
 				</div>
-				<!-- <div class="box span4" onTablet="span6" onDesktop="span4">
-					<div class="box-header">
-						<h2><i class="icon-fire"></i><span class="break"></span>Server Load</h2>
-						<div class="box-icon">
-							<a href="#" class="btn-setting"><i class="icon-wrench"></i></a>
-							<a href="#" class="btn-minimize"><i class="icon-chevron-up"></i></a>
-							<a href="#" class="btn-close"><i class="icon-remove"></i></a>
-						</div>
-					</div>
-					<div class="box-content">
-						 <div id="serverload" style="height:235px;"></div>
-					</div>
-				</div> -->
-
 
 				<div class="box span4" onTablet="span6" onDesktop="span4">
 					<div class="box-header">
 						<h2><i class="icon-list"></i><span class="break"></span>Monthly Stat</h2>
 						<div class="box-icon">
-							<a href="#" class="btn-minimize"><i class="icon-chevron-up"></i></a>
-							<a href="#" class="btn-close"><i class="icon-remove"></i></a>
+							<a title="sweepstakes contests giveaways brandbuddee" href="#" class="btn-minimize"><i class="icon-chevron-up"></i></a>
+							<a title="sweepstakes contests giveaways brandbuddee" href="#" class="btn-close"><i class="icon-remove"></i></a>
 						</div>
 					</div>
 					<div class="box-content">
 						<ul class="dashboard-list">
 							<li>
-								<a href="#">
+								<a title="sweepstakes contests giveaways brandbuddee" href="#">
 									<i class="fa-icon-arrow-up green"></i>                               
 									<span class="green"><%= @users_monthly.size %></span>
 									New Users                                    
 								</a>
 							</li>
-						  <li>
-							<a href="#">
-							  <i class="fa-icon-plus blue"></i>
-							  <span class="blue"><%= @trackings_monthly.size %></span>
-							  New Trackings
-							</a>
-						  </li>
-						  <li>
-							<a href="#">
-							  <i class="fa-icon-arrow-up green"></i>
-							  <span class="green"><%= @trackings_monthly.sum(:views).to_i %></span>
-							  New Views
-							</a>
-						  </li>
-						  <li>
-							<a href="#">
-							  <i class="fa-icon-plus blue"></i>
-							  <span class="blue"><%= @redeems_monthly.size %></span>
-							  New Redeems                                    
-							</a>
-						  </li>
+						  	<li>
+								<a title="sweepstakes contests giveaways brandbuddee" href="#">
+							  		<i class="fa-icon-plus blue"></i>
+							  		<span class="blue"><%= @trackings_monthly.size %></span>
+							  		New Trackings
+								</a>
+						  	</li>
+						  	<li>
+								<a title="sweepstakes contests giveaways brandbuddee" href="#">
+							  		<i class="fa-icon-arrow-up green"></i>
+							  		<span class="green"><%= @trackings_monthly.sum(:views).to_i %></span>
+							  		New Views
+								</a>
+						  	</li>
+						  	<li>
+								<a title="sweepstakes contests giveaways brandbuddee" href="#">
+							  		<i class="fa-icon-plus blue"></i>
+							  		<span class="blue"><%= @redeems_monthly.size %></span>
+							  		New Redeems                                    
+								</a>
+						  	</li>
 						</ul>
 					</div>
 				</div><!--/span-->
@@ -277,24 +262,23 @@
 					<div class="box-header">
 						<h2><i class="icon-user"></i><span class="break"></span>Last Users</h2>
 						<div class="box-icon">
-							<a href="#" class="btn-minimize"><i class="icon-chevron-up"></i></a>
-							<a href="#" class="btn-close"><i class="icon-remove"></i></a>
+							<a title="sweepstakes contests giveaways brandbuddee" href="#" class="btn-minimize"><i class="icon-chevron-up"></i></a>
+							<a title="sweepstakes contests giveaways brandbuddee" href="#" class="btn-close"><i class="icon-remove"></i></a>
 						</div>
 					</div>
 					<div class="box-content">
 						<ul class="dashboard-list">
 							<% @last_users.each do |l| %>
 							<li>
-								<a href="/<%= l.nickname unless l.nickname.nil? %>">
-									<%= image_tag(l.profile_image_url(:thumb).to_s, :class=>'avatar') %>
+								<a title="sweepstakes contests giveaways brandbuddee" href="/<%= l.nickname unless l.nickname.nil? %>">
+									<%= image_tag(l.profile_image_url(:thumb).to_s, :title => "sweepstakes contests giveaways brandbuddee", :class=>'sweepstakes-contests-giveaways-brandbuddee') %>
 
 								</a>
-								<strong>Name:</strong> <a href="/<%= l.nickname unless l.nickname.nil? %>" target="_blank"><%= l.first_name unless l.first_name.nil? %> <%= l.last_name unless l.last_name.nil? %><% if l.first_name.nil? || l.last_name.nil? %> <%= l.email %> <% end %></a><br>
+								<strong>Name:</strong> <a title="sweepstakes contests giveaways brandbuddee" href="/<%= l.nickname unless l.nickname.nil? %>" target="_blank"><%= l.first_name unless l.first_name.nil? %> <%= l.last_name unless l.last_name.nil? %><% if l.first_name.nil? || l.last_name.nil? %> <%= l.email %> <% end %></a><br>
 								<strong>Since:</strong> <%= time_ago_in_words(l.date) + " ago" unless l.date.nil? %><br>
 								<strong>Status:</strong> <span class="label label-info"><%= l.provider %></span>                                  
 							</li>
 							<% end %>
-
 						</ul> <!-- .dashboard-list -->
 					</div>
 				</div><!--/span-->
@@ -302,14 +286,13 @@
 			<hr>
 			
 			<div class="row-fluid">
-				
 				<div class="box span8" onTablet="span12" onDesktop="span8">
 					<div class="box-header">
 						<h2><i class="icon-signal"></i><span class="break"></span>Site Statistics</h2>
 						<div class="box-icon">
-							<a href="#" class="btn-setting"><i class="icon-wrench"></i></a>
-							<a href="#" class="btn-minimize"><i class="icon-chevron-up"></i></a>
-							<a href="#" class="btn-close"><i class="icon-remove"></i></a>
+							<a title="sweepstakes contests giveaways brandbuddee" href="#" class="btn-setting"><i class="icon-wrench"></i></a>
+							<a title="sweepstakes contests giveaways brandbuddee" href="#" class="btn-minimize"><i class="icon-chevron-up"></i></a>
+							<a title="sweepstakes contests giveaways brandbuddee" href="#" class="btn-close"><i class="icon-remove"></i></a>
 						</div>
 					</div>
 					<div class="box-content">
@@ -321,14 +304,13 @@
 					<div class="box-header">
 						<h2><i class="icon-list"></i><span class="break"></span>Weekly Stat</h2>
 						<div class="box-icon">
-							<a href="#" class="btn-minimize"><i class="icon-chevron-up"></i></a>
-							<a href="#" class="btn-close"><i class="icon-remove"></i></a>
+							<a title="sweepstakes contests giveaways brandbuddee" href="#" class="btn-minimize"><i class="icon-chevron-up"></i></a>
+							<a title="sweepstakes contests giveaways brandbuddee" href="#" class="btn-close"><i class="icon-remove"></i></a>
 						</div>
 					</div>
 					<div class="box-content">
 						<div class="sparkLineStats">
-
-	                        <ul class="unstyled">
+							<ul class="unstyled">
 	                            <li>
 									<span class="sparkLineStats1 "></span> 
 									Visits: 
@@ -362,121 +344,80 @@
 	                                % Returning Visitor: 
 	                                <span class="number">29,21%</span>
 	                            </li>
-
 	                        </ul>
-	
 	                    </div><!-- End .sparkStats -->
 					</div>
 				</div><!--/span-->
 			</div>
 			<hr>
 			<!-- end: Content -->
-			</div><!--/#content.span10-->
-				</div><!--/fluid-row-->
-				
-		<div class="modal hide fade" id="myModal">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal">×</button>
-				<h3>Settings</h3>
-			</div>
-			<div class="modal-body">
-				<p>Here settings can be configured...</p>
-			</div>
-			<div class="modal-footer">
-				<a href="#" class="btn" data-dismiss="modal">Close</a>
-				<a href="#" class="btn btn-primary">Save changes</a>
-			</div>
-		</div>
+		</div><!--/#content.span10-->
+	</div><!--/fluid-row-->
 		
-		<div class="clearfix"></div>
+	<div class="clearfix"></div>
 
-
-		<%= render 'shared/admin_footer' %>
+	<%= render 'shared/admin_footer' %>
 				
-	</div><!--/.fluid-container-->
+</div><!--/.fluid-container-->
 
-
-
-		<!-- start: JavaScript-->
-
-		<script src="/js/admin/jquery-1.7.2.min.js"></script>
-		<script src="/js/admin/jquery-ui-1.8.21.custom.min.js"></script>
-	
-	
-		<script src="/js/admin/jquery.cookie.js"></script>
-	
-		<script src='/js/admin/fullcalendar.min.js'></script>
-	
-		<script src='/js/admin/jquery.dataTables.min.js'></script>
-
-		<script src="/js/admin/excanvas.js"></script>
-		<script src="/js/admin/jquery.flot.min.js"></script>
-		<script src="/js/admin/jquery.flot.pie.min.js"></script>
-		<script src="/js/admin/jquery.flot.stack.js"></script>
-		<script src="/js/admin/jquery.flot.resize.min.js"></script>
-	
-		<script src="/js/admin/jquery.chosen.min.js"></script>
-	
-		<script src="/js/admin/jquery.uniform.min.js"></script>
-		
-		<script src="/js/admin/jquery.cleditor.min.js"></script>
-	
-		<script src="/js/admin/jquery.noty.js"></script>
-	
-		<script src="/js/admin/jquery.elfinder.min.js"></script>
-	
-		<script src="/js/admin/jquery.raty.min.js"></script>
-	
-		<script src="/js/admin/jquery.iphone.toggle.js"></script>
-	
-		<script src="/js/admin/jquery.uploadify-3.1.min.js"></script>
-	
-		<script src="/js/admin/jquery.gritter.min.js"></script>
-	
-		<script src="/js/admin/jquery.imagesloaded.js"></script>
-	
-		<script src="/js/admin/jquery.masonry.min.js"></script>
-	
-		<script src="/js/admin/jquery.knob.js"></script>
-	
-		<script src="/js/admin/jquery.sparkline.min.js"></script>
-
-		<script src="/js/admin/custom.js"></script>
-
-
-		<script type="text/javascript">
-			var data = [
-				{ label: "Facebook",  data: <%= @total_facebook_clicks %>},
-				{ label: "Twitter",  data: <%= @total_twitter_clicks %>},
-				{ label: "Pinterest", data: <%= @total_pinterest_clicks %>},
-				{ label: "Tumblr", data: <%= @total_tumblr_clicks %>},
-				{ label: "Linkedin", data: <%= @total_linkedin_clicks %>},
-				{ label: "Google+", data: <%= @total_google_plus_clicks %>}
-			];
-			if($("#social-share-comparison").length) {
-				$.plot($("#social-share-comparison"), data,
-				{
-					series: {
-						pie: {
-							show: true
-						}
-					},
-					grid: {
-						hoverable: true,
-						clickable: true
-					},
-					legend: {
-						show: false
-					},
-					colors: ["#3B5998", "#1DCAFF", "#CB2027", "#365472", "#0073B2", "#CB3C2C"]
-				});
-				function pieHover(event, pos, obj) {
-					if (!obj)
-						return;
-					percent = parseFloat(obj.series.percent).toFixed(2);
-					$("#hover").html('<span style="font-weight: bold; color: '+obj.series.color+'">'+obj.series.label+' ('+percent+'%)</span>');
+<!-- start: JavaScript-->
+<script src="/js/admin/jquery-1.7.2.min.js"></script>
+<script src="/js/admin/jquery-ui-1.8.21.custom.min.js"></script>
+<script src="/js/admin/jquery.cookie.js"></script>
+<script src='/js/admin/fullcalendar.min.js'></script>
+<script src='/js/admin/jquery.dataTables.min.js'></script>
+<script src="/js/admin/excanvas.js"></script>
+<script src="/js/admin/jquery.flot.min.js"></script>
+<script src="/js/admin/jquery.flot.pie.min.js"></script>
+<script src="/js/admin/jquery.flot.stack.js"></script>
+<script src="/js/admin/jquery.flot.resize.min.js"></script>
+<script src="/js/admin/jquery.chosen.min.js"></script>
+<script src="/js/admin/jquery.uniform.min.js"></script>
+<script src="/js/admin/jquery.cleditor.min.js"></script>
+<script src="/js/admin/jquery.noty.js"></script>
+<script src="/js/admin/jquery.elfinder.min.js"></script>
+<script src="/js/admin/jquery.raty.min.js"></script>
+<script src="/js/admin/jquery.iphone.toggle.js"></script>
+<script src="/js/admin/jquery.uploadify-3.1.min.js"></script>
+<script src="/js/admin/jquery.gritter.min.js"></script>
+<script src="/js/admin/jquery.imagesloaded.js"></script>
+<script src="/js/admin/jquery.masonry.min.js"></script>
+<script src="/js/admin/jquery.knob.js"></script>
+<script src="/js/admin/jquery.sparkline.min.js"></script>
+<script src="/js/admin/custom.js"></script>
+<script type="text/javascript">
+	var data = [
+		{ label: "Facebook",  data: <%= @total_facebook_clicks %>},
+		{ label: "Twitter",  data: <%= @total_twitter_clicks %>},
+		{ label: "Pinterest", data: <%= @total_pinterest_clicks %>},
+		{ label: "Tumblr", data: <%= @total_tumblr_clicks %>},
+		{ label: "Linkedin", data: <%= @total_linkedin_clicks %>},
+		{ label: "Google+", data: <%= @total_google_plus_clicks %>}
+	];
+	if($("#social-share-comparison").length) {
+		$.plot($("#social-share-comparison"), data,
+		{
+			series: {
+				pie: {
+					show: true
 				}
-				$("#social-share-comparison").bind("plothover", pieHover);
-			}
-		</script>
-		<!-- end: JavaScript-->
+			},
+			grid: {
+				hoverable: true,
+				clickable: true
+			},
+			legend: {
+				show: false
+			},
+			colors: ["#3B5998", "#1DCAFF", "#CB2027", "#365472", "#0073B2", "#CB3C2C"]
+		});
+		function pieHover(event, pos, obj) {
+			if (!obj)
+				return;
+			percent = parseFloat(obj.series.percent).toFixed(2);
+			$("#hover").html('<span style="font-weight: bold; color: '+obj.series.color+'">'+obj.series.label+' ('+percent+'%)</span>');
+		}
+		$("#social-share-comparison").bind("plothover", pieHover);
+	}
+</script>
+<!-- end: JavaScript-->
