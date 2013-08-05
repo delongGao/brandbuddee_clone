@@ -878,6 +878,12 @@ class AdminController < ApplicationController
 
 			    if !params[:campaign][:share_link].nil? && params[:campaign][:share_link].match(/^(https?|ftp):\/\//)
 				    if @campaign.update_attributes(params[:campaign])
+				    	unless @campaign.redeem_details.blank?
+				    		unless params[:campaign][:redeem_name].blank? || params[:campaign][:redeem_email].blank? || params[:campaign][:redeem_value].blank?|| params[:campaign][:redeem_expires].blank?
+				    			@campaign.redeem_details = nil
+				    			@campaign.save!
+				    		end
+				    	end
 				    	@campaign.shares.each do |s|
 							s.url = params[:campaign][:share_link]
 							s.save
