@@ -1,5 +1,4 @@
-brandbuddee
-===========
+![brandbuddee](http://brandbuddee.com/assets/bb-logo.png "brandbuddee.com")
 
 Discover, Share, Earn Rewards
 -----------------------------
