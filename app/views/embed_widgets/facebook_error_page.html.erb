@@ -12,7 +12,6 @@
 				<% unless params[:page_id].nil? || params[:liked].nil? || params[:admin].nil? %>
 					<a href="<%= "/fb-campaign-embed?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}" %>" class="btn btn-info">Go Back</a>
 				<% end %>
-				<br><div class="text-center"><%= link_to image_tag("bb-logo.png", alt: "brandbuddee-seattle-rewards", title: "brandbuddee Seattle Rewards", size: "188x35", style: "margin-top:1%;"), "/", target: "_blank", title: "brandbuddee Seattle Rewards" %></div>
 			</div>
 		</div>
 	</div>

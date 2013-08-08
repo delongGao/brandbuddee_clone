@@ -1,16 +1,19 @@
 <%= render 'shared/header' %>
 
 <div class="container main_container">
+	<% flash.each do |name, msg| %>
+	<div class="row" style="margin-top:5%;">
+		<div class="span6 offset3">
+			<div class="alert alert-<%= name %> fade in">
+				<a title="sweepstakes contests giveaways brandbuddee" href="#" class="close" data-dismiss="alert">&times;</a>
+				<%= msg.html_safe %>
+			</div>
+		</div>
+	</div>
+	<% end %>
 
 	<div class="login-form-wrap well">
 		<h2>Login</h2>
-
-		<% if flash[:notice].nil? %><% else %>
-		<div class="alert alert-info">
-			<button class="close" data-dismiss="alert">×</button>
-			<%= flash[:notice] %>
-		</div> <!-- .alert -->
-		<% end %>
 
 		<p style="text-align:center;"><a rel="external" href="/auth/facebook" title="Sweepstakes Contests Giveaways brandbuddee"><%= image_tag('facebook_login.png', :class=>"social_login", :alt=>"sweepstakes-contests-giveaways-brandbuddee", :title=>"Sweepstakes Contests Giveaways brandbuddee", :size=>"230x44") %></a>
 		<a rel="external" href="/auth/twitter" title="Sweepstakes Contests Giveaways brandbuddee"><%= image_tag('twitter_login.png', :class=>"social_login", :alt=>"sweepstakes-contests-giveaways-brandbuddee", :title=>"Sweepstakes Contests Giveaways brandbuddee", :size=>"230x44") %></a></p>

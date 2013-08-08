@@ -10,7 +10,7 @@ class CampaignController < ApplicationController
 		if campaign.nil?
 		  redirect_to root_url
 		else
-			unless @campaign.nil?
+			unless @campaign.nil? || @campaign.is_white_label == true
 				unless current_user.nil?
 					the_share = Share.where(:campaign_id => @campaign.id, :user_id => current_user.id).first
 					unless the_share.nil? #User has not yet joined the campaign
@@ -47,6 +47,7 @@ class CampaignController < ApplicationController
 								end
 							end
 						end
+						@bitly_share_link = share_update.bitly_share_link
 					end # unless the_share.nil?
 				end # unless current_user.nil?
 			else
@@ -60,20 +61,24 @@ class CampaignController < ApplicationController
 		unless @campaign.already_has_user_share?(current_user)
 			@campaign.user_ids << current_user.id
 			share_link = Share.assign_link
-			@campaign.shares.create!(date: Time.now, link: share_link, user_id: current_user.id, campaign_id: @campaign.id, url: @campaign.share_link )
+			the_share = @campaign.shares.create!(date: Time.now, link: share_link, user_id: current_user.id, campaign_id: @campaign.id, url: @campaign.share_link )
 			#@campaign.shares.user_id = current_user.id
 			#@campaign.shares.campaign_id = @campaign.id
 			unless @campaign.already_has_user_task?(current_user)
 				@campaign.tasks.create!(task_1_url: @campaign.engagement_task_left_link, task_2_url: @campaign.engagement_task_right_link, user_id: current_user.id, campaign_id: @campaign.id)
-
-				url = root_url + "campaign/" + @campaign.link
-				if @campaign.save(validate: false)
-	      			flash[:notice] = "Campaign Activated"
-	      			redirect_to url
-	    		else
-	      			flash[:notice] = "Uh oh"
-	      			redirect_to url
-	    		end
+				if the_share.bitly_share_link
+					url = root_url + "campaign/" + @campaign.link
+					if @campaign.save(validate: false)
+		      			flash[:notice] = "Campaign Activated"
+		      			redirect_to url
+		    		else
+		      			flash[:notice] = "Uh oh"
+		      			redirect_to url
+		    		end
+		    	else
+		    		flash[:notice] = "An error occurred while trying to activate the campaign. Please try again."
+		    		redirect_to "#{root_url}campaign/#{@campaign.link}"
+		    	end
 	    	else
 	    		flash[:notice] = "You have already activated this campaign!"
 	    		redirect_to "#{root_url}campaign/#{@campaign.link}"
@@ -1171,7 +1176,7 @@ class CampaignController < ApplicationController
 					if current_user
 						share = @campaign.shares.where(user_id: current_user.id).first
 						unless share.nil?
-							unless params[:content].match(share.link)
+							unless params[:content].match(share.bitly_share_link)
 								flash[:error] = "Uh Oh! It doesn't look like you added the link to your Share Page to the content. Please try again."
 								redirect_to "#{root_url}campaign/#{@campaign.link}/tumblr_content?#{{link: params[:link]}.to_query}&#{{title_text: params[:title]}.to_query}&#{{content_text: params[:content]}.to_query}"
 							else

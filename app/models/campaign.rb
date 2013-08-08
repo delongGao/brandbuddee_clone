@@ -57,12 +57,13 @@ class Campaign
   field :tumblr_clicks, :type => Integer, :default => 0
   field :linkedin_clicks, :type => Integer, :default => 0
   field :google_plus_clicks, :type => Integer, :default => 0
+  field :is_white_label, :type => Boolean, :default => false
 
   mount_uploader :campaign_image, CampaignImageUploader
   mount_uploader :gift_image, CampaignGiftUploader
   mount_uploader :gift_image_two, CampaignGiftUploader
   mount_uploader :gift_image_three, CampaignGiftUploader
-  attr_accessible :campaign_image, :date, :last_updated, :title, :detail, :points_required, :link, :limit, :share_link, :redeem_details, :location, :tweet, :reward, :easy_prize, :gift_image, :gift_image_two, :gift_image_three, :task_blog_post, :redeem_name, :redeem_email, :redeem_phone, :redeem_value, :redeem_expires, :redeem_event_date, :redeem_is_raffle, :redeem_special_circ
+  attr_accessible :campaign_image, :date, :last_updated, :title, :detail, :points_required, :link, :limit, :share_link, :redeem_details, :location, :tweet, :reward, :easy_prize, :gift_image, :gift_image_two, :gift_image_three, :task_blog_post, :redeem_name, :redeem_email, :redeem_phone, :redeem_value, :redeem_expires, :redeem_event_date, :redeem_is_raffle, :redeem_special_circ, :is_white_label
 
   EMAIL_REGEX = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i
   MONEY_REGEX = /^\$\d+\.?\d{2}?+$/
@@ -519,6 +520,10 @@ class Campaign
     else
       false
     end
+  end
+
+  def is_white_label?
+    self.is_white_label
   end
 
   before_destroy :remember_id

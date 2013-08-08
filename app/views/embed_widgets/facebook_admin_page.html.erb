@@ -42,15 +42,19 @@
 					<h3 class="rewards-text">Share this campaign to help build the buzz for your Brand and drive the metrics you want!</h3>
 					<% if @logged_in == true %>
 						<a href="#facebookModal" class="btn btn-primary btn-large" style="margin-bottom: 1%;" data-toggle="modal" role="button"><i class="icon-facebook-sign"></i> Post to Facebook Wall</a><br>
-						<%= link_to image_tag("facebook.png", size: "185x35", style: "margin-right: 1%; margin-left: 1%;"), "/fb-invite-fb-list?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}" %><%= link_to image_tag("email.png", size: "185x35"), "/fb-invite-email-form?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}" %><br>
-						<%= link_to image_tag("gmail.png", size: "185x35", style: "margin-right: 1%; margin-left: 1%; margin-top:1%;"), "/invite", target: "_blank" %><%= link_to image_tag("yahoo.png", size: "185x35", style: "margin-top:1%;"), "/invite", target: "_blank" %>
+						<%= link_to image_tag("facebook.png", size: "185x35", style: "margin-right: 1%; margin-left: 1%;"), "/fb-invite-fb-list?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}" %><%= link_to image_tag("email.png", size: "185x35"), "/fb-invite-email-form?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}" %><% unless @campaign.is_white_label? %><br>
+						<%= link_to image_tag("gmail.png", size: "185x35", style: "margin-right: 1%; margin-left: 1%; margin-top:1%;"), "/invite", target: "_blank" %><%= link_to image_tag("yahoo.png", size: "185x35", style: "margin-top:1%;"), "/invite", target: "_blank" %><% end %>
 					<% else %>
 						<a href="#loginModal" role="button" data-toggle="modal" class="btn btn-primary btn-large"><i class="icon-key"></i> Login to Share this Campaign!</a>
 					<% end %>
 				<% else %>
 					<h2><%= @error %></h2>
 				<% end %>
-				<br><%= link_to image_tag("bb-logo.png", alt: "brandbuddee-seattle-rewards", title: "brandbuddee Seattle Rewards", size: "188x35", style: "margin-top:2.5%;"), "/", target: "_blank", title: "brandbuddee Seattle Rewards" %>
+				<br><% unless @campaign.is_white_label? %>
+						<%= link_to image_tag("bb-logo.png", alt: "brandbuddee-seattle-rewards", title: "brandbuddee Seattle Rewards", size: "188x35", style: "margin-top:2.5%;"), "/", target: "_blank", title: "brandbuddee Seattle Rewards" %>
+					<% else %>
+						<%= image_tag @campaign.brand.brand_logo_url, style: "margin-top:2.5%;max-width:35%;max-height:45px;" unless @campaign.brand.brand_logo.blank? %>
+					<% end %>
 			</div>
 		</div>
 	</div>

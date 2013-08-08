@@ -121,13 +121,8 @@ Brandbuddee::Application.routes.draw do
   match 'admin' => 'admin#index'
 
   post 'admin/category/create' => 'users#create_new_category'
-  match 'admin/category/destroy' => 'users#category_destroy'
   post 'admin/location/create' => 'users#create_new_location'
-  match 'admin/location/destroy' => 'users#location_destroy'
   post 'admin/brand/create' => 'users#create_new_brand'
-  match 'admin/brand/destroy' => 'users#brand_destroy'
-  match 'admin/share/destroy' => 'users#share_destroy'
-  match 'admin/redeem/destroy' => 'users#redeem_destroy'
 
   match 'admin/campaigns' => 'admin#campaigns'
   match 'admin/users' => 'admin#users'
@@ -140,7 +135,6 @@ Brandbuddee::Application.routes.draw do
   match 'admin/campaign/delete' => 'admin#campaign_delete'
 
   match 'admin/campaign/create' => 'users#create_new_campaign'
-  match 'admin/campaign/destroy' => 'users#campaign_destroy'
 
   match 'admin/campaign/view/users' => 'admin#view_campaign_users'
   match 'admin/campaign/view/redeems' => 'admin#view_campaign_redeems'
@@ -163,9 +157,6 @@ Brandbuddee::Application.routes.draw do
   match 'admin/brand/delete' => 'admin#brand_delete'
   match 'admin/brands/edit' => 'admin#brand_edit'
   match 'admin/brands/update' => 'admin#brand_update'
-
-  match 'admin/brand/edit' => 'users#edit_brand'
-  match 'admin/brand/update' => 'users#update_brand'
 
   match 'admin/redeem/resend_confirmation' => 'campaign#resend_redeem_confirmation_email'
 

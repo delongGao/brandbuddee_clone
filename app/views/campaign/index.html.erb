@@ -7,8 +7,8 @@
                 <h5 style="padding:0;font-weight:400;color:rgba(0,0,0,0.7);">Join now to get this prize by signing up in just seconds</h5>
             </div>
             <div class="span2" style="float:right;margin-right:25px;">
-                <a title="#{@campaign.brand.name} brandbuddee" data-toggle="modal" href="#login" class="btn btn-success pull-right">Login</a>
-                <a title="#{@campaign.brand.name} brandbuddee" href="<%= root_url %>signup" class="btn btn-info pull-right" style="margin-right:7px;">Join</a>
+                <a title="<%= @campaign.brand.name %> brandbuddee" data-toggle="modal" href="#login" class="btn btn-success pull-right">Login</a>
+                <a title="<%= @campaign.brand.name %> brandbuddee" href="<%= root_url %>signup" class="btn btn-info pull-right" style="margin-right:7px;">Join</a>
             </div>
         </div> <!-- .promo-campaign-bg -->
     </div>
@@ -93,29 +93,29 @@
                                                 <a href="http://twitter.com/share" class="twitter-share-button"
                                                     data-text="<%= @campaign.tweet.html_safe unless @campaign.tweet.nil? %>"
                                                     data-count="none"
-                                                    data-url="<%= root_url + 's/' + @share.link %>"
+                                                    data-url="<%= @bitly_share_link %>"
                                                     data-size="" title="<%= @campaign.brand.name %> brandbuddee">Tweet</a>
                                             </div>
                                         </div>
                                         <div class="sharing-campaign campaign-pinterest-share" style="position:relative; top:1px;">
-                                            <a href="http://pinterest.com/pin/create/button/?url=<%= root_url + 's/' + @share.link %>&media=<%= @campaign.campaign_image_url() %>&description=<%= @campaign.title %>" class="pin-it-button" target="_blank" count-layout="none" data-campaign="<%= @campaign.link %>" title="<%= @campaign.brand.name %> brandbuddee"><img border="0" src="//assets.pinterest.com/images/PinExt.png" title="Pin It" /></a>
+                                            <a href="http://pinterest.com/pin/create/button/?url=<%= @bitly_share_link %>&media=<%= @campaign.campaign_image_url() %>&description=<%= @campaign.title %>" class="pin-it-button" target="_blank" count-layout="none" data-campaign="<%= @campaign.link %>" title="<%= @campaign.brand.name %> brandbuddee"><img border="0" src="//assets.pinterest.com/images/PinExt.png" title="Pin It" /></a>
                                         </div>
                                         <div style="padding-top:9px;">
-                                            <div class="g-plus" data-action="share" data-annotation="none" data-href="http://brandbuddee.com/s/<%= @share.link %>" data-onendinteraction="addGooglePlusSharePoint"></div>
+                                            <div class="g-plus" data-action="share" data-annotation="none" data-href="<%= @bitly_share_link %>" data-onendinteraction="addGooglePlusSharePoint"></div>
                                         </div><br>
                                         <div class="pull-left linked-in-share-button" style="margin-top:-2%;">
                                             <script src="//platform.linkedin.com/in.js" type="text/javascript">
                                              lang: en_US
                                             </script>
-                                            <script type="IN/Share" data-url="http://brandbuddee.com/s/<%= @share.link %>" data-onSuccess="addLinkedInSharePoint"></script>
+                                            <script type="IN/Share" data-url="<%= @bitly_share_link %>" data-onSuccess="addLinkedInSharePoint"></script>
                                         </div>
                                         <div class="sharing-campaign campaign-facebook-share" style="margin-top:-2.3%;margin-left:3%;">
-                                            <div class="fb-like" data-href="http://brandbuddee.com/s/<%= @share.link %>" data-width="375" data-layout="button_count" data-show-faces="true" data-send="true"></div>
+                                            <div class="fb-like" data-href="<%= @bitly_share_link %>" data-width="375" data-layout="button_count" data-show-faces="true" data-send="true"></div>
                                         </div>
                                     </div>
                                     <div class="clear"></div>
                                     Share Link:
-                                    <input id="share_link_copy" class="input-large span4" type="text" value="<%= root_url + 's/' + @share.link %>">
+                                    <input id="share_link_copy" class="input-large span4" type="text" value="<% if Rails.env.development? %><%= "#{@bitly_share_link} - #{root_url}s/#{@share.link}" %><% else %><%= @bitly_share_link %><% end %>">
                                     <a href="#facebookModal" class="btn btn-primary btn-large" data-toggle="modal" style="margin-bottom:8px;" id="btnSubmitFbPost" title="<%= @campaign.brand.name %> brandbuddee"><i class="icon-circle-arrow-up icon-white"></i> Post to Facebook</a>
                                     <div class="clear"></div>
                                 </div><br>
@@ -408,13 +408,10 @@
                                         <%= hidden_field_tag(:caption, @campaign.reward) %>
                                         <%= hidden_field_tag(:description, @campaign.detail) %>
                                         <%= hidden_field_tag(:campaign_link, @campaign.link) %>
+                                        <%= hidden_field_tag(:link, @bitly_share_link) %>
                                         <% if Rails.env.development? %>
-                                            <%= hidden_field_tag(:link, 'http://brandbuddee.com/s/B6JcpS5E7A1') %>
                                             <%= hidden_field_tag(:picture, 'http://brandbuddee.com/assets/bb-logo.png') %>
                                         <% elsif Rails.env.production? %>
-                                            <% unless @share.link.nil? %>
-                                            <%= hidden_field_tag(:link, root_url + 's/' + @share.link) %>
-                                            <% end %>
                                             <%= hidden_field_tag(:picture, @campaign.campaign_image_url(:standard).to_s) %>
                                         <% end %>
                                   </div>
@@ -695,8 +692,8 @@
     <% unless @campaign.redeem_details.blank? %>
         <p><%= @campaign.redeem_details %></p>
     <% else %>
-        <h4 class="extended_redeem_details">Campaign Location: <%= @campaign.location.city %>, <%= @campaign.location.state %></h4>
-        <h4 class="extended_redeem_details">Contact Information:<br>Name: <%= @campaign.redeem_name %><br>Email: <a href="mailto:<%= @campaign.redeem_email %>" target="_blank"><%= @campaign.redeem_email %></a><% unless @campaign.redeem_phone.blank? %><br>Phone: <%= @campaign.redeem_phone %><% end %><br>Monetary Value of Reward: <%= @campaign.redeem_value %><br>Expiration Date: <%= @campaign.redeem_expires %><% unless @campaign.redeem_event_date.blank? %><br>Event Date: <%= @campaign.redeem_event_date %><% end %><% if @campaign.redeem_is_raffle==true %><br>This Reward is a Raffle<% end %><% unless @campaign.redeem_special_circ.blank? %><br>Special Circumstances:<br><span class="special-circ"><%= @campaign.redeem_special_circ %></span><% end %></h4>
+        <h4 class="extended_redeem_details"><b>Campaign Location:</b> <%= @campaign.location.city %>, <%= @campaign.location.state %></h4>
+        <h4 class="extended_redeem_details"><b>Contact Information:</b><br><b>Name:</b> <%= @campaign.redeem_name %><br><b>Email:</b> <a href="mailto:<%= @campaign.redeem_email %>" target="_blank"><%= @campaign.redeem_email %></a><% unless @campaign.redeem_phone.blank? %><br><b>Phone:</b> <%= @campaign.redeem_phone %><% end %><br><b>Monetary Value of Reward:</b> <%= @campaign.redeem_value %><br><b>Expiration Date:</b> <%= @campaign.redeem_expires %><% unless @campaign.redeem_event_date.blank? %><br><b>Event Date:</b> <%= @campaign.redeem_event_date %><% end %><% if @campaign.redeem_is_raffle==true %><br><b>This Reward is a Raffle</b><% end %><% unless @campaign.redeem_special_circ.blank? %><br><b>Special Circumstances:</b><br><span class="special-circ"><%= @campaign.redeem_special_circ %></span><% end %></h4>
     <% end %>
   </div>
   <div class="modal-footer">

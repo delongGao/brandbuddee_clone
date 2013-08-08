@@ -148,6 +148,15 @@
 							</div>
 
 							<div class="control-group hidden-phone">
+								<%= f.label :is_white_label, "Should this Campaign be White Label?", class: "control-label" %>
+								<div class="controls">
+									<label for="campaign_is_white_label" class="checkbox">
+										<%= f.check_box :is_white_label %> Yes
+									</label>
+								</div>
+							</div>
+
+							<div class="control-group hidden-phone">
 							  <label class="control-label" for="textarea">Location</label>
 							  <div class="controls">
 								<% current_location_id = @campaign.location.id unless @campaign.location.nil? %>

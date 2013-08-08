@@ -3,7 +3,7 @@
 	<head>
 	  <title>brandbuddee</title>
 	  <%= stylesheet_link_tag    "application", :media => "all" %>
-	  <link href="/css/style.min.css?update=1" rel="stylesheet">
+	  <link href="/css/style.min.css?update=2" rel="stylesheet">
 	  <link href="/css/font-awesome/font-awesome.css" rel="stylesheet">
 	  <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800' rel='stylesheet' type='text/css'>
 	  <%= javascript_include_tag "application" %>
@@ -20,6 +20,7 @@
 	  <meta property="og:url" content="http://brandbuddee.com/" /> 
 	  <meta property="og:site_name" content="brandbuddee" /> 
 	  <meta property="og:description" content="The number one social media loyalty rewards platform where fans earn points towards rewards sharing their favorite brands and completing fun tasks." />
+	  <%= yield :google_fonts_tag %>
 	 	<script type="text/javascript">
 		  var _gaq = _gaq || [];
 		  _gaq.push(['_setAccount', 'UA-41362801-1']);
@@ -32,7 +33,7 @@
 		</script>
 	</head>
 
-	<body>
+	<body <%= yield :body_background %>>
 
 		<%= yield %>
 

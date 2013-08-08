@@ -123,10 +123,10 @@ class AdminController < ApplicationController
 			if current_user.account_type == 'super admin' || current_user.account_type == 'admin' || Rails.env.development?
 				if params[:brands].nil? || params[:brands].empty?
 					flash[:error] = "ERROR: You forgot to select a brand!!!"
-					redirect_to "/admin/campain/new-index"
+					redirect_to "/admin/campaign/new-index"
 			    elsif params[:categories].nil? || params[:categories].empty?
 			    	flash[:error] = "ERROR: You forgot to select a category!!!"
-			    	redirect_to "/admin/campain/new-index"
+			    	redirect_to "/admin/campaign/new-index"
 			    else
 			    	begin
 						@brand = Brand.find(params[:brands])
@@ -295,7 +295,7 @@ class AdminController < ApplicationController
 						else
 							@campaign.destroy
 							flash[:error] = "ERROR: Campaign Share Link must start with http:// https:// or ftp://"
-							redirect_to "/admin/campain/new-index"
+							redirect_to "/admin/campaign/new-index"
 						end
 					rescue Mongoid::Errors::Validations
 						if params[:campaign][:redeem_name].blank? || params[:campaign][:redeem_name].length > 60
@@ -311,7 +311,7 @@ class AdminController < ApplicationController
 						else
 							flash[:error] = "One or more fields that are required were left blank. Please make sure you fill out all fields and try again."
 						end
-						redirect_to "/admin/campain/new-index"
+						redirect_to "/admin/campaign/new-index"
 					end
 				end
 			else

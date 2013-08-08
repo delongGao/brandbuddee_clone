@@ -14,10 +14,14 @@
 					<div class="control-group">
 						<%= f.label :nickname, "Username", class: "control-label" %>
 						<div class="controls">
-							<div class="input-prepend">
-								<span class="add-on">brandbuddee.com/</span>
+							<% unless @campaign.is_white_label? %>
+								<div class="input-prepend">
+									<span class="add-on">brandbuddee.com/</span>
+									<%= f.text_field :nickname, :id=>'prependedInput', :class=>'span2', :placeholder=>'username', :size=>'' %>
+								</div>
+							<% else %>
 								<%= f.text_field :nickname, :id=>'prependedInput', :class=>'span2', :placeholder=>'username', :size=>'' %>
-							</div>
+							<% end %>
 						</div>
 					</div>
 					<div class="control-group">
@@ -29,7 +33,13 @@
 						</div>
 					</div>
 				<% end %>
-				<br><div class="text-center"><%= link_to image_tag("bb-logo.png", alt: "brandbuddee-seattle-rewards", title: "brandbuddee Seattle Rewards", size: "188x35", style: "margin-top:1%;"), "/", target: "_blank", title: "brandbuddee Seattle Rewards" %></div>
+				<br><div class="text-center">
+					<% unless @campaign.is_white_label? %>
+						<%= link_to image_tag("bb-logo.png", alt: "brandbuddee-seattle-rewards", title: "brandbuddee Seattle Rewards", size: "188x35", style: "margin-top:1%;"), "/", target: "_blank", title: "brandbuddee Seattle Rewards" %>
+					<% else %>
+						<%= image_tag @campaign.brand.brand_logo_url, style: "margin-top:2.5%;max-width:35%;max-height:45px;" unless @campaign.brand.brand_logo.blank? %>
+					<% end %>
+				</div>
 			</div>
 		</div>
 	</div>

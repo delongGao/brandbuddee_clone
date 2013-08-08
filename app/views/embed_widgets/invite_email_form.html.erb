@@ -21,7 +21,11 @@
                     <div class="control-group">
                         <%= label_tag(:message, "Message:", :class => "control-label") %>
                         <div class="controls">
-                            <%= text_area_tag(:message, nil, :placeholder => "Hey, check out brandbuddee.com! You can discover cool things in your city, score points for sharing, and earn rewards.", :class => "", :rows => 5, :class => "span4") %>
+                            <% unless @campaign.is_white_label? %>
+                                <%= text_area_tag(:message, nil, :placeholder => "Hey, check out brandbuddee.com! You can discover cool things in your city, score points for sharing, and earn rewards.", :class => "", :rows => 5, :class => "span4") %>
+                            <% else %>
+                                <%= text_area_tag(:message, nil, :placeholder => "Hey, check out the campaign I just embeded into my Facebook Page where you can discover cool things in your city, score points for sharing, and earn rewards.", :class => "", :rows => 5, :class => "span4") %>
+                            <% end %>
                         </div>
                     </div>
                     <div class="control-group">
@@ -33,7 +37,13 @@
                         </div>
                     </div>
                 <% end %>
-                <br><div class="text-center" style="margin-top:-5%;"><%= link_to image_tag("bb-logo.png", alt: "brandbuddee-seattle-rewards", title: "brandbuddee Seattle Rewards", size: "188x35", style: "margin-top:1%;"), "/", target: "_blank", title: "brandbuddee Seattle Rewards" %></div>
+                <br><div class="text-center" style="margin-top:-5%;">
+                    <% unless @campaign.is_white_label? %>
+                        <%= link_to image_tag("bb-logo.png", alt: "brandbuddee-seattle-rewards", title: "brandbuddee Seattle Rewards", size: "188x35", style: "margin-top:1%;"), "/", target: "_blank", title: "brandbuddee Seattle Rewards" %>
+                    <% else %>
+                        <%= image_tag @campaign.brand.brand_logo_url, style: "margin-top:2.5%;max-width:35%;max-height:45px;" unless @campaign.brand.brand_logo.blank? %>
+                    <% end %>
+                </div>
             </div>
         </div>
     </div>

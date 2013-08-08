@@ -1,3 +1,6 @@
+<% content_for :google_fonts_tag do %>
+<link href='http://fonts.googleapis.com/css?family=Roboto+Slab:400,300,700' rel='stylesheet' type='text/css'>
+<% end %>
 <%= render 'shared/header' %>
 
 <div class="container" style="margin-top:2%;">
@@ -12,73 +15,74 @@
 	</div><!-- /.row -->
 	<div class="row">
 		<div class="span12">
-			<div class="span3 select-share-enjoy" style="margin-left:4%;border-color:#7EC1E1;top:-30px;" id="triggerSlide1">
+			<div class="span3 select-share-enjoy" style="margin-left:4%;">
 				<p class="center-me">
 					<%= image_tag "/assets/brand-pushpin-blue.png", alt: "sweepstakes-contests-giveaways-brandbuddee", title: "Sweepstakes Contests Giveaways brandbuddee", size: "200x200" %>
 				</p>
-				<h1 style="color:#7EC1E1;" class="center-me" id="textSlide1">Post a Story</h1>
+				<h1 class="center-me">Post a Story</h1>
 				<p class="center-me">Share an update or announcement about your business that you want people buzzing about on social media.</p>
 			</div>
-			<div class="span3 offset1 select-share-enjoy" id="triggerSlide2">
+			<div class="span3 offset1 select-share-enjoy">
 				<p class="center-me">
 					<%= image_tag "/assets/learn-more-icon2.png", alt: "sweepstakes-contests-giveaways-brandbuddee", title: "Sweepstakes Contests Giveaways brandbuddee", size: "200x200" %>
 				</p>
-				<h1 style="color:black;" class="center-me" id="textSlide2">Go Viral</h1>
+				<h1 style="color:black;" class="center-me">Go Viral</h1>
 				<p class="center-me brand-top-tooltip" data-original-title="We encourage your customers, fans, and influencers to share your business with their friends. They earn points for driving traffic, completing tasks you assign, or influencing their friends." data-toggle="tooltip">We encourage your customers, fans, and influencers to share your business with their friends. They earn...</p>
 			</div>
-			<div class="span3 offset1 select-share-enjoy" id="triggerSlide3">
+			<div class="span3 offset1 select-share-enjoy">
 				<p class="center-me">
 					<%= image_tag "/assets/brand-graph-blue.png", alt: "sweepstakes-contests-giveaways-brandbuddee", title: "Sweepstakes Contests Giveaways brandbuddee", size: "200x200" %>
 				</p>
-				<h1 style="color:black;" class="center-me" id="textSlide3">Get Results</h1>
+				<h1 style="color:black;" class="center-me">Get Results</h1>
 				<p class="center-me brand-top-tooltip" data-original-title="You set the goals for your campaign and we deliver results by activating our own network of buddees and engaging with your fans. Our clear-cut graphs and precise metrics help you interpret the results." data-toggle="tooltip">You set the goals for your campaign and we deliver results by activating our own network of buddees and engaging...</p>
 			</div>
 		</div><!-- /.span12 -->
 	</div><!-- /.row -->
 </div><!-- /.container -->
-<section class="comments" style="padding-top:0;margin-top:2%;">
-	<div class="flexslider">
-		<ul class="slides">
-			<li>
-				<div class="image">
-                    <img src="/assets/testimonial1.png" alt="sweepstakes-contests-giveaways-brandbuddee" title="Sweepstakes Contests Giveaways brandbuddee">
-                </div>
-                <div class="name" style="top:15.4%;">
-                    <h3>Joey F.</h3>
-                </div>
-                <div class="job" style="top:15.4%;">
-                    <h3>Portland, OR</h3>
-                </div>
-                <p>"I wanted to take a moment today to thank you and the producers of the BT event last night at Q. The event itself was a dream! Getting to meet one of our idols last night was a dream come true in so many ways. <b>None of that would have been possible without your extra effort and going above and beyond.</b>"</p>
-            </li>
-            <li>
-                <div class="image">
-                    <img src="/assets/brand-hangover-joes.png" alt="sweepstakes-contests-giveaways-brandbuddee" title="Sweepstakes Contests Giveaways brandbuddee">
-                </div>
-                <div class="name" style="top:17%;">
-                    <h3>Hangover Joes</h3>
-                </div>
-                <div class="job" style="top: 17%;">
-                    <h3>Highland Ranch, CO</h3>
-                </div>
-                <p>"<b>brandbuddee has been very beneficial</b> for us to engage with our audience, grown our Twitter & Facebook following, and has connected users with our brand."</p>
-            </li>
-            <li>
-                <div class="image">
-                    <img src="/assets/brand-dreamworks.png" alt="sweepstakes-contests-giveaways-brandbuddee" title="Sweepstakes Contests Giveaways brandbuddee">
-                </div>
-                <div class="name" style="top:19.1%;">
-                    <h3>Julianne at Allied THA</h3>
-                </div>
-                <div class="job" style="top: 19.1%;">
-                    <h3>Glendale, CA</h3>
-                </div>
-                <p>"<b>brandbuddee is a great way to reach people</b> on a personal level"</p>
-            </li>
-        </ul><!-- /slides -->
-	</div><!-- /flexslider -->     
-</section><!-- /Brand Testimonials -->
 <div class="container" style="margin-top:2%;">
+	<div class="row">
+		<div class="span12">
+			<div style="text-align:center;margin-bottom:-5%;"><i class="icon-comments-alt bb-green" style="font-size:3em;position:relative;top:4px;"></i>&nbsp;&nbsp;&nbsp;<b style="font-size:2em;">Here's what <span style="color:#7EC1E1;">firms</span> are saying about us:</b></div>
+			<div class="divisor divisor_services">
+				<div class="circle_left"></div>
+				<div class="circle_right"></div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div id="testimonial" class="span12">
+			<div class="white-bg">
+				<%= image_tag "brands-testimonial-left.png", class: "icon_testimonial_left" %>
+				<%= image_tag "brands-testimonial-right.png", class: "icon_testimonial_right" %>
+				<div class="testimonials">
+					<div class="testimonial-wrapper">
+						<p>
+							brandbuddee...works to partner brands and consumers for social media campaigns, incentivising fans and followers to share stories about their favorite brands.
+						</p>
+						<div class="testimonial-logo"><%= image_tag "brands-testimonial-simply-measured.png" %></div>
+					</div>
+					<div class="testimonial-wrapper" style="display:none;">
+						<p>
+							Getting Press: 8 Tips for going hyperlocal, sometimes the most effective marketing is the kind you do right outside your front door
+						</p>
+						<div class="testimonial-logo"><%= image_tag "brands-testimonial-inc.png" %></div>
+					</div>
+					<div class="testimonial-wrapper" style="display:none;">
+						<p>
+							10 things you should do before starting a business
+						</p>
+						<div class="testimonial-logo"><%= image_tag "brands-testimonial-huff-post.png" %></div>
+					</div>
+					<div class="testimonial-wrapper" style="display:none;">
+						<p>
+							At brandbuddee.com, ...mavens connect and cultivate relationships with other mavens and brands, expanding their reach. ...you'll find a tremendous amount of commercial value.
+						</p>
+						<div class="testimonial-logo"><%= image_tag "brands-testimonial-forbes.png" %></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 	<div class="row">
 		<div class="span12">
 			<div style="text-align:center;margin-bottom:-5%;"><i class="icon-bar-chart bb-green" style="font-size:3em;position:relative;top:4px;"></i>&nbsp;&nbsp;&nbsp;<b style="font-size:2em;">Guaranteed Results and <span style="color:#7EC1E1;">metrics</span> you want.</b></div>
@@ -278,5 +282,124 @@
 	</div>
 </div>
 <script type="text/javascript">
-	eval(function(p,a,c,k,e,d){e=function(c){return(c<a?'':e(parseInt(c/a)))+((c=c%a)>35?String.fromCharCode(c+29):c.toString(36))};if(!''.replace(/^/,String)){while(c--){d[e(c)]=k[c]||e(c)}k=[function(e){return d[e]}];e=function(){return'\\w+'};c=1};while(c--){if(k[c]){p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c])}}return p}('$(3s).3t(f(){2y h=$("#3v");2y g=$("#3H");$("#3G").j(f(){h.2(\'1t 2f 2e 3M\');g.i(\'<p 4="3-5-6-2">3L-l-1H k 8 19 3F 1c 1S l 3z 3x 9 3D b 3N 3c.</p><p 4="3-5-6-2">C I D 2R J e P m M, 2P 2T q 7 2D b 2E.</p>\')});$("#2V").j(f(){h.2(\'2n 2N 12 37\');g.i(\'<p 4="3-5-6-2">12 29 8 1w b 1A e V b w 1X.</p><p 4="3-5-6-2">12 Y 2I 2c E 2Y q 3y 4z 2r z 2M v 4C 4E v Q 9 3O 8 2r.</p><p 4="3-5-6-2">4s 4F, 1T 1b, 15 4S, 4R-4V—w 1N r 4P.</p>\')});$("#4J").j(f(){h.2(\'4K 4M 4n\');g.i(\'<p 4="3-5-6-2">C I r: e V 9 R 40 7 2h, b x\\\'s 3Z.</p><p 4="3-5-6-2">3Y B e Y 42 1B 2l 43 8 1n D 1p, 8 1W, 8 3W, b 1V 7 3 1y 3R v 1u.</p>\')});$("#3Q").j(f(){h.2(\'3P 1E-3T 3V\');g.i(\'<p 4="3-5-6-2">1F\\\'s 1K 9 3U D x 1U a 46 10 n 7 K, 2C v 1f 9 v Q A O y 2d b 2i.</p><p 4="3-5-6-2">4i 4f 9 4e 7 3 2M 8 T 2I k 7 2D b 2E?</p><p 4="3-5-6-2">4d D 4D 4c n 7 3 A R W.</p><p 4="3-5-6-2">C 1U 4b 1q 1o V 9 R W.</p><p 4="3-5-6-2">C 1m\\\'t 4a n 1r-47-1x 1O, 22 e 48 49\\\'t 4l x 4m.</p>\')});$("#4k").j(f(){h.2(\'C 4j 4g\');g.i(\'<p 4="3-5-6-2">4h q a 45 3S E 7 S 1O?</p><p 4="3-5-6-2">B 3X.</p><p 4="3-5-6-2">44 41, w\\\'H 4o r 2l 4N e a 4L 4H 9 4I r U.</p><p 4="3-5-6-2">12 Y 4O 8 1W b w\\\'H 1X 20 4W 1v-l-1H 1f.</p>\')});$("#4U").j(f(){h.2(\'1t 15 4T\');g.i(\'<p 4="3-5-6-2">15 k a 2m m 1I q 4Q n 2u E 7 4G.</p><p 4="3-5-6-2">4u, 1o 2x 9 1g e 2j r 1a 7 4v Z b N?</p><p 4="3-5-6-2">1F\\\'s 1K 9 4t 14 b I 14 4p v Q 9 e.</p><p 4="3-5-6-2">1L\\\'s 2G w 4q n.</p>\')});$("#4r").j(f(){h.2(\'1R 1J 25 4w\');g.i(\'<p 4="3-5-6-2">25 k 2w l 8 4x m 4B x 2a 7 3 9 4y E 1Q N 4A 8 4X.</p><p 4="3-5-6-2">B A 1g 33 n W 1I 34 e b 1p 7 3 E D 32 P v 31 n 10, 2Z 30 y 35.</p>\')});$("#36").j(f(){h.2(\'3b 2X 3a\');g.i(\'<p 4="3-5-6-2">39 2b "3 1x" z "1r q 1x" 38, B k J 3d a 2O 1n b 2W 8 2U X 7 2i Z b N.</p><p 4="3-5-6-2">28 2S 2Q 1d T A 7 3\\\'s 3C 3B 3A 3e 8 m 1i, r\\\'H O y 1c b 3E a 3K 3J.</p><p 4="3-5-6-2">C 1m\\\'t 1r D z 1N 3I 1u, 2t 3w 1u 3k 3l E 7 3 z K T.</p><p 4="3-5-6-2">1L A 3j 8 3i 3f b 3g 3h 9 3m 3n b 3u U l 7 1B.</p>\')});$("#3r").j(f(){h.2(\'3o 3p 1E 3q\');g.i(\'<p 4="3-5-6-2">1F k 5n x 3 1y z 1q 17 8 1P 1M l S.</p><p 4="3-5-6-2">16 6A 6B 6z 6y 8 1Q q 6v 3 1f P 8 m 1i.</p><p 4="3-5-6-2">16 k 8 #1 19 1c 1S l 27.</p><p 4="3-5-6-2"><a 6w="6x://6C.6D.6J/6K/6I/6H/6E/13/1q-8-1P-1M-n-S/" 6F="6G">6u U 11 6t 6h 9 2o J W.</a></p>\')});$("#6i").j(f(){h.2(\'2n 1J X 2f 2e\');g.i(\'<p 4="3-5-6-2">6j\\\'s O 2d, m M, 6g 2H 2b 6f l S, k J 1A.</p><p 4="3-5-6-2">6c e 1m\\\'t 2g 11 e\\\'2k 6d U l r, 1V R e 2g 1s e\\\'2k 6e 21?</p><p 4="3-5-6-2">2s 8 6k 1z, a 6l 2a e 9 29 8 1w e V b 6r 6s 14 20 6q 21 m 6p.</p>\')});$("#6m").j(f(){h.2(\'6M 6o-9-6L 1Z\');g.i(\'<p 4="3-5-6-2">6S 26-9-7c 1Z 7d A 7e F, 7b 7a X 7 m S 76.</p><p 4="3-5-6-2">28 77 78 b 7g 1w, 1d T A e O 7f 9 24 7 7j\\\'s 4Y b 7l 7k 1A, r\\\'H O 26 9 24 b 7h.</p>\')});$("#7i").j(f(){h.2(\'1t 23 79\');g.i(\'<p 4="3-5-6-2">74 75 6T 1Y X Q b 6U 6R y 1a 7 6Q 27, x\\\'s 6N 23 k 22 1K q 6O 2L q 7 K.</p><p 4="3-5-6-2">2F 6P k x 7 6V N b Z 6W\\\'t 72 8 1z 9 73 2v 1Y.</p><p 4="3-5-6-2">B 71 14 9 70 6X 9 1g 2j 7 6Y 6Z.</p>\')});$("#6n").j(f(){h.2(\'6a 1i 1b\');g.i(\'<p 4="3-5-6-2">B k a 2m 2h 9 I 8 1v U J 7 K.</p><p 4="3-5-6-2">6b 7 2c 1p 7 5o 1n P m M, r\\\'H 5p 8 10 l v Q 1o A 5m 7 1T 9 5l y J 7 K.</p><p 4="3-5-6-2">16 1d T 5i y 10 n 7 K, r Y 5j 9 5k 5q z 5r 8 5x.</p>\')});$("#5y").j(f(){h.2(\'1R 1J 1E 5w\');g.i(\'<p 4="3-5-6-2">5v 5s 2o 1z b 5t x 8 o 5u D 5h 9 7 m M 5g k 9 I 54 55 b 56 53 z 52.</p><p 4="3-5-6-2">4Z 50 7 Z 11 2t V b 51 2v 57 q 7 3, e\\\'H 58 2x 3 5e.</p><p 4="3-5-6-2">16 k 5f 11 B 5d e R.</p>\')});$("#5c").j(f(){h.2(\'C 17 8 #1 59 5a 5b\');g.i(\'<p 4="3-5-6-2">2s 19 l 8 2J w 5z E, w 17 v 5A 2w z 5Z 60 5Y.</p><p 4="3-5-6-2">5X 5U w 2p y 1b 1a 15.</p><p 4="3-5-6-2">2F 5V q W k 2C 1v-l-1H 2L 5W 61 62 m M 68.</p><p 4="3-5-6-2">1L\\\'s 2G 7 3 1y b 7 69 N 17.</p><p 4="3-5-6-2">67 1B 2p y 1b n a 66 63 1a 19 2J I n 64 65 5T P 2H m 1I.</p>\')});$(".3-o-2z").2z({5S:\'5G\'});$(\'.2q\').2q({5H:"5I",5F:F,5E:5B,5C:F,5D:1,5J:1,5K:1,5Q:5R,5P:F,5O:5L,2u:F,5M:F,5N:f(1l){1s(1l.2A==0){$("#1j").d({"u-c":"#18","o":"-1k"});$("#1e").d({"u-c":"#G","o":"0"});$("#1h").d({"u-c":"#G","o":"0"});$("#1D").d("c","#18");$("#1C").d("c","#L");$("#1G").d("c","#L")}2K 1s(1l.2A==1){$("#1e").d({"u-c":"#2B","o":"-1k"});$("#1j").d({"u-c":"#G","o":"-0"});$("#1h").d({"u-c":"#G","o":"0"});$("#1C").d("c","#2B");$("#1D").d("c","#L");$("#1G").d("c","#L")}2K{$("#1h").d({"u-c":"#18","o":"-1k"});$("#1j").d({"u-c":"#G","o":"-0"});$("#1e").d({"u-c":"#G","o":"0"});$("#1G").d("c","#18");$("#1D").d("c","#L");$("#1C").d("c","#L")}}})});',62,456,'||text|brand|class|features|modal|your|the|to||and|color|css|you|function|allCampContent|allCampLabel|html|click|is|of|social|in|top||for|it|||border|their|we|that|more|or|will|brandbuddee|We|people|with|true|FFFFFF|ll|get|about|business|000000|media|customers|be|on|friends|do|marketing|only|out|want|this|from|can|fans|interest|what|You||them|Facebook|This|are|7EC1E1|most|than|traffic|trusted|not|triggerSlide2|recommendations|help|triggerSlide3|web|triggerSlide1|30px|slider|don|story|who|share|superfans|pay|if|Increase|rewards|word|metrics|advocacy|advocates|time|results|campaigns|textSlide2|textSlide1|Brand|It|textSlide3|mouth|network|More|important|That|weapon|provide|programs|secret|potential|Gain|form|website|have|how|goals|deliver|reviews|analytics|through|effective|so|Yelp|show|Twitter|easy|advertisement|With|choose|allows|other|buddees|honest|Media|Social|know|way|real|grow|re|by|great|Get|say|drive|flexslider|tasks|For|they|touch|positive|one|better|var|tooltip|animatingTo|C7E478|because|products|services|The|where|any|reward|brands|else|referrals|when|Metrics|good|increasing|engagements|talking|meaningful|awareness|participation|allCampMetrics|using|Meaningful|points|thus|attracting|similarities|based|influencers|discover|followers|allCampEngagement|Want|platforms|Unlike|Engagement|Drive|Research|telling|across|junkies|those|willing|sweepstakes|keep|redeemable|directly|endorse|anything|Find|True|Advocacy|allCampAdvocacy|document|ready|everything|allCampaignsModalLabel|earn|according|completing|advertising|farther|go|message|Nielsen|yield|consumer|allCampBuzz|allCampaignsModalContent|ubiquitous|ROI|higher|Word|Buzz|Forrester|complete|Provide|allCampRewards|redeem|bet|centric|attract|Rewards|location|delivers|On|okay|things|fact|customize|creating|In|sure|genuine|per|absolutely|won|believe|these|interested|Only|promote|wants|Results|Looking|Who|Guarantee|allCampResults|find|here|Campaigns|prove|referring|come|allCampTwitter|Survey|activate|But|current|Followers|largest|connect|specific|around|networks|influence|truly|drives|completions|community|trial|test|allCampCustomize|Customize|free|Your|offering|set|all|keeping|sign|likes|Likes|allCampFacebook|ups|organic|world|stakeholders|By|giving|rewarding|discounts|perks|exclusive|content|special|support|encourage|Customer|Referral|Site|allCampNumOne|helps|loyalty|exactly|groups|subscribe|creates|lead|sales|learn|visit|said|latest|gather|today|down|experts|again|reasons|Industry|Loyalty|road|allCampLoyalty|work|number|200|slideshow|itemMargin|itemWidth|animationLoop|left|animation|slide|minItems|maxItems|800|directionNav|before|animationSpeed|pauseOnHover|slideshowSpeed|5000|placement|month|times|reason|tap|Many|site|two|referral|into|every|days|an|entire|few|Most|channel|future|Organic|As|If|getting|being|type|like|has|allCampGetMore|Let|first|platform|allCampEasyRead|allCampOrganic|Easy|promotions|our|clearly|obtain|Forbes|Check|powerful|href|http|unlocks|resource|largely|untapped|www|forbes|06|target|_blank|2013|theyec|com|sites|Read|Receive|why|building|problem|paid|strangers|Our|trust|even|happy|aren|action|online|reputation|take|encourages|taking|leave|Today|consumers|efforts|clean|graphs|Reviews|value|measurable|read|reports|demonstrate|able|exact|tell|allCampInfluencers|company|clear|management'.split('|'),0,{}))
+	$(document).ready(function () {
+	    var allCampLabel = $("#allCampaignsModalLabel");
+	    var allCampContent = $("#allCampaignsModalContent");
+	    $("#allCampBuzz").click(function () {
+	        allCampLabel.text('Increase Social Media Buzz');
+	        allCampContent.html('<p class="brand-features-modal-text">Word-of-mouth is the most consumer trusted form of advertising according to Nielsen and Forrester Research.</p><p class="brand-features-modal-text">We get people talking about you on social media, increasing awareness for your products and services.</p>')
+	    });
+	    $("#allCampMetrics").click(function () {
+	        allCampLabel.text('Get Metrics You Want');
+	        allCampContent.html('<p class="brand-features-modal-text">You choose the metrics and results you want and we deliver.</p><p class="brand-features-modal-text">You can reward buddees with points for completing specific tasks or when their influence drives their friends to complete the tasks.</p><p class="brand-features-modal-text">Survey completions, website traffic, Facebook likes, sign-ups—we provide it all.</p>')
+	    });
+	    $("#allCampCustomize").click(function () {
+	        allCampLabel.text('Customize Your Campaigns');
+	        allCampContent.html('<p class="brand-features-modal-text">We get it: you want to do things your way, and that\'s okay.</p><p class="brand-features-modal-text">On brandbuddee you can customize campaigns by creating the story people share, the goals, the location, and how your brand advocates redeem their rewards.</p>')
+	    });
+	    $("#allCampRewards").click(function () {
+	        allCampLabel.text('Provide Brand-centric Rewards');
+	        allCampContent.html('<p class="brand-features-modal-text">It\'s important to attract people that have a genuine interest in your business, because their recommendations to their friends will be more honest and real.</p><p class="brand-features-modal-text">Who wants to promote your brand when the only reward is your products and services?</p><p class="brand-features-modal-text">Only people truly interested in your brand will do this.</p><p class="brand-features-modal-text">We have these superfans who want to do this.</p><p class="brand-features-modal-text">We don\'t believe in pay-per-advocacy programs, so you absolutely won\'t find that here.</p>')
+	    });
+	    $("#allCampResults").click(function () {
+	        allCampLabel.text('We Guarantee Results');
+	        allCampContent.html('<p class="brand-features-modal-text">Looking for a sure bet with your marketing programs?</p><p class="brand-features-modal-text">brandbuddee delivers.</p><p class="brand-features-modal-text">In fact, we\'ll prove it by offering you a free trial to test it out.</p><p class="brand-features-modal-text">You can set the goals and we\'ll deliver through organic word-of-mouth recommendations.</p>')
+	    });
+	    $("#allCampFacebook").click(function () {
+	        allCampLabel.text('Increase Facebook Likes');
+	        allCampContent.html('<p class="brand-features-modal-text">Facebook is a great social network for keeping in touch with your community.</p><p class="brand-features-modal-text">But, who better to help you grow it than your current fans and customers?</p><p class="brand-features-modal-text">It\'s important to activate them and get them referring their friends to you.</p><p class="brand-features-modal-text">That\'s where we come in.</p>')
+	    });
+	    $("#allCampTwitter").click(function () {
+	        allCampLabel.text('Gain More Twitter Followers');
+	        allCampContent.html('<p class="brand-features-modal-text">Twitter is one of the largest social networks that allows your brand to connect with potential customers around the world.</p><p class="brand-features-modal-text">brandbuddee will help influencers in this network discover you and share your brand with people based on their similarities in interest, thus attracting more followers.</p>')
+	    });
+	    $("#allCampEngagement").click(function () {
+	        allCampLabel.text('Drive Meaningful Engagement');
+	        allCampContent.html('<p class="brand-features-modal-text">Unlike other "brand advocacy" or "pay for advocacy" platforms, brandbuddee is about telling a good story and using the participation from your real fans and customers.</p><p class="brand-features-modal-text">With meaningful engagements not only will your brand\'s message go farther across the social web, it\'ll be more trusted and yield a higher ROI.</p><p class="brand-features-modal-text">We don\'t pay people or provide ubiquitous rewards, they earn rewards redeemable directly with your brand or business only.</p><p class="brand-features-modal-text">That will keep the sweepstakes junkies and those willing to endorse anything and everything out of your campaigns.</p>')
+	    });
+	    $("#allCampAdvocacy").click(function () {
+	        allCampLabel.text('Find True Brand Advocacy');
+	        allCampContent.html('<p class="brand-features-modal-text">It is said that brand advocates or superfans are the secret weapon of marketing.</p><p class="brand-features-modal-text">This largely untapped resource unlocks the potential for powerful brand recommendations on the social web.</p><p class="brand-features-modal-text">This is the #1 most trusted form of advertisement.</p><p class="brand-features-modal-text"><a href="http://www.forbes.com/sites/theyec/2013/06/13/superfans-the-secret-weapon-in-marketing/" target="_blank">Check out what Forbes has to say about this.</a></p>')
+	    });
+	    $("#allCampGetMore").click(function () {
+	        allCampLabel.text('Get More from Social Media');
+	        allCampContent.html('<p class="brand-features-modal-text">Let\'s be honest, social media, like any other type of marketing, is about results.</p><p class="brand-features-modal-text">If you don\'t know what you\'re getting out of it, how do you know if you\'re being effective?</p><p class="brand-features-modal-text">For the first time, a platform allows you to choose the metrics you want and clearly obtain them through our effective social promotions.</p>')
+	    });
+	    $("#allCampEasyRead").click(function () {
+	        allCampLabel.text('Receive Easy-to-Read analytics');
+	        allCampContent.html('<p class="brand-features-modal-text">Our easy-to-read analytics reports will demonstrate true, measurable value from your social marketing efforts.</p><p class="brand-features-modal-text">With clean graphs and exact metrics, not only will you be able to show your company\'s stakeholders and management clear results, it\'ll be easy to show and tell.</p>')
+	    });
+	    $("#allCampInfluencers").click(function () {
+	        allCampLabel.text('Increase Yelp Reviews');
+	        allCampContent.html('<p class="brand-features-modal-text">Today consumers trust reviews from friends and even strangers more than your paid advertisement, that\'s why Yelp is so important for building referrals for your business.</p><p class="brand-features-modal-text">The problem is that your happy customers and fans aren\'t taking the time to leave positive reviews.</p><p class="brand-features-modal-text">brandbuddee encourages them to take action to help grow your online reputation.</p>')
+	    });
+	    $("#allCampOrganic").click(function () {
+	        allCampLabel.text('Organic web traffic');
+	        allCampContent.html('<p class="brand-features-modal-text">brandbuddee is a great way to get the word out about your business.</p><p class="brand-features-modal-text">As your buddees share your latest story on social media, it\'ll gather the interest of their friends who will visit your website to learn more about your business.</p><p class="brand-features-modal-text">This not only creates more interest in your business, it can lead to sales today or down the road.</p>')
+	    });
+	    $("#allCampLoyalty").click(function () {
+	        allCampLabel.text('Gain More Brand Loyalty');
+	        allCampContent.html('<p class="brand-features-modal-text">Industry experts say time and again that the top reasons people subscribe to your social media groups is to get exclusive content and special perks or discounts.</p><p class="brand-features-modal-text">By giving your fans what they want and rewarding positive support for your brand, you\'ll encourage better brand loyalty.</p><p class="brand-features-modal-text">This is exactly what brandbuddee helps you do.</p>')
+	    });
+	    $("#allCampNumOne").click(function () {
+	        allCampLabel.text('We are the #1 Customer Referral Site');
+	        allCampContent.html('<p class="brand-features-modal-text">For most of the brands we work with, we are their number one or two referral site.</p><p class="brand-features-modal-text">Many times we drive more traffic than Facebook.</p><p class="brand-features-modal-text">The reason for this is because word-of-mouth referrals tap into every social media channel.</p><p class="brand-features-modal-text">That\'s where your brand advocates and your future customers are.</p><p class="brand-features-modal-text">Most campaigns drive more traffic in a few days than most brands get in an entire month on any social network.</p>')
+	    });
+	    $(".brand-top-tooltip").tooltip({
+	        placement: 'left'
+	    });
+	    $('.talking-firms-popover').popover({
+	    	placement: 'bottom',
+	    	trigger: 'hover'
+	    });
+	});
+</script>
+<script type="text/javascript">
+	(function($) {
+		var smoothieTestimonials = function(element, options) {
+			var defaults = $.extend({}, $.fn.dbdtestimonials.defaults, options);
+			
+			var $mainElement = $(element);
+			var $currentElement;
+			
+			totalElems = $mainElement.find('.testimonial-wrapper').length;
+			$currentElement = $mainElement.find('.testimonial-wrapper:eq(0)');
+
+			setInterval(function() {
+				var index = $currentElement.index();
+				
+				if((index + 1) != totalElems) {
+					$currentElement.fadeOut(defaults.transitionOut, function() {
+						var nextElem = $currentElement.next();
+						
+						nextElem.fadeIn(defaults.transitionIn);
+						$currentElement = nextElem;
+					});
+				} else {
+					$currentElement.fadeOut(defaults.transitionOut, function() {
+						var nextElem = $mainElement.find('.testimonial-wrapper:eq(0)');
+						
+						nextElem.fadeIn(defaults.transitionIn);
+						$currentElement = nextElem;
+					});	
+				}
+			}, defaults.interval);
+		}
+		
+		$.fn.dbdtestimonials = function(options) {
+			var dbdt = new smoothieTestimonials(this, options);
+		}
+		
+		$.fn.dbdtestimonials.defaults = {
+			interval		: 5000,
+			transitionIn	: 1500,
+			transitionOut	: 1500	
+		}
+	})(jQuery);
+
+	jQuery(document).ready(function(e) {
+		if(jQuery('.testimonials').length == 1) {
+	    	jQuery('.testimonials').dbdtestimonials();
+		}
+	});
 </script>

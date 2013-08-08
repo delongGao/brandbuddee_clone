@@ -8,165 +8,104 @@
     <div class="row" style="margin-top:2%;">
         <div class="span6 offset3">
             <div class="alert alert-<%= name %> fade in">
-                <a href="#" class="close" data-dismiss="alert">&times;</a>
+                <a title="sweepstakes contests giveaways brandbuddee" href="#" class="close" data-dismiss="alert">&times;</a>
                 <%= msg %>
             </div>
         </div>
     </div>
     <% end %>
 
-      <% if params[:c].nil? %>
-        <% c = Campaign.all.order_by([:date, :desc]) %>
-        <% c.each do |campaign_filter| %>
-            <% if campaign_filter.end_date.nil? %>
-                <% campaign_filter.end_date = campaign_filter.date + 1.month %>
-                <% campaign_filter.status = "active" %>
-                <% campaign_filter.save %>
-            <% else %>
-                <% if campaign_filter.end_date < Time.now || campaign_filter.left == false %>
-                    <% campaign_filter.status = "expired" %>
-                    <% campaign_filter.save %>
-                <% else %>
-                    <% campaign_filter.status = "active" %>
-                    <% campaign_filter.save %>
-                <% end %>
+    <div id="portfolio" style="margin-top:25px;">
+        <ul id="portfolio-filter" class="nav nav-tabs">
+            <li<% if params[:c].blank? %> class="active"<% end %>><a title="sweepstakes contests giveaways brandbuddee" href="/home">All</a></li>
+            <% @categories.each do |c| %>
+                <li<% if params[:c] == c.name %> class="active"<% end %>><a title="sweepstakes contests giveaways brandbuddee" href="/home?c=<%= c.name %>"><% if c.name == "Technology" %>Tech<% else %><%= c.name %><% end %></a></li>
             <% end %>
-            <% if campaign_filter.limit.nil? %>
-                <% campaign_filter.limit = 0 %>
-                <% campaign_filter.left = false %>
-                <% campaign_filter.save %>
-            <% else %>
-                <% left_status = campaign_filter.limit - campaign_filter.redeems.size %>
-                <% if left_status == 0 %>
-                    <% campaign_filter.left = false %>
-                    <% campaign_filter.save %>
-                <% else %>
-                    <% campaign_filter.left = true %>
-                    <% campaign_filter.save %>
-                <% end %>
-            <% end %>
+        </ul>
 
+        <% if @campaign.nil? || @campaign.blank? %>
+            <div style="height:100px;"></div>
+            <div class="well span5 no_campaigns_alert">
+                Unfortunately, there are no available campaigns at the moment. Please check again soon!
+            </div> <!-- .no_campaigns_alert -->
+            <div style="height:300px;"></div>
         <% end %>
-        <%# location feature %>
-        <%# @user_location = Location.find(current_user.location.id) %> 
-        <%# @campaign = @user_location.campaigns.where(:status => "active").order_by([:date, :desc]).paginate :page => params[:page], :per_page => 9 %>
-        <% @campaign = Campaign.where(:status => "active").excludes(left: false).order_by([:date, :desc]).paginate :page => params[:page], :per_page => 9 %>
-      <% elsif %>
-        <% @category = Category.where(:name => params[:c]).first %> 
-        <% @campaign = @category.campaigns.where(:status => "active").order_by([:date, :desc]).paginate :page => params[:page], :per_page => 9 %>
-      <% end %>
 
-
-
-
-
-
-        <div id="portfolio" style="margin-top:25px;">
-            <ul id="portfolio-filter" class="nav nav-tabs">
-                <li class="active"><a href="#" class="filter" data-filter="*">All</a></li>
-                <% @categories.each do |c| %>
-                    
-                    <li><a href="#" class="filter" data-filter=".<%= c.name.gsub(/\//, "-") %>"><% if c.name == "Technology" %>Tech<% else %><%= c.name %><% end %></a></li>
-
-                <% end %>
-            </ul>
-
-            <% if @campaign.nil? || @campaign.blank? %>
-
-                <div style="height:100px;"></div>
-
-                <div class="well span5 no_campaigns_alert">
-                    Unfortunately, there are no available campaigns at the moment. Please check again soon!
-                </div> <!-- .no_campaigns_alert -->
-
-                <div style="height:300px;"></div>
-
-            <% end %>
-
-
-            <div class="row" id="portfolio-items">
-
-
-                      <%# @campaign.each_slice(3) do |slice| -%>
-                        <div class="row">
-                        <% @campaign.each do |c| %>                            
-<!--                           <div class="thumbnails"> -->
-                          <%# slice.each do |c| %>
-                            <li class="span4 project" style="list-style: none outside none;" data-tags="<% c.categories.each do |cat| %><%= cat.name.gsub(/\//, "-") %><% end %>">
-                              <div class="thumbnail unit-bg">
-                                    <a href="/campaign/<%= c.link %>">
-                                        <%= image_tag(c.campaign_image_url(:standard).to_s, :alt=>"#{c.brand.name.parameterize}-brandbuddee", :title=>"#{c.brand.name} brandbuddee", :width=>"100%") %>
-                                    </a>
-                                    <div class="caption">
-                                        <h4 class="campaign_title_wrap">
-                                            <%= truncate(c.title, :length => 55, :omission => '...') %>
-                                        </h4>
-                                        <p class="campaign_reward_wrap bb-blue" style="font-weight:bold;"><i class="icon-gift" style="font-size:1.5em;color:#555555;position:relative;top:3%;"></i>
-                                            <%#= truncate(c.detail, :length => 160, :omission => '... (continued)') %>
-                                            <%= truncate(c.reward, :length => 84, :omission => '... (continued)') %>
-                                        </p> <!-- .campaign_reward_wrap -->
-
-                                        <div class="dashboard_campaign_details_wrap">
-                                            <p>
-                                                <span class="help-block pull-right">
-                                                    <small><i class="icon-tag"></i>&nbsp;<%= c.limit - c.redeems.size %> Available&nbsp;&nbsp;<i
-                                                    class="icon-time"> </i>
-
-                                                    &nbsp;
-                                                    <% unless c.end_date.nil? %>
-                                                        <% if c.end_date > Time.now %>
-                                                            <%= time_ago_in_words(c.end_date) + ' left' %>
-                                                        <% else %>
-                                                            Campaign ended
-                                                        <% end %>
+        <div class="row" id="portfolio-items">
+            <%# @campaign.each_slice(3) do |slice| -%>
+            <div class="row">
+                <% @campaign.each do |c| %>
+                <%# slice.each do |c| %>
+                    <li class="span4 project" style="list-style: none outside none;" data-tags="<% c.categories.each do |cat| %><%= cat.name.gsub(/\//, "-") %><% end %>">
+                        <div class="thumbnail unit-bg">
+                            <a title="sweepstakes contests giveaways brandbuddee" href="/campaign/<%= c.link %>">
+                                <%= image_tag(c.campaign_image_url(:standard).to_s, :alt=>"#{c.brand.name.parameterize}-brandbuddee", :title=>"#{c.brand.name} brandbuddee", :width=>"100%") %>
+                            </a>
+                            <div class="caption">
+                                <h4 class="campaign_title_wrap">
+                                    <%= truncate(c.title, :length => 55, :omission => '...') %>
+                                </h4>
+                                <p class="campaign_reward_wrap bb-blue" style="font-weight:bold;"><i class="icon-gift" style="font-size:1.5em;color:#555555;position:relative;top:3%;"></i>
+                                    <%= truncate(c.reward, :length => 84, :omission => '... (continued)') %>
+                                </p> <!-- .campaign_reward_wrap -->
+                                <div class="dashboard_campaign_details_wrap">
+                                    <p>
+                                        <span class="help-block pull-right">
+                                            <small><i class="icon-tag"></i>&nbsp;<%= c.limit - c.redeems.size %> Available&nbsp;&nbsp;<i class="icon-time"> </i>
+                                                &nbsp;
+                                                <% unless c.end_date.nil? %>
+                                                    <% if c.end_date > Time.now %>
+                                                        <%= time_ago_in_words(c.end_date) + ' left' %>
+                                                    <% else %>
+                                                        Campaign ended
                                                     <% end %>
-                                                    </small></span>
-                                            </p>
-                                            <div class="clear"></div>
+                                                <% end %>
+                                            </small>
+                                        </span>
+                                    </p>
+                                    <div class="clear"></div>
 
-                                            <p class="campaign_details">
-                                                <span class="pts_req_wrap">
-                                                    <span class="help-inline text-highlight-small pts_req">
-                                                        <%= c.points_required %>
-                                                    </span>
-                                                    <span class="pts_req_text">pts</span>
-                                                </span> <!-- .pts_req_wrap -->
-                                                <span class="view-deal">
-                                                    <a href="/campaign/<%= c.link %>" class="btn btn-success">View&nbsp;<i class="icon-chevron-right icon-white"></i></a>
-                                                </span> <!-- .view-deal -->
-                                            </p>
-                                        </div> <!-- .dashboard_campaign_details_wrap -->
-                                    </div>
+                                    <p class="campaign_details">
+                                        <span class="pts_req_wrap">
+                                            <span class="help-inline text-highlight-small pts_req">
+                                                <%= c.points_required %>
+                                            </span>
+                                            <span class="pts_req_text">pts</span>
+                                        </span> <!-- .pts_req_wrap -->
+                                        <span class="view-deal">
+                                            <a title="sweepstakes contests giveaways brandbuddee" href="/campaign/<%= c.link %>" class="btn btn-success">View&nbsp;<i class="icon-chevron-right icon-white"></i></a>
+                                        </span> <!-- .view-deal -->
+                                    </p>
+                                </div> <!-- .dashboard_campaign_details_wrap -->
+                            </div><!-- /.caption -->
 
-                                  <% @redeem = c.redeems.where(:user_id => current_user.id).first %>
-                                  <% campaign_new_ribbon = Time.now - 1.week %>
-                                  <% if @redeem != nil %>
-                                    <div class="ribbon"><span>Awarded</span></div>
-                                  <% elsif c.date > campaign_new_ribbon %>
-                                    <div class="ribbon"><span style="background:#51A351;">New</span></div>
-                                  <% else %>
-                                  <% end %>
-                                </div>
-                              </li>
-                          <% end %>
-<!--                           </div> --> <!-- .thumbnails -->
-                        </div> <!-- .row -->
-                        <%# end %>
-                    
-            </div> <!-- #portfolio-items -->
-
-            </div><!-- .portfolio -->
-            <%= will_paginate @campaign, :class=>"pagination" %>
-
-            
-
+                            <% @redeem = c.redeems.where(:user_id => current_user.id).first %>
+                            <% campaign_new_ribbon = Time.now - 1.week %>
+                            <% if @redeem != nil %>
+                                <div class="ribbon"><span>Awarded</span></div>
+                            <% elsif c.date > campaign_new_ribbon %>
+                                <div class="ribbon"><span style="background:#51A351;">New</span></div>
+                            <% else %>
+                            <% end %>
+                        </div><!-- /.thumbnail.unit-bg -->
+                    </li>
+                <% end %>
+            </div> <!-- .row -->
+        </div> <!-- #portfolio-items -->
+    </div><!-- /#portfolio -->
+    <%= will_paginate @campaign, :class=>"pagination" %>
+    <div class="row" style="display:none;" id="end-of-list-display">
+        <div class="span6 offset3">
+            <div class="alert alert-info alert-block fade in">
+                <a href="#" class="close" data-dismiss="alert">&times;</a>
+                <h4>This just in:</h4>
+                You have reached the end of the Campaign List.
+            </div>
+        </div>
+    </div>
 </div> <!-- .container -->
 
-
-
 <%= render 'shared/footer' %>
-
-
 
     <script>        !function (d, s, id) {
             var js, fjs = d.getElementsByTagName(s)[0];
@@ -185,7 +124,11 @@
             fjs.parentNode.insertBefore(js, fjs);
         } (document, 'script', 'facebook-jssdk'));</script>
 
-    <script type="text/javascript" src="js/jquery.isotope.min.js"></script>
+    <!--<script type="text/javascript" src="js/jquery.isotope.min.js?v=1"></script>-->
     <script type="text/javascript" src="js/jquery.touchSwipe.js"></script>
     <script type="text/javascript" src="js/jquery.hotkeys.min.js"></script>
-    <script type="text/javascript" src="js/functions.min.js?v=2"></script>
+    <script type="text/javascript" src="js/functions.min.js?v=3"></script>
+    <script type="text/javascript" src="/js/jquery.infinitescroll.min.js"></script>
+    <script type="text/javascript">
+        eval(function(p,a,c,k,e,d){e=function(c){return(c<a?'':e(parseInt(c/a)))+((c=c%a)>35?String.fromCharCode(c+29):c.toString(36))};if(!''.replace(/^/,String)){while(c--){d[e(c)]=k[c]||e(c)}k=[function(e){return d[e]}];e=function(){return'\\w+'};c=1};while(c--){if(k[c]){p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c])}}return p}('(1(){$(t).s(1(){8 h=$("#f-6");4(h.9){$("#f-6 2.r").u({g:{q:"",c:"/v/x-w.y",k:"",j:\'i\'},o:"2.d n p.m a",l:"2.d",I:".M",L:1(){$("#O-z-P-e").Q(R)},K:J},1(5,7){8 b=7.C.B;A.D("E H: "+b);4(5.9%3!=0){$("#G-g c").F("e","N")}})}})})();',54,54,'|function|div||if|newElements|items|opts|var|length||page|img|pagination|display|portfolio|loading|container|slow|speed|msgText|navSelector|next_page|ul|nextSelector|li|finishedMsg|row|load|window|infinitescroll|assets|loader|ajax|gif|of|console|currPage|state|log|Current|css|infscr|Page|itemSelector|250|pixelsFromNavToBottom|errorCallback|project|none|end|list|fadeIn|1000'.split('|'),0,{}))
+    </script>

@@ -1,60 +1,127 @@
+<% content_for :google_fonts_tag do %>
+<link href='http://fonts.googleapis.com/css?family=Roboto:400,300,500,300italic,400italic' rel='stylesheet' type='text/css'>
+<% end %>
+<% content_for :body_background do %>
+class="landing-page-background"
+<% end %>
 <%= render 'shared/header' %>
-<div class="container">
-  <div class="row" style="margin-top:5%;">
-    <div class="span6">
-      <h1>Connect with <span class="bb-blue">brands</span></h1><br>
-      <p class="home-page-text">Be <span>influential</span></p>
-      <p class="home-page-text">Be the <span>media</span></p>
-      <p class="home-page-text">Be the <span>first to know</span></p>
-      <p class="home-page-text">Be a <span style="color:#a1ba5c;">buddee</span></p>
-      <p style="margin-left:10%;">
-        <a href="/signup" class="btn btn-large btn-primary" style="margin-bottom:2%;"><i class="icon-facebook"></i> | Sign Up With Facebook</a><br>
-        <a href="/signup" class="btn btn-large btn-info" style="margin-bottom:2%;"><i class="icon-twitter"></i> | Sign Up With Twitter&nbsp;&nbsp;&nbsp;</a><br>
-        <a href="/signup" class="btn btn-large"><i class="icon-envelope"></i> | Sign Up With Email&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+<div class="container" id="home-page-container">
+  <div class="row" style="margin-top:5%; margin-bottom: 5%;">
+    <div class="span5">
+      <ul class="thumbnails"> <!-- thumbnails -->
+        <li class="span5 home-thumblock" id="thumb-brand">
+          <div class="thumbnail">
+            <div class="thumb-head">
+              <img src="/assets/thumb-banner-brand3.png" alt="sweepstakes-contests-giveaways-brandbuddee" title="sweepstakes contests giveaways brandbuddee">
+            </div>
+            <div class="thumb-content">
+              <p class="text-left">
+                  Promote your business online, get the results you want.
+                  <!-- <img src="/assets/arrow.png" width=80 alt="" title=""> --> 
+              </p>
+              <p>  
+                <strong>Do you want:</strong>  
+              </p>
+              <div class="list-block">
+                    <ul>
+                      <li>Guaranteed results that you choose</li>
+                      <li>Access to influencers to promote your business</li>
+                      <li>Thousands of customers</li>
+                      <li>Increased website traffic</li>
+                      <li>5 star Yelp reviews</li>
+                      <li>Increased Facebook likes</li>
+                      <li>To reach millions of people</li>
+                      <li>Quantifiable ROI and simple customized campaigns</li>
+                      <li>To save time on social media</li>
+                      <li>Blogs written</li>
+                      <li>Increased Twitter Follows</li>
+                      <li>24/7 Analytics</li>
+                    </ul>
+              </div><!-- /list-block -->
+              <div class="learnmore-block">
+                <p class="pull-right learn-more">
+                  <a href="/brands" title="sweepstakes contests giveaways brandbuddee" class="btn btn-ultraviolet-rays-1"><strong>Learn more!</strong></a>
+                </p>
+              </div><!-- /learnmore-block -->
+            </div><!-- /thumb-content -->
+            <div class="thumb-button">
+                <p>
+                  <a href="/brands/signup" title="sweepstakes contests giveaways brandbuddee" class="btn btn-large btn-ultraviolet-rays-1">
+                    <strong>Click here to get results today!</strong>
+                  </a>
+                </p>
+            </div><!-- /thumb-button -->
+          </div><!-- /.thumbnail -->
+        </li>
+      </ul> <!-- /thumbnails -->
+    </div><!-- /span5 -->
+
+    <div class="span2" id="or-logo">
+      <p>
+        <img src="/assets/bb-or-v2.png" alt="sweepstakes-contests-giveaways-brandbuddee" title="sweepstakes contests giveaways brandbuddee">
       </p>
     </div>
-    <div class="span6">
-      <div id="homeCarousel" class="carousel slide">
-        <ol class="carousel-indicators" style="top:105%;right:45%;">
-          <li data-target="#tellMoreCarousel" data-slide-to="0" class="active"></li>
-          <li data-target="#tellMoreCarousel" data-slide-to="1"></li>
-          <li data-target="#tellMoreCarousel" data-slide-to="2"></li>
-        </ol>
-        <div class="carousel-inner" style="width:65%;margin-left:auto;margin-right:auto;border:1px solid #a4a4a4;max-width: 300px;">
-          <div class="active item">
-            <%= link_to image_tag("/assets/home-slider-1.jpg", size: "300x381", alt: "seattle-rewards", title: "brandbuddee Seattle Rewards"), "/signup" %>
+
+    <div class="span5">
+      <ul class="thumbnails"> <!-- thumbnails -->
+        <li class="span5 home-thumblock" id="thumb-buddee">
+          <div class="thumbnail">
+            <div class="thumb-head">
+              <img src="/assets/thumb-banner-buddee3.png" alt="sweepstakes-contests-giveaways-brandbuddee" title="sweepstakes contests giveaways brandbuddee">
+            </div>
+            <div class="thumb-content">
+              <p class="text-left">
+                Win cool prizes from your favorite brands.
+                <!-- Win cool prizes from your favorite brands. -->
+                <!-- <img src="/assets/arrow.png" width=80 alt="" title=""> --> 
+              </p>
+              <p>  
+                <strong>Do you want to:</strong>  
+              </p>
+              <div class="list-block">
+                    <ul>
+                      <li>Win cool prizes and rewards instantly</li>
+                      <li>Find cool products and businesses in your area</li>
+                      <li>Discover exclusive giveaways</li>
+                      <li>Connect with the brands you love</li>
+                      <li>Enter sweepstakes</li>
+                      <li>Win contests</li>
+                      <li>Enter raffles</li>
+                      <li>Receive gifts and special promotions</li>
+                      <li>Get a simple prize redemption process</li>
+                    </ul>
+              </div> <!-- list-block -->
+              <div class="learnmore-block">
+                    <p class="pull-right learn-more">
+                      <a href="/tell-me-more" title="sweepstakes contests giveaways brandbuddee" class="btn btn-blackcurrent-birds-1"><strong>Learn more!</strong></a>
+                    </p>
+              </div> <!-- learnmore-block -->
+            </div> <!-- /thumb-content -->
+            <div class="thumb-button">
+                <p>
+                  <a href="/signup" title="sweepstakes contests giveaways brandbuddee" class="btn btn-large btn-blackcurrent-birds-1">
+                    <strong>Join now, start winning instantly!</strong>
+                  </a>
+                </p>
+            </div> <!-- /thumb-button -->
           </div>
-          <div class="item">
-            <%= link_to image_tag("/assets/home-slider-2.jpg", size: "300x381", alt: "seattle-rewards", title: "brandbuddee Seattle Rewards"), "/signup" %>
-          </div>
-          <div class="item">
-            <%= link_to image_tag("/assets/home-slider-3.jpg", size: "300x381", alt: "seattle-rewards", title: "brandbuddee Seattle Rewards"), "/signup" %>
-          </div>
-        </div>
-        <a class="carousel-control left" href="#homeCarousel" data-slide="prev" style="border:none;background:none;margin-left:8%;display:none;"><div class="tellMoreCarouselLeft"></div></a>
-        <a class="carousel-control right" href="#homeCarousel" data-slide="next" style="border:none;background:none;margin-right:8%;display:none;"><div class="tellMoreCarouselRight"></div></a>
-      </div><!-- /tellMoreCarousel -->
-      <div class="home-carousel-shadow"></div>
-      <div class="home-carousel-ribbon"></div>
-    </div><!-- /span6 -->
+        </li>
+      </ul> <!-- /thumbnails -->
+    </div><!-- /span5 -->
   </div><!-- /row -->
+
+  <div class="row" style="margin-top:5%; margin-bottom: 5%;">
+    <div class="span12">
+      <div style="text-align:center;margin-bottom:-5%;"><i class="icon-lightbulb" style="font-size:1.5em;color:#A3BB62;"></i>&nbsp;&nbsp;&nbsp;<b style="font-size:1.75em;font-weight:500;letter-spacing:0;">A <span style="color:#73AFCD;">fast & simple</span> way for brands to engage millions of people and a fun way for</b></div>
+      <div class="divisor divisor_services">
+        <div class="circle_left"></div>
+        <div class="circle_right"></div>
+      </div>
+      <div style="text-align:center;margin-top:-5%;"><b style="font-size:1.75em;font-weight:500;letter-spacing:0;">fans to earn cool prizes in <span style="color:#73AFCD;">Just minutes!&nbsp;&nbsp;&nbsp;</span></b><i class="icon-lightbulb" style="color:#A3BB62;font-size:1.5em;"></i></b></div>
+    </div><!-- /.span12 -->
+  </div><!-- second row -->
 </div><!-- /container -->
-<div class="home-page-bottom">
-  <div class="left">
-    <%= image_tag "/assets/home-gift.png", size: "48x75", alt: "seattle-rewards", title: "brandbuddee Seattle Rewards", style: "padding:50px;float:left;" %>
-    <h1>WHAT IS A GIFT</h1>
-    <h1>
-      <p style="padding-right:5%;">Product, Service, or discounts given to you by the brands you love.</p>
-    </h1>
-  </div>
-  <span class="right">
-    <%= image_tag "/assets/home-get-gifted.png", size: "81x75", title: "brandbuddee Seattle Rewards", alt: "seattle-rewards", style: "padding:50px;float:left;" %>
-    <h1>HOW DO I GET GIFTED</h1>
-    <h1>
-      <p style="padding-right:5%;">Talk about brands you love on your favorite social networks.</p>
-    </h1>
-  </span>
-</div>
+
 <%= render 'shared/footer' %>
 
 

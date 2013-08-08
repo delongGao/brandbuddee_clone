@@ -151,7 +151,8 @@ class SessionsController < ApplicationController
                   unless @left < 1 || @campaign.end_date < Time.now
                     @campaign.user_ids << user.id
                     share_link = Share.assign_link
-                    @campaign.shares.create!(date: Time.now, link: share_link, user_id: user.id, campaign_id: @campaign.id, url: @campaign.share_link)
+                    the_share = @campaign.shares.create!(date: Time.now, link: share_link, user_id: user.id, campaign_id: @campaign.id, url: @campaign.share_link)
+                    @bitly_link = the_share.bitly_share_link
                     unless @campaign.already_has_user_task?(user)
                       @campaign.tasks.create!(task_1_url: @campaign.engagement_task_left_link, task_2_url: @campaign.engagement_task_right_link, user_id: user.id, campaign_id: @campaign.id)
                       if @campaign.save(validate: false)
@@ -195,7 +196,8 @@ class SessionsController < ApplicationController
                 unless @left < 1 || @campaign.end_date < Time.now
                   @campaign.user_ids << user.id
                   share_link = Share.assign_link
-                  @campaign.shares.create!(date: Time.now, link: share_link, user_id: user.id, campaign_id: @campaign.id, url: @campaign.share_link)
+                  the_share = @campaign.shares.create!(date: Time.now, link: share_link, user_id: user.id, campaign_id: @campaign.id, url: @campaign.share_link)
+                  @bitly_link = the_share.bitly_share_link
                   @campaign.tasks.create!(task_1_url: @campaign.engagement_task_left_link, task_2_url: @campaign.engagement_task_right_link, user_id: user.id, campaign_id: @campaign.id)
                   if @campaign.save(validate: false)
                     redirect_to "/fb-create-username?page_id=#{page_id}&liked=#{liked}&admin=#{admin}"
@@ -384,19 +386,10 @@ class SessionsController < ApplicationController
         user.save
         session[:user_id] = user.id
         flash[:notice] = "Signed in!"
-        #redirect_to root_url #, :notice => "Logged in!"
-        #redirect_to(:controller => 'users', :action => 'dashboard')
-        respond_to do |format|
-          format.html
-          format.js
-        end
+        redirect_to "/home"
       else
-        flash[:notice] = "Invalid email or password"
-        #redirect_to(:action => 'new')
-        respond_to do |format|
-          format.html
-          format.js
-        end
+        flash[:error] = "Invalid email or password"
+        redirect_to "/login"
       end
     end
   end

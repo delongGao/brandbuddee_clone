@@ -26,7 +26,7 @@ class EmbedWidgetsController < ApplicationController
 		@continue = false
 		if params[:signed_request].nil?
 			if params[:page_id].nil? || params[:liked].nil? || params[:admin].nil?
-				@error = "This is the Go Viral! Facebook App built by brandbuddee. Become a brand, create a campaign, and watch it go viral by installing this app to your Facebook Page!"
+				@error = "This is the Go Viral! Facebook App. Become a brand, create a campaign, and watch it go viral by installing this app to your Facebook Page!"
 			else
 				if params[:liked] == "true"
 					redirect_to "/fb-campaign-embed?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
@@ -35,6 +35,8 @@ class EmbedWidgetsController < ApplicationController
 					@page_id = params[:page_id]
 					@liked = params[:liked]
 					@admin = params[:admin]
+					link = Embed.where(fb_page_id: @page_id).last
+					@campaign = Campaign.where(link: link.campaign_link).first unless link.nil?
 				end
 			end
 		else
@@ -54,6 +56,8 @@ class EmbedWidgetsController < ApplicationController
 								@page_id = @result["page"]["id"]
 								@liked = @result["page"]["liked"]
 								@admin = @result["page"]["admin"]
+								link = Embed.where(fb_page_id: @page_id).last
+								@campaign = Campaign.where(link: link.campaign_link).first unless link.nil?
 							end
 						else
 							@error = "This App is not intended to be viewed on its own. To function properly, it should be viewed from a Facebook Page."
@@ -73,7 +77,7 @@ class EmbedWidgetsController < ApplicationController
 	def facebook_index
 		@continue = false
 		if params[:page_id].nil? || params[:liked].nil? || params[:admin].nil?
-			@error = "This is the Go Viral! Facebook App built by brandbuddee. Become a brand, create a campaign, and watch it go viral by installing this app to your Facebook Page!"
+			@error = "This is the Go Viral! Facebook App. Become a brand, create a campaign, and watch it go viral by installing this app to your Facebook Page!"
 		else
 			if params[:admin] == "true"
 				redirect_to "/fb-embed-admin?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
@@ -152,7 +156,7 @@ class EmbedWidgetsController < ApplicationController
 				@error = "An error occurred while trying to find the campaign associated with this Facebook Page."
 			end
 		else
-			@error = "This is the Go Viral! Facebook App built by brandbuddee. Become a brand, create a campaign, and watch it go viral by installing this app to your Facebook Page!"
+			@error = "This is the Go Viral! Facebook App. Become a brand, create a campaign, and watch it go viral by installing this app to your Facebook Page!"
 		end
 	end
 
@@ -176,7 +180,8 @@ class EmbedWidgetsController < ApplicationController
 					unless @left < 1 || @campaign.end_date < Time.now
 						@campaign.user_ids << @user.id
 		                share_link = Share.assign_link
-		                @campaign.shares.create!(date: Time.now, link: share_link, user_id: @user.id, campaign_id: @campaign.id, url: @campaign.share_link)
+		                the_share = @campaign.shares.create!(date: Time.now, link: share_link, user_id: @user.id, campaign_id: @campaign.id, url: @campaign.share_link)
+		                @bitly_link = the_share.bitly_share_link
 		                @campaign.tasks.create!(task_1_url: @campaign.engagement_task_left_link, task_2_url: @campaign.engagement_task_right_link, user_id: @user.id, campaign_id: @campaign.id)
 		                if @campaign.save(validate: false)
 		                  redirect_to "/fb-connect-with-fb?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
@@ -184,7 +189,11 @@ class EmbedWidgetsController < ApplicationController
 		                  redirect_to "/fb-campaign-embed?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
 		                end
 		            else
-		            	flash[:info] = "Your account has been created! Unfortunately, this campaign has expired. Head over to brandbuddee.com to see a full list of current campaigns!"
+		            	unless @campaign.is_white_label?
+		            		flash[:info] = "Your account has been created! Unfortunately, this campaign has expired. Head over to brandbuddee.com to see a full list of current campaigns!"
+		            	else
+		            		flash[:info] = "Your account has been created! Unfortunately, this campaign has expired."
+		            	end
 		            	redirect_to "/fb-error-page?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
 		            end
 				else
@@ -222,7 +231,8 @@ class EmbedWidgetsController < ApplicationController
 			        			unless @left < 1 || @campaign.end_date < Time.now
 				        			@campaign.user_ids << user.id
 					                share_link = Share.assign_link
-					                @campaign.shares.create!(date: Time.now, link: share_link, user_id: user.id, campaign_id: @campaign.id, url: @campaign.share_link)
+					                the_share = @campaign.shares.create!(date: Time.now, link: share_link, user_id: user.id, campaign_id: @campaign.id, url: @campaign.share_link)
+					                @bitly_link = the_share.bitly_share_link
 					                unless @campaign.already_has_user_task?(user)
 					                  	@campaign.tasks.create!(task_1_url: @campaign.engagement_task_left_link, task_2_url: @campaign.engagement_task_right_link, user_id: user.id, campaign_id: @campaign.id)
 					                  	if @campaign.save(validate: false)
@@ -232,7 +242,11 @@ class EmbedWidgetsController < ApplicationController
 				        						redirect_to "/fb-joined-campaign?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
 				        					end
 				        				else
-				        					flash[:error] = "An error occurred while trying to add your buddee account to the campaign. Please try again."
+				        					unless @campaign.is_white_label?
+				        						flash[:error] = "An error occurred while trying to add your buddee account to the campaign. Please try again."
+				        					else
+				        						flash[:error] = "An error occurred while trying to add your account to the campaign. Please try again."
+				        					end
 				        					redirect_to "/fb-error-page?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
 						                end
 						            else
@@ -243,7 +257,11 @@ class EmbedWidgetsController < ApplicationController
 						                end
 				        			end
 				        		else
-				        			flash[:info] = "You are now logged in! Unfortunately, this campaign has expired. Head over to brandbuddee.com to see a full list of current campaigns!"
+				        			unless @campaign.is_white_label?
+				        				flash[:info] = "You are now logged in! Unfortunately, this campaign has expired. Head over to brandbuddee.com to see a full list of current campaigns!"
+				        			else
+				        				flash[:info] = "You are now logged in! Unfortunately, this campaign has expired."
+				        			end
 				        			redirect_to "/fb-error-page?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
 				        		end
 			        		else
@@ -288,20 +306,29 @@ class EmbedWidgetsController < ApplicationController
 							unless @left < 1 || @campaign.end_date < Time.now
 								@campaign.user_ids << current_user.id
 				                share_link = Share.assign_link
-				                @campaign.shares.create!(date: Time.now, link: share_link, user_id: current_user.id, campaign_id: @campaign.id, url: @campaign.share_link)
+				                the_share = @campaign.shares.create!(date: Time.now, link: share_link, user_id: current_user.id, campaign_id: @campaign.id, url: @campaign.share_link)
+				                @bitly_link = the_share.bitly_share_link
 				                unless @campaign.already_has_user_task?(user)
 					                @campaign.tasks.create!(task_1_url: @campaign.engagement_task_left_link, task_2_url: @campaign.engagement_task_right_link, user_id: current_user.id, campaign_id: @campaign.id)
 					                if @campaign.save(validate: false)
 					                	redirect_to "/fb-joined-campaign?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
 					                else
-					                	flash[:error] = "An error occurred while trying to add your buddee account to the campaign. Please try again."
+					                	unless @campaign.is_white_label?
+					                		flash[:error] = "An error occurred while trying to add your buddee account to the campaign. Please try again."
+					                	else
+					                		flash[:error] = "An error occurred while trying to add your account to the campaign. Please try again."
+					                	end
 					                	redirect_to "/fb-error-page?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
 					                end
 					            else
 					            	redirect_to "/fb-joined-campaign?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
 					            end
 					        else
-					        	flash[:error] = "Unfortunately, this campaign has expired. Head over to brandbuddee.com to see a full list of current campaigns!"
+					        	unless @campaign.is_white_label?
+					        		flash[:error] = "Unfortunately, this campaign has expired. Head over to brandbuddee.com to see a full list of current campaigns!"
+					        	else
+					        		flash[:error] = "Unfortunately, this campaign has expired."
+					        	end
 					        	redirect_to "/fb-error-page?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
 					        end
 			            else
@@ -328,7 +355,7 @@ class EmbedWidgetsController < ApplicationController
 	def facebook_joined_camp
 		@continue = false
 		if params[:page_id].nil? || params[:liked].nil? || params[:admin].nil?
-			@error = "This is the Go Viral! Facebook App built by brandbuddee. Become a brand, create a campaign, and watch it go viral by installing this app to your Facebook Page!"
+			@error = "This is the Go Viral! Facebook App. Become a brand, create a campaign, and watch it go viral by installing this app to your Facebook Page!"
 		else
 			if params[:admin] == "true"
 				redirect_to "/fb-embed-admin?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
@@ -348,6 +375,7 @@ class EmbedWidgetsController < ApplicationController
 								if already_joined == true
 									@share = Share.where(:campaign_id => @campaign.id, :user_id => current_user.id).first
 									unless @share.nil?
+										@bitly_link = @share.bitly_share_link
 										@continue = true
 										task_update = @campaign.tasks.where(user_id: current_user.id).first
 										if task_update.nil?
@@ -376,7 +404,11 @@ class EmbedWidgetsController < ApplicationController
 											@gift_earned = true
 										end
 									else
-										@error = "An error occurred while attempting to connect the campaign with your buddee account. Please try again later."
+										unless @campaign.is_white_label?
+											@error = "An error occurred while attempting to connect the campaign with your buddee account. Please try again later."
+										else
+											@error = "An error occurred while attempting to connect the campaign with your account. Please try again later."
+										end
 									end
 								else
 									redirect_to "/fb-campaign-embed?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
@@ -402,7 +434,7 @@ class EmbedWidgetsController < ApplicationController
 	def facebook_admin_page
 		@continue = false
 		if params[:page_id].nil? || params[:liked].nil? || params[:admin].nil?
-			@error = "This is the Go Viral! Facebook App built by brandbuddee. Become a brand, create a campaign, and watch it go viral by installing this app to your Facebook Page!"
+			@error = "This is the Go Viral! Facebook App. Become a brand, create a campaign, and watch it go viral by installing this app to your Facebook Page!"
 		else
 			if params[:admin] == "true"
 				@embed = Embed.where(fb_page_id: params[:page_id].to_s).last
@@ -445,13 +477,15 @@ class EmbedWidgetsController < ApplicationController
 					redirect_to "/fb-campaign-embed?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
 				else
 					@user = User.find(current_user.id)
+					link = Embed.where(fb_page_id: params[:page_id]).last.campaign_link
+					@campaign = Campaign.where(link: link).first
 				end
 			elsif current_brand
 				session[:brand_id] = nil
 				flash[:info] = "You cannot create a buddee account while logged in as a brand. Please try again."
 				redirect_to "/fb-error-page?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
 			else
-				flash[:error] = "You must be logged in as a buddee to change or create your username. Please try again."
+				flash[:error] = "You must be logged in to change or create your username. Please try again."
 				redirect_to "/fb-error-page?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
 			end
 		end
@@ -478,7 +512,11 @@ class EmbedWidgetsController < ApplicationController
 										unless @left < 1 || @campaign.end_date < Time.now
 											redirect_to "/fb-joined-campaign?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
 										else
-											flash[:info] = "Your username has been updated! Unfortunately, this campaign has expired. Head over to brandbuddee.com to see a full list of current campaigns!"
+											unless @campaign.is_white_label?
+												flash[:info] = "Your username has been updated! Unfortunately, this campaign has expired. Head over to brandbuddee.com to see a full list of current campaigns!"
+											else
+												flash[:info] = "Your username has been update! Unfortunately, this campaign has expired."
+											end
 											redirect_to "/fb-error-page?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
 										end
 									else
@@ -526,6 +564,14 @@ class EmbedWidgetsController < ApplicationController
 							"description" => params[:description],
 							"picture" => params[:picture]
 						})
+						the_embed = Embed.where(fb_page_id: params[:page_id]).first
+						unless the_embed.nil?
+							the_campaign = Campaign.where(link: the_embed.campaign_link).first
+							unless the_campaign.nil?
+								the_campaign.facebook_clicks += 1
+								the_campaign.save(validate: false)
+							end
+						end
 						flash[:success] = "You have successfully posted to your Facebook Wall!"
 						if params[:admin].to_s == "true"
 							redirect_to "/fb-embed-admin?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
@@ -534,7 +580,7 @@ class EmbedWidgetsController < ApplicationController
 						end
 					rescue Koala::Facebook::APIError => exc
 						if exc.message == "KoalaMissingAccessToken: Write operations require an access token"
-							flash[:error] = "Posting to your Facebook Wall requires permissions that you have not given the brandbuddee Facebook App access to. Please <a href='/fb-connect-with-fb?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}' class='btn btn-info btn-mini'>Connect With Facebook</a>"
+							flash[:error] = "Posting to your Facebook Wall requires permissions that you have not given the Facebook App access to. Please <a href='/fb-connect-with-fb?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}' class='btn btn-info btn-mini'>Connect With Facebook</a>"
 							if params[:admin].to_s == "true"
 								redirect_to "/fb-embed-admin?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
 							else
@@ -604,8 +650,10 @@ class EmbedWidgetsController < ApplicationController
 						@friendslist = current_user.get_friends
 						unless @friendslist.nil? || @friendslist.class == String
 							@friendslist = params[:page] ? current_user.facebook.get_page(params[:page]) : current_user.facebook.get_connections("me", "friends", {"limit" => "100"})
+							link = Embed.where(fb_page_id: params[:page_id]).last.campaign_link
+							@campaign = Campaign.where(link: link).first
 						else
-							flash[:error] = "An error occurred while trying to get a list of your Facebook Friends. Please reconnect your brandbuddee account with Facebook by <a href='/fb-connect-with-fb?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}' class='btn btn-mini btn-info'>Clicking Here</a>"
+							flash[:error] = "An error occurred while trying to get a list of your Facebook Friends. Please reconnect your account with Facebook by <a href='/fb-connect-with-fb?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}' class='btn btn-mini btn-info'>Clicking Here</a>"
 							redirect_to "/fb-embed-admin?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
 						end
 					else
@@ -649,12 +697,14 @@ class EmbedWidgetsController < ApplicationController
 										@friendslist << {"id" => friend["id"], "name" => friend["name"]}
 									end
 								end
+								link = Embed.where(fb_page_id: params[:page_id]).last.campaign_link
+								@campaign = Campaign.where(link: link).first
 							else
 								flash[:error] = "You must enter a name when searching for a Facebook Friend. Please try again."
 								redirect_to "/fb-embed-admin?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
 							end
 						else
-							flash[:error] = "An error occurred while trying to get a list of your Facebook Friends. Please reconnect your brandbuddee account with Facebook by <a href='/fb-connect-with-fb?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}' class='btn btn-mini btn-info'>Clicking Here</a>"
+							flash[:error] = "An error occurred while trying to get a list of your Facebook Friends. Please reconnect your account with Facebook by <a href='/fb-connect-with-fb?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}' class='btn btn-mini btn-info'>Clicking Here</a>"
 							redirect_to "/fb-embed-admin?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
 						end
 					else
@@ -679,6 +729,8 @@ class EmbedWidgetsController < ApplicationController
 				unless params[:admin].to_s == "true"
 					redirect_to "/fb-campaign-embed?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
 				end
+				link = Embed.where(fb_page_id: params[:page_id]).last.campaign_link
+				@campaign = Campaign.where(link: link).first
 			else
 				flash[:error] = "Your must be logged in as a buddee to perform that action."
 				redirect_to "/fb-error-page?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
@@ -691,23 +743,45 @@ class EmbedWidgetsController < ApplicationController
 			flash[:error] = "An error occurred while trying to find the Campaign associated with this Facebook Page. Please try again."
 			redirect_to "/fb-error-page"
 		else
+			link = Embed.where(fb_page_id: params[:page_id]).last.campaign_link
+			@campaign = Campaign.where(link: link).first
 			if current_user
 				if params[:admin].to_s == "true"
 					unless params[:to].blank? || params[:message].nil?
 						unless current_user.first_name.blank? || current_user.last_name.blank?
-							subject = "Your friend #{current_user.first_name} #{current_user.last_name} says join brandbuddee"
+							unless @campaign.is_white_label?
+								subject = "Your friend #{current_user.first_name} #{current_user.last_name} says join brandbuddee"
+							else
+								subject = "Your friend #{current_user.first_name} #{current_user.last_name} says check out #{@campaign.brand.name}"
+							end
 						else
-							subject = "Your friend says join brandbuddee"
+							unless @campaign.is_white_label?
+								subject = "Your friend says join brandbuddee"
+							else
+								subject = "Your friend says check out #{@campaign.brand.name}"
+							end
 						end
 						unless params[:message].blank?
 							message = params[:message]
 						else
-							message = "Hey, check out brandbuddee.com! You can discover cool things in your city, score points for sharing, and earn rewards."
+							unless @campaign.is_white_label?
+								message = "Hey, check out brandbuddee.com! You can discover cool things in your city, score points for sharing, and earn rewards."
+							else
+								message = "Hey, check out #{@campaign.brand.name}. They just launched a brand new campaign called: #{@campaign.title}!"
+							end
 						end
-						if UserMailer.email_invite(params[:to], subject, message).deliver
-							flash[:success] = "Your email has been sent!"
+						unless @campaign.is_white_label?
+							if UserMailer.email_invite(params[:to], subject, message).deliver
+								flash[:success] = "Your email has been sent!"
+							else
+								flash[:error] = "An error occurred while trying to send your email. Please try again."
+							end
 						else
-							flash[:error] = "An error occurred while trying to send your email. Please try again."
+							if UserMailer.email_white_label_invite(params[:to], subject, message, @campaign.brand, params[:page_id]).deliver
+								flash[:success] = "Your email has been sent!"
+							else
+								flash[:error] = "An error occurred while trying to send your email. Please try again."
+							end
 						end
 						redirect_to "/fb-invite-email-form?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
 					else
@@ -733,7 +807,7 @@ class EmbedWidgetsController < ApplicationController
 					@campaign = campaign
 				end
 				if campaign.nil?
-					flash[:error] = "An error occurred while trying to find the campaign associated with this campaign. Please try again."
+					flash[:error] = "An error occurred while trying to find the campaign associated with this Facebook Page. Please try again."
 					redirect_to "/fb-joined-campaign?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
 				else
 					if params[:task].to_s == "blog"
@@ -942,7 +1016,7 @@ class EmbedWidgetsController < ApplicationController
 					@campaign = campaign
 				end
 				if campaign.nil?
-					flash[:error] = "An error occurred while trying to find the campaign associated with this campaign. Please try again."
+					flash[:error] = "An error occurred while trying to find the campaign associated with this Facebook Page. Please try again."
 					redirect_to "/fb-joined-campaign?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
 				else
 					if params[:task].to_s == "blog"

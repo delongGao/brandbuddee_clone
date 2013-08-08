@@ -39,6 +39,8 @@ gem "bootstrap-wysihtml5-rails", "~> 0.3.1.20"
 
 gem 'newrelic_rpm'
 
+gem "bitly", "~> 0.9.0"
+
 
 # Bundle edge Rails instead:
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'

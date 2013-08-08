@@ -3,32 +3,53 @@ class UsersController < ApplicationController
   
   def dashboard
     if current_user
-
-      #@campaign = Campaign.all.order_by([:date, :desc])
-      @categories = Category.all.order_by([:name, :asc])
-
-      # categories = Category.all.order_by([:name, :asc])
-      # categories.each do |c|
-      #   if
-      #   @categories
-      # end
-
-      #if current_user.email == 'email@email.com'
       if current_user.email.nil? || current_user.email.blank?
         redirect_to(:action => 'complete_email')
-      end
-
-      if current_user.nickname.nil? || current_user.nickname.blank?
+      elsif current_user.nickname.nil? || current_user.nickname.blank?
         redirect_to(:action => 'choose_username')
+      else
+        current_user.last_activity = Time.now
+        current_user.save
+        c = Campaign.all.order_by([:date, :desc])
+        c.each do |campaign_filter|
+          if campaign_filter.end_date.nil?
+            campaign_filter.end_date = campaign_filter.date + 1.month
+            unless campaign_filter.left == false
+              campaign_filter.status = "active"
+            else
+              campaign_filter.status = "expired"
+            end
+          else
+            if campaign_filter.end_date < Time.now || campaign_filter.left == false
+              campaign_filter.status = "expired"
+            else
+              campaign_filter.status = "active"
+            end
+          end
+          campaign_filter.save(validate: false)
+          if campaign_filter.limit.nil?
+            campaign_filter.limit = 0
+            campaign_filter.left = false
+          else
+            left_status = campaign_filter.limit - campaign_filter.redeems.size
+            if left_status == 0
+              campaign_filter.left = false
+            else
+              campaign_filter.left = true
+            end
+          end
+          campaign_filter.save(validate: false)
+        end # c.each do |campaign_filter|
+        if params[:c].nil?
+          @campaign = Campaign.where(:status => "active").excludes(left: false, is_white_label: true).order_by([:date, :desc]).paginate :page => params[:page], :per_page => 9
+        else
+          @category = Category.where(:name => params[:c]).first
+          @campaign = @category.campaigns.where(:status => "active").excludes(left: false, is_white_label: true).order_by([:date, :desc]).paginate :page => params[:page], :per_page => 9
+        end
+        @categories = Category.all.order_by([:name, :asc])
       end
-
-      # if current_user.location.nil?
-      #   redirect_to(:action => 'choose_location')
-      # end
-
-      current_user.last_activity = Time.now
-      current_user.save
-
+    elsif current_brand
+      redirect_to "/brands/dashboard"
     else
       redirect_to root_url
     end
@@ -345,77 +366,35 @@ class UsersController < ApplicationController
     end
   end
 
-  def edit_brand
-    @brand = Brand.find(params[:_id])
-  end
-
-  def update_brand
-    @brand = Brand.find(params[:brand][:id])
-
-    if @brand.update_attributes(params[:brand])
-      flash[:notice] = "Successfully updated."
-      redirect_to "#{root_url}admin/brand/edit?_id=#{params[:brand][:id]}"
-    else
-      flash[:notice] = "Uh oh... something went wrong. Please try again."
-      redirect_to "#{root_url}admin/brand/edit?_id=#{params[:brand][:id]}"
-    end
-  end
-
-  def brand_destroy
-    @brand = Brand.find(params[:_id])
-    @brand.destroy
-    flash[:notice] = "#{@brand.name} brand Destroyed"
-    redirect_to(:action => 'show')
-  end
-
-  def category_destroy
-    @category = Category.find(params[:_id])
-    @category.destroy
-    flash[:notice] = "#{@category.name} Category Destroyed"
-    redirect_to(:action => 'show')
-  end
-
-  def location_destroy
-    @location = Location.find(params[:_id])
-    @location.destroy
-    flash[:notice] = "#{@location.city} Location Destroyed"
-    redirect_to(:action => 'show')
-  end
-
-  def campaign_destroy
-    @campaign = Campaign.find(params[:_id])
-    @campaign.destroy
-    flash[:notice] = "#{@campaign.title} campaign Destroyed"
-    redirect_to(:action => 'show')
-  end
-
-  def share_destroy
-    @share = Share.find(params[:_id])
-    @share.destroy
-    flash[:notice] = "Share Link: #{@share.link} Destroyed"
-    redirect_to(:action => 'show')
-  end
-
-  def redeem_destroy
-    @redeem = Redeem.find(params[:_id])
-    @redeem.destroy
-    flash[:notice] = "Redeem Destroyed"
-    redirect_to(:action => 'show')
-  end
-
   def password_resets_destroy
-    @password_reset = PasswordReset.find(params[:_id])
-    @password_reset.destroy
-    flash[:notice] = "Password Reset Request Destroyed"
-    redirect_to(:action => 'password_resets_show')
+    if current_user || Rails.env.development?
+      if current_user.account_type=="super admin" || Rails.env.development?
+        @password_reset = PasswordReset.find(params[:_id])
+        @password_reset.destroy
+        flash[:notice] = "Password Reset Request Destroyed"
+        redirect_to(:action => 'password_resets_show')
+      else
+        redirect_to root_url
+      end
+    else
+      redirect_to root_url
+    end
   end
   
   def destroy
-    @user = User.find(params[:_id])
-    @user.destroy
-    session[:user_id] = nil
-    flash[:notice] = "User Destroyed"
-    redirect_to(:action => 'show')
+    if current_user || Rails.env.development?
+      if current_user.account_type=="super admin" || Rails.env.development?
+        @user = User.find(params[:_id])
+        @user.destroy
+        session[:user_id] = nil
+        flash[:notice] = "User Destroyed"
+        redirect_to(:action => 'show')
+      else
+        redirect_to root_url
+      end
+    else
+      redirect_to root_url
+    end
   end
   
 end

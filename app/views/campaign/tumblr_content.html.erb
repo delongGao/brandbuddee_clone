@@ -21,7 +21,7 @@
 					<%= label_tag 'title', 'Blog Title', class: 'control-label' %>
 					<%= text_field_tag 'title', params[:title_text].nil? ? nil : params[:title_text], placeholder: 'Title of Blog. Just text, no HTML.' %>
 					<%= label_tag 'content', 'Blog Content', class: 'control-label', style: "margin-top:5%;" %><br>
-					<%= text_area_tag 'content', params[:content_text].nil? ? "<div>Check out this campaign: #{@campaign.title}.</div>\r\n<br>\r\n<div>It's on <a href=\"#{root_url}s/#{@share.link}\" target=\"_blank\">brandbuddee.com</a>!</div><div id='shootdang'></div><img src='#{@campaign.campaign_image_url(:standard).to_s}' alt='brandbuddee-seattle-rewards' title='#{@campaign.title}' />" : params[:content_text], placeholder: 'Content of Blog. HTML is OK!', class: 'wysihtml5', style: "width:69.5%;height:250px;" %>
+					<%= text_area_tag 'content', params[:content_text].nil? ? "<div>Check out this campaign: #{@campaign.title}.</div>\r\n<br>\r\n<div>It's on <a href=\"#{@share.bitly_share_link}\" target=\"_blank\">brandbuddee.com</a>!</div><div id='shootdang'></div><img src='#{@campaign.campaign_image_url(:standard).to_s}' alt='brandbuddee-seattle-rewards' title='#{@campaign.title}' />" : params[:content_text], placeholder: 'Content of Blog. HTML is OK!', class: 'wysihtml5', style: "width:69.5%;height:250px;" %>
 					<%= hidden_field_tag 'link', @link %>
 					<br>
 					<%= submit_tag 'Post to Tumblr', class: 'btn btn-success btn-large', style: 'font-weight:bold;' %>

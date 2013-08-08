@@ -33,8 +33,10 @@
 	</script>
 </head>
 <body>
+	<div id="fb-root"></div>
 	<%= yield %>
 	<%= javascript_include_tag "application" %>
 	<script src="/js/brands/embed_widget_overrides.js" type="text/javascript"></script>
+	<%= yield :social_share_tracking %>
 </body>
 </html>

@@ -12,7 +12,7 @@
 	<div class="row">
 		<div class="span6 offset3">
 			<div class="alert alert-<%= name %> fade in">
-				<a href="#" class="close" data-dismiss="alert">&times;</a>
+				<a href="#" class="close" data-dismiss="alert" title="sweepstakes contests giveaways brandbuddee">&times;</a>
 				<%= msg %>
 			</div>
 		</div>
@@ -25,7 +25,7 @@
 					<% if @brand.errors.any? %>
 						<% for message in @brand.errors.full_messages %>
 							<div class="alert alert-error fade in">
-								<a href="#" class="close" data-dismiss="alert">&times;</a>
+								<a href="#" class="close" data-dismiss="alert" title="sweepstakes contests giveaways brandbuddee">&times;</a>
 								<strong>Uh Oh!</strong> <%= message %>
 							</div>
 						<% end %>

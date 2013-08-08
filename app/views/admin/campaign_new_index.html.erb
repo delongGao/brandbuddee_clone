@@ -157,12 +157,22 @@
 	      								<%= f.text_area :tweet, :class=>'', :rows => '3', :placeholder => 'Leave blank to use default campaign title as tweet.' %>
 	      							</div>
 	      						</div>
-								<div class="control-group span6">
-	      							<%= f.label :reward, :class=>'control-label' %>
-									<div class="controls">
-	      								<%= f.text_field :reward %>
-	      							</div>
-	      						</div>
+	      						<div class="span6">
+									<div class="control-group">
+		      							<%= f.label :reward, :class=>'control-label' %>
+										<div class="controls">
+		      								<%= f.text_field :reward %>
+		      							</div>
+		      						</div>
+		      						<div class="control-group">
+		      							<%= f.label :is_white_label, "Should this Campaign be White Label?", class: "control-label" %>
+		      							<div class="controls">
+		      								<label for="campaign_is_white_label" class="checkbox">
+		      									<%= f.check_box :is_white_label %> Yes
+		      								</label>
+		      							</div>
+		      						</div>
+		      					</div>
 	      					</div>
 							<hr />
 							<h2>Redeem Details:</h2>

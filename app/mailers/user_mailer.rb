@@ -70,6 +70,13 @@ class UserMailer < ActionMailer::Base
 		mail(:to => email, :subject => subject, :from => "brandbuddee <andy@brandbuddee.com>")
 	end
 
+	def email_white_label_invite(email, subject, message, brand, page_id)
+		@message = message
+		@brand = brand
+		@page_id = page_id
+		mail(:to => email, :subject => subject, :from => "#{@brand.name} <#{@brand.email}>")
+	end
+
 	def email_brice_error(message)
 		@message = message
 		mail(:to => "brice@brandbuddee.com", :subject => "brandbuddee ERROR - Please fix", :from => "brandbuddee <andy@brandbuddee.com>")

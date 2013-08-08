@@ -11,6 +11,7 @@ class Share
   field :url, :type => String
   field :unique_page_views, :type => Integer, :default => 0
   field :page_views, :type => Integer, :default => 0
+  field :bitly_link, :type => String
 
   field :cookie_unique_page_views, :type => Integer, :default => 0
   field :cookie_page_views, :type => Integer, :default => 0
@@ -43,6 +44,17 @@ class Share
     url = "http://#{url}" if URI.parse(url).scheme.nil?
     host = URI.parse(url).host.downcase
     host.start_with?('www.') ? host[4..-1] : host
+  end
+
+  def bitly_share_link
+    if self.bitly_link.blank?
+      bitly = Bitly.client
+      self.bitly_link = bitly.shorten("http://brandbuddee.com/s/#{self.link}").short_url
+      self.save!
+      self.bitly_link
+    else
+      self.bitly_link
+    end
   end
 
 end

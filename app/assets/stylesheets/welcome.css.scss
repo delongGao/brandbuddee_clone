@@ -286,6 +286,14 @@ a.sb.gplus,
 }
 
 // HOME page new
+body.landing-page-background {
+	background: url(/assets/landingpagebg.png);
+}
+div#home-page-container {
+	font-family: 'Roboto', sans-serif;
+	font-weight: 300;
+	letter-spacing: 1px;
+}
 .thumb-title {
 	text-align:center;
 }
@@ -296,19 +304,72 @@ a.sb.gplus,
 	-moz-box-sizing: border-box;    /* Firefox, other Gecko */
 	box-sizing: border-box;         /* Opera/IE 8+ */
 }
+.home-thumblock:after {
+	content: "";
+	// background: url(/assets/headerbg-new.png);
+	opacity: 0.88;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	position: absolute;
+	z-index: -1;   
+}
 #thumb-brand {
 	border: solid 5px #7EC1E1;
+
 }
 #thumb-buddee {
 	border: solid 5px #C7E478;
+
 }
 .well-small {
 	margin: 0 0 30px; 
 }
-.thumb-content {
-	padding: 15px 30px;
-	color: #ffffff;
+.thumb-head {
+	margin: 10px 0;
+	text-align: center;
+	img {
+		border-radius: 2px;
+	}
 }
+.thumb-content {
+	overflow: hidden;
+	margin: 10px 10px 0;
+	padding: 15px;
+	color: white;
+	font-size: 12pt;
+	// background: rgba(244,247,247,0.6);
+	border-radius: 2px;
+	div.list-block {
+		margin: 5px 0;
+	  	padding-top: 5px;
+	  	border-top: solid 1px white;
+	}
+	div.learnmore-block {
+	  	border-bottom: solid 1px white;
+	  	padding: 10px 0;
+	  	overflow: hidden;
+	}
+	.text-left {
+	  	vertical-align: top;
+	}
+	.learn-more a {
+	  	color: white;
+	}
+}
+.thumb-button {
+	margin: 10px 0;
+	text-align: center;
+}
+#or-logo {
+	text-align: center;
+	margin-top: 10%;
+}
+.thumb-content strong, .thumb-button strong {
+	font-weight: 500;
+}
+
 
 .home-page-text {
 	font-size:30px;
@@ -739,6 +800,43 @@ a.brand-sign-up-link {
 	}
 	.responsive-right-btn {
 		float: right;
+	}
+}
+.white-bg {
+	background: #FFF url('/assets/wellback.png');
+	-moz-border-radius: 6px;
+	-webkit-border-radius: 6px;
+	border-radius: 6px;
+	padding: 20px;
+	-moz-box-shadow: 0px 1px 3px rgba(147,167,183, 0.60);
+	-webkit-box-shadow: 0px 1px 3px rgba(147,167,183, 0.60);
+	box-shadow: 0px 1px 3px rgba(147,167,183, 0.60);
+	margin-bottom: 60px;
+	position: relative;
+}
+.icon_testimonial_left {
+	position: absolute;
+	top: -20px;
+	left: -26px;
+}
+.icon_testimonial_right {
+	position: absolute;
+	bottom: -20px;
+	right: -26px;
+}
+#testimonial p {
+	font-family: 'Roboto Slab', serif;
+	font-weight: 300;
+	font-size: 1.75em;
+	line-height: 29px;
+	color: #666;
+	text-align: center;
+}
+#testimonial div.testimonial-logo {
+	text-align: center;
+	img {
+		max-height: 7%;
+		max-width: 100%;
 	}
 }
 // END BRANDS PAGE

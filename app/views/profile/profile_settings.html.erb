@@ -33,7 +33,7 @@
 						<div class="control-group">
 					        <label class="control-label" for="prependedInput">Avatar</label>
 					        <div class="controls">
-					          <div class="profile-image-avatar"><%= image_tag(current_user.profile_image_url(:square).to_s, :class=>"", :size=>"125x125", :style=>"border-radius:100px;" ) %></div>
+					          <div class="profile-image-avatar"><%= image_tag(current_user.profile_image_url(:square).to_s, :class=>"", :size=>"125x125", :style=>"border-radius:100px;", :alt=>"sweepstakes-contests-giveaways-brandbuddee", :title=>"sweepstakes-contests-giveaways-brandbuddee") %></div>
 					          <%= f.file_field :profile_image, :class=>'' %>
 					        </div>
 						</div>
@@ -43,7 +43,7 @@
 						<div class="control-group">
 					        <label class="control-label" for="prependedInput">Profile Cover</label>
 					        <div class="controls">
-					          <div class="profile-image-avatar"><% if current_user.profile_cover_url(:cover).nil? || current_user.profile_cover_url(:cover).blank? %><%= image_tag('profile_cover_default.png', :class=>"img-polaroid", :size=>"313x100") %><% else %><%= image_tag(current_user.profile_cover_url(:cover).to_s, :class=>"img-polaroid", :size=>"313x100" ) %><% end %></div>
+					          <div class="profile-image-avatar"><% if current_user.profile_cover_url(:cover).nil? || current_user.profile_cover_url(:cover).blank? %><%= image_tag('profile_cover_default.png', :class=>"img-polaroid", :size=>"313x100", :alt=>"sweepstakes-contests-giveaways-brandbuddee", :title=>"sweepstakes-contests-giveaways-brandbuddee") %><% else %><%= image_tag(current_user.profile_cover_url(:cover).to_s, :class=>"img-polaroid", :size=>"313x100", :alt=>"sweepstakes-contests-giveaways-brandbuddee", :title=>"sweepstakes-contests-giveaways-brandbuddee") %><% end %></div>
 					          <%= f.file_field :profile_cover, :class=>'' %>
 					        </div>
 						</div>

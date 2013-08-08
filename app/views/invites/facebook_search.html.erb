@@ -23,7 +23,7 @@
                 <% unless @friendslist.empty? %>
                     <ul class="inviteprofilelist">
                         <% @friendslist.each do |friend| %>
-                            <li class="inviteprofilelist"><img src="https://graph.facebook.com/<%= friend["id"] %>/picture?type=square" alt="<%= friend["name"] %>'s Profile Image" width="50" height="50" class="img-circle inviteprofileimage" />&nbsp;&nbsp;&nbsp;<%= friend["name"] %> <input type="button" class="btn btn-fuji-splash-3 invite-friend inviteprofilelist pull-right" onclick="invitePerson(<%= friend["id"] %>, '<%= friend["name"] %>'); return false;" value="Invite" /></li>
+                            <li class="inviteprofilelist"><img src="https://graph.facebook.com/<%= friend["id"] %>/picture?type=square" alt="sweepstakes-contests-giveaways-brandbuddee" title="sweepstakes contests giveaways brandbuddee" width="50" height="50" class="img-circle inviteprofileimage" />&nbsp;&nbsp;&nbsp;<%= friend["name"] %> <input type="button" class="btn btn-fuji-splash-3 invite-friend inviteprofilelist pull-right" onclick="invitePerson(<%= friend["id"] %>, '<%= friend["name"] %>'); return false;" value="Invite" /></li>
                         <% end %>
                     </ul>
                 <% else %>

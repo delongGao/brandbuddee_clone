@@ -28,7 +28,7 @@
                         <div class="well well-large">
                             <ul class="inviteprofilelist">
                         <% end %>
-                        <li class="inviteprofilelist"><img src="https://graph.facebook.com/<%= friend["id"] %>/picture?type=square" alt="<%= friend["name"] %>'s Profile Image" width="50" height="50" class="img-circle inviteprofileimage" />&nbsp;&nbsp;&nbsp;<%= friend["name"] %> <input type="button" class="btn btn-fuji-splash-3 invite-friend inviteprofilelist pull-right" onclick="invitePerson(<%= friend["id"] %>, '<%= friend["name"] %>'); return false;" value="Invite" /></li>
+                        <li class="inviteprofilelist"><img src="https://graph.facebook.com/<%= friend["id"] %>/picture?type=square" title="sweepstakes contests giveaways brandbuddee" alt="sweepstakes-contests-giveaways-brandbuddee" width="50" height="50" class="img-circle inviteprofileimage" />&nbsp;&nbsp;&nbsp;<%= friend["name"] %> <input type="button" class="btn btn-fuji-splash-3 invite-friend inviteprofilelist pull-right" onclick="invitePerson(<%= friend["id"] %>, '<%= friend["name"] %>'); return false;" value="Invite" /></li>
                         <% @counter += 1 %>
                     <% end %>
                 </ul>
@@ -42,14 +42,14 @@
                     <% if @friendslist.previous_page.nil? || @friendslist.previous_page.empty? %>
                         <a href="javascript:void(0)"> Previous </a>                        
                     <% else %>
-                        <%= link_to ' Previous ', url_for(:page => @friendslist.previous_page_params) %>
+                        <%= link_to ' Previous ', url_for(:page => @friendslist.previous_page_params), title:"sweepstakes contests giveaways brandbuddee" %>
                     <% end %>
                 </li>
                 <li class="next<% if @friendslist.next_page.nil? || @friendslist.next_page.empty? %><%= " disabled" %><% end %>">
                     <% if @friendslist.next_page.nil? || @friendslist.next_page.empty? %>
                         <a href="javascript:void(0)"> Next </a>
                     <% else %>
-                        <%= link_to ' Next ', url_for(:page => @friendslist.next_page_params) %>
+                        <%= link_to ' Next ', url_for(:page => @friendslist.next_page_params), title:"sweepstakes contests giveaways brandbuddee" %>
                     <% end %>
                 </li>
             </ul>
