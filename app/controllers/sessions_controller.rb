@@ -115,6 +115,8 @@ class SessionsController < ApplicationController
                 flash[:error] = "The Facebook Account you are trying to connect with belongs to an existing Brand Account. Please login with a different Facebook Account and try again."
                 redirect_to "/brands/campaigns/viral?_id=#{@campaign.id}"
               end
+            else
+              redirect_to root_url
             end
           else
             flash[:error] = "The campaign you are trying to install to your Facebook Page could not be found. Please try again."

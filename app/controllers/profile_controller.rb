@@ -76,7 +76,7 @@ class ProfileController < ApplicationController
 				end
 			end
 		else
-			#redirect_to '/signup'
+			redirect_to root_url
 		end
 	end
 
@@ -101,7 +101,7 @@ class ProfileController < ApplicationController
 				end
 			end
 		else
-			#redirect_to '/signup'
+			redirect_to root_url
 		end
 	end
 
