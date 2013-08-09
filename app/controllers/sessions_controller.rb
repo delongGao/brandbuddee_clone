@@ -100,7 +100,11 @@ class SessionsController < ApplicationController
             elsif @brand.provider == "email"
               unless Brand.exists?(conditions: { provider: auth["provider"], uid: auth["uid"] })
                 @brand.facebook_token = auth["credentials"]["token"]
-                @brand.facebook_expires = Time.at(auth["credentials"]["expires_at"])
+                unless auth["credentials"]["expires_at"].nil?
+                  @brand.facebook_expires = Time.at(auth["credentials"]["expires_at"])
+                else
+                  @brand.facebook_expires = DateTime.now + 60.days
+                end
                 if @brand.save(validate: false)
                   redirect_to "/brands/campaigns/viral-install-fb?_id=#{@campaign.id}"
                 else
@@ -351,15 +355,15 @@ class SessionsController < ApplicationController
                         redirect_to(:controller => 'users', :action => 'new')
                       end
                     else
-                      user = User.create_with_omniauth(auth, Time.now)
-
-                      # @invite.status = true
-                      # @invite.success_date = Time.now
-                      # @invite.save
-                      session[:user_id] = user.id
-                      #WelcomeMailer.welcome_email(current_user).deliver
-                      #redirect_to root_url
-                      redirect_to(:controller => 'users', :action => 'new')
+                      if User.first(conditions: {email: /^#{auth["info"]["email"]}$/i}).nil?
+                        user = User.create_with_omniauth(auth, Time.now)
+                        session[:user_id] = user.id
+                        #WelcomeMailer.welcome_email(current_user).deliver
+                        redirect_to(:controller => 'users', :action => 'new')
+                      else
+                        flash[:error] = "There is already a buddee account registered with the email address associated with that account."
+                        redirect_to root_url
+                      end
                     end
                 #   else
                 #     flash[:notice] = "This invitation is no longer valid."
@@ -385,11 +389,25 @@ class SessionsController < ApplicationController
         user.last_login = Time.now
         user.save
         session[:user_id] = user.id
-        flash[:notice] = "Signed in!"
-        redirect_to "/home"
+        respond_to do |format|
+          format.html {
+            flash[:notice] = "Signed in!"
+            redirect_to "/home"
+          }
+          format.js {
+            flash[:notice] = "Signed in!"
+          }
+        end
       else
-        flash[:error] = "Invalid email or password"
-        redirect_to "/login"
+        respond_to do |format|
+          format.html {
+            flash[:notice] = "Invalid email or password"
+            redirect_to "/login"
+          }
+          format.js {
+            flash[:notice] = "Invalid email or password"
+          }
+        end
       end
     end
   end
@@ -425,23 +443,58 @@ class SessionsController < ApplicationController
           if brand.authenticate(params[:password_field])
             brand.last_login = DateTime.now
             brand.save(validate: false)
-            session[:brand_id] = brand.id      
-            flash[:info] = "You are now logged in!"
-            redirect_to '/brands/dashboard'
+            session[:brand_id] = brand.id
+            respond_to do |format|
+              format.html {
+                flash[:info] = "You are now logged in!"
+                redirect_to '/brands/dashboard'
+              }
+              format.js {
+                flash[:info] = "You are now logged in!"
+              }
+            end
           else
-            flash.now.alert = "Email or password is invalid"
-            render "brand_login"
+            respond_to do |format|
+              format.html {
+                flash.now.alert = "Email or password is invalid"
+                render "brand_login"
+              }
+              format.js {
+                flash[:info] = "Email or password is invalid"
+              }
+            end
           end
         elsif brand.provider=="facebook"
-          flash[:error] = "You signed up using Facebook. Please use Facebook to log in."
-          redirect_to "/brands/login"
+          respond_to do |format|
+            format.html {
+              flash[:error] = "You signed up using Facebook. Please use Facebook to log in."
+              redirect_to "/brands/login"
+            }
+            format.js {
+              flash[:info] = "You signed up using Facebook. Please use Facebook to log in."
+            }
+          end
         else # twitter
-          flash[:error] = "You signed up using Twitter. Please use Twitter to log in."
-          redirect_to "/brands/login"
+          respond_to do |format|
+            format.html {
+              flash[:error] = "You signed up using Twitter. Please use Twitter to log in."
+              redirect_to "/brands/login"
+            }
+            format.js {
+              flash[:info] = "You signed up using Twitter. Please use Twitter to log in."
+            }
+          end
         end
       else
-        flash[:error] = "Email or password is invalid"
-        redirect_to "/brands/login"
+        respond_to do |format|
+          format.html {
+            flash[:error] = "Email or password is invalid"
+            redirect_to "/brands/login"
+          }
+          format.js {
+            flash[:info] = "Email or password is invalid"
+          }
+        end
       end
     end
   end

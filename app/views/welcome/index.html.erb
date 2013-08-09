@@ -6,6 +6,16 @@ class="landing-page-background"
 <% end %>
 <%= render 'shared/header' %>
 <div class="container" id="home-page-container">
+  <% flash.each do |name, msg| %>
+    <div class="row" style="margin-top:4%;">
+      <div class="span6 offset3">
+        <div class="alert alert-<%= name %> fade in">
+          <a title="sweepstakes contests giveaways brandbuddee" href="#" class="close" data-dismiss="alert">&times;</a>
+          <%= msg.html_safe %>
+        </div>
+      </div>
+    </div>
+  <% end %>
   <div class="row" style="margin-top:5%; margin-bottom: 5%;">
     <div class="span5">
       <ul class="thumbnails"> <!-- thumbnails -->
@@ -47,7 +57,10 @@ class="landing-page-background"
             <div class="thumb-button">
                 <p>
                   <a href="/brands/signup" title="sweepstakes contests giveaways brandbuddee" class="btn btn-large btn-ultraviolet-rays-1">
-                    <strong>Click here to get results today!</strong>
+                    <i class="icon-bar-chart"></i> <strong>Click here to get results today!</strong>
+                  </a>
+                  <a href="/brands/login" title="sweepstakes contests giveaways brandbuddee" class="btn btn-large btn-ultraviolet-rays-1" style="margin-top: 2.5%;">
+                    <i class="icon-signin"></i> <strong>Or click here to sign in!</strong>
                   </a>
                 </p>
             </div><!-- /thumb-button -->
@@ -100,7 +113,10 @@ class="landing-page-background"
             <div class="thumb-button">
                 <p>
                   <a href="/signup" title="sweepstakes contests giveaways brandbuddee" class="btn btn-large btn-blackcurrent-birds-1">
-                    <strong>Join now, start winning instantly!</strong>
+                    <i class="icon-trophy"></i> <strong>Join now, start winning instantly!</strong>
+                  </a>
+                  <a href="/login" title="sweepstakes contests giveaways brandbuddee" class="btn btn-large btn-blackcurrent-birds-1" style="margin-top: 2.5%; ">
+                    <i class="icon-signin"></i> <strong>Or click here to sign in!</strong>
                   </a>
                 </p>
             </div> <!-- /thumb-button -->

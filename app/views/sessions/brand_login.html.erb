@@ -18,6 +18,11 @@
 		</div>
 	</div>
 	<% end %>
+	<div class="row" id="ajax-message-display" style="display:none;">
+		<div class="span6 offset3">
+
+		</div>
+	</div>
 	<div class="row" style="margin-top:3%;margin-bottom:7%;">
 		<div class="span6 offset3">
 			<div class="well well-large" style="overflow:hidden;padding:4%;">
@@ -25,7 +30,7 @@
 					<%= link_to(image_tag("/assets/facebook_login.png", size: "207x39", alt: "sweepstakes-contests-giveaways-brandbuddee", title: "Sweepstakes Contests Giveaways brandbuddee"), "/brands/facebook", style: "margin-left:0.5%;", title: "Sweepstakes Contests Giveaways brandbuddee") %>
 					<%= link_to(image_tag("/assets/twitter_login.png", size: "207x39", alt: "sweepstakes-contests-giveaways-brandbuddee", title: "Sweepstakes Contests Giveaways brandbuddee"), "/brands/twitter", title: "Sweepstakes Contests Giveaways brandbuddee") %>
 				</div>
-				<%= form_tag "/brands/email-login", class: "form-horizontal" do %>
+				<%= form_tag "/brands/email-login", class: "form-horizontal", remote: true do %>
 					<div class="control-group">
 						<%= label_tag :email_address, "Email Address", class: "control-label" %>
 						<div class="controls">

@@ -1,0 +1,7 @@
+var notice = "<%= escape_javascript(flash[:info]) %>";
+if (notice == "You are now logged in!") {
+	window.location = "/brands/dashboard";
+} else {
+	$("#ajax-message-display").css("display", "block");
+	$("#ajax-message-display div.span6.offset3").html('<div class="alert alert-info alert-block fade in"><a href="#" class="close" data-dismiss="alert">&times;</a><h4>This Just In:</h4> <%= escape_javascript(flash[:info]) %></div>').hide().fadeIn(750);
+}

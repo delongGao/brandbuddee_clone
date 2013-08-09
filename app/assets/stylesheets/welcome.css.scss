@@ -289,6 +289,14 @@ a.sb.gplus,
 body.landing-page-background {
 	background: url(/assets/landingpagebg.png);
 }
+@media only screen and (min--moz-device-pixel-ratio: 2),
+only screen and (-o-min-device-pixel-ratio: 2/1),
+only screen and (-webkit-min-device-pixel-ratio: 2),
+only screen and (min-device-pixel-ratio: 2) {
+	body.landing-page-background {
+		background: url(/assets/landingpagebg2x.png);
+	}
+}
 div#home-page-container {
 	font-family: 'Roboto', sans-serif;
 	font-weight: 300;
@@ -361,6 +369,13 @@ div#home-page-container {
 .thumb-button {
 	margin: 10px 0;
 	text-align: center;
+	a.btn {
+		width: 82%;
+		i {
+			font-size: 1.25em;
+			line-height: 30%;
+		}
+	}
 }
 #or-logo {
 	text-align: center;

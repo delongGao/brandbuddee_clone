@@ -44,28 +44,32 @@ class EmbedWidgetsController < ApplicationController
 			@oauth = Koala::Facebook::OAuth.new(278238152312772, "fbf139910f26420742f3d88f3b25f9a9")
 			@result = @oauth.parse_signed_request(@signed_request)
 			unless @result["oauth_token"].nil?
-				@graph = Koala::Facebook::API.new(@result["oauth_token"])
-				@permissions = @graph.get_connection("me", "permissions")
-				unless @permissions[0].nil?
-					if @permissions[0]["installed"] == 1 && @permissions[0]["email"] == 1 && @permissions[0]["publish_actions"] == 1 && @permissions[0]["publish_stream"] == 1 && @permissions[0]["user_birthday"] == 1 && @permissions[0]["user_about_me"] == 1 && @permissions[0]["user_location"] == 1 && @permissions[0]["user_likes"] == 1 && @permissions[0]["user_education_history"] == 1 && @permissions[0]["user_website"] == 1 && @permissions[0]["read_friendlists"] == 1 && @permissions[0]["user_interests"] == 1 && @permissions[0]["user_hometown"] == 1 && @permissions[0]["user_status"] == 1 && @permissions[0]["manage_pages"] == 1
-						unless @result["page"].nil? || @result["page"]["id"].nil? || @result["page"]["liked"].nil? || @result["page"]["admin"].nil?
-							if @result["page"]["liked"]==true
-								redirect_to "/fb-campaign-embed?page_id=#{@result["page"]["id"]}&liked=#{@result["page"]["liked"]}&admin=#{@result["page"]["admin"]}"
+				begin
+					@graph = Koala::Facebook::API.new(@result["oauth_token"])
+					@permissions = @graph.get_connection("me", "permissions")
+					unless @permissions[0].nil?
+						if @permissions[0]["installed"] == 1 && @permissions[0]["email"] == 1 && @permissions[0]["publish_actions"] == 1 && @permissions[0]["publish_stream"] == 1 && @permissions[0]["user_birthday"] == 1 && @permissions[0]["user_about_me"] == 1 && @permissions[0]["user_location"] == 1 && @permissions[0]["user_likes"] == 1 && @permissions[0]["user_education_history"] == 1 && @permissions[0]["user_website"] == 1 && @permissions[0]["read_friendlists"] == 1 && @permissions[0]["user_interests"] == 1 && @permissions[0]["user_hometown"] == 1 && @permissions[0]["user_status"] == 1 && @permissions[0]["manage_pages"] == 1
+							unless @result["page"].nil? || @result["page"]["id"].nil? || @result["page"]["liked"].nil? || @result["page"]["admin"].nil?
+								if @result["page"]["liked"]==true
+									redirect_to "/fb-campaign-embed?page_id=#{@result["page"]["id"]}&liked=#{@result["page"]["liked"]}&admin=#{@result["page"]["admin"]}"
+								else
+									@continue = true
+									@page_id = @result["page"]["id"]
+									@liked = @result["page"]["liked"]
+									@admin = @result["page"]["admin"]
+									link = Embed.where(fb_page_id: @page_id).last
+									@campaign = Campaign.where(link: link.campaign_link).first unless link.nil?
+								end
 							else
-								@continue = true
-								@page_id = @result["page"]["id"]
-								@liked = @result["page"]["liked"]
-								@admin = @result["page"]["admin"]
-								link = Embed.where(fb_page_id: @page_id).last
-								@campaign = Campaign.where(link: link.campaign_link).first unless link.nil?
+								@error = "This App is not intended to be viewed on its own. To function properly, it should be viewed from a Facebook Page."
 							end
 						else
-							@error = "This App is not intended to be viewed on its own. To function properly, it should be viewed from a Facebook Page."
+							@error = "redirect_to_permissions_oauth"
 						end
 					else
 						@error = "redirect_to_permissions_oauth"
 					end
-				else
+				rescue Koala::Facebook::APIError
 					@error = "redirect_to_permissions_oauth"
 				end
 			else

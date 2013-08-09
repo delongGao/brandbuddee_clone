@@ -21,7 +21,7 @@
 		<div class="login-form">
 
 			<div class="email-signup">
-				<%= form_tag url_for(:action => 'email_create') do %>
+				<%= form_tag url_for(:action => 'email_create'), :remote => true do %>
 				<p>
 					<%= text_field_tag :email, params[:email], :class=>"signin-field signin-default", :placeholder=>"Email" %>
 				</p>
@@ -33,7 +33,7 @@
 				<% end %>
 			</div> <!-- .email-signup -->
 		</div> <!-- .login-form -->
-		
+		<div class="email_signup_flash"></div>
 	</div> <!-- .login-form-wrap -->
 	
 </div><!--/.container-->

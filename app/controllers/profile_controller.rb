@@ -15,11 +15,21 @@ class ProfileController < ApplicationController
 	end
 
 	def profile_settings
-		@user = User.find(current_user.id)
+		if current_user
+			@user = User.find(current_user.id)
+		else
+			flash[:error] = "You must be logged in as a buddee to perform that action."
+			redirect_to root_url
+		end
 	end
 
 	def account_settings
-		@user = User.find(current_user.id)
+		if current_user
+			@user = User.find(current_user.id)
+		else
+			flash[:error] = "You must be logged in as a buddee to perform that action."
+			redirect_to root_url
+		end
 	end
 
 	def update_location

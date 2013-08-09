@@ -305,41 +305,51 @@ class BrandsController < ApplicationController
 				fb_page_name = URI.unescape(params[:pagename])
 				fb_page_name.gsub!(/\+/, " ")
 				@page_graph = Koala::Facebook::API.new(fb_page_token)
-				@result = @page_graph.put_connections(fb_page_id, 'tabs', :app_id => "278238152312772")
-				if @result==true
-					@result = @page_graph.get_connection('me', 'tabs')
-					@result.each do |tab|
-						unless tab["application"].blank?
-							if tab["application"]["id"] == "278238152312772"
-								@tab_id = tab["id"]
-								@tab_link = tab["link"]
-								break
+				begin
+					@result = @page_graph.put_connections(fb_page_id, 'tabs', :app_id => "278238152312772")
+					if @result==true
+						@result = @page_graph.get_connection('me', 'tabs')
+						@result.each do |tab|
+							unless tab["application"].blank?
+								if tab["application"]["id"] == "278238152312772"
+									@tab_id = tab["id"]
+									@tab_link = tab["link"]
+									break
+								end
 							end
 						end
-					end
-					unless @tab_id.blank? || @tab_link.blank?
-						@embed = @brand.embeds.where(fb_page_id: fb_page_id).first
-						if @embed.nil?
-							@brand.embeds.create!(campaign_link: @campaign.link, fb_page_id: fb_page_id, fb_page_name: fb_page_name, fb_tab_id: @tab_id)
+						unless @tab_id.blank? || @tab_link.blank?
+							@embed = @brand.embeds.where(fb_page_id: fb_page_id).first
+							if @embed.nil?
+								@brand.embeds.create!(campaign_link: @campaign.link, fb_page_id: fb_page_id, fb_page_name: fb_page_name, fb_tab_id: @tab_id)
+							else
+								@embed.campaign_link = @campaign.link
+								@embed.save!
+							end
+							flash[:info] = "The Go Viral! Widget for this campaign has been installed to your Facebook page! Here is the link: <a href='#{@tab_link}' target='_blank'>#{@tab_link}</a>"
+							redirect_to "/brands/dashboard"
 						else
-							@embed.campaign_link = @campaign.link
-							@embed.save!
+							@embed = @brand.embeds.where(fb_page_id: fb_page_id).first
+							if @embed.nil?
+								@brand.embeds.create!(campaign_link: @campaign.link, fb_page_id: fb_page_id, fb_page_name: fb_page_name, fb_tab_id: "#{fb_page_id}/tabs/app_278238152312772")
+							else
+								@embed.campaign_link = @campaign.link
+								@embed.save!
+							end
+							flash[:info] = "The Go Viral! Widget for this campaign has been installed to your Facebook page! You can find it on your Facebook page."
+							redirect_to "/brands/dashboard"
 						end
-						flash[:info] = "The Go Viral! Widget for this campaign has been installed to your Facebook page! Here is the link: <a href='#{@tab_link}' target='_blank'>#{@tab_link}</a>"
-						redirect_to "/brands/dashboard"
 					else
-						@embed = @brand.embeds.where(fb_page_id: fb_page_id).first
-						if @embed.nil?
-							@brand.embeds.create!(campaign_link: @campaign.link, fb_page_id: fb_page_id, fb_page_name: fb_page_name, fb_tab_id: "#{fb_page_id}/tabs/app_278238152312772")
-						else
-							@embed.campaign_link = @campaign.link
-							@embed.save!
-						end
-						flash[:info] = "The Go Viral! Widget for this campaign has been installed to your Facebook page! You can find it on your Facebook page."
+						flash[:error] = "An error occurred while trying to install the embed widget to your Facebook page. Please try again."
 						redirect_to "/brands/dashboard"
 					end
-				else
-					flash[:error] = "An error occurred while trying to install the embed widget to your Facebook page. Please try again."
+				rescue Koala::Facebook::APIError => exc
+					if exc.message == "OAuthException: (#200) User does not have sufficient administrative permission for this action on this page"
+						flash[:error] = "You do not have sufficient administrative permission to install a Facebook App to that Page. Please choose a different Facebook Page."
+					else
+						flash[:error] = "An error occured while trying to install the Go Viral! Widget to your Facebook Page. We have been notified. Please try again later."
+						UserMailer.email_brice_error("Error at brands_controller#viral_campaign_fb_page_chosen. Message: #{exc.message}").deliver
+					end
 					redirect_to "/brands/dashboard"
 				end
 			else

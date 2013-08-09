@@ -28,10 +28,8 @@ $(document).ready(function(){
 	equalHeight($("#thumb-brand div.list-block"), $("#thumb-buddee div.list-block"));
  	equalHeight($("#thumb-brand p.text-left"), $("#thumb-buddee p.text-left"));
 });
-
- function equalHeight(blockA, blockB) {
- 	var maxHeight = Math.max(blockA.height(), blockB.height());
- 	blockA.css("height", maxHeight);
- 	blockB.css("height", maxHeight);
- };
- 
+function equalHeight(blockA, blockB) {
+	var maxHeight = Math.max(blockA.height(), blockB.height());
+	blockA.css("height", maxHeight);
+	blockB.css("height", maxHeight);
+};

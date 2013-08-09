@@ -152,10 +152,10 @@
 			<ul class="dashboard-list">
 			<% @users_list.each do |user| %>
 				<li>
-					<a title="sweepstakes contests giveaways brandbuddee" href="/<%= user.nickname unless user.nickname.empty? %>" target="_blank">
+					<a title="sweepstakes contests giveaways brandbuddee" href="/<%= user.nickname unless user.nickname.nil? %>" target="_blank">
 						<%= image_tag user.profile_image_url(:thumb).to_s, class: 'avatar', title: "#{user.email.to_s.humanize}'s Profile" %>
 					</a>
-					<strong>Email:</strong> <a title="sweepstakes contests giveaways brandbuddee" href="/<%= user.nickname unless user.nickname.empty? %>" target="_blank" title="<%= user.email.to_s.humanize %>'s Profile"><%= user.email unless user.email.empty? %><% if user.email.empty? %><span class="label label-important">Not Available</span><% end %></a><br>
+					<strong>Email:</strong> <a title="sweepstakes contests giveaways brandbuddee" href="/<%= user.nickname unless user.nickname.nil? %>" target="_blank" title="<%= user.email.to_s.humanize %>'s Profile"><%= user.email unless user.email.nil? %><% if user.email.nil? %><span class="label label-important">Not Available</span><% end %></a><br>
 					<strong>Since:</strong> <%= time_ago_in_words(user.date) + " ago" unless user.date.nil? %><br>
 					<strong>Connects Using:</strong> <span class="label label-success"><%= user.provider.humanize unless user.provider.blank? %><% if user.provider.blank? %>Email<% end %></span>
 				</li>
