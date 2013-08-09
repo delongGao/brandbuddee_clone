@@ -1,3 +1,17 @@
+<% content_for :google_fonts_tag do %>
+<link rel="stylesheet" type="text/css" href="/css/tabdrop.css">
+<style type="text/css">
+    #portfolio-filter li ul.dropdown-menu li a {
+        background: #fff;
+        color: #0088cc;
+        margin-left:5%;
+    }
+    #portfolio-filter li ul.dropdown-menu li.active a {
+        background: #222;
+        color: #fff;
+    }
+</style>
+<% end %>
 <script type="text/javascript">if (window.location.hash == '#_=_')window.location.hash = '';</script>
 
 <%= render 'shared/header' %>
@@ -19,14 +33,14 @@
         <ul id="portfolio-filter" class="nav nav-tabs">
             <li<% if params[:c].blank? %> class="active"<% end %>><a title="sweepstakes contests giveaways brandbuddee" href="/home">All</a></li>
             <% @categories.each do |c| %>
-                <li<% if params[:c] == c.name %> class="active"<% end %>><a title="sweepstakes contests giveaways brandbuddee" href="/home?c=<%= c.name %>"><% if c.name == "Technology" %>Tech<% else %><%= c.name %><% end %></a></li>
+                <li<% if params[:c] == c.name && c.name != "" %> class="active"<% end %>><a title="sweepstakes contests giveaways brandbuddee" href="/home?c=<%= c.name %>"><% if c.name == "Technology" %>Tech<% else %><%= c.name %><% end %></a></li>
             <% end %>
         </ul>
 
         <% if @campaign.nil? || @campaign.blank? %>
             <div style="height:100px;"></div>
             <div class="well span5 no_campaigns_alert">
-                Unfortunately, there are no available campaigns at the moment. Please check again soon!
+                Unfortunately, there are no campaigns in this category. Please check again soon!
             </div> <!-- .no_campaigns_alert -->
             <div style="height:300px;"></div>
         <% end %>
@@ -129,6 +143,7 @@
     <script type="text/javascript" src="js/jquery.hotkeys.min.js"></script>
     <script type="text/javascript" src="js/functions.min.js?v=3"></script>
     <script type="text/javascript" src="/js/jquery.infinitescroll.min.js"></script>
+    <script type="text/javascript" src="/js/bootstrap-tabdrop.js"></script>
     <script type="text/javascript">
-        eval(function(p,a,c,k,e,d){e=function(c){return(c<a?'':e(parseInt(c/a)))+((c=c%a)>35?String.fromCharCode(c+29):c.toString(36))};if(!''.replace(/^/,String)){while(c--){d[e(c)]=k[c]||e(c)}k=[function(e){return d[e]}];e=function(){return'\\w+'};c=1};while(c--){if(k[c]){p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c])}}return p}('(1(){$(t).s(1(){8 h=$("#f-6");4(h.9){$("#f-6 2.r").u({g:{q:"",c:"/v/x-w.y",k:"",j:\'i\'},o:"2.d n p.m a",l:"2.d",I:".M",L:1(){$("#O-z-P-e").Q(R)},K:J},1(5,7){8 b=7.C.B;A.D("E H: "+b);4(5.9%3!=0){$("#G-g c").F("e","N")}})}})})();',54,54,'|function|div||if|newElements|items|opts|var|length||page|img|pagination|display|portfolio|loading|container|slow|speed|msgText|navSelector|next_page|ul|nextSelector|li|finishedMsg|row|load|window|infinitescroll|assets|loader|ajax|gif|of|console|currPage|state|log|Current|css|infscr|Page|itemSelector|250|pixelsFromNavToBottom|errorCallback|project|none|end|list|fadeIn|1000'.split('|'),0,{}))
+        eval(function(p,a,c,k,e,d){e=function(c){return(c<a?'':e(parseInt(c/a)))+((c=c%a)>35?String.fromCharCode(c+29):c.toString(36))};if(!''.replace(/^/,String)){while(c--){d[e(c)]=k[c]||e(c)}k=[function(e){return d[e]}];e=function(){return'\\w+'};c=1};while(c--){if(k[c]){p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c])}}return p}('(1(){$(o).p(1(){b f=$("#g-e");5(f.6){$("#g-e 2.x").s({4:{y:"",c:"/v/u-t.A",z:"",r:\'B\'},q:"2.9 j i.k a",l:"2.9",n:".m",w:1(){$("#N-T-S-h").R(C)},Q:V},1(d,8){b 7=8.X.Y;W.U("O G: "+7);5(d.6%3!=0){$("#F-4 c").E("h","D")}})}})})();$(H).I(1(){$(\'.M-L\').K({J:\'P\'})});',61,61,'|function|div||loading|if|length|page|opts|pagination||var|img|newElements|items|container|portfolio|display|li|ul|next_page|navSelector|project|itemSelector|window|load|nextSelector|speed|infinitescroll|loader|ajax|assets|errorCallback|row|finishedMsg|msgText|gif|slow|1000|none|css|infscr|Page|document|ready|text|tabdrop|tabs|nav|end|Current|More|pixelsFromNavToBottom|fadeIn|list|of|log|250|console|state|currPage'.split('|'),0,{}))
     </script>

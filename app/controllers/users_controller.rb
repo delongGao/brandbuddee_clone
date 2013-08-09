@@ -193,8 +193,12 @@ class UsersController < ApplicationController
   end
 
   def password_reset
-    #password reset request
-    @password_reset = PasswordReset.new
+    unless current_brand
+      @password_reset = PasswordReset.new
+    else
+      flash[:error] = "You cannot be logged in as a brand and perform that action."
+      redirect_to "/brands/dashboard"
+    end
   end
 
   def password_reset_update
