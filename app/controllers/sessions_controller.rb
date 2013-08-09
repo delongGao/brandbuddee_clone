@@ -386,28 +386,40 @@ class SessionsController < ApplicationController
       flash[:error] = "You are already logged in as a brand. You can't log in as a buddee."
       redirect_to "/brands/dashboard"
     else
-      user = User.authenticate(params[:email], params[:password])
-      if user
-        user.last_login = Time.now
-        user.save
-        session[:user_id] = user.id
-        respond_to do |format|
-          format.html {
-            flash[:notice] = "Signed in!"
-            redirect_to "/home"
-          }
-          format.js {
-            flash[:notice] = "Signed in!"
-          }
+      begin
+        user = User.authenticate(params[:email], params[:password])
+        if user
+          user.last_login = Time.now
+          user.save
+          session[:user_id] = user.id
+          respond_to do |format|
+            format.html {
+              flash[:notice] = "Signed in!"
+              redirect_to "/home"
+            }
+            format.js {
+              flash[:notice] = "Signed in!"
+            }
+          end
+        else
+          respond_to do |format|
+            format.html {
+              flash[:notice] = "Invalid email or password"
+              redirect_to "/login"
+            }
+            format.js {
+              flash[:notice] = "Invalid email or password"
+            }
+          end
         end
-      else
+      rescue BCrypt::Errors::InvalidSalt
         respond_to do |format|
           format.html {
-            flash[:notice] = "Invalid email or password"
+            flash[:notice] = "Your password seems to be invalid please reset your password by clicking: Forgot your password?"
             redirect_to "/login"
           }
           format.js {
-            flash[:notice] = "Invalid email or password"
+            flash[:notice] = "Your password seems to be invalid please reset your password by clicking: Forgot your password?"
           }
         end
       end

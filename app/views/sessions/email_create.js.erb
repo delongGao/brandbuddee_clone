@@ -3,4 +3,6 @@ if (notice == "Signed in!") {
 	window.location = "/home";
 } else if (notice == "Invalid email or password") {
 	$(".email_signup_flash").html('<div id="flash_notice_email" class="alert alert-info" style="margin-top:5%;width:85%;"><%= escape_javascript(flash[:notice]) %></div>').hide().fadeIn('fast');
+} else if (notice == "Your password seems to be invalid please reset your password by clicking: Forgot your password?") {
+	$(".email_signup_flash").html('<div id="flash_notice_email" class="alert alert-info" style="margin-top:5%;width:85%;"><%= escape_javascript(flash[:notice]) %></div>').hide().fadeIn('fast');
 }

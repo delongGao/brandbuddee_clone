@@ -98,7 +98,7 @@
                                             </div>
                                         </div>
                                         <div class="sharing-campaign campaign-pinterest-share" style="position:relative; top:1px;">
-                                            <a href="http://pinterest.com/pin/create/button/?url=<%= @bitly_share_link %>&media=<%= @campaign.campaign_image_url() %>&description=<%= @campaign.title %>" class="pin-it-button" target="_blank" count-layout="none" data-campaign="<%= @campaign.link %>" title="<%= @campaign.title %> brandbuddee"><img border="0" src="//assets.pinterest.com/images/PinExt.png" title="Pin It" /></a>
+                                            <a href="http://pinterest.com/pin/create/button/?url=<%= "#{root_url}s/#{@share.link}" %>&media=<%= @campaign.campaign_image_url() %>&description=<%= @campaign.title %>" class="pin-it-button" target="_blank" count-layout="none" data-campaign="<%= @campaign.link %>" title="<%= @campaign.title %> brandbuddee"><img border="0" src="//assets.pinterest.com/images/PinExt.png" title="Pin It" /></a>
                                         </div>
                                         <div style="padding-top:9px;">
                                             <div class="g-plus" data-action="share" data-annotation="none" data-href="<%= @bitly_share_link %>" data-onendinteraction="addGooglePlusSharePoint"></div>

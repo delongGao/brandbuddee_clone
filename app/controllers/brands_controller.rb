@@ -24,6 +24,8 @@ class BrandsController < ApplicationController
 		@total_tumblr_clicks = 0
 		@total_linkedin_clicks = 0
 		@total_google_plus_clicks = 0
+		@total_facebook_likes = 0
+		@total_twitter_follows = 0
 		@brand.campaigns.each do |c|
 			@total_pinterest_clicks += c.pinterest_clicks
 			@total_twitter_clicks += c.twitter_clicks
@@ -31,6 +33,8 @@ class BrandsController < ApplicationController
 			@total_tumblr_clicks += c.tumblr_clicks
 			@total_linkedin_clicks += c.linkedin_clicks
 			@total_google_plus_clicks += c.google_plus_clicks
+			@total_facebook_likes += c.tasks.where(completed_facebook: true).count if c.task_facebook["use_it"]==true
+			@total_twitter_follows += c.tasks.where(completed_twitter: true).count if c.task_twitter["use_it"]==true
 			c.users.each do |u|
 				@users_list << u
 			end

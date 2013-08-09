@@ -2,7 +2,7 @@
 
 <div class="container main_container">
 	<% flash.each do |name, msg| %>
-	<div class="row" style="margin-top:5%;">
+	<div class="row" style="margin-top:2%;">
 		<div class="span6 offset3">
 			<div class="alert alert-<%= name %> fade in">
 				<a title="sweepstakes contests giveaways brandbuddee" href="#" class="close" data-dismiss="alert">&times;</a>
@@ -29,7 +29,8 @@
 					<%= password_field_tag :password, nil, :class=>"signin-field", :placeholder=>"Password" %>
 				</p>
 				<p class="button"><%= submit_tag "Login", :class=>"signin-btn btn" %></p>
-				<a href="/signup" style="display:block;margin-bottom:10px;">Don't have an account? Signup!</a>
+				<a href="/signup" style="display:block;">Don't have an account? Signup!</a>
+				<a href="/password/reset" style="display:block;margin-bottom:10px;">Forgot your password?</a>
 				<% end %>
 			</div> <!-- .email-signup -->
 		</div> <!-- .login-form -->

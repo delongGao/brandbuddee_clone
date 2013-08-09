@@ -166,6 +166,102 @@
 			
 </div>
 
+<hr>
+
+<div class="row-fluid">
+	<div class="box span4 offset2" onTablet="span6" onDesktop="span4">
+		<div class="box-header">
+			<h2><i class="icon-list"></i><span class="break"></span>Overall Campaign Value</h2>
+			<div class="box-icon">
+				<a title="sweepstakes contests giveaways brandbuddee" href="#" class="btn-minimize"><i class="icon-chevron-up"></i></a>
+			</div>
+		</div>
+		<div class="box-content">
+			<ul class="dashboard-list">
+				<li>
+					<a title="sweepstakes contests giveaways brandbuddee" href="http://www.inc.com/matthew-wong/social-commerce-study-eventbrite-gains-traction.html" target="_blank">
+						<i class="icon-facebook" style="font-size:1.35em;color:#3B5998;display: inline-block; width: 1.25em; text-align: center;"></i>
+						<span style="color:#3B5998; padding-right:5%; padding-left:3%;"><%= number_to_currency(@total_facebook_clicks.to_i * 4.15) %></span>
+						Facebook Shares ($4.15 each)
+					</a>
+				</li>
+				<% if @total_facebook_likes > 0 %>
+				<li>
+					<a title="sweepstakes contests giveaways brandbuddee" href="http://mashable.com/2013/04/17/facebook-fan-value-researcher/" target="_blank">
+						<i class="icon-facebook-sign" style="font-size:1.35em;color:#3B5998;display:inline-block; width: 1.25em; text-align: center;"></i>
+						<span style="color:#3B5998; padding-right:5%; padding-left:3%;"><%= number_to_currency(@total_facebook_likes * 174) %></span>
+						Facebook Likes ($174 each)
+					</a>
+				</li>
+				<% end %>
+			  	<li>
+					<a title="sweepstakes contests giveaways brandbuddee" href="#">
+					  	<i class="icon-twitter blue" style="font-size:1.35em;display: inline-block; width: 1.25em; text-align: center;"></i>
+					  	<span class="blue" style="padding-right:5%; padding-left:3%;"><%= number_to_currency(@total_twitter_clicks.to_i * 1.85) %></span>
+					  	Twitter Shares ($1.85 each)
+					</a>
+			  	</li>
+			  	<% if @total_twitter_follows > 0 %>
+				<li>
+					<a title="sweepstakes contests giveaways brandbuddee" href="http://www.pcmag.com/article2/0,2817,2401509,00.asp" target="_blank">
+						<i class="icon-twitter-sign blue" style="font-size:1.35em;display:inline-block; width: 1.25em; text-align: center;"></i>
+						<span class="blue" style="padding-right:5%; padding-left:3%;"><%= number_to_currency(@total_twitter_follows * 2) %></span>
+						Twitter Follows ($2 each)
+				</li>
+				<% end %>
+			  	<li>
+			  		<a title="sweepstakes contests giveaways brandbuddee" href="#">
+			  			<i class="icon-linkedin-sign" style="font-size:1.35em;color:#0073B2;display: inline-block; width: 1.25em; text-align: center;"></i>
+			  			<span style="color:#0073B2; padding-right:5%; padding-left:3%;"><%= number_to_currency(@total_linkedin_clicks.to_i * 0.92) %></span>
+			  			LinkedIn Shares (92&cent; each)
+			  		</a>
+			  	</li>
+			  	<% @monetary_total = (@total_facebook_clicks.to_i * 4.15) + (@total_twitter_clicks.to_i * 1.85) + (@total_linkedin_clicks.to_i * 0.92) %>
+			  	<% @monetary_total += (@total_facebook_likes * 174) if @total_facebook_likes > 0 %>
+			  	<% @monetary_total += (@total_twitter_follows * 2) if @total_twitter_follows > 0 %>
+			  	<li>
+					<a title="sweepstakes contests giveaways brandbuddee" href="#">
+					  <i class="icon-usd yellow" style="font-size:1.35em;display: inline-block; width: 1.25em; text-align: center;"></i>
+					  <span class="yellow" style="padding-right:5%; padding-left:3%;"><%= number_to_currency(@monetary_total) %></span>
+					  Total Monetary Value
+					</a>
+			  	</li>
+			</ul>
+		</div>
+	</div><!--/span-->
+	<div class="box span4" onTablet="span6" onDesktop="span4">
+		<div class="box-header">
+			<h2><i class="icon-list"></i><span class="break"></span>Equivilent Competitor's Costs</h2>
+			<div class="box-icon">
+				<a title="sweepstakes contests giveaways brandbuddee" href="#" class="btn-minimize"><i class="icon-chevron-up"></i></a>
+			</div>
+		</div>
+		<div class="box-content">
+			<ul class="dashboard-list">
+				<li>
+					<a title="sweepstakes contests giveaways brandbuddee" href="#">
+						<i class="icon-facebook" style="font-size:1.35em;color:#3B5998;display: inline-block; width: 1.25em; text-align: center;"></i>
+						<span style="color:#3B5998; padding-right:5%; padding-left:3%;"><%= number_to_currency(@total_facebook_clicks.to_i * 1.08) %></span>
+						Facebook ($1.08 each)
+					</a>
+				</li>
+				<li>
+					<a title="sweepstakes contests giveaways brandbuddee" href="#">
+						<i class="icon-google-plus" style="font-size:1.35em;color:#CB3C2C;display:inline-block; width: 1.25em; text-align: center;"></i>
+						<span style="color:#CB3C2C; padding-right:5%; padding-left:3%;"><%= number_to_currency(@total_google_plus_clicks.to_i * 3.3) %></span>
+						Google Ads ($3.30 each)
+				</li>
+				<li>
+					<a title="sweepstakes contests giveaways brandbuddee" href="#">
+						<i class="icon-usd yellow" style="font-size:1.35em;display:inline-block; width: 1.25em; text-align: center;"></i>
+						<span class="yellow" style="padding-right:5%; padding-left:3%;"><%= number_to_currency((@total_facebook_clicks.to_i * 1.08) + (@total_google_plus_clicks.to_i * 3.3)) %></span>
+						Total Cost
+				</li>
+			</ul>
+		</div>
+	</div><!-- /span4 -->
+</div>
+
 
 		<hr>
 <!-- end: Content -->
