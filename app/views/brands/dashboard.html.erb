@@ -221,9 +221,9 @@
 			  	<% @monetary_total += (@total_twitter_follows * 2) if @total_twitter_follows > 0 %>
 			  	<li>
 					<a title="sweepstakes contests giveaways brandbuddee" href="#">
-					  <i class="icon-usd yellow" style="font-size:1.35em;display: inline-block; width: 1.25em; text-align: center;"></i>
-					  <span class="yellow" style="padding-right:5%; padding-left:3%;"><%= number_to_currency(@monetary_total) %></span>
-					  Total Monetary Value
+					  <i class="icon-usd red" style="font-size:1.35em;display: inline-block; width: 1.25em; text-align: center;"></i>
+					  <span class="red" style="padding-right:5%; padding-left:3%;font-size: 1.7em;"><%= number_to_currency(@monetary_total) %></span>
+					  <span class="red" style="list-style: none; font-size: 1.7em; line-height: 150%; text-align: -webkit-match-parent; display: inline; font-weight: 700;">Total Value</span>
 					</a>
 			  	</li>
 			</ul>

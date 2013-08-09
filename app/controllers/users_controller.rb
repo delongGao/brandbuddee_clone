@@ -107,9 +107,14 @@ class UsersController < ApplicationController
   end
 
   def choose_username
-    @user = User.find(current_user.id)
-    if current_user.nickname.nil? || current_user.nickname.blank?
+    if current_user
+      @user = User.find(current_user.id)
+      if current_user.nickname.nil? || current_user.nickname.blank?
+      else
+        redirect_to root_url
+      end
     else
+      flash[:error] = "You must be logged in as a buddee to perform that action."
       redirect_to root_url
     end
   end
