@@ -1,40 +1,47 @@
 <%= render 'shared/header' %>
 
-<div class="container main_container">
+<div class="container">
+	<div class="row">
+		<div class="span6 offset3">
+			<div class="page-header">
+				<h1 style="text-align:center;">Buddee Login</h1>
+			</div>
+		</div>
+	</div>
 	<% flash.each do |name, msg| %>
-	<div class="row" style="margin-top:2%;">
+	<div class="row">
 		<div class="span6 offset3">
 			<div class="alert alert-<%= name %> fade in">
-				<a title="sweepstakes contests giveaways brandbuddee" href="#" class="close" data-dismiss="alert">&times;</a>
+				<a href="#" class="close" data-dismiss="alert">&times;</a>
 				<%= msg.html_safe %>
 			</div>
 		</div>
 	</div>
 	<% end %>
-
-	<div class="login-form-wrap well">
-		<h2>Login</h2>
-
-		<p style="text-align:center;"><a rel="external" href="/auth/facebook" title="Sweepstakes Contests Giveaways brandbuddee"><%= image_tag('facebook_login.png', :class=>"social_login", :alt=>"sweepstakes-contests-giveaways-brandbuddee", :title=>"Sweepstakes Contests Giveaways brandbuddee", :size=>"230x44") %></a>
-		<a rel="external" href="/auth/twitter" title="Sweepstakes Contests Giveaways brandbuddee"><%= image_tag('twitter_login.png', :class=>"social_login", :alt=>"sweepstakes-contests-giveaways-brandbuddee", :title=>"Sweepstakes Contests Giveaways brandbuddee", :size=>"230x44") %></a></p>
-		
-		<div class="login-form">
-
-			<div class="email-signup">
-				<%= form_tag url_for(:action => 'email_create'), :remote => true do %>
-				<p>
-					<%= text_field_tag :email, params[:email], :class=>"signin-field signin-default", :placeholder=>"Email" %>
+	<div class="row">
+		<div class="span6 offset3">
+			<div class="well well-small" style="padding: 20px 25px; max-width: 65%; margin-left: 11.5%;">
+				<p style="text-align:center;">
+					<a rel="external" href="/auth/facebook" title="Sweepstakes Contests Giveaways brandbuddee"><%= image_tag('facebook_login.png', :alt=>"sweepstakes-contests-giveaways-brandbuddee", :title=>"Sweepstakes Contests Giveaways brandbuddee", :size=>"230x44") %></a><a rel="external" href="/auth/twitter" title="Sweepstakes Contests Giveaways brandbuddee"><%= image_tag('twitter_login.png', :alt=>"sweepstakes-contests-giveaways-brandbuddee", :title=>"Sweepstakes Contests Giveaways brandbuddee", :size=>"230x44") %></a>
 				</p>
-				<p style="margin-bottom:0;">
-					<%= password_field_tag :password, nil, :class=>"signin-field", :placeholder=>"Password" %>
-				</p>
-				<p class="button"><%= submit_tag "Login", :class=>"signin-btn btn" %></p>
-				<a href="/signup" style="display:block;">Don't have an account? Signup!</a>
-				<a href="/password/reset" style="display:block;margin-bottom:10px;">Forgot your password?</a>
-				<% end %>
-			</div> <!-- .email-signup -->
-		</div> <!-- .login-form -->
-		<div class="email_signup_flash"></div>
-	</div> <!-- .login-form-wrap -->
-	
+				<div class="login-form">
+					<div class="email-signup">
+						<%= form_tag url_for(:action => 'email_create'), :remote => true do %>
+							<p>
+								<%= text_field_tag :email, params[:email], :class=>"signin-field signin-default", :placeholder=>"Email" %>
+							</p>
+							<p style="margin-bottom:0;">
+								<%= password_field_tag :password, nil, :class=>"signin-field", :placeholder=>"Password" %>
+							</p>
+							<p class="button"><%= submit_tag "Login", :class=>"signin-btn btn" %></p>
+							<a href="/signup" style="display:block;">Don't have an account? Signup!</a>
+							<a href="/password/reset" style="display:block;margin-bottom:10px;">Forgot your password?</a>
+						<% end %>
+					</div> <!-- /.email-signup -->
+				</div> <!-- /.login-form -->
+				<div class="email_signup_flash"></div>
+			</div><!-- /.well well-small -->
+		</div><!-- /.span6 offset3 -->
+	</div><!-- /.row -->
 </div><!--/.container-->
+<%= render 'shared/footer' %>

@@ -1,26 +1,319 @@
 class EmbedWidgetsController < ApplicationController
+	before_filter :get_campaign_from_link_param, except: [:facebook_like_gate, :facebook_index, :facebook_signup, :facebook_signup_fb_auth, :facebook_create, :facebook_email_signin, :facebook_add_campaign, :facebook_joined_camp, :facebook_admin_page, :facebook_error_page, :facebook_create_username, :facebook_update_username, :facebook_wall_post, :facebook_reauthenticate, :invite_facebook_list, :invite_facebook_search, :invite_email_form, :invite_email_send, :facebook_task_complete, :facebook_task_undo]
 
-	# def index
-	# 	params_campaign = params[:campaign].downcase
-	# 	campaign = Campaign.where(:link => params_campaign).first
-	# 	if campaign.present?
-	# 		@campaign = campaign
-	# 	end
-	# 	if campaign.nil?
-	# 		render text: "An error occurred while trying to find this campaign. Please try again later." # At some point, create a custom error page that will look good in an iframe...
-	# 	else
-	# 		@brand = @campaign.brand
-	# 		if @brand.nil?
-	# 			render text: "An error occurred while trying to find the brand associated with this campaign. Please try again later."
-	# 		else
-	# 			@user = User.new
-	# 		end
-	# 	end
-	# end
+	def website_index
+		@left = @campaign.limit - @campaign.redeems.size
+		if current_user
+			if current_user.nickname.blank?
+				redirect_to "/campaign/#{@campaign.link}/go_viral_create_username"
+			else
+				already_joined = false
+				current_user.campaigns.each do |c|
+					if c.id == @campaign.id
+						already_joined = true
+					end
+				end
+				if already_joined == true
+					redirect_to "/campaign/#{@campaign.link}/go_viral_joined"
+				else
+					@logged_in = true
+					@total_page_views = 0
+					@campaign.shares.each do |s|
+						@total_page_views += s.cookie_unique_page_views
+					end
+				end
+			end
+		elsif current_brand
+			session[:brand_id] = nil
+			@total_page_views = 0
+			@campaign.shares.each do |s|
+				@total_page_views += s.cookie_unique_page_views
+			end
+		else
+			@total_page_views = 0
+			@campaign.shares.each do |s|
+				@total_page_views += s.cookie_unique_page_views
+			end
+		end
+	 end
 
-	# def create_user
-		
-	# end
+	 def website_joined # User has already joined the campaign. Minified version of campaign#index
+	 	if current_user
+			already_joined = false
+			current_user.campaigns.each do |c|
+				if c.id == @campaign.id
+					already_joined = true
+				end
+			end
+			if already_joined == true
+				@share = Share.where(:campaign_id => @campaign.id, :user_id => current_user.id).first
+				unless @share.nil?
+					@bitly_link = @share.bitly_share_link
+					task_update = @campaign.tasks.where(user_id: current_user.id).first
+					if task_update.nil?
+						@total_pts = @share.unique_page_views + @share.trackings.size
+					else
+						completed_task_points = task_update.completed_points
+						engagement_1_points = task_update.task_1_uniques.to_i * @campaign.engagement_task_left_points.to_i
+						engagement_2_points = task_update.task_2_uniques.to_i * @campaign.engagement_task_right_points.to_i
+						@total_pts = @share.unique_page_views + @share.trackings.size + completed_task_points + engagement_1_points + engagement_2_points
+					end
+					if @total_pts >= @share.campaign.points_required
+						redeem_check = Redeem.where(:user_id => @share.user_id, :campaign_id => @share.campaign_id).first
+						if redeem_check.nil?
+							left = @share.campaign.limit - @share.campaign.redeems.size
+							unless left <= 0 || @share.campaign.end_date < Time.now
+								redeem_code = Redeem.assign_redeem_code()
+								@redeem = Redeem.create!(date: Time.now, redeem_code: redeem_code, campaign_id: @share.campaign_id, user_id: @share.user_id)
+								@redeem.save
+								UserMailer.redeem_confirmation(@share.user_id, @redeem, @share.campaign, root_url).deliver
+							end
+						end
+					end
+					unless task_update.nil?
+						if @total_pts >= 3 && task_update.sent_3pt_email == false && @campaign.easy_prize.present? && !@campaign.is_white_label?
+							task_update.sent_3pt_email = true
+							if task_update.save
+								UserMailer.secondary_gift_email(current_user, @campaign, root_url).deliver
+							end
+						end
+					end
+					if Redeem.where(user_id: current_user.id, campaign_id: @campaign.id).first.nil?
+						@gift_earned = false
+					else
+						@gift_earned = true
+					end
+				else
+					flash[:error] = "An error occurred while trying to find your share page associated with this campaign. Please try re-joining the campaign."
+					redirect_to "/campaign/#{@campaign.link}/go_viral"
+				end
+			else
+				redirect_to "/campaign/#{@campaign.link}/go_viral"
+			end
+		else
+			redirect_to "/campaign/#{@campaign.link}/go_viral"
+		end
+	 end
+
+	 def website_signup # Signup page with FB Auth or email signup
+	 	if current_user
+			redirect_to "/campaign/#{@campaign.link}/go_viral"
+		elsif current_brand
+			session[:brand_id] = nil
+			@user = User.new
+		else
+			@user = User.new
+		end
+	 end
+
+	 def website_join_campaign # Adding user to campaign (creating task and share)
+	 	if current_user
+			unless @campaign.already_has_user_share?(user)
+				@left = @campaign.limit - @campaign.redeems.size
+				unless @left < 1 || @campaign.end_date < Time.now
+					@campaign.user_ids << current_user.id
+	                share_link = Share.assign_link
+	                the_share = @campaign.shares.create!(date: Time.now, link: share_link, user_id: current_user.id, campaign_id: @campaign.id, url: @campaign.share_link)
+	                @bitly_link = the_share.bitly_share_link
+	                unless @campaign.already_has_user_task?(user)
+		                @campaign.tasks.create!(task_1_url: @campaign.engagement_task_left_link, task_2_url: @campaign.engagement_task_right_link, user_id: current_user.id, campaign_id: @campaign.id)
+		                if @campaign.save(validate: false)
+		                	redirect_to "/campaign/#{@campaign.link}/go_viral_joined"
+		                else
+	                		flash[:error] = "An error occurred while trying to add your account to the campaign. Please try again."
+		                	redirect_to "/campaign/#{@campaign.link}/go_viral"
+		                end
+		            else
+		            	redirect_to "/campaign/#{@campaign.link}/go_viral_joined"
+		            end
+		        else
+		        	redirect_to "/campaign/#{@campaign.link}/go_viral"
+		        end
+            else
+            	redirect_to "/campaign/#{@campaign.link}/go_viral_joined"
+            end
+		else
+			flash[:error] = "You must be logged in to join a campaign. Please try again after logging in."
+			redirect_to "/campaign/#{@campaign.link}/go_viral"
+		end
+	 end
+
+	 def website_email_signin # Email signin auth
+	 	unless params[:email].nil? || params[:password].nil?
+			user = User.authenticate(params[:email], params[:password])
+			if user
+		        user.last_login = Time.now
+		        user.save
+	        	session[:user_id] = user.id
+        		unless @campaign.already_has_user_share?(user)
+        			@left = @campaign.limit - @campaign.redeems.size
+        			unless @left < 1 || @campaign.end_date < Time.now
+	        			@campaign.user_ids << user.id
+		                share_link = Share.assign_link
+		                the_share = @campaign.shares.create!(date: Time.now, link: share_link, user_id: user.id, campaign_id: @campaign.id, url: @campaign.share_link)
+		                @bitly_link = the_share.bitly_share_link
+		                unless @campaign.already_has_user_task?(user)
+		                  	@campaign.tasks.create!(task_1_url: @campaign.engagement_task_left_link, task_2_url: @campaign.engagement_task_right_link, user_id: user.id, campaign_id: @campaign.id)
+		                  	if @campaign.save(validate: false)
+		                    	if user.nickname.blank?
+		                    		redirect_to "/campaign/#{@campaign.link}/go_viral_create_username"
+		                    	else
+	        						redirect_to "/campaign/#{@campaign.link}/go_viral_joined"
+	        					end
+	        				else
+        						flash[:error] = "An error occurred while trying to add your account to the campaign. Please try again."
+	        					redirect_to "/campaign/#{@campaign.link}/go_viral"
+			                end
+			            else
+			            	if user.nickname.blank?
+		        				redirect_to "/campaign/#{@campaign.link}/go_viral_create_username"
+		        			else
+		        				redirect_to "/campaign/#{@campaign.link}/go_viral_joined"
+			                end
+	        			end
+	        		else
+	        			redirect_to "/campaign/#{@campaign.link}/go_viral"
+	        		end
+        		else
+        			if user.nickname.blank?
+        				redirect_to "/campaign/#{@campaign.link}/go_viral_create_username"
+        			else
+        				redirect_to "/campaign/#{@campaign.link}/go_viral_joined"
+	                end
+        		end
+		    else
+		    	flash[:error] = "Invalid Email or Password. Please try again."
+	    		redirect_to "/campaign/#{@campaign.link}/go_viral"
+		    end
+		else
+			flash[:error] = "When logging in, please make sure you fill out both the email and password fields."
+			redirect_to "/campaign/#{@campaign.link}/go_viral"
+		end
+	 end
+
+	 def website_create_username # Create/Edit nickname if user has not set nickname
+	 	if current_user
+			unless current_user.nickname.blank?
+				redirect_to "/campaign/#{@campaign.link}/go_viral"
+			else
+				@user = User.find(current_user.id)
+			end
+		elsif current_brand
+			session[:brand_id] = nil
+			flash[:info] = "You cannot create a buddee account while logged in as a brand. Please try again."
+			redirect_to "/campaign/#{@campaign.link}/go_viral"
+		else
+			flash[:error] = "You must be logged in to change or create your username. Please try again."
+			redirect_to "/campaign/#{@campaign.link}/go_viral"
+		end
+	 end
+
+	 def website_update_username
+	 	if current_user
+			unless params[:user].nil?
+				@user = User.find(current_user.id)
+				user_nickname_before = params[:user][:nickname].downcase
+				if user_nickname_before.match(/^[a-z0-9_]+$/)
+					check_exist = User.first(conditions: {nickname: /^#{user_nickname_before}$/i}) # Case Insensitive
+					if check_exist.nil? # Username NOT taken
+						@user.nickname = user_nickname_before
+						if @user.save
+							flash[:success] = "Your nickname has been created!"
+							redirect_to "/campaign/#{@campaign.link}/go_viral"
+						else
+							flash[:error] = "An error occurred while trying to update your username. Please try again later."
+							redirect_to "/campaign/#{@campaign.link}/go_viral_create_username"
+						end
+					else # Username IS taken
+						flash[:error] = "That username has already been taken. Please choose another."
+						redirect_to "/campaign/#{@campaign.link}/go_viral_create_username"
+					end
+				else
+					flash[:error] = "Invalid username. Lowercase letters, numbers, and underscores only. No spaces."
+					redirect_to "/campaign/#{@campaign.link}/go_viral_create_username"
+				end
+			else
+				flash[:error] = "You must choose a username before continuing to the next page. Please try again."
+				redirect_to "/campaign/#{@campaign.link}/go_viral_create_username"
+			end
+
+		else
+			flash[:error] = "You must be logged in as a buddee to change or create your username. Please try again."
+			redirect_to "/campaign/#{@campaign.link}/go_viral"
+		end
+	 end
+
+	 def website_create_account_from_email # Create User account from email signup
+	 	unless params[:user].nil?
+			@user = User.create(params[:user])
+			if @user.save
+				session[:user_id] = @user.id
+				@left = @campaign.limit - @campaign.redeems.size
+				unless @left < 1 || @campaign.end_date < Time.now
+					@campaign.user_ids << @user.id
+	                share_link = Share.assign_link
+	                the_share = @campaign.shares.create!(date: Time.now, link: share_link, user_id: @user.id, campaign_id: @campaign.id, url: @campaign.share_link)
+	                @bitly_link = the_share.bitly_share_link
+	                @campaign.tasks.create!(task_1_url: @campaign.engagement_task_left_link, task_2_url: @campaign.engagement_task_right_link, user_id: @user.id, campaign_id: @campaign.id)
+	                @campaign.save(validate: false)
+                  	redirect_to "/campaign/#{@campaign.link}/go_viral_create_username"
+	            else
+	            	redirect_to "/campaign/#{@campaign.link}/go_viral"
+	            end
+			else
+				render "website_signup"
+			end
+		else
+			flash[:error] = "You must fill out the entire form when creating an account. Please try again."
+			redirect_to "/campaign/#{@campaign.link}/go_viral_signup"
+		end
+	 end
+
+	 def website_fb_wall_post
+	 	unless params[:personal_message].blank?
+			if current_user
+				unless current_user.oauth_token.blank? || (current_user.oauth_expires_at.present? && current_user.oauth_expires_at < DateTime.now.to_i.to_s)
+					begin
+						facebook_graph = Koala::Facebook::API.new(current_user.oauth_token)
+						object_from_koala = facebook_graph.put_wall_post(params[:personal_message], {
+							"name" => params[:name],
+							"link" => params[:link],
+							"caption" => params[:caption],
+							"description" => params[:description],
+							"picture" => params[:picture]
+						})
+						@campaign.facebook_clicks += 1
+						@campaign.save(validate: false)
+						flash[:success] = "You have successfully posted to your Facebook Wall!"
+						redirect_to "/campaign/#{@campaign.link}/go_viral_joined"
+					rescue Koala::Facebook::APIError => exc
+						if exc.message == "KoalaMissingAccessToken: Write operations require an access token"
+							flash[:error] = "Posting to your Facebook Wall requires permissions that you have not given the Facebook App access to. Please<br><a href='#' class='btn btn-info btn-mini' id='btnWebsiteEmbedFbSignup'>Connect With Facebook</a>"
+							redirect_to "/campaign/#{@campaign.link}/go_viral_joined"
+						elsif exc.message == "OAuthException: Error validating access token: The session has been invalidated because the user has changed the password."
+							flash[:error] = "Your connection with Facebook has expired. Please<br><a href='#' class='btn btn-info btn-mini' id='btnWebsiteEmbedFbSignup'>Connect With Facebook</a>"
+							redirect_to "/campaign/#{@campaign.link}/go_viral_joined"
+						elsif exc.message == "OAuthException: Error validating access token: Session does not match current stored session. This may be because the user changed the password since the time the session was created or Facebook has changed the session for security reasons."
+							flash[:error] = "Your connection with Facebook has expired. Please<br><a href='#' class='btn btn-info btn-mini' id='btnWebsiteEmbedFbSignup'>Connect With Facebook</a>"
+							redirect_to "/campaign/#{@campaign.link}/go_viral_joined"
+						else
+							flash[:error] = "An error occurred while trying to post to your Facebook Wall. This may have occurred because your connection with Facebook has expired. If so, please try<br><a href='#' class='btn btn-info btn-mini' id='btnWebsiteEmbedFbSignup'>Reconnecting With Facebook</a>"
+							redirect_to "/campaign/#{@campaign.link}/go_viral_joined"
+						end
+					end
+				else
+					flash[:error] = "To post to your Facebook Wall, you must first<br><a href='#' class='btn-mini btn-warning' id='btnWebsiteEmbedFbSignup'>Connect your Account with Facebook</a>"
+					redirect_to "/campaign/#{@campaign.link}/go_viral_joined"
+				end
+			else
+				flash[:error] = "You must be logged in to post to your Facebook Wall"
+				redirect_to "/campaign/#{@campaign.link}/go_viral"
+			end
+		else
+			flash[:error] = "When posting to your Facebook Wall, please make sure you fill out all the fields."
+			redirect_to "/campaign/#{@campaign.link}/go_viral_joined"
+		end
+	 end
 
 	def facebook_like_gate
 		@continue = false
@@ -399,6 +692,14 @@ class EmbedWidgetsController < ApplicationController
 													@redeem = Redeem.create!(date: Time.now, redeem_code: redeem_code, campaign_id: @share.campaign_id, user_id: @share.user_id)
 													@redeem.save
 													UserMailer.redeem_confirmation(@share.user_id, @redeem, @share.campaign, root_url).deliver
+												end
+											end
+										end
+										unless task_update.nil?
+											if @total_pts >= 3 && task_update.sent_3pt_email == false && @campaign.easy_prize.present? && !@campaign.is_white_label?
+												task_update.sent_3pt_email = true
+												if task_update.save
+													UserMailer.secondary_gift_email(current_user, @campaign, root_url).deliver
 												end
 											end
 										end
@@ -1217,6 +1518,400 @@ class EmbedWidgetsController < ApplicationController
 		else
 			flash[:error] = "An error occurred while trying to complete the task. Please try again."
 			redirect_to "/fb-error-page"
+		end
+	end
+
+	def website_task_complete
+		unless params[:task].nil?
+			if current_user
+				if params[:task].to_s == "blog"
+					unless @campaign.task_blog_post["points"].nil?
+						unless params[:txtBlogAddress].blank?
+							if str_is_valid_url(params[:txtBlogAddress])
+								@task = @campaign.tasks.where(user_id: current_user.id).first
+								unless @task.completed_blog == true
+									@task.completed_blog = true
+									@task.completed_points += @campaign.task_blog_post["points"].to_i
+									@task.blog_post_url = params[:txtBlogAddress]
+									@task.save
+									flash[:success] = "You Have Completed the Blog Post Task!"
+									redirect_to "/campaign/#{@campaign.link}/go_viral_joined"
+								else
+									flash[:error] = "You have already completed this task!"
+									redirect_to "/campaign/#{@campaign.link}/go_viral_joined"
+								end
+							else
+								flash[:error] = "You must enter a valid URL that starts with http:// or https://."
+								redirect_to "/campaign/#{@campaign.link}/go_viral_joined"
+							end
+						else
+							flash[:error] = "You need to fill out the Blog Post Web Address"
+							redirect_to "/campaign/#{@campaign.link}/go_viral_joined"
+						end
+					else
+						redirect_to "/campaign/#{@campaign.link}/go_viral_joined"
+					end
+				elsif params[:task].to_s == "yelp"
+					unless @campaign.task_yelp["points"].nil?
+						unless params[:txtYelpAddress].blank?
+							if str_is_valid_url(params[:txtYelpAddress])
+								@task = @campaign.tasks.where(user_id: current_user.id).first
+								unless @task.completed_yelp == true
+									@task.completed_yelp = true
+									@task.completed_points += @campaign.task_yelp["points"].to_i
+									@task.yelp_review = params[:txtYelpAddress]
+									@task.save
+									flash[:success] = "You Have Completed this task!"
+									redirect_to "/campaign/#{@campaign.link}/go_viral_joined"
+								else
+									flash[:error] = "You have already completed this task!"
+									redirect_to "/campaign/#{@campaign.link}/go_viral_joined"
+								end
+							else
+								flash[:error] = "You must enter a valid URL that starts with http:// or https://."
+								redirect_to "/campaign/#{@campaign.link}/go_viral_joined"
+							end
+						else
+							flash[:error] = "You need to fill out the Web Address"
+							redirect_to "/campaign/#{@campaign.link}/go_viral_joined"
+						end
+					else
+						redirect_to "/campaign/#{@campaign.link}/go_viral_joined"
+					end
+				elsif params[:task].to_s == "facebook"
+					unless @campaign.task_facebook["points"].nil?
+						@task = @campaign.tasks.where(user_id: current_user.id).first
+						if current_user.follows.where(brand_name: @brand.name, provider: "facebook").first.nil? && current_user.follows.where(provider: "facebook", link: @campaign.task_facebook["link"]).first.nil?
+							unless @task.completed_facebook == true
+								@task.completed_facebook = true
+								@task.completed_points += @campaign.task_facebook["points"].to_i
+								current_user.follows.create!(brand_name: @brand.name, provider: "facebook", link: @campaign.task_facebook["link"])
+								@task.save
+								flash[:success] = "You have completed the Facebook like task!"
+								redirect_to "/campaign/#{@campaign.link}/go_viral_joined"
+							else
+								flash[:error] = "You have already completed this task!"
+								redirect_to "/campaign/#{@campaign.link}/go_viral_joined"
+							end
+						else
+							flash[:error] = "You are already following the brand on Facebook!"
+							redirect_to "/campaign/#{@campaign.link}/go_viral_joined"
+						end
+					else
+						redirect_to "/campaign/#{@campaign.link}/go_viral_joined"
+					end
+				elsif params[:task].to_s == "twitter"
+					unless @campaign.task_twitter["points"].nil?
+						@task = @campaign.tasks.where(user_id: current_user.id).first
+						if current_user.follows.where(brand_name: @brand.name, provider: "twitter").first.nil? && current_user.follows.where(provider: "twitter", link: @campaign.task_twitter["link"]).first.nil?
+							unless @task.completed_twitter == true
+								@task.completed_twitter = true
+								@task.completed_points += @campaign.task_twitter["points"].to_i
+								current_user.follows.create!(brand_name: @brand.name, provider: "twitter", link: @campaign.task_twitter["link"])
+								@task.save
+								flash[:success] = "You have completed the Twitter follow task!"
+								redirect_to "/campaign/#{@campaign.link}/go_viral_joined"
+							else
+								flash[:error] = "You have already completed this task!"
+								redirect_to "/campaign/#{@campaign.link}/go_viral_joined"
+							end
+						else
+							flash[:error] = "You are already following the brand on Twitter!"
+							redirect_to "/campaign/#{@campaign.link}/go_viral_joined"
+						end
+					else
+						redirect_to "/campaign/#{@campaign.link}/go_viral_joined"
+					end
+				elsif params[:task].to_s == "custom"
+					unless params[:custom_num].blank?
+						@task = @campaign.tasks.where(user_id: current_user.id).first
+						case params[:custom_num]
+						when "1"
+							unless @campaign.task_custom_1["points"].nil?
+								unless @task.completed_custom[0] == true
+									@task.completed_custom[0] = true
+									@task.completed_points += @campaign.task_custom_1["points"].to_i
+									@task.save
+									flash[:success] = "You have completed the task!"
+									redirect_to "/campaign/#{@campaign.link}/go_viral_joined"
+								else
+									flash[:error] = "You have already completed this task!"
+									redirect_to "/campaign/#{@campaign.link}/go_viral_joined"
+								end
+							else
+								redirect_to "/campaign/#{@campaign.link}/go_viral_joined"
+							end
+						when "2"
+							unless @campaign.task_custom_2["points"].nil?
+								unless @task.completed_custom[1] == true
+									@task.completed_custom[1] = true
+									@task.completed_points += @campaign.task_custom_2["points"].to_i
+									@task.save
+									flash[:success] = "You have completed the task!"
+									redirect_to "/campaign/#{@campaign.link}/go_viral_joined"
+								else
+									flash[:error] = "You have already completed this task!"
+									redirect_to "/campaign/#{@campaign.link}/go_viral_joined"
+								end
+							else
+								redirect_to "/campaign/#{@campaign.link}/go_viral_joined"
+							end
+						when "3"
+							unless @campaign.task_custom_3["points"].nil?
+								unless @task.completed_custom[2] == true
+									@task.completed_custom[2] = true
+									@task.completed_points += @campaign.task_custom_3["points"].to_i
+									@task.save
+									flash[:success] = "You have completed the task!"
+									redirect_to "/campaign/#{@campaign.link}/go_viral_joined"
+								else
+									flash[:error] = "You have already completed this task!"
+									redirect_to "/campaign/#{@campaign.link}/go_viral_joined"
+								end
+							else
+								redirect_to "/campaign/#{@campaign.link}/go_viral_joined"
+							end
+						when "4"
+							unless @campaign.task_custom_4["points"].nil?
+								unless @task.completed_custom[3] == true
+									@task.completed_custom[3] = true
+									@task.completed_points += @campaign.task_custom_4["points"].to_i
+									@task.save
+									flash[:success] = "You have completed the task!"
+									redirect_to "/campaign/#{@campaign.link}/go_viral_joined"
+								else
+									flash[:error] = "You have already completed this task!"
+									redirect_to "/campaign/#{@campaign.link}/go_viral_joined"
+								end
+							else
+								redirect_to "/campaign/#{@campaign.link}/go_viral_joined"
+							end
+						when "5"
+							unless @campaign.task_custom_5["points"].nil?
+								unless @task.completed_custom[4] == true
+									@task.completed_custom[4] = true
+									@task.completed_points += @campaign.task_custom_5["points"].to_i
+									@task.save
+									flash[:success] = "You have completed the task!"
+									redirect_to "/campaign/#{@campaign.link}/go_viral_joined"
+								else
+									flash[:error] = "You have already completed this task!"
+									redirect_to "/campaign/#{@campaign.link}/go_viral_joined"
+								end
+							else
+								redirect_to "/campaign/#{@campaign.link}/go_viral_joined"
+							end
+						else
+							flash[:error] = "An error occurred while trying to complete the task. Please try again"
+							redirect_to "/campaign/#{@campaign.link}/go_viral_joined"
+						end
+					else
+						flash[:error] = "An error occurred while trying to complete the task. Please try again"
+						redirect_to "/campaign/#{@campaign.link}/go_viral_joined"
+					end
+				end
+			else
+				flash[:error] = "You must be logged in to complete a task!"
+				redirect_to "/campaign/#{@campaign.link}/go_viral"
+			end
+		else
+			flash[:error] = "An error occurred while trying to complete the task. Please try again."
+			redirect_to "/campaign/#{@campaign.link}/go_viral_joined"
+		end
+	end
+
+	def website_task_undo
+		unless params[:task].nil?
+			if current_user
+				if params[:task].to_s == "blog"
+					unless @campaign.task_blog_post["points"].nil?
+						@task = @campaign.tasks.where(user_id: current_user.id).first
+						if Redeem.where(user_id: @task.user_id, campaign_id: @campaign.id).first.nil?
+							if @task.completed_blog == true
+								@task.completed_blog = false
+								@task.completed_points -= @campaign.task_blog_post["points"].to_i
+								@task.blog_post_url = nil
+								@task.save
+								flash[:info] = "You have undone the completion of the blog post task!"
+								redirect_to "/campaign/#{@campaign.link}/go_viral_joined"
+							else
+								flash[:error] = "You have not yet completed this task!"
+								redirect_to "/campaign/#{@campaign.link}/go_viral_joined"
+							end
+						else
+							flash[:error] = "Your have already completed this campaign and earned it's gift. Once a campaign is completed, you can no longer undo tasks."
+							redirect_to "/campaign/#{@campaign.link}/go_viral_joined"
+						end
+					else
+						redirect_to "/campaign/#{@campaign.link}/go_viral_joined"
+					end
+				elsif params[:task].to_s == "yelp"
+					unless @campaign.task_yelp["points"].nil?
+						@task = @campaign.tasks.where(user_id: current_user.id).first
+						if Redeem.where(user_id: @task.user_id, campaign_id: @campaign.id).first.nil?
+							if @task.completed_yelp == true
+								@task.completed_yelp = false
+								@task.completed_points -= @campaign.task_yelp["points"].to_i
+								@task.yelp_review = nil
+								@task.save
+								flash[:info] = "You have undone the completion of this task!"
+								redirect_to "/campaign/#{@campaign.link}/go_viral_joined"
+							else
+								flash[:error] = "You have not yet completed this task!"
+								redirect_to "/campaign/#{@campaign.link}/go_viral_joined"
+							end
+						else
+							flash[:error] = "Your have already completed this campaign and earned it's gift. Once a campaign is completed, you can no longer undo tasks."
+							redirect_to "/campaign/#{@campaign.link}/go_viral_joined"
+						end
+					else
+						redirect_to "/campaign/#{@campaign.link}/go_viral_joined"
+					end
+				elsif params[:task].to_s == "facebook"
+					unless @campaign.task_facebook["points"].nil?
+						@task = @campaign.tasks.where(user_id: current_user.id).first
+						if Redeem.where(user_id: @task.user_id, campaign_id: @campaign.id).first.nil?
+							unless @task.completed_facebook == false
+								@task.completed_facebook = false
+								@task.completed_points -= @campaign.task_facebook["points"].to_i
+								t = current_user.follows.where(brand_name: @brand.name, provider: "facebook", link: @campaign.task_facebook["link"]).first
+								t.destroy unless t.nil?
+								@task.save
+								flash[:info] = "You have undone the completion of the Facebook like task!"
+								redirect_to "/campaign/#{@campaign.link}/go_viral_joined"
+							else
+								flash[:error] = "You have not yet completed this task!"
+								redirect_to "/campaign/#{@campaign.link}/go_viral_joined"
+							end
+						else
+							flash[:error] = "Your have already completed this campaign and earned it's gift. Once a campaign is completed, you can no longer undo tasks."
+							redirect_to "/campaign/#{@campaign.link}/go_viral_joined"
+						end
+					else
+						redirect_to "/campaign/#{@campaign.link}/go_viral_joined"
+					end
+				elsif params[:task].to_s == "twitter"
+					unless @campaign.task_twitter["points"].nil?
+						@task = @campaign.tasks.where(user_id: current_user.id).first
+						if Redeem.where(user_id: @task.user_id, campaign_id: @campaign.id).first.nil?
+							unless @task.completed_twitter == false
+								@task.completed_twitter = false
+								@task.completed_points -= @campaign.task_twitter["points"].to_i
+								t = current_user.follows.where(brand_name: @brand.name, provider: "twitter", link: @campaign.task_twitter["link"]).first
+								t.destroy unless t.nil?
+								@task.save
+								flash[:info] = "You have undone the completion of the Twitter follow task!"
+								redirect_to "/campaign/#{@campaign.link}/go_viral_joined"
+							else
+								flash[:error] = "You have not yet completed this task!"
+								redirect_to "/campaign/#{@campaign.link}/go_viral_joined"
+							end
+						else
+							flash[:error] = "Your have already completed this campaign and earned it's gift. Once a campaign is completed, you can no longer undo tasks."
+							redirect_to "/campaign/#{@campaign.link}/go_viral_joined"
+						end
+					else
+						redirect_to "/campaign/#{@campaign.link}/go_viral_joined"
+					end
+				elsif params[:task].to_s == "custom"
+					unless params[:custom_num].blank?
+						@task = @campaign.tasks.where(user_id: current_user.id).first
+						if Redeem.where(user_id: @task.user_id, campaign_id: @campaign.id).first.nil?
+							case params[:custom_num]
+							when "1"
+								unless @campaign.task_custom_1["points"].nil?
+									unless @task.completed_custom[0] == false
+										@task.completed_custom[0] = false
+										@task.completed_points -= @campaign.task_custom_1["points"].to_i
+										@task.save
+										flash[:info] = "You have undone the task!"
+										redirect_to "/campaign/#{@campaign.link}/go_viral_joined"
+									else
+										flash[:error] = "You have not yet completed this task!"
+										redirect_to "/campaign/#{@campaign.link}/go_viral_joined"
+									end
+								else
+									redirect_to "/campaign/#{@campaign.link}/go_viral_joined"
+								end
+							when "2"
+								unless @campaign.task_custom_2["points"].nil?
+									unless @task.completed_custom[1] == false
+										@task.completed_custom[1] = false
+										@task.completed_points -= @campaign.task_custom_2["points"].to_i
+										@task.save
+										flash[:info] = "You have undone the task!"
+										redirect_to "/campaign/#{@campaign.link}/go_viral_joined"
+									else
+										flash[:error] = "You have not yet completed this task!"
+										redirect_to "/campaign/#{@campaign.link}/go_viral_joined"
+									end
+								else
+									redirect_to "/campaign/#{@campaign.link}/go_viral_joined"
+								end
+							when "3"
+								unless @campaign.task_custom_3["points"].nil?
+									unless @task.completed_custom[2] == false
+										@task.completed_custom[2] = false
+										@task.completed_points -= @campaign.task_custom_3["points"].to_i
+										@task.save
+										flash[:info] = "You have undone the task!"
+										redirect_to "/campaign/#{@campaign.link}/go_viral_joined"
+									else
+										flash[:error] = "You have not yet completed this task!"
+										redirect_to "/campaign/#{@campaign.link}/go_viral_joined"
+									end
+								else
+									redirect_to "/campaign/#{@campaign.link}/go_viral_joined"
+								end
+							when "4"
+								unless @campaign.task_custom_4["points"].nil?
+									unless @task.completed_custom[3] == false
+										@task.completed_custom[3] = false
+										@task.completed_points -= @campaign.task_custom_4["points"].to_i
+										@task.save
+										flash[:info] = "You have undone the task!"
+										redirect_to "/campaign/#{@campaign.link}/go_viral_joined"
+									else
+										flash[:error] = "You have not yet completed this task!"
+										redirect_to "/campaign/#{@campaign.link}/go_viral_joined"
+									end
+								else
+									redirect_to "/campaign/#{@campaign.link}/go_viral_joined"
+								end
+							when "5"
+								unless @campaign.task_custom_5["points"].nil?
+									unless @task.completed_custom[4] == false
+										@task.completed_custom[4] = false
+										@task.completed_points -= @campaign.task_custom_5["points"].to_i
+										@task.save
+										flash[:info] = "You have undone the task!"
+										redirect_to "/campaign/#{@campaign.link}/go_viral_joined"
+									else
+										flash[:error] = "You have not yet completed this task!"
+										redirect_to "/campaign/#{@campaign.link}/go_viral_joined"
+									end
+								else
+									redirect_to "/campaign/#{@campaign.link}/go_viral_joined"
+								end
+							else
+								flash[:error] = "An error occurred while trying to complete the task. Please try again"
+								redirect_to "/campaign/#{@campaign.link}/go_viral_joined"
+							end
+						else
+							flash[:error] = "Your have already completed this campaign and earned it's gift. Once a campaign is completed, you can no longer undo tasks."
+							redirect_to "/campaign/#{@campaign.link}/go_viral_joined"
+						end
+					else
+						redirect_to "/campaign/#{@campaign.link}/go_viral_joined"
+					end
+				end
+			else
+				flash[:error] = "You must be logged in to complete a task!"
+				redirect_to "/campaign/#{@campaign.link}/go_viral"
+			end
+		else
+			flash[:error] = "An error occurred while trying to complete the task. Please try again."
+			redirect_to "/campaign/#{@campaign.link}/go_viral_joined"
 		end
 	end
 

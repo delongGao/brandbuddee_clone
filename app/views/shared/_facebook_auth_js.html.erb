@@ -1,0 +1,58 @@
+<script>
+window.fbAsyncInit = function() {
+    FB.init({
+      appId      : <% if Rails.env.development? %>'253857021420655'<% elsif Rails.env.production? %>'278238152312772'<% end %>,
+      channelUrl : '<%= root_url %>fb/channel.html',
+      status     : true,
+      xfbml      : true
+    });
+
+    document.getElementById("btnWebsiteEmbedFbSignup").onclick = function() {
+		FB.getLoginStatus(function(response) {
+			if (response.status !== 'connected') {
+				FB.login(function(response) {
+					if (response.authResponse) {
+						FB.api('/me/permissions', function(response) {
+							if(response.data[0]["basic_info"] == 1 && response.data[0]["create_note"] == 1 && response.data[0]["email"] == 1 && response.data[0]["installed"] == 1 && response.data[0]["manage_pages"] == 1 && response.data[0]["photo_upload"] == 1 && response.data[0]["publish_actions"] == 1 && response.data[0]["publish_stream"] == 1 && response.data[0]["read_friendlists"] == 1 && response.data[0]["share_item"] == 1 && response.data[0]["status_update"] == 1 && response.data[0]["user_about_me"] == 1 && response.data[0]["user_birthday"] == 1 && response.data[0]["user_education_history"] == 1 && response.data[0]["user_hometown"] == 1 && response.data[0]["user_interests"] == 1 && response.data[0]["user_likes"] == 1 && response.data[0]["user_location"] == 1 && response.data[0]["user_status"] == 1 && response.data[0]["user_website"] == 1 && response.data[0]["video_upload"] == 1) {
+								document.location = "/auth/facebook?state=website_embed_user_auth_<%= @campaign.id %>"
+							} else {
+								document.location = "/campaign/<%= @campaign.link %>/go_viral_fb_error";
+							} // End else
+						}); // End FB.api
+					} else {
+						document.location = "/campaign/<%= @campaign.link %>/go_viral_fb_error";
+					} // End else
+				}, {scope: 'email,offline_access,publish_actions,publish_stream,user_birthday,user_about_me,user_location,user_likes,user_education_history,user_website,read_friendlists,user_interests,user_hometown,user_status,manage_pages'});
+			} else if(response.status === 'connected') {
+				FB.api('/me/permissions', function(response) {
+					if(response.data[0]["basic_info"] == 1 && response.data[0]["create_note"] == 1 && response.data[0]["email"] == 1 && response.data[0]["installed"] == 1 && response.data[0]["manage_pages"] == 1 && response.data[0]["photo_upload"] == 1 && response.data[0]["publish_actions"] == 1 && response.data[0]["publish_stream"] == 1 && response.data[0]["read_friendlists"] == 1 && response.data[0]["share_item"] == 1 && response.data[0]["status_update"] == 1 && response.data[0]["user_about_me"] == 1 && response.data[0]["user_birthday"] == 1 && response.data[0]["user_education_history"] == 1 && response.data[0]["user_hometown"] == 1 && response.data[0]["user_interests"] == 1 && response.data[0]["user_likes"] == 1 && response.data[0]["user_location"] == 1 && response.data[0]["user_status"] == 1 && response.data[0]["user_website"] == 1 && response.data[0]["video_upload"] == 1) {
+						document.location = "/auth/facebook?state=website_embed_user_auth_<%= @campaign.id %>"
+					} else {
+						FB.login(function(response) {
+							if (response.authResponse) {
+								FB.api('/me/permissions', function(response) {
+									if(response.data[0]["basic_info"] == 1 && response.data[0]["create_note"] == 1 && response.data[0]["email"] == 1 && response.data[0]["installed"] == 1 && response.data[0]["manage_pages"] == 1 && response.data[0]["photo_upload"] == 1 && response.data[0]["publish_actions"] == 1 && response.data[0]["publish_stream"] == 1 && response.data[0]["read_friendlists"] == 1 && response.data[0]["share_item"] == 1 && response.data[0]["status_update"] == 1 && response.data[0]["user_about_me"] == 1 && response.data[0]["user_birthday"] == 1 && response.data[0]["user_education_history"] == 1 && response.data[0]["user_hometown"] == 1 && response.data[0]["user_interests"] == 1 && response.data[0]["user_likes"] == 1 && response.data[0]["user_location"] == 1 && response.data[0]["user_status"] == 1 && response.data[0]["user_website"] == 1 && response.data[0]["video_upload"] == 1) {
+										document.location = "/auth/facebook?state=website_embed_user_auth_<%= @campaign.id %>"
+									} else {
+										document.location = "/campaign/<%= @campaign.link %>/go_viral_fb_error";
+									} // End else
+								}); // End FB.api
+							} else {
+								document.location = "/campaign/<%= @campaign.link %>/go_viral_fb_error";
+							} // End else
+						}, {scope: 'email,offline_access,publish_actions,publish_stream,user_birthday,user_about_me,user_location,user_likes,user_education_history,user_website,read_friendlists,user_interests,user_hometown,user_status,manage_pages'});
+					} // End else
+				}); // End FB.api
+			} // End else if
+		}); // End FB.getLoginStatus
+	}; // End onclick function()
+}; // End window.fbAsyncInit function()
+
+(function(d, s, id){
+	var js, fjs = d.getElementsByTagName(s)[0];
+	if (d.getElementById(id)) {return;}
+ 	js = d.createElement(s); js.id = id;
+ 	js.src = "//connect.facebook.net/en_US/all.js";
+ 	fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+</script>

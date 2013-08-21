@@ -33,7 +33,7 @@
         <ul id="portfolio-filter" class="nav nav-tabs">
             <li<% if params[:c].blank? %> class="active"<% end %>><a title="sweepstakes contests giveaways brandbuddee" href="/home">All</a></li>
             <% @categories.each do |c| %>
-                <li<% if params[:c] == c.name && c.name != "" %> class="active"<% end %>><a title="sweepstakes contests giveaways brandbuddee" href="/home?c=<%= c.name %>"><% if c.name == "Technology" %>Tech<% else %><%= c.name %><% end %></a></li>
+                <li<% if params[:c] == c.name %> class="active"<% end %>><a title="sweepstakes contests giveaways brandbuddee" href="/home?c=<%= c.name %>"><% if c.name == "Technology" %>Tech<% else %><%= c.name %><% end %></a></li>
             <% end %>
         </ul>
 

@@ -286,10 +286,15 @@ class AdminController < ApplicationController
 
 					    if !params[:campaign][:share_link].nil? && params[:campaign][:share_link].match(/^(https?|ftp):\/\//)
 						    if @campaign.save
-						      flash[:notice] = "Campaign successfully created"
-						      redirect_to(:action => 'campaigns')
+						    	if params[:campaign][:campaign_image].present?
+						    		render :campaign_image_cropper
+						    	else
+						    		@campaign.destroy
+						      	flash[:notice] = "You must upload a campaign image"
+						      	redirect_to(:action => 'campaigns')
+						      end
 						    else
-						      flash[:notice] = "Uh oh"
+						      flash[:notice] = "There was an ERROR saving. Please try again."
 						      render "campaign_new_index"
 						    end
 						else
@@ -683,7 +688,7 @@ class AdminController < ApplicationController
 					@campaign.location_id = @location.id
 				end
 
-				if !params[:task_blog_post].nil? && params[:task_blog_post]["0"] == "UPDATE"
+					if !params[:task_blog_post].nil? && params[:task_blog_post]["0"] == "UPDATE"
 			    	if !params[:task_blog_post]["1"].empty? && !params[:task_blog_post]["2"].empty? && !params[:task_blog_post]["3"].empty?
 			    		@campaign.task_blog_post[:use_it] = true
 			    		@campaign.task_blog_post[:title] = params[:task_blog_post]["1"]
@@ -885,37 +890,41 @@ class AdminController < ApplicationController
 				    		end
 				    	end
 				    	@campaign.shares.each do |s|
-							s.url = params[:campaign][:share_link]
-							s.save
-						end # Update URL for all shares belonging to campaign
-						@campaign.tasks.each do |t|
-							t.task_1_url = Campaign.find(params[:campaign][:id]).engagement_task_left_link.to_s
-							t.task_2_url = Campaign.find(params[:campaign][:id]).engagement_task_right_link.to_s
-							t.save
-						end # Update URLs for all tasks belonging to campaign
+								s.url = params[:campaign][:share_link]
+								s.save
+							end # Update URL for all shares belonging to campaign
+							@campaign.tasks.each do |t|
+								t.task_1_url = Campaign.find(params[:campaign][:id]).engagement_task_left_link.to_s
+								t.task_2_url = Campaign.find(params[:campaign][:id]).engagement_task_right_link.to_s
+								t.save
+							end # Update URLs for all tasks belonging to campaign
+							if params[:campaign][:campaign_image].present?
+								render :campaign_image_cropper
+							else
 				        flash[:notice] = "Successfully updated."
 				        #redirect_to(:action => 'edit_campaign')
 				        redirect_to "#{root_url}admin/campaign/edit?_id=#{params[:campaign][:id]}"
+				      end
 				    else
-				      	if params[:campaign][:redeem_name].blank? || params[:campaign][:redeem_name].length > 60
-							flash[:error] = "Redeem Contact Name is Required and cannot be longer than 60 characters"
-						elsif params[:campaign][:redeem_email].blank? || params[:campaign][:redeem_email].length < 6 || params[:campaign][:redeem_email].length > 100 || !params[:campaign][:redeem_email].match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i)
-							flash[:error] = "Redeem Contact Email is Required, must be between 6-100 characters, and must be in a valid format"
-						elsif params[:campaign][:redeem_value].blank? || !params[:campaign][:redeem_value].match(/^\$\d+\.?\d{2}?+$/)
-							flash[:error] = "Redeem Value of Primary Reward is Required and must be in the format $1234.67"
-						elsif params[:campaign][:redeem_expires].blank?
-							flash[:error] = "Redeem Expiration Date is Required"
-						elsif !params[:campaign][:redeem_special_circ].blank? && params[:campaign][:redeem_special_circ].length > 5000
-							flash[:error] = "Redeem Special Circumstances is OPTIONAL, but if used, cannot be longer than 5000 characters."
-						else
-							flash[:error] = "One or more fields that are required were left blank. Please make sure you fill out all fields and try again."
-						end
-				      	redirect_to "/admin/campaign/edit?_id=#{params[:campaign][:id]}"
+				      if params[:campaign][:redeem_name].blank? || params[:campaign][:redeem_name].length > 60
+								flash[:error] = "Redeem Contact Name is Required and cannot be longer than 60 characters"
+							elsif params[:campaign][:redeem_email].blank? || params[:campaign][:redeem_email].length < 6 || params[:campaign][:redeem_email].length > 100 || !params[:campaign][:redeem_email].match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i)
+								flash[:error] = "Redeem Contact Email is Required, must be between 6-100 characters, and must be in a valid format"
+							elsif params[:campaign][:redeem_value].blank? || !params[:campaign][:redeem_value].match(/^\$\d+\.?\d{2}?+$/)
+								flash[:error] = "Redeem Value of Primary Reward is Required and must be in the format $1234.67"
+							elsif params[:campaign][:redeem_expires].blank?
+								flash[:error] = "Redeem Expiration Date is Required"
+							elsif !params[:campaign][:redeem_special_circ].blank? && params[:campaign][:redeem_special_circ].length > 5000
+								flash[:error] = "Redeem Special Circumstances is OPTIONAL, but if used, cannot be longer than 5000 characters."
+							else
+								flash[:error] = "One or more fields that are required were left blank. Please make sure you fill out all fields and try again."
+							end
+				      redirect_to "/admin/campaign/edit?_id=#{params[:campaign][:id]}"
 				    end
-				else
-					flash[:error] = "The Campaign Share Link must start with http:// https:// or ftp://"
-					redirect_to "#{root_url}admin/campaign/edit?_id=#{params[:campaign][:id]}"
-				end
+					else
+						flash[:error] = "The Campaign Share Link must start with http:// https:// or ftp://"
+						redirect_to "#{root_url}admin/campaign/edit?_id=#{params[:campaign][:id]}"
+					end
 			else
 				redirect_to root_url
 			end
@@ -1021,6 +1030,44 @@ class AdminController < ApplicationController
 					@engagement_right_clicks[i] = [i+1,clicks.to_i]
 					@engagement_right_uniques[i] = [i+1,uniques.to_i]
 					right_now += 24.hours
+				end
+			else
+				redirect_to root_url
+			end
+		else
+			redirect_to root_url
+		end
+	end
+
+	def campaign_apply_crop
+		if current_user || Rails.env.development?
+			if current_user.account_type == 'super admin' || current_user.account_type == 'admin' || Rails.env.development?
+				unless params[:campaign_id].nil?
+					@campaign = Campaign.find(params[:campaign_id])
+					unless @campaign.nil?
+						@campaign.crop_x = params[:campaign][:crop_x]
+						@campaign.crop_y = params[:campaign][:crop_y]
+						@campaign.crop_w = params[:campaign][:crop_w]
+						@campaign.crop_h = params[:campaign][:crop_h]
+						if @campaign.save
+							if @campaign.crop_campaign_image
+								flash[:notice] = "Your campaign image has been cropped!!!"
+								redirect_to "/admin/campaigns"
+							else
+								flash[:error] = "An error occurred while trying to crop the campaign image. Please try again..."
+								redirect_to "/admin/campaigns"
+							end
+						else
+							flash[:error] = "An error occurred while trying to crop the campaign image. Please try again..."
+							redirect_to "/admin/campaigns"
+						end
+					else
+						flash[:error] = "An error occurred while trying to find the campaign to update. Please try again."
+						redirect_to "/admin/campaign/new-index"
+					end
+				else
+					flash[:error] = "An error occurred while trying to find the campaign to update. Please try again."
+					redirect_to "/admin/campaign/new-index"
 				end
 			else
 				redirect_to root_url

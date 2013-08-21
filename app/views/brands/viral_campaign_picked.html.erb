@@ -62,14 +62,11 @@
 						<h2><%= @campaign.title %> <% if @campaign.status=="active" %><span class="label label-success">Live</span><% else %><span class="label label-important">Inactive</span><% end %></h2>
 						<h3>Get your Faceboook fans involved:</h3>
 						<a title="sweepstakes contests giveaways brandbuddee" href="/brands/campaigns/viral-install-fb?_id=<%= @campaign.id %>" class="btn install-to-facebook"><i class="icon-facebook-sign"></i>&nbsp;&nbsp;INSTALL TO A FACEBOOK PAGE</a>
-						<!-- <h3 style="margin-bottom:1.5%;">Copy this code and put on any website or blog of yours:</h3>
-						<textarea readonly rows="4" id="txtEmbedCode"><a title="sweepstakes contests giveaways brandbuddee" id="rc-796e1c3" class="rafl" href="http://www.rafflecopter.com/rafl/display/796e1c3/" rel="nofollow">a Rafflecopter giveaway</a><script src="//d12vno17mo87cx.cloudfront.net/embed/rafl/cptr.js"></script></textarea>
-						<a title="sweepstakes contests giveaways brandbuddee" href="#" id="btnCopyToClipboard" class="btn" data-clipboard-target="txtEmbedCode"><i class="icon-copy"></i>&nbsp;&nbsp;COPY THE CODE TO CLIPBOARD</a> -->
-						<!-- <h3>Spread the word through Facebook and Email:</h3> -->
-						<!-- <div class="text-center"> -->
-							<%# link_to image_tag("facebook.png", size: '230x44'), "/brands/invite/facebook" %>
-							<%# link_to image_tag("email.png", size: '230x44', style: "margin-top:1%;"), "/brands/invite/email" %>
-						<!-- </div> -->
+						<h3 style="margin-bottom:1.5%;">Copy this code and put on any website or blog of yours:</h3>
+						<textarea readonly rows="4" id="txtEmbedCode"><div id="the-brandbuddee-embed-widget" data-frameloc="<%= root_url %>campaign/3664591/go_viral"><a id="the-brandbuddee-embed-widget-anchor" href="<%= root_url %>campaign/3664591" rel="nofollow">a brandbuddee campaign</a></div><script src="<%= root_url %>js/website_embed_script.js"></script></textarea>
+						<a title="sweepstakes contests giveaways brandbuddee" href="#" id="btnCopyToClipboard" class="btn" data-clipboard-target="txtEmbedCode"><i class="icon-copy"></i>&nbsp;&nbsp;COPY THE CODE TO CLIPBOARD</a>
+						<%= link_to image_tag("facebook.png", size: "246x47", alt: "sweepstakes-contests-giveaways-brandbuddee", title: "Sweepstakes Contests Giveaways brandbuddee", style: "margin-top:2%;"), "/brands/campaigns/viral-invite-facebook?_id=#{@campaign.id}" %>
+						<%= link_to image_tag("email.png", size: "246x47", alt: "sweepstakes-contests-giveaways-brandbuddee", title: "Sweepstakes Contests Giveaways brandbuddee", style: "margin-top:1%;"), "/brands/campaigns/viral-invite-email?_id=#{@campaign.id}" %>
 					</div>
 				</div>
 			</div>

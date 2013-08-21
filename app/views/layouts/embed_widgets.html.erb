@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html <%= yield :embed_widget_index %>>
 <head>
 	<title>brandbuddee</title>
 	<meta name="description" content="The number one social media loyalty rewards platform where fans earn points towards rewards sharing their favorite brands and completing fun tasks.">
@@ -34,6 +34,7 @@
 </head>
 <body>
 	<div id="fb-root"></div>
+	<%= yield :facebook_js_auth %>
 	<%= yield %>
 	<%= javascript_include_tag "application" %>
 	<script src="/js/brands/embed_widget_overrides.js" type="text/javascript"></script>

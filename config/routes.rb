@@ -81,6 +81,10 @@ Brandbuddee::Application.routes.draw do
   match '/brands/campaigns/viral-install-fb' =>'brands#viral_campaign_install_fb'
   match '/brands/campaigns/viral-page-chosen' => 'brands#viral_campaign_fb_page_chosen'
   match '/brands/facebook-re-connect' => 'brands#facebook_reconnect'
+  match '/brands/campaigns/viral-invite-email' => 'brands#viral_invite_email'
+  match '/brands/campaigns/viral-invite-facebook' => 'brands#viral_invite_facebook'
+  match '/brands/campaigns/viral-invite-fb-search' => 'brands#viral_invite_fb_search'
+  match '/brands/campaigns/viral-invite-email-send' => 'brands#viral_invite_email_send'
   #resources :brands
   
   match 'complete/email' => 'users#complete_email'
@@ -129,6 +133,7 @@ Brandbuddee::Application.routes.draw do
 
   match 'admin/campaign/new' => 'admin#campaign_new'
   match '/admin/campaign/new-index' => 'admin#campaign_new_index'
+  match '/admin/campaign/apply-crop' => 'admin#campaign_apply_crop'
   match 'admin/campaign/view' => 'admin#view_campaign'
   match 'admin/campaign/edit' => 'admin#edit_campaign'
   match 'admin/campaign/update' => 'admin#update_campaign'
@@ -192,8 +197,18 @@ Brandbuddee::Application.routes.draw do
   match '/campaign/:campaign/tumblr_content' => 'campaign#tumblr_content', :as => :campaign
   match '/campaign/:campaign/tumblr_post' => 'campaign#tumblr_post', :as => :campaign
 
-  # match '/campaign/:campaign/go_viral' => 'embed_widgets#index', :as => :campaign #Website Embed Widget
-  # match '/campaign/:campaign/go_viral_new_user' => 'embed_widgets#create_user', :as => :campaign #Website Embed Widget
+  match '/campaign/:campaign/go_viral' => 'embed_widgets#website_index', :as => :campaign
+  match '/campaign/:campaign/go_viral_joined' => 'embed_widgets#website_joined', :as => :campaign
+  match '/campaign/:campaign/go_viral_signup' => 'embed_widgets#website_signup', :as => :campaign
+  match '/campaign/:campaign/go_viral_join_camp' => 'embed_widgets#website_join_campaign', :as => :campaign
+  match '/campaign/:campaign/go_viral_email_signin' => 'embed_widgets#website_email_signin', :as => :campaign
+  match '/campaign/:campaign/go_viral_create_username' => 'embed_widgets#website_create_username', :as => :campaign
+  match '/campaign/:campaign/go_viral_update_username' => 'embed_widgets#website_update_username', :as => :campaign
+  match '/campaign/:campaign/go_viral_create_account_from_email' => 'embed_widgets#website_create_account_from_email', :as => :campaign
+  match '/campaign/:campaign/go_viral_task_complete' => 'embed_widgets#website_task_complete', :as => :campaign
+  match '/campaign/:campaign/go_viral_task_undo' => 'embed_widgets#website_task_undo', :as => :campaign
+  match '/campaign/:campaign/go_viral_fb_wall_post' => 'embed_widgets#website_fb_wall_post', :as => :campaign
+  match '/campaign/:campaign/go_viral_fb_error' => 'embed_widgets#website_fb_error_page', :as => :campaign
 
   match '/post/facebook' => 'campaign#facebook_wall_post'
   #match '/facebook/connect' => 'users#facebook_connect'
@@ -217,7 +232,7 @@ Brandbuddee::Application.routes.draw do
   get "/b/:share_link" => "welcome#share"
   get "/share" => "welcome#share"
 
-  resources :reset_passwords
+  resources :reset_passwords, except: [:show]
   
 
   

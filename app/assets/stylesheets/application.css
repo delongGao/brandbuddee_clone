@@ -11,6 +11,16 @@
  *= require bootstrap-wysihtml5
 */
 
+#wrap {
+	min-height: 100%;
+	height: auto !important;
+	height: 100%;
+	/* Negative indent footer by it's height */
+	margin: 0 auto -215px;
+}
+#push, #footer {
+	height: 215px;
+}
 * {
 	margin: 0;
 	padding: 0;

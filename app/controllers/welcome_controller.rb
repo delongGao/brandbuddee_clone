@@ -156,12 +156,14 @@ class WelcomeController < ApplicationController
 
 	def create_brand
 		if current_user
-	      	flash[:error] = "You can't be logged in as a buddee and sign up as a brand."
-	      	redirect_to "/home"
-	    elsif current_brand
-	      	flash[:error] = "You are already logged in as a brand!"
-	      	redirect_to "/brands/dashboard"
-	    else
+    	flash[:error] = "You can't be logged in as a buddee and sign up as a brand."
+    	redirect_to "/home"
+    elsif current_brand
+    	flash[:error] = "You are already logged in as a brand!"
+    	redirect_to "/brands/dashboard"
+    elsif params[:brand].nil?
+    	redirect_to "/brands/signup"
+    else
 			@brand = Brand.new(params[:brand])
 			@brand.email = @brand.email.downcase
 			@brand.provider = "email"

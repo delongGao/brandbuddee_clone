@@ -202,38 +202,42 @@ class UsersController < ApplicationController
   end
 
   def password_reset_update
-    email = params[:password_reset][:email]
+  	unless params[:password_reset].nil?
+	    email = params[:password_reset][:email]
 
-    if email.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i).nil?
-      flash[:notice] = "Invalid Email"
-      redirect_to(:action => 'password_reset')
-    else
-      @user = User.where(:email => params[:password_reset][:email]).first
+	    if email.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i).nil?
+	      flash[:notice] = "Invalid Email"
+	      redirect_to(:action => 'password_reset')
+	    else
+	      @user = User.where(:email => params[:password_reset][:email]).first
 
-      if @user.nil?
-        flash[:notice] = "This email is not associated with a brandbuddee account. Please try another email address."
-        redirect_to(:action => 'password_reset')
-      elsif @user != nil && @user.provider == nil
-        @password_reset = PasswordReset.create!(params[:password_reset])
-        @password_reset.date = Time.now
-        @password_reset.name = @user.first_name
-        hash_code = PasswordReset.assign_hash()
-        @password_reset.hash_code = hash_code.to_s
+	      if @user.nil?
+	        flash[:notice] = "This email is not associated with a brandbuddee account. Please try another email address."
+	        redirect_to(:action => 'password_reset')
+	      elsif @user != nil && @user.provider == nil
+	        @password_reset = PasswordReset.create!(params[:password_reset])
+	        @password_reset.date = Time.now
+	        @password_reset.name = @user.first_name
+	        hash_code = PasswordReset.assign_hash()
+	        @password_reset.hash_code = hash_code.to_s
 
-        if @password_reset.save
-          UserMailer.password_reset(@password_reset, root_url).deliver
-          flash[:notice] = "Password reset sent to <b>#{params[:password_reset][:email]}</b>"
-          redirect_to(:action => 'password_reset')
-        else
-          flash[:notice] = "Please try again..."
-          redirect_to(:action => 'password_reset')
-        end
-      else
-        flash[:notice] = "This email is not associated with a brandbuddee account created via email. Please try another email."
-        redirect_to(:action => 'password_reset')
-      end
-    end
-
+	        if @password_reset.save
+	          UserMailer.password_reset(@password_reset, root_url).deliver
+	          flash[:notice] = "Password reset sent to <b>#{params[:password_reset][:email]}</b>"
+	          redirect_to(:action => 'password_reset')
+	        else
+	          flash[:notice] = "Please try again..."
+	          redirect_to(:action => 'password_reset')
+	        end
+	      else
+	        flash[:notice] = "This email is not associated with a brandbuddee account created via email. Please try another email."
+	        redirect_to(:action => 'password_reset')
+	      end
+	    end
+	else
+		flash[:notice] = "You must enter your email address to reset your password. Please try again."
+		redirect_to "/password/reset"
+	end
   end
 
   def password_reset_submit

@@ -36,6 +36,23 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def get_campaign_from_link_param
+  	unless params[:campaign].blank?
+  		params_campaign = params[:campaign].downcase
+  		@campaign = Campaign.where(:link => params_campaign).first
+  		unless @campaign.nil?
+  			@brand = @campaign.brand
+  			if @brand.nil?
+  				render text: "An error occurred while trying to retrieve brand associated with the campaign you are looking for. Please refresh your page and try again."
+  			end
+  		else
+  			render text: "The campaign you are looking for could not be found. Please contact the site owner for details."
+  		end
+		else
+			render text: "There is a problem with the code used to install the embed widget to this page. Please have the site owner check the code, and then try again."
+  	end
+  end
+
   def str_is_valid_url(input)
     if input.match(/\b((http(s?):\/\/)([a-z0-9\-]+\.)+(MUSEUM|TRAVEL|AERO|ARPA|ASIA|EDU|GOV|MIL|MOBI|COOP|INFO|NAME|BIZ|CAT|COM|INT|JOBS|NET|ORG|PRO|TEL|A[CDEFGILMNOQRSTUWXZ]|B[ABDEFGHIJLMNORSTVWYZ]|C[ACDFGHIKLMNORUVXYZ]|D[EJKMOZ]|E[CEGHRSTU]|F[IJKMOR]|G[ABDEFGHILMNPQRSTUWY]|H[KMNRTU]|I[DELMNOQRST]|J[EMOP]|K[EGHIMNPRWYZ]|L[ABCIKRSTUVY]|M[ACDEFGHKLMNOPQRSTUVWXYZ]|N[ACEFGILOPRUZ]|OM|P[AEFGHKLMNRSTWY]|QA|R[EOSUW]|S[ABCDEGHIJKLMNORTUVYZ]|T[CDFGHJKLMNOPRTVWZ]|U[AGKMSYZ]|V[ACEGINU]|W[FS]|Y[ETU]|Z[AMW])(:[0-9]{1,5})?((\/([a-z0-9_\-\.~]*)*)?((\/)?\?[a-z0-9+_\-\.%=&amp;]*)?)?(#[a-zA-Z0-9!$&'()*+.=-_~:@\/?]*)?)/i)
       true

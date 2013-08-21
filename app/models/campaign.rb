@@ -63,8 +63,10 @@ class Campaign
   mount_uploader :gift_image, CampaignGiftUploader
   mount_uploader :gift_image_two, CampaignGiftUploader
   mount_uploader :gift_image_three, CampaignGiftUploader
-  attr_accessible :campaign_image, :date, :last_updated, :title, :detail, :points_required, :link, :limit, :share_link, :redeem_details, :location, :tweet, :reward, :easy_prize, :gift_image, :gift_image_two, :gift_image_three, :task_blog_post, :redeem_name, :redeem_email, :redeem_phone, :redeem_value, :redeem_expires, :redeem_event_date, :redeem_is_raffle, :redeem_special_circ, :is_white_label
 
+  attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
+  attr_accessible :campaign_image, :date, :last_updated, :title, :detail, :points_required, :link, :limit, :share_link, :redeem_details, :location, :tweet, :reward, :easy_prize, :gift_image, :gift_image_two, :gift_image_three, :task_blog_post, :redeem_name, :redeem_email, :redeem_phone, :redeem_value, :redeem_expires, :redeem_event_date, :redeem_is_raffle, :redeem_special_circ, :is_white_label
+  
   EMAIL_REGEX = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i
   MONEY_REGEX = /^\$\d+\.?\d{2}?+$/
   validates :redeem_name, presence: true, length: { maximum: 60, too_long: "cannot be longer than 60 characters." }
@@ -73,6 +75,9 @@ class Campaign
   validates :redeem_expires, presence: true
   validates :redeem_special_circ, length: { maximum: 5000, too_long: "cannot be longer than 5000 characters." }
   
+  def crop_campaign_image
+  	campaign_image.recreate_versions! if crop_x.present?
+  end
 
   def self.assign_link
     o =  [(1..9)].map{|i| i.to_a}.flatten;

@@ -48,10 +48,18 @@ class Share
 
   def bitly_share_link
     if self.bitly_link.blank?
-      bitly = Bitly.client
-      self.bitly_link = bitly.shorten("http://brandbuddee.com/s/#{self.link}").short_url
-      self.save!
-      self.bitly_link
+    	begin
+      	bitly = Bitly.client
+      	self.bitly_link = bitly.shorten("http://brandbuddee.com/s/#{self.link}").short_url
+      	self.save!
+      	self.bitly_link
+      rescue Errno::ENOENT # No internet / Bad Connection
+      	if Rails.env.production?
+      		"http://brandbuddee.com/s/#{link}"
+      	elsif Rails.env.development?
+      		"http://localhost:3000/s/#{link}"
+      	end
+      end
     else
       self.bitly_link
     end

@@ -10,7 +10,7 @@ class CampaignController < ApplicationController
 		if campaign.nil?
 		  redirect_to root_url
 		else
-			unless @campaign.nil? || @campaign.is_white_label == true
+			unless @campaign.nil?
 				unless current_user.nil?
 					the_share = Share.where(:campaign_id => @campaign.id, :user_id => current_user.id).first
 					unless the_share.nil? #User has not yet joined the campaign

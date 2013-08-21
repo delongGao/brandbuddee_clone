@@ -16,16 +16,34 @@ class CampaignImageUploader < CarrierWave::Uploader::Base
     "#{mounted_as}/#{model.id}"
   end
 
+  version :large do
+    resize_to_limit(600, 600)
+  end
+
   version :thumb do
-    process :resize_to_fill => [50, 50]
+    resize_to_fill(50, 50)
   end
   
   version :standard do
-    process :resize_to_fill => [260, 180]
+  	process :crop
+    resize_to_fill(260, 180)
   end
 
   version :email do
-    process :resize_to_fill => [600, 300]
+    resize_to_fill(600, 300)
+  end
+
+  def crop
+  	if model.crop_x.present?
+  		resize_to_limit(600, 600)
+  		manipulate! do |img|
+  			x = model.crop_x.to_i
+  			y = model.crop_y.to_i
+  			w = model.crop_w.to_i
+  			h = model.crop_h.to_i
+  			img.crop!(x, y, w, h)
+  		end
+  	end
   end
 
 

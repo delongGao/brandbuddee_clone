@@ -374,4 +374,133 @@ class BrandsController < ApplicationController
 			redirect_to "/auth/facebook"
 		end
 	end
+
+	def viral_invite_email
+		@brand = Brand.find(@current_brand.id)
+		@campaign = @brand.campaigns.where(:_id => params[:_id]).first unless params[:_id].blank?
+		if @campaign.nil?
+			flash[:error] = "The campaign you are trying to install to your Facebook Page could not be found. Please choose a different one."
+			redirect_to "/brands/dashboard"
+		end
+	end
+
+	def viral_invite_email_send
+		@brand = Brand.find(@current_brand.id)
+		unless params[:campaign_id].nil?
+			@campaign = Campaign.find(params[:campaign_id])
+			unless @campaign.nil? || @campaign.brand.id != @brand.id
+				unless params[:to].blank?
+					subject = "#{@brand.name} wants you to check out this free giveaway!"
+					unless params[:message].blank?
+						message = params[:message]
+					else
+						message = "Check out #{@brand.name} on brandbuddee.com!"
+					end
+					unless @brand.embeds.where(link:@campaign.link).first.nil?
+						page_id = @brand.embeds.where(link:@campaign.link).first.fb_page_id
+					else
+						page_id = "171681306187771"
+					end
+					if UserMailer.email_white_label_invite(params[:to], subject, message, @brand, page_id).deliver
+						flash[:success] = "Your email has been sent!"
+						redirect_to "/brands/campaigns/viral?_id=#{@campaign.id}"
+					else
+						flash[:error] = "An error occurred while trying to send your email. Please try again."
+						redirect_to "/brands/campaigns/viral-invite-email?_id=#{@campaign.id}"
+					end
+				else
+					flash[:error] = "You must fill out the field: To, when telling friends via email"
+					redirect_to "/brands/campaigns/viral-invite-email?_id=#{@campaign.id}"
+				end
+			else
+				flash[:error] = "An error occurred while trying to find the campaign you are trying to share. Please try again."
+				redirect_to "/brands/dashboard"	
+			end
+		else
+			flash[:error] = "An error occurred while trying to find the campaign you are trying to share. Please try again."
+			redirect_to "/brands/dashboard"
+		end
+	end
+
+	def viral_invite_facebook
+		@brand = Brand.find(@current_brand.id)
+		@campaign = @brand.campaigns.where(:_id => params[:_id]).first unless params[:_id].blank?
+		if @campaign.nil?
+			flash[:error] = "The campaign you are trying to install to your Facebook Page could not be found. Please choose a different one."
+			redirect_to "/brands/dashboard"
+		else
+			unless @brand.facebook_token.blank? || @brand.facebook_expires.blank? || @brand.facebook_expires < Time.now
+				begin
+					@facebook ||= Koala::Facebook::API.new(@brand.facebook_token)
+					@friendslist = @facebook.get_connection("me", "friends", {"limit" => "100"})
+					unless @friendslist.blank?
+						@friendslist = @facebook.get_page(params[:page]) unless params[:page].nil?
+					else
+						flash[:error] = "We could not find any friends in your friends list. If you believe this message is an error on our part, it could be because you have not yet connected your account with Facebook, or because the connection has expired. If so, <a href='/brands/facebook-re-connect?_id=#{@campaign.id}' class='btn-mini btn-warning'>Click Here to Reconnect with Facebook</a>."
+						redirect_to "/brands/campaigns/viral?_id=#{@campaign.id}"
+					end
+				rescue Koala::Facebook::APIError => e
+					flash[:error] = "An error occurred while trying to retrieve your list of Facebook Friends. This could be because you have not yet connected your account with Facebook, or because the connection has expired. Either way <a href='/brands/facebook-re-connect?_id=#{@campaign.id}' class='btn-mini btn-warning'>Click Here to Reconnect with Facebook</a>. Here is the error: #{e.to_s}"
+					redirect_to "/brands/campaigns/viral?_id=#{@campaign.id}"
+				end
+			else
+				flash[:error] = "Your brand account has not been connected with Facebook, or the connection has expired. Either way <a href='/brands/facebook-re-connect?_id=#{@campaign.id}' class='btn-mini btn-warning'>Click Here to Reconnect with Facebook</a>"
+				redirect_to "/brands/campaigns/viral?_id=#{@campaign.id}"
+			end
+		end
+	end
+
+	def viral_invite_fb_search
+		@brand = Brand.find(@current_brand.id)
+		unless params[:campaign_id].nil?
+			@campaign = Campaign.find(params[:campaign_id])
+			unless @campaign.nil?
+				unless @brand.facebook_token.blank? || @brand.facebook_expires.blank? || @brand.facebook_expires < Time.now
+					begin
+						@facebook ||= Koala::Facebook::API.new(@brand.facebook_token)
+						@allfriends = @facebook.get_connection("me", "friends")
+						unless @allfriends.blank?
+							unless params[:query].blank?
+								query_split = params[:query].split(" ")
+								@friendslist = Array.new
+								@allfriends.each do |friend|
+									add_me = false
+									name_split = friend["name"].split(" ")
+									name_split.each do |n|
+										query_split.each do |q|
+											if n.downcase.start_with?(q.downcase) || n.downcase.end_with?(q.downcase)
+												add_me = true
+												break
+											end
+										end
+									end
+									unless add_me.nil? || add_me == false
+										@friendslist << {"id" => friend["id"], "name" => friend["name"]}
+									end
+								end
+							else
+								flash[:error] = "You must enter a name when searching for a Facebook Friend. Please try again."
+								redirect_to "/brands/campaigns/viral?_id=#{@campaign.id}"
+							end
+						else
+							flash[:error] = "We could not find any friends in your friends list. If you believe this message is an error on our part, it could be because you have not yet connected your account with Facebook, or because the connection has expired. If so, <a href='/brands/facebook-re-connect?_id=#{@campaign.id}' class='btn-mini btn-warning'>Click Here to Reconnect with Facebook</a>."
+							redirect_to "/brands/campaigns/viral?_id=#{@campaign.id}"
+						end
+					rescue Koala::Facebook::APIError => e
+						flash[:error] = "An error occurred while trying to retrieve your list of Facebook Friends. This could be because you have not yet connected your account with Facebook, or because the connection has expired. Either way <a href='/brands/facebook-re-connect?_id=#{@campaign.id}' class='btn-mini btn-warning'>Click Here to Reconnect with Facebook</a>. Here is the error: #{e.to_s}"
+						redirect_to "/brands/campaigns/viral?_id=#{@campaign.id}"
+					end
+				else
+					flash[:error] = "Your brand account has not been connected with Facebook, or the connection has expired. Either way <a href='/brands/facebook-re-connect?_id=#{@campaign.id}' class='btn-mini btn-warning'>Click Here to Reconnect with Facebook</a>"
+					redirect_to "/brands/campaigns/viral?_id=#{@campaign.id}"
+				end
+			else
+				flash[:error] = "An error occurred while trying to find the campaign you are trying to share."
+				redirect_to "/brands/dashboard"
+			end
+		else
+			flash[:error] = "An error occurred while trying to find the campaign you are trying to share."
+			redirect_to "/brands/dashboard"
+		end
+	end
 end

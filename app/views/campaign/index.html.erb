@@ -1,3 +1,6 @@
+<% unless @campaign.nil? || @campaign.title.blank? %>
+	<% provide(:page_title_tag, @campaign.title) %>
+<% end %>
 <%= render 'shared/header' %>
 <% unless current_user %>
     <div class="span8" id="promo-campaign-wrap">

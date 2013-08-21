@@ -1,214 +1,8 @@
 // Place all the styles related to the welcome controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-
-// vraiables
-// @bb-blue: #7EC1E1;
-// @bb-green: #C7E478;
-
-
-
-.welcome-logo {
-	display: block;
-	position: absolute;
-	top: 37%;
-	left: 0;
-	right: 0;
-	width: 500px;
-	margin: 0 auto;
-}
-
-.splashLeft {
-	float: left;
-	height: 100%;
-	width: 50%;
-	color: #FFF;
-	text-align: right;
-}
-
-.splashLeftBg {
-	position: fixed;
-	width: 50%;
-	height: 100%;
-	background: rgba(0,0,0,0.9);
-}
-
-.splashRight {
-	float: right;
-	min-height: 100%;
-	width: 50%;
-	background: #FFF url('/assets/splash_bg.png') repeat;
-}
-
-.splash_logo {
-	display: block;
-	position: relative;
-	top: -8px;
-}
-
-.splash_wrap {
-	display: block;
-	position: absolute;
-	top: 35%;
-	left: 0;
-	right: 0;
-	width: 950px;
-	margin: 0 auto;
-}
-
-.splashLoginWrap {
-	display: block;
-	position: absolute;
-	margin-left: 65px;
-	width: 450px;
-}
-
-.splashLogin {
-	float: right;
-	margin-top: 23px;
-	margin-right: 7px;
-}
-
-.splashMessage {
-	display: block;
-	position: absolute;
-	top: 33%;
-	margin-left: 65px;
-	width: 450px;
-}
-
-.splashMessage h2 {
-	line-height: 25px;
-	color: rgba(0,0,0,0.7);
-	font-weight: 400;
-	font-size: 20px;
-}
-
-.splashMessage h4 {
-	color: rgba(0,0,0,0.7);
-}
-
-.beta_form {
-	margin-top: 15px;
-}
-
 input.input-large {
     padding: 8px 12px;
-}
-
-div.gradient {
-    background: url(../img/gradient.png) no-repeat top center;
-    min-height: 770px;
-}
-
-div.content {
-    text-align: center;
-    margin-top: 1.5em;
-}
-
-a.sb.gplus,
-.sb a.gplus {
-	background-image: url(../img/social-buttons/gplus.png);
-}
-
-.splashFooter {
-	display: block;
-	position: absolute;
-	margin-left: 20px;
-	bottom: 7px;
-	font-size: 11px;
-	color: rgba(0,0,0,0.3);
-}
-
-.splashFooter span {
-	margin: 0 5px;	
-}
-
-.subscribe_container {
-	display: none;
-	position: relative;
-	top: 225px;
-	left: 0;
-	right: 0;
-	width: 380px;
-	//margin: 0 auto;
-}
-
-.subscribe_wrap {
-	position: relative;
-	//width: 333px;
-	//margin: 0 auto;
-	margin-top:75px;
-}
-
-#share_box {
-	position: relative;
-	right: -75px;
-	color: #000;
-}
-
-#share_message {
-	padding: 0;
-}
-
-.sharing {
-	float: left;
-	position: relative;
-	width: auto;
-	margin: 0 auto;
-	margin-top: 5px;
-	margin-right: 10px;
-	margin-bottom: 10px;
-}
-
-.twitter-share {
-	display: block;
-	width: 51px;
-	margin-top: 8px;
-}
-
-.facebook-share {
-	display: block;
-	width: 125px;
-	padding-top: 2px;
-	height: 26px;
-}
-
-#share {
-	display: none;
-	position: relative;
-	top: 61px;
-	//margin: 0 auto;
-	height: auto;
-	width: 475px;
-}
-
-#share h4 {
-	padding: 0 !important;
-	font-size: 19px !important;
-}
-
-#share h5 {
-	padding: 0 !important;
-	line-height: 15px !important;
-	color: rgba(0,0,0,0.7);
-}
-
-#flash_notice {
-	font-size: 11px;
-	margin-top: 7px;
-	width: 81px;
-	//padding: 3px 13px;
-}
-
-#flash_notice_email {
-	font-size: 11px;
-	padding: 3px 13px;
-	text-align: center;
-	width: 371px;
-	margin: 0 auto;
-	margin-top: -10px;
-	margin-bottom: 15px;
 }
 
 .social_link {
@@ -248,20 +42,12 @@ a.sb.gplus,
 	top: -10px;
 }
 
-.pricing_table {
-	height: 460px;
-}
 .ac {
 	display: block;
 	position: relative;
 	bottom: 0;
 }
 
-.testimonial {
-	font-size: 18px;
-	font-style: italic;
-	line-height: 30px;
-}
 .text-glow {
 	webkit-stroke-width: 5.3px;
    -webkit-stroke-color: #FFFFFF;
@@ -302,9 +88,6 @@ div#home-page-container {
 	font-weight: 300;
 	letter-spacing: 1px;
 }
-.thumb-title {
-	text-align:center;
-}
 .home-thumblock {
 	background: url(/assets/headerbg-new.png);
 	border-radius: 3px;
@@ -330,9 +113,6 @@ div#home-page-container {
 #thumb-buddee {
 	border: solid 5px #C7E478;
 
-}
-.well-small {
-	margin: 0 0 30px; 
 }
 .thumb-head {
 	margin: 10px 0;
@@ -383,95 +163,6 @@ div#home-page-container {
 }
 .thumb-content strong, .thumb-button strong {
 	font-weight: 500;
-}
-
-
-.home-page-text {
-	font-size:30px;
-	margin-left:10%;
-	padding-bottom:1.5%;
-}
-.home-page-text span {
-	font-weight:bold;
-}
-// HOME PAGE BOTTOM ABOVE FOOTER GREY AREA
-.home-page-bottom {
-	border-top: 2px solid #a4a4a4;
-	background-color: #D8D8D8;
-	// height: 200px;
-	min-height: 200px; // important
-	margin-top:-4%;
-	.left {
-		border-right: #A4A4A4;
-		border-right-style:solid;
-		float: left;
-		width: 50%;
-		// height: 200px;
-		min-height: 200px; // important
-	}
-	.right {
-		width: 50%;
-		// height: 200px;
-		min-height: 200px; // important
-	}
-	h1 {
-		padding-top: 20px;
-	}
-	p {
-		font-size: 25px;
-		color: #848484;
-		margin-left: 10px;
-		margin-bottom: 0; // important
-	}
-}
-// END HOME PAGE BOTTOM ABOVE FOOTER GREY AREA
-.home-carousel-shadow {
-	position: relative;
-  	margin-left: auto;
-  	margin-right: auto;
-  	-moz-user-select: none;
-  	-khtml-user-select: none;
-  	-webkit-user-select: none;
-  	-o-user-select: none;
-  	background: url(/assets/slider-shadow225.png) no-repeat;
-  	height: 30px;
-  	bottom:20px;
-  	left:120px;
-  	z-index:-1;
-}
-.pricing_table, .most-popular {
-	-webkit-transition: all .3s ease-in-out;
-	-moz-transition: all .3s ease-in-out;
-	-o-transition: all .3s ease-in-out;
-	-ms-transition: all .3s ease-in-out;
-	transition: all .3s ease-in-out;
-}
-.pricing_table, .most-popular {
-	-webkit-transform: translate(0px, 0px);
-	-moz-transform: translate(0px, 0px);
-	-o-transform: translate(0px, 0px);
-	-ms-transform: translate(0px, 0px);
-	transform: translate(0px, 0px);
-}
-.pricing_table:hover, .most-popular:hover {
-	-webkit-transform: translate(0,-10px);
-	-moz-transform: translate(0,-10px);
-	-o-transform: translate(0,-10px);
-	-ms-transform: translate(0,-10px);
-	transform: translate(0,-10px);
-}
-.home-carousel-ribbon {
-	position: relative;
-	margin-left: auto;
-	margin-right: auto;
-	-moz-user-select: none;
-	-khtml-user-select: none;
-	-webkit-user-select: none;
-	-o-user-select: none;
-	background: url(/assets/home-slider-ribbon.png) no-repeat;
-	height: 111px;
-	bottom: 435px;
-	left: 77px;
 }
 .select-share-enjoy {
 	-webkit-transition-duration: 0.7s;
@@ -744,19 +435,6 @@ text-decoration: none;
 	border-radius: 50%;
 }
 // END /tell-me-more divider with dots on ends
-@media (max-width: 979px) {
-	.home-carousel-ribbon, .home-carousel-shadow {
-		display:none;
-	}
-	.home-page-bottom {
-		margin-top:0;
-	}
-}
-@media (max-width: 767px) {
-	.home-page-bottom {
-		margin-top:5%;
-	}
-}
 
 // BRANDS PAGE
 .ch-brand-img-1 {
@@ -797,17 +475,6 @@ background:#fff url(/assets/brand-cogs.png) no-repeat;
 .brand-features-modal-text {
 	font-size:1.5em;
 	line-height:120%;
-}
-a.brand-sign-up-link {
-	color:white;
-	-webkit-transition: all .5s ease-in-out;
-	-moz-transition: all .5s ease-in-out;
-	-o-transition: all .5s ease-in-out;
-	-ms-transition: all .5s ease-in-out;
-	transition: all .5s ease-in-out;
-	&:hover {
-		color:#5f89d5;
-	}
 }
 @media (min-width: 768px) {
 	.responsive-center-btn {
