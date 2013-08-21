@@ -77,77 +77,6 @@ class SessionsController < ApplicationController
             end
           end
         end
-      elsif !session[:brand_connect_with_fb].nil? # Brand Reconnect w/ FB
-        if current_brand
-          @brand = Brand.find(current_brand.id)
-          @campaign = @brand.campaigns.where(:_id => session[:brand_connect_with_fb]).first
-          session[:brand_connect_with_fb] = nil
-          unless @campaign.nil?
-            if @brand.provider == "facebook"
-              if @brand.uid == auth["uid"]
-                @brand.facebook_token = auth["credentials"]["token"]
-                unless auth["credentials"]["expires_at"].nil?
-            			@brand.facebook_expires = Time.at(auth["credentials"]["expires_at"])
-            		else
-            			@brand.facebook_expires = DateTime.now + 60.days
-            		end
-                if @brand.save(validate: false)
-                  redirect_to "/brands/campaigns/viral-install-fb?_id=#{@campaign.id}"
-                else
-                  flash[:error] = "An error occurred while trying to update your Brand Account with Facebook Connection Info. Please try again."
-                  redirect_to "/brands/campaigns/viral?_id=#{@campaign.id}"
-                end
-              else
-                flash[:error] = "The Facebook Account you are trying to update with does not belong to this Brand Account. Please login with a different Facebook Account and try again."
-                redirect_to "/brands/campaigns/viral?_id=#{@campaign.id}"
-              end
-            elsif @brand.provider == "email"
-              unless Brand.exists?(conditions: { provider: auth["provider"], uid: auth["uid"] })
-                @brand.facebook_token = auth["credentials"]["token"]
-                unless auth["credentials"]["expires_at"].nil?
-                  @brand.facebook_expires = Time.at(auth["credentials"]["expires_at"])
-                else
-                  @brand.facebook_expires = DateTime.now + 60.days
-                end
-                if @brand.save(validate: false)
-                  redirect_to "/brands/campaigns/viral-install-fb?_id=#{@campaign.id}"
-                else
-                  flash[:error] = "An error occurred while trying to update your Brand Account with Facebook Connection Info. Please try again."
-                  redirect_to "/brands/campaigns/viral?_id=#{@campaign.id}"
-                end
-              else
-                flash[:error] = "The Facebook Account you are trying to connect with belongs to an existing Brand Account. Please login with a different Facebook Account and try again."
-                redirect_to "/brands/campaigns/viral?_id=#{@campaign.id}"
-              end
-            elsif @brand.provider == "twitter"
-            	unless Brand.exists?(conditions: { provider: auth["provider"], uid: auth["uid"] })
-                @brand.facebook_token = auth["credentials"]["token"]
-                unless auth["credentials"]["expires_at"].nil?
-                  @brand.facebook_expires = Time.at(auth["credentials"]["expires_at"])
-                else
-                  @brand.facebook_expires = DateTime.now + 60.days
-                end
-                if @brand.save(validate: false)
-                  redirect_to "/brands/campaigns/viral-install-fb?_id=#{@campaign.id}"
-                else
-                  flash[:error] = "An error occurred while trying to update your Brand Account with Facebook Connection Info. Please try again."
-                  redirect_to "/brands/campaigns/viral?_id=#{@campaign.id}"
-                end
-              else
-                flash[:error] = "The Facebook Account you are trying to connect with belongs to an existing Brand Account. Please login with a different Facebook Account and try again."
-                redirect_to "/brands/campaigns/viral?_id=#{@campaign.id}"
-              end
-            else
-              redirect_to root_url
-            end
-          else
-            flash[:error] = "The campaign you are trying to install to your Facebook Page could not be found. Please try again."
-            redirect_to "/brands/dashboard"
-          end
-        else
-          session[:brand_connect_with_fb] = nil
-          redirect_to root_url
-        end
       else # User Auth (Both Regular and FB Embed Widget)
         unless session[:fb_embed_widget_signup].nil? # User Auth For FB Embed Widget
           str = session[:fb_embed_widget_signup]
@@ -476,6 +405,76 @@ class SessionsController < ApplicationController
           			else
           				render text: "An error occurred while trying to find the campaign you are looking for. Please try again later..."
           			end
+          		elsif params[:state].start_with?("brand_connect_with_fb_") # Brand FB Reconnect
+          			camp_id = params[:state][22..-1]
+          			@campaign = Campaign.where(_id: camp_id).first
+          			unless @campaign.nil?
+					        if current_brand
+					          @brand = Brand.find(current_brand.id)
+				            if @brand.provider == "facebook"
+				              if @brand.uid == auth["uid"]
+				                @brand.facebook_token = auth["credentials"]["token"]
+				                unless auth["credentials"]["expires_at"].nil?
+				            			@brand.facebook_expires = Time.at(auth["credentials"]["expires_at"])
+				            		else
+				            			@brand.facebook_expires = DateTime.now + 60.days
+				            		end
+				                if @brand.save(validate: false)
+				                  redirect_to "/brands/campaigns/viral-install-fb?_id=#{@campaign.id}"
+				                else
+				                  flash[:error] = "An error occurred while trying to update your Brand Account with Facebook Connection Info. Please try again."
+				                  redirect_to "/brands/campaigns/viral?_id=#{@campaign.id}"
+				                end
+				              else
+				                flash[:error] = "The Facebook Account you are trying to update with does not belong to this Brand Account. Please login with a different Facebook Account and try again."
+				                redirect_to "/brands/campaigns/viral?_id=#{@campaign.id}"
+				              end
+				            elsif @brand.provider == "email"
+				              unless Brand.exists?(conditions: { provider: auth["provider"], uid: auth["uid"] })
+				                @brand.facebook_token = auth["credentials"]["token"]
+				                unless auth["credentials"]["expires_at"].nil?
+				                  @brand.facebook_expires = Time.at(auth["credentials"]["expires_at"])
+				                else
+				                  @brand.facebook_expires = DateTime.now + 60.days
+				                end
+				                if @brand.save(validate: false)
+				                  redirect_to "/brands/campaigns/viral-install-fb?_id=#{@campaign.id}"
+				                else
+				                  flash[:error] = "An error occurred while trying to update your Brand Account with Facebook Connection Info. Please try again."
+				                  redirect_to "/brands/campaigns/viral?_id=#{@campaign.id}"
+				                end
+				              else
+				                flash[:error] = "The Facebook Account you are trying to connect with belongs to an existing Brand Account. Please login with a different Facebook Account and try again."
+				                redirect_to "/brands/campaigns/viral?_id=#{@campaign.id}"
+				              end
+				            elsif @brand.provider == "twitter"
+				            	unless Brand.exists?(conditions: { provider: auth["provider"], uid: auth["uid"] })
+				                @brand.facebook_token = auth["credentials"]["token"]
+				                unless auth["credentials"]["expires_at"].nil?
+				                  @brand.facebook_expires = Time.at(auth["credentials"]["expires_at"])
+				                else
+				                  @brand.facebook_expires = DateTime.now + 60.days
+				                end
+				                if @brand.save(validate: false)
+				                  redirect_to "/brands/campaigns/viral-install-fb?_id=#{@campaign.id}"
+				                else
+				                  flash[:error] = "An error occurred while trying to update your Brand Account with Facebook Connection Info. Please try again."
+				                  redirect_to "/brands/campaigns/viral?_id=#{@campaign.id}"
+				                end
+				              else
+				                flash[:error] = "The Facebook Account you are trying to connect with belongs to an existing Brand Account. Please login with a different Facebook Account and try again."
+				                redirect_to "/brands/campaigns/viral?_id=#{@campaign.id}"
+				              end
+				            else
+				              redirect_to root_url
+				            end
+					        else
+					          redirect_to root_url
+					        end
+					      else
+					      	flash[:error] = "The campaign you are trying to install to your Facebook Page could not be found. Please try again."
+			            redirect_to "/brands/dashboard"
+					      end
           		else
           			redirect_to root_url
           		end

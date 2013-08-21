@@ -53,6 +53,36 @@ class ApplicationController < ActionController::Base
   	end
   end
 
+  def require_super_admin_account
+  	if current_user || Rails.env.development?
+  		unless Rails.env.development? || current_user.account_type == 'super admin'
+  			redirect_to root_url
+  		end
+  	else
+  		redirect_to root_url
+  	end
+  end
+
+  def require_admin_account
+  	if current_user || Rails.env.development?
+  		unless Rails.env.development? || current_user.account_type == 'super admin' || current_user.account_type == 'admin'
+  			redirect_to root_url
+  		end
+  	else
+  		redirect_to root_url
+  	end
+  end
+
+  def require_mini_admin_account
+  	if current_user || Rails.env.development?
+  		unless Rails.env.development? || current_user.account_type == 'super admin' || current_user.account_type == 'admin' || current_user.account_type == 'mini admin'
+  			redirect_to root_url
+  		end
+  	else
+  		redirect_to root_url
+  	end
+  end
+
   def str_is_valid_url(input)
     if input.match(/\b((http(s?):\/\/)([a-z0-9\-]+\.)+(MUSEUM|TRAVEL|AERO|ARPA|ASIA|EDU|GOV|MIL|MOBI|COOP|INFO|NAME|BIZ|CAT|COM|INT|JOBS|NET|ORG|PRO|TEL|A[CDEFGILMNOQRSTUWXZ]|B[ABDEFGHIJLMNORSTVWYZ]|C[ACDFGHIKLMNORUVXYZ]|D[EJKMOZ]|E[CEGHRSTU]|F[IJKMOR]|G[ABDEFGHILMNPQRSTUWY]|H[KMNRTU]|I[DELMNOQRST]|J[EMOP]|K[EGHIMNPRWYZ]|L[ABCIKRSTUVY]|M[ACDEFGHKLMNOPQRSTUVWXYZ]|N[ACEFGILOPRUZ]|OM|P[AEFGHKLMNRSTWY]|QA|R[EOSUW]|S[ABCDEGHIJKLMNORTUVYZ]|T[CDFGHJKLMNOPRTVWZ]|U[AGKMSYZ]|V[ACEGINU]|W[FS]|Y[ETU]|Z[AMW])(:[0-9]{1,5})?((\/([a-z0-9_\-\.~]*)*)?((\/)?\?[a-z0-9+_\-\.%=&amp;]*)?)?(#[a-zA-Z0-9!$&'()*+.=-_~:@\/?]*)?)/i)
       true

@@ -370,8 +370,7 @@ class BrandsController < ApplicationController
 			flash[:error] = "The campaign you are trying to install to your Facebook Page could not be found. Please choose a different one."
 			redirect_to "/brands/dashboard"
 		else
-			session[:brand_connect_with_fb] = @campaign.id
-			redirect_to "/auth/facebook"
+			redirect_to "/auth/facebook?state=brand_connect_with_fb_#{@campaign.id}"
 		end
 	end
 
