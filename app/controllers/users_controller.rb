@@ -44,7 +44,12 @@ class UsersController < ApplicationController
           @campaign = Campaign.where(:status => "active").excludes(left: false, is_white_label: true).order_by([:date, :desc]).paginate :page => params[:page], :per_page => 9
         else
           @category = Category.where(:name => params[:c]).first
-          @campaign = @category.campaigns.where(:status => "active").excludes(left: false, is_white_label: true).order_by([:date, :desc]).paginate :page => params[:page], :per_page => 9
+          unless @category.nil?
+          	@campaign = @category.campaigns.where(:status => "active").excludes(left: false, is_white_label: true).order_by([:date, :desc]).paginate :page => params[:page], :per_page => 9
+          else
+          	flash[:error] = "The Campaign Category you are looking for could not be found."
+          	redirect_to "/home"
+          end
         end
         @categories = Category.all.order_by([:name, :asc])
       end

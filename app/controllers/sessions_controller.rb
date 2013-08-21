@@ -565,6 +565,7 @@ class SessionsController < ApplicationController
       redirect_to "/brands/dashboard"
     else
       begin
+      	params[:email].strip!
         user = User.authenticate(params[:email], params[:password])
         if user
           user.last_login = Time.now
@@ -629,6 +630,7 @@ class SessionsController < ApplicationController
       flash[:error] = "You are already logged in as a brand!"
       redirect_to "/brands/dashboard"
     else
+    	params[:email_address].strip!
       brand = Brand.where(email: params[:email_address]).first
       if brand
         if brand.provider=="email"
