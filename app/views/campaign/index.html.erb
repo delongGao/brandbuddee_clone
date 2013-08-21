@@ -448,7 +448,7 @@
                     <blockquote class="campaign_reward_box"><h3>What do I get? (<%= pluralize(@campaign.points_required, 'pt', 'pts') %>)</h3><p><%= @campaign.reward unless @campaign.reward.nil? %></p><% unless @campaign.easy_prize.nil? || @campaign.easy_prize.empty? %><h3>Or get this just for sharing! (3 pts)</h3><p><%= @campaign.easy_prize %></p><% end %></blockquote><br>
 
                     <div class="redeem_details">
-                        <a href="#redeemDetailsModal" role="button" class="btn btn-large btn-primary pull-right" style="margin-top: -7%;" data-toggle="modal" title="<%= @campaign.title %> brandbuddee">How To Redeem</a>
+                        <a href="#redeemDetailsModal" role="button" class="btn btn-large btn-primary pull-right" data-toggle="modal" title="<%= @campaign.title %> brandbuddee">How To Redeem</a>
                     </div> <!-- .well -->
 
                                 <!-- <h4>Location</h4>
