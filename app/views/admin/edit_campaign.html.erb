@@ -299,6 +299,26 @@
 								</div>
 							</div>
 
+							<label for="chkEmailSubscription" style="font-size:16px;font-weight:bold;">Use Write Email Subscription <input type="checkbox" name="task_email_subscription[0]" id="chkEmailSubscription" value="UPDATE" <% unless @campaign.task_email_subscription["use_it"] != true %>checked="checked"<% end %> /></label>
+							<div class="control-group hidden-phone">
+								<label class="control-label" for="task_email_subscription_1" style="cursor:text;">Task Title</label>
+								<div class="controls">
+									<%= text_field "task_email_subscription", "1", :class => "span3", :placeholder => "Up To 30 Characters", :value => @campaign.task_email_subscription["title"], :maxlength => 30, :class => "txtTaskInput" %>
+								</div>
+							</div>
+							<div class="control-group hidden-phone">
+								<label class="control-label" for="task_email_subscription_2" style="cursor:text;">Task Description</label>
+								<div class="controls">
+									<%= text_area "task_email_subscription", "2", :rows => '4', :placeholder => "Up To 140 Characters", :value => @campaign.task_email_subscription["description"], :maxlength => 140, :class => "txtTaskInput" %>
+								</div>
+							</div>
+							<div class="control-group hidden-phone">
+								<label class="control-label" for="task_email_subscription_3" style="cursor:text;">Task Points</label>
+								<div class="controls">
+									<%= text_field "task_email_subscription", "3", :class => "span3", :placeholder => "Must Be A Number", :value => @campaign.task_email_subscription["points"] %>
+								</div>
+							</div>
+
 							<label for="chkFacebook" style="font-size:16px;font-weight:bold;">Use Like On Facebook <input type="checkbox" name="task_facebook[0]" id="chkFacebook" value="UPDATE" <% unless @campaign.task_facebook["use_it"] != true %>checked="checked"<% end %> /></label>
 							<div class="control-group hidden-phone">
 								<label class="control-label" for="task_facebook_1" style="cursor:text;">Task Title</label>

@@ -4,6 +4,8 @@
 jQuery ->
 	expression = /\b((http(s?):\/\/)([a-z0-9\-]+\.)+(MUSEUM|TRAVEL|AERO|ARPA|ASIA|EDU|GOV|MIL|MOBI|COOP|INFO|NAME|BIZ|CAT|COM|INT|JOBS|NET|ORG|PRO|TEL|A[CDEFGILMNOQRSTUWXZ]|B[ABDEFGHIJLMNORSTVWYZ]|C[ACDFGHIKLMNORUVXYZ]|D[EJKMOZ]|E[CEGHRSTU]|F[IJKMOR]|G[ABDEFGHILMNPQRSTUWY]|H[KMNRTU]|I[DELMNOQRST]|J[EMOP]|K[EGHIMNPRWYZ]|L[ABCIKRSTUVY]|M[ACDEFGHKLMNOPQRSTUVWXYZ]|N[ACEFGILOPRUZ]|OM|P[AEFGHKLMNRSTWY]|QA|R[EOSUW]|S[ABCDEGHIJKLMNORTUVYZ]|T[CDFGHJKLMNOPRTVWZ]|U[AGKMSYZ]|V[ACEGINU]|W[FS]|Y[ETU]|Z[AMW])(:[0-9]{1,5})?((\/([a-z0-9_\-\.~]*)*)?((\/)?\?[a-z0-9+_\-\.%=&amp;]*)?)?(#[a-zA-Z0-9!$&'()*+.=-_~:@\/?]*)?)/i
 	url_regex = new RegExp(expression)
+	expression = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i
+	email_regex = new RegExp(expression)
 	$(".accordion-heading.alt-accordion").click ->
 		if $(this).next().height()==0 || $(this).next().is(':hidden')
 			$(this).addClass('active')
@@ -43,6 +45,23 @@ jQuery ->
 				if !$("#txtYelpAddress").val().match(url_regex)
 					event.preventDefault()
 					$(this).parent().parent().parent().append('<div class="alert alert-error fade in"><a href="#" class="close" data-dismiss="alert">&times;</a>Please make sure your URL is valid, and starts with http:// or https://</div>')
+	$("#btnDoItTaskEmail").click (event) ->
+		if $(this).attr("disabled") == "disabled"
+			event.preventDefault()
+		else
+			$("#btnDoneTaskEmail").removeClass("disabled").removeAttr("disabled")
+			$("#txtEmailAddress").removeAttr("disabled").focus()
+	$("#btnDoneTaskEmail").click (event) ->
+		if $(this).attr("disabled") == "disabled"
+			event.preventDefault()
+		else
+			if $("#txtEmailAddress").val().length < 1
+				event.preventDefault()
+				$(this).parent().parent().parent().append('<div class="alert alert-error fade in"><a href="#" class="close" data-dismiss="alert">&times;</a>Please make sure you enter a Email Address for the subscription.</div>')
+			else
+				if !$("#txtEmailAddress").val().match(email_regex)
+					event.preventDefault()
+					$(this).parent().parent().parent().append('<div class="alert alert-error fade in"><a href="#" class="close" data-dismiss="alert">&times;</a>Please make sure you enter a Email Address for the subscription.</div>')
 	$("#btnDoItTaskFacebook").click ->
 		$("#btnDoneTaskFacebook").removeClass("disabled").removeAttr("disabled")
 	$("#btnDoneTaskFacebook").click (event) ->

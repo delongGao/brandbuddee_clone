@@ -144,6 +144,16 @@ class AdminController < ApplicationController
 			    		flash[:error] = "WARNING: Unable to add Task: Follow On Twitter. Make sure you fill out ALL fields."
 			    	end
 			    end # Twitter Follow Task
+			    if !params[:task_email_subscription].nil? && params[:task_email_subscription]["0"] == "true"
+			    	if !params[:task_email_subscription]["1"].empty? && !params[:task_email_subscription]["2"].empty? && !params[:task_email_subscription]["3"].empty?
+			    		@campaign.task_email_subscription[:use_it] = true
+			    		@campaign.task_email_subscription[:title] = params[:task_email_subscription]["1"]
+			    		@campaign.task_email_subscription[:description] = params[:task_email_subscription]["2"]
+						@campaign.task_email_subscription[:points] = params[:task_email_subscription]["3"].to_i
+					else
+						flash[:error] = "WARNING: Unable to add Task: Subscribe An Email Newsletter. Make sure you fill out ALL fields."
+					end
+				end # Email Subscription Task
 			    if !params[:task_custom_1].nil? && params[:task_custom_1]["0"] == "true"
 			    	if !params[:task_custom_1]["1"].empty? && !params[:task_custom_1]["2"].empty? && !params[:task_custom_1]["3"].empty? && !params[:task_custom_1]["4"].empty?
 			    		@campaign.task_custom_1[:use_it] = true
@@ -246,9 +256,9 @@ class AdminController < ApplicationController
 				    		render :campaign_image_cropper
 				    	else
 				    		@campaign.destroy
-				      	flash[:notice] = "You must upload a campaign image"
-				      	redirect_to(:action => 'campaigns')
-				      end
+				      		flash[:notice] = "You must upload a campaign image"
+				      		redirect_to(:action => 'campaigns')
+				      	end
 				    else
 				      flash[:notice] = "There was an ERROR saving. Please try again."
 				      render "campaign_new_index"
@@ -502,18 +512,18 @@ class AdminController < ApplicationController
 		end
 
 		unless params[:date_end].blank?
-  		date_time_str = params[:date_end].to_s[2..-3]
-  		@campaign.end_date = DateTime.parse(date_time_str).utc
-  	else
-  		@campaign.end_date = DateTime.now + 30.days
-  	end
+  			date_time_str = params[:date_end].to_s[2..-3]
+  			@campaign.end_date = DateTime.parse(date_time_str).utc
+	  	else
+	  		@campaign.end_date = DateTime.now + 30.days
+	  	end
 		
 		unless params[:campaign][:location].blank?
 			@location = Location.find(params[:campaign][:location])
 			@campaign.location_id = @location.id
 		end
 
-			if !params[:task_blog_post].nil? && params[:task_blog_post]["0"] == "UPDATE"
+		if !params[:task_blog_post].nil? && params[:task_blog_post]["0"] == "UPDATE"
 	    	if !params[:task_blog_post]["1"].empty? && !params[:task_blog_post]["2"].empty? && !params[:task_blog_post]["3"].empty?
 	    		@campaign.task_blog_post[:use_it] = true
 	    		@campaign.task_blog_post[:title] = params[:task_blog_post]["1"]
@@ -538,6 +548,19 @@ class AdminController < ApplicationController
 	    else
 	    	@campaign.task_yelp = {}
 	    end # Yelp Review Task
+
+	    if !params[:task_email_subscription].nil? && params[:task_email_subscription]["0"] == "UPDATE"
+	    	if !params[:task_email_subscription]["1"].empty? && !params[:task_email_subscription]["2"].empty? && !params[:task_email_subscription]["3"].empty?
+	    		@campaign.task_email_subscription[:use_it] = true
+	    		@campaign.task_email_subscription[:title] = params[:task_email_subscription]["1"]
+	    		@campaign.task_email_subscription[:description] = params[:task_email_subscription]["2"]
+	    		@campaign.task_email_subscription[:points] = params[:task_email_subscription]["3"].to_i
+	    	else
+	    		flash[:error] = "WARNING: Unable to add Task: Email Subscription. Make sure you fill out ALL fields."
+	    	end
+	    else
+	    	@campaign.task_yelp = {}
+	    end # Email Subscription Task
 
 	    if !params[:task_facebook].nil? && params[:task_facebook]["0"] == "UPDATE"
 	    	if !params[:task_facebook]["1"].empty? && !params[:task_facebook]["2"].empty? && !params[:task_facebook]["3"].empty?
@@ -772,6 +795,7 @@ class AdminController < ApplicationController
 	def view_campaign_tasks
 		@campaign = Campaign.find(params[:_id])
 		@total_completed_blog = @campaign.tasks.where(completed_blog: true).count
+		@total_completed_email = @campaign.tasks.where(completed_email: true).count
 		@total_completed_yelp = @campaign.tasks.where(completed_yelp: true).count
 		@total_completed_facebook = @campaign.tasks.where(completed_facebook: true).count
 		@total_completed_twitter = @campaign.tasks.where(completed_twitter: true).count

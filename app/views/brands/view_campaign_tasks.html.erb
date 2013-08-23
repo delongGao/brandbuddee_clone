@@ -54,7 +54,7 @@
 						<a title="sweepstakes contests giveaways brandbuddee" href="#">
 							<i class="icon-file green" style="font-size:1.5em;"></i>
 							<span class="green"><%= @total_completed_blog %></span>
-							Blog Posts Written
+							Blog <%= 'Post'.pluralize(@total_completed_blog) %> Written
 						</a>
 					</li>
 				</ul>
@@ -75,7 +75,7 @@
 		</div>
 		<% unless @campaign.task_blog_post["use_it"].nil? || @campaign.task_blog_post["use_it"].blank? %>
 			<div class="box-content" style="overflow:hidden;">
-				<a title="sweepstakes contests giveaways brandbuddee" href="#" id="btnCopyToClipboard" class="btn btn-info btn-mini pull-right" data-clipboard-target="lstAllBlogAddresses" style="margin-bottom:1%;">COPY ALL TO CLIPBOARD</a>
+				<a title="sweepstakes contests giveaways brandbuddee" href="#" id="btnCopyToClipboard" class="btn btn-info btn-mini pull-right btnCopyToClipboard" data-clipboard-target="lstAllBlogAddresses" style="margin-bottom:1%;">COPY ALL TO CLIPBOARD</a>
 <ol id="lstAllBlogAddresses">
 <% @campaign.tasks.each do |t| %>
 <% unless t.blog_post_url.nil? || t.blog_post_url.blank? %>
@@ -90,7 +90,7 @@
          	</div>
          <% end %>
 	</div><!--/span-->
-	
+
 	<div class="box span4">
 		<div class="box-header">
 			<h2><i class="icon-facebook-sign"></i><span class="break"></span>Like on Facebook</h2>
@@ -181,6 +181,59 @@
 <div class="row-fluid sortable">
 	<div class="box span4">
 		<div class="box-header">
+			<h2><i class="icon-pencil"></i><span class="break"></span>Yelp Review / Image Contest</h2>
+			<div class="box-icon">
+				<a title="sweepstakes contests giveaways brandbuddee" href="#" class="btn-minimize"><i class="icon-chevron-up"></i></a>
+				<a title="sweepstakes contests giveaways brandbuddee" href="#" class="btn-close"><i class="icon-remove"></i></a>
+			</div>
+		</div>
+		<% unless @campaign.task_yelp["use_it"].blank? %>
+			<div class="box-content">
+              	<ul class="dashboard-list">
+					<li>
+						<a title="sweepstakes contests giveaways brandbuddee" href="#">
+							<i class="icon-file green" style="font-size:1.5em;"></i>
+							<span class="green"><%= @total_completed_yelp %></span>
+							URLs Posted
+						</a>
+					</li>
+				</ul>
+            </div>
+         <% else %>
+         	<div class="box-content" style="text-align:center;">
+         		<p style="font-size:6em; margin-top:4%;"><i class="icon-ban-circle"></i></p>
+         	</div>
+         <% end %>
+	</div><!--/span-->
+	
+	<div class="box span4">
+		<div class="box-header">
+			<h2><i class="icon-book"></i><span class="break"></span>Yelp/Image URLs</h2>
+			<div class="box-icon">
+				<a title="sweepstakes contests giveaways brandbuddee" href="#" class="btn-minimize"><i class="icon-chevron-up"></i></a>
+				<a title="sweepstakes contests giveaways brandbuddee" href="#" class="btn-close"><i class="icon-remove"></i></a>
+			</div>
+		</div>
+		<% unless @campaign.task_yelp["use_it"].blank? %>
+			<div class="box-content" style="overflow:hidden;">
+				<a title="sweepstakes contests giveaways brandbuddee" href="#" id="btnCopyToClipboardAlt" class="btn btn-info btn-mini pull-right btnCopyToClipboard" data-clipboard-target="lstAllBlogAddressesAlt" style="margin-bottom:1%;">COPY ALL TO CLIPBOARD</a>
+<ol id="lstAllBlogAddressesAlt">
+<% @campaign.tasks.each do |t| %>
+<% unless t.yelp_review.blank? %>
+<li><a title="sweepstakes contests giveaways brandbuddee" href="<%= t.yelp_review.to_s %>" target="_blank"><%= t.yelp_review.to_s %></a></li>
+<% end %>
+<% end %>
+</ol>
+            </div>
+         <% else %>
+         	<div class="box-content" style="text-align:center;">
+         		<p style="font-size:6em; margin-top:4%;"><i class="icon-ban-circle"></i></p>
+         	</div>
+         <% end %>
+	</div><!--/span-->
+
+	<div class="box span4">
+		<div class="box-header">
 			<h2><i class="icon-twitter-sign"></i><span class="break"></span>Follow on Twitter</h2>
 			<div class="box-icon">
 				<a title="sweepstakes contests giveaways brandbuddee" href="#" class="btn-minimize"><i class="icon-chevron-up"></i></a>
@@ -264,7 +317,62 @@
          	</div>
          <% end %>
 	</div><!--/span-->
-	
+</div><!--/row-->
+<hr>
+<div class="row-fluid sortable">
+	<div class="box span4">
+    	<div class="box-header">
+      		<h2><i class="icon-envelope"></i><span class="break"></span>Email Subscription</h2>
+      		<div class="box-icon">
+        		<a title="sweepstakes contests giveaways brandbuddee" href="#" class="btn-minimize"><i class="icon-chevron-up"></i></a>
+        		<a title="sweepstakes contests giveaways brandbuddee" href="#" class="btn-close"><i class="icon-remove"></i></a>
+      		</div>
+    	</div>
+    	<% unless @campaign.task_email_subscription["use_it"].blank? %>
+      		<div class="box-content">
+            	<ul class="dashboard-list">
+          			<li>
+            			<a title="sweepstakes contests giveaways brandbuddee" href="#">
+              				<i class="icon-file green" style="font-size:1.5em;"></i>
+              				<span class="green"><%= @total_completed_email %></span>
+              				<%= 'Email'.pluralize(@total_completed_email) %> Subscribed
+            			</a>
+          			</li>
+        		</ul>
+        	</div>
+     	<% else %>
+       		<div class="box-content" style="text-align:center;">
+             	<p style="font-size:6em; margin-top:4%;"><i class="icon-ban-circle"></i></p>
+           	</div>
+     	<% end %>
+  	</div><!--/span-->
+   
+   	<div class="box span4">
+     	<div class="box-header">
+      		<h2><i class="icon-envelope-alt"></i><span class="break"></span>Email Addresses</h2>
+      		<div class="box-icon">
+        		<a title="sweepstakes contests giveaways brandbuddee" href="#" class="btn-minimize"><i class="icon-chevron-up"></i></a>
+        		<a title="sweepstakes contests giveaways brandbuddee" href="#" class="btn-close"><i class="icon-remove"></i></a>
+      		</div>
+    	</div>
+    	<% unless @campaign.task_email_subscription["use_it"].blank? %>
+      		<div class="box-content" style="overflow:hidden;">
+        		<a title="sweepstakes contests giveaways brandbuddee" href="#" class="btn btn-info btn-mini pull-right btnCopyToClipboard" data-clipboard-target="lstAllEmailAddresses" style="margin-bottom:1%;">COPY ALL TO CLIPBOARD</a>
+<ol id="lstAllEmailAddresses">
+<% @campaign.tasks.each do |t| %>
+<% unless t.email_address.blank? %>
+<li><a title="sweepstakes contests giveaways brandbuddee" href="mailto:<%= t.email_address.to_s %>" target="_blank"><%= t.email_address.to_s %></a></li>
+<% end %>
+<% end %>
+</ol>
+        	</div>
+     	<% else %>
+       		<div class="box-content" style="text-align:center;">
+         		<p style="font-size:6em; margin-top:4%;"><i class="icon-ban-circle"></i></p>
+       		</div>
+     	<% end %>
+	</div><!--/span-->
+
 	<div class="box span4">
 		<div class="box-header">
 			<h2><i class="icon-bolt"></i><span class="break"></span><% unless @campaign.task_custom_1["use_it"].blank? %><%= @campaign.task_custom_1["title"] %><% else %>Custom Task #1<% end %></h2>
@@ -350,7 +458,9 @@
          	</div>
          <% end %>
 	</div><!--/span-->
-	
+</div><!--/row-->
+<hr>
+<div class="row-fluid sortable">
 	<div class="box span4">
 		<div class="box-header">
 			<h2><i class="icon-bolt"></i><span class="break"></span><% unless @campaign.task_custom_2["use_it"].blank? %><%= @campaign.task_custom_2["title"] %><% else %>Custom Task #2<% end %></h2>
@@ -436,9 +546,7 @@
          	</div>
          <% end %>
 	</div><!--/span-->
-</div><!--/row-->
-<hr>
-<div class="row-fluid sortable">
+
 	<div class="box span4">
 		<div class="box-header">
 			<h2><i class="icon-bolt"></i><span class="break"></span><% unless @campaign.task_custom_3["use_it"].blank? %><%= @campaign.task_custom_3["title"] %><% else %>Custom Task #3<% end %></h2>
@@ -610,8 +718,10 @@
          	</div>
          <% end %>
 	</div><!--/span-->
-
-	<div class="box span4">
+</div>
+<hr>
+<div class="row-fluid sortable">
+	<div class="box span4 offset4">
 		<div class="box-header">
 			<h2><i class="icon-bolt"></i><span class="break"></span><% unless @campaign.task_custom_5["use_it"].blank? %><%= @campaign.task_custom_5["title"] %><% else %>Custom Task #5<% end %></h2>
 			<div class="box-icon">
@@ -689,61 +799,6 @@
 						</li>
 					<% end %>
 				</ul>
-            </div>
-         <% else %>
-         	<div class="box-content" style="text-align:center;">
-         		<p style="font-size:6em; margin-top:4%;"><i class="icon-ban-circle"></i></p>
-         	</div>
-         <% end %>
-	</div><!--/span-->
-</div><!--/row-->
-<hr>
-<div class="row-fluid sortable">
-	<div class="box span4 offset2">
-		<div class="box-header">
-			<h2><i class="icon-pencil"></i><span class="break"></span>Yelp Review / Image Contest</h2>
-			<div class="box-icon">
-				<a title="sweepstakes contests giveaways brandbuddee" href="#" class="btn-minimize"><i class="icon-chevron-up"></i></a>
-				<a title="sweepstakes contests giveaways brandbuddee" href="#" class="btn-close"><i class="icon-remove"></i></a>
-			</div>
-		</div>
-		<% unless @campaign.task_yelp["use_it"].blank? %>
-			<div class="box-content">
-              	<ul class="dashboard-list">
-					<li>
-						<a title="sweepstakes contests giveaways brandbuddee" href="#">
-							<i class="icon-file green" style="font-size:1.5em;"></i>
-							<span class="green"><%= @total_completed_yelp %></span>
-							URLs Posted
-						</a>
-					</li>
-				</ul>
-            </div>
-         <% else %>
-         	<div class="box-content" style="text-align:center;">
-         		<p style="font-size:6em; margin-top:4%;"><i class="icon-ban-circle"></i></p>
-         	</div>
-         <% end %>
-	</div><!--/span-->
-	
-	<div class="box span4">
-		<div class="box-header">
-			<h2><i class="icon-book"></i><span class="break"></span>Yelp/Image URLs</h2>
-			<div class="box-icon">
-				<a title="sweepstakes contests giveaways brandbuddee" href="#" class="btn-minimize"><i class="icon-chevron-up"></i></a>
-				<a title="sweepstakes contests giveaways brandbuddee" href="#" class="btn-close"><i class="icon-remove"></i></a>
-			</div>
-		</div>
-		<% unless @campaign.task_yelp["use_it"].blank? %>
-			<div class="box-content" style="overflow:hidden;">
-				<a title="sweepstakes contests giveaways brandbuddee" href="#" id="btnCopyToClipboardAlt" class="btn btn-info btn-mini pull-right" data-clipboard-target="lstAllBlogAddressesAlt" style="margin-bottom:1%;">COPY ALL TO CLIPBOARD</a>
-<ol id="lstAllBlogAddressesAlt">
-<% @campaign.tasks.each do |t| %>
-<% unless t.yelp_review.blank? %>
-<li><a title="sweepstakes contests giveaways brandbuddee" href="<%= t.yelp_review.to_s %>" target="_blank"><%= t.yelp_review.to_s %></a></li>
-<% end %>
-<% end %>
-</ol>
             </div>
          <% else %>
          	<div class="box-content" style="text-align:center;">
@@ -918,6 +973,9 @@
 <script type="text/javascript" src="/js/ZeroClipboard.min.js"></script>
 <script type="text/javascript">
 	ZeroClipboard.setDefaults( { moviePath: '/js/ZeroClipboard.swf' } );
-	var clip = new ZeroClipboard($("#btnCopyToClipboard"));
-	var clipAlt = new ZeroClipboard($("#btnCopyToClipboardAlt"));
+	//var clip = new ZeroClipboard($("#btnCopyToClipboard"));
+	//var clipAlt = new ZeroClipboard($("#btnCopyToClipboardAlt"));
+	$('.btnCopyToClipboard').each(function() {
+		var clip = new ZeroClipboard(this);
+	});
 </script>

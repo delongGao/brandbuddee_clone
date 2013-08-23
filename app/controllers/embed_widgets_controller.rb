@@ -1142,6 +1142,33 @@ class EmbedWidgetsController < ApplicationController
 						else
 							redirect_to "/fb-joined-campaign?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
 						end
+					elsif params[:task].to_s == "email"
+						unless @campaign.task_email_subscription["points"].nil?
+							if !params[:txtEmailAddress].nil? && !params[:txtEmailAddress].empty?
+								if str_is_valid_email(params[:txtEmailAddress])
+									@task = @campaign.tasks.where(user_id: current_user.id).first
+									unless @task.completed_email == true
+										@task.completed_email = true
+										@task.completed_points += @campaign.task_email_subscription["points"].to_i
+										@task.email_address = params[:txtEmailAddress]
+										@task.save
+										flash[:success] = "You Have Completed the Email Subscription Task!"
+										redirect_to "/fb-joined-campaign?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
+									else
+										flash[:error] = "You have already completed this task!"
+										redirect_to "/fb-joined-campaign?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
+									end
+								else
+									flash[:error] = "You must enter a valid Email Address that consists of a local part, an @ sign and a domain part."
+									redirect_to "/fb-joined-campaign?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
+								end
+							else
+								flash[:error] = "You need to fill out the Email Address"
+								redirect_to "/fb-joined-campaign?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
+							end
+						else
+							redirect_to "/fb-joined-campaign?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
+						end
 					elsif params[:task].to_s == "yelp"
 						unless @campaign.task_yelp["points"].nil?
 							if !params[:txtYelpAddress].nil? && !params[:txtYelpAddress].empty?
@@ -1346,6 +1373,28 @@ class EmbedWidgetsController < ApplicationController
 						else
 							redirect_to "/fb-joined-campaign?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
 						end
+					elsif params[:task].to_s == "email"
+            unless @campaign.task_email_subscription["points"].nil?
+              @task = @campaign.tasks.where(user_id: current_user.id).first
+              if Redeem.where(user_id: @task.user_id, campaign_id: @campaign.id).first.nil?
+                if @task.completed_email == true
+                  @task.completed_email = false
+                  @task.completed_points -= @campaign.task_email_subscription["points"].to_i
+                  @task.email_address = nil
+                  @task.save
+                  flash[:info] = "You have undone the completion of the email subscription task!"
+                  redirect_to "/fb-joined-campaign?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
+                else
+                  flash[:error] = "You have not yet completed this task!"
+                  redirect_to "/fb-joined-campaign?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
+                end
+              else
+                flash[:error] = "Your have already completed this campaign and earned it's gift. Once a campaign is completed, you can no longer undo tasks."
+                redirect_to "/fb-joined-campaign?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
+              end
+            else
+              redirect_to "/fb-joined-campaign?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
+            end
 					elsif params[:task].to_s == "yelp"
 						unless @campaign.task_yelp["points"].nil?
 							@task = @campaign.tasks.where(user_id: current_user.id).first
@@ -1551,6 +1600,33 @@ class EmbedWidgetsController < ApplicationController
 					else
 						redirect_to "/campaign/#{@campaign.link}/go_viral_joined"
 					end
+				elsif params[:task].to_s == "email"
+					unless @campaign.task_email_subscription["points"].nil?
+						unless params[:txtEmailAddress].blank?
+							if str_is_valid_email(params[:txtEmailAddress])
+								@task = @campaign.tasks.where(user_id: current_user.id).first
+								unless @task.completed_email == true
+									@task.completed_email = true
+									@task.completed_points += @campaign.task_email_subscription["points"].to_i
+									@task.email_address = params[:txtEmailAddress]
+									@task.save
+									flash[:success] = "You Have Completed the Email Subscription Task!"
+									redirect_to "/campaign/#{@campaign.link}/go_viral_joined"
+								else
+									flash[:error] = "You have already completed this task!"
+									redirect_to "/campaign/#{@campaign.link}/go_viral_joined"
+								end
+							else
+								flash[:error] = "You must enter a valid Email Address that consists of a local part, an @ sign and a domain part."
+								redirect_to "/campaign/#{@campaign.link}/go_viral_joined"
+							end
+						else
+							flash[:error] = "You need to fill out the Email Address"
+							redirect_to "/campaign/#{@campaign.link}/go_viral_joined"
+						end
+					else
+						redirect_to "/campaign/#{@campaign.link}/go_viral_joined"
+					end
 				elsif params[:task].to_s == "yelp"
 					unless @campaign.task_yelp["points"].nil?
 						unless params[:txtYelpAddress].blank?
@@ -1745,6 +1821,28 @@ class EmbedWidgetsController < ApplicationController
 					else
 						redirect_to "/campaign/#{@campaign.link}/go_viral_joined"
 					end
+				elsif params[:task].to_s == "email"
+          unless @campaign.task_email_subscription["points"].nil?
+            @task = @campaign.tasks.where(user_id: current_user.id).first
+            if Redeem.where(user_id: @task.user_id, campaign_id: @campaign.id).first.nil?
+              if @task.completed_email == true
+                @task.completed_email = false
+                @task.completed_points -= @campaign.task_email_subscription["points"].to_i
+                @task.email_address = nil
+                @task.save
+                flash[:info] = "You have undone the completion of the email subscription task!"
+                redirect_to "/campaign/#{@campaign.link}/go_viral_joined"
+              else
+                flash[:error] = "You have not yet completed this task!"
+                redirect_to "/campaign/#{@campaign.link}/go_viral_joined"
+              end
+            else
+              flash[:error] = "Your have already completed this campaign and earned it's gift. Once a campaign is completed, you can no longer undo tasks."
+              redirect_to "/campaign/#{@campaign.link}/go_viral_joined"
+            end
+          else
+            redirect_to "/campaign/#{@campaign.link}/go_viral_joined"
+          end
 				elsif params[:task].to_s == "yelp"
 					unless @campaign.task_yelp["points"].nil?
 						@task = @campaign.tasks.where(user_id: current_user.id).first

@@ -356,6 +356,44 @@
                             </div>
                         </div>
                         <% end %>
+                        <% if counter % 2 == 0 %><div class="clearfix"></div><% end %>
+                        <% unless @campaign.task_email_subscription["use_it"].nil? || @campaign.task_email_subscription["use_it"].blank? %>
+                        <% counter += 1 %>
+                        <div class="accordion span3" id="accordion10" style="width:200px;">
+                            <div class="accordion-group">
+                                <div class="accordion-heading alt-accordion" style="height:56px;">
+                                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion10" href="#collapse10">
+                                        <%= @campaign.task_email_subscription["title"] %><span class="pull-right" style="margin-right:5%;"><%= pluralize(@campaign.task_email_subscription["points"], 'pt', 'pts') %></span>
+                                    </a>
+                                </div>
+                                <div id="collapse10" class="accordion-body collapse">
+                                    <div class="accordion-inner alt-accordion">
+                                        <%= @campaign.task_email_subscription["description"] %><br />
+                                        <% if @campaign.campaigns_and_users_task(current_user).completed_email %>
+                                            <label for="completedEmailTasksAddress" style="font-size: 1em; margin-top: 2%; margin-bottom: 0;">Your Email Address</label>
+                                            <input type="text" value="<%= @campaign.campaigns_and_users_task(current_user).email_address %>" style="height:1em;" class="input-medium disabled" id="completedEmailTasksAddress" disabled="disabled" />
+                                        <% if Redeem.where(user_id: current_user.id, campaign_id: @campaign.id).first.nil? %>
+                                            <a href="/fb-task-undo<%= "?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}&task=email&campaign_link=#{@campaign.link}" %>" class="btn btn-small btn-success" style="margin-left:55%;margin-top:2%;">Start Over</a>
+                                        <% end %>
+                                        <% else %>
+                                            <%= form_tag "/fb-task-complete" do %>
+                                            <div class="btn-group" style="margin-left:45%;padding-top:2%;">
+                                                <button type="button" class="btn btn-small btn-primary" id="btnDoItTaskEmail">Do It</button>
+                                                <%= submit_tag "Done", :disabled => "disabled", :class => "btn btn-small btn-danger disabled", :id => "btnDoneTaskEmail" %>
+                                            </div>
+                                            <%= text_field_tag "txtEmailAddress", nil, :placeholder => "Email Address", :class => "input-medium", :style => "height:1em;margin-top:2%;margin-left:10%;", :disabled => "disabled" %>
+                                            <%= hidden_field_tag(:page_id, params[:page_id], :name=>'page_id') %>
+                                            <%= hidden_field_tag(:liked, params[:liked], :name=>'liked') %>
+                                            <%= hidden_field_tag(:admin, params[:admin], :name=>'admin') %>
+                                            <%= hidden_field_tag(:task, "email", :name=>'task') %>
+                                            <%= hidden_field_tag(:campaign_link, @campaign.link, :name=>'campaign_link') %>
+                                            <% end %>                                                
+                                        <% end %>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <% end %><!-- blog post -->
                         <div class="clearfix"></div>
 					</div>
 					<% end %>

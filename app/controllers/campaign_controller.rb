@@ -896,6 +896,103 @@ class CampaignController < ApplicationController
 		end
 	end
 
+	def complete_email_task
+		if current_user
+			params_campaign = params[:campaign].downcase
+			campaign = Campaign.where(:link => params_campaign).first
+			if campaign.present?
+				@campaign = campaign
+			end
+			if campaign.nil?
+				redirect_to root_url
+			else
+				unless @campaign.task_email_subscription["points"].nil?
+					if !params[:txtEmailAddress].nil? && !params[:txtEmailAddress].empty?
+						if str_is_valid_email(params[:txtEmailAddress])
+							@task = @campaign.tasks.where(user_id: current_user.id).first
+							unless @task.nil?
+								unless @task.completed_email == true
+									@task.completed_email = true
+									@task.completed_points += @campaign.task_email_subscription["points"].to_i
+									@task.email_address = params[:txtEmailAddress]
+									if @task.save
+										flash[:notice] = "You have completed this task!"
+										redirect_to "#{root_url}campaign/#{@campaign.link}"
+									else
+										flash[:error] = "An error occurred while trying to save. We have been notified. Please try again later."
+										redirect_to "#{root_url}campaign/#{@campaign.link}"
+									end
+								else
+									flash[:error] = "You have already completed this task!"
+									redirect_to "#{root_url}campaign/#{@campaign.link}"
+								end
+							else
+								flash[:error] = "An error occurred while trying to find your information. We have been notified. Please try again later."
+								redirect_to "#{root_url}campaign/#{@campaign.link}"
+							end
+						else
+							flash[:error] = "You did not enter a valid email address for the Email Newsletter. It must be made up of a local part, an @ sign, then a domain part."
+							redirect_to "#{root_url}campaign/#{@campaign.link}"
+						end
+					else
+						flash[:error] = "You need to fill out the Email Address"
+						redirect_to "#{root_url}campaign/#{@campaign.link}"
+					end
+				else
+					redirect_to root_url
+				end
+			end
+		else
+			redirect_to root_url
+		end
+	end
+
+	def undo_email_task
+		if current_user
+			params_campaign = params[:campaign].downcase
+			campaign = Campaign.where(:link => params_campaign).first
+			if campaign.present?
+				@campaign = campaign
+			end
+			if campaign.nil?
+				redirect_to root_url
+			else
+				unless @campaign.task_email_subscription["points"].nil?
+					@task = @campaign.tasks.where(user_id: current_user.id).first
+					unless @task.nil?
+						if Redeem.where(user_id: @task.user_id, campaign_id: @campaign.id).first.nil?
+							if @task.completed_email == true
+								@task.completed_email = false
+								@task.completed_points -= @campaign.task_email_subscription["points"].to_i
+								@task.email_address = nil
+								if @task.save
+									flash[:notice] = "You have undone the completion of the email subscription task!"
+									redirect_to "#{root_url}campaign/#{@campaign.link}"
+								else
+									flash[:error] = "An error occurred while trying to save. We have been notified. Please try again later."
+									redirect_to "#{root_url}campaign/#{@campaign.link}"
+								end
+							else
+								flash[:error] = "You have not yet completed this task!"
+								redirect_to "#{root_url}campaign/#{@campaign.link}"
+							end
+						else
+							flash[:error] = "Your have already completed this campaign and earned it's gift. Once a campaign is completed, you can no longer undo tasks."
+							redirect_to "#{root_url}campaign/#{@campaign.link}"
+						end
+					else
+						flash[:error] = "An error occurred while trying to find your information. We have been notified. Please try again later."
+						redirect_to "#{root_url}campaign/#{@campaign.link}"
+					end
+				else
+					redirect_to root_url
+				end
+			end
+		else
+			redirect_to root_url
+		end
+	end
+
 	def track_pinterest_click
 		if request.xhr?
 			if current_user

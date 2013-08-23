@@ -91,5 +91,13 @@ class ApplicationController < ActionController::Base
     end
   end
   helper_method :str_is_valid_url
-  
+
+  def str_is_valid_email(input)
+  	if input.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i)
+			true
+		else
+			false
+		end
+	end
+	helper_method :str_is_valid_email
 end

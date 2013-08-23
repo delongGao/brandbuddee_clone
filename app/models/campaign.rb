@@ -46,6 +46,7 @@ class Campaign
   field :task_custom_4, :type => Hash, :default => {}
   field :task_custom_5, :type => Hash, :default => {}
   field :task_yelp, :type => Hash, :default => {}
+  field :task_email_subscription, :type => Hash, :default => {}
   field :engagement_tasks, :type => Hash, :default => {}
   field :gift_image, :type => String
   field :gift_image_two, :type => String
@@ -91,7 +92,7 @@ class Campaign
   end
 
   def has_tasks?
-    if self.task_blog_post=={} && self.task_facebook=={} && self.task_twitter=={} && self.task_custom_1=={} && self.task_custom_2=={} && self.task_custom_3=={} && self.task_custom_4=={} && self.task_custom_5=={}
+    if self.task_blog_post=={} && self.task_facebook=={} && self.task_twitter=={} && self.task_custom_1=={} && self.task_custom_2=={} && self.task_custom_3=={} && self.task_custom_4=={} && self.task_custom_5=={} && self.task_email_subscription=={}
       false
     else
       true
@@ -109,6 +110,7 @@ class Campaign
     num=num+1 unless self.task_custom_4["use_it"].nil? || self.task_custom_4["use_it"].blank?
     num=num+1 unless self.task_custom_5["use_it"].nil? || self.task_custom_5["use_it"].blank?
     num=num+1 unless self.task_yelp["use_it"].nil? || self.task_yelp["use_it"].blank?
+    num=num+1 unless self.task_email_subscription["use_it"].nil? || self.task_email_subscription["use_it"].blank?
     num
   end
 

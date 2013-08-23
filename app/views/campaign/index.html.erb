@@ -389,6 +389,39 @@
                                     </div>
                                 </div>
                                 <% end %>
+                                <% if counter % 2 == 0 %><div class="clearfix"></div><% end %>
+                                <% unless @campaign.task_email_subscription["use_it"].nil? || @campaign.task_email_subscription["use_it"].blank? %>
+                                <% counter = counter + 1 %>
+                                <div class="accordion span4" id="accordion10" style="margin-left:0;">
+                                    <div class="accordion-group">
+                                        <div class="accordion-heading alt-accordion">
+                                            <a class="accordion-toggle" title="<%= @campaign.title %> brandbuddee" data-toggle="collapse" data-parent="#accordion10" href="#collapse10">
+                                                <%= @campaign.task_email_subscription["title"] %><span class="pull-right" style="margin-right:5%;"><%= pluralize(@campaign.task_email_subscription["points"], 'pt', 'pts') %></span>
+                                            </a>
+                                        </div>
+                                        <div id="collapse10" class="accordion-body collapse">
+                                            <div class="accordion-inner alt-accordion">
+                                                <%= @campaign.task_email_subscription["description"] %><br />
+                                                <% if @campaign.campaigns_and_users_task(current_user).completed_email %>
+                                                    <label for="completedEmailTasksAddress" style="font-size: 1em; margin-top: 2%; margin-bottom: 0;">Your Email Address</label>
+                                                    <input type="text" value="<%= @campaign.campaigns_and_users_task(current_user).email_address %>" style="height:1em;" class="input-medium disabled" id="completedEmailTasksAddress" disabled="disabled" />
+                                                <% if Redeem.where(user_id: current_user.id, campaign_id: @campaign.id).first.nil? %>
+                                                    <a href="/campaign/<%= @campaign.link %>/undo_email_task" class="btn btn-small btn-success" style="margin-left:55%;margin-top:2%;" title="<%= @campaign.title %> brandbuddee">Start Over</a>
+                                                <% end %>
+                                                <% else %>
+                                                    <%= form_tag "/campaign/#{@campaign.link}/complete_email_task" do %>
+                                                    <div class="btn-group" style="margin-left:45%;padding-top:2%;">
+                                                        <button type="button" class="btn btn-small btn-primary" id="btnDoItTaskEmail">Do It</button>
+                                                        <%= submit_tag "Done", :disabled => "disabled", :class => "btn btn-small btn-danger disabled", :id => "btnDoneTaskEmail" %>
+                                                    </div>
+                                                    <%= text_field_tag "txtEmailAddress", nil, :placeholder => "Email Address", :class => "input-medium", :style => "height:1em;margin-top:2%;margin-left:34%;", :disabled => "disabled" %>
+                                                    <% end %>                                                
+                                                <% end %>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <% end %><!-- email subscription -->
                                 <div class="clearfix"></div>
                                 <!-- /has_tasks? -->
                                 <div class="divisor divisor_services"><!-- /divisor above gift details -->

@@ -436,17 +436,34 @@
 							    	</p>
 							    </div>
 							    <div class="well well-small span5">
-							    	<h2>Pictures of Reward (Up To 3)</h2>
-							    	<p>
-							    		<%= f.file_field :gift_image %>
-							    	</p>
-							    	<p style="display:none;">
-							    		<%= f.file_field :gift_image_two %>
-							    	</p>
-							    	<p style="display:none;">
-							    		<%= f.file_field :gift_image_three %>
-							    	</p>
-							    </div>
+                    <label for="task_email_subscription_0" class="muted" style="font-size:16px;font-weight:bold;cursor:pointer;" id="lblEnableTask10">Use Subscribe To Email Newsletter <%= check_box("task_email_subscription", "0", {}, true, false) %></label>
+                    <p style="display:none;">
+                      <%= f.label :task_email_subscription, "Title For Task (Up To 30 Characters)" %>
+                      <%= text_field "task_email_subscription", "1", :placeholder => "Up To 30 Characters", :disabled => true, :maxlength => 30, :class => 'txtTaskInput' %>
+                    </p>
+                    <p style="display:none;">
+                      <%= f.label :task_email_subscription, "Task Description (Up To 140 Characters)" %>
+                      <%= text_area "task_email_subscription", "2", :rows => '4', :placeholder => "Up To 140 Characters", :disabled => true, :maxlength => 140, :class => 'txtTaskInput' %>
+                    </p>
+                    <p style="display:none;">
+                      <%= f.label :task_email_subscription, "Number of Points buddee Recieves" %>
+                      <%= text_field "task_email_subscription", "3", :placeholder => "Must be a number", :disabled => true %>
+                    </p>
+                  </div>
+							</div>
+							<div class="row">
+								<div class="well well-small span5 offset1">
+						    	<h2>Pictures of Reward (Up To 3)</h2>
+						    	<p>
+						    		<%= f.file_field :gift_image %>
+						    	</p>
+						    	<p style="display:none;">
+						    		<%= f.file_field :gift_image_two %>
+						    	</p>
+						    	<p style="display:none;">
+						    		<%= f.file_field :gift_image_three %>
+						    	</p>
+						    </div>
 							</div>
 							<hr />
     						<h2>Small Gift User Gets After Gaining 3pts</h2>

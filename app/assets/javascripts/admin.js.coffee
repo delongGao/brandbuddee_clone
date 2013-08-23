@@ -54,6 +54,17 @@ jQuery ->
 			$("#task_twitter_3").attr("disabled", "disabled").parent().slideUp()
 			$("#task_twitter_4").attr("disabled", "disabled").parent().slideUp()
 			$("#chkEngageLeftTwitter").parent().parent().parent().parent().slideUp()
+	$("#task_email_subscription_0").click ->
+		if $(this).attr("checked")=="checked"
+			$("#lblEnableTask10").removeClass "muted"
+			$("#task_email_subscription_1").removeAttr("disabled").parent().slideDown()
+			$("#task_email_subscription_2").removeAttr("disabled").parent().slideDown()
+			$("#task_email_subscription_3").removeAttr("disabled").parent().slideDown()
+		else
+			$("#lblEnableTask10").addClass "muted"
+			$("#task_email_subscription_1").attr("disabled", "disabled").parent().slideUp()
+			$("#task_email_subscription_2").attr("disabled", "disabled").parent().slideUp()
+			$("#task_email_subscription_3").attr("disabled", "disabled").parent().slideUp()
 	$("#task_custom_1_0").click ->
 		if $(this).attr("checked")=="checked"
 			$("#lblEnableTask4").removeClass "muted"
@@ -179,6 +190,15 @@ jQuery ->
 			$("#task_twitter_4").attr("disabled", "disabled")
 			$("#chkTwitterEngageLeft").prop("checked", false).parent().removeClass("checked")
 			$("#chkTwitterEngageRight").prop("checked", false).parent().removeClass("checked")
+	$("#chkEmailSubscription").click ->
+		if $(this).attr("checked")=="checked"
+			$("#task_email_subscription_1").removeAttr("disabled")
+			$("#task_email_subscription_2").removeAttr("disabled")
+			$("#task_email_subscription_3").removeAttr("disabled")
+		else
+			$("#task_email_subscription_1").attr("disabled", "disabled")
+			$("#task_email_subscription_2").attr("disabled", "disabled")
+			$("#task_email_subscription_3").attr("disabled", "disabled")
 	$("#chkCustom1").click ->
 		if $(this).attr("checked")=="checked"
 			$("#task_custom_1_1").removeAttr("disabled")

@@ -179,6 +179,8 @@ Brandbuddee::Application.routes.draw do
 
   match '/campaign/:campaign/complete_blog_task' => 'campaign#complete_blog_task', :as => :campaign
   match '/campaign/:campaign/undo_blog_task' => 'campaign#undo_blog_task', :as => :campaign
+  match '/campaign/:campaign/complete_email_task' => 'campaign#complete_email_task', :as => :campaign
+  match '/campaign/:campaign/undo_email_task' => 'campaign#undo_email_task', :as => :campaign
   match '/campaign/:campaign/complete_yelp_task' => 'campaign#complete_yelp_task', :as => :campaign
   match '/campaign/:campaign/undo_yelp_task' => 'campaign#undo_yelp_task', :as => :campaign
   match '/campaign/:campaign/complete_facebook_task' => 'campaign#complete_facebook_task', :as => :campaign
