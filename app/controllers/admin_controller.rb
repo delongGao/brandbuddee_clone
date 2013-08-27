@@ -1,6 +1,6 @@
 class AdminController < ApplicationController
 	before_filter :require_super_admin_account, only: [:users, :locations, :location_new, :location_delete, :redeems, :categories, :category_new, :category_delete]
-	before_filter :require_admin_account, only: [:campaign_delete, :campaign_new_index, :campaign_new, :brand_new_index, :brand_new, :brand_edit, :brand_update, :brand_delete, :update_campaign, :view_campaign_trackings, :campaign_apply_crop]
+	before_filter :require_admin_account, only: [:campaign_delete, :campaign_new_index, :campaign_new, :brand_new_index, :brand_new, :brand_edit, :brand_update, :brand_delete, :update_campaign, :view_campaign_trackings, :campaign_apply_crop, :give_old_brand_profile, :convert_old_account_to_new]
 	before_filter :require_mini_admin_account, only: [:index, :campaigns, :brands, :view_campaign, :edit_campaign, :view_campaign_users, :view_campaign_redeems, :view_campaign_tasks]
 
 	def index
@@ -877,6 +877,64 @@ class AdminController < ApplicationController
 		else
 			flash[:error] = "An error occurred while trying to find the campaign to update. Please try again."
 			redirect_to "/admin/campaign/new-index"
+		end
+	end
+
+	def convert_old_account_to_new
+		unless params[:brands].blank?
+			@brand ||= Brand.find(params[:brands])
+		else
+			flash[:error] = "You must select a brand!"
+			redirect_to "/admin/brands/select-brand-to-convert"
+		end
+	end
+
+	def give_old_brand_profile
+		unless params[:brand].blank?
+			@brand = Brand.find(params[:brand_id])
+			unless params[:brand][:password].blank? || !params[:brand][:password].length.between?(6,30)
+				unless params[:brand][:password_confirmation].blank? || params[:brand][:password] != params[:brand][:password_confirmation]
+					unless params[:brand][:nickname].blank? || !params[:brand][:nickname].match(/^[a-z0-9_-]+$/) || params[:brand][:nickname].length > 45
+						unless params[:brand][:email].blank? || params[:brand][:email].length < 6 || params[:brand][:email].length > 100 || !params[:brand][:email].match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i)
+							if Brand.first(conditions: {nickname: /^#{params[:brand][:nickname]}$/i}).nil?
+								if Brand.first(conditions: {email: /^#{params[:brand][:email]}$/i}).nil?
+									if @brand.update_attributes(params[:brand])
+										@brand.nickname.downcase!
+										@brand.email.downcase!
+										@brand.provider = "email"
+										@brand.save(validate: false)
+										flash[:success] = "The Brand: \"#{@brand.name}\" has been given a profile, nickname, and an email/password login."
+										redirect_to "/admin/brands/select-brand-to-convert"
+									else
+										render "convert_old_account_to_new"
+									end
+								else
+									@brand.errors.add(:email, "has already been taken. Please choose another.")
+									render "convert_old_account_to_new"
+								end
+							else
+								@brand.errors.add(:nickname, "has already been taken. Please choose another one.")
+								render "convert_old_account_to_new"
+							end
+						else
+							@brand.errors.add(:email, "is not in the correct format. Should be: ______@______.___. Between 6-100 characters please.")
+							render "convert_old_account_to_new"
+						end
+					else
+						@brand.errors.add(:nickname, "is not in the correct format. Only lowercase letters, numbers, dashes, and underscores please. Between 1-45 characters")
+						render "convert_old_account_to_new"
+					end
+				else
+					@brand.errors.add(:password_confirmation, "does not match the password.")
+					render "convert_old_account_to_new"
+				end
+			else
+				@brand.errors.add(:password, "must be between 6-30 characters in length.")
+				render "convert_old_account_to_new"
+			end
+		else
+			flash[:error] = "When converting a brand, you must fill out ALL of the form"
+			redirect_to "/admin/brands/select-brand-to-convert"
 		end
 	end
 

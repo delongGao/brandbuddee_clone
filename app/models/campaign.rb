@@ -59,6 +59,7 @@ class Campaign
   field :linkedin_clicks, :type => Integer, :default => 0
   field :google_plus_clicks, :type => Integer, :default => 0
   field :is_white_label, :type => Boolean, :default => false
+  field :raffle_winners, :type => Array, :default => []
 
   mount_uploader :campaign_image, CampaignImageUploader
   mount_uploader :gift_image, CampaignGiftUploader
@@ -531,6 +532,36 @@ class Campaign
 
   def is_white_label?
     self.is_white_label
+  end
+
+  def pick_raffle_winners
+  	if raffle_winners.size < limit && redeem_is_raffle == true && end_date < DateTime.now
+	  	arr = []
+	  	users.each do |u|
+	  		unless raffle_winners.include? u.id.to_s
+	  			total_pts = single_users_total_pts(u)
+	  			total_entries = (total_pts / points_required).floor
+	  			unless total_entries < 1
+	  				for i in 0..total_entries - 1
+	  					arr << u.id.to_s
+	  				end
+	  			end
+	  		end
+	  	end
+	  	unless arr.size < 1
+	  		arr.shuffle!
+	  		begin
+	  			winner = arr[Random.rand(arr.size)]
+	  		end while raffle_winners.include? winner
+	  		raffle_winners << winner
+	  		save!(validate: false)
+	  		winner
+	  	else
+	  		false
+	  	end
+	  else
+	  	false
+	  end
   end
 
   before_destroy :remember_id

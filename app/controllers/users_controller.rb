@@ -17,10 +17,10 @@ class UsersController < ApplicationController
             unless campaign_filter.left == false
               campaign_filter.status = "active"
             else
-              campaign_filter.status = "expired"
+              campaign_filter.status = "expired" unless campaign_filter.redeem_is_raffle
             end
           else
-            if campaign_filter.end_date < Time.now || campaign_filter.left == false
+            if campaign_filter.end_date < Time.now || (!campaign_filter.redeem_is_raffle && campaign_filter.left == false)
               campaign_filter.status = "expired"
             else
               campaign_filter.status = "active"
@@ -33,7 +33,7 @@ class UsersController < ApplicationController
           else
             left_status = campaign_filter.limit - campaign_filter.redeems.size
             if left_status == 0
-              campaign_filter.left = false
+              campaign_filter.left = false unless campaign_filter.redeem_is_raffle
             else
               campaign_filter.left = true
             end
@@ -323,64 +323,6 @@ class UsersController < ApplicationController
     else
       flash[:error] = "You are already logged in as a brand. You can't sign up as a buddee."
       redirect_to "/brands/dashboard"
-    end
-  end
-  
-  def create_new_campaign
-    @brand = Brand.find(params[:brands])
-    @campaign = @brand.campaigns.create!(params[:campaign])
-
-    unless params[:date_year].blank? || params[:date_month].blank? || params[:date_day].blank? || params[:date_hour].blank? || params[:date_minute].blank?
-      date_time = DateTime.new(params[:date_year].to_i, params[:date_month].to_i, params[:date_day].to_i, params[:date_hour].to_i, params[:date_minute].to_i, 0, "-0700")
-      @campaign.end_date = date_time
-    end
-
-    if params[:campaign][:tweet].blank?
-      @campaign.tweet = "Check out #{@campaign.title} via @brandbuddee"
-    end
-
-    category = Category.find(params[:categories])
-    @campaign.category_ids << params[:categories]
-    @campaign.location = params[:location]
-
-    if @campaign.save
-      flash[:notice] = "Campaign successfully created"
-      redirect_to(:action => 'show')
-    else
-      flash[:notice] = "Uh oh"
-    end
-  end
-
-  def create_new_category
-    @category = Category.create!(params[:category])
-
-    if @category.save
-      flash[:notice] = "Category successfully created"
-      redirect_to(:action => 'show')
-    else
-      flash[:notice] = "Uh oh"
-    end
-  end
-
-  def create_new_location
-    @location = Location.create!(params[:location])
-
-    if @location.save
-      flash[:notice] = "Location successfully created"
-      redirect_to(:action => 'show')
-    else
-      flash[:notice] = "Uh oh"
-    end
-  end
-
-  def create_new_brand
-    @brand = Brand.create!(params[:brand])
-
-    if @brand.save
-      flash[:notice] = "Brand successfully created"
-      redirect_to(:action => 'show')
-    else
-      flash[:notice] = "Uh oh"
     end
   end
 

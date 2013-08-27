@@ -62,7 +62,7 @@ class EmbedWidgetsController < ApplicationController
 						redeem_check = Redeem.where(:user_id => @share.user_id, :campaign_id => @share.campaign_id).first
 						if redeem_check.nil?
 							left = @share.campaign.limit - @share.campaign.redeems.size
-							unless left <= 0 || @share.campaign.end_date < Time.now
+							unless (!@campaign.redeem_is_raffle && left <= 0) || @share.campaign.end_date < Time.now
 								redeem_code = Redeem.assign_redeem_code()
 								@redeem = Redeem.create!(date: Time.now, redeem_code: redeem_code, campaign_id: @share.campaign_id, user_id: @share.user_id)
 								@redeem.save
@@ -110,7 +110,7 @@ class EmbedWidgetsController < ApplicationController
 	 	if current_user
 			unless @campaign.already_has_user_share?(user)
 				@left = @campaign.limit - @campaign.redeems.size
-				unless @left < 1 || @campaign.end_date < Time.now
+				unless (!@campaign.redeem_is_raffle && @left < 1) || @campaign.end_date < Time.now
 					@campaign.user_ids << current_user.id
 	                share_link = Share.assign_link
 	                the_share = @campaign.shares.create!(date: Time.now, link: share_link, user_id: current_user.id, campaign_id: @campaign.id, url: @campaign.share_link)
@@ -147,7 +147,7 @@ class EmbedWidgetsController < ApplicationController
 	        	session[:user_id] = user.id
         		unless @campaign.already_has_user_share?(user)
         			@left = @campaign.limit - @campaign.redeems.size
-        			unless @left < 1 || @campaign.end_date < Time.now
+        			unless (!@campaign.redeem_is_raffle && @left < 1) || @campaign.end_date < Time.now
 	        			@campaign.user_ids << user.id
 		                share_link = Share.assign_link
 		                the_share = @campaign.shares.create!(date: Time.now, link: share_link, user_id: user.id, campaign_id: @campaign.id, url: @campaign.share_link)
@@ -249,7 +249,7 @@ class EmbedWidgetsController < ApplicationController
 			if @user.save
 				session[:user_id] = @user.id
 				@left = @campaign.limit - @campaign.redeems.size
-				unless @left < 1 || @campaign.end_date < Time.now
+				unless (!@campaign.redeem_is_raffle && @left < 1) || @campaign.end_date < Time.now
 					@campaign.user_ids << @user.id
 	                share_link = Share.assign_link
 	                the_share = @campaign.shares.create!(date: Time.now, link: share_link, user_id: @user.id, campaign_id: @campaign.id, url: @campaign.share_link)
@@ -474,7 +474,7 @@ class EmbedWidgetsController < ApplicationController
 				@campaign = Campaign.find(params[:campaign_id])
 				unless @campaign.nil?
 					@left = @campaign.limit - @campaign.redeems.size
-					unless @left < 1 || @campaign.end_date < Time.now
+					unless (!@campaign.redeem_is_raffle && @left < 1) || @campaign.end_date < Time.now
 						@campaign.user_ids << @user.id
 		                share_link = Share.assign_link
 		                the_share = @campaign.shares.create!(date: Time.now, link: share_link, user_id: @user.id, campaign_id: @campaign.id, url: @campaign.share_link)
@@ -525,7 +525,7 @@ class EmbedWidgetsController < ApplicationController
 			        	unless @campaign.nil?
 			        		unless @campaign.already_has_user_share?(user)
 			        			@left = @campaign.limit - @campaign.redeems.size
-			        			unless @left < 1 || @campaign.end_date < Time.now
+			        			unless (!@campaign.redeem_is_raffle && @left < 1) || @campaign.end_date < Time.now
 				        			@campaign.user_ids << user.id
 					                share_link = Share.assign_link
 					                the_share = @campaign.shares.create!(date: Time.now, link: share_link, user_id: user.id, campaign_id: @campaign.id, url: @campaign.share_link)
@@ -600,7 +600,7 @@ class EmbedWidgetsController < ApplicationController
 					if current_user
 						unless @campaign.already_has_user_share?(user)
 							@left = @campaign.limit - @campaign.redeems.size
-							unless @left < 1 || @campaign.end_date < Time.now
+							unless (!@campaign.redeem_is_raffle && @left < 1) || @campaign.end_date < Time.now
 								@campaign.user_ids << current_user.id
 				                share_link = Share.assign_link
 				                the_share = @campaign.shares.create!(date: Time.now, link: share_link, user_id: current_user.id, campaign_id: @campaign.id, url: @campaign.share_link)
@@ -687,7 +687,7 @@ class EmbedWidgetsController < ApplicationController
 											redeem_check = Redeem.where(:user_id => @share.user_id, :campaign_id => @share.campaign_id).first
 											if redeem_check.nil?
 												left = @share.campaign.limit - @share.campaign.redeems.size
-												unless left <= 0 || @share.campaign.end_date < Time.now
+												unless (!@campaign.redeem_is_raffle && left <= 0) || @share.campaign.end_date < Time.now
 													redeem_code = Redeem.assign_redeem_code()
 													@redeem = Redeem.create!(date: Time.now, redeem_code: redeem_code, campaign_id: @share.campaign_id, user_id: @share.user_id)
 													@redeem.save
@@ -814,7 +814,7 @@ class EmbedWidgetsController < ApplicationController
 									@campaign = Campaign.where(link: @embed.campaign_link).first
 									unless @campaign.nil?
 										@left = @campaign.limit - @campaign.redeems.size
-										unless @left < 1 || @campaign.end_date < Time.now
+										unless (!@campaign.redeem_is_raffle && @left < 1) || @campaign.end_date < Time.now
 											redirect_to "/fb-joined-campaign?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
 										else
 											unless @campaign.is_white_label?

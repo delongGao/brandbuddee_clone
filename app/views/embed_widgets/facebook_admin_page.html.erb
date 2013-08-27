@@ -13,7 +13,13 @@
 					<h2 class="whats-new"><i class="icon-cogs bb-blue"></i> Admin Panel</h2>
 					<div class="row stats-top">
 						<div class="span2">
-							<h3 class="whats-new"><%= @campaign.limit - @campaign.redeems.size < 1 ? "0" : @campaign.limit - @campaign.redeems.size %><br><span>Qty Left</span></h3>
+							<h3 class="whats-new">
+								<% if @campaign.redeem_is_raffle %>
+									<%= @campaign.limit %><br><span>Qty Avail</span>
+								<% else %>
+									<%= @campaign.limit - @campaign.redeems.size < 1 ? "0" : @campaign.limit - @campaign.redeems.size %><br><span>Qty Left</span>
+								<% end %>
+							</h3>
 						</div>
 						<div class="span2">
 							<h3 class="whats-new"><%= @total_page_views %><br><span>Page Visits</span></h3>

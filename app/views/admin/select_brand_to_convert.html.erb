@@ -1,0 +1,128 @@
+<div id="overlay">
+	<ul>
+	  <li class="li1"></li>
+	  <li class="li2"></li>
+	  <li class="li3"></li>
+	  <li class="li4"></li>
+	  <li class="li5"></li>
+	  <li class="li6"></li>
+	</ul>
+</div>
+
+<%= render 'shared/admin_header' %>
+	
+<div class="container-fluid">
+<div class="row-fluid">
+
+
+<%= render 'shared/admin_side' %>
+			
+<noscript>
+	<div class="alert alert-block span10">
+		<h4 class="alert-heading">Warning!</h4>
+		<p>You need to have <a title="sweepstakes contests giveaways brandbuddee" href="http://www.enable-javascript.com/" target="_blank">JavaScript</a> enabled to use this site.</p>
+	</div>
+</noscript>
+			
+<div id="content" class="span10">
+<!-- start: Content -->
+			
+
+	<div>
+		<hr>
+		<ul class="breadcrumb">
+			<li>
+				<a title="sweepstakes contests giveaways brandbuddee" href="/admin">Dashboard</a> <span class="divider">/</span>
+			</li>
+			<li>
+				<a title="sweepstakes contests giveaways brandbuddee" href="/admin/brands">Brands</a> <span class="divider">/</span>
+			</li>
+			<li>
+				<a title="sweepstakes contests giveaways brandbuddee" href="#">Convert Old Account To New One</a>
+		</ul>
+		<hr>
+	</div>
+
+	<% flash.each do |name, msg| %>
+	<div class="row">
+		<div class="span6 offset3">
+			<div class="alert alert-<%= name %> fade in">
+				<a title="sweepstakes contests giveaways brandbuddee" href="#" class="close" data-dismiss="alert">&times;</a>
+				<%= msg.html_safe %>
+			</div>
+		</div>
+	</div>
+	<% end %>
+			
+	<div class="row-fluid sortable">		
+		<div class="box span12">
+			<div class="box-header" data-original-title>
+				<h2><i class="fa-icon-resize-horizontal"></i><span class="break"></span>Select Brand to Convert to Profile </h2>
+				<div class="box-icon">
+					<a title="sweepstakes contests giveaways brandbuddee" href="#" class="btn-minimize"><i class="icon-chevron-up"></i></a>
+					<a title="sweepstakes contests giveaways brandbuddee" href="#" class="btn-close"><i class="icon-remove"></i></a>
+				</div>
+			</div>
+			<div class="box-content">
+				<%= form_tag "/admin/brands/convert-old-to-new", class: "form-horizontal" do %>
+					<div class="control-group">
+						<%= label_tag "brands", "Select Brand", class: "control-label" %>
+						<div class="controls">
+							<% brand_all = Brand.all.where(manager_first: nil, manager_last: nil, provider: nil, last_login: nil, email: nil, nickname: nil).order_by([:name, :asc]) %>
+							<%= select_tag "brands", options_from_collection_for_select(brand_all, "id", "name"), :prompt => "- Select Brand -", style: "width:64%;" %>
+						</div>
+					</div>
+					<div class="control-group">
+						<div class="controls">
+							<%= submit_tag "Select Brand", class: "btn btn-large btn-warning", style: "font-weight:700;" %>
+						</div>
+					</div>
+				<% end %>
+			</div>
+		</div><!--/span-->
+			
+	</div><!--/row-->
+
+	<hr>
+<!-- end: Content -->
+</div><!--/#content.span10-->
+				
+</div><!--/fluid-row-->
+		
+<div class="clearfix"></div>
+		
+
+<%= render 'shared/admin_footer' %>
+				
+</div><!--/.fluid-container-->
+
+
+
+<!-- start: JavaScript-->
+<script src="/js/admin/jquery-1.7.2.min.js"></script>
+<script src="/js/admin/jquery-ui-1.8.21.custom.min.js"></script>
+<script src="/js/admin/jquery.cookie.js"></script>
+<script src='/js/admin/fullcalendar.min.js'></script>
+<script src='/js/admin/jquery.dataTables.min.js'></script>
+<script src="/js/admin/excanvas.js"></script>
+<script src="/js/admin/jquery.flot.min.js"></script>
+<script src="/js/admin/jquery.flot.pie.min.js"></script>
+<script src="/js/admin/jquery.flot.stack.js"></script>
+<script src="/js/admin/jquery.flot.resize.min.js"></script>
+<script src="/js/admin/jquery.chosen.min.js"></script>
+<script src="/js/admin/jquery.uniform.min.js"></script>
+<script src="/js/admin/jquery.cleditor.min.js"></script>
+<script src="/js/admin/jquery.noty.js"></script>
+<script src="/js/admin/jquery.elfinder.min.js"></script>
+<script src="/js/admin/jquery.raty.min.js"></script>
+<script src="/js/admin/jquery.iphone.toggle.js"></script>
+<script src="/js/admin/jquery.uploadify-3.1.min.js"></script>
+<script src="/js/admin/jquery.gritter.min.js"></script>
+<script src="/js/admin/jquery.imagesloaded.js"></script>
+<script src="/js/admin/jquery.masonry.min.js"></script>
+<script src="/js/admin/jquery.knob.js"></script>
+<script src="/js/admin/jquery.sparkline.min.js"></script>
+<script src="/js/admin/custom.js"></script>
+<script type="text/javascript">
+</script>
+<!-- end: JavaScript-->

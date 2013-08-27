@@ -124,10 +124,6 @@ Brandbuddee::Application.routes.draw do
 
   match 'admin' => 'admin#index'
 
-  post 'admin/category/create' => 'users#create_new_category'
-  post 'admin/location/create' => 'users#create_new_location'
-  post 'admin/brand/create' => 'users#create_new_brand'
-
   match 'admin/campaigns' => 'admin#campaigns'
   match 'admin/users' => 'admin#users'
 
@@ -138,8 +134,6 @@ Brandbuddee::Application.routes.draw do
   match 'admin/campaign/edit' => 'admin#edit_campaign'
   match 'admin/campaign/update' => 'admin#update_campaign'
   match 'admin/campaign/delete' => 'admin#campaign_delete'
-
-  match 'admin/campaign/create' => 'users#create_new_campaign'
 
   match 'admin/campaign/view/users' => 'admin#view_campaign_users'
   match 'admin/campaign/view/redeems' => 'admin#view_campaign_redeems'
@@ -162,6 +156,9 @@ Brandbuddee::Application.routes.draw do
   match 'admin/brand/delete' => 'admin#brand_delete'
   match 'admin/brands/edit' => 'admin#brand_edit'
   match 'admin/brands/update' => 'admin#brand_update'
+  match '/admin/brands/select-brand-to-convert' => 'admin#select_brand_to_convert'
+  match '/admin/brands/convert-old-to-new' => 'admin#convert_old_account_to_new'
+  match '/admin/brands/give-old-brand-profile' => 'admin#give_old_brand_profile'
 
   match 'admin/redeem/resend_confirmation' => 'campaign#resend_redeem_confirmation_email'
 
@@ -211,6 +208,8 @@ Brandbuddee::Application.routes.draw do
   match '/campaign/:campaign/go_viral_task_undo' => 'embed_widgets#website_task_undo', :as => :campaign
   match '/campaign/:campaign/go_viral_fb_wall_post' => 'embed_widgets#website_fb_wall_post', :as => :campaign
   match '/campaign/:campaign/go_viral_fb_error' => 'embed_widgets#website_fb_error_page', :as => :campaign
+
+  match '/campaign/:campaign/create-raffle-winner' => 'campaign#create_raffle_winner', :as => :campaign
 
   match '/post/facebook' => 'campaign#facebook_wall_post'
   #match '/facebook/connect' => 'users#facebook_connect'

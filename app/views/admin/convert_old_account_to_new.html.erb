@@ -1,0 +1,202 @@
+<div id="overlay">
+	<ul>
+	  <li class="li1"></li>
+	  <li class="li2"></li>
+	  <li class="li3"></li>
+	  <li class="li4"></li>
+	  <li class="li5"></li>
+	  <li class="li6"></li>
+	</ul>
+</div>
+
+<%= render 'shared/admin_header' %>
+	
+<div class="container-fluid">
+<div class="row-fluid">
+
+
+<%= render 'shared/admin_side' %>
+			
+<noscript>
+	<div class="alert alert-block span10">
+		<h4 class="alert-heading">Warning!</h4>
+		<p>You need to have <a title="sweepstakes contests giveaways brandbuddee" href="http://www.enable-javascript.com/" target="_blank">JavaScript</a> enabled to use this site.</p>
+	</div>
+</noscript>
+			
+<div id="content" class="span10">
+<!-- start: Content -->
+			
+
+	<div>
+		<hr>
+		<ul class="breadcrumb">
+			<li>
+				<a title="sweepstakes contests giveaways brandbuddee" href="/admin">Dashboard</a> <span class="divider">/</span>
+			</li>
+			<li>
+				<a title="sweepstakes contests giveaways brandbuddee" href="/admin/brands">Brands</a> <span class="divider">/</span>
+			</li>
+			<li>
+				<a title="sweepstakes contests giveaways brandbuddee" href="#">Convert Old Account To New One</a>
+		</ul>
+		<hr>
+	</div>
+
+	<% flash.each do |name, msg| %>
+	<div class="row">
+		<div class="span6 offset3">
+			<div class="alert alert-<%= name %> fade in">
+				<a title="sweepstakes contests giveaways brandbuddee" href="#" class="close" data-dismiss="alert">&times;</a>
+				<%= msg.html_safe %>
+			</div>
+		</div>
+	</div>
+	<% end %>
+			
+	<div class="row-fluid sortable">		
+		<div class="box span12">
+			<div class="box-header" data-original-title>
+				<h2><i class="fa-icon-resize-horizontal"></i><span class="break"></span>Convert An Old Brand Account To A New One With A Profile </h2>
+				<div class="box-icon">
+					<a title="sweepstakes contests giveaways brandbuddee" href="#" class="btn-minimize"><i class="icon-chevron-up"></i></a>
+					<a title="sweepstakes contests giveaways brandbuddee" href="#" class="btn-close"><i class="icon-remove"></i></a>
+				</div>
+			</div>
+			<div class="box-content">
+				<%= form_for @brand, url: "/admin/brands/give-old-brand-profile", html: {class: "form-horizontal"} do |f| %>
+					<% if @brand.errors.any? %>
+						<% @brand.errors.full_messages.each do |message| %>
+							<div class="alert alert-error fade in">
+								<a title="sweepstakes contests giveaways brandbuddee" href="#" class="close" data-dismiss="alert">&times;</a>
+								<strong>Uh Oh!</strong> <%= message %>
+							</div>
+						<% end %>
+					<% end %>
+					<div class="control-group">
+						<%= f.label :nickname, "Nickname", class: "control-label" %>
+						<div class="controls">
+							<% unless params[:brand].blank? %>
+								<%= f.text_field :nickname, value: params[:brand][:nickname], placeholder: "1-45 chars, only lowercase letters, numbers, dashes, & underscores", class: "input-xxlarge", autofocus: true %>
+							<% else %>
+								<%= f.text_field :nickname,  placeholder: "1-45 chars, only lowercase letters, numbers, dashes, & underscores", class: "input-xxlarge", autofocus: true %>
+							<% end %>
+						</div>
+					</div>
+					<div class="control-group">
+						<%= f.label :manager_first, "Manager First Name", class: "control-label" %>
+						<div class="controls">
+							<% unless params[:brand].blank? %>
+								<%= f.text_field :manager_first, value: params[:brand][:manager_first], placeholder: "1-75 Characters", class: "input-xxlarge" %>
+							<% else %>
+								<%= f.text_field :manager_first,  placeholder: "1-75 Characters", class: "input-xxlarge" %>
+							<% end %>
+						</div>
+					</div>
+					<div class="control-group">
+						<%= f.label :manager_last, "Manager Last Name", class: "control-label" %>
+						<div class="controls">
+							<% unless params[:brand].blank? %>
+								<%= f.text_field :manager_last, value: params[:brand][:manager_last], placeholder: "1-75 Characters", class: "input-xxlarge" %>
+							<% else %>
+								<%= f.text_field :manager_last,  placeholder: "1-75 Characters", class: "input-xxlarge" %>
+							<% end %>
+						</div>
+					</div>
+					<div class="control-group">
+						<%= f.label :bio, "Bio", class: "control-label" %>
+						<div class="controls">
+							<% unless params[:brand].blank? %>
+								<%= f.text_area :bio, value: params[:brand][:bio], placeholder: "At Least 1 Character", class: "input-xxlarge", rows: 5 %>
+							<% else %>
+								<%= f.text_area :bio,  placeholder: "At Least 1 Character", class: "input-xxlarge", rows: 5 %>
+							<% end %>
+						</div>
+					</div>
+					<div class="control-group">
+						<%= f.label :website, "Website", class: "control-label" %>
+						<div class="controls">
+							<% unless params[:brand].blank? %>
+								<%= f.text_field :website, value: params[:brand][:website], placeholder: "1-125 Characters. Must start with http:// or https://", class: "input-xxlarge" %>
+							<% else %>
+								<%= f.text_field :website,  placeholder: "1-125 Characters. Must start with http:// or https://", class: "input-xxlarge" %>
+							<% end %>
+						</div>
+					</div>
+					<div class="control-group">
+						<%= f.label :email, "Email Address", class: "control-label" %>
+						<div class="controls">
+							<% unless params[:brand].blank? %>
+								<%= f.email_field :email, value: params[:brand][:email], placeholder: "6-100 Characters", class: "input-xxlarge" %>
+							<% else %>
+								<%= f.email_field :email, placeholder: "6-100 Characters", class: "input-xxlarge" %>
+							<% end %>
+						</div>
+					</div>
+					<div class="control-group">
+						<%= f.label :password, "Password", class: "control-label" %>
+						<div class="controls">
+							<%= f.password_field :password, maxlength: 30, class: "input-xxlarge", placeholder: "6-30 Characters" %>
+						</div>
+					</div>
+					<div class="control-group">
+						<%= f.label :password_confirmation, "Confirm Password", class: "control-label" %>
+						<div class="controls">
+							<%= f.password_field :password_confirmation, class: "input-xxlarge", maxlength: 30, placeholder: "Match Above Password" %>
+						</div>
+					</div>
+					<div class="control-group">
+						<div class="controls">
+							<%= hidden_field_tag "brand_id", @brand.id %>
+							<%= f.submit "Convert Brand", class: "btn btn-info btn-large", style: "font-weight:700;" %>
+						</div>
+					</div>
+				<% end %>
+			</div>
+		</div><!--/span-->
+			
+	</div><!--/row-->
+
+	<hr>
+<!-- end: Content -->
+</div><!--/#content.span10-->
+				
+</div><!--/fluid-row-->
+		
+<div class="clearfix"></div>
+		
+
+<%= render 'shared/admin_footer' %>
+				
+</div><!--/.fluid-container-->
+
+
+
+<!-- start: JavaScript-->
+<script src="/js/admin/jquery-1.7.2.min.js"></script>
+<script src="/js/admin/jquery-ui-1.8.21.custom.min.js"></script>
+<script src="/js/admin/jquery.cookie.js"></script>
+<script src='/js/admin/fullcalendar.min.js'></script>
+<script src='/js/admin/jquery.dataTables.min.js'></script>
+<script src="/js/admin/excanvas.js"></script>
+<script src="/js/admin/jquery.flot.min.js"></script>
+<script src="/js/admin/jquery.flot.pie.min.js"></script>
+<script src="/js/admin/jquery.flot.stack.js"></script>
+<script src="/js/admin/jquery.flot.resize.min.js"></script>
+<script src="/js/admin/jquery.chosen.min.js"></script>
+<script src="/js/admin/jquery.uniform.min.js"></script>
+<script src="/js/admin/jquery.cleditor.min.js"></script>
+<script src="/js/admin/jquery.noty.js"></script>
+<script src="/js/admin/jquery.elfinder.min.js"></script>
+<script src="/js/admin/jquery.raty.min.js"></script>
+<script src="/js/admin/jquery.iphone.toggle.js"></script>
+<script src="/js/admin/jquery.uploadify-3.1.min.js"></script>
+<script src="/js/admin/jquery.gritter.min.js"></script>
+<script src="/js/admin/jquery.imagesloaded.js"></script>
+<script src="/js/admin/jquery.masonry.min.js"></script>
+<script src="/js/admin/jquery.knob.js"></script>
+<script src="/js/admin/jquery.sparkline.min.js"></script>
+<script src="/js/admin/custom.js"></script>
+<script type="text/javascript">
+</script>
+<!-- end: JavaScript-->

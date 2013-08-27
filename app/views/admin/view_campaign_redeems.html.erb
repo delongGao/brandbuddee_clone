@@ -88,6 +88,91 @@
 				</div><!--/span-->
 			</div><!--/row-->
 			<hr>
+			<% if @campaign.redeem_is_raffle == true && @campaign.end_date < DateTime.now %>
+			<div class="row-fluid sortable">
+				<div class="box span4 offset2">
+					<div class="box-header">
+						<h2><i class="fa-icon-random"></i><span class="break"></span>Pick Random Raffle Winner</h2>
+						<div class="box-icon">
+							<a title="sweepstakes contests giveaways brandbuddee" href="#" class="btn-minimize"><i class="fa-icon-chevron-up"></i></a>
+						</div>
+					</div>
+					<div class="box-content text-center" style="overflow:hidden;text-align:center;" id="createWinnerBox">
+						<ul class="dashboard-list" style="text-align:left;">
+							<li>
+								<a href="#">
+									<i style="font-size:1.35em; color:#2380BA;" class="fa-icon-star"></i>
+									<span style="color:#2380BA;" id="spnContestAvail"><%= @campaign.redeems.size - @campaign.raffle_winners.size %></span>
+									<% if @campaign.redeems.size - @campaign.raffle_winners.size == 1 %>Contestant<% else %>Contestants<% end %> Available
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<i style="font-size:1.35em;" class="fa-icon-hand-up green"></i>
+									<span class="green" id="spnWinnersPicked"><%= @campaign.raffle_winners.size %></span>
+									<% if @campaign.raffle_winners.size == 1 %>Winner<% else %>Winners<% end %> Picked
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<i style="font-size:1.35em;" class="fa-icon-trophy yellow"></i>
+									<span class="yellow" id="spnWinsLeft"><%= @campaign.limit - @campaign.raffle_winners.size %></span>
+									<% if @campaign.limit - @campaign.raffle_winners.size == 1 %>Win<% else %>Wins<% end %> Left
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<i style="font-size:1.35em;" class="fa-icon-plus red"></i>
+									<span class="red"><%= @campaign.limit %></span>
+									Max Number of Winners
+								</a>
+							</li>
+						</ul>
+						<% if @campaign.raffle_winners.size < @campaign.limit %>
+							<%= link_to "/campaign/#{@campaign.link}/create-raffle-winner", class: "btn btn-large btn-info", remote: true, id: "btnGetRandomWinner" do %>
+								<i class="fa-icon-random"></i> Pick Winner</a>
+							<% end %>
+						<% else %>
+							<a href="#" class="btn btn-large btn-info disabled" onclick="return false;"><i class="fa-icon-random"></i> Pick Winner</a>
+						<% end %>
+					</div><!-- /.box-content -->
+				</div><!--/span-->
+				<div class="box span4" onTablet="span6" onDesktop="span4">
+					<div class="box-header">
+						<h2><i class="fa-icon-trophy"></i><span class="break"></span>Raffle Winners</h2>
+						<div class="box-icon">
+							<a title="sweepstakes contests giveaways brandbuddee" href="#" class="btn-minimize"><i class="fa-icon-chevron-up"></i></a>
+						</div>
+					</div>
+					<div class="box-content">
+					<% unless @campaign.raffle_winners.empty? %>
+						<ul class="dashboard-list" id="listOfRaffleWinners">
+							<% @campaign.raffle_winners.each do |winner| %>
+								<% user = User.where(_id: winner).first %>
+								<% unless user.nil? %>
+									<% redeem = user.redeems.where(campaign_id: @campaign.id).first %>
+									<% unless redeem.nil? %>
+							<li>
+								<a href="/<%= user.nickname unless user.nickname.nil? %>" target="_blank" title="sweepstakes contests giveaways brandbuddee">
+									<%= image_tag user.profile_image_url(:thumb).to_s, class: 'avatar', title: "sweepstakes contests giveaways brandbuddee", alt: "sweepstakes-contests-giveaways-brandbuddee" %>
+								</a>
+								<strong>Name:</strong> <a href="/<%= user.nickname %>" target="_blank"><% unless user.first_name.blank? || user.last_name.blank? %><%= "#{user.first_name} #{user.last_name}" %><% else %><%= user.nickname %><% end %></a><br>
+								<strong>Email:</strong> <a href="mailto:<%= user.email %>" target="_blank"><%= user.email %></a><br>
+								<strong>Redeem:</strong> <span class="label label-info"><%= redeem.redeem_code %></span>
+							</li>
+									<% end %>
+								<% end %>
+							<% end %>
+						</ul>
+					<% else %>
+						<h1 class="text-center" id="no-winners-text" style="text-align:center;"><span style="font-size:1.5em;">No Winners Picked</span><br><br><i style="font-size:5em;" class="fa-icon-ban-circle"></i></h1>
+						<ul class="dashboard-list" id="listOfRaffleWinners"></ul>
+					<% end %>
+					</div><!-- /.box-content -->
+				</div><!--/span-->
+			</div><!--/row-->
+			<hr>
+			<% end %>
 			<!-- end: Content -->
 
 		</div><!--/#content.span10-->

@@ -1,0 +1,157 @@
+<% case @errorMessage %>
+<% when "USERERROR1" %>
+	noty({
+		text: "The campaign you are looking for could not be found. Please try again.",
+		layout: "top",
+		type: "error",
+		timeout: 10000,
+		closeButton: true
+	});
+<% when "USERERROR2" %>
+	noty({
+		text: "Winner not picked. Possibly because there are no more eligible winners, or because you've reached the max winners for the campaign.",
+		layout: "top",
+		type: "error",
+		timeout: 10000,
+		closeButton: true
+	});
+<% when "BRANDERROR1" %>
+	noty({
+		text: "The campaign you are looking for could not be found. Please try again.",
+		layout: "top",
+		type: "error",
+		timeout: 10000,
+		closeButton: true
+	});
+<% when "BRANDERROR2" %>
+	noty({
+		text: "Winner not picked. Possibly because there are no more eligible winners, or because you've reached the max winners for the campaign.",
+		layout: "top",
+		type: "error",
+		timeout: 10000,
+		closeButton: true
+	});
+<% when "GENERICERROR" %>
+	window.location = "<%= root_url %>";
+<% when "USERSUCCESS" %>
+	$("#btnGetRandomWinner").fadeOut(200);
+	if($("#randomProgressBar").length) {
+		$("#randomProgressTitle").fadeIn(500);
+		$("#randomProgressBar .bar").css("width", "10%");
+		$("#randomProgressBar").fadeIn(500);
+		$("#randomProgressText").html('<h2 class="text-info">Gathering buddees</h2>').fadeIn(500);
+	} else {
+		$("#createWinnerBox").append($('<h2 id="randomProgressTitle">Progress:</h2><div class="progress progress-striped active" id="randomProgressBar"><div class="bar" style="width: 10%"></div></div><div id="randomProgressText"><h2 class="text-info">Gathering buddees</h2></div>').hide().fadeIn(500));
+	} // End else
+	var progressBar = $("#randomProgressBar .bar");
+	var progressText = $("#randomProgressText");
+	setTimeout(function() {
+		progressBar.css("width", "30%");
+		progressText.html('<h2 class="text-info">Computing Entries</h2>');
+	}, 1500);
+	setTimeout(function() {
+		progressBar.css("width", "50%");
+		progressText.html('<h2 class="text-warning">Shuffling Elements</h2>');
+	}, 3000);
+	setTimeout(function() {
+		progressBar.css("width", "70%");
+		progressText.html('<h2 class="text-warning">Microwaving Popcorn</h2>');
+	}, 4500);
+	setTimeout(function() {
+		progressBar.css("width", "85%");
+		progressText.html('<h2 class="text-success">Randomizing Contestants</h2>');
+	}, 6000);
+	setTimeout(function() {
+		progressBar.css("width", "95%");
+		progressText.html('<h2 class="text-success">Picking Winner</h2>');
+	}, 7500);
+	setTimeout(function() {
+		progressBar.css("width", "100%");
+		progressText.html('<h2 class="text-info">All Done</h2>');
+	}, 8500);
+	setTimeout(function() {
+		$("#randomProgressTitle").fadeOut(1000);
+		$("#randomProgressBar").fadeOut(1000);
+		progressText.fadeOut(1000);
+	}, 9000);
+	setTimeout(function() {
+		$("#btnGetRandomWinner").fadeIn(500);
+		noty({
+			text: "Your Random Winner has been picked!",
+			layout: "top",
+			type: "success",
+			timeout: 5000,
+			closeButton: true
+		});
+		if($("#no-winners-text").length) {
+			$("#no-winners-text").slideUp();
+		} // End if
+		$("#listOfRaffleWinners").append($('<li><a href="/<%= @user.nickname unless @user.nickname.nil? %>" target="_blank" title="sweepstakes contests giveaways brandbuddee"><%= image_tag @user.profile_image_url(:thumb).to_s, class: "avatar", title: "sweepstakes contests giveaways brandbuddee", alt: "sweepstakes-contests-giveaways-brandbuddee" %></a><strong>Name:</strong> <a href="/<%= @user.nickname %>" target="_blank"><% unless @user.first_name.blank? || @user.last_name.blank? %><%= "#{@user.first_name} #{@user.last_name}" %><% else %><%= @user.nickname %><% end %></a><br><strong>Email:</strong> <a href="mailto:<%= @user.email %>" target="_blank"><%= @user.email %></a><br><strong>Redeem:</strong> <span class="label label-info"><%= @redeem.redeem_code %></span></li>').hide().fadeIn(2000));
+		$("#spnContestAvail").text($("#spnContestAvail").text() - 1);
+		$("#spnWinnersPicked").text(parseInt($("#spnWinnersPicked").text()) + 1);
+		$("#spnWinsLeft").text($("#spnWinsLeft").text() - 1);
+	}, 10000);
+<% when "BRANDSUCCESS" %>
+	$("#btnGetRandomWinner").fadeOut(200);
+	if($("#randomProgressBar").length) {
+		$("#randomProgressTitle").fadeIn(500);
+		$("#randomProgressBar .bar").css("width", "10%");
+		$("#randomProgressBar").fadeIn(500);
+		$("#randomProgressText").html('<h2 class="text-info">Gathering buddees</h2>').fadeIn(500);
+	} else {
+		$("#createWinnerBox").append($('<h2 id="randomProgressTitle">Progress:</h2><div class="progress progress-striped active" id="randomProgressBar"><div class="bar" style="width: 10%"></div></div><div id="randomProgressText"><h2 class="text-info">Gathering buddees</h2></div>').hide().fadeIn(500));
+	} // End else
+	var progressBar = $("#randomProgressBar .bar");
+	var progressText = $("#randomProgressText");
+	setTimeout(function() {
+		progressBar.css("width", "30%");
+		progressText.html('<h2 class="text-info">Computing Entries</h2>');
+	}, 1500);
+	setTimeout(function() {
+		progressBar.css("width", "50%");
+		progressText.html('<h2 class="text-warning">Shuffling Elements</h2>');
+	}, 3000);
+	setTimeout(function() {
+		progressBar.css("width", "70%");
+		progressText.html('<h2 class="text-warning">Microwaving Popcorn</h2>');
+	}, 4500);
+	setTimeout(function() {
+		progressBar.css("width", "85%");
+		progressText.html('<h2 class="text-success">Randomizing Contestants</h2>');
+	}, 6000);
+	setTimeout(function() {
+		progressBar.css("width", "95%");
+		progressText.html('<h2 class="text-success">Picking Winner</h2>');
+	}, 7500);
+	setTimeout(function() {
+		progressBar.css("width", "100%");
+		progressText.html('<h2 class="text-info">All Done</h2>');
+	}, 8500);
+	setTimeout(function() {
+		$("#randomProgressTitle").fadeOut(1000);
+		$("#randomProgressBar").fadeOut(1000);
+		progressText.fadeOut(1000);
+	}, 9000);
+	setTimeout(function() {
+		$("#btnGetRandomWinner").fadeIn(500);
+		noty({
+			text: "Your Random Winner has been picked!",
+			layout: "top",
+			type: "success",
+			timeout: 5000,
+			closeButton: true
+		});
+		if($("#no-winners-text").length) {
+			$("#no-winners-text").slideUp();
+		} // End if
+		$("#listOfRaffleWinners").append($('<li><a href="/<%= @user.nickname unless @user.nickname.nil? %>" target="_blank" title="sweepstakes contests giveaways brandbuddee"><%= image_tag @user.profile_image_url(:thumb).to_s, class: "avatar", title: "sweepstakes contests giveaways brandbuddee", alt: "sweepstakes-contests-giveaways-brandbuddee" %></a><strong>Name:</strong> <a href="/<%= @user.nickname %>" target="_blank"><% unless @user.first_name.blank? || @user.last_name.blank? %><%= "#{@user.first_name} #{@user.last_name}" %><% else %><%= @user.nickname %><% end %></a><br><strong>Email:</strong> <a href="mailto:<%= @user.email %>" target="_blank"><%= @user.email %></a><br><strong>Redeem:</strong> <span class="label label-info"><%= @redeem.redeem_code %></span></li>').hide().fadeIn(2000));
+		$("#spnContestAvail").text($("#spnContestAvail").text() - 1);
+		$("#spnWinnersPicked").text(parseInt($("#spnWinnersPicked").text()) + 1);
+		$("#spnWinsLeft").text($("#spnWinsLeft").text() - 1);
+	}, 10000);
+<% when "GENERICSUCCESS" %>
+	window.location = "<%= root_url %>home";
+	$("#portfolio").prepend('<div class="alert alert-success fade in"><a href="#" class="close" data-dismiss="alert">&times;</a><strong>Success!</strong> Your Raffle Winner has been picked!</div>');
+<% else %>
+	window.location = "<%= root_url %>";
+<% end %>

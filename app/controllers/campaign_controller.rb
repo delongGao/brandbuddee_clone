@@ -31,7 +31,7 @@ class CampaignController < ApplicationController
 							redeem_check = Redeem.where(:user_id => user_share, :campaign_id => share_update.campaign_id).first
 							if redeem_check.nil?
 								left = share_update.campaign.limit - share_update.campaign.redeems.size
-								unless left <= 0 || share_update.campaign.end_date < Time.now
+								unless (!@campaign.redeem_is_raffle && left <= 0) || share_update.campaign.end_date < Time.now
 									redeem_code = Redeem.assign_redeem_code()
 									@redeem = Redeem.create!(date: Time.now, redeem_code: redeem_code, campaign_id: share_update.campaign_id, user_id: share_update.user_id )
 									@redeem.save
@@ -48,6 +48,9 @@ class CampaignController < ApplicationController
 							end
 						end
 						@bitly_share_link = share_update.bitly_share_link
+						if @campaign.redeem_is_raffle
+							@total_entries = (official_pts / @campaign.points_required).floor unless @campaign.points_required < 1
+						end
 					end # unless the_share.nil?
 				end # unless current_user.nil?
 			else
@@ -130,7 +133,7 @@ class CampaignController < ApplicationController
 				redeem_check = Redeem.where(:user_id => user_share, :campaign_id => share_update.campaign_id).first
 				if redeem_check.nil?
 					left = share_update.campaign.limit - share_update.campaign.redeems.size
-					unless left <= 0 || share_update.campaign.end_date < Time.now
+					unless (!share_update.campaign.redeem_is_raffle && left <= 0) || share_update.campaign.end_date < Time.now
 						redeem_code = Redeem.assign_redeem_code()
 						@redeem = Redeem.create!(date: Time.now, redeem_code: redeem_code, campaign_id: share_update.campaign_id, user_id: share_update.user_id )
 						@redeem.save
@@ -1181,7 +1184,7 @@ class CampaignController < ApplicationController
 						config.oauth_token_secret = current_user.tumblr_secret
 					end
 					client = Tumblr::Client.new
-					if client.info["status"] == 401 && client.info["msg"]=="Not Authorized" # CHANGE THIS
+					if client.info["status"] == 401 || client.info["msg"]=="Not Authorized" || client.info["user"].nil?
 						session[:tumblr_campaign] = @campaign.link
 						redirect_to '/auth/tumblr'
 					else
@@ -1329,6 +1332,97 @@ class CampaignController < ApplicationController
 				end
 			else
 				redirect_to "#{root_url}campaign/#{@campaign.link}"
+			end
+		end
+	end
+
+	def create_raffle_winner
+		params_campaign = params[:campaign].downcase
+		campaign = Campaign.where(:link => params_campaign).first
+		if campaign.present?
+			@campaign = campaign
+		end
+		if campaign.nil?
+			respond_to do |format|
+				format.html {
+					flash[:error] = "We could not find the campaign you are looking for. Please try again."
+					if current_user && (current_user.account_type == "super admin" || current_user.account_type == "admin")
+						redirect_to "/admin"
+					elsif current_brand
+						redirect_to "/brands"
+					else
+						redirect_to root_url
+					end
+				}
+				format.js {
+					if current_user && (current_user.account_type == "super admin" || current_user.account_type == "admin")
+						@errorMessage = "USERERROR1"
+					elsif current_brand
+						@errorMessage = "BRANDERROR1"
+					else
+						@errorMessage = "GENERICERROR"
+					end
+				}
+			end
+		else
+			if (current_user && (current_user.account_type == "super admin" || current_user.account_type == "admin")) || (current_brand && @campaign.brand.id == current_brand.id)
+				@winner = @campaign.pick_raffle_winners
+				unless @winner == false
+					@user = User.where(_id: @winner).first
+					@redeem = @user.redeems.where(campaign_id: @campaign.id).first
+					respond_to do |format|
+						format.html {
+							flash[:success] = "Your random winner has been picked!"
+							if current_user && (current_user.account_type == "super admin" || current_user.account_type == "admin")
+								redirect_to "/admin/campaign/view/redeems?_id=#{@campaign.id}"
+							elsif current_brand
+								redirect_to "/brands/campaigns/redeems?_id=#{@campaign.id}"
+							else
+								redirect_to root_url
+							end
+						}
+						format.js {
+							if current_user && (current_user.account_type == "super admin" || current_user.account_type == "admin")
+								@errorMessage = "USERSUCCESS"
+							elsif current_brand
+								@errorMessage = "BRANDSUCCESS"
+							else
+								@errorMessage = "GENERICSUCCESS"
+							end
+						}
+					end
+				else
+					respond_to do |format|
+						format.html {
+							flash[:error] = "Your random winner could not be picked! This is because of one or more of the following reasons: 1. There are no more eligible contestants.  2. You have reached the max number of winners for the campaign.  3. This campaign is not a raffle.  4. The campaign has not ended yet."
+							if current_user && (current_user.account_type == "super admin" || current_user.account_type == "admin")
+								redirect_to "/admin/campaign/view/redeems?_id=#{@campaign.id}"
+							elsif current_brand
+								redirect_to "/brands/campaigns/redeems?_id=#{@campaign.id}"
+							else
+								redirect_to root_url
+							end
+						}
+						format.js {
+							if current_user && (current_user.account_type == "super admin" || current_user.account_type == "admin")
+								@errorMessage = "USERERROR2"
+							elsif current_brand
+								@errorMessage = "BRANDERROR2"
+							else
+								@errorMessage = "GENERICERROR"
+							end
+						}
+					end
+				end
+			else
+				respond_to do |format|
+					format.html {
+						redirect_to root_url
+					}
+					format.js {
+						@errorMessage = "GENERICERROR"
+					}
+				end
 			end
 		end
 	end

@@ -19,7 +19,13 @@
 				<table border="0" class="stats-top">
 					<tr>
 						<td><%= "#{@campaign.end_date.month.to_s}-#{@campaign.end_date.day.to_s}-#{@campaign.end_date.year.to_s[2..-1]}" %><br><span style="font-size:0.8em;">End Date</span></td>
-						<td><%= @campaign.limit - @campaign.redeems.size < 1 ? "0" : @campaign.limit - @campaign.redeems.size %><br><span style="font-size:0.8em;">Qty Left</span></td>
+						<td>
+							<% if @campaign.redeem_is_raffle %>
+								<%= @campaign.limit %><br><span style="font-size:0.8em;">Qty Avail</span>
+							<% else %>
+								<%= @campaign.limit - @campaign.redeems.size < 1 ? "0" : @campaign.limit - @campaign.redeems.size %><br><span style="font-size:0.8em;">Qty Left</span>
+							<% end %>
+						</td>
 						<td><% if @gift_earned == true %><i class="icon-star text-info"></i> <% end %><%= "#{@total_pts} / #{@campaign.points_required}" %><br><span style="font-size:0.8em;">Pts Earned</span></td>
 					</tr>
 				</table>

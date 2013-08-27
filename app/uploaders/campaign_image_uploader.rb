@@ -17,7 +17,7 @@ class CampaignImageUploader < CarrierWave::Uploader::Base
   end
 
   version :large do
-    resize_to_limit(600, 600)
+    resize_to_fit(600, 600)
   end
 
   version :thumb do
@@ -35,7 +35,7 @@ class CampaignImageUploader < CarrierWave::Uploader::Base
 
   def crop
   	if model.crop_x.present?
-  		resize_to_limit(600, 600)
+  		resize_to_fit(600, 600)
   		manipulate! do |img|
   			x = model.crop_x.to_i
   			y = model.crop_y.to_i

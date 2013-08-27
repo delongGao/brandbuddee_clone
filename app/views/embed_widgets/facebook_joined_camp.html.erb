@@ -16,7 +16,13 @@
 							<h3 class="whats-new"><%= "#{@campaign.end_date.month.to_s}-#{@campaign.end_date.day.to_s}-#{@campaign.end_date.year.to_s[2..-1]}" %><br><span>End Date</span></h3>
 						</div>
 						<div class="span2">
-							<h3 class="whats-new"><%= @campaign.limit - @campaign.redeems.size < 1 ? "0" : @campaign.limit - @campaign.redeems.size %><br><span>Qty Left</span></h3>
+							<h3 class="whats-new">
+								<% if @campaign.redeem_is_raffle %>
+									<%= @campaign.limit %><br><span>Qty Avail</span>
+								<% else %>
+									<%= @campaign.limit - @campaign.redeems.size < 1 ? "0" : @campaign.limit - @campaign.redeems.size %><br><span>Qty Left</span>
+								<% end %>
+							</h3>
 						</div>
 						<div class="span2">
                             <h3 class="whats-new"><% if @gift_earned == true %><i class="icon-star text-info"></i> <% end %><%= "#{@total_pts} / #{@campaign.points_required}" %><br><span>Pts Earned</span></h3>

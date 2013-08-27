@@ -133,7 +133,7 @@
                                 <% counter = counter + 1 %>
                                 <div class="accordion span4" id="accordion1" style="margin-left:0;">
                                     <div class="accordion-group">
-                                        <div class="accordion-heading alt-accordion">
+                                        <div class="accordion-heading alt-accordion"<% if @campaign.campaigns_and_users_task(current_user).completed_blog %> style="background-color: #80C4E4;"<% end %>>
                                             <a class="accordion-toggle" title="<%= @campaign.title %> brandbuddee" data-toggle="collapse" data-parent="#accordion1" href="#collapse1">
                                                 <%= @campaign.task_blog_post["title"] %><span class="pull-right" style="margin-right:5%;"><%= pluralize(@campaign.task_blog_post["points"], 'pt', 'pts') %></span>
                                             </a>
@@ -165,7 +165,7 @@
                                 <% counter = counter + 1 %>
                                 <div class="accordion span4" id="accordion2" style="margin-left:0;">
                                     <div class="accordion-group">
-                                        <div class="accordion-heading alt-accordion">
+                                        <div class="accordion-heading alt-accordion"<% if @campaign.campaigns_and_users_task(current_user).completed_facebook %> style="background-color: #80C4E4;"<% end %>>
                                             <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse2" title="<%= @campaign.title %> brandbuddee">
                                                 <%= @campaign.task_facebook["title"] %><span class="pull-right" style="margin-right:5%;"><%= pluralize(@campaign.task_facebook["points"], 'pt', 'pts') %></span>
                                             </a>
@@ -193,7 +193,7 @@
                                 <% counter = counter + 1 %>
                                 <div class="accordion span4" id="accordion3" style="margin-left:0;">
                                     <div class="accordion-group">
-                                        <div class="accordion-heading alt-accordion">
+                                        <div class="accordion-heading alt-accordion"<% if @campaign.campaigns_and_users_task(current_user).completed_twitter %> style="background-color: #80C4E4;"<% end %>>
                                             <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion3" href="#collapse3" title="<%= @campaign.title %> brandbuddee">
                                                 <%= @campaign.task_twitter["title"] %><span class="pull-right" style="margin-right:5%;"><%= pluralize(@campaign.task_twitter["points"], 'pt', 'pts') %></span>
                                             </a>
@@ -221,7 +221,7 @@
                                 <% counter = counter + 1 %>
                                 <div class="accordion span4" id="accordion4" style="margin-left:0;">
                                     <div class="accordion-group">
-                                        <div class="accordion-heading alt-accordion">
+                                        <div class="accordion-heading alt-accordion"<% if @campaign.campaigns_and_users_task(current_user).completed_custom[0] %> style="background-color: #80C4E4;"<% end %>>
                                             <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion4" href="#collapse4" title="<%= @campaign.title %> brandbuddee">
                                                 <%= @campaign.task_custom_1["title"] %><span class="pull-right" style="margin-right:5%;"><%= pluralize(@campaign.task_custom_1["points"], 'pt', 'pts') %></span>
                                             </a>
@@ -249,7 +249,7 @@
                                 <% counter = counter + 1 %>
                                 <div class="accordion span4" id="accordion5" style="margin-left:0;">
                                     <div class="accordion-group">
-                                        <div class="accordion-heading alt-accordion">
+                                        <div class="accordion-heading alt-accordion"<% if @campaign.campaigns_and_users_task(current_user).completed_custom[1] %> style="background-color: #80C4E4;"<% end %>>
                                             <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion5" href="#collapse5" title="<%= @campaign.title %> brandbuddee">
                                                 <%= @campaign.task_custom_2["title"] %><span class="pull-right" style="margin-right:5%;"><%= pluralize(@campaign.task_custom_2["points"], 'pt', 'pts') %></span>
                                             </a>
@@ -277,7 +277,7 @@
                                 <% counter = counter + 1 %>
                                 <div class="accordion span4" id="accordion6" style="margin-left:0;">
                                     <div class="accordion-group">
-                                        <div class="accordion-heading alt-accordion">
+                                        <div class="accordion-heading alt-accordion"<% if @campaign.campaigns_and_users_task(current_user).completed_custom[2] %> style="background-color: #80C4E4;"<% end %>>
                                             <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion6" href="#collapse6" title="<%= @campaign.title %> brandbuddee">
                                                 <%= @campaign.task_custom_3["title"] %><span class="pull-right" style="margin-right:5%;"><%= pluralize(@campaign.task_custom_3["points"], 'pt', 'pts') %></span>
                                             </a>
@@ -305,7 +305,7 @@
                                 <% counter = counter + 1 %>
                                 <div class="accordion span4" id="accordion7" style="margin-left:0;">
                                     <div class="accordion-group">
-                                        <div class="accordion-heading alt-accordion">
+                                        <div class="accordion-heading alt-accordion"<% if @campaign.campaigns_and_users_task(current_user).completed_custom[3] %> style="background-color: #80C4E4;"<% end %>>
                                             <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion7" href="#collapse7" title="<%= @campaign.title %> brandbuddee">
                                                 <%= @campaign.task_custom_4["title"] %><span class="pull-right" style="margin-right:5%;"><%= pluralize(@campaign.task_custom_4["points"], 'pt', 'pts') %></span>
                                             </a>
@@ -333,7 +333,7 @@
                                 <% counter = counter + 1 %>
                                 <div class="accordion span4" id="accordion8" style="margin-left:0;">
                                     <div class="accordion-group">
-                                        <div class="accordion-heading alt-accordion">
+                                        <div class="accordion-heading alt-accordion"<% if @campaign.campaigns_and_users_task(current_user).completed_custom[4] %> style="background-color: #80C4E4;"<% end %>>
                                             <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion8" href="#collapse8" title="<%= @campaign.title %> brandbuddee">
                                                 <%= @campaign.task_custom_5["title"] %><span class="pull-right" style="margin-right:5%;"><%= pluralize(@campaign.task_custom_5["points"], 'pt', 'pts') %></span>
                                             </a>
@@ -361,7 +361,7 @@
                                 <% counter += 1 %>
                                 <div class="accordion span4" id="accordion9" style="margin-left:0;">
                                     <div class="accordion-group">
-                                        <div class="accordion-heading alt-accordion">
+                                        <div class="accordion-heading alt-accordion"<% if @campaign.campaigns_and_users_task(current_user).completed_yelp %> style="background-color: #80C4E4;"<% end %>>
                                             <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion9" href="#collapse9" title="<%= @campaign.title %> brandbuddee">
                                                 <%= @campaign.task_yelp["title"] %><span class="pull-right" style="margin-right:5%;"><%= pluralize(@campaign.task_yelp["points"], 'pt', 'pts') %></span>
                                             </a>
@@ -394,7 +394,7 @@
                                 <% counter = counter + 1 %>
                                 <div class="accordion span4" id="accordion10" style="margin-left:0;">
                                     <div class="accordion-group">
-                                        <div class="accordion-heading alt-accordion">
+                                        <div class="accordion-heading alt-accordion"<% if @campaign.campaigns_and_users_task(current_user).completed_email %> style="background-color: #80C4E4;"<% end %>>
                                             <a class="accordion-toggle" title="<%= @campaign.title %> brandbuddee" data-toggle="collapse" data-parent="#accordion10" href="#collapse10">
                                                 <%= @campaign.task_email_subscription["title"] %><span class="pull-right" style="margin-right:5%;"><%= pluralize(@campaign.task_email_subscription["points"], 'pt', 'pts') %></span>
                                             </a>
@@ -497,7 +497,7 @@
 
                                 <div class="well">
                                     <ul class="unstyled">
-                                        <li><span class="text-highlight-large"><b><%= @campaign.points_required %></b></span> pts</li>
+                                        <li><span class="text-highlight-large"><b><%= @campaign.points_required %></b></span> pts<% if @campaign.redeem_is_raffle %> = <span class="text-highlight-large"><b>1</b></span> Raffle Ticket<% end %></li>
                                         <li>&nbsp;</li>
 
 <% left = @campaign.limit - @campaign.redeems.size %>
@@ -514,16 +514,26 @@
                     <% @pts_engagement_2 = 0 %>
                 <% end %>
                 <% @official_pts = @share.unique_page_views + @share.trackings.size + @pts_tasks_completed + @pts_engagement_1 + @pts_engagement_2 %>
-                <p>Your Points: <b style="font-size:17px;"><%= @official_pts %></b></p>
+                <p>Your Points: <b style="font-size:17px;"><%= @official_pts %></b><% unless @total_entries.blank? %>&nbsp;&nbsp;&nbsp;&nbsp;Entries: <b style="font-size:17px;"><%= @total_entries %></b><% end %></p>
 
-                <% unless left == 0 %>
-                    <p><span class="label label-success activated_label">Activated!</span></p>
-                <% end %>
+                <% if @campaign.redeem_is_raffle %>
+                	<% unless @campaign.end_date < Time.now %>
+                		<p><span class="label label-success activated_label">Activated!</span></p>
+                	<% else %>
+                		<div class="alert alert-info">
+	                        This campaign has finished.
+	                    </div> <!-- .alert -->
+                	<% end %>
+                <% else %>
+	                <% unless left == 0 %>
+	                    <p><span class="label label-success activated_label">Activated!</span></p>
+	                <% end %>
 
-                <% if left == 0 || @campaign.end_date < Time.now %>
-                    <div class="alert alert-info">
-                        This campaign has finished.
-                    </div> <!-- .alert -->
+	                <% if left == 0 || @campaign.end_date < Time.now %>
+	                    <div class="alert alert-info">
+	                        This campaign has finished.
+	                    </div> <!-- .alert -->
+	                <% end %>
                 <% end %>
 
                 <% unless @share.unique_page_views.nil? %>
@@ -570,12 +580,15 @@
                                                         Available
                                                     </td>
                                                     <td>
-                                                        
-                                                        <% if left == 0 || @campaign.end_date < Time.now %>
-                                                            0
+                                                        <% if @campaign.redeem_is_raffle %>
+                                                        	<%= @campaign.limit %>
                                                         <% else %>
-                                                            <%= @campaign.limit - @campaign.redeems.size %>
-                                                        <% end %>
+	                                                        <% if left == 0 || @campaign.end_date < Time.now %>
+	                                                            0
+	                                                        <% else %>
+	                                                            <%= @campaign.limit - @campaign.redeems.size %>
+	                                                        <% end %>
+	                                                    <% end %>
                                                     </td>
                                                 </tr>
                                                 <tr>

@@ -19,7 +19,13 @@
 				<div class="stats-top">
 					<table border="0" class="stats-top">
 						<tr>
-							<td><%= @campaign.limit - @campaign.redeems.size < 1 ? "0" : @campaign.limit - @campaign.redeems.size %><br><span style="font-size:0.8em;">Qty Left</span></td>
+							<td>
+								<% if @campaign.redeem_is_raffle %>
+									<%= @campaign.limit %><br><span style="font-size:0.8em;">Qty Avail</span>
+								<% else %>
+									<%= @campaign.limit - @campaign.redeems.size < 1 ? "0" : @campaign.limit - @campaign.redeems.size %><br><span style="font-size:0.8em;">Qty Left</span>
+								<% end %>
+							</td>
 							<td><%= @total_page_views %><br><span style="font-size:0.8em;">Page Visits</span></td>
 							<td><%= "#{@campaign.end_date.month.to_s}-#{@campaign.end_date.day.to_s}-#{@campaign.end_date.year.to_s[2..-1]}" %><br><span style="font-size:0.8em;">End Date</span></td>
 						</tr>
