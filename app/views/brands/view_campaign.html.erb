@@ -48,7 +48,7 @@
 	</a>
 	<a title="sweepstakes contests giveaways brandbuddee" class="quick-button span2" href="/brands/campaigns/redeems?_id=<%= @campaign.id %>">
 		<i class="icon-barcode"></i>
-		<p>Redeems</p>
+		<p><% if @campaign.redeem_is_raffle %>Contestants<% else %>Redeems<% end %></p>
 		<span class="notification"><%= @campaign.redeems.count %></span>
 	</a>
 	<a title="sweepstakes contests giveaways brandbuddee" class="quick-button span2" href="/brands/campaigns/tasks?_id=<%= @campaign.id %>">

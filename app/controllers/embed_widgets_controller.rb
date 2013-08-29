@@ -108,14 +108,14 @@ class EmbedWidgetsController < ApplicationController
 
 	 def website_join_campaign # Adding user to campaign (creating task and share)
 	 	if current_user
-			unless @campaign.already_has_user_share?(user)
+			unless @campaign.already_has_user_share?(current_user)
 				@left = @campaign.limit - @campaign.redeems.size
 				unless (!@campaign.redeem_is_raffle && @left < 1) || @campaign.end_date < Time.now
 					@campaign.user_ids << current_user.id
 	                share_link = Share.assign_link
 	                the_share = @campaign.shares.create!(date: Time.now, link: share_link, user_id: current_user.id, campaign_id: @campaign.id, url: @campaign.share_link)
 	                @bitly_link = the_share.bitly_share_link
-	                unless @campaign.already_has_user_task?(user)
+	                unless @campaign.already_has_user_task?(current_user)
 		                @campaign.tasks.create!(task_1_url: @campaign.engagement_task_left_link, task_2_url: @campaign.engagement_task_right_link, user_id: current_user.id, campaign_id: @campaign.id)
 		                if @campaign.save(validate: false)
 		                	redirect_to "/campaign/#{@campaign.link}/go_viral_joined"
@@ -598,14 +598,14 @@ class EmbedWidgetsController < ApplicationController
 				@campaign = Campaign.where(link: @embed.campaign_link).first
 				unless @campaign.nil?
 					if current_user
-						unless @campaign.already_has_user_share?(user)
+						unless @campaign.already_has_user_share?(current_user)
 							@left = @campaign.limit - @campaign.redeems.size
 							unless (!@campaign.redeem_is_raffle && @left < 1) || @campaign.end_date < Time.now
 								@campaign.user_ids << current_user.id
 				                share_link = Share.assign_link
 				                the_share = @campaign.shares.create!(date: Time.now, link: share_link, user_id: current_user.id, campaign_id: @campaign.id, url: @campaign.share_link)
 				                @bitly_link = the_share.bitly_share_link
-				                unless @campaign.already_has_user_task?(user)
+				                unless @campaign.already_has_user_task?(current_user)
 					                @campaign.tasks.create!(task_1_url: @campaign.engagement_task_left_link, task_2_url: @campaign.engagement_task_right_link, user_id: current_user.id, campaign_id: @campaign.id)
 					                if @campaign.save(validate: false)
 					                	redirect_to "/fb-joined-campaign?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"

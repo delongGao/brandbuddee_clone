@@ -63,8 +63,11 @@
 						<h3>Get your Faceboook fans involved:</h3>
 						<a title="sweepstakes contests giveaways brandbuddee" href="/brands/campaigns/viral-install-fb?_id=<%= @campaign.id %>" class="btn install-to-facebook"><i class="icon-facebook-sign"></i>&nbsp;&nbsp;INSTALL TO A FACEBOOK PAGE</a>
 						<h3 style="margin-bottom:1.5%;">Copy this code and put on any website or blog of yours:</h3>
-						<textarea readonly rows="4" id="txtEmbedCode"><div id="the-brandbuddee-embed-widget" data-frameloc="<%= root_url %>campaign/3664591/go_viral"><a id="the-brandbuddee-embed-widget-anchor" href="<%= root_url %>campaign/3664591" rel="nofollow">a brandbuddee campaign</a></div><script src="<%= root_url %>js/website_embed_script.js"></script></textarea>
+						<textarea readonly rows="4" id="txtEmbedCode"><div id="the-brandbuddee-embed-widget" data-frameloc="<%= root_url %>campaign/<%= @campaign.link %>/go_viral"><a id="the-brandbuddee-embed-widget-anchor" href="<%= root_url %>campaign/<%= @campaign.link %>" rel="nofollow"><%= "#{@campaign.title} | #{@brand.name}" %></a></div><script src="<%= root_url %>js/website_embed_script.js"></script></textarea>
 						<a title="sweepstakes contests giveaways brandbuddee" href="#" id="btnCopyToClipboard" class="btn" data-clipboard-target="txtEmbedCode"><i class="icon-copy"></i>&nbsp;&nbsp;COPY THE CODE TO CLIPBOARD</a>
+						<h3 style="margin-bottom:1.5%;">Or for Tumblr, use the code below:</h3>
+						<textarea readonly rows="4" id="txtTumblrCode" style="width:94.5%;overflow:hidden;"><iframe src="<%= root_url %>campaign/<%= @campaign.link %>/go_viral" frameborder="0" scrolling="yes" id="the-brandbuddee-embed-widget-frame" style="width: 479px; height: 510px;"></iframe></textarea>
+						<a title="sweepstakes contests giveaways brandbuddee" href="#" id="btnCopyTumblrCode" class="btn" data-clipboard-target="txtTumblrCode" style="width:90%; font-weight:700; color:#666666;"><i class="icon-copy" style="font-size: 1.25em; position: relative; top: 1px; color: #3B5998;"></i>&nbsp;&nbsp;COPY TUMBLR CODE</a>
 						<%= link_to image_tag("facebook.png", size: "246x47", alt: "sweepstakes-contests-giveaways-brandbuddee", title: "Sweepstakes Contests Giveaways brandbuddee", style: "margin-top:2%;"), "/brands/campaigns/viral-invite-facebook?_id=#{@campaign.id}" %>
 						<%= link_to image_tag("email.png", size: "246x47", alt: "sweepstakes-contests-giveaways-brandbuddee", title: "Sweepstakes Contests Giveaways brandbuddee", style: "margin-top:1%;"), "/brands/campaigns/viral-invite-email?_id=#{@campaign.id}" %>
 					</div>
@@ -88,4 +91,5 @@
 <script type="text/javascript">
 	ZeroClipboard.setDefaults( { moviePath: '/js/ZeroClipboard.swf' } );
 	var clip = new ZeroClipboard($("#btnCopyToClipboard"));			
+	var clip2 = new ZeroClipboard($("#btnCopyTumblrCode"));
 </script>

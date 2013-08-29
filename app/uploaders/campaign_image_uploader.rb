@@ -20,8 +20,8 @@ class CampaignImageUploader < CarrierWave::Uploader::Base
     resize_to_fit(600, 600)
   end
 
-  version :thumb do
-    resize_to_fill(50, 50)
+  version :square, :from_version => :large do
+    resize_to_fill(296, 270)
   end
   
   version :standard do
