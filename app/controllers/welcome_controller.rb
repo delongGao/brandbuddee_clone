@@ -6,7 +6,7 @@ class WelcomeController < ApplicationController
 		elsif current_brand
 			redirect_to '/brands/dashboard'
 		end
-		@recent_campaigns = Campaign.all(:limit => 3).order_by([:date, :desc])
+		@recent_campaigns = Campaign.where(:end_date.gt => DateTime.now).order_by([:date, :desc]).limit(3)
 	end
 
 	def new
