@@ -25,7 +25,7 @@
 		a:link    {color:#000000; text-decoration:none;}
 		a:visited {color:#000000; text-decoration:none;}
 		a:focus   {color:#000000 !important;}
-		a:hover   {color:#737373 !important;}
+		a:hover   {color:#000000 !important;}
 
 	/* End of Embedded CSS link color */
 	
@@ -90,6 +90,7 @@
 <body style="width:100% !important; color:#353535; background:#f8f8f8; font-family: Helvetica,sans-serif; font-size:13px; line-height:140%; margin:0; padding:0;" yahoo="fix">
 
 
+	
 	<!-- * Header Module * -->
 	<table width="100%" border="0" cellpadding="0" cellspacing="0" align="center" style="width:100% !important; margin:0; padding:0; border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;">
 		<tr>
@@ -103,7 +104,9 @@
 							<table width="100%" cellpadding="10" cellspacing="0" border="0">
 								<tr>
 									<td height="24" valign="middle" style="font-size:11px; color:#353535; text-align:right" class="content-center">
-										<a href="<%= @url %>campaign/<%= @campaign.link %>" target="_blank" style="color:#353535; text-decoration:none; font-style:italic;">You have earned a brandbuddee reeward!</a>
+										<a href="<%= @url %>campaign/<%= @campaign.link %>" target="_blank" style="color:#353535; text-decoration:none; font-style:italic;">
+										<% if @campaign.redeem_is_raffle == true %>You have earned a brandbuddee raffle entry!<% else %>
+										You have earnned a brandbuddee reward!<% end %></a>
 									</td>
 								</tr>
 							</table>
@@ -184,7 +187,7 @@
 		<tr><td height="30" bgcolor="#f8f8f8"></td></tr>		
 	</table>
 	<!-- * End of Header Module * -->
-
+	
 
 	<!-- * Promo Module * -->
 	<table width="100%" border="0" cellpadding="0" cellspacing="0" align="center" style="width:100% !important; margin:0; padding:0; border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;">
@@ -197,7 +200,7 @@
 						
 						<!-- Title Here -->
 						<td width="560" valign="top" align="left" class="inside" style="font-size: 19px; color: #353535; text-align: center; font-family: Helvetica, Arial, sans-serif; vertical-align: top;">
-							Congratulations, <% unless @user.first_name.nil? %><span style="color: #7cc04c;"><%= @user.first_name %></span><% end %> you successfully earned the following reward from brandbuddee:<br><%= @campaign.reward %>
+							Congratulations, <% unless @user.first_name.nil? %><span style="color: #7cc04c;"><%= @user.first_name %></span><% end %>, you successfully earned the following <% if @campaign.redeem_is_raffle == true %>raffle entry<% else %>reward<% end %> from brandbuddee:<br><%= @campaign.reward %>
 						</td>	
 						<!-- End of Title -->
 						
@@ -212,7 +215,21 @@
 							</td>
 							<!-- End of 300x115 -->	
 							
-					</tr>				
+					</tr>
+					<% if @campaign.redeem_is_raffle == true %>
+					<tr><td colspan="3" height="20"></td></tr>	
+					<tr>
+						<td width="20"></td>
+						
+						<!-- Title Here -->
+						<td width="560" valign="top" align="left" class="inside" style="font-size: 19px; color: #353535; text-align: center; font-family: Helvetica, Arial, sans-serif; vertical-align: top;">
+							You will continue to earn extra raffle entries for every <%= @campaign.points_required %> points you receive from this campaign.
+						</td>	
+						<!-- End of Title -->
+						
+						<td width="20"></td>
+					</tr>	
+					<% end %>		
 				</table>
 				<!-- End of Tables Width -->
 			</td>
@@ -368,7 +385,7 @@
 	</table>
 	<!-- * End of Text + Hideable Content Module 2 * -->
 	
-	
+
 	<!-- * Footer Module * -->
 	<table width="100%" border="0" cellpadding="0" cellspacing="0" align="center" style="width:100% !important; margin:0; padding:0; border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;">
 		<tr><td height="4" bgcolor="#7cc04c"></td></tr>	
@@ -480,6 +497,7 @@
 		</tr>
 	</table>						
 	<!-- * End of Footer Module * -->
+
 
 	
 </body>

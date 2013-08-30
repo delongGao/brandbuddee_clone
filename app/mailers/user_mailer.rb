@@ -5,7 +5,11 @@ class UserMailer < ActionMailer::Base
 		@redeem_code = redeem.redeem_code
 		@campaign = campaign
 		@url = root_url
-		mail(:to => @user.email, :subject => "You've just redeemed a brandbuddee reward!", :from => "brandbuddee <andy@brandbuddee.com>")
+		unless @campaign.redeem_is_raffle
+			mail(:to => @user.email, :subject => "You've just redeemed a brandbuddee reward!", :from => "brandbuddee <andy@brandbuddee.com>")
+		else
+			mail(:to => @user.email, :subject => "You've just redeemed a brandbuddee raffle entry!", :from => "brandbuddee <andy@brandbuddee.com>")
+		end
 	end
 
 	def secondary_gift_email(user, campaign, root_url)

@@ -25,8 +25,7 @@ $(document).ready(function(){
 	$("#back-to-top").click(function(){
 		$("body,html").animate({scrollTop:0},600)
 	});
-	equalHeight($("#thumb-brand div.list-block"), $("#thumb-buddee div.list-block"));
- 	equalHeight($("#thumb-brand p.text-left"), $("#thumb-buddee p.text-left"));
+	equalHeight($("p#brand-section"), $("p#buddee-section"));
 });
 function equalHeight(blockA, blockB) {
 	var maxHeight = Math.max(blockA.height(), blockB.height());

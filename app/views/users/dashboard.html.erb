@@ -1,4 +1,4 @@
-<% content_for :google_fonts_tag do %>
+<% content_for :homepage_style_tag do %>
 <link rel="stylesheet" type="text/css" href="/css/tabdrop.css">
 <style type="text/css">
     #portfolio-filter li ul.dropdown-menu li a {
@@ -65,7 +65,7 @@
                                 <div class="dashboard_campaign_details_wrap">
                                     <p>
                                         <span class="help-block pull-right">
-                                            <small><i class="icon-tag"></i>&nbsp;<%= c.limit - c.redeems.size %> Available&nbsp;&nbsp;<i class="icon-time"> </i>
+                                            <small><i class="icon-tag"></i>&nbsp;<% if c.redeem_is_raffle %><%= c.limit %><% else %><%= c.limit - c.redeems.size %><% end %> Available&nbsp;&nbsp;<i class="icon-time"> </i>
                                                 &nbsp;
                                                 <% unless c.end_date.nil? %>
                                                     <% if c.end_date > Time.now %>

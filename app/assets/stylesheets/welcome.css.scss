@@ -71,99 +71,6 @@ input.input-large {
 	color: #C7E478;
 }
 
-// HOME page new
-body.landing-page-background {
-	background: url(/assets/landingpagebg.png);
-}
-@media only screen and (min--moz-device-pixel-ratio: 2),
-only screen and (-o-min-device-pixel-ratio: 2/1),
-only screen and (-webkit-min-device-pixel-ratio: 2),
-only screen and (min-device-pixel-ratio: 2) {
-	body.landing-page-background {
-		background: url(/assets/landingpagebg2x.png);
-	}
-}
-div#home-page-container {
-	font-family: 'Roboto', sans-serif;
-	font-weight: 300;
-	letter-spacing: 1px;
-}
-.home-thumblock {
-	background: url(/assets/headerbg-new.png);
-	border-radius: 3px;
-	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
-	-moz-box-sizing: border-box;    /* Firefox, other Gecko */
-	box-sizing: border-box;         /* Opera/IE 8+ */
-}
-.home-thumblock:after {
-	content: "";
-	// background: url(/assets/headerbg-new.png);
-	opacity: 0.88;
-	top: 0;
-	left: 0;
-	bottom: 0;
-	right: 0;
-	position: absolute;
-	z-index: -1;   
-}
-#thumb-brand {
-	border: solid 5px #7EC1E1;
-
-}
-#thumb-buddee {
-	border: solid 5px #C7E478;
-
-}
-.thumb-head {
-	margin: 10px 0;
-	text-align: center;
-	img {
-		border-radius: 2px;
-	}
-}
-.thumb-content {
-	overflow: hidden;
-	margin: 10px 10px 0;
-	padding: 15px;
-	color: white;
-	font-size: 12pt;
-	// background: rgba(244,247,247,0.6);
-	border-radius: 2px;
-	div.list-block {
-		margin: 5px 0;
-	  	padding-top: 5px;
-	  	border-top: solid 1px white;
-	}
-	div.learnmore-block {
-	  	border-bottom: solid 1px white;
-	  	padding: 10px 0;
-	  	overflow: hidden;
-	}
-	.text-left {
-	  	vertical-align: top;
-	}
-	.learn-more a {
-	  	color: white;
-	}
-}
-.thumb-button {
-	margin: 10px 0;
-	text-align: center;
-	a.btn {
-		width: 82%;
-		i {
-			font-size: 1.25em;
-			line-height: 30%;
-		}
-	}
-}
-#or-logo {
-	text-align: center;
-	margin-top: 10%;
-}
-.thumb-content strong, .thumb-button strong {
-	font-weight: 500;
-}
 .select-share-enjoy {
 	-webkit-transition-duration: 0.7s;
 	-moz-transition-duration: 0.7s;
@@ -522,3 +429,50 @@ background:#fff url(/assets/brand-cogs.png) no-repeat;
 	}
 }
 // END BRANDS PAGE
+
+// NEW NEW LANDING PAGE
+.home-slide-smallcap {
+	margin-top: 5px;
+	padding: 4px;
+	color: white;
+	font-weight: 600;
+}
+.home-slide-blue span {
+	background: rgba(152, 212, 191, 1);
+}
+.home-slide-green span {
+  background: rgba(145, 191, 107, 1);
+}
+.home-slide-text span {
+	color: white !important;
+	padding: 1px 3px;
+	margin-top: 4px;
+}
+.home-slide-btn {
+	color: white !important;
+	font-size: 14px;
+}
+.home-slide-circle {
+	width: 80%;
+}
+.bb-blue-fill {
+	background: rgba(126, 193, 225, 1);
+}
+.bb-green-fill {
+	background: rgba(199, 228, 120, 1);
+}
+#small_slider {
+	color: black;
+}
+.home-char-control {
+	color: #80D8A6;
+	font-size: 30px;
+}
+div#slider2 img {
+	background-color: white;
+	border-radius: 3px;
+}
+.testimonial-slider h2 span {
+	color: #5A5A5A;
+}
+// END NEW NEW LANDING PAGE

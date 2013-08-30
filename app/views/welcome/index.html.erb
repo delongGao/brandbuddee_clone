@@ -1,10 +1,21 @@
-<% content_for :google_fonts_tag do %>
-<link href='http://fonts.googleapis.com/css?family=Roboto:400,300,500,300italic,400italic' rel='stylesheet' type='text/css'>
+<% content_for :homepage_style_tag do %>
+	<link href='http://fonts.googleapis.com/css?family=Roboto:400,100,300,300italic,400italic,500,500italic,700,700italic,900,900italic&subset=latin,cyrillic-ext,latin-ext,cyrillic,greek-ext,vietnamese,greek' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="/css/homepage/font/stylesheet.css" type="text/css" />
+    <link href="/css/homepage/shortcodes.css" rel="stylesheet">
+    <link href="/css/homepage/global.css" rel="stylesheet">
+    <link href="/css/homepage/color.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/css/homepage/fullwidth.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="/css/homepage/rs-plugin/css/settings.css" media="screen" />
+    <link rel='stylesheet' type='text/css' media='screen' href='/css/homepage/image_animation.css'/>
+   <!--[if lte IE 7]><script src="/js/homepage/lte-ie7.js"></script><![endif]-->
+    <!--[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 <% end %>
+
 <% content_for :body_background do %>
 class="landing-page-background"
 <% end %>
 <%= render 'shared/header' %>
+
 <div class="container" id="home-page-container">
   <% flash.each do |name, msg| %>
     <div class="row" style="margin-top:4%;">
@@ -16,133 +27,560 @@ class="landing-page-background"
       </div>
     </div>
   <% end %>
-  <div class="row" style="margin-top:5%; margin-bottom: 5%;">
-    <div class="span5">
-      <ul class="thumbnails"> <!-- thumbnails -->
-        <li class="span5 home-thumblock" id="thumb-brand">
-          <div class="thumbnail">
-            <div class="thumb-head">
-              <img src="/assets/thumb-banner-brand3.png" alt="sweepstakes-contests-giveaways-brandbuddee" title="sweepstakes contests giveaways brandbuddee">
-            </div>
-            <div class="thumb-content">
-              <p class="text-left">
-                  Promote your business online, get the results you want.
-                  <!-- <img src="/assets/arrow.png" width=80 alt="" title=""> --> 
-              </p>
-              <p>  
-                <strong>Do you want:</strong>  
-              </p>
-              <div class="list-block">
-                    <ul>
-                      <li>Guaranteed results that you choose</li>
-                      <li>Access to influencers to promote your business</li>
-                      <li>Thousands of customers</li>
-                      <li>Increased website traffic</li>
-                      <li>5 star Yelp reviews</li>
-                      <li>Increased Facebook likes</li>
-                      <li>To reach millions of people</li>
-                      <li>Quantifiable ROI and simple customized campaigns</li>
-                      <li>To save time on social media</li>
-                      <li>Blogs written</li>
-                      <li>Increased Twitter Follows</li>
-                      <li>24/7 Analytics</li>
-                    </ul>
-              </div><!-- /list-block -->
-              <div class="learnmore-block">
-                <p class="pull-right learn-more">
-                  <a href="/brands" title="sweepstakes contests giveaways brandbuddee" class="btn btn-ultraviolet-rays-1"><strong>Learn more!</strong></a>
-                </p>
-              </div><!-- /learnmore-block -->
-            </div><!-- /thumb-content -->
-            <div class="thumb-button">
-                <p>
-                  <a href="/brands/signup" title="sweepstakes contests giveaways brandbuddee" class="btn btn-large btn-ultraviolet-rays-1">
-                    <i class="icon-bar-chart"></i> <strong>Join to get results today!</strong>
-                  </a>
-                  <a href="/brands/login" title="sweepstakes contests giveaways brandbuddee" class="btn btn-large btn-ultraviolet-rays-1" style="margin-top: 2.5%;">
-                    <i class="icon-signin"></i> <strong>I already have an account</strong>
-                  </a>
-                </p>
-            </div><!-- /thumb-button -->
-          </div><!-- /.thumbnail -->
-        </li>
-      </ul> <!-- /thumbnails -->
-    </div><!-- /span5 -->
+</div><!-- container -->
 
-    <div class="span2" id="or-logo">
-      <p>
-        <img src="/assets/bb-or-v2.png" alt="sweepstakes-contests-giveaways-brandbuddee" title="sweepstakes contests giveaways brandbuddee">
-      </p>
-    </div>
+<div class="row" style="margin-top: 3px; margin-bottom: 5px;">
+    <!-- Carousel Slider
+    ================================================== -->
+	<div class="slider-wrap">	
+    	<!-- Revolution Slider
+    	================================================== -->
+		<div class="fullwidthbanner-container">
+			<div class="fullwidthbanner">
+				<ul>
+					<!-- THE THIRD SLIDE -->
+					<li data-transition="3dcurtain-vertical" data-slotamount="10" data-masterspeed="300" data-thumb="images/thumbs/thumb1.jpg" id='bigslide1'>
+						<!-- THE MAIN IMAGE IN THE FIRST SLIDE -->
+						<img src="/images/homepage/slides/00_47.png" >
 
-    <div class="span5">
-      <ul class="thumbnails"> <!-- thumbnails -->
-        <li class="span5 home-thumblock" id="thumb-buddee">
-          <div class="thumbnail">
-            <div class="thumb-head">
-              <img src="/assets/thumb-banner-buddee3.png" alt="sweepstakes-contests-giveaways-brandbuddee" title="sweepstakes contests giveaways brandbuddee">
-            </div>
-            <div class="thumb-content">
-              <p class="text-left">
-                Win cool prizes from your favorite brands.
-                <!-- Win cool prizes from your favorite brands. -->
-                <!-- <img src="/assets/arrow.png" width=80 alt="" title=""> --> 
-              </p>
-              <p>  
-                <strong>Do you want to:</strong>  
-              </p>
-              <div class="list-block">
-                    <ul>
-                      <li>Win cool prizes and rewards instantly</li>
-                      <li>Find cool products and businesses in your area</li>
-                      <li>Discover exclusive giveaways</li>
-                      <li>Connect with the brands you love</li>
-                      <li>Enter sweepstakes</li>
-                      <li>Win contests</li>
-                      <li>Enter raffles</li>
-                      <li>Receive gifts and special promotions</li>
-                      <li>Get a simple prize redemption process</li>
-                    </ul>
-              </div> <!-- list-block -->
-              <div class="learnmore-block">
-                    <p class="pull-right learn-more">
-                      <a href="/tell-me-more" title="sweepstakes contests giveaways brandbuddee" class="btn btn-blackcurrent-birds-1"><strong>Learn more!</strong></a>
-                    </p>
-              </div> <!-- learnmore-block -->
-            </div> <!-- /thumb-content -->
-            <div class="thumb-button">
-                <p>
-                  <a href="/signup" title="sweepstakes contests giveaways brandbuddee" class="btn btn-large btn-blackcurrent-birds-1">
-                    <i class="icon-trophy"></i> <strong>Join & start winning instantly!</strong>
-                  </a>
-                  <a href="/login" title="sweepstakes contests giveaways brandbuddee" class="btn btn-large btn-blackcurrent-birds-1" style="margin-top: 2.5%; ">
-                    <i class="icon-signin"></i> <strong>I already have an account</strong>
-                  </a>
-                </p>
-            </div> <!-- /thumb-button -->
+						<!-- THE CAPTIONS IN THIS SLDIE -->
+						<div class="caption randomrotate"
+							 data-x="70"
+							 data-y="5"
+							 data-speed="600"
+							 data-start="1000"
+							 data-easing="easeOutExpo"><img alt="sweepstakes-contests-giveaways-brandbuddee" title="sweepstakes contests giveaways brandbuddee" src="/images/homepage/slides/home-slide1-v3.png"></div>
+
+						<div class="caption sft big_grey size30 home-slide-text home-slide-blue"
+							 data-x="10"
+							 data-y="20"
+							 data-speed="600"
+							 data-start="2000"
+							 data-easing="easeOutExpo">
+							 	<p><span>Simple, scalable online</span></p> 
+							 	<p><span>brand advocacy campaigns</span></p>
+						</div>
+
+						<div class="caption sfr medium_grey_nobg size20 home-slide-text home-slide-blue"
+							 data-x="10"
+							 data-y="130"
+							 data-speed="600"
+							 data-start="2500"
+							 data-easing="easeOutExpo">
+							 	<p><span>Get the word out online through your</span></p>
+								<p><span>customers and fans, earning loyalty</span></p>
+								<p><span>points and experiences redeemable</span></p>
+								<p><span>with your business</span></p>
+						</div>
+
+						<div class="caption randomrotate size20 small_grey"
+							 data-x="10"
+							 data-y="260"
+							 data-speed="600"
+							 data-start="3000"
+							 data-easing="easeOutExpo"><img src="/images/homepage/slides/home-slide1-poststory.png" class="home-slide-circle"><br />
+							 <p class="home-slide-smallcap bb-blue-fill">Post a Story</p>
+						</div>
+
+						<div class="caption randomrotate size20 small_grey"
+							 data-x="120"
+							 data-y="260"
+							 data-speed="600"
+							 data-start="3500"
+							 data-easing="easeOutExpo"><img src="/images/homepage/slides/home-slide1-viral.png" class="home-slide-circle"><br />
+							 <p class="home-slide-smallcap bb-green-fill">Go Viral</p>
+						</div>	
+
+						<div class="caption randomrotate size20 small_grey"
+							 data-x="230"
+							 data-y="260"
+							 data-speed="600"
+							 data-start="4000"
+							 data-easing="easeOutExpo"><img src="/images/homepage/slides/home-slide1-result.png" class="home-slide-circle"><br />
+							 <p class="home-slide-smallcap bb-blue-fill">Get Results</p>
+						</div>				
+
+						<div class="caption randomrotate size20 small_grey"
+							 data-x="10"
+							 data-y="420"
+							 data-speed="600"
+							 data-start="4500"
+							 data-easing="easeOutExpo">
+							 <p class="home-slide-smallcap"><a href="/brands/login" title="sweepstakes contests giveaways brandbuddee" class="btn btn-info home-slide-btn">Are you a brand?</a></p>
+						</div>
+
+						<div class="caption randomrotate size20 small_grey"
+							 data-x="160"
+							 data-y="420"
+							 data-speed="600"
+							 data-start="5000"
+							 data-easing="easeOutExpo">
+							 <p class="home-slide-smallcap"><a href="/images/homepage/capabilities-deck.pdf" target="_blank" title="sweepstakes contests giveaways brandbuddee" class="btn btn-info home-slide-btn">Capabilities deck</a></p>
+						</div>
+					</li>
+					
+					<!-- THE THIRD SLIDE -->
+					<li data-transition="3dcurtain-vertical" data-slotamount="10" data-masterspeed="300" data-thumb="images/thumbs/thumb1.jpg" id="bigslide2">
+						<!-- THE MAIN IMAGE IN THE FIRST SLIDE -->
+						<img src="/images/homepage/slides/00_42.png" >
+
+						<!-- THE CAPTIONS IN THIS SLDIE -->
+						<div class="caption randomrotate"
+							 data-x="100"
+							 data-y="0"
+							 data-speed="600"
+							 data-start="1000"
+							 data-easing="easeOutExpo"><img src="/images/homepage/slides/home-slide2-v4.png"></div>
+
+						<div class="caption sft big_grey size30 home-slide-text home-slide-green"
+							 data-x="10"
+							 data-y="20"
+							 data-speed="600"
+							 data-start="2000"
+							 data-easing="easeOutExpo">
+							 	<p><span>Win cool prizes</span></p>
+							 	<p><span>from your favorite</span></p>
+							 	<p><span>brands, Instantly!</span></p>
+						</div>
+
+						<div class="caption sfr medium_grey_nobg size20 home-slide-text home-slide-green"
+							 data-x="10"
+							 data-y="180"
+							 data-speed="600"
+							 data-start="2500"
+							 data-easing="easeOutExpo">
+							 <p><span>As a buddee (fan of the brand) you can</span></p>
+							 <p><span>earn points towards cool custom prizes and</span></p>
+							 <p><span>gift cards redeemable with the brands you love. </span></p> 
+						</div>
+
+						<div class="caption randomrotate size20 small_grey"
+							 data-x="10"
+							 data-y="270"
+							 data-speed="600"
+							 data-start="3000"
+							 data-easing="easeOutExpo"><img src="/images/homepage/slides/home-slide2-select.png" class="home-slide-circle"><br />
+							 <p class="home-slide-smallcap bb-blue-fill">Select</p>
+						</div>
+
+						<div class="caption randomrotate size20 small_grey"
+							 data-x="120"
+							 data-y="270"
+							 data-speed="600"
+							 data-start="3500"
+							 data-easing="easeOutExpo"><img src="/images/homepage/slides/home-slide2-share.png" class="home-slide-circle"><br />
+							 <p class="home-slide-smallcap bb-green-fill">Share</p>
+						</div>	
+
+						<div class="caption randomrotate size20 small_grey"
+							 data-x="230"
+							 data-y="270"
+							 data-speed="600"
+							 data-start="4000"
+							 data-easing="easeOutExpo"><img src="/images/homepage/slides/home-slide2-enjoy.png" class="home-slide-circle"><br />
+							 <p class="home-slide-smallcap bb-blue-fill">Enjoy</p>
+						</div>
+
+						<div class="caption randomrotate size20 small_grey home-slide-text"
+							 data-x="10"
+							 data-y="420"
+							 data-speed="600"
+							 data-start="4500"
+							 data-easing="easeOutExpo">
+							 <span>Check out our LIVE campaigns:</span> 
+						</div>				
+
+						<div class="caption randomrotate size20 small_grey"
+							 data-x="10"
+							 data-y="450"
+							 data-speed="600"
+							 data-start="5000"
+							 data-easing="easeOutExpo">
+							 <p class="home-slide-smallcap"><a href="/tell-me-more" title="sweepstakes contests giveaways brandbuddee" class="btn btn-blackcurrent-birds-1 home-slide-btn">How it works</a></p>
+						</div>
+
+						<div class="caption randomrotate size20 small_grey"
+							 data-x="130"
+							 data-y="450"
+							 data-speed="600"
+							 data-start="5500"
+							 data-easing="easeOutExpo">
+							 <p class="home-slide-smallcap"><a href="/signup" title="sweepstakes contests giveaways brandbuddee" class="btn btn-blackcurrent-birds-1 home-slide-btn">Become a buddee</a></p>
+						</div>
+					</li>
+							 
+					</li>
+				</ul>
+
+				<div class="tp-bannertimer"></div>
+			</div>
+		</div>	<!--/fullwidthbanner-container-->
+	</div><!-- /.Slider -->
+</div><!-- /row -->
+
+<!-- Carousel
+    ================================================== -->
+    <div id="small_slider" class="carousel slide small-slider">
+      <div class="carousel-inner">
+        <div class="item active"><!-- item1 -->
+          <div class="container">
+            
+          	<!-- 4 span slideitem -->
+          		<div class="col-wrap"><!-- style col-shadow/ col-gray/ testimonial/-->
+					<div class="container ">
+					      <!-- four columns of text below the carousel -->
+					      <div class="row-fluid">
+					        <div class="span3 first">
+								<div class="box-style "> <!-- box-style row Class .box-style -->
+								 <span class="icon-bullhorn"></span>
+								  <h3>Promote your business in minutes</h3>
+								  <p>Your fans, and influencers share your business, earning points towards rewards redeemable back with your business for driving traffic and completing tasks you assign.</p>
+								</div><!-- /.spanin -->
+					        </div><!-- /.span3 -->
+					        <div class="span3">
+								<div class="box-style ">
+								 <span class="icon-edit"></span>
+								  <h3>Embed anywhere,<br> on the web</h3>
+								  <p>Engage your customers and fans where they are so they never have to leave your Facebook page, in fact, they’ll come back more often! Ask us about our private label solutions.</p>
+								</div><!-- /.spanin -->
+					        </div><!-- /.span3 -->		
+					        <div class="span3">
+								<div class="box-style ">
+								 <span class="icon-tasks"></span>
+								  <h3>Track ROI</h3>
+								  <p>Draw a clear line between marketing activities and ROI on the metrics you build your campaign around with our easy-to-use analytics dashboard. Show your boss the $$$ impact of social media.</p>
+								</div><!-- /.spanin -->
+					        </div><!-- /.span3 -->
+					        <div class="span3">
+								<div class="box-style ">
+								 <span class="icon-certificate"></span>
+								  <h3>Activate your fans,<br> or tap ours</h3>
+								  <p>Use our embed features to exclusively engage and activate your fans on your sites. Or tap our growing network of brand advocates, looking to discover and  share brands just like yours!</p>
+								</div><!-- /.spanin -->
+					        </div><!-- /.span3 -->	
+					      </div><!-- /.row -->		  
+					</div>
+				</div><!-- /.col -->
+          	<!-- /4 slideitem -->
           </div>
-        </li>
-      </ul> <!-- /thumbnails -->
-    </div><!-- /span5 -->
-  </div><!-- /row -->
+        </div><!-- /item1 -->
 
-  <div class="row" style="margin-top:5%; margin-bottom: 5%;">
-    <div class="span12">
-      <div style="text-align:center;margin-bottom:-5%;"><i class="icon-lightbulb" style="font-size:1.5em;color:#A3BB62;"></i>&nbsp;&nbsp;&nbsp;<b style="font-size:1.75em;font-weight:500;letter-spacing:0;">A <span style="color:#73AFCD;">fast & simple</span> way for brands to engage millions of people and a fun way for</b></div>
-      <div class="divisor divisor_services">
-        <div class="circle_left"></div>
-        <div class="circle_right"></div>
+        <div class="item"><!-- item2 -->
+          <div class="container">
+            
+          	<!-- 4 span slideitem -->
+          		<div class="col-wrap"><!-- style col-shadow/ col-gray/ testimonial/-->
+					<div class="container ">
+					      <!-- four columns of text below the carousel -->
+					      <div class="row-fluid">
+					        <div class="span3 first">
+								<div class="box-style "> <!-- box-style row Class .box-style -->
+								 <span class="icon-gift"></span>
+								  <h2>Instant prizes</h2>
+								  <p>Earning prizes on brandbuddee.com  is easy with a variety of way to earn points and growing list of brand partners. Find the brands you love and earn rewards redeemable back with those brands.</p>
+								</div><!-- /.spanin -->
+					        </div><!-- /.span3 -->
+					        <div class="span3">
+								<div class="box-style ">
+								 <span class="icon-star-empty"></span>
+								  <h2>Try new products</h2>
+								  <p>Our exclusive community is the first to try new products, experience special events, and discover the launch of new businesses. Use brandbuddee to be the first in line to try new experiences and products!</p>
+								</div><!-- /.spanin -->
+					        </div><!-- /.span3 -->		
+					        <div class="span3">
+								<div class="box-style ">
+								 <span class="icon-glass"></span>
+								  <h2>Everybody wins</h2>
+								  <p>Score free tickets to movies, cruises, & everything in between. In most cases, all you have to do is just JOIN the campaign and you'll receive discounts with your favorite brands. That's a no-brainer!</p>
+								</div><!-- /.spanin -->
+					        </div><!-- /.span3 -->
+					        <div class="span3">
+								<div class="box-style ">
+								 <span class="icon-share-alt"></span>
+								  <h2>Share stories that interest you</h2>
+								  <p>We ensure brands are sharing relevant and interesting stories that your friends will enjoy. For instance, be the first to share hot new movies coming to theaters and score free tickets!</p>
+								</div><!-- /.spanin -->
+					        </div><!-- /.span3 -->	
+					      </div><!-- /.row -->		  
+					</div>
+				</div><!-- /.col -->
+          </div>
+        </div><!-- /item2 -->
       </div>
-      <div style="text-align:center;margin-top:-5%;"><b style="font-size:1.75em;font-weight:500;letter-spacing:0;">fans to earn cool prizes in <span style="color:#73AFCD;">just minutes!&nbsp;&nbsp;&nbsp;</span></b><i class="icon-lightbulb" style="color:#A3BB62;font-size:1.5em;"></i></b></div>
-    </div><!-- /.span12 -->
-  </div><!-- second row -->
-</div><!-- /container -->
+      <a class="left carousel-control" href="#small_slider" data-slide="prev"><i class="icon-chevron-left home-char-control"></i></a>
+      <a class="right carousel-control" href="#small_slider" data-slide="next"><i class="icon-chevron-right home-char-control"></i></a>
+    </div><!-- /.carousel -->
+
+<!-- brand & buddee sections -->
+<div class="col-wrap col-shadow col-gray"><!-- style col-shadow/ col-gray/ testimonial/-->
+<div class="container ">
+      <!-- Three columns of text below the carousel -->
+      <div class="row-fluid"><!-- box-style row Class .box-style -->
+        <div class="span5 first">
+			
+			  <h1>Why join as a brand?</h1>
+			  
+					<!--   hr-Start-->			  
+				<div class="hr hr-left  hr-short"> <!--   hr-center/ hr-left/ hr-right/  hr-short/ hr-light/-->
+					<span class="hr-inner">
+						<span class="hr-inner-style"></span>
+					</span>
+				</div>
+					<!--   hr-End-->			  
+			  <p id="brand-section">Promote your business online, get the results you want.
+					Scale and automate social media by empowering your fans
+					Access influencers to promote your business
+					Choose the results you want your fans to generate including Facebook Likes, Yelp Reviews, social media traffic, surveys, and almost anything else you can think of. 
+					Access to a clean and precise analytics dashboard that helps you quantify a measurable ROI
+			  </p>
+			  <p><a class="button purchase" href="/brands/signup"><i class="icon-ok icon-white"></i> Join now</a></p>
+        </div><!-- /.span5 -->
+
+        <div class="span2">
+        	<img src="/images/homepage/slides/bb-or-v2.png">
+        </div>
+
+        <div class="span5">
+			
+			  <h1>Why join as a buddee?</h1>
+					<!--   hr-Start-->			  
+				<div class="hr hr-left  hr-short"> <!--   hr-center/ hr-left/ hr-right/  hr-short/ hr-light/-->
+					<span class="hr-inner">
+						<span class="hr-inner-style"></span>
+					</span>
+				</div>
+					<!--   hr-End-->			  
+			  <p id="buddee-section">It’s Free to Sign Up
+					Win cool prizes from your favorite brands.
+					Find and try cool products and businesses in your area
+					Receive gifts and special promotions
+					Get exclusive access to events and products that nobody else does
+			  </p>
+			  <p><a class="button purchase" href="/signup"><i class="icon-ok icon-white"></i> Join now</a></p>
+
+        </div><!-- /.span4 -->
+      </div><!-- /.row -->		  
+</div>
+</div><!-- /.col -->
+
+<!-- testimonial -->
+<div class="col-wrap col-shadow bg-images testimonial"><!-- style col-shadow/ col-gray/ bg-images/  testimonial/ -->
+	<div class="container ">
+
+      <!-- Two columns of text below the Box -->
+      <div class="row-fluid"><!-- box-style row Class .box-style -->
+	  
+			<div class="span6 first">
+				  <h1>What people are saying</h1>
+				  
+						<!--   hr-Start-->			  
+				<div class="hr hr-left  hr-short"> <!--   hr-center/ hr-left/ hr-right/  hr-short/ hr-light/-->
+					<span class="hr-inner">
+						<span class="hr-inner-style"></span>
+					</span>
+				</div>
+						<!--   hr-End-->	
+<div class="slider-tes">
+	<div class="testimonial-slider test1">
+
+		<div class="slide">
+			
+			<h2><span class="t-img"><img src="/images/homepage/slides/man.png" alt=""/>	</span>Shawn Adamson, <span>founder, Hangover Joes</span></h2>
+					<!--Buy button-->
+
+					<div class="data">		
+						<p>"Brandbuddee.com has been a huge success to my company and has exposed our brand to thousands of more people over the last 6 months. These campaigns have been very beneficial for us to engage with our audience and has grown our twitter and facebook following, along with increasing our customer base."
+						</p>												
+															
+						<div class="clear"></div>
+					</div>		
+				<div class="clear"></div>		
+		</div>
+
+		<div class="slide">
+			
+			<h2><span class="t-img"><img src="/images/homepage/slides/man.png" alt=""/>	</span>Julianne, <span>Allied THA</span></h2>
+					<!--Buy button-->
+
+					<div class="data">		
+						<p>"Brandbuddee is a great way to reach people on a personal level.  As a brand, it’s great to actually see when and where your message is getting shared.  And who doesn’t love free stuff? Their staff is great to work with and the campaigns are really effective at generating buzz! I'd love to work with them again!"
+						</p>												
+															
+						<div class="clear"></div>
+					</div>		
+				<div class="clear"></div>		
+		</div>
+
+		<div class="slide">
+			
+			<h2><span class="t-img"><img src="/images/homepage/slides/man.png" alt=""/>	</span>Joey F. <span>Portland, OR</span></h2>
+					<!--Buy button-->
+
+					<div class="data">		
+						<p>"I wanted to take a moment today to thank you and the producers of the BT event last night at Q. The event itself was a dream! Getting to meet one of our idols last night was a dream come true in so many ways. None of that would have been possible without your extra effort and going above and beyond."
+						</p>												
+															
+						<div class="clear"></div>
+					</div>		
+				<div class="clear"></div>		
+		</div>
+
+		<div class="slide">
+			
+			<h2><span class="t-img"><img src="/images/homepage/slides/man.png" alt=""/>	</span>Lindsay S. <span>San Francisco, CA</span></h2>
+					<!--Buy button-->
+
+					<div class="data">		
+						<p>"brandbuddee.com is that one site I've been looking for that doesn't charge you a thing to enter or be a member of the site! They only thime I had to pay was when I earned a discount instead of free things, but that's way better than full price! Am I right?! Saving money is the best feeling ever!"
+						</p>												
+															
+						<div class="clear"></div>
+					</div>		
+				<div class="clear"></div>		
+		</div>
+		
+	</div>
+	<div id="nav" class="nav-btn"></div>
+</div>
+						
+						
+			</div><!-- /.span4 -->
+			
+			<div class="span6">
+				
+
+<div class="slider-man">
+	<div id="slider2" class="imgslider6">	
+		<img src="/images/homepage/testimonial-brand1.jpg" class="slide" alt=""/>		
+		<img src="/images/homepage/testimonial-brand2.png" class="slide" alt=""/>		
+		<img src="/images/homepage/testimonial-buddee1.png" class="slide" alt=""/>
+		<img src="/images/homepage/testimonial-buddee2.jpg" class="slide" alt=""/>	
+
+
+		<div id="prev2"  class="prev2"><a href="#"><span class="icon-chevron-left"></span></a></div>
+		<div id="next2" class="next2"><a href="#"><span class="icon-chevron-right"></span></a></div>
+		<div class="nav1 navbtn nav-btn"></div>		
+	</div>	
+</div>
+			</div><!-- /.span6 -->
+		
+      </div><!-- /.row -->		 
+	  
+	</div><!-- /.container -->
+</div><!-- /.col -->
+
+<!-- exm. campaigns and join -->
+<!--   Big Title wrap -->	
+	<div class="big-title">	
+		<h1>Current Campaigns</h1>
+	</div>			  
+	<!--   hr-Start-->			  
+	<div class="hr hr-center"> <!--   hr-center/ hr-left/ hr-right/  hr-short/ hr-light/-->
+		<span class="hr-inner">
+			<span class="hr-inner-style"></span>
+		</span>
+	</div>
+	<!--   hr-End-->			  
+		  
+	
+<div class="col-wrap"><!-- style col-shadow/ col-gray/ testimonial/-->
+<div class="container ">
+      <!-- Three columns of text below the carousel -->
+      <div class="row-fluid"><!-- box-style row Class .box-style -->
+	  	<div id="portfolio_hover">
+			<ul class="nolist gallery">
+			<% @counter = 0 %>
+			<% @recent_campaigns.each do |c| %>
+				<li class="span4 p_items portfolio<% if @counter==0 %> first<% end %>" style="margin-left:2.1%;margin-right:0;">
+				 	<a href="/campaign/<%= c.link %>">
+						<div class="hover"><div class="iconhover"></div></div>
+						<img class='themeapt_animated_image themeapt_image  themeapt_animate_when_almost_visible left-to-right' src="<%= c.campaign_image_url(:square).to_s %>" alt="" />
+						<div class="title"><h4 style="margin: 10px 0;"><%= truncate c.title, length: 40, separator: ' ' %><br><i class="icon-gift"></i> <%= truncate c.reward, length: 35, separator: ' ' %><br><small style="font-size:85%;"><i class="icon-tags"></i>&nbsp;<% if c.redeem_is_raffle %><%= c.limit %><% else %><%= c.limit - c.redeems.count %><% end %>&nbsp;Available&nbsp;&nbsp;<i class="icon-time"></i>&nbsp;<% unless c.end_date.nil? %><% if c.end_date > Time.now %><%= time_ago_in_words(c.end_date) + ' left' %><% else %>Campaign ended<% end %><% end %>&nbsp;&nbsp;<%= c.points_required %>pts</small></h4></div>
+						<div class="alignright"><i class="icon-heart"></i> 77	</div>
+					</a>
+				</li>
+				<% @counter += 1 %>
+			<% end %>
+			
+		</ul>
+			</div>            		
+			<!-- /portfolio -->
+      </div><!-- /.row -->		 
+
+<div class="row-fluid">
+	<div class="span12">
+		<div class="purchase-now"><!-- /.purchase-now box -->
+
+				<h2>Join today, it is free to get started!</h2>
+				<a class="button purchase" href="/signup"><span style="color:white;" class="icon-ok"></span>Join now</a>
+		</div>
+	</div><!-- /.span12 -->
+</div><!-- /.row-fluid -->
+	  
+</div>
+</div><!-- /.col -->
+
+
+<!-- clients -->
+<div class="col-wrap col-shadow col-gray"><!-- style col-shadow/ col-gray/ testimonial/-->
+	<div class="container ">
+
+      <!-- Two columns of text below the Box -->
+      <div class="row-fluid"><!-- box-style row Class .box-style -->
+
+
+			<h1>Brands You Can Find On brandbuddee</h1>	
+
+				<!--   hr-Start-->	
+			<div class="hr hr-left hr-light"> <!--   hr-center/ hr-left/ hr-right/  hr-short/ hr-light/-->
+				<span class="hr-inner">
+					<span class="hr-inner-style"></span>
+				</span>
+			</div>	
+	<!--   hr-Close-->
+			<ul class="pagenavi cl_nav">
+			<li><a class="prev" href="#">
+			<span class="icon-chevron-left"></span>
+			</a></li>
+
+			<li><a class="next" href="#">
+			<span class="icon-chevron-right"></span>
+			</a></li>
+			</ul>	  
+			<div class="span12 themeapt-gallery  themeapt_animate_when_visible">
+	  
+				<div class="client themeapt-gallery-thumb">
+					<ul>
+						<li><a href="http://www.universityaudi.com/index.htm" target="_blank" class="bwWrapper featured "><img src="/images/homepage/slides/client-audi.png" alt=""></a></li>
+						<li><a href="http://www.bmwusa.com/" target="_blank" class="bwWrapper featured "><img src="/images/homepage/slides/client-bmw.png" alt=""></a></li>
+						<li><a href="http://www.ddir.com/" target="_blank" class="bwWrapper featured "><img src="/images/homepage/slides/client-dicks.png" alt=""></a></li>
+						<li><a href="http://disney.com/" target="_blank" class="bwWrapper featured "><img src="/images/homepage/slides/client-disney.png" alt=""></a></li>
+						<li><a href="http://www.dreamworksanimation.com/" target="_blank" class="bwWrapper featured "><img src="/images/homepage/slides/client-dreamworks.png" alt=""></a></li>
+						<li><a href="http://www.sparklingice.com/" target="_blank" class="bwWrapper featured "><img src="/images/homepage/slides/client-sparklingice.png" alt=""></a></li>
+						<li><a href="http://vitacoco.com/" target="_blank" class="bwWrapper featured "><img src="/images/homepage/slides/client-vitacoco.png" alt=""></a></li>
+					</ul>
+				</div>
+
+						
+			</div><!-- /.span4 -->
+
+      </div><!-- /.row -->		 
+ 
+	</div><!-- /.container -->
+</div><!-- /.col -->
 
 <%= render 'shared/footer' %>
 
-
-
 <script type="text/javascript" src="/js/jquery.isotope.min.js"></script>
-<script type="text/javascript" src="/js/jquery.touchSwipe.js"></script>
-<script type="text/javascript" src="/js/jquery.hotkeys.min.js"></script>
-<script type="text/javascript" src="/js/functions.min.js?v=2"></script>
+<script type="text/javascript"  src="/js/homepage/responsive-plugins.js"></script>
+<script type="text/javascript"  src="/js/homepage/responsive-scripts.js"></script>
+<script type="text/javascript" src="/js/homepage/rs-plugin/js/jquery.themepunch.plugins.min.js"></script>
+<script type="text/javascript" src="/js/homepage/rs-plugin/js/jquery.themepunch.revolution.min.js"></script>
+<script type="text/javascript"  src="/js/homepage/jquery.cycle.all.js" ></script>
+<script src="/js/homepage/responsive-modernizr.js"></script>
+<script src="/js/homepage/mootools-core-1.3.1-full-compat.js"></script>
+<script src="/js/homepage/jquery.blackandwhite.js"></script>
+<script type="text/javascript"  src="/js/homepage/jcarousellite_1.0.1.js" ></script>
+<script type="text/javascript" src="/js/homepage/jquery.parralax.js"></script>
+<script src="/js/homepage/custom.js"  type="text/javascript"></script>
+<script type='text/javascript' src='/js/homepage/image_animation.js'></script>
