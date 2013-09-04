@@ -7,29 +7,45 @@
             	<span class="icon-bar"></span>
           	</a>
           	<% if @share.campaign.is_white_label? %>
-          		<a title="<%= @share.campaign.brand.name unless @share.campaign.brand.name.nil? %>" class="brand share_header_links" href="<% unless @share.campaign.brand.website.blank? %><%= @share.campaign.brand.website %><% else %>#<% end %>"><% unless @share.campaign.brand.brand_logo.blank? %><%= image_tag @share.campaign.brand.brand_logo_url(:square).to_s, alt: @share.campaign.title, title: @share.campaign.title, style: "max-height:3%; max-width:80px; margin-bottom:-2%: margin-top:-3%;" %><% else %><span style="font-size:0.75em; position:relative; bottom:3px;"><%= @share.campaign.brand.name unless @share.campaign.brand.name.nil? %></span><% end %></a>
+          		<a title="<%= @share.campaign.brand.name unless @share.campaign.brand.name.nil? %>" class="brand share_header_links" href="<% unless @share.campaign.brand.website.blank? %><%= @share.campaign.brand.website %><% else %>#<% end %>"><% unless @share.campaign.brand.brand_logo.blank? %><%= image_tag @share.campaign.brand.brand_logo_url(:square).to_s, alt: @share.campaign.title, title: @share.campaign.title, style: "max-height:7%; max-width:110px;" %><% else %><span style="font-size:0.75em; position:relative; bottom:3px;"><%= @share.campaign.brand.name unless @share.campaign.brand.name.nil? %></span><% end %></a>
           	<% else %>
           		<a title="<%= @share.campaign.brand.name unless @share.campaign.brand.name.nil? %> brandbuddee" class="brand share_header_links" href="<%= root_url %>"><div class="logo_header"></div></a>
           	<% end %>
           	<div class="nav-collapse collapse" style="float:none;">
           		<ul class="nav">
-          			<li style="font-size:1.3em;"><span>Help <a <% unless @share.campaign.is_white_label? %>title="<%= @share.campaign.brand.name unless @share.campaign.brand.name.nil? %> brandbuddee"<% end %> href="<% unless @share.campaign.is_white_label? || @share.user.nickname.blank? %><%= root_url + @share.user.nickname %><% else %>#<% end %>" target="_blank" style="text-decoration:none;-webkit-transition:color .3s linear; -moz-transition:color .3s linear; -o-transition:color .3s linear; transition:color .3s linear;font-weight:700;" class="bb-dark-green"><% unless @share.user.first_name.blank? || @share.user.last_name.blank? %><%= @share.user.first_name + ' ' + @share.user.last_name %><% else %>This buddee<% end %></a></span> earn this gift<br />from <span class="bb-blue" style="font-weight:700;"><%= !@share.campaign.brand.name.nil? ? @share.campaign.brand.name : "This Brand" %></span>!</li>
+          		<% if @share.campaign.is_white_label? %>
+          			<li style="font-size:1.3em;margin-top:3%;"><span>Help <a title="<%= @share.campaign.brand.name unless @share.campaign.brand.name.nil? %>" href="#" style="text-decoration:none;-webkit-transition:color .3s linear; -moz-transition:color .3s linear; -o-transition:color .3s linear; transition:color .3s linear;font-weight:700;" class="bb-dark-green"><% unless @share.user.first_name.blank? || @share.user.last_name.blank? %><%= @share.user.first_name + ' ' + @share.user.last_name %><% else %>This buddee<% end %></a></span> earn this gift<br />from <span class="bb-blue" style="font-weight:700;"><%= !@share.campaign.brand.name.nil? ? @share.campaign.brand.name : "This Brand" %></span>!</li>
+          		<% else %>
+          			<li style="font-size:1.3em;"><span>Help <a title="Sweepstakes Contests Giveaways brandbuddee" href="<% unless @share.user.nickname.blank? %><%= root_url + @share.user.nickname %><% else %>#<% end %>" target="_blank" style="text-decoration:none;-webkit-transition:color .3s linear; -moz-transition:color .3s linear; -o-transition:color .3s linear; transition:color .3s linear;font-weight:700;" class="bb-dark-green"><% unless @share.user.first_name.blank? || @share.user.last_name.blank? %><%= @share.user.first_name + ' ' + @share.user.last_name %><% else %>This buddee<% end %></a></span> earn this gift<br />from <span class="bb-blue" style="font-weight:700;"><%= !@share.campaign.brand.name.nil? ? @share.campaign.brand.name : "This Brand" %></span>!</li>
+          		<% end %>
           		</ul>
           		<% unless @task.nil? %>
 	          		<% unless @task.task_1_url=="false" && @task.task_2_url=="false" %>
 		          		<ul class="nav">
 		          			<% unless @task.task_1_url=="false" || @task.campaign.engagement_task_left_text == "false" %>
 		          				<li>
+		          				<% if @share.campaign.is_white_label? %>
+		          					<%= link_to("/tasks/#{@task.id}/check_engage_left", class: "btn btn-info", style: "color:white;text-shadow:none;padding: 4px 12px;margin-top:8%;background-position: 0 0px;", target: "_blank", title: @task.campaign.engagement_task_left_text) do %>
+		          						<i class="icon-external-link"></i> <%= @task.campaign.engagement_task_left_text %>
+		          					<% end %>
+		          				<% else %>
 		          					<%= link_to("/tasks/#{@task.id}/check_engage_left", class: "btn btn-info", style: "color:white;text-shadow:none;padding: 4px 12px;margin-top:3%;background-position: 0 0px;", target: "_blank", title: @task.campaign.engagement_task_left_text) do %>
 		          						<i class="icon-external-link"></i> <%= @task.campaign.engagement_task_left_text %>
 		          					<% end %>
+		          				<% end %>
 		          				</li>
 		          			<% end %>
 		          			<% unless @task.task_2_url=="false" || @task.campaign.engagement_task_right_text == "false" %>
 		          				<li>
+		          				<% if @share.campaign.is_white_label? %>
+		          					<%= link_to("/tasks/#{@task.id}/check_engage_right", class: "btn btn-success", style: "color:white;text-shadow:none;padding: 4px 12px;margin-top:8%;background-position: 0 0px;", target: "_blank", title: @task.campaign.engagement_task_right_text) do %>
+		          						<i class="icon-external-link"></i> <%= @task.campaign.engagement_task_right_text %>
+		          					<% end %>
+		          				<% else %>
 		          					<%= link_to("/tasks/#{@task.id}/check_engage_right", class: "btn btn-success", style: "color:white;text-shadow:none;padding: 4px 12px;margin-top:3%;background-position: 0 0px;", target: "_blank", title: @task.campaign.engagement_task_right_text) do %>
 		          						<i class="icon-external-link"></i> <%= @task.campaign.engagement_task_right_text %>
 		          					<% end %>
+		          				<% end %>
 		          				</li>
 		          			<% end %>
 		          		</ul>
@@ -37,10 +53,17 @@
 		        <% end %>
           		<ul class="nav pull-right">
           			<li>
+          			<% if @share.campaign.is_white_label? %>
+          				<div class="btn-group" style="font-size:13px;margin-top:6%;">
+          					<a title="<%= @share.campaign.brand.name unless @share.campaign.brand.name.nil? %>" href="https://www.facebook.com/<% unless @share.campaign.brand.embeds.where(campaign_link: @share.campaign.link).first.nil? %><%= "#{@share.campaign.brand.embeds.where(campaign_link: @share.campaign.link).last.fb_page_id}?id=#{@share.campaign.brand.embeds.where(campaign_link: @share.campaign.link).last.fb_page_id}&sk=app_278238152312772" %><% end %>" class="btn btn-info" style="position:relative; left:2%;margin-top:5%;"><i class="icon-gift"></i> <%= current_user ? "View" : "Join" %></a>
+          					<a title="<%= @share.campaign.brand.name unless @share.campaign.brand.name.nil? %>" href="<%= @share_link %>" class="btn btn-success" style="margin-top:5%;"><i class="icon-remove-sign"></i></a>
+          				</div>
+          			<% else %>
           				<div class="btn-group" style="font-size:13px;margin-top:0;">
           					<a <% unless @share.campaign.is_white_label? %>title="<%= @share.campaign.brand.name unless @share.campaign.brand.name.nil? %> brandbuddee"<% end %> href="<% unless @share.campaign.is_white_label? %><%= root_url + 'campaign/' + @share.campaign.link.to_s %><% else %>https://www.facebook.com/<% unless @share.campaign.brand.embeds.where(campaign_link: @share.campaign.link).first.nil? %><%= "#{@share.campaign.brand.embeds.where(campaign_link: @share.campaign.link).last.fb_page_id}?id=#{@share.campaign.brand.embeds.where(campaign_link: @share.campaign.link).last.fb_page_id}&sk=app_278238152312772" %><% end %><% end %>" class="btn btn-info" style="position:relative; left:2%;margin-top:5%;"><i class="icon-gift"></i> <%= current_user ? "View" : "Join" %></a>
           					<a <% unless @share.campaign.is_white_label? %>title="<%= @share.campaign.brand.name unless @share.campaign.brand.name.nil? %> brandbuddee"<% end %> href="<%= @share_link %>" class="btn btn-success" style="margin-top:5%;"><i class="icon-remove-sign"></i></a>
           				</div>
+          			<% end %>
           			</li>
           		</ul>
         	</div><!-- /.nav-collapse -->
