@@ -5,7 +5,7 @@ class CampaignController < ApplicationController
 		campaign = Campaign.where(:link => params_campaign).first
 		if campaign.present?
 		  @campaign = campaign
-		  @campaigns_else = Campaign.where(:status => "active").excludes(left: false).excludes(id: campaign.id).order_by([:date, :desc]).limit(4)
+		  @campaigns_else = Campaign.where(:status => "active").excludes(left: false, is_white_label: true).excludes(id: campaign.id).order_by([:date, :desc]).limit(4)
 		end
 		if campaign.nil?
 		  redirect_to root_url
