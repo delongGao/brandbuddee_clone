@@ -29,7 +29,7 @@
     color: #80D8A6;
 }
 
-.likebtn a.l-btn:hover, #accordion_os .ui-state-active .ui-accordion-header-icon, #accordion_op .ui-accordion-header.ui-state-active .ui-accordion-header-icon{
+.likebtn a.l-btn:hover, #accordion_os .ui-state-active .ui-accordion-header-icon, #accordion_op .ui-accordion-header.ui-state-active .ui-accordion-header-icon, #accordion_op2 .ui-accordion-header.ui-state-active .ui-accordion-header-icon{
     background-color: #80D8A6;
 }
 
@@ -37,7 +37,7 @@
     background: none repeat scroll 0 0 #80D8A6;
 }
 
-.nav-btn a.activeSlide, .team-data h2:hover span,#accordion_op .ui-accordion-header.ui-state-active:before, #accordion_op .ui-accordion-content.ui-accordion-content-active, #accordion_op .ui-accordion-header.ui-state-active  {
+.nav-btn a.activeSlide, .team-data h2:hover span,#accordion_op .ui-accordion-header.ui-state-active:before, #accordion_op2 .ui-accordion-header.ui-state-active:before, #accordion_op .ui-accordion-content.ui-accordion-content-active, #accordion_op2 .ui-accordion-content.ui-accordion-content-active, #accordion_op .ui-accordion-header.ui-state-active, #accordion_op2 .ui-accordion-header.ui-state-active  {
     border-color: #80D8A6;
 }	
 

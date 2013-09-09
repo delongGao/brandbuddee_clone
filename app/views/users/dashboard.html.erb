@@ -11,6 +11,9 @@
         color: #fff;
     }
 </style>
+<% unless cookies[:user_tour].nil? || cookies[:user_tour].to_s != "true" %>
+	<link rel="stylesheet" type="text/css" href="/css/bootstrap-tour.min.css">
+<% end %>
 <% end %>
 <script type="text/javascript">if (window.location.hash == '#_=_')window.location.hash = '';</script>
 
@@ -144,6 +147,7 @@
     <script type="text/javascript" src="js/functions.min.js?v=3"></script>
     <script type="text/javascript" src="/js/jquery.infinitescroll.min.js"></script>
     <script type="text/javascript" src="/js/bootstrap-tabdrop.js"></script>
+    <%= render 'shared/buddee_tour' %>
     <script type="text/javascript">
         eval(function(p,a,c,k,e,d){e=function(c){return(c<a?'':e(parseInt(c/a)))+((c=c%a)>35?String.fromCharCode(c+29):c.toString(36))};if(!''.replace(/^/,String)){while(c--){d[e(c)]=k[c]||e(c)}k=[function(e){return d[e]}];e=function(){return'\\w+'};c=1};while(c--){if(k[c]){p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c])}}return p}('(1(){$(o).p(1(){b f=$("#g-e");5(f.6){$("#g-e 2.x").s({4:{y:"",c:"/v/u-t.A",z:"",r:\'B\'},q:"2.9 j i.k a",l:"2.9",n:".m",w:1(){$("#N-T-S-h").R(C)},Q:V},1(d,8){b 7=8.X.Y;W.U("O G: "+7);5(d.6%3!=0){$("#F-4 c").E("h","D")}})}})})();$(H).I(1(){$(\'.M-L\').K({J:\'P\'})});',61,61,'|function|div||loading|if|length|page|opts|pagination||var|img|newElements|items|container|portfolio|display|li|ul|next_page|navSelector|project|itemSelector|window|load|nextSelector|speed|infinitescroll|loader|ajax|assets|errorCallback|row|finishedMsg|msgText|gif|slow|1000|none|css|infscr|Page|document|ready|text|tabdrop|tabs|nav|end|Current|More|pixelsFromNavToBottom|fadeIn|list|of|log|250|console|state|currPage'.split('|'),0,{}))
     </script>

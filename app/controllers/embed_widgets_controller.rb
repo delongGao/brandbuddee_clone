@@ -1,5 +1,5 @@
 class EmbedWidgetsController < ApplicationController
-	before_filter :get_campaign_from_link_param, except: [:facebook_like_gate, :facebook_index, :facebook_signup, :facebook_signup_fb_auth, :facebook_create, :facebook_email_signin, :facebook_add_campaign, :facebook_joined_camp, :facebook_admin_page, :facebook_error_page, :facebook_create_username, :facebook_update_username, :facebook_wall_post, :facebook_reauthenticate, :invite_facebook_list, :invite_facebook_search, :invite_email_form, :invite_email_send, :facebook_task_complete, :facebook_task_undo]
+	before_filter :get_campaign_from_link_param, except: [:facebook_like_gate, :facebook_index, :facebook_signup, :facebook_create, :facebook_email_signin, :facebook_add_campaign, :facebook_joined_camp, :facebook_admin_page, :facebook_error_page, :facebook_create_username, :facebook_update_username, :facebook_wall_post, :invite_facebook_list, :invite_facebook_search, :invite_email_form, :invite_email_send, :facebook_task_complete, :facebook_task_undo, :facebook_auth_cancelled, :facebook_update_user_token]
 
 	def website_index
 		@left = @campaign.limit - @campaign.redeems.size
@@ -319,7 +319,7 @@ class EmbedWidgetsController < ApplicationController
 		@continue = false
 		if params[:signed_request].nil?
 			if params[:page_id].nil? || params[:liked].nil? || params[:admin].nil?
-				@error = "This is the Go Viral! Facebook App. Become a brand, create a campaign, and watch it go viral by installing this app to your Facebook Page!"
+				@error = '<div class="page-header"><h1><i class="icon-facebook-sign" style="color:#43609C;"></i> Go Viral! Facebook App</h1></div><h2>Become a brand, create a campaign, and watch it go viral by installing this app to your Facebook Page!</h2>'
 			else
 				if params[:liked] == "true"
 					redirect_to "/fb-campaign-embed?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
@@ -336,37 +336,19 @@ class EmbedWidgetsController < ApplicationController
 			@signed_request = params[:signed_request]
 			@oauth = Koala::Facebook::OAuth.new(278238152312772, "fbf139910f26420742f3d88f3b25f9a9")
 			@result = @oauth.parse_signed_request(@signed_request)
-			unless @result["oauth_token"].nil?
-				begin
-					@graph = Koala::Facebook::API.new(@result["oauth_token"])
-					@permissions = @graph.get_connection("me", "permissions")
-					unless @permissions[0].nil?
-						if @permissions[0]["installed"] == 1 && @permissions[0]["email"] == 1 && @permissions[0]["publish_actions"] == 1 && @permissions[0]["publish_stream"] == 1 && @permissions[0]["user_birthday"] == 1 && @permissions[0]["user_about_me"] == 1 && @permissions[0]["user_location"] == 1 && @permissions[0]["user_likes"] == 1 && @permissions[0]["user_education_history"] == 1 && @permissions[0]["user_website"] == 1 && @permissions[0]["read_friendlists"] == 1 && @permissions[0]["user_interests"] == 1 && @permissions[0]["user_hometown"] == 1 && @permissions[0]["user_status"] == 1 && @permissions[0]["manage_pages"] == 1
-							unless @result["page"].nil? || @result["page"]["id"].nil? || @result["page"]["liked"].nil? || @result["page"]["admin"].nil?
-								if @result["page"]["liked"]==true
-									redirect_to "/fb-campaign-embed?page_id=#{@result["page"]["id"]}&liked=#{@result["page"]["liked"]}&admin=#{@result["page"]["admin"]}"
-								else
-									@continue = true
-									@page_id = @result["page"]["id"]
-									@liked = @result["page"]["liked"]
-									@admin = @result["page"]["admin"]
-									link = Embed.where(fb_page_id: @page_id).last
-									@campaign = Campaign.where(link: link.campaign_link).first unless link.nil?
-								end
-							else
-								@error = "This App is not intended to be viewed on its own. To function properly, it should be viewed from a Facebook Page."
-							end
-						else
-							@error = "redirect_to_permissions_oauth"
-						end
-					else
-						@error = "redirect_to_permissions_oauth"
-					end
-				rescue Koala::Facebook::APIError
-					@error = "redirect_to_permissions_oauth"
+			unless @result["page"].nil? || @result["page"]["id"].nil? || @result["page"]["liked"].nil? || @result["page"]["admin"].nil?
+				if @result["page"]["liked"]==true
+					redirect_to "/fb-campaign-embed?page_id=#{@result["page"]["id"]}&liked=#{@result["page"]["liked"]}&admin=#{@result["page"]["admin"]}"
+				else
+					@continue = true
+					@page_id = @result["page"]["id"]
+					@liked = @result["page"]["liked"]
+					@admin = @result["page"]["admin"]
+					link = Embed.where(fb_page_id: @page_id).last
+					@campaign = Campaign.where(link: link.campaign_link).first unless link.nil?
 				end
 			else
-				@error = "redirect_to_permissions_oauth"
+				@error = '<h2><i class="icon-facebook-sign" style="color:#43609C;"></i> This App is not intended to be viewed on its own. To function properly, it should be viewed from a Facebook Page.</h2>'
 			end
 		end
 	end
@@ -457,15 +439,6 @@ class EmbedWidgetsController < ApplicationController
 		end
 	end
 
-	def facebook_signup_fb_auth
-		unless params[:campaign_id].nil? || params[:page_id].nil? || params[:liked].nil? || params[:admin].nil?
-			session[:fb_embed_widget_signup] = "#{params[:campaign_id]}|#{params[:page_id]}|#{params[:liked]}|#{params[:admin]}"
-			redirect_to "/auth/facebook"
-		else
-			redirect_to "/fb-campaign-embed"
-		end
-	end
-
 	def facebook_create
 		unless params[:user].nil?
 			@user = User.create(params[:user])
@@ -481,7 +454,7 @@ class EmbedWidgetsController < ApplicationController
 		                @bitly_link = the_share.bitly_share_link
 		                @campaign.tasks.create!(task_1_url: @campaign.engagement_task_left_link, task_2_url: @campaign.engagement_task_right_link, user_id: @user.id, campaign_id: @campaign.id)
 		                if @campaign.save(validate: false)
-		                  redirect_to "/fb-connect-with-fb?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
+		                	redirect_to "/fb-create-username?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
 		                else
 		                  redirect_to "/fb-campaign-embed?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
 		                end
@@ -772,6 +745,27 @@ class EmbedWidgetsController < ApplicationController
 		
 	end
 
+	def facebook_auth_cancelled
+		if params[:page_id].nil? || params[:liked].nil? || params[:admin].nil?
+			flash[:error] = "An error occurred while trying to connect your account. Please refresh your page and try again."
+			redirect_to "/fb-error-page"
+		else
+			@embed = Embed.where(fb_page_id: params[:page_id].to_s).last
+			unless @embed.nil? || @embed.campaign_link.blank?
+				@campaign = Campaign.where(link: @embed.campaign_link).first
+				if @campaign.nil?
+					flash[:error] = "An error occurred while trying to lookup the campaign associated with this Facebook Page. Please try again."
+					redirect_to "/fb-error-page?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
+				else
+					@brand = @campaign.brand
+				end
+			else
+				flash[:error] = "An error occurred while trying to lookup the campaign associated with this Facebook Page. Please try again."
+				redirect_to "/fb-error-page?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
+			end
+		end
+	end
+
 	def facebook_create_username
 		if params[:page_id].nil? || params[:liked].nil? || params[:admin].nil?
 			flash[:error] = "An error occurred while trying to create your account. Please refresh your page and try again."
@@ -885,21 +879,28 @@ class EmbedWidgetsController < ApplicationController
 						end
 					rescue Koala::Facebook::APIError => exc
 						if exc.message == "KoalaMissingAccessToken: Write operations require an access token"
-							flash[:error] = "Posting to your Facebook Wall requires permissions that you have not given the Facebook App access to. Please <a href='/fb-connect-with-fb?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}' class='btn btn-info btn-mini'>Connect With Facebook</a>"
+							flash[:error] = "Posting to your Facebook Wall requires permissions that you have not given the Facebook App access to. Please <a href='#' class='btn btn-info btn-mini' id='btnReAuthFacebook'>Connect With Facebook</a>"
 							if params[:admin].to_s == "true"
 								redirect_to "/fb-embed-admin?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
 							else
 								redirect_to "/fb-joined-campaign?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
 							end
 						elsif exc.message == "OAuthException: Error validating access token: The session has been invalidated because the user has changed the password."
-							flash[:error] = "Your connection with Facebook has expired. Please <a href='/fb-connect-with-fb?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}' class='btn btn-info btn-mini'>Connect With Facebook</a>"
+							flash[:error] = "Your connection with Facebook has expired. Please <a href='#' class='btn btn-info btn-mini' id='btnReAuthFacebook'>Connect With Facebook</a>"
 							if params[:admin].to_s == "true"
 								redirect_to "/fb-embed-admin?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
 							else
 								redirect_to "/fb-joined-campaign?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
 							end
 						elsif exc.message == "OAuthException: Error validating access token: Session does not match current stored session. This may be because the user changed the password since the time the session was created or Facebook has changed the session for security reasons."
-							flash[:error] = "Your connection with Facebook has expired. Please <a href='/fb-connect-with-fb?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}' class='btn btn-info btn-mini'>Connect With Facebook</a>"
+							flash[:error] = "Your connection with Facebook has expired. Please <a href='#' class='btn btn-info btn-mini' id='btnReAuthFacebook'>Connect With Facebook</a>"
+							if params[:admin].to_s == "true"
+								redirect_to "/fb-embed-admin?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
+							else
+								redirect_to "/fb-joined-campaign?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
+							end
+						elsif exc.message == "OAuthException: Error validating access token: Session is invalid. This could be because the application was uninstalled after the session was created."
+							flash[:error] = "Your account's connection to Facebook has expired. Please <a href='#' class='btn btn-info btn-mini' id='btnReAuthFacebook'>Reconnect with Facebook</a>"
 							if params[:admin].to_s == "true"
 								redirect_to "/fb-embed-admin?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
 							else
@@ -911,7 +912,12 @@ class EmbedWidgetsController < ApplicationController
 						end
 					end
 				else
-					redirect_to "/fb-connect-with-fb?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
+					flash[:error] = "Your account must be connected to Facebook to perform that action. Please <a href='#' class='btn btn-info btn-mini' id='btnReAuthFacebook'>Connect with Facebook</a>"
+					if params[:admin].to_s == "true"
+						redirect_to "/fb-embed-admin?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
+					else
+						redirect_to "/fb-joined-campaign?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
+					end
 				end
 			else
 				if params[:admin].to_s == "true"
@@ -922,24 +928,6 @@ class EmbedWidgetsController < ApplicationController
 			end
 		else
 			flash[:error] = "When posting to your Facebook Wall, please make sure you fill out all the fields."
-			redirect_to "/fb-error-page"
-		end
-	end
-
-	def facebook_reauthenticate
-		unless params[:page_id].nil? || params[:liked].nil? || params[:admin].nil?
-			if current_user
-				session[:fb_embed_email_connect] = "#{params[:page_id]}|#{params[:liked]}|#{params[:admin]}"
-				redirect_to "/auth/facebook"
-			else
-				if params[:admin].to_s == "true"
-					redirect_to "/fb-embed-admin?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
-				else
-					redirect_to "/fb-campaign-embed?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
-				end
-			end
-		else
-			flash[:error] = "An error occurred while trying to connect your account with Facebook. Please try again later."
 			redirect_to "/fb-error-page"
 		end
 	end
@@ -958,11 +946,12 @@ class EmbedWidgetsController < ApplicationController
 							link = Embed.where(fb_page_id: params[:page_id]).last.campaign_link
 							@campaign = Campaign.where(link: link).first
 						else
-							flash[:error] = "An error occurred while trying to get a list of your Facebook Friends. Please reconnect your account with Facebook by <a href='/fb-connect-with-fb?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}' class='btn btn-mini btn-info'>Clicking Here</a>"
+							flash[:error] = "An error occurred while trying to get a list of your Facebook Friends. Please reconnect your account with Facebook by <a href='#' class='btn btn-mini btn-info' id='btnReAuthFacebook'>Clicking Here</a>"
 							redirect_to "/fb-embed-admin?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
 						end
 					else
-						redirect_to "/fb-connect-with-fb?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
+						flash[:error] = "Your account must be connected with Facebook to perform that action. Please <a href='#' class='btn btn-info btn-mini' id='btnReAuthFacebook'>Connect with Facebook</a>"
+						redirect_to "/fb-embed-admin?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
 					end
 				else
 					redirect_to "/fb-campaign-embed?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
@@ -1009,11 +998,12 @@ class EmbedWidgetsController < ApplicationController
 								redirect_to "/fb-embed-admin?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
 							end
 						else
-							flash[:error] = "An error occurred while trying to get a list of your Facebook Friends. Please reconnect your account with Facebook by <a href='/fb-connect-with-fb?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}' class='btn btn-mini btn-info'>Clicking Here</a>"
+							flash[:error] = "An error occurred while trying to get a list of your Facebook Friends. Please reconnect your account with Facebook by <a href='#' class='btn btn-mini btn-info' id='btnReAuthFacebook'>Clicking Here</a>"
 							redirect_to "/fb-embed-admin?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
 						end
 					else
-						redirect_to "/fb-connect-with-fb?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
+						flash[:error] = "Your account must be connected with Facebook to perform that action. Please <a href='#' class='btn btn-mini btn-info' id='btnReAuthFacebook'>Connect with Facebook</a>"
+						redirect_to "/fb-embed-admin?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
 					end
 				else
 					redirect_to "/fb-campaign-embed?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
@@ -1100,6 +1090,41 @@ class EmbedWidgetsController < ApplicationController
 				flash[:error] = "Your must be logged in as a buddee to perform that action."
 				redirect_to "/fb-error-page?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
 			end
+		end
+	end
+
+	def facebook_update_user_token
+		if request.xhr?
+			unless params[:token].nil? || params[:expires].nil?
+				if current_user
+					@graph = Koala::Facebook::API.new(params[:token])
+					begin
+						profile = @graph.get_object("me")
+						unless profile.nil? || profile["id"].nil?
+							@user = current_user
+							@user.oauth_token = params[:token].to_s
+							expires = DateTime.now + params[:expires].to_i.seconds
+							@user.oauth_expires_at = expires.to_i.to_s
+							if @user.save
+								render :text => "SUCCESS"
+							else
+								render :text => "ERROR"
+							end
+						else
+							render :text => "ERROR"
+						end
+					rescue Koala::Facebook::APIError
+						render :text => "ERROR"
+					end
+				else
+					render :text => "ERROR"
+				end
+			else
+				render :text => "ERROR"
+			end
+		else
+			flash[:error] = "An error occurred. Please refresh this page and try again."
+			redirect_to "/fb-error-page"
 		end
 	end
 

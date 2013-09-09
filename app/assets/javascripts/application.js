@@ -7,7 +7,6 @@
 //= require jquery
 //= require jquery_ujs
 //= require twitter/bootstrap
-//= require bootstro
 //= require flexslider
 //= require layerslider
 //= require jquery-easing

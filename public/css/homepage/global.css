@@ -718,6 +718,47 @@ a.btn-blue {
     background: url("/images/homepage/testimonial-v1.png") no-repeat fixed center top transparent;
     color: #FFFFFF;
 }
+.bg-images-2 {
+    background: url("/images/faq/parallax-bg-1.png") no-repeat fixed center top transparent;
+}
+.bg-team {
+    background: url("../images/About_us_v1.png") no-repeat fixed center top transparent;
+}
+
+.portfolio_grid_bg{
+    background: url("../images/slider-p.png") no-repeat fixed center top transparent;
+}
+
+.bg-team2 {
+    background: url("../images/bg-Team.png") no-repeat fixed center top transparent;
+}
+.bg-ser {
+    background: url("../images/Service-bg.png") no-repeat fixed center top transparent;
+}
+.bg-ser2 {
+    background: url("../images/Service-2.png") no-repeat fixed center top transparent;
+}
+.bg-ser3 {
+    background: url("../images/Service-3.png") no-repeat fixed center top transparent;
+}
+.bg-contact {
+    background: url("../images/About_us_v1-2.png") no-repeat fixed center top transparent;
+}
+.bg-pro {
+    background: url("../images/Portfolio_full_width.png") no-repeat fixed center top transparent;
+}
+.bg-pro2 {
+    background: url("../images/Portfolio_full_width-gr.png") no-repeat fixed center top transparent;
+}
+.bg-pro-b{
+    background: url("../images/banner-1.png") no-repeat fixed center top transparent;
+}
+.bg-pro-b2{
+    background: url("../images/banner-2.png") no-repeat fixed center top transparent;
+}
+.home-b{
+    background: url("../images/banner-3.png") no-repeat fixed center top transparent;
+}
 
     /* Content base class */
 .col-wrap {
@@ -1318,10 +1359,47 @@ margin-left:-32px;
     z-index: 9;
 }
 /* ---------------------------  Client list ------------------ */
+.subscrib {
+    background-attachment: scroll;
+    background-clip: inherit;
+    background-color: transparent;
+    background-image: url("../images/subscrib.png");
+    background-origin: padding-box;
+    background-position: 0 0;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    border-radius: 5px 5px 5px 5px;
+    padding: 40px 0;
+}
+
+
+#home-box {
+    background: url(../images/subscribe_bg.png);
+    background-size: 100% 100%;
+    -webkit-border-radius: 5px 5px 5px 5px;
+    -moz-border-radius: 5px 5px 5px 5px;
+    border-radius: 5px 5px 5px 5px;
+    padding: 40px 0;
+	position: relative;
+    overflow: hidden;
+    color: #fff;
+}
+
 .parallax-layer {
   position: absolute;
   width: 1200px;
   height: 650px;
+}
+
+
+
+#home-box .icons {
+  background: url(../images/bg-icons.png) no-repeat;
+  height: 290px;
+  width: 1600px;
+  position: absolute;
+  left: 70%;
+  margin: 0 0 0 -800px;
 }
 
 #home-box:after {
@@ -2930,7 +3008,7 @@ address p {
 }
 
 .client li img {
-    height: 110px;
+    height: auto;
     max-width: 100%;
 }
 	
@@ -3209,8 +3287,9 @@ address p {
 		margin-left: 1.358%;
 		margin-right: 1.358%;		
 	}
-	
-	
+	.skills{
+	margin-bottom:35px;
+	}
     }
 
 

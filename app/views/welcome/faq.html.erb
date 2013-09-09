@@ -1,0 +1,259 @@
+<% content_for :homepage_style_tag do %>
+	<link href='http://fonts.googleapis.com/css?family=Roboto:400,100,300,300italic,400italic,500,500italic,700,700italic,900,900italic&subset=latin,cyrillic-ext,latin-ext,cyrillic,greek-ext,vietnamese,greek' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="/css/homepage/font/stylesheet.css" type="text/css" />
+  <link href="/css/homepage/shortcodes.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/homepage/tabs.css" type="text/css" />
+  <link href="/css/homepage/global.css" rel="stylesheet">
+  <link href="/css/homepage/color.css" rel="stylesheet">
+  <link href="/css/homepage/jquery_ui.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="/css/homepage/fullwidth.css" media="screen" />
+  <link rel="stylesheet" type="text/css" href="/css/homepage/rs-plugin/css/settings.css" media="screen" />
+  <link rel='stylesheet' type='text/css' media='screen' href='/css/homepage/image_animation.css'/>
+ 	<!--[if lte IE 7]><script src="/js/homepage/lte-ie7.js"></script><![endif]-->
+  <!--[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+<% end %>
+
+<%= render 'shared/header' %>
+
+<% flash.each do |name, msg| %>
+	<div class="container">
+    <div class="row" style="margin-top:4%;">
+      <div class="span6 offset3">
+        <div class="alert alert-<%= name %> fade in">
+          <a title="sweepstakes contests giveaways brandbuddee" href="#" class="close" data-dismiss="alert">&times;</a>
+          <%= msg.html_safe %>
+        </div>
+      </div>
+    </div>
+ 	</div><!-- container -->
+<% end %>
+
+<div class="title-bar t-gray">
+	<div class="container ">
+		<h2 class="page-title">Frequently Asked Questions</h2>
+		<div class="page-root">
+			<a href="/">Home</a>/
+			<a href="#">FAQ </a>
+		</div>
+	</div>
+</div>
+<div class="col-wrap ">
+	<div class="container ">
+  	<div class="row-fluid">
+      <div class="span6 themeapt_animated_text themeapt_text themeapt_animate_when_almost_visible left-to-right">
+      	<h1>Have a question?</h1>
+				<div class="hr hr-left  hr-short">
+					<span class="hr-inner">
+						<span class="hr-inner-style"></span>
+					</span>
+				</div><!-- /.hr -->
+			  <p>
+			  	Welcome to the <span>Frequently Asked Questions</span> page. Here, we have consolidated the topics people get confused about the most. Click either the brand or buddee button below to jump to the applicable section.
+			  </p>
+				<p><a class="button" href="#" onclick='$("html, body").animate({scrollTop:$("#brandFAQ").offset().top-60},1000);'>brand FAQ</a>&nbsp;<a class="button" href="#" onclick='$("html, body").animate({scrollTop:$("#buddeeFAQ").offset().top-60},1000);'>buddee FAQ</a></p>
+      </div><!-- /.span6 -->
+    	<div class="span6 themeapt_animated_text themeapt_text themeapt_animate_when_almost_visible top-to-bottom">
+    		<div class="tabs style-1">
+					<div id="htabs_op">
+						<ul>
+							<li><a href="#tabs-1"><span class="icon-video"></span>buddee Intro</a></li>
+							<li><a href="#tabs-2"><span class="icon-video"></span>brand Intro</a></li>
+							<li><a href="#tabs-3"><span class="icon-mobile"></span>Contact</a></li>
+						</ul>
+						<div id="tabs-1">
+							<iframe width="100%" height="200" src="https://www.youtube.com/embed/qz69Xh6NRTE?feature=player_detailpage&wmode=opaque" frameborder="0" allowfullscreen></iframe>
+						</div><!-- /#tabs-1 -->
+						<div id="tabs-2">
+							<iframe width="100%" height="200" src="https://www.youtube.com/embed/mC2IVhDtij0?feature=player_detailpage&wmode=opaque" frameborder="0" allowfullscreen></iframe>
+						</div><!-- /#tabs-2 -->
+						<div id="tabs-3">
+							<h2>Feel Free to Reach Out to Us!	</h2>
+							<ul>
+								<li><span style="color:#151010;font-size:12px;font-weight:bold;">Email:</span> <a href="mailto:info@brandbuddee.com?Subject=Contact%20From%20FAQ%20Page" target="_blank" title="Sweepstakes Contests Giveaways brandbuddee">info@brandbuddee.com</a></li>
+								<li><span style="color:#151010;font-size:12px;font-weight:bold;">Phone:</span> <a href="tel:3609201637" title="Sweepstakes Contests Giveaways brandbuddee">360.920.1637</a></li>
+								<li><span style="color:#151010;font-size:12px;font-weight:bold;">Address:</span> <a href="http://goo.gl/maps/d0pxG" target="_blank" title="Sweepstakes Contests Giveaways brandbuddee">989 112th Ave NE #2308 Bellevue, WA 98004</a></li>
+							</ul>
+						</div><!-- /#tabs-3 -->
+					</div><!-- /#htabs_op -->
+					<div class="clear"></div>
+				</div><!-- /.tabs-->
+			</div><!-- /.span6 -->
+    </div><!-- /.row-fluid -->		  
+	</div><!-- /.container -->
+</div><!-- /.col-wrap -->
+
+<div class="col-wrap bg-images-2">
+	<div class="container ">
+	  <h1 id="brandFAQ">brand Frequently Asked Questions</h1>
+		<div class="hr hr-left hr-short">
+			<span class="hr-inner">
+				<span class="hr-inner-style"></span>
+			</span>
+		</div>
+    <div class="row-fluid">
+			<div class="span12 themeapt_animated_text themeapt_text themeapt_animate_when_almost_visible left-to-right">
+				<div class="faqitm toggle ">
+					<div id="accordion_op">
+						<h3>What is brandbuddee's value proposition for my business?</h3>
+						<div>
+							<p>brandbuddee helps you get more value out of social media while saving time.  Telling your brand's story through your fans and customers is a no-brainer, because people trust their opinion more!  Wouldn’t you trust a friend’s opinion over an ad campaign on T.V.?  Not to mention, getting them involved as brand advocates takes the work off your shoulders and let's your fans spread the word for you.  This increased awareness can generate sales through online word-of-mouth and every reward winner has to redeem directly back with your brand, most likely spending even more money or bringing along a few friends in the process!  Most importantly, you can customize campaigns to get the results you want through our gamified brand advocacy experience.</p>
+						</div>
+						<h3>What is brandbuddee's value proposition for my agency?</h3>
+						<div>
+							<p>brandbuddee was designed by a group of agency professionals, just like yourself.  We know that it's important to continually deliver quantifiable value to your clients and come up with cutting edge tools and strategies that help get the job done.  If you didn't, you wouldn't be getting new clients or keeping the ones you have!  Social media is moving fast and it's very labor intensive.  Use tools like brandbuddee to get the metrics your clients need.  Our agency programs are very appealing as they include full support, referral bonuses, and significant cost savings per brand.  The alternative is our referral partner program where you earn 25% residual revenue share on any brands you suggest our way.</p>
+						</div>
+						<h3>How do I get more results from my campaign?</h3>
+						<div>
+							<p>Make it easy for your customers, fans, and influencers to become your brand's buddee and help spread the word!  Use the Go Viral button on your brand dashboard to upload your campaign to your Facebook page.  It'll allow more fans to join and keep them coming back to your page instead of brandbuddee.com!  Also, make sure you announce the special rewards program on your social networks, more fans joining means you'll be able to drive more buzz and the metrics you seek.  Unique to brandbuddee, you can select the metrics you want for your campaign.  During the campaign setup process you can choose what you want to assign points for. This includes, Facebook likes, Yelp reviews, blog posts, photos of customers with your products, and anything else you can think of.  Your buddees will either complete the tasks themselves or influence their friends to do it, earning more points along the way.  If you want to drive one metric more than another, simply offer more points for the task being completed by a buddee.  You can view the results of your campaign from your brand dashboard by logging in with your email and password, then clicking "campaigns" to view the analytics from each campaign.</p>
+						</div>
+						<h3>Are my "buddees" only promoting my brand for the reward?</h3>
+						<div>
+							<p>While the incentive is that extra push to get your fans and brand advocates involved in sharing your brand, it does not detract from your organic social marketing efforts.  You're most likely already running sweepstakes and giveaways to drive marketing activities, and for good reason.  Your fans even expect these types of opportunities as the number one reason for following brands on social media according to leading market research.  We feel that many online social advertising tools fall into two categories: 1) they rely on pay-per-advocacy which produces inorganic brand advocacy due to the ubiquitous nature of the reward OR 2) they are simply a tool that helps you manage ad spending with the largest social networking channels, such as Facebook Ads.  brandbuddee falls outside of both categories. We offer an experience that’s purely word-of-mouth from your consumers and fans wherever they are.  In addition to that, our rewards system is completely geared towards your actual customers and fans as all rewards are only redeemable back with your business.  You won't find grandma tweeting about your skateboard shop anytime soon, but really, what is she going to do with 50% off a rad skateboard and a gnarly new tee shirt?  When you zero in your campaigns, and really think about your audience, you’ll receive more relevant participation.</p>
+						</div>
+						<h3>How do I private label brandbuddee's platform and/or keep the campaign private to my network of fans?</h3>
+						<div>
+							<p>We do offer a special private label edition of brandbuddee's simple, scalable brand advocacy tool, just ask us about it by emailing <a href="mailto:info@brandbuddee.com" target="_blank" title="Sweepstakes Contests Giveaways brandbuddee">info@brandbuddee.com</a>.  The private label edition allows you to upload your logo and removes brandbuddee’s branding from the application.  Furthermore, it allows you to exclusively tap your fans and customers on your Facebook fan page or website while avoiding any of the other users in the brandbuddee network to see and participate in your campaign.</p>
+						</div>
+						<h3>How do I see the results of my campaign?</h3>
+						<div>
+							<p>If you have a brand or agency account, you can login 24/7 to your analytics dashboard to see how your campaigns are doing.  To see the analytics for each campaign, click the "Campaigns" button on the left-hand toolbar on your brand dashboard page.  Then, select the campaign you'd like to get insights on and it will take you to the main analytics dashboard for that campaign.  If you'd like a more in-depth view of the specific metrics for the custom task (I.E.  Facebook likes, watching your video), you can click the "Tasks" button to drill down into those details.  If you want BETTER results from your campaign, make sure you share it with your customers and fans by posting the URL across your social media platforms, or embedding the application to your Facebook page with the "Go Viral" button found on the analytics dashboard for each campaign.  Make it easy for your customers, fans, and influencers to become your brand's buddees.</p>
+						</div>
+						<h3>Why should I use brandbuddee?</h3>
+						<div>
+							<p>This is the first question any potential customer should ask.  Why should I spend the time and money on brandbuddee?  Well, there are several great reasons brandbuddee is right for you.  First, you’re on social media already and looking for ROI.  We happen to amplify that and automate it to some degree by empowering your customers and fans to become brand advocates and spread the word.  Why are you on social media if you’re not trying to get better results more efficiently?  Second, potential customers believe their friends 90% of the time and trust your ads only 14% of the time.  It’s a no-brainer that word-of-mouth from your customers and fans is going to be a bigger influence on new customers than anything you could ever say about your own business.  Third, we make it simple, easy, and affordable to run brand advocacy programs, allowing you to amplify your brand across social media..   Fourth, brandbuddee puts you in the driver seat where you can customize the campaigns the way you want, embed them anywhere, and acquire the ROI you want!  Lastly, the incentives you offer on brandbuddee build loyalty by encouraging your fans to promote your business, not just be around for the next discount like those daily deal sites.  All the incentives you offer on brandbuddee attract people with a genuine interest in your business and those incentives get redeemed directly back with your business whether it’s a gift card or one of your products/services.</p>
+						</div>
+						<h3>How do I better target my campaigns and the relevant participation of brand advocates?</h3>
+						<div>
+							<p>We get it, advertising is all about relevancy, and we kept that in mind while designing this platform.  What's more relevant than endorsements from your customers and fans?  You can ensure their targeted engagement and participation by the way you design your campaign.  First, offer a reward that would only appeal to your current or potential customers and fans, like a gift card to your business or free product from you.  This will help keep out random people who are just interested in the reward.  Second, you can try our white label version that allows you to run brandbuddee from an app embeddable on a web landing page, blog, or your Facebook page.  This white label version will not appear to the brandbuddee network and you can ensure that only your customers and fans see it and are able to join.  Lastly, you use the "How to Redeem" section to state specific terms for participation or choose a specific location that you want the campaign available in i.e.  National, Seattle, Canada, or Neverland.</p>
+						</div>
+						<h3>How do I quantify the value of brandbuddee?</h3>
+						<div>
+							<p>brandbuddee, like any other advertising channel, does not promise sales: it’s your job to have a good website and/or ways to convert new customers.  We can bring you a lot of relevant, interested leads through word-of-mouth recommendations from YOUR customers and fans.  Typically, most people don’t convert into a sale the first time hearing about your products or sales, that happens weeks to even months later (See more on “I’m getting traffic, but not seeing any sales”).  Social media is not a silver bullet, but, done right, will deliver significant ROI.  Unlike any other advertising medium, we’re extremely effective at delivering quantifiable ROI within hours in the form of the metrics you choose prior to setting up campaigns.  For instance, you can offer brand advocates points for writing blogs, and those blogs get delivered to you before any points are assigned to the brand advocate.  If your boss is pressing you about the financial impact of social media, we’ve got your covered!  Our analytics dashboard breaks down the $$$ value from each action generated through brandbuddee as per industry standards set by Neilson and Forrester Research.</p>
+						</div>
+						<h3>What do I offer as a reward?</h3>
+						<div>
+							<p>We don’t believe in paid endorsements.  We only offer rewards that are redeemable back with your business.  For instance, you can use our partner Gift Rocket to create gift cards for use back at your business or you can offer a deep discount (51% or more) on your products and services.  You’re already giving it away with Groupon, why not get some sort of return in the form of brand advocate promotion for the same thing?  If you’re hosting an event, offer free event tickets to people that earn enough points.  That way you'll get people coming to your event and have them telling their friends about it!  It’s that simple.</p>
+						</div>
+						<h3>What “story” do I want people sharing?</h3>
+						<div>
+							<p>Anything you post on your Facebook page or write a press release is a story worth sharing, otherwise you wouldn’t have gone through the effort to post it!  We amplify that story across all social media channels through your fans and influencers.  Do you have a new burger of the month that you’re promoting?  Well, that’s interesting information that people will want to know about.  At brandbuddee, we ensure that we’re providing good content and information to the brand advocates to pass on to their friends.  We maintain the consistency of your messaging and position that information in a way that it can lead to quantifiable ROI for your business.</p>
+						</div>
+						<h3>Why do the same people keep winning?</h3>
+						<div>
+							<p>That’s actually a good thing!  If you have a brand advocate that wins from you several times, that means that they’re a serious advocate and engaged with your brand.  Don’t worry if you think you’re reaching the same people through this person.  In advertising they say it takes seeing a message 6 times before people take action!  Multiple impressions on a target audience lead to increased purchase intent and brand awareness.  Also, not to mention, retweets and engagement on that brand advocates posts reach far more people outside their initial network.</p>
+						</div>
+						<h3>I’m getting a lot of traffic, but I’m not seeing sales?</h3>
+						<div>
+							<p>That’s okay!  Social media isn’t really a short-term play, but you can still get results in the short-term..   You’ll find that in ANY advertising platform.  People typically discover your products or services through others on social media, which then begins the information search process and so forth.  Most messaging doesn’t result in impulse purchases, so your REAL sales may happen one, two, or even more weeks after people are initially exposed to your message.  For instance, when promoting an event, most people will wait to see what their friends are doing before they buy tickets, but the most important part is even being in their consideration set.  Even if they don’t buy, what’s important is that they know your brand and can recommend it to others.  Social media doesn’t come with a lot of shortcuts, but there is a lot of value, otherwise why would you be on social media?</p>
+							<p>If you'd like to increase sales in the short-term, we find that it's important to have an informative landing page and try to drive conversions into your email newsletter, social channels, etc.  Most sales pages aren't the best for conversions as people haven't built enough trust with your business yet and will most likely want to review other options available.  In fact, if the landing page is TOO sales focus you may notice a high bounce rate as the implied meaning of the page is to buy now rather than allowing your potential customers the ability to adjust to your offering in a more comfortable manner.</p>
+						</div>
+						<h3>What’s the value of doing a giveaway or sweepstake through brandbuddee?</h3>
+						<div>
+								<ul style="list-style-type:disc;">
+									<li>All rewards are redeemable back with your business so you’ll get customers coming back in store to redeem their gifts or gift cards</li>
+									<li>You can acquire emails for newsletters or new social media followers, to continue the relationship</li>
+									<li>Sweepstakes familiarize consumers with your products and services and most importantly gets their hands on them.</li>
+									<li>Giveaways and contests generate happy customers or prospective customers who win prizes and tell their friends about what they got from you.  It also builds better brand loyalty by rewarding consumer behavior that is beneficial to your business.</li>
+									<li>Sweepstakes and giveaways are often cheaper to run than traditional forms of advertising, such as TV ads.</li>
+								</ul>
+						</div>
+					</div><!-- /#accordion_op -->
+				</div><!-- /.faqitm -->
+			</div><!-- /.span12 -->
+		</div><!-- /.row-fluid -->
+	</div><!-- /.container -->
+</div><!-- /.col-wrap -->
+
+<div class="col-wrap ">
+	<div class="container ">
+		<h1 id="buddeeFAQ">buddee Frequently Asked Questions</h1>
+		<div class="hr hr-left hr-short">
+			<span class="hr-inner">
+				<span class="hr-inner-style"></span>
+			</span>
+		</div>
+   	<div class="row-fluid">
+			<div class="span12 themeapt_animated_text themeapt_text themeapt_animate_when_almost_visible right-to-left">
+				<div class="faqitm toggle ">
+					<div id="accordion_op2">
+						<h3>How do I earn rewards from my favorite brands?</h3>
+						<div>
+							<p>Join campaigns from your favorite brands’ fan pages or find it on brandbuddee!  Some campaigns are private, which means that you can only access them from that brand’s fan page, website, or blog.  Once you find a brand and a campaign you like, all you have to do is click the “Join” button on the campaign page, then complete the tasks for the points allotted and/or share the story on social media.  Once you earn enough points, you get the reward.  If the campaign is a raffle, you earn a raffle entry for every certain amount of points.  This means you can earn endless raffle entries and increase your odds of winning the campaign.</p>
+						</div>
+						<h3>How do I earn points?</h3>
+						<div>
+							<p>There are TWO primary ways to earn points on brandbuddee.  First, is sharing on social media.  Share the brand’s story on the campaign using any of the social media channels available in the buttons just below the campaign picture.  You’ll earn points for the first share and a point for every friend that clicks on the link to learn about the brand.  One friend can only give you one point when they click.  Use the Facebook “Send” button to email your friends or send a message on Facebook to earn more points.  Second are the tasks.  You can earn a set number of points for completing the fun tasks that the brand gives you.  For instance, they may offer you 2 points for liking their page on Facebook.  Well, you’ve liked pages before, now you earn points for doing it!  There are innumerous ways the brand can offer points.  Check them out on the campaign page and complete the ones that are most relevant to you.</p>
+						</div>
+						<h3>How do I redeem my rewards that I earn?</h3>
+						<div>
+							<p>You’ll instantly receive an email the moment you earn your first raffle entry (Raffles only) or when you meet the minimum point total required (Traditional campaigns).  For instance, if a campaign requires 30 points to get the reward, you will get the reward after 30 points.  Further instructions for redeeming your reward will be in the email you receive or they can be found after clicking the “How to redeem” button on the campaign page.  Typically, they’ll email you a gift card, mail you the product, or have you come into the store to redeem your reward.</p>
+						</div>
+						<h3>What isn't acceptable for me to do on brandbuddee and could my membership be revoked?</h3>
+						<div>
+							<p>We are very strict on our user policy and cheating will not be accepted by this community.  Please refer to the "How to Redeem" section for specific rules for each campaign.  In general, you're not allowed to click-spam, ask others to “click” your link, or lie about completing a task found on the campaign page.  Along with built-in tracking mechanisms and rewards offered to users that report other users, we're pretty good at catching people.  Once caught cheating, you may receive a warning, but we have the right to eliminate your membership if we find that cheating was intentional.  As long as you complete the tasks appropriately and share the stories with the suggested text included, you will be fine.  brandbuddee was designed to make it easy for you to earn points if you follow the rules.  Ironically, we find that people who break the rules have a harder time winning prizes as they turn off their network of followers.  If you catch anybody not following the rules, please email us at <a href="mailto:info@brandbuddee.com" target="_blank" title="Sweepstakes Contests Giveaways brandbuddee">info@brandbuddee.com</a> and we may have a reward for you.  If we play by the rules, more brands will join the platform, and that means better prizes and experiences for everybody.</p>
+						</div>
+						<h3>How do I know if I’m eligible for a brandbuddee campaign?</h3>
+						<div>
+							<p>If you see the campaign, you’re most likely eligible.  The only restriction on eligibility is if you don’t live in the correct geographic area.  Before joining a campaign, check to see if it is available in your area or nationally by checking the campaign details in the upper right of the campaign page.  National campaigns will say “national” and local campaigns will usually state a specific city or area name.   If it’s a national campaign, by all means, join the campaign.   If it is not in your area, we’re very sorry, but we have save those rewards for people in that area.</p>
+						</div>
+						<h3>What if I don't receive the reward after winning?</h3>
+						<div>
+							<p>Check your spam folder under the keywords "brandbuddee" in case it accidentally popped in there.  Make sure you read the "How to redeem" section on the campaign page to make sure you're eligible for the campaign and that you've followed the correct instructions for redemption.  Typically, you receive an email with further instructions as soon as you earn the reward.  You can earn the reward by meeting the minimum point total as shown on the campaign page or by being selected as a raffle winner after scoring the minimum points need to receive a raffle ticket.  IF you feel that the brand is purposely avoiding the fulfillment of your reward, please email us at <a href="mailto:info@brandbuddee.com" target="_blank" title="Sweepstakes Contests Giveaways brandbuddee">info@brandbuddee.com</a> and we will work with the brand to get that to you.  As a buddee, you're very important to us and the brands on the platform and we will do what we can to protect your interests.</p>
+						</div>
+						<h3>What if I don't see the brands I want?</h3>
+						<div>
+							<p>If you don't see the brands you want to see on brandbuddee, please share our website with them.  They'll be thrilled to hear about the services we offer and it'll give you more opportunities to earn rewarding prizes and experiences from the brands or businesses you already love.  Our list of brands is growing daily, so check back at least once a week to see what we have or join our newsletter (link to sign up for newsletter) to stay up-to-date about new campaign opportunities.  We highly advise checking back regularly, because the best campaigns go quickly!</p>
+						</div>
+					</div><!-- /#accordion_op2 -->
+				</div><!-- /.faqitm -->
+			</div><!-- /.span12 -->
+   	</div><!-- /.row-fluid -->
+		<div class="row-fluid">
+			<div class="span12 themeapt_animated_text themeapt_text  themeapt_animate_when_almost_visible left-to-right">
+				<div class="purchase-now wt">
+					<h2>Still have a question? Need to get ahold of us?</h2>
+					<p>We love hearing from both brands and buddees! Be it a question or an idea of how we can improve, feel free to drop us a line anytime, anyday!</p>
+					<a class="button  purchase btn-white" href="mailto:info@brandbuddee.com?Subject=Contact%20From%20the%20FAQ%20Page" target="_blank"><span class=" icon-envelope" style="color:white;"></span>Contact Us</a>
+				</div>
+			</div><!-- /.span12 -->
+		</div><!-- /.row-fluid -->
+	</div><!-- /.container -->
+</div><!-- /.col-wrap -->
+
+<%= render 'shared/footer' %>
+
+<script type="text/javascript" src="/js/jquery.isotope.min.js"></script>
+<script type="text/javascript"  src="/js/homepage/responsive-plugins.js"></script>
+<script type="text/javascript"  src="/js/homepage/responsive-scripts.js"></script>
+<script type="text/javascript" src="/js/homepage/rs-plugin/js/jquery.themepunch.plugins.min.js"></script>
+<script type="text/javascript" src="/js/homepage/rs-plugin/js/jquery.themepunch.revolution.min.js"></script>
+<script type="text/javascript"  src="/js/homepage/jquery-ui-1.9.2.custom.js" ></script>
+<script type="text/javascript"  src="/js/homepage/jquery.cycle.all.js" ></script>
+<script src="/js/homepage/responsive-modernizr.js"></script>
+<script src="/js/homepage/mootools-core-1.3.1-full-compat.js"></script>
+<script src="/js/homepage/jquery.blackandwhite.js"></script>
+<script type="text/javascript"  src="/js/homepage/jcarousellite_1.0.1.js" ></script>
+<script type="text/javascript" src="/js/homepage/jquery.parralax.js"></script>
+<script src="/js/homepage/custom.js"  type="text/javascript"></script>
+<script type='text/javascript' src='/js/homepage/image_animation.js'></script>
+<script type="text/javascript">
+	jQuery(document).ready(function() {
+		jQuery(function() {
+			jQuery( "#accordion_op" ).accordion({
+				autoHeight: false,
+				collapsible: true,
+				active: false
+			});
+		});
+		jQuery(function() {
+			jQuery( "#accordion_op2" ).accordion({
+				autoHeight: false,
+				collapsible: true,
+				active: false
+			});
+		});
+		jQuery(function() {
+			jQuery( "#htabs_op" ).tabs();
+		});
+	});
+</script>

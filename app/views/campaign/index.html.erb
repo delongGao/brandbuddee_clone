@@ -1,6 +1,11 @@
 <% unless @campaign.nil? || @campaign.title.blank? %>
 	<% provide(:page_title_tag, @campaign.title) %>
 <% end %>
+<% content_for :homepage_style_tag do %>
+	<% unless cookies[:user_tour].nil? || cookies[:user_tour].to_s != "true" %>
+		<link rel="stylesheet" type="text/css" href="/css/bootstrap-tour.min.css">
+	<% end %>
+<% end %>
 <%= render 'shared/header' %>
 <% unless current_user %>
     <div class="span8" id="promo-campaign-wrap">
@@ -467,7 +472,7 @@
                     <ul class="pull-right" id="gift_gallery" style="margin-top:2%;">
                         <li>
                             <a href="<%= @campaign.gift_image_url(:standard).to_s %>" data-options="thumbnail: '<%= @campaign.gift_image_url(:thumb).to_s %>'">
-                                <i class="icon-camera-retro gift-photo" style="border: 5px outset #0088CC; padding-top: 12px; padding-bottom: 0; padding-left: 5px; background:#fff url(/assets/campaign_tasks_background.png); padding-right: 5px;" title="<%= @campaign.title %> brandbuddee"></i>
+                                <i class="icon-camera-retro gift-photo" style="border: 5px outset #0088CC; background:#fff url(/assets/campaign_tasks_background.png); display:block;" title="<%= @campaign.title %> brandbuddee"></i>
                             </a>
                         </li><% unless @campaign.gift_image_two.nil? || @campaign.gift_image_two.blank? %>
                         <li class="hide">
@@ -565,7 +570,7 @@
                 <% elsif %>
                     
                     <li>
-                        <%= link_to "Join", { :controller=>'campaign', :action=>'activate_campaign', :_c => @campaign.id }, :class=>"btn btn-large btn-info", :title =>"#{@campaign.title} brandbuddee" %>
+                        <%= link_to "Join", { :controller=>'campaign', :action=>'activate_campaign', :_c => @campaign.id }, :class=>"btn btn-large btn-info", :title =>"#{@campaign.title} brandbuddee", :id => "btnJoinCamp" %>
 
                     </li>
                 <% end %>

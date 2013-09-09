@@ -12,20 +12,7 @@ jQuery(document).ready(function() {
 	},function(){
 		jQuery(this).find('.iconhover').stop().animate({ 'margin-top' : '-100' }, 200, 'easeOutCubic');
 	});
-	jQuery().ready(function() {
-	    jQuery(".client").jCarouselLite({
-	    visible: 5,
-	    auto: 5000,
-	    //timeout: 20000,
-	    speed: 800, 
-	    //responsive: false,
-	    //swipe: true,
-	    circular: true,
-		mouseWheel: false,	
-	    btnNext: ".next", 
-	    btnPrev: ".prev"
-	    });
-	});
+	
 	!function (jQuery) {
 		jQuery(function(){
 	  		jQuery('#small_slider').carousel({
@@ -130,6 +117,20 @@ jQuery(document).ready(function() {
 		context.stroke();
 	});
 });
+jQuery().ready(function() {
+	    jQuery(".client").jCarouselLite({
+	    visible: 5,
+	    auto: 5000,
+	    //timeout: 20000,
+	    speed: 800, 
+	    //responsive: false,
+	    //swipe: true,
+	    circular: true,
+		mouseWheel: false,	
+	    btnNext: ".next", 
+	    btnPrev: ".prev"
+	    });
+	});
 function alertbox_close(id){
 	jQuery("#"+id).fadeOut();
 	return false;

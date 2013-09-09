@@ -1,11 +1,14 @@
+<% content_for :facebook_js_auth do %>
+	<%= render 'shared/fb_embed_javascript' %>
+<% end %>
 <div class="container">
 	<div class="row">
 		<div class="span8 offset2">
 			<div class="well well-large text-center" id="fb-embed-index">
 			<% if @continue == true %>
-				<div><%= link_to image_tag("facebook_login.png", size: "230x44"), "/fb-embed-oauth?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}&campaign_id=#{@campaign.id}" %></div>
+				<div><%= link_to image_tag("facebook_login.png", size: "230x44"), "#", id: "btnFacebookAuth" %></div>
 				<hr>
-				<%= form_for @user, url: {action: 'facebook_create'}, html: { class: "form-horizontal" } do |f| %>
+				<%= form_for @user, url: {action: 'facebook_create'}, html: { class: "form-horizontal", id: "frmFbCreateUser" } do |f| %>
 					<% if @user.errors.any? %>
 						<% @user.errors.full_messages.each do |message| %>
 							<div class="alert alert-error fade in">

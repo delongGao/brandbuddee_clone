@@ -56,7 +56,15 @@
 		//activates animation for progress bar
 		if($.fn.themeapt_sc_progressbar)
 		{
+		
 			$('.themeapt-progress-bar-container', container).themeapt_sc_progressbar();
+		}
+		//initPieChart();
+		//activates animation for progress bar
+		if($.fn.themeapt_sc_initPieChart)
+		{
+		
+			$('.themeapt-pie-chart-container', container).themeapt_sc_initPieChart();
 		}
 
 		
@@ -125,15 +133,17 @@ $.fn.themeapt_sc_progressbar = function(options)
 {
 	return this.each(function()
 	{
-		var container = $(this), elements = container.find('.progress');
+	
+	
+		var container = $(this), elements = container.find('.progress-bar');
+	
 
-
-		//trigger displaying of thumbnails
 		container.on('themeapt_start_animation', function()
-		{
+		{			
 			elements.each(function(i)
 			{
 				var element = $(this);
+				
 				setTimeout(function(){ element.addClass('themeapt_start_animation') }, (i * 250));
 			});
 		});
@@ -165,10 +175,53 @@ $.fn.themeapt_sc_iconlist = function(options)
 
 
 
+// -------------------------------------------------------------------------------------------
+// Iconlist shortcode javascript
+// -------------------------------------------------------------------------------------------
+
+$.fn.themeapt_sc_initPieChart = function(options)
+{
+
+	var container = $(this), elements = container.find('themeapt-pie-chart-container');
+
+	container.on('themeapt_start_animation', function()
+		{
+		
+			 jQuery('.percentage').easyPieChart({
+                    animate: 1000,
+                    onStep: function(value) {
+                        this.$el.find('span').text(~~value);
+                    }
+                });
+               jQuery('.percentage-light').easyPieChart({
+                    barColor: '#6FB554',
+                    trackColor: '#5a5a5a',
+                    scaleColor: false,
+                    lineCap: 'butt',
+                    lineWidth: 20,
+                    animate: 2000,
+					size: 190,					
+                    onStep: function(value) {
+                        this.$el.find('span').text(~~value);
+                    }
+                });
+
+				
+			
+			
+		});
+               
+				
+				
+               
+            };
+
+
+
 //waipoint script when something comes into viewport
  $.fn.themeapt_waypoints = function(options_passed)
 	{
-		//if(! $('html').is('.avia_transform')) return;
+		
 
 		var defaults = { offset: 'bottom-in-view' , triggerOnce: true},
 			options  = $.extend({}, defaults, options_passed);

@@ -1,3 +1,6 @@
+<% content_for :facebook_js_auth do %>
+	<%= render 'shared/fb_embed_javascript' %>
+<% end %>
 <div class="container">
 	<div class="row">
 		<div class="span8 offset2">
@@ -47,7 +50,7 @@
                     <div class="alert alert-block alert-error fade in" style="width: 88%; margin-left: 2%;">
                         <a class="close" data-dismiss="alert" href="#">&times;</a>
                         <h4>Uh Oh!
-                        We couldn't find any friends in your Facebook Friends List. Are you sure brandbuddee is connected to the correct Facebook account? If not, login to the right Facebook account, and <a href="/fb-connect-with-fb<%= "?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}" %>" class="btn btn-warning btn-mini">Reconnect with Facebook</a>.</h4>
+                        We couldn't find any friends in your Facebook Friends List. Are you sure brandbuddee is connected to the correct Facebook account? If not, login to the right Facebook account, and <a href="#" class="btn btn-warning btn-mini" id="btnReAuthFacebook">Reconnect with Facebook</a>.</h4>
                 <% end %>
                 <br><div class="text-center" style="margin-top:-5%;">
                     <% unless @campaign.is_white_label? %>

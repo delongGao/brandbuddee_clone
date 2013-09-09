@@ -1,0 +1,429 @@
+<% provide(:page_title_tag, "Sample Campaign") %>
+<% content_for :homepage_style_tag do %>
+	<% unless cookies[:user_tour].nil? || cookies[:user_tour].to_s != "true" %>
+		<link rel="stylesheet" type="text/css" href="/css/bootstrap-tour.min.css">
+	<% end %>
+<% end %>
+<%= render 'shared/header' %>
+<% unless current_user %>
+  <div class="span8" id="promo-campaign-wrap">
+    <div class="promo-campaign-bg">
+      <div class="span4" style="min-width:60%;padding-left:5px;">
+        <h4 style="padding:0;line-height:5px;font-size:16px;">Win cool prizes from this brand</h4>
+        <h5 style="padding:0;font-weight:400;color:rgba(0,0,0,0.7);">Join now to get this prize by signing up in just seconds</h5>
+      </div>
+      <div class="span2" style="float:right;margin-right:25px;">
+        <a title="Sweepstakes Contests Giveaways brandbuddee" data-toggle="modal" href="#login" class="btn btn-success pull-right">Login</a>
+        <a title="Sweepstakes Contests Giveaways brandbuddee" href="<%= root_url %>signup" class="btn btn-info pull-right" style="margin-right:7px;">Join</a>
+      </div>
+    </div> <!-- .promo-campaign-bg -->
+  </div>
+<% end %>
+<link href="/css/social-buttons.css" rel="stylesheet">
+<script type="text/javascript" src="//assets.pinterest.com/js/pinit.js"></script>
+
+<% unless current_user %>
+  <div style="height:70px;"></div>
+<% end %>
+
+<div class="container" style="margin-top:15px;">
+
+	<% flash.each do |name, msg| %>
+		<div class="row">
+			<div class="span6 offset3">
+				<div class="alert alert-<%= name %> fade in">
+					<a title="sweepstakes contests giveaways brandbuddee" href="#" class="close" data-dismiss="alert">&times;</a>
+					<%= msg.html_safe %>
+				</div>
+			</div>
+		</div>
+	<% end %>
+
+	<section class="row" id="project" style="margin-top:5px;">
+		<h1 class="span12">
+			Sample Campaign
+		</h1>
+		<div class="span8 project">
+	    <div class="thumbnail zoom">
+	    	<img src="/assets/learn-more-BW1.jpg" class="campaign_image" title="Sweepstakes Contests Giveaways brandbuddee" alt="sweepstakes-contests-giveaways-brandbuddee">
+	  	</div>
+	    <div style="margin-top:2%; margin-bottom:-2%;" id="divShareTheStory"><%= image_tag "/assets/learn-more-icon2.png", size: "100x100", alt: "sweepstakes-contests-giveaways-brandbuddee", :title => "Sweepstakes Contests Giveaways brandbuddee", style: "padding-right:5%;", class: "img-circle" %> <span style="font-size: 24px; font-weight: bold; border: 1px solid #666; padding-left: 1%; padding-right: 1%; padding-bottom: 0.75%; border-radius: 8px;background:#fff url(/assets/campaign_tasks_background.png);margin-left:1.5%;" class="campaign_index_descriptions">Share the story to earn points</span></div>
+	    <div style="margin-top:5%;">This is just a sample campaign. Its sole purpose is to give buddees an idea of how brandbuddee works!</div>
+	    <div id="fb-root"></div>
+	    <div id="campaign-share">
+	      <%= javascript_include_tag "http://platform.twitter.com/widgets.js" %>
+	      <div class="sharing-wrap">
+	        <div class="pull-left tumblr-div">
+	          <a href="#" onclick="return false;" class="btn btn-mini" title="Sweepstakes Contests Giveaways brandbuddee"><i class="icon-pencil"></i> Tumblr</a>
+	        </div>
+	        <div class="sharing-campaign campaign-twitter-share">
+	          <div id="twitter-button">
+	          	<a href="http://twitter.com/share" class="twitter-share-button" data-text="Check out brandbuddee.com!" data-count="none" data-url="http://brandbuddee.com/" data-size="" title="Sweepstakes Contests Giveaways brandbuddee">Tweet</a>
+	          </div>
+	      	</div>
+	        <div class="sharing-campaign campaign-pinterest-share" style="position:relative; top:1px;">
+	          <a href="http://pinterest.com/pin/create/button/?url=http://brandbuddee.com/&media=http://brandbuddee.com/assets/learn-more-BW1.jpg&description=Check%20out%20brandbuddee.com!" class="pin-it-button" target="_blank" count-layout="none" title="Sweepstakes Contests Giveaways brandbuddee"><img border="0" src="//assets.pinterest.com/images/PinExt.png" title="Pin It" /></a>
+	        </div>
+	      	<div style="padding-top:9px;">
+	          <div class="g-plus" data-action="share" data-annotation="none" data-href="http://brandbuddee.com/"></div>
+	        </div><br>
+	    		<div class="pull-left linked-in-share-button" style="margin-top:-2%;">
+	          <script src="//platform.linkedin.com/in.js" type="text/javascript">lang: en_US</script>
+	          <script type="IN/Share" data-url="http://brandbuddee.com"></script>
+	        </div>
+	    		<div class="sharing-campaign campaign-facebook-share" style="margin-top:-2.3%;margin-left:3%;">
+	          <div class="fb-like" data-href="http://brandbuddee.com/" data-width="375" data-layout="button_count" data-show-faces="true" data-send="true"></div>
+	        </div>
+	      </div><!-- /.sharing-wrap -->
+	      <div class="clear"></div>
+	      Share Link:
+	      <input id="share_link_copy" class="input-large span4" type="text" value="http://brandbuddee.com/">
+	      <a href="#facebookModal" class="btn btn-primary btn-large" data-toggle="modal" style="margin-bottom:8px;" id="btnSubmitFbPost" title="Sweepstakes Contests Giveaways brandbuddee"><i class="icon-circle-arrow-up icon-white"></i> Post to Facebook</a>
+	      <div class="clear"></div>
+	    </div><!-- /#campaign-share --><br>
+		  <div class="divisor divisor_services">
+	      <div class="circle_left"></div>
+	      <div class="circle_right"></div>
+		  </div>
+	    <div style="margin-top: -5%; margin-bottom: 3%;" id="divCompleteTasks"><%= image_tag "/assets/campaign_index_be_buddee.png", size: "100x100", alt: "sweepstakes-contests-giveaways-brandbuddee", :title => "Sweepstakes Contests Giveaways brandbuddee", style: "padding-right:5%;", class: "img-circle" %> <span style="font-size: 24px; font-weight: bold; border: 1px solid #666; padding-left: 1%; padding-right: 1%; padding-bottom: 0.75%; border-radius: 8px;background:#fff url(/assets/campaign_tasks_background.png);">Or complete the following tasks</span></div>
+	    <div class="accordion span4" id="accordion1" style="margin-left:0;">
+	    	<div class="accordion-group">
+	      	<div class="accordion-heading alt-accordion">
+	          <a class="accordion-toggle" title="Sweepstakes Contests Giveaways brandbuddee" data-toggle="collapse" data-parent="#accordion1" href="#collapse1">
+	          	Write a blog post about us!<span class="pull-right" style="margin-right:5%;">9 pts</span>
+	          </a>
+	      	</div>
+	    		<div id="collapse1" class="accordion-body collapse">
+	        	<div class="accordion-inner alt-accordion">
+	          	Write a blog post about this brand and campaign, then give us the URL for 9 whole points!<br />
+	              <div class="btn-group" style="margin-left:45%;padding-top:2%;">
+	              	<button type="button" class="btn btn-small btn-primary" id="btnDoItTaskBlog">Do It</button>
+	              	<input type="submit" value="Done" name="commit" id="btnDoneTaskBlog" class="btn btn-small btn-danger disabled" disabled="disabled">
+	              </div>
+	              <input class="input-medium" disabled="disabled" id="txtBlogAddress" name="txtBlogAddress" placeholder="Blog Post Web Address" style="height:1em;margin-top:2%;margin-left:34%;" type="text">
+	          </div>
+	      	</div>
+	      </div>
+	    </div>
+	    <div class="accordion span4" id="accordion2" style="margin-left:0;">
+	      <div class="accordion-group">
+	        <div class="accordion-heading alt-accordion" style="background-color: #80C4E4;">
+	      		<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse2" title="Sweepstakes Contests Giveaways brandbuddee">
+	            Like this brand on Facebook<span class="pull-right" style="margin-right:5%;">3 pts</span>
+	          </a>
+	        </div>
+	      	<div id="collapse2" class="accordion-body collapse">
+	          <div class="accordion-inner alt-accordion">
+	            Hop over to our Facebook page and like us to get a quick 3 points.<br />
+							<a href="#" onclick="return false;" class="btn btn-small btn-success" style="margin-left:55%;margin-top:2%;" title="Sweepstakes Contests Giveaways brandbuddee">Start Over</a>
+	        	</div>
+	        </div>
+	    	</div>
+	    </div>
+	    <div class="clearfix"></div>
+	  	<div class="accordion span4" id="accordion3" style="margin-left:0;">
+				<div class="accordion-group">
+	        <div class="accordion-heading alt-accordion">
+	        	<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion3" href="#collapse3" title="Sweepstakes Contests Giveaways brandbuddee">
+	            Follow us on Twitter<span class="pull-right" style="margin-right:5%;">2 pts</span>
+	          </a>
+	        </div>
+	        <div id="collapse3" class="accordion-body collapse">
+	          <div class="accordion-inner alt-accordion">
+	            Follow our Twitter page to get an easy 2 points!<br />
+	            <div class="btn-group" style="margin-left:45%;padding-top:2%;">
+	            	<a href="#" onclick="return false;" class="btn btn-small btn-primary" id="btnDoItTaskTwitter" title="Sweepstakes Contests Giveaways brandbuddee">Do It</a>
+	              <a href="#" onclick="return false;" class="btn btn-small btn-danger disabled" disabled="disabled" id="btnDoneTaskTwitter" title="Sweepstakes Contests Giveaways brandbuddee">Done</a>
+	          	</div>
+	        	</div>
+	        </div>
+	  		</div>
+			</div>
+			<div class="accordion span4" id="accordion4" style="margin-left:0;">
+	      <div class="accordion-group">
+	        <div class="accordion-heading alt-accordion" style="background-color: #80C4E4;">
+	          <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion4" href="#collapse4" title="Sweepstakes Contests Giveaways brandbuddee">
+	            Download our new hit mp3<span class="pull-right" style="margin-right:5%;">5 pts</span>
+	          </a>
+	        </div>
+	      	<div id="collapse4" class="accordion-body collapse">
+	          <div class="accordion-inner alt-accordion">
+	          	Go to our homepage and download our newest song "Web Developers are neat" to get 5 points!<br />
+	            <a href="#" onclick="return false;" class="btn btn-small btn-success" style="margin-left:55%;margin-top:2%;" title="Sweepstakes Contests Giveaways brandbuddee">Start Over</a>
+	          </div>
+	        </div>
+	    	</div>
+	    </div>
+	    <div class="clearfix"></div>
+	    <div class="divisor divisor_services">
+		    <div class="circle_left"></div>
+		    <div class="circle_right"></div>
+			</div>
+	    <div id="facebookModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	      <div class="modal-header">
+	        <button class="close" data-dismiss="modal">×</button>
+	      	<h3>Post to Facebook</h3>
+	      </div>
+	    	<div class="modal-body">
+	      		<textarea class="input-large facebook_wall_post" id="personal_message" name="personal_message" placeholder="your personal message..." rows="3">Hey friends! Check out this cool story on brandbuddee.com!</textarea>
+	      		<input id="name" name="name" type="hidden" value="brandbuddee.com">
+	      		<input id="caption" name="caption" type="hidden" value="Check out brandbuddee.com!">
+	      		<input id="description" name="description" type="hidden" value="Check out brandbuddee.com where you can earn gifts from your favorite brands by sharing stories you like!">
+	      		<input id="campaign_link" name="campaign_link" type="hidden" value="111111">
+	      		<input id="link" name="link" type="hidden" value="http://brandbuddee.com/">
+	      		<input id="picture" name="picture" type="hidden" value="http://brandbuddee.com/assets/learn-more-BW1.jpg">
+	      </div>
+	    	<div class="modal-footer">
+	        <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+	      	<input class="btn btn-primary" name="commit" type="submit" value="Post" data-dismiss="modal">
+	      </div>
+	  	</div>
+	    <div style="margin-top: -5%; margin-bottom: 3%;"><%= image_tag "/assets/campaign_index_everyone_win.png", size: "100x100", alt: "sweepstakes-contests-giveaways-brandbuddee", title: "Sweepstakes Contests Giveaways brandbuddee", style: "padding-right:5%;", class: "img-circle" %> <span style="font-size: 24px; font-weight: bold; border: 1px solid #666; padding-left: 1%; padding-right: 1%; padding-bottom: 0.75%; border-radius: 8px;background:#fff url(/assets/campaign_tasks_background.png);margin-left:9%;">And score these gifts</span></div>
+	    <ul class="pull-right" id="gift_gallery" style="margin-top:2%;">
+	      <li>
+	    		<a href="/assets/learn-more-BW1.jpg" data-options="thumbnail: '/assets/learn-more-BW1.jpg'">
+	          <i class="icon-camera-retro gift-photo" style="border: 5px outset #0088CC; background:#fff url(/assets/campaign_tasks_background.png); display:block;" title="Sweepstakes Contests Giveaways brandbuddee"></i>
+	      	</a>
+	      </li>
+	      <li class="hide">
+	        <a href="/assets/learn-more-BW2.jpg" data-options="thumbnail: '/assets/learn-more-BW2.jpg'" title="Sweepstakes Contests Giveaways brandbuddee"></a>
+	      </li>
+	      <li class="hide">
+	        <a href="/assets/learn-more-BW3.jpg" data-options="thumbnail: '/assets/learn-more-BW3.jpg'" title="Sweepstakes Contests Giveaways brandbuddee"></a>
+	      </li>
+	    </ul>
+	    <blockquote class="campaign_reward_box"><h3>What do I get? (17 pts)</h3><p>A free class on web development courtesy of brandbuddee!</p><h3>Or get this just for sharing! (3 pts)</h3><p>A free web seminar on web development from brandbuddee!</p></blockquote><br>
+	    <div class="redeem_details">
+	      <a href="#redeemDetailsModal" role="button" class="btn btn-large btn-primary pull-right" data-toggle="modal" title="Sweepstakes Contests Giveaways brandbuddee">How To Redeem</a>
+	    </div>
+	  </div><!-- /.span8.project -->
+	  <div class="span4 project-description" style="padding-top:0;">
+	    <div class="well" id="theRedeemWell">
+	      <ul class="unstyled">
+	        <li><span class="text-highlight-large"><b>17</b></span> pts</li>
+	        <li>&nbsp;</li>
+	        <li><a href="#" onclick="return false;" class="btn btn-large btn-info" id="btnJoinCamp" title="Sweepstakes Contests Giveaways brandbuddee">Join</a></li>
+	        <li>&nbsp;</li>
+	        <li>
+	        	<table class="table">
+	            <tr class="firstrow">
+	              <td>
+	                Available
+	              </td>
+	              <td>
+	                5
+	              </td>
+	            </tr>
+	          	<tr>
+	              <td>
+	                Remaining
+	              </td>
+	              <td>
+	              	3 months left
+	              </td>
+	            </tr>
+	            <tr>
+	              <td>
+	              	Location
+	              </td>
+	              <td>
+	                Seattle, WA
+	              </td>
+	            </tr>
+	            <tr>
+	              <td>
+	                Category
+	            	</td>
+	              <td>
+	                <a href="#" title="Sweepstakes Contests Giveaways brandbuddee" onclick="return false;">#Entertainment</a>
+	              </td>
+	            </tr>
+	          </table>
+	        </li>
+	    	</ul>
+	    </div><!-- /.well -->
+	    <div class="well brand_overview">
+	    	<h4>Brand</h4>
+	      <p>
+	      	<img src="/assets/brandbuddee-logo-sm.png" alt="sweepstakes-contests-giveaways-brandbuddee" title="Sweepstakes Contests Giveaways brandbuddee" style="max-height:65px; max-width:100%; margin-top:-4%;">
+	      </p>
+	      <h4>Brand overview</h4>
+	      <p>
+	        Discover your favorite brands all in one place, share interesting stories, and earn rewards!
+	      </p>
+	      <h4>Website</h4>
+	      <p>
+	      	<a title="Sweepstakes Contests Giveaways brandbuddee" href="#" onclick="return false;" class="">http://brandbuddee.com/</a>
+	      </p>
+	    	<h4>Social</h4>
+	      <p>
+	      	<a href="#" onclick="return false;" class="sb circle facebook mytooltip" data-original-title="Facebook">Facebook</a>
+	        <a href="#" onclick="return false;" class="sb circle twitter mytooltip" data-original-title="Twitter">Twitter</a>
+	        <a href="#" onclick="return false;" class="sb circle pinterest mytooltip" data-original-title="Pinterest">Pinterest</a>
+	      	<a href="#" onclick="return false;" class="sb circle gplus mytooltip" data-original-title="Google Plus">Google Plus</a>
+	      </p>
+	  	</div><!-- /.well -->
+	  </div><!-- /.span4.project-description -->
+	</section>
+	<section class="row" id="related-projects">
+		<h3 class="span12">
+		  <hr />
+		  Similar Campaigns
+		</h3>
+		<div class="span12">
+		  <ul class="thumbnails">
+		    <% @campaigns_else.each do |c| %>
+		    <li class="span3">
+		      <div class="thumbnail unit-bg" style="height:342px;">
+		        <a href="#" onclick="return false;" title="Sweepstakes Contests Giveaways brandbuddee">
+		          <%= image_tag(c.campaign_image_url(:standard).to_s, :title => "#{c.title} brandbuddee", :alt=> "#{c.title.parameterize}-brandbuddee", :width=>"100%") %>
+		        </a>
+		    		<div class="caption">
+		          <h4 class="campaign_profile_title_wrap">
+		            <%= truncate(c.title, :length => 37, :omission => '...') %>
+		          </h4>
+		        	<p class="campaign_profile_reward_wrap bb-blue" style="font-weight:bold;line-height:120%"><i class="icon-gift" style="font-size:1.2em;color:#555555;position:relative;top:3%;"></i>
+		          <%= truncate(c.reward, :length => 54, :omission => '...') %></p>
+		          <p class="pull-right" style="margin:0;">
+		            <span class="help-block"><small><i class="icon-tag"></i>&nbsp;<%= c.limit - c.redeems.size %> Available&nbsp;&nbsp;<i class="icon-time"> </i>&nbsp;
+		              <% unless c.end_date.nil? %>
+		              	<% if c.end_date > Time.now %>
+		                  <%= time_ago_in_words(c.end_date) + ' left' %>
+		                <% else %>
+		                  Campaign ended
+		                <% end %>
+		              <% end %>
+		            </small></span>
+		          </p>
+		          <div class="clear"></div>
+		          <span class="campaign_details" style="margin:0;">
+		            <span class="pts_req_wrap">
+		            	<span class="help-inline text-highlight-small pts_req">
+		                <%= c.points_required %>
+		              </span>
+		            	<span class="pts_req_text">pts</span>
+		            </span> <!-- .pts_req_wrap -->
+		            <span class="view-deal">
+		              <a href="#" onclick="return false;" class="btn btn-success" title="Sweepstakes Contests Giveaways brandbuddee">View&nbsp;<i class="icon-chevron-right icon-white"></i></a>
+		            </span> <!-- .view-deal -->
+		          </span> <!-- .campaign_details -->
+		        </div><!-- /.caption -->
+		      </div><!-- /.thumbnail.unit-bg -->
+		    </li>
+		    <% end %>
+		  </ul>
+		</div> <!-- .span12 -->
+	</section>
+</div><!-- /.container -->
+
+<%= render "shared/footer" %>
+
+<div id="redeemDetailsModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">How To Redeem</h3>
+  </div>
+  <div class="modal-body">
+    <h4 class="extended_redeem_details"><b>Campaign Location:</b> Seattle, WA</h4>
+    <h4 class="extended_redeem_details"><b>Contact Information:</b><br><b>Name:</b> John Doe<br><b>Email:</b> <a href="#" onclick="return false;">john@nothing.com</a><br><b>Phone:</b> 123.456.7890<br><b>Monetary Value of Reward:</b> $199.99<br><b>Expiration Date:</b> December 1st, 2014<br><b>Event Date:</b> <%= "#{(DateTime.now + 3.months).month}/2/#{(DateTime.now + 3.months).year}" %></h4>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+  </div>
+</div>
+
+<script>        
+  !function (d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (!d.getElementById(id)) {
+      js = d.createElement(s); js.id = id; js.src = "//platform.twitter.com/widgets.js";
+      fjs.parentNode.insertBefore(js, fjs);
+    }
+  } (document, "script", "twitter-wjs");
+</script>
+<div id="fb-root">
+</div>
+<script>
+	(function (d, s, id) {
+    var 
+    js, fjs = d.getElementsByTagName(s)[0]; if (d.getElementById(id)) return; js = d.createElement(s);
+    js.id = id; js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=524356277579122";
+    fjs.parentNode.insertBefore(js, fjs);
+  } (document, 'script', 'facebook-jssdk'));
+</script>
+<script type="text/javascript">
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+</script>
+<script>
+  window.onload = function() {
+  	if(window.jQuery) {
+      $(document).ready(function(){
+        $('.mytooltip').tooltip({'placement':'top', 'trigger' : 'hover'});
+      });
+    }
+  }
+</script>
+<script type="text/javascript">
+  $("#campaign_detail_tooltip").popover({
+    trigger: "hover"
+  });
+</script>
+<script type="text/javascript" src="/js/ilightbox.js"></script>
+<script type="text/javascript">
+  var thewidth = $(window).width();
+	var thumbwidth = 767 < thewidth ? !0 : !1;
+	$("ul#gift_gallery li a").iLightBox({
+    skin: "smooth",
+    path: "horizontal",
+    maxScale: 1.3,
+    overlay: {
+      opacity: 0.9
+    },
+    controls: {
+      thumbnail: thumbwidth
+    },
+    styles: {
+      nextOffsetX: 75,
+      nextOpacity: 0.55,
+      prevOffsetX: 75,
+      prevOpacity: 0.55
+    },
+    thumbnails: {
+      normalOpacity: 0.3,
+      activeOpacity: 1
+    },
+    effects: {
+      switchSpeed: 700
+    }
+	});
+</script>
+<%= render 'shared/buddee_tour' %>
+<script type="text/javascript">
+	expression = /\b((http(s?):\/\/)([a-z0-9\-]+\.)+(MUSEUM|TRAVEL|AERO|ARPA|ASIA|EDU|GOV|MIL|MOBI|COOP|INFO|NAME|BIZ|CAT|COM|INT|JOBS|NET|ORG|PRO|TEL|A[CDEFGILMNOQRSTUWXZ]|B[ABDEFGHIJLMNORSTVWYZ]|C[ACDFGHIKLMNORUVXYZ]|D[EJKMOZ]|E[CEGHRSTU]|F[IJKMOR]|G[ABDEFGHILMNPQRSTUWY]|H[KMNRTU]|I[DELMNOQRST]|J[EMOP]|K[EGHIMNPRWYZ]|L[ABCIKRSTUVY]|M[ACDEFGHKLMNOPQRSTUVWXYZ]|N[ACEFGILOPRUZ]|OM|P[AEFGHKLMNRSTWY]|QA|R[EOSUW]|S[ABCDEGHIJKLMNORTUVYZ]|T[CDFGHJKLMNOPRTVWZ]|U[AGKMSYZ]|V[ACEGINU]|W[FS]|Y[ETU]|Z[AMW])(:[0-9]{1,5})?((\/([a-z0-9_\-\.~]*)*)?((\/)?\?[a-z0-9+_\-\.%=&amp;]*)?)?(#[a-zA-Z0-9!$&'()*+.=-_~:@\/?]*)?)/i;
+	url_regex = new RegExp(expression);
+	$(document).ready(function() {
+		$("#btnDoneTaskBlog").unbind('click');
+		$("#btnDoneTaskBlog").click(function(event) {
+			if($(this).attr("disabled") == "disabled") {
+				event.preventDefault();
+			}	else {
+				if($("#txtBlogAddress").val().length < 1) {
+					event.preventDefault();
+					$(this).parent().parent().append('<div class="alert alert-error fade in"><a href="#" class="close" data-dismiss="alert">&times;</a>Please make sure you enter a URL for the blog post.</div>');
+				} else {
+					if(!$("#txtBlogAddress").val().match(url_regex)) {
+						event.preventDefault();
+						$(this).parent().parent().append('<div class="alert alert-error fade in"><a href="#" class="close" data-dismiss="alert">&times;</a>Please make sure your URL is valid, and starts with http:// or https://</div>');
+					} else {
+						event.preventDefault();
+						$(this).parent().parent().append('<div class="alert alert-success fade in"><a href="#" class="close" data-dismiss="alert">&times;</a>If this were an actual live campaign, at this point you would have completed the task!</div>');
+					}
+				} // End else
+			} // End else
+		});
+	});
+</script>

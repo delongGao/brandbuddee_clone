@@ -299,7 +299,7 @@ class UsersController < ApplicationController
       #   unless @invite.status == true
           if @user.save
             session[:user_id] = @user.id
-
+            cookies[:user_tour] = {:value => true, :expires => Time.now + 1.month}
             # @invite.status = true
             # @invite.success_date = Time.now
             # @invite.save

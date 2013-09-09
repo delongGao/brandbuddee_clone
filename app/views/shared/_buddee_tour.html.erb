@@ -1,0 +1,179 @@
+<% unless cookies[:user_tour].nil? || cookies[:user_tour].to_s != "true" %>
+	<script type="text/javascript" src="/js/bootstrap-tour.min.js"></script>
+	<script type="text/javascript">
+    $(document).ready(function() {
+    	var btnViewPath = '';
+    	if($("#portfolio-items div.row li.project:first-child span.view-deal a.btn-success").length) {
+    		btnViewPath = $("#portfolio-items div.row li.project:first-child span.view-deal a.btn-success").attr('href');
+    	} // End if
+    	var tour = new Tour({
+      	onEnd: function(tour) {
+      		window.location = "/end-buddee-tour";
+      	},
+      	template:	"<div class='popover tour'><div class='arrow'></div><h3 class='popover-title'></h3><div class='popover-content'></div><nav class='popover-navigation'><div class='btn-group'><button class='btn btn-info' data-role='prev' style='font-weight:700;'>« Prev</button><button class='btn btn-info' data-role='next' style='font-weight:700;'>Next »</button></div><button class='btn btn-warning' data-role='end' style='font-weight:700;'><i class='icon-warning-sign'></i> End Tour</button></nav></div>",
+      });
+      tour.addSteps([
+      	{
+      		orphan: true,
+      		title: "Welcome to brandbuddee!",
+      		content: "We hope you have time for a quick tour explaining how to use brandbuddee. You may end the tour at anytime by clicking the \"End tour\" button and resume it anytime by clicking \"Help\" in the navigation menu at the top of your screen.",
+      		placement: "bottom",
+      		backdrop: true
+      	},
+      	{
+      		element: "#portfolio-items div.row li.project:first-child",
+      		title: "Choose a Campaign!",
+      		content: "We always have new campaigns at brandbuddee, making it easy to find one you're interested in.",
+      		placement: "right",
+      		backdrop: true
+      	},
+      	{
+      		element: "#portfolio-items div.row li.project:first-child span.view-deal a.btn-success",
+      		title: "View the Campaign",
+      		content: "Once you've chosen one you like, click the \"View\" button to hop over to the campaign page.",
+      		placement: "right",
+      		backdrop: false,
+      		onShow: function(tour) {
+    				$("#portfolio-items div.row li.project:first-child span.view-deal a.btn-success").attr('href', 'javascript:void(0);');
+      		},
+      		onHide: function(tour) {
+      			$("#portfolio-items div.row li.project:first-child span.view-deal a.btn-success").attr('href', btnViewPath);
+      		}
+      	},
+      	{
+      		path: "/home",
+      		element: "#portfolio-filter",
+      		title: "Optional: Filter by Category",
+      		content: "Narrow down your search for that perfect campaign by category.",
+      		placement: "bottom",
+      		backdrop: false
+      	},
+      	{
+      		path: "/sample-campaign",
+      		element: "#btnJoinCamp",
+      		title: "Join the Campaign",
+      		content: "Click the join button to start sharing and begin earning points.",
+      		backdrop: false,
+      		placement: "left",
+      		reflex: true
+      	},
+      	{
+      		path: "/sample-campaign",
+      		element: "#campaign-share",
+      		title: "Sharing a campaign is a piece of cake!",
+      		content: "Once you have joined a campaign, you can begin earning points by sharing it on social networks like Facebook, Twitter, and Pinterest. You earn points for each person who views the story!",
+      		backdrop: false,
+      		placement: "right",
+      		onShow: function(tour) {
+      			if(!$("#bldCurrentPoints").length){
+      				$("#btnJoinCamp").fadeOut();
+      				$("#btnJoinCamp").parent().before('<p>Your Points: <b style="font-size:17px;" id="bldCurrentPoints">6</b></p><p><span class="label label-success activated_label">Activated!</span></p>');
+      			} // End if
+      		}
+      	},
+      	{
+      		element: "#divCompleteTasks",
+      		title: "Or earn points by completing tasks!",
+      		content: "Another way to earn points is by completing tasks like following a brand on Twitter, or liking their Facebook page.",
+      		backdrop: false,
+      		placement: "right"
+      	},
+      	{
+      		element: "#accordion1",
+      		title: "Completing tasks is very easy.",
+      		content: "Here we have a task asking you to write a blog post. After clicking the \"Do It\" button, you would enter the URL of your post, and click the red \"Done\" button.",
+      		backdrop: false,
+      		placement: "right",
+      		onShow: function(tour) {
+      			if($("#collapse1").height()==0) {
+      				$("#accordion1 a.accordion-toggle").click();
+      			} // End if
+      		},
+      		onHide: function(tour) {
+      			if($("#collapse1").height()!=0) {
+      				$("#accordion1 a.accordion-toggle").click();
+      			} // Endif
+      		}
+      	},
+      	{
+      		element: "#accordion3",
+      		title: "Most tasks don't require input.",
+      		content: "Usually, you'll simply click the \"Do It\" button, complete the task, and click the \"Done\" button",
+      		backdrop: false,
+      		placement: "bottom",
+      		onShow: function(tour) {
+      			if($("#collapse3").height()==0) {
+      				$("#accordion3 a.accordion-toggle").click();
+      			} // End if
+      		},
+      		onHide: function(tour) {
+      			if($("#collapse3").height()!=0) {
+      				$("#accordion3 a.accordion-toggle").click();
+      			} // End if
+      		}
+      	},
+      	{
+      		element: "#accordion2",
+      		title: "This task has already been completed!",
+      		content: "Tasks in blue have already been completed. If you find you made a mistake, or change your mind about something, you can always press the green \"Start Over\" button.",
+      		backdrop: false,
+      		placement: "right",
+      		onShow: function(tour) {
+      			if($("#collapse2").height()==0) {
+      				$("#accordion2 a.accordion-toggle").click();
+      			} // End if
+      		},
+      		onHide: function(tour) {
+      			if($("#collapse2").height()!=0) {
+      				$("#accordion2 a.accordion-toggle").click();
+      			} // End if
+      		}
+      	},
+      	{
+      		element: "#theRedeemWell",
+      		title: "Once you have earned a reward...",
+      		content: "After earning the required amount of points for a campaign, you will see the green redeem button! Clicking it will reveal your personal redeem code and send it to your inbox!",
+      		backdrop: false,
+      		placement: "left",
+      		onShow: function(tour) {
+      			if(!$("a.btn-success.redeem_button").length){
+      				$("#bldCurrentPoints").html("19");
+      				$("span.activated_label").fadeOut();
+      				$("span.activated_label").parent().after('<p><a href="#" class="btn btn-large btn-success redeem_button">Redeem</a></p><h5 class="redeem_code alert alert-success">ABcdEFg123HIjk</h5>');
+      			} // End if
+      		}
+      	},
+      	{
+      		path: "/home",
+      		orphan: true,
+      		title: "Thats all there is to it!",
+      		content: "Using brandbuddee is simple! If you have any questions, feel free to contact us anytime, view the Frequently Asked Questions, or restart this tour by going to the help section. Don't forget to tell your friends using the Invite Friends feature!",
+      		backdrop: true,
+      		placement: "bottom",
+      		onShow: function(tour) {
+      			if($("header#header ul.dropdown-menu").css("display")!="block") {
+      				$("header#header a.dropdown-toggle").dropdown('toggle');
+      				$("#btnInviteFriendsLnk").css({
+      					"text-decoration": "none",
+      					"color": "#ffffff",
+      					"background-color": "#0081c2",
+      					"background-image": "-moz-linear-gradient(top, #0088cc, #0077b3)",
+								"background-image": "-webkit-gradient(linear, 0 0, 0 100%, from(#0088cc), to(#0077b3))",
+								"background-image": "-webkit-linear-gradient(top, #0088cc, #0077b3)",
+								"background-image": "-o-linear-gradient(top, #0088cc, #0077b3)",
+								"background-image": "linear-gradient(to bottom, #0088cc, #0077b3)",
+								"background-repeat": "repeat-x",
+								"filter": "progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff0088cc', endColorstr='#ff0077b3', GradientType=0)"
+      				});
+      			} // End if
+      		}
+      	}
+  		]);
+      if(tour.ended()) {
+      	tour.restart();
+      } else {
+      	tour.start();
+      }
+    });
+  </script>
+<% end %>

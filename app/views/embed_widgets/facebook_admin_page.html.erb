@@ -1,3 +1,6 @@
+<% content_for :facebook_js_auth do %>
+	<%= render 'shared/fb_embed_javascript' %>
+<% end %>
 <div class="container">
 	<div class="row">
 		<div class="span8 offset2">
@@ -73,7 +76,7 @@
 		</div>
 		<div class="modal-body">
 			<div class="text-center">
-				<%= link_to image_tag("facebook_login.png", class: "social_login", size: "230x44", alt: "brandbuddee-seattle-rewards", title: "Login with Facebook"), "/fb-embed-oauth?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}&campaign_id=#{@campaign.id}", title: "Login with Facebook" %>
+				<%= link_to image_tag("facebook_login.png", class: "social_login", size: "230x44", alt: "brandbuddee-seattle-rewards", title: "Login with Facebook"), "#", title: "Login with Facebook", id: "btnFacebookAuth" %>
 			</div>
 		</div>
 		<div class="modal-footer">

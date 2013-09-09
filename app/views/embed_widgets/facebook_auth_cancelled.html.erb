@@ -1,0 +1,91 @@
+<% content_for :facebook_js_auth do %>
+	<%= render 'shared/fb_embed_javascript' %>
+<% end %>
+<div class="container">
+	<div class="row">
+		<div class="span8 offset2">
+			<div class="well well-large text-center" id="fb-embed-index" style="padding-top:3%;">
+        <% flash.each do |name, msg| %>
+          <div class="alert alert-block alert-<%= name %> fade in" style="text-align: left;">
+            <a href="#" class="close" data-dismiss="alert">&times;</a>
+            <h4 class="alert-heading">Just so You Know...</h4>
+            <p><%= msg.html_safe %></p>
+          </div>
+        <% end %>
+        <div class="alert alert-block alert-error fade in" style="text-align:left;">
+					<a href="#" class="close" data-dismiss="alert">&times;</a>
+					<h4>Uh Oh!</h4>
+					When connecting your account with Facebook, please make sure you accept ALL permissions requested. Click the button below to try again.
+				</div>
+				<div class="btn-group" style="margin-bottom:2%; margin-top:-1.5%;">
+					<a class="btn btn-success" style="font-weight:700;" href="/fb-campaign-embed?page_id=<%= params[:page_id] %>&liked=<%= params[:liked] %>&admin=<%= params[:admin] %>"><i class="icon-reply"></i> Go Back</a>
+				</div>
+				<p style="text-align:justify;font-size:1.25em;"><% unless @campaign.is_white_label? %>brandbuddee uses <% else %>We use <% end %>social networks like Facebook and Twitter to help you share stories and earn gifts. To do so, you must first connect your account, and accept certain permissions.</p>
+
+				<p style="text-align:left;font-size:1.25em;">These permissions include:</p>
+				<ul style="text-align:left;font-size:1.25em;"><li>Accessing information about your account</li>
+				<li>Posting to your wall</li>
+				<li>Managing your pages</li></ul>
+				<p style="text-align:left;font-size:1.25em;">To try again, click the button above, or keep reading if you would like to know why we request these permissions.</p>
+				<% unless @campaign.is_white_label? %>
+					<h4 style="margin-bottom:0; margin-top:-1.5%;font-size:1.2em;">Sample Permission Dialog</h4>
+					<%= image_tag "fb-permission.jpg", alt: "sweepstakes-contests-giveaways-brandbuddee", title: "Sweepstakes Contests Giveaways brandbuddee", size: "392x161", style: "margin-bottom:1.5%;" %>
+				<% end %>
+				<div class="accordion" id="permissions_accordion" style="text-align:left; font-size:1.25em;margin-top:1.5%;">
+					<div class="accordion-group" style="margin-bottom:0;">
+						<div class="accordion-heading">
+							<a class="accordion-toggle" data-toggle="collapse" data-parent="#permissions_accordion" href="#collapseOne">
+								Account Information
+							</a>
+						</div>
+						<div id="collapseOne" class="accordion-body collapse in">
+							<div class="accordion-inner" style="text-align:justify;background:white;">
+								When you create an account, we like to ensure we have your email so when you win a reward we know where to send the redeem details.  We will NEVER share your email or contact information with others.
+							</div>
+						</div>
+					</div>
+					<div class="accordion-group" style="margin-bottom:0;">
+						<div class="accordion-heading">
+							<a class="accordion-toggle" data-toggle="collapse" data-parent="#permissions_accordion" href="#collapseTwo">
+								Wall Posting
+							</a>
+						</div>
+						<div id="collapseTwo" class="accordion-body collapse">
+							<div class="accordion-inner" style="text-align:justify;background:white;">
+								One of the most popular ways to share a campaign is posting it to your Facebook Wall. To do so from within our site or app, we need access. We will only post when you click the post button and you can customize the message. We will not automatically post any content.
+							</div>
+						</div>
+					</div>
+					<div class="accordion-group" style="margin-bottom:0;">
+						<div class="accordion-heading">
+							<a class="accordion-toggle" data-toggle="collapse" data-parent="#permissions_accordion" href="#collapseThree">
+								Page Management
+							</a>
+						</div>
+						<div id="collapseThree" class="accordion-body collapse">
+							<div class="accordion-inner" style="text-align:justify;background:white;">
+								To add a campaign to a Facebook Page you manage, we will need access to manage your pages. We will never access any information on a page, or add content to a page unless you first choose to.
+							</div>
+						</div>
+					</div>
+				</div><!-- /#permissions_accordion -->
+				<dl style="text-align:justify;font-size:1.25em;">
+					<dt></dt>
+					<dd></dd>
+					<dt></dt>
+					<dd></dd>
+					<dt></dt>
+					<dd></dd>
+				</dl>
+				<p style="text-align:justify;font-size:1.25em;">To recap, <% unless @campaign.is_white_label? %>brandbuddee <% else %>we <% end %>will never post to or access information on your Facebook account without you first choosing to do so.  It is important to accept all permissions requested.  If you have any questions, please feel free to visit our site or contact us any time<% unless @campaign.is_white_label? %> at <a href="mailto:info@brandbuddee.com" target="_blank">info@brandbuddee.com</a><% end %>.</p>
+				<p style="font-size:1.25em;">Have a wonderful day!</p>
+				<br>
+				<% unless @campaign.is_white_label? %>
+					<%= link_to image_tag("bb-logo.png", alt: "#{@brand.name.parameterize}-#{@campaign.title.parameterize}", title: "#{@brand.name} | #{@campaign.title}", size: "188x35", style: "margin-top:1%;"), "/", target: "_blank", title: "#{@brand.name} | #{@campaign.title}" %>
+				<% else %>
+					<%= image_tag @campaign.brand.brand_logo_url, alt: "#{@brand.name.parameterize}-#{@campaign.title.parameterize}", title: "#{@brand.name} | #{@campaign.title}", style: "margin-top:2.5%;max-width:35%;max-height:45px;" unless @campaign.brand.brand_logo.blank? %>
+				<% end %>
+			</div>
+		</div>
+	</div>
+</div>

@@ -10,6 +10,10 @@
 opacity: 0;
 }
 
+.themeapt_animated_text.themeapt_text{
+opacity: 0;
+}
+
 .themeapt-testimonial-image img {
     border-radius: 100px 100px 100px 100px;
 }
@@ -62,7 +66,23 @@ transform:scale(1);
 
 
 
-.themeapt-progress-bar div.progress .bar{
+.themeapt-progress-bar div.progress-bar .progress-bar-content{
+-webkit-animation: avia-bg-move 1.2s linear infinite; /* Safari 4+ */
+-moz-animation:    avia-bg-move 1.2s linear infinite; /* Fx 5+ */
+-o-animation:      avia-bg-move 1.2s linear infinite; /* Opera 12+ */
+animation:         avia-bg-move 1.2s linear infinite; /* IE 10+ */
+height: 100%;
+}
+
+.themeapt-progress-bar div.progress-bar {
+clear: both;
+}
+
+ div.progress-bar .bar-outer{
+width:0;
+}
+
+.themeapt-progress-bar div.progress-bar .progress-bar-content{
 -webkit-animation: themeapt-bg-move 1.2s linear infinite; /* Safari 4+ */
 -moz-animation:    themeapt-bg-move 1.2s linear infinite; /* Fx 5+ */
 -o-animation:      themeapt-bg-move 1.2s linear infinite; /* Opera 12+ */
@@ -72,7 +92,7 @@ height: 100%;
 
 
 
- .themeapt-progress-bar div.progress.themeapt_start_animation .bar-outer{
+ .themeapt-progress-bar div.progress-bar.themeapt_start_animation .bar-outer{
 -webkit-animation: themeapt_expand 1.5s cubic-bezier(0.165, 0.840, 0.440, 1.000);  /* Safari 4+ */
 -moz-animation:    themeapt_expand 1.5s cubic-bezier(0.165, 0.840, 0.440, 1.000);  /* Fx 5+ */
 -o-animation:      themeapt_expand 1.5s cubic-bezier(0.165, 0.840, 0.440, 1.000);  /* Opera 12+ */
@@ -114,6 +134,41 @@ animation:         themeapt-rtl 0.8s 1 cubic-bezier(0.175, 0.885, 0.320, 1.275);
 opacity: 1;
 }
 
+
+
+/*Text Animation*/
+
+.themeapt_start_animation.top-to-bottom.themeapt_text{
+-webkit-animation: themeapt-ttb 0.8s 1 cubic-bezier(0.175, 0.885, 0.320, 1.275); /* Safari 4+ */
+-moz-animation:    themeapt-ttb 0.8s 1 cubic-bezier(0.175, 0.885, 0.320, 1.275); /* Fx 5+ */
+-o-animation:      themeapt-ttb 0.8s 1 cubic-bezier(0.175, 0.885, 0.320, 1.275); /* Opera 12+ */
+animation:         themeapt-ttb 0.8s 1 cubic-bezier(0.175, 0.885, 0.320, 1.275); /* IE 10+ */
+opacity: 1;
+}
+
+.themeapt_start_animation.bottom-to-top.themeapt_text{
+-webkit-animation: themeapt-btt 0.8s 1 cubic-bezier(0.165, 0.840, 0.440, 1.000); /* Safari 4+ */
+-moz-animation:    themeapt-btt 0.8s 1 cubic-bezier(0.165, 0.840, 0.440, 1.000); /* Fx 5+ */
+-o-animation:      themeapt-btt 0.8s 1 cubic-bezier(0.165, 0.840, 0.440, 1.000); /* Opera 12+ */
+animation:         themeapt-btt 0.8s 1 cubic-bezier(0.165, 0.840, 0.440, 1.000); /* IE 10+ */
+opacity: 1;
+}
+
+.themeapt_start_animation.left-to-right.themeapt_text{
+-webkit-animation: themeapt-ltr 0.8s 1 cubic-bezier(0.175, 0.885, 0.320, 1.275); /* Safari 4+ */
+-moz-animation:    themeapt-ltr 0.8s 1 cubic-bezier(0.175, 0.885, 0.320, 1.275); /* Fx 5+ */
+-o-animation:      themeapt-ltr 0.8s 1 cubic-bezier(0.175, 0.885, 0.320, 1.275); /* Opera 12+ */
+animation:         themeapt-ltr 0.8s 1 cubic-bezier(0.175, 0.885, 0.320, 1.275); /* IE 10+ */
+opacity: 1;
+}
+
+ .themeapt_start_animation.right-to-left.themeapt_text{
+-webkit-animation: themeapt-rtl 0.8s 1 cubic-bezier(0.175, 0.885, 0.320, 1.275); /* Safari 4+ */
+-moz-animation:    themeapt-rtl 0.8s 1 cubic-bezier(0.175, 0.885, 0.320, 1.275); /* Fx 5+ */
+-o-animation:      themeapt-rtl 0.8s 1 cubic-bezier(0.175, 0.885, 0.320, 1.275); /* Opera 12+ */
+animation:         themeapt-rtl 0.8s 1 cubic-bezier(0.175, 0.885, 0.320, 1.275); /* IE 10+ */
+opacity: 1;
+}
 
 
 

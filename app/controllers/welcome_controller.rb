@@ -253,4 +253,26 @@ class WelcomeController < ApplicationController
 		end
 	end
 
+	def sample_campaign
+		@campaigns_else = Campaign.where(:status => "active").excludes(left: false, is_white_label: true).order_by([:date, :desc]).limit(4)
+	end
+
+	def destroy_tour_cookie
+		if current_user
+			unless cookies[:user_tour].nil? || cookies[:user_tour].to_s != "true"
+				cookies.delete(:user_tour)
+			end
+		end
+		redirect_to root_url
+	end
+
+	def create_tour_cookie
+		if current_user
+			if cookies[:user_tour].nil?
+				cookies[:user_tour] = {:value => true, :expires => Time.now + 1.month}
+			end
+		end
+		redirect_to root_url
+	end
+
 end

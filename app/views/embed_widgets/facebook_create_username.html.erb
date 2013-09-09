@@ -17,10 +17,10 @@
 							<% unless @campaign.is_white_label? %>
 								<div class="input-prepend">
 									<span class="add-on">brandbuddee.com/</span>
-									<%= f.text_field :nickname, :id=>'prependedInput', :class=>'span2', :placeholder=>'username', :size=>'' %>
+									<%= f.text_field :nickname, :id=>'prependedInput', :class=>'span2', :placeholder=>'username', :size=>'', :autofocus=>true %>
 								</div>
 							<% else %>
-								<%= f.text_field :nickname, :id=>'prependedInput', :class=>'span2', :placeholder=>'username', :size=>'' %>
+								<%= f.text_field :nickname, :id=>'prependedInput', :class=>'span2', :placeholder=>'username', :size=>'', :authfocus=>true %>
 							<% end %>
 						</div>
 					</div>

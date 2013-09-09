@@ -18,20 +18,20 @@ Brandbuddee::Application.routes.draw do
   match '/fb-embed-signup' => 'embed_widgets#facebook_signup'
   match '/fb-embed-create' => 'embed_widgets#facebook_create'
   match '/fb-embed-login' => 'embed_widgets#facebook_email_signin'
-  match '/fb-embed-oauth' => 'embed_widgets#facebook_signup_fb_auth'
   match '/fb-joined-campaign' => 'embed_widgets#facebook_joined_camp'
   match '/fb-error-page' => 'embed_widgets#facebook_error_page'
   match '/fb-create-username' => 'embed_widgets#facebook_create_username'
   match '/fb-update-username' => 'embed_widgets#facebook_update_username'
   match '/fb-add-campaign' => 'embed_widgets#facebook_add_campaign'
   match '/fb-wall-post' => 'embed_widgets#facebook_wall_post'
-  match '/fb-connect-with-fb' => 'embed_widgets#facebook_reauthenticate'
   match '/fb-task-complete' => 'embed_widgets#facebook_task_complete'
   match '/fb-task-undo' => 'embed_widgets#facebook_task_undo'
   match '/fb-invite-fb-list' => 'embed_widgets#invite_facebook_list'
   match '/fb-invite-fb-search' => 'embed_widgets#invite_facebook_search'
   match '/fb-invite-email-form' => 'embed_widgets#invite_email_form'
   match '/fb-invite-email-send' => 'embed_widgets#invite_email_send'
+  match '/fb-auth-cancelled' => 'embed_widgets#facebook_auth_cancelled'
+  match '/fb-update-user-token' => 'embed_widgets#facebook_update_user_token'
 
   root :to => 'welcome#index'
 
@@ -42,6 +42,10 @@ Brandbuddee::Application.routes.draw do
   match '/support/help' => 'welcome#help'
   match '/brands' => 'welcome#brands'
   match '/tell-me-more' => 'welcome#tell_me_more'
+  match '/faq' => 'welcome#faq'
+  match '/sample-campaign' => 'welcome#sample_campaign'
+  match '/end-buddee-tour' => 'welcome#destroy_tour_cookie'
+  match '/begin-buddee-tour' => 'welcome#create_tour_cookie'
   
   match '/signout' => 'sessions#destroy' #, :as => "signout"
   post '/signin' => 'sessions#email_create'

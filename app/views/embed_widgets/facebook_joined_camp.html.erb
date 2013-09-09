@@ -1,3 +1,6 @@
+<% content_for :facebook_js_auth do %>
+	<%= render 'shared/fb_embed_javascript' %>
+<% end %>
 <div class="container">
 	<div class="row">
 		<div class="span8 offset2">
@@ -82,7 +85,7 @@
                             <script type="IN/Share" data-url="<%= @bitly_link %>" data-onSuccess="addLinkedInSharePoint"></script>
                         </div>
                         <div class="clear"></div>
-                        <span>Share Link:</span> <input id="share_link_copy" class="input-large span3" type="text" value="<%= @bitly_link %>"><a href="#facebookModal" class="btn btn-primary" data-toggle="modal" style="margin-bottom:8px;margin-left:1%;" id="btnSubmitFbPost"><i class="icon-circle-arrow-up icon-white"></i> Post to Facebook</a>
+                        <span>Share Link:</span> <input id="share_link_copy" class="input-large span3" type="text" value="<%= @bitly_link %>"><a href="#" class="btn btn-primary" style="margin-bottom:8px;margin-left:1%;" id="btnSubmitFbPost"><i class="icon-circle-arrow-up icon-white"></i> Post to Facebook</a>
 					</div>
 					<% if @campaign.has_tasks? %>
 					<div class="divisor divisor_services">
