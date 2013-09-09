@@ -41,7 +41,7 @@ class UserMailer < ActionMailer::Base
 	def new_campaign_newsletter(email, root_url)
 		@email = email
 		@url = root_url
-		mail(:to => email, :subject => "Top Stories of the Week", :from => "brandbuddee <andy@brandbuddee.com>")
+		mail(:to => email, :subject => "Vote for brandbuddee in the Empact Showcase today!", :from => "brandbuddee <andy@brandbuddee.com>")
 	end
 
 	def email_invite(email, subject, message)
