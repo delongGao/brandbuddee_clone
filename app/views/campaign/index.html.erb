@@ -15,8 +15,8 @@
                 <h5 style="padding:0;font-weight:400;color:rgba(0,0,0,0.7);">Join now to get this prize by signing up in just seconds</h5>
             </div>
             <div class="span2" style="float:right;margin-right:25px;">
-                <a title="<%= @campaign.brand.name unless @campaign.brand.name.nil? %> brandbuddee" data-toggle="modal" href="#login" class="btn btn-success pull-right">Login</a>
-                <a title="<%= @campaign.brand.name unless @campaign.brand.name.nil? %> brandbuddee" href="<%= root_url %>signup" class="btn btn-info pull-right" style="margin-right:7px;">Join</a>
+                <a title="<%= @campaign.brand.name unless @campaign.brand.nil? %> brandbuddee" data-toggle="modal" href="#login" class="btn btn-success pull-right">Login</a>
+                <a title="<%= @campaign.brand.name unless @campaign.brand.nil? %> brandbuddee" href="<%= root_url %>signup" class="btn btn-info pull-right" style="margin-right:7px;">Join</a>
             </div>
         </div> <!-- .promo-campaign-bg -->
     </div>
