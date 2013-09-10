@@ -179,6 +179,90 @@ function validateFbPostSubmit() {
 	}); // getLoginStatus
 } // End validateFbPostSubmit()
 
+function validateFbInviteFriends() {
+	FB.getLoginStatus(function(response) {
+		if (response.status === 'connected') {
+			var uid = response.authResponse.userID;
+			var accessToken = response.authResponse.accessToken;
+			FB.api('/me/permissions', function(response) {
+				if(response.data[0]["basic_info"] == 1 && response.data[0]["create_note"] == 1 && response.data[0]["email"] == 1 && response.data[0]["installed"] == 1 && response.data[0]["manage_pages"] == 1 && response.data[0]["photo_upload"] == 1 && response.data[0]["publish_actions"] == 1 && response.data[0]["publish_stream"] == 1 && response.data[0]["read_friendlists"] == 1 && response.data[0]["share_item"] == 1 && response.data[0]["status_update"] == 1 && response.data[0]["user_about_me"] == 1 && response.data[0]["user_birthday"] == 1 && response.data[0]["user_education_history"] == 1 && response.data[0]["user_hometown"] == 1 && response.data[0]["user_interests"] == 1 && response.data[0]["user_likes"] == 1 && response.data[0]["user_location"] == 1 && response.data[0]["user_status"] == 1 && response.data[0]["user_website"] == 1 && response.data[0]["video_upload"] == 1) {
+					document.location = "/fb-invite-fb-list?page_id=<%= params[:page_id] %>&liked=<%= params[:liked] %>&admin=<%= params[:admin] %>";
+				} else {
+					FB.login(function(response_one) {
+      			if (response_one.authResponse) {
+      				FB.api('/me/permissions', function(response) {
+      					if(response.data[0]["basic_info"] == 1 && response.data[0]["create_note"] == 1 && response.data[0]["email"] == 1 && response.data[0]["installed"] == 1 && response.data[0]["manage_pages"] == 1 && response.data[0]["photo_upload"] == 1 && response.data[0]["publish_actions"] == 1 && response.data[0]["publish_stream"] == 1 && response.data[0]["read_friendlists"] == 1 && response.data[0]["share_item"] == 1 && response.data[0]["status_update"] == 1 && response.data[0]["user_about_me"] == 1 && response.data[0]["user_birthday"] == 1 && response.data[0]["user_education_history"] == 1 && response.data[0]["user_hometown"] == 1 && response.data[0]["user_interests"] == 1 && response.data[0]["user_likes"] == 1 && response.data[0]["user_location"] == 1 && response.data[0]["user_status"] == 1 && response.data[0]["user_website"] == 1 && response.data[0]["video_upload"] == 1) {
+      						$.ajax({
+		      					type: 'POST',
+		      					url: '/fb-update-user-token',
+		      					data: {
+		      						token: response_one.authResponse.accessToken,
+		      						expires: response_one.authResponse.expiresIn
+		      					},
+		      					success: function (data) {
+		      						if (data == 'SUCCESS') {
+		      							console.log("User Updated With Token: " + response_one.authResponse.accessToken);
+		      							document.location = "/fb-invite-fb-list?page_id=<%= params[:page_id] %>&liked=<%= params[:liked] %>&admin=<%= params[:admin] %>";
+		      						} else {
+		      							console.log("Error Updating User OAuth Token");
+		      							document.location = "/fb-invite-fb-list?page_id=<%= params[:page_id] %>&liked=<%= params[:liked] %>&admin=<%= params[:admin] %>";
+		      						}
+		      					},
+		      					error: function () {
+		      						console.log("Error Updating User OAuth Token");
+		      						document.location = "/fb-invite-fb-list?page_id=<%= params[:page_id] %>&liked=<%= params[:liked] %>&admin=<%= params[:admin] %>";
+		      					}
+		      				});
+      					} else {
+      						document.location = "/fb-auth-cancelled?page_id=<%= params[:page_id] %>&liked=<%= params[:liked] %>&admin=<%= params[:admin] %>";
+      					} // End else
+      				}); // End FB.api
+      			} else {
+      				document.location = "/fb-auth-cancelled?page_id=<%= params[:page_id] %>&liked=<%= params[:liked] %>&admin=<%= params[:admin] %>";
+      			} // End else
+      		}, {scope: 'email,offline_access,publish_actions,publish_stream,user_birthday,user_about_me,user_location,user_likes,user_education_history,user_website,read_friendlists,user_interests,user_hometown,user_status,manage_pages'});
+				} // End else
+			}); // End FB.api
+		} else if (response.status === 'not_authorized') {
+			FB.login(function(response_one) {
+      	if (response_one.authResponse) {
+      		FB.api('/me/permissions', function(response) {
+      			if(response.data[0]["basic_info"] == 1 && response.data[0]["create_note"] == 1 && response.data[0]["email"] == 1 && response.data[0]["installed"] == 1 && response.data[0]["manage_pages"] == 1 && response.data[0]["photo_upload"] == 1 && response.data[0]["publish_actions"] == 1 && response.data[0]["publish_stream"] == 1 && response.data[0]["read_friendlists"] == 1 && response.data[0]["share_item"] == 1 && response.data[0]["status_update"] == 1 && response.data[0]["user_about_me"] == 1 && response.data[0]["user_birthday"] == 1 && response.data[0]["user_education_history"] == 1 && response.data[0]["user_hometown"] == 1 && response.data[0]["user_interests"] == 1 && response.data[0]["user_likes"] == 1 && response.data[0]["user_location"] == 1 && response.data[0]["user_status"] == 1 && response.data[0]["user_website"] == 1 && response.data[0]["video_upload"] == 1) {
+      				$.ajax({
+      					type: 'POST',
+      					url: '/fb-update-user-token',
+      					data: {
+      						token: response_one.authResponse.accessToken,
+      						expires: response_one.authResponse.expiresIn
+      					},
+      					success: function (data) {
+      						if (data == 'SUCCESS') {
+      							console.log("User Updated With Token: " + response_one.authResponse.accessToken);
+      							document.location = "/fb-invite-fb-list?page_id=<%= params[:page_id] %>&liked=<%= params[:liked] %>&admin=<%= params[:admin] %>";
+      						} else {
+      							console.log("Error Updating User OAuth Token");
+      							document.location = "/fb-invite-fb-list?page_id=<%= params[:page_id] %>&liked=<%= params[:liked] %>&admin=<%= params[:admin] %>";
+      						}
+      					},
+      					error: function () {
+      						console.log("Error Updating User OAuth Token");
+      						document.location = "/fb-invite-fb-list?page_id=<%= params[:page_id] %>&liked=<%= params[:liked] %>&admin=<%= params[:admin] %>";
+      					}
+      				});
+      			} else {
+      				document.location = "/fb-auth-cancelled?page_id=<%= params[:page_id] %>&liked=<%= params[:liked] %>&admin=<%= params[:admin] %>";
+      			} // End else
+      		}); // End FB.api
+      	} else {
+      		document.location = "/fb-auth-cancelled?page_id=<%= params[:page_id] %>&liked=<%= params[:liked] %>&admin=<%= params[:admin] %>";
+      	} // End else
+      }, {scope: 'email,offline_access,publish_actions,publish_stream,user_birthday,user_about_me,user_location,user_likes,user_education_history,user_website,read_friendlists,user_interests,user_hometown,user_status,manage_pages'});
+		} else {
+			window.top.location = 'https://www.facebook.com/index.php';
+		} // End else
+	}); // getLoginStatus
+} // End validateFbInviteFriends()
+
 (function(d, debug){
   var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
   if (d.getElementById(id)) {return;}

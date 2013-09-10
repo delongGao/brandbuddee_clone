@@ -50,8 +50,8 @@
 					</div>
 					<h3 class="rewards-text">Share this campaign to help build the buzz for your Brand and drive the metrics you want!</h3>
 					<% if @logged_in == true %>
-						<a href="#facebookModal" class="btn btn-primary btn-large" style="margin-bottom: 1%;" data-toggle="modal" role="button"><i class="icon-facebook-sign"></i> Post to Facebook Wall</a><br>
-						<%= link_to image_tag("facebook.png", size: "185x35", style: "margin-right: 1%; margin-left: 1%;"), "/fb-invite-fb-list?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}" %><%= link_to image_tag("email.png", size: "185x35"), "/fb-invite-email-form?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}" %><% unless @campaign.is_white_label? %><br>
+						<a href="#" class="btn btn-primary btn-large" style="margin-bottom: 1%;" id="btnSubmitFbPost"><i class="icon-facebook-sign"></i> Post to Facebook Wall</a><br>
+						<%= link_to image_tag("facebook.png", size: "185x35", style: "margin-right: 1%; margin-left: 1%;"), "#", id: "btnTellFacebookFriends" %><%= link_to image_tag("email.png", size: "185x35"), "/fb-invite-email-form?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}" %><% unless @campaign.is_white_label? %><br>
 						<%= link_to image_tag("gmail.png", size: "185x35", style: "margin-right: 1%; margin-left: 1%; margin-top:1%;"), "/invite", target: "_blank" %><%= link_to image_tag("yahoo.png", size: "185x35", style: "margin-top:1%;"), "/invite", target: "_blank" %><% end %>
 					<% else %>
 						<a href="#loginModal" role="button" data-toggle="modal" class="btn btn-primary btn-large"><i class="icon-key"></i> Login to Share this Campaign!</a>

@@ -1,3 +1,6 @@
+<% content_for :facebook_js_auth do %>
+	<%= render 'shared/fb_embed_javascript' %>
+<% end %>
 <div class="container">
 	<div class="row">
 		<div class="span8 offset2">
@@ -56,3 +59,6 @@
         </div>
     </div>
 </div>
+<% content_for :social_share_tracking do %>
+	<%= render 'shared/fb_embed_jquery_footer' %>
+<% end %>
