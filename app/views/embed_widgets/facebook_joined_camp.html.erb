@@ -111,7 +111,7 @@
                                             <label for="completedBlogTasksAddress" style="font-size: 1em; margin-top: 2%; margin-bottom: 0;">Your Blog's Address</label>
                                             <input type="text" value="<%= @campaign.campaigns_and_users_task(current_user).blog_post_url %>" style="height:1em;" class="input-medium disabled" id="completedBlogTasksAddress" disabled="disabled" />
                                         <% if Redeem.where(user_id: current_user.id, campaign_id: @campaign.id).first.nil? %>
-                                            <a href="/fb-task-undo<%= "?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}&task=blog&campaign_link=#{@campaign.link}" %>" class="btn btn-small btn-success" style="margin-left:55%;margin-top:2%;">Start Over</a>
+                                            <a href="/fb-task-undo<%= "?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}&task=blog&campaign_link=#{@campaign.link}" %>" class="btn btn-small btn-success" style="margin-top:2%;">Start Over</a>
                                         <% end %>
                                         <% else %>
                                             <%= form_tag "/fb-task-complete" do %>
@@ -146,7 +146,7 @@
                                         <%= @campaign.task_facebook["description"] %><br />
                                         <% if @campaign.campaigns_and_users_task(current_user).completed_facebook %>
                                         <% if Redeem.where(user_id: current_user.id, campaign_id: @campaign.id).first.nil? %>
-                                            <a href="/fb-task-undo<%= "?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}&task=facebook&campaign_link=#{@campaign.link}" %>" class="btn btn-small btn-success" style="margin-left:55%;margin-top:2%;">Start Over</a>
+                                            <a href="/fb-task-undo<%= "?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}&task=facebook&campaign_link=#{@campaign.link}" %>" class="btn btn-small btn-success" style="margin-top:2%;">Start Over</a>
                                         <% end %>
                                         <% else %>
                                             <div class="btn-group" style="margin-left:45%;padding-top:2%;">
@@ -174,7 +174,7 @@
                                         <%= @campaign.task_twitter["description"] %><br />
                                         <% if @campaign.campaigns_and_users_task(current_user).completed_twitter %>
                                         <% if Redeem.where(user_id: current_user.id, campaign_id: @campaign.id).first.nil? %>
-                                            <a href="/fb-task-undo<%= "?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}&task=twitter&campaign_link=#{@campaign.link}" %>" class="btn btn-small btn-success" style="margin-left:55%;margin-top:2%;">Start Over</a>
+                                            <a href="/fb-task-undo<%= "?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}&task=twitter&campaign_link=#{@campaign.link}" %>" class="btn btn-small btn-success" style="margin-top:2%;">Start Over</a>
                                         <% end %>
                                         <% else %>
                                             <div class="btn-group" style="margin-left:45%;padding-top:2%;">
@@ -202,7 +202,7 @@
                                         <%= @campaign.task_custom_1["description"] %><br />
                                         <% if @campaign.campaigns_and_users_task(current_user).completed_custom[0] %>
                                         <% if Redeem.where(user_id: current_user.id, campaign_id: @campaign.id).first.nil? %>
-                                            <a href="/fb-task-undo<%= "?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}&task=custom&campaign_link=#{@campaign.link}&custom_num=1" %>" class="btn btn-small btn-success" style="margin-left:55%;margin-top:2%;">Start Over</a>
+                                            <a href="/fb-task-undo<%= "?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}&task=custom&campaign_link=#{@campaign.link}&custom_num=1" %>" class="btn btn-small btn-success" style="margin-top:2%;">Start Over</a>
                                         <% end %>
                                         <% else %>
                                             <div class="btn-group" style="margin-left:45%;padding-top:2%;">
@@ -230,7 +230,7 @@
                                         <%= @campaign.task_custom_2["description"] %><br />
                                         <% if @campaign.campaigns_and_users_task(current_user).completed_custom[1] %>
                                         <% if Redeem.where(user_id: current_user.id, campaign_id: @campaign.id).first.nil? %>
-                                            <a href="/fb-task-undo<%= "?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}&task=custom&campaign_link=#{@campaign.link}&custom_num=2" %>" class="btn btn-small btn-success" style="margin-left:55%;margin-top:2%;">Start Over</a>
+                                            <a href="/fb-task-undo<%= "?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}&task=custom&campaign_link=#{@campaign.link}&custom_num=2" %>" class="btn btn-small btn-success" style="margin-top:2%;">Start Over</a>
                                         <% end %>
                                         <% else %>
                                             <div class="btn-group" style="margin-left:45%;padding-top:2%;">
@@ -258,7 +258,7 @@
                                         <%= @campaign.task_custom_3["description"] %><br />
                                         <% if @campaign.campaigns_and_users_task(current_user).completed_custom[2] %>
                                         <% if Redeem.where(user_id: current_user.id, campaign_id: @campaign.id).first.nil? %>
-                                            <a href="/fb-task-undo<%= "?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}&task=custom&campaign_link=#{@campaign.link}&custom_num=3" %>" class="btn btn-small btn-success" style="margin-left:55%;margin-top:2%;">Start Over</a>
+                                            <a href="/fb-task-undo<%= "?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}&task=custom&campaign_link=#{@campaign.link}&custom_num=3" %>" class="btn btn-small btn-success" style="margin-top:2%;">Start Over</a>
                                         <% end %>
                                         <% else %>
                                             <div class="btn-group" style="margin-left:45%;padding-top:2%;">
@@ -286,7 +286,7 @@
                                         <%= @campaign.task_custom_4["description"] %><br />
                                         <% if @campaign.campaigns_and_users_task(current_user).completed_custom[3] %>
                                         <% if Redeem.where(user_id: current_user.id, campaign_id: @campaign.id).first.nil? %>
-                                            <a href="/fb-task-undo<%= "?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}&task=custom&campaign_link=#{@campaign.link}&custom_num=4" %>" class="btn btn-small btn-success" style="margin-left:55%;margin-top:2%;">Start Over</a>
+                                            <a href="/fb-task-undo<%= "?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}&task=custom&campaign_link=#{@campaign.link}&custom_num=4" %>" class="btn btn-small btn-success" style="margin-top:2%;">Start Over</a>
                                         <% end %>
                                         <% else %>
                                             <div class="btn-group" style="margin-left:45%;padding-top:2%;">
@@ -314,7 +314,7 @@
                                         <%= @campaign.task_custom_5["description"] %><br />
                                         <% if @campaign.campaigns_and_users_task(current_user).completed_custom[4] %>
                                         <% if Redeem.where(user_id: current_user.id, campaign_id: @campaign.id).first.nil? %>
-                                            <a href="/fb-task-undo<%= "?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}&task=custom&campaign_link=#{@campaign.link}&custom_num=5" %>" class="btn btn-small btn-success" style="margin-left:55%;margin-top:2%;">Start Over</a>
+                                            <a href="/fb-task-undo<%= "?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}&task=custom&campaign_link=#{@campaign.link}&custom_num=5" %>" class="btn btn-small btn-success" style="margin-top:2%;">Start Over</a>
                                         <% end %>
                                         <% else %>
                                             <div class="btn-group" style="margin-left:45%;padding-top:2%;">
@@ -344,7 +344,7 @@
                                             <label for="completedYelpTasksAddress" style="font-size: 1em; margin-top: 2%; margin-bottom: 0;">Web Address</label>
                                             <input type="text" value="<%= @campaign.campaigns_and_users_task(current_user).yelp_review %>" style="height:1em;" class="input-medium disabled" id="completedYelpTasksAddress" disabled="disabled" />
                                         <% if Redeem.where(user_id: current_user.id, campaign_id: @campaign.id).first.nil? %>
-                                            <a href="/fb-task-undo<%= "?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}&task=yelp&campaign_link=#{@campaign.link}" %>" class="btn btn-small btn-success" style="margin-left:55%;margin-top:2%;">Start Over</a>
+                                            <a href="/fb-task-undo<%= "?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}&task=yelp&campaign_link=#{@campaign.link}" %>" class="btn btn-small btn-success" style="margin-top:2%;">Start Over</a>
                                         <% end %>
                                         <% else %>
                                             <%= form_tag "/fb-task-complete" do %>
@@ -382,7 +382,7 @@
                                             <label for="completedEmailTasksAddress" style="font-size: 1em; margin-top: 2%; margin-bottom: 0;">Your Email Address</label>
                                             <input type="text" value="<%= @campaign.campaigns_and_users_task(current_user).email_address %>" style="height:1em;" class="input-medium disabled" id="completedEmailTasksAddress" disabled="disabled" />
                                         <% if Redeem.where(user_id: current_user.id, campaign_id: @campaign.id).first.nil? %>
-                                            <a href="/fb-task-undo<%= "?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}&task=email&campaign_link=#{@campaign.link}" %>" class="btn btn-small btn-success" style="margin-left:55%;margin-top:2%;">Start Over</a>
+                                            <a href="/fb-task-undo<%= "?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}&task=email&campaign_link=#{@campaign.link}" %>" class="btn btn-small btn-success" style="margin-top:2%;">Start Over</a>
                                         <% end %>
                                         <% else %>
                                             <%= form_tag "/fb-task-complete" do %>
@@ -423,7 +423,9 @@
 				<br><% unless @campaign.is_white_label? %>
                     <%= link_to image_tag("bb-logo.png", alt: "brandbuddee-seattle-rewards", title: "brandbuddee Seattle Rewards", size: "188x35", style: "margin-top:1%;"), "/", target: "_blank", title: "brandbuddee Seattle Rewards" %>
                 <% else %>
-                    <%= image_tag @campaign.brand.brand_logo_url, style: "margin-top:1%;max-width:35%;max-height:45px;" unless @campaign.brand.brand_logo.blank? %>
+                	<% unless @campaign.brand.brand_logo.blank? || @campaign.brand.website.blank? %>
+                    <%= link_to image_tag(@campaign.brand.brand_logo_url, style: "margin-top:1%;max-width:35%;max-height:45px;"), @campaign.brand.website, target: "_blank" %>
+                   <% end %>
                 <% end %>
 			</div>
 		</div>
