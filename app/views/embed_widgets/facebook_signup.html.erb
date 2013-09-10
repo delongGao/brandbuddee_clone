@@ -6,7 +6,7 @@
 		<div class="span8 offset2">
 			<div class="well well-large text-center" id="fb-embed-index">
 			<% if @continue == true %>
-				<div><%# link_to image_tag("facebook_login.png", size: "230x44"), "#", id: "btnFacebookAuth" %><button id="btnFacebookAuth">Facebook Login</button></div>
+				<div><%= link_to image_tag("facebook_login.png", size: "230x44"), "#", id: "btnFacebookAuth" %><!--<button id="btnFacebookAuth">Facebook Login</button>--></div>
 				<hr>
 				<%= form_for @user, url: {action: 'facebook_create'}, html: { class: "form-horizontal", id: "frmFbCreateUser" } do |f| %>
 					<% if @user.errors.any? %>

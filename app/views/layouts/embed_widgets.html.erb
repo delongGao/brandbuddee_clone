@@ -43,7 +43,17 @@
 	$(document).ready(function() {
 		if($("#btnFacebookAuth").length) {
 			$("#btnFacebookAuth").click(function() {
-				testSomeCoolAuth();
+				validateOauthConn();
+			});
+		} // End if
+		if($("#btnReAuthFacebook").length) {
+			$("#btnReAuthFacebook").click(function() {
+				validateReAuth();
+			});
+		} // End if
+		if($("#btnSubmitFbPost").length) {
+			$("#btnSubmitFbPost").click(function() {
+				validateFbPostSubmit();
 			});
 		} // End if
 	});

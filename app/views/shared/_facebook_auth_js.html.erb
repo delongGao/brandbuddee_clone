@@ -2,7 +2,7 @@
 window.fbAsyncInit = function() {
     FB.init({
       appId      : <% if Rails.env.development? %>'253857021420655'<% elsif Rails.env.production? %>'278238152312772'<% end %>,
-      channelUrl : '<%= root_url %>fb/channel.html',
+      channelUrl : '<%= root_url %>fbapp/channel.html',
       status     : true,
       xfbml      : true
     });
