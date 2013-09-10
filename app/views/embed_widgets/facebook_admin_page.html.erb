@@ -62,7 +62,9 @@
 				<br><% unless @campaign.is_white_label? %>
 						<%= link_to image_tag("bb-logo.png", alt: "brandbuddee-seattle-rewards", title: "brandbuddee Seattle Rewards", size: "188x35", style: "margin-top:2.5%;"), "/", target: "_blank", title: "brandbuddee Seattle Rewards" %>
 					<% else %>
-						<%= image_tag @campaign.brand.brand_logo_url, style: "margin-top:2.5%;max-width:35%;max-height:45px;" unless @campaign.brand.brand_logo.blank? %>
+						<% unless @campaign.brand.brand_logo.blank? || @campaign.brand.website.blank? %>
+							<%= link_to image_tag(@campaign.brand.brand_logo_url, style: "margin-top:2.5%;max-width:35%;max-height:45px;"), @campaign.brand.website, target: "_blank" %>
+						<% end %>
 					<% end %>
 			</div>
 		</div>
@@ -124,4 +126,7 @@
 	        <% end %>
 		</div>
 	</div>
+<% end %>
+<% content_for :social_share_tracking do %>
+	<%= render 'shared/fb_embed_jquery_footer' %>
 <% end %>
