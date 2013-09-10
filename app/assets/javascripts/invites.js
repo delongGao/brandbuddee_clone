@@ -1,7 +1,7 @@
 window.fbAsyncInit = function() {
   // init the FB JS SDK
   FB.init({
-    appId      : '404234572989713', // App ID from the App Dashboard
+    appId      : '278238152312772', // App ID from the App Dashboard
     channelUrl : '/fbapp/channel.html', // Channel File for x-domain communication
     status     : true, // check the login status upon init?
     cookie     : true, // set sessions cookies to allow your server to access the session?
@@ -23,9 +23,9 @@ window.fbAsyncInit = function() {
   	} else if (response.status === 'not_authorized') {
   		// the user is logged in to Facebook, but has not authenticated your app
   		var oauth_url = 'https://www.facebook.com/dialog/oauth/';
-  		oauth_url += '?client_id=404234572989713'; // Your client id
+  		oauth_url += '?client_id=278238152312772'; // Your client id
   		oauth_url += '&redirect_uri=' + 'http://brandbuddee.com/'; // Send them here if they're not logged in
-  		oauth_url += '&scope=user_about_me,email,user_location,user_photos,publish_actions,user_birthday,user_likes,read_friendlists';
+  		oauth_url += '&scope=user_about_me,email,user_location,publish_actions,user_birthday,user_likes,read_friendlists';
   		//window.top.location = oauth_url;
   	} else {
   		// the user isn't logged in to Facebook.
