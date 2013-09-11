@@ -48,6 +48,13 @@ class BrandLogoUploader < CarrierWave::Uploader::Base
     %w(jpg jpeg gif png)
   end
 
+  after :remove, :clear_uploader
+
+  def clear_uploader
+  	@file = @filename = @original_filename = @cache_id = @version = @storage = nil
+  	model.send(:write_attribute, mounted_as, nil)
+  end
+
   # Override the filename of the uploaded files:
   # Avoid using model.id or version_name here, see uploader/store.rb for details.
   # def filename

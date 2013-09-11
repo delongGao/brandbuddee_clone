@@ -8,30 +8,6 @@ window.fbAsyncInit = function() {
     frictionlessRequests : true, // enable frictionless requests
     xfbml      : true  // parse XFBML tags on this page?
   }); // FB.init()
-  
-  // Additional initialization code such as adding an event listener goes here
-  
-  // Next, find out if the user is logged in:
-  FB.getLoginStatus(function(response) {
-  	if (response.status === 'connected') {
-  		var uid = response.authResponse.userID;
-  		var accessToken = response.authResponse.accessToken;
-  		FB.api('/me', function(info) {
-  			//console.log(info);
-  			// $('#welcome').html("Hello " + info.first_name + ", welcome to brandbuddee invite app");
-  		});
-  	} else if (response.status === 'not_authorized') {
-  		// the user is logged in to Facebook, but has not authenticated your app
-  		var oauth_url = 'https://www.facebook.com/dialog/oauth/';
-  		oauth_url += '?client_id=278238152312772'; // Your client id
-  		oauth_url += '&redirect_uri=' + 'http://brandbuddee.com/'; // Send them here if they're not logged in
-  		oauth_url += '&scope=user_about_me,email,user_location,publish_actions,user_birthday,user_likes,read_friendlists';
-  		//window.top.location = oauth_url;
-  	} else {
-  		// the user isn't logged in to Facebook.
-  		//window.top.location = 'https://www.facebook.com/index.php';
-  	} // End else
-  }); // getLoginStatus
 }; // fbAsyncInit
 
 function invitePerson(sendto, name) {

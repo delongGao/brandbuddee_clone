@@ -1,3 +1,4 @@
+require 'file_size_validator'
 class Brand
   include Mongoid::Document
   include ActiveModel::SecurePassword
@@ -55,6 +56,7 @@ class Brand
   validates :city, length: { maximum: 75, too_long: "cannot be longer than 75 characters. It is optional." }
   validates :phone, length: { maximum: 14, too_long: "cannot be longer than 14 characters. It is optional." }, format: { with: TEL_REGEX, message: "should start with the area code and be in the format: xxx.xxx.xxxx or xxx xxx xxxx. It is optional." }
   validate :change_current_password, unless: :dont_validate_current_password?
+  validates :brand_logo, :file_size => { :maximum => 1.5.megabytes.to_i }
 
   def self.from_omniauth_twitter(auth)
     where(auth.slice("provider", "uid")).first || create_from_omniauth_twitter(auth)
