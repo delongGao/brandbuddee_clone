@@ -169,11 +169,10 @@
       					<%= f.text_field :remote_brand_logo_url, class: "span8" %>
       				</div>
       			</div>
-      			<div class="control-group">
-					<div class="controls">
-						<%= f.submit "Update Profile", class: "btn btn-info btn-large", style: "font-weight:700;" %>
-					</div>
-				</div>
+      			<div class="form-actions">
+							<%= f.submit "Update Profile", class: "btn btn-success", style: "font-weight:700;" %>
+							<button type="reset" class="btn btn-danger" style="font-weight:700;"><i class="icon-warning-sign"></i> Reset Form</button>
+						</div>
       		<% end %>
       	</div>
 	</div><!--/span-->

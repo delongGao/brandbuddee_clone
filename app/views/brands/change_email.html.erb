@@ -52,18 +52,17 @@
 					<% end %>
 				<% end %>
 				<div class="control-group">
-      				<%= f.label :email, "Brand Email", class: "control-label" %>
-      				<div class="controls">
-      					<%= f.email_field :email, class: "span6", maxlength: 100, class: "txtMaximumLength" %>
-      				</div>
-      			</div>
-				<div class="control-group">
-					<div class="controls">
-						<%= f.submit "Update Email", class: "btn btn-info btn-large", style: "font-weight:700;" %>
-					</div>
+  				<%= f.label :email, "Brand Email", class: "control-label" %>
+  				<div class="controls">
+  					<%= f.email_field :email, class: "span6", maxlength: 100, class: "txtMaximumLength" %>
+  				</div>
+  			</div>
+  			<div class="form-actions">
+					<%= f.submit "Update Email", class: "btn btn-success", style: "font-weight:700;" %>
+					<button type="reset" class="btn btn-danger" style="font-weight:700;"><i class="icon-warning-sign"></i> Reset Form</button>
 				</div>
 			<% end %>
-      	</div>
+  	</div>
 	</div><!--/span-->
 	<div class="box span4">
 		<div class="box-header">
