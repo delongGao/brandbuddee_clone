@@ -244,7 +244,7 @@
                   
                   <!-- Image -->
                   <td width="270" align="right" valign="top"> 
-                     <img src="<%= @follower.profile_image_url(:square).to_s %>" alt="sweepstakes-contests-giveaways-brandbuddee" title="Sweepstakes Contests Giveaways brandbuddee" width="96" height="96" style="display:block; border:1px solid #666666; outline:none; text-decoration:none;margin-top:10%;" border="0">
+                     <img src="<% if @follower.profile_image_url(:square).to_s == "/images/fallback/square_default.png" %>http://brandbuddee.com<% end %><%= @follower.profile_image_url(:square).to_s %>" alt="sweepstakes-contests-giveaways-brandbuddee" title="Sweepstakes Contests Giveaways brandbuddee" width="96" height="96" style="display:block; border:1px solid #666666; outline:none; text-decoration:none;margin-top:10%;" border="0">
                   </td>
                   <!-- End of Image -->                                 
                   

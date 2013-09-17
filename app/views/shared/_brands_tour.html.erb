@@ -1,0 +1,122 @@
+<% unless cookies[:brand_tour].nil? || cookies[:brand_tour].to_s != "true" %>
+	<script type="text/javascript" src="/js/bootstrap-tour.min.js"></script>
+	<script type="text/javascript">
+    $(document).ready(function() {
+    	var brand_tour = new Tour({
+      	onEnd: function(tour) {
+      		window.location = "/brands/end-tour";
+      	},
+      	template:	"<div class='popover tour'><div class='arrow'></div><h3 class='popover-title'></h3><div class='popover-content'></div><nav class='popover-navigation'><div class='btn-group'><button class='btn btn-info' data-role='prev' style='font-weight:700;'>« Prev</button><button class='btn btn-info' data-role='next' style='font-weight:700;'>Next »</button></div><button class='btn btn-warning' data-role='end' style='font-weight:700;'><i class='icon-warning-sign'></i> End Tour</button></nav></div>",
+      });
+      brand_tour.addSteps([
+      	{
+      		path: "/brands/dashboard",
+      		orphan: true,
+      		title: "Welcome to brandbuddee!",
+      		content: "We hope you have time for a quick walkthrough going over how to use our service as a brand! You may end the tour at anytime by pressing \"End Tour\", and can resume it from the help section in the left-side menu.",
+      		backdrop: true
+      	},
+      	{
+      		path: "/brands/dashboard",
+      		element: "#brandsTourSlide2 a",
+      		title: "Manage Campaigns",
+      		content: "This is your main dashboard. To get started, select the campaign option in the left toolbar to manage current campaigns.",
+      		placement: "right",
+      		backdrop: false
+      	},
+      	{
+      		path: "/brands/dashboard",
+      		element: "#brandsTourSlide3",
+      		title: "Manage Account Settings",
+      		content: "Change your account settings and brand profile information here. Tell people a bit more about your brand!",
+      		placement: "bottom",
+      		backdrop: false
+      	},
+      	{
+      		path: "/brands/dashboard",
+      		element: "#brandsTourSlide4",
+      		title: "Financial Impact",
+      		content: "We’ve computed the overall value of your campaign based on the metrics we drive and what leading industry research has quantified for social media metrics.",
+      		placement: "top",
+      		backdrop: false
+      	},
+      	{
+      		path: "/brands/sample-pages/campaigns",
+      		element: "#brandsTourSlide5",
+      		title: "Select a Campaign",
+      		content: "Manage anyone of your campaigns here, just click the green zoom button to view more details on the campaign of your choice.",
+      		placement: "top",
+      		backdrop: false
+      	},
+      	{
+      		path: "/brands/sample-pages/view-campaign",
+      		element: "#brandsTourSlide6",
+      		title: "Get better results!",
+      		content: "Use the Go Viral Button to promote your brand advocacy program and get more results by posting it as an embeddable app on a website or your Facebook page. You can also invite people via email and more.",
+      		placement: "bottom",
+      		backdrop: false
+      	},
+      	{
+      		path: "/brands/sample-pages/view-campaign",
+      		element: "#brandsTourSlide7",
+      		title: "Your brand's \"buddees\"",
+      		content: "See all your brand advocates (buddees) that have interacted with this campaign.",
+      		placement: "bottom",
+      		backdrop: false
+      	},
+      	{
+      		path: "/brands/sample-pages/view-campaign",
+      		element: "#brandsTourSlide8",
+      		title: "Campaign Analytics",
+      		content: "Your primary analytics for this particular campaign can be viewed on this dashboard. \"Trackings\" are website hits generated while \"shares\" are the number of social media updates created by your brand advocates.",
+      		placement: "top",
+      		backdrop: false
+      	},
+      	{
+      		path: "/brands/sample-pages/viral-embed",
+      		element: "#viral-widget-install",
+      		title: "Embed Anywhere",
+      		content: "If you want more results from your campaign AND better targeting, use this tool to publish the campaign so it’s visible to your customers and fans. Who better and more targeted to endorse your brand than them? Click the “Install to a Facebook Page” button to install the app in seconds.",
+      		placement: "top",
+      		backdrop: false
+      	},
+      	{
+      		path: "/brands/sample-pages/view-redeems",
+      		element: "#brandsTourSlide10",
+      		title: "Manage Redemptions",
+      		content: "You can easily manage the redemption process after clicking the redeem button. All the winners will be located here along with their email address so you may contact them about the campaign.",
+      		placement: "top",
+      		backdrop: false
+      	},
+      	{
+      		path: "/brands/sample-pages/view-redeems",
+      		element: "#brandsTourSlide11",
+      		title: "Picking Winners",
+      		content: "If your campaign is a raffle, we have a tool that allows you to easily pick a random winner one by one!",
+      		placement: "top",
+      		backdrop: false
+      	},
+      	{
+      		path: "/brands/sample-pages/view-tasks",
+      		element: "#brandsTourSlide12",
+      		title: "View Custom Metrics",
+      		content: "This dashboard tracks your custom metrics, including links to blog posts about your brand, new Facebook Likes, and almost anything else you can imagine. You choose the results you want, your fans do the work, and the results show up here.",
+      		placement: "bottom",
+      		backdrop: false
+      	},
+      	{
+      		path: "/brands/dashboard",
+      		orphan: true,
+      		title: "That's all there is to it!",
+      		content: "If you have any questions, feel free to contact our customer support anytime. Both our phone number and email are at the bottom of every page. We also have a FAQ page, and the ability to restart this tour, both under the Help section in the left hand menu.",
+      		backdrop: true
+      	}
+  		]);
+      if(brand_tour.ended()) {
+      	brand_tour.restart();
+      } else {
+      	brand_tour.start();
+      }
+    });
+  </script>
+<% end %>

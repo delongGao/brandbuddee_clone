@@ -10,7 +10,7 @@ class InvitesController < ApplicationController
       else
         @friendslist = current_user.get_friends
         if @friendslist.class == String
-          flash[:error] = "An error occured while trying to obtain your list of friends. Is it possible you changed your Facebook password? Please try again after SIGNING OUT and BACK IN again."
+          flash[:error] = "An error occured while trying to obtain your list of friends. Is it possible you changed your Facebook password? Are you sure you have given the brandbuddee app the necessary permissions? Please check your settings and try again."
           redirect_to '/invite'
         else
             @friendslist = params[:page] ? current_user.facebook.get_page(params[:page]) : current_user.facebook.get_connections("me", "friends", {"limit" => "100"})

@@ -46,7 +46,7 @@
 		<i class="icon-beaker" style="color:#FF4646;"></i>
 		<p>Go Viral!</p>
 	</a>
-	<a title="sweepstakes contests giveaways brandbuddee" class="quick-button span2" href="/brands/profile">
+	<a title="sweepstakes contests giveaways brandbuddee" class="quick-button span2" href="/brands/profile" id="brandsTourSlide3">
 		<i class="icon-list-alt"></i>
 		<p>Profile</p>
 	</a>
@@ -169,7 +169,7 @@
 <hr>
 
 <div class="row-fluid">
-	<div class="box span4 offset2" onTablet="span6" onDesktop="span4">
+	<div class="box span4 offset2" onTablet="span6" onDesktop="span4" id="brandsTourSlide4">
 		<div class="box-header">
 			<h2><i class="icon-list"></i><span class="break"></span>Overall Campaign Value</h2>
 			<div class="box-icon">
@@ -222,7 +222,7 @@
 			  	<li>
 					<a title="sweepstakes contests giveaways brandbuddee" href="#">
 					  <i class="icon-usd red" style="font-size:1.35em;display: inline-block; width: 1.25em; text-align: center;"></i>
-					  <span class="red" style="padding-right:5%; padding-left:3%;font-size: 1.7em;"><%= number_to_currency(@monetary_total) %></span>
+					  <span class="red" style="padding-right:25%; padding-left:3%;"><%= number_to_currency(@monetary_total) %></span>
 					  <span class="red" style="list-style: none; font-size: 1.7em; line-height: 150%; text-align: -webkit-match-parent; display: inline; font-weight: 700;">Total Value</span>
 					</a>
 			  	</li>
@@ -311,3 +311,4 @@
 	}
 </script>
 <% end %>
+<%= render 'shared/brands_tour' %>

@@ -1,0 +1,185 @@
+<script>
+window.fbAsyncInit = function() {
+  FB.init({
+    appId      : <% if Rails.env.development? %>'253857021420655'<% elsif Rails.env.production? %>'278238152312772'<% end %>,
+    channelUrl : '<%= root_url %>fbapp/channel.html',
+    status     : true, // check the login status upon init?
+    cookie     : true, // set sessions cookies to allow your server to access the session?
+    frictionlessRequests : true, // enable frictionless requests
+    xfbml      : true  // parse XFBML tags on this page?
+  }); // FB.init()
+
+}; // window.fbAsyncInit
+
+function getFbPageManagePerms() {
+	FB.getLoginStatus(function(response) {
+		if (response.status === 'connected') {
+			FB.api('/me/permissions', function(response) {
+				if(response.data[0]["manage_pages"] == 1 && response.data[0]["email"] == 1) {
+					window.top.location = "/brands/campaigns/viral-install-fb?_id=<%= @campaign.id %>";
+				} else {
+					FB.login(function(response_one) {
+						if (response_one.authResponse) {
+							FB.api('/me/permissions', function(response) {
+								if(response.data[0]["manage_pages"] == 1 && response.data[0]["email"] == 1) {
+									$.ajax({
+		      					type: 'POST',
+		      					url: '/brands/update-fb-token',
+		      					data: {
+		      						token: response_one.authResponse.accessToken,
+		      						expires: response_one.authResponse.expiresIn
+		      					},
+		      					success: function (data) {
+		      						if (data == 'SUCCESS') {
+		      							console.log("User Updated With Token: " + response_one.authResponse.accessToken);
+		      							window.top.location = "/brands/campaigns/viral-install-fb?_id=<%= @campaign.id %>";
+		      						} else {
+		      							console.log("Error Updating User OAuth Token");
+		      							window.top.location = "/brands/campaigns/viral-install-fb?_id=<%= @campaign.id %>";
+		      						}
+		      					},
+		      					error: function () {
+		      						console.log("Error Updating User OAuth Token");
+		      						window.top.location = "/brands/campaigns/viral-install-fb?_id=<%= @campaign.id %>";
+		      					}
+		      				});
+								} else {
+									$("#wallPostErrorModal").modal('toggle');
+								} // End else
+							}); // End FB.api
+						} else {
+							$("#wallPostErrorModal").modal('toggle');
+						} // End else
+					}, {scope: 'manage_pages,email'});
+				} // End else
+			}); // End FB.api
+		} else if (response.status === 'not_authorized') {
+			FB.login(function(response_one) {
+      	if (response_one.authResponse) {
+      		FB.api('/me/permissions', function(response) {
+      			if(response.data[0]["manage_pages"] == 1 && response.data[0]["email"] == 1) {
+      				$.ajax({
+      					type: 'POST',
+      					url: '/brands/update-fb-token',
+      					data: {
+      						token: response_one.authResponse.accessToken,
+      						expires: response_one.authResponse.expiresIn
+      					},
+      					success: function (data) {
+      						if (data == 'SUCCESS') {
+      							console.log("User Updated With Token: " + response_one.authResponse.accessToken);
+      							window.top.location = "/brands/campaigns/viral-install-fb?_id=<%= @campaign.id %>";
+      						} else {
+      							console.log("Error Updating User OAuth Token");
+      							window.top.location = "/brands/campaigns/viral-install-fb?_id=<%= @campaign.id %>";
+      						}
+      					},
+      					error: function () {
+      						console.log("Error Updating User OAuth Token");
+      						window.top.location = "/brands/campaigns/viral-install-fb?_id=<%= @campaign.id %>";
+      					}
+      				});
+      			} else {
+      				$("#wallPostErrorModal").modal('toggle');
+      			} // End else
+      		}); // End FB.api
+      	} else {
+      		$("#wallPostErrorModal").modal('toggle');
+      	} // End else
+      }, {scope: 'manage_pages,email'});
+		} else {
+			window.top.location = 'https://www.facebook.com/index.php';
+		} // End else
+	}); // getLoginStatus
+} // End getFbPageManagePerms()
+
+function getFbInviteFriendsPerms() {
+	FB.getLoginStatus(function(response) {
+		if (response.status === 'connected') {
+			FB.api('/me/permissions', function(response) {
+				if(response.data[0]["email"] == 1) {
+					window.top.location = "/brands/campaigns/viral-invite-facebook?_id=<%= @campaign.id %>";
+				} else {
+					FB.login(function(response_one) {
+						if (response_one.authResponse) {
+							FB.api('/me/permissions', function(response) {
+								if(response.data[0]["email"] == 1) {
+									$.ajax({
+		      					type: 'POST',
+		      					url: '/brands/update-fb-token',
+		      					data: {
+		      						token: response_one.authResponse.accessToken,
+		      						expires: response_one.authResponse.expiresIn
+		      					},
+		      					success: function (data) {
+		      						if (data == 'SUCCESS') {
+		      							console.log("User Updated With Token: " + response_one.authResponse.accessToken);
+		      							window.top.location = "/brands/campaigns/viral-invite-facebook?_id=<%= @campaign.id %>";
+		      						} else {
+		      							console.log("Error Updating User OAuth Token");
+		      							window.top.location = "/brands/campaigns/viral-invite-facebook?_id=<%= @campaign.id %>";
+		      						}
+		      					},
+		      					error: function () {
+		      						console.log("Error Updating User OAuth Token");
+		      						window.top.location = "/brands/campaigns/viral-invite-facebook?_id=<%= @campaign.id %>";
+		      					}
+		      				});
+								} else {
+									$("#inviteFriendsErrorModal").modal('toggle');
+								} // End else
+							}); // End FB.api
+						} else {
+							$("#inviteFriendsErrorModal").modal('toggle');
+						} // End else
+					}, {scope: 'email'});
+				} // End else
+			}); // End FB.api
+		} else if (response.status === 'not_authorized') {
+			FB.login(function(response_one) {
+      	if (response_one.authResponse) {
+      		FB.api('/me/permissions', function(response) {
+      			if(response.data[0]["email"] == 1) {
+      				$.ajax({
+      					type: 'POST',
+      					url: '/brands/update-fb-token',
+      					data: {
+      						token: response_one.authResponse.accessToken,
+      						expires: response_one.authResponse.expiresIn
+      					},
+      					success: function (data) {
+      						if (data == 'SUCCESS') {
+      							console.log("User Updated With Token: " + response_one.authResponse.accessToken);
+      							window.top.location = "/brands/campaigns/viral-invite-facebook?_id=<%= @campaign.id %>";
+      						} else {
+      							console.log("Error Updating User OAuth Token");
+      							window.top.location = "/brands/campaigns/viral-invite-facebook?_id=<%= @campaign.id %>";
+      						}
+      					},
+      					error: function () {
+      						console.log("Error Updating User OAuth Token");
+      						window.top.location = "/brands/campaigns/viral-invite-facebook?_id=<%= @campaign.id %>";
+      					}
+      				});
+      			} else {
+      				$("#inviteFriendsErrorModal").modal('toggle');
+      			} // End else
+      		}); // End FB.api
+      	} else {
+      		$("#inviteFriendsErrorModal").modal('toggle');
+      	} // End else
+      }, {scope: 'email'});
+		} else {
+			window.top.location = 'https://www.facebook.com/index.php';
+		} // End else
+	}); // getLoginStatus
+} // End getFbInviteFriendsPerms()
+
+(function(d, debug){
+  var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement('script'); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all" + (debug ? "/debug" : "") + ".js";
+  ref.parentNode.insertBefore(js, ref);
+}(document, /*debug*/ false));
+</script>

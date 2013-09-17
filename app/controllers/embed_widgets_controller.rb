@@ -482,74 +482,75 @@ class EmbedWidgetsController < ApplicationController
 
 	def facebook_email_signin
 		unless params[:email].nil? || params[:password].nil? || params[:page_id].nil? || params[:liked].nil? || params[:admin].nil? || params[:campaign_id].nil?
-			user = User.authenticate(params[:email], params[:password])
-			if user
-		        user.last_login = Time.now
-		        if user.save
-		        	session[:user_id] = user.id
-		        	if params[:admin].to_s == "true" # User IS an admin of the Facebook Page
-		        		if user.nickname.nil? || user.nickname.blank?
-	        				redirect_to "/fb-create-username?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
-	        			else
-	        				redirect_to "/fb-embed-admin?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
-		                end
-		        	else # User is NOT an admin of the Facebook Page
-			        	@campaign = Campaign.find(params[:campaign_id])
-			        	unless @campaign.nil?
-			        		unless @campaign.already_has_user_share?(user)
-			        			@left = @campaign.limit - @campaign.redeems.size
-			        			unless (!@campaign.redeem_is_raffle && @left < 1) || @campaign.end_date < Time.now
-				        			@campaign.user_ids << user.id
-					                share_link = Share.assign_link
-					                the_share = @campaign.shares.create!(date: Time.now, link: share_link, user_id: user.id, campaign_id: @campaign.id, url: @campaign.share_link)
-					                @bitly_link = the_share.bitly_share_link
-					                unless @campaign.already_has_user_task?(user)
-					                  	@campaign.tasks.create!(task_1_url: @campaign.engagement_task_left_link, task_2_url: @campaign.engagement_task_right_link, user_id: user.id, campaign_id: @campaign.id)
-					                  	if @campaign.save(validate: false)
-					                    	if user.nickname.nil? || user.nickname.blank?
-					                    		redirect_to "/fb-create-username?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
-					                    	else
-				        						redirect_to "/fb-joined-campaign?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
-				        					end
-				        				else
-				        					unless @campaign.is_white_label?
-				        						flash[:error] = "An error occurred while trying to add your buddee account to the campaign. Please try again."
-				        					else
-				        						flash[:error] = "An error occurred while trying to add your account to the campaign. Please try again."
-				        					end
-				        					redirect_to "/fb-error-page?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
-						                end
-						            else
-						            	if user.nickname.nil? || user.nickname.blank?
-					        				redirect_to "/fb-create-username?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
-					        			else
-					        				redirect_to "/fb-joined-campaign?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
-						                end
-				        			end
-				        		else
-				        			unless @campaign.is_white_label?
-				        				flash[:info] = "You are now logged in! Unfortunately, this campaign has expired. Head over to brandbuddee.com to see a full list of current campaigns!"
+			begin
+				user = User.authenticate(params[:email], params[:password])
+				if user
+	        user.last_login = Time.now
+	        if user.save
+	        	session[:user_id] = user.id
+	        	if params[:admin].to_s == "true" # User IS an admin of the Facebook Page
+	        		if user.nickname.nil? || user.nickname.blank?
+	      				redirect_to "/fb-create-username?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
+	      			else
+	      				redirect_to "/fb-embed-admin?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
+	            end
+	        	else # User is NOT an admin of the Facebook Page
+		        	@campaign = Campaign.find(params[:campaign_id])
+		        	unless @campaign.nil?
+		        		unless @campaign.already_has_user_share?(user)
+		        			@left = @campaign.limit - @campaign.redeems.size
+		        			unless (!@campaign.redeem_is_raffle && @left < 1) || @campaign.end_date < Time.now
+			        			@campaign.user_ids << user.id
+		                share_link = Share.assign_link
+		                the_share = @campaign.shares.create!(date: Time.now, link: share_link, user_id: user.id, campaign_id: @campaign.id, url: @campaign.share_link)
+		                @bitly_link = the_share.bitly_share_link
+		                unless @campaign.already_has_user_task?(user)
+	                  	@campaign.tasks.create!(task_1_url: @campaign.engagement_task_left_link, task_2_url: @campaign.engagement_task_right_link, user_id: user.id, campaign_id: @campaign.id)
+	                  	if @campaign.save(validate: false)
+	                    	if user.nickname.nil? || user.nickname.blank?
+	                    		redirect_to "/fb-create-username?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
+	                    	else
+			        						redirect_to "/fb-joined-campaign?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
+			        					end
+			        				else
+			        					unless @campaign.is_white_label?
+			        						flash[:error] = "An error occurred while trying to add your buddee account to the campaign. Please try again."
+			        					else
+			        						flash[:error] = "An error occurred while trying to add your account to the campaign. Please try again."
+			        					end
+	        							redirect_to "/fb-error-page?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
+			                end
+				            else
+				            	if user.nickname.nil? || user.nickname.blank?
+				        				redirect_to "/fb-create-username?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
 				        			else
-				        				flash[:info] = "You are now logged in! Unfortunately, this campaign has expired."
-				        			end
-				        			redirect_to "/fb-error-page?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
-				        		end
+				        				redirect_to "/fb-joined-campaign?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
+			                end
+			        			end
 			        		else
-			        			if user.nickname.nil? || user.nickname.blank?
-			        				redirect_to "/fb-create-username?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
+			        			unless @campaign.is_white_label?
+			        				flash[:info] = "You are now logged in! Unfortunately, this campaign has expired. Head over to brandbuddee.com to see a full list of current campaigns!"
 			        			else
-			        				redirect_to "/fb-joined-campaign?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
-				                end
+			        				flash[:info] = "You are now logged in! Unfortunately, this campaign has expired."
+			        			end
+			        			redirect_to "/fb-error-page?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
 			        		end
-			        	else
-			        		flash[:error] = "We could not find the Campaign associated with this Facebook Page. Please try again later."
-			        		redirect_to "/fb-error-page?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
-			        	end
-			        end # END User is NOT an admin of the Facebook Page
-		        else
-		        	flash[:error] = "An error occurred while trying to log you in. Please try again."
-		        	redirect_to "/fb-campaign-embed?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
-		        end
+		        		else
+		        			if user.nickname.nil? || user.nickname.blank?
+		        				redirect_to "/fb-create-username?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
+		        			else
+		        				redirect_to "/fb-joined-campaign?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
+	                end
+		        		end
+		        	else
+		        		flash[:error] = "We could not find the Campaign associated with this Facebook Page. Please try again later."
+		        		redirect_to "/fb-error-page?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
+		        	end
+		        end # END User is NOT an admin of the Facebook Page
+	        else
+	        	flash[:error] = "An error occurred while trying to log you in. Please try again."
+	        	redirect_to "/fb-campaign-embed?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
+	        end
 		    else
 		    	flash[:error] = "Invalid Email or Password. Please try again."
 		    	if params[:admin].to_s == "true"
@@ -558,6 +559,10 @@ class EmbedWidgetsController < ApplicationController
 		    		redirect_to "/fb-campaign-embed?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
 		    	end
 		    end
+		  rescue BCrypt::Errors::InvalidSalt
+		  	flash[:error] = "There appears to be an error with your password. Please reset it with a new one by heading over to our website."
+		  	redirect_to "/fb-campaign-embed?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
+		  end
 		else
 			flash[:error] = "When logging in, please make sure you fill out both the email and password fields."
 			redirect_to "/fb-error-page"

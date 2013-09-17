@@ -173,6 +173,7 @@ class WelcomeController < ApplicationController
 			if @brand.save
 				session[:brand_profile_unfinished] = true
 				session[:brand_id] = @brand.id
+				cookies[:brand_tour] = {:value => true, :expires => Time.now + 1.month}
 				BrandMailer.post_signup(@brand.email, root_url).deliver
 				flash[:info] = "You are now signed up! Please choose a nickname to complete the process."
 				redirect_to '/brands/enter-nickname'

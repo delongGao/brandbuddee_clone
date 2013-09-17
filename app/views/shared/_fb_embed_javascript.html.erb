@@ -17,13 +17,13 @@ function validateOauthConn() {
 			var uid = response.authResponse.userID;
 			var accessToken = response.authResponse.accessToken;
 			FB.api('/me/permissions', function(response) {
-				if(response.data[0]["basic_info"] == 1 && response.data[0]["create_note"] == 1 && response.data[0]["email"] == 1 && response.data[0]["installed"] == 1 && response.data[0]["manage_pages"] == 1 && response.data[0]["photo_upload"] == 1 && response.data[0]["publish_actions"] == 1 && response.data[0]["publish_stream"] == 1 && response.data[0]["read_friendlists"] == 1 && response.data[0]["share_item"] == 1 && response.data[0]["status_update"] == 1 && response.data[0]["user_about_me"] == 1 && response.data[0]["user_birthday"] == 1 && response.data[0]["user_education_history"] == 1 && response.data[0]["user_hometown"] == 1 && response.data[0]["user_interests"] == 1 && response.data[0]["user_likes"] == 1 && response.data[0]["user_location"] == 1 && response.data[0]["user_status"] == 1 && response.data[0]["user_website"] == 1 && response.data[0]["video_upload"] == 1) {
+				if(response.data[0]["email"] == 1) {
 					document.location = "/auth/facebook?state=fb_embed_user_auth_<%= @campaign.id.to_s %>_<%= params[:page_id] %>_<%= params[:liked] %>_<%= params[:admin] %>";
 				} else {
 					FB.login(function(response) {
       			if (response.authResponse) {
       				FB.api('/me/permissions', function(response) {
-      					if(response.data[0]["basic_info"] == 1 && response.data[0]["create_note"] == 1 && response.data[0]["email"] == 1 && response.data[0]["installed"] == 1 && response.data[0]["manage_pages"] == 1 && response.data[0]["photo_upload"] == 1 && response.data[0]["publish_actions"] == 1 && response.data[0]["publish_stream"] == 1 && response.data[0]["read_friendlists"] == 1 && response.data[0]["share_item"] == 1 && response.data[0]["status_update"] == 1 && response.data[0]["user_about_me"] == 1 && response.data[0]["user_birthday"] == 1 && response.data[0]["user_education_history"] == 1 && response.data[0]["user_hometown"] == 1 && response.data[0]["user_interests"] == 1 && response.data[0]["user_likes"] == 1 && response.data[0]["user_location"] == 1 && response.data[0]["user_status"] == 1 && response.data[0]["user_website"] == 1 && response.data[0]["video_upload"] == 1) {
+      					if(response.data[0]["email"] == 1) {
       						document.location = "/auth/facebook?state=fb_embed_user_auth_<%= @campaign.id.to_s %>_<%= params[:page_id] %>_<%= params[:liked] %>_<%= params[:admin] %>";
       					} else {
       						document.location = "/fb-auth-cancelled?page_id=<%= params[:page_id] %>&liked=<%= params[:liked] %>&admin=<%= params[:admin] %>";
@@ -32,14 +32,14 @@ function validateOauthConn() {
       			} else {
       				document.location = "/fb-auth-cancelled?page_id=<%= params[:page_id] %>&liked=<%= params[:liked] %>&admin=<%= params[:admin] %>";
       			} // End else
-      		}, {scope: 'email,offline_access,publish_actions,publish_stream,user_birthday,user_about_me,user_location,user_likes,user_education_history,user_website,read_friendlists,user_interests,user_hometown,user_status,manage_pages'});
+      		}, {scope: 'email'});
 				} // End else
 			}); // End FB.api
 		} else if (response.status === 'not_authorized') {
 			FB.login(function(response) {
       	if (response.authResponse) {
       		FB.api('/me/permissions', function(response) {
-      			if(response.data[0]["basic_info"] == 1 && response.data[0]["create_note"] == 1 && response.data[0]["email"] == 1 && response.data[0]["installed"] == 1 && response.data[0]["manage_pages"] == 1 && response.data[0]["photo_upload"] == 1 && response.data[0]["publish_actions"] == 1 && response.data[0]["publish_stream"] == 1 && response.data[0]["read_friendlists"] == 1 && response.data[0]["share_item"] == 1 && response.data[0]["status_update"] == 1 && response.data[0]["user_about_me"] == 1 && response.data[0]["user_birthday"] == 1 && response.data[0]["user_education_history"] == 1 && response.data[0]["user_hometown"] == 1 && response.data[0]["user_interests"] == 1 && response.data[0]["user_likes"] == 1 && response.data[0]["user_location"] == 1 && response.data[0]["user_status"] == 1 && response.data[0]["user_website"] == 1 && response.data[0]["video_upload"] == 1) {
+      			if(response.data[0]["email"] == 1) {
       				document.location = "/auth/facebook?state=fb_embed_user_auth_<%= @campaign.id.to_s %>_<%= params[:page_id] %>_<%= params[:liked] %>_<%= params[:admin] %>";
       			} else {
       				document.location = "/fb-auth-cancelled?page_id=<%= params[:page_id] %>&liked=<%= params[:liked] %>&admin=<%= params[:admin] %>";
@@ -48,7 +48,7 @@ function validateOauthConn() {
       	} else {
       		document.location = "/fb-auth-cancelled?page_id=<%= params[:page_id] %>&liked=<%= params[:liked] %>&admin=<%= params[:admin] %>";
       	} // End else
-      }, {scope: 'email,offline_access,publish_actions,publish_stream,user_birthday,user_about_me,user_location,user_likes,user_education_history,user_website,read_friendlists,user_interests,user_hometown,user_status,manage_pages'});
+      }, {scope: 'email'});
 		} else {
 			window.top.location = 'https://www.facebook.com/index.php';
 		} // End else
@@ -61,13 +61,13 @@ function validateReAuth() {
 			var uid = response.authResponse.userID;
 			var accessToken = response.authResponse.accessToken;
 			FB.api('/me/permissions', function(response) {
-				if(response.data[0]["basic_info"] == 1 && response.data[0]["create_note"] == 1 && response.data[0]["email"] == 1 && response.data[0]["installed"] == 1 && response.data[0]["manage_pages"] == 1 && response.data[0]["photo_upload"] == 1 && response.data[0]["publish_actions"] == 1 && response.data[0]["publish_stream"] == 1 && response.data[0]["read_friendlists"] == 1 && response.data[0]["share_item"] == 1 && response.data[0]["status_update"] == 1 && response.data[0]["user_about_me"] == 1 && response.data[0]["user_birthday"] == 1 && response.data[0]["user_education_history"] == 1 && response.data[0]["user_hometown"] == 1 && response.data[0]["user_interests"] == 1 && response.data[0]["user_likes"] == 1 && response.data[0]["user_location"] == 1 && response.data[0]["user_status"] == 1 && response.data[0]["user_website"] == 1 && response.data[0]["video_upload"] == 1) {
+				if(response.data[0]["email"] == 1 && response.data[0]["publish_actions"] == 1) {
 					document.location = "/auth/facebook?state=fb_embed_email_connect_<%= params[:page_id] %>_<%= params[:liked] %>_<%= params[:admin] %>";
 				} else {
 					FB.login(function(response) {
       			if (response.authResponse) {
       				FB.api('/me/permissions', function(response) {
-      					if(response.data[0]["basic_info"] == 1 && response.data[0]["create_note"] == 1 && response.data[0]["email"] == 1 && response.data[0]["installed"] == 1 && response.data[0]["manage_pages"] == 1 && response.data[0]["photo_upload"] == 1 && response.data[0]["publish_actions"] == 1 && response.data[0]["publish_stream"] == 1 && response.data[0]["read_friendlists"] == 1 && response.data[0]["share_item"] == 1 && response.data[0]["status_update"] == 1 && response.data[0]["user_about_me"] == 1 && response.data[0]["user_birthday"] == 1 && response.data[0]["user_education_history"] == 1 && response.data[0]["user_hometown"] == 1 && response.data[0]["user_interests"] == 1 && response.data[0]["user_likes"] == 1 && response.data[0]["user_location"] == 1 && response.data[0]["user_status"] == 1 && response.data[0]["user_website"] == 1 && response.data[0]["video_upload"] == 1) {
+      					if(response.data[0]["email"] == 1 && response.data[0]["publish_actions"] == 1) {
       						document.location = "/auth/facebook?state=fb_embed_email_connect_<%= params[:page_id] %>_<%= params[:liked] %>_<%= params[:admin] %>";
       					} else {
       						document.location = "/fb-auth-cancelled?page_id=<%= params[:page_id] %>&liked=<%= params[:liked] %>&admin=<%= params[:admin] %>";
@@ -76,14 +76,14 @@ function validateReAuth() {
       			} else {
       				document.location = "/fb-auth-cancelled?page_id=<%= params[:page_id] %>&liked=<%= params[:liked] %>&admin=<%= params[:admin] %>";
       			} // End else
-      		}, {scope: 'email,offline_access,publish_actions,publish_stream,user_birthday,user_about_me,user_location,user_likes,user_education_history,user_website,read_friendlists,user_interests,user_hometown,user_status,manage_pages'});
+      		}, {scope: 'email,publish_actions'});
 				} // End else
 			}); // End FB.api
 		} else if (response.status === 'not_authorized') {
 			FB.login(function(response) {
       	if (response.authResponse) {
       		FB.api('/me/permissions', function(response) {
-      			if(response.data[0]["basic_info"] == 1 && response.data[0]["create_note"] == 1 && response.data[0]["email"] == 1 && response.data[0]["installed"] == 1 && response.data[0]["manage_pages"] == 1 && response.data[0]["photo_upload"] == 1 && response.data[0]["publish_actions"] == 1 && response.data[0]["publish_stream"] == 1 && response.data[0]["read_friendlists"] == 1 && response.data[0]["share_item"] == 1 && response.data[0]["status_update"] == 1 && response.data[0]["user_about_me"] == 1 && response.data[0]["user_birthday"] == 1 && response.data[0]["user_education_history"] == 1 && response.data[0]["user_hometown"] == 1 && response.data[0]["user_interests"] == 1 && response.data[0]["user_likes"] == 1 && response.data[0]["user_location"] == 1 && response.data[0]["user_status"] == 1 && response.data[0]["user_website"] == 1 && response.data[0]["video_upload"] == 1) {
+      			if(response.data[0]["email"] == 1 && response.data[0]["publish_actions"] == 1) {
       				document.location = "/auth/facebook?state=fb_embed_email_connect_<%= params[:page_id] %>_<%= params[:liked] %>_<%= params[:admin] %>";
       			} else {
       				document.location = "/fb-auth-cancelled?page_id=<%= params[:page_id] %>&liked=<%= params[:liked] %>&admin=<%= params[:admin] %>";
@@ -92,7 +92,7 @@ function validateReAuth() {
       	} else {
       		document.location = "/fb-auth-cancelled?page_id=<%= params[:page_id] %>&liked=<%= params[:liked] %>&admin=<%= params[:admin] %>";
       	} // End else
-      }, {scope: 'email,offline_access,publish_actions,publish_stream,user_birthday,user_about_me,user_location,user_likes,user_education_history,user_website,read_friendlists,user_interests,user_hometown,user_status,manage_pages'});
+      }, {scope: 'email,publish_actions'});
 		} else {
 			window.top.location = 'https://www.facebook.com/index.php';
 		} // End else
@@ -105,13 +105,13 @@ function validateFbPostSubmit() {
 			var uid = response.authResponse.userID;
 			var accessToken = response.authResponse.accessToken;
 			FB.api('/me/permissions', function(response) {
-				if(response.data[0]["basic_info"] == 1 && response.data[0]["create_note"] == 1 && response.data[0]["email"] == 1 && response.data[0]["installed"] == 1 && response.data[0]["manage_pages"] == 1 && response.data[0]["photo_upload"] == 1 && response.data[0]["publish_actions"] == 1 && response.data[0]["publish_stream"] == 1 && response.data[0]["read_friendlists"] == 1 && response.data[0]["share_item"] == 1 && response.data[0]["status_update"] == 1 && response.data[0]["user_about_me"] == 1 && response.data[0]["user_birthday"] == 1 && response.data[0]["user_education_history"] == 1 && response.data[0]["user_hometown"] == 1 && response.data[0]["user_interests"] == 1 && response.data[0]["user_likes"] == 1 && response.data[0]["user_location"] == 1 && response.data[0]["user_status"] == 1 && response.data[0]["user_website"] == 1 && response.data[0]["video_upload"] == 1) {
+				if(response.data[0]["email"] == 1 && response.data[0]["publish_actions"] == 1) {
 					$("#facebookModal").modal('toggle');
 				} else {
 					FB.login(function(response_one) {
       			if (response_one.authResponse) {
       				FB.api('/me/permissions', function(response) {
-      					if(response.data[0]["basic_info"] == 1 && response.data[0]["create_note"] == 1 && response.data[0]["email"] == 1 && response.data[0]["installed"] == 1 && response.data[0]["manage_pages"] == 1 && response.data[0]["photo_upload"] == 1 && response.data[0]["publish_actions"] == 1 && response.data[0]["publish_stream"] == 1 && response.data[0]["read_friendlists"] == 1 && response.data[0]["share_item"] == 1 && response.data[0]["status_update"] == 1 && response.data[0]["user_about_me"] == 1 && response.data[0]["user_birthday"] == 1 && response.data[0]["user_education_history"] == 1 && response.data[0]["user_hometown"] == 1 && response.data[0]["user_interests"] == 1 && response.data[0]["user_likes"] == 1 && response.data[0]["user_location"] == 1 && response.data[0]["user_status"] == 1 && response.data[0]["user_website"] == 1 && response.data[0]["video_upload"] == 1) {
+      					if(response.data[0]["email"] == 1 && response.data[0]["publish_actions"] == 1) {
       						$("#facebookModal").modal('toggle');
       						$.ajax({
 		      					type: 'POST',
@@ -138,14 +138,14 @@ function validateFbPostSubmit() {
       			} else {
       				document.location = "/fb-auth-cancelled?page_id=<%= params[:page_id] %>&liked=<%= params[:liked] %>&admin=<%= params[:admin] %>";
       			} // End else
-      		}, {scope: 'email,offline_access,publish_actions,publish_stream,user_birthday,user_about_me,user_location,user_likes,user_education_history,user_website,read_friendlists,user_interests,user_hometown,user_status,manage_pages'});
+      		}, {scope: 'email,publish_actions'});
 				} // End else
 			}); // End FB.api
 		} else if (response.status === 'not_authorized') {
 			FB.login(function(response_one) {
       	if (response_one.authResponse) {
       		FB.api('/me/permissions', function(response) {
-      			if(response.data[0]["basic_info"] == 1 && response.data[0]["create_note"] == 1 && response.data[0]["email"] == 1 && response.data[0]["installed"] == 1 && response.data[0]["manage_pages"] == 1 && response.data[0]["photo_upload"] == 1 && response.data[0]["publish_actions"] == 1 && response.data[0]["publish_stream"] == 1 && response.data[0]["read_friendlists"] == 1 && response.data[0]["share_item"] == 1 && response.data[0]["status_update"] == 1 && response.data[0]["user_about_me"] == 1 && response.data[0]["user_birthday"] == 1 && response.data[0]["user_education_history"] == 1 && response.data[0]["user_hometown"] == 1 && response.data[0]["user_interests"] == 1 && response.data[0]["user_likes"] == 1 && response.data[0]["user_location"] == 1 && response.data[0]["user_status"] == 1 && response.data[0]["user_website"] == 1 && response.data[0]["video_upload"] == 1) {
+      			if(response.data[0]["email"] == 1 && response.data[0]["publish_actions"] == 1) {
       				$("#facebookModal").modal('toggle');
       				$.ajax({
       					type: 'POST',
@@ -172,7 +172,7 @@ function validateFbPostSubmit() {
       	} else {
       		document.location = "/fb-auth-cancelled?page_id=<%= params[:page_id] %>&liked=<%= params[:liked] %>&admin=<%= params[:admin] %>";
       	} // End else
-      }, {scope: 'email,offline_access,publish_actions,publish_stream,user_birthday,user_about_me,user_location,user_likes,user_education_history,user_website,read_friendlists,user_interests,user_hometown,user_status,manage_pages'});
+      }, {scope: 'email,publish_actions'});
 		} else {
 			window.top.location = 'https://www.facebook.com/index.php';
 		} // End else
@@ -185,13 +185,13 @@ function validateFbInviteFriends() {
 			var uid = response.authResponse.userID;
 			var accessToken = response.authResponse.accessToken;
 			FB.api('/me/permissions', function(response) {
-				if(response.data[0]["basic_info"] == 1 && response.data[0]["create_note"] == 1 && response.data[0]["email"] == 1 && response.data[0]["installed"] == 1 && response.data[0]["manage_pages"] == 1 && response.data[0]["photo_upload"] == 1 && response.data[0]["publish_actions"] == 1 && response.data[0]["publish_stream"] == 1 && response.data[0]["read_friendlists"] == 1 && response.data[0]["share_item"] == 1 && response.data[0]["status_update"] == 1 && response.data[0]["user_about_me"] == 1 && response.data[0]["user_birthday"] == 1 && response.data[0]["user_education_history"] == 1 && response.data[0]["user_hometown"] == 1 && response.data[0]["user_interests"] == 1 && response.data[0]["user_likes"] == 1 && response.data[0]["user_location"] == 1 && response.data[0]["user_status"] == 1 && response.data[0]["user_website"] == 1 && response.data[0]["video_upload"] == 1) {
+				if(response.data[0]["email"] == 1) {
 					document.location = "/fb-invite-fb-list?page_id=<%= params[:page_id] %>&liked=<%= params[:liked] %>&admin=<%= params[:admin] %>";
 				} else {
 					FB.login(function(response_one) {
       			if (response_one.authResponse) {
       				FB.api('/me/permissions', function(response) {
-      					if(response.data[0]["basic_info"] == 1 && response.data[0]["create_note"] == 1 && response.data[0]["email"] == 1 && response.data[0]["installed"] == 1 && response.data[0]["manage_pages"] == 1 && response.data[0]["photo_upload"] == 1 && response.data[0]["publish_actions"] == 1 && response.data[0]["publish_stream"] == 1 && response.data[0]["read_friendlists"] == 1 && response.data[0]["share_item"] == 1 && response.data[0]["status_update"] == 1 && response.data[0]["user_about_me"] == 1 && response.data[0]["user_birthday"] == 1 && response.data[0]["user_education_history"] == 1 && response.data[0]["user_hometown"] == 1 && response.data[0]["user_interests"] == 1 && response.data[0]["user_likes"] == 1 && response.data[0]["user_location"] == 1 && response.data[0]["user_status"] == 1 && response.data[0]["user_website"] == 1 && response.data[0]["video_upload"] == 1) {
+      					if(response.data[0]["email"] == 1) {
       						$.ajax({
 		      					type: 'POST',
 		      					url: '/fb-update-user-token',
@@ -220,14 +220,14 @@ function validateFbInviteFriends() {
       			} else {
       				document.location = "/fb-auth-cancelled?page_id=<%= params[:page_id] %>&liked=<%= params[:liked] %>&admin=<%= params[:admin] %>";
       			} // End else
-      		}, {scope: 'email,offline_access,publish_actions,publish_stream,user_birthday,user_about_me,user_location,user_likes,user_education_history,user_website,read_friendlists,user_interests,user_hometown,user_status,manage_pages'});
+      		}, {scope: 'email'});
 				} // End else
 			}); // End FB.api
 		} else if (response.status === 'not_authorized') {
 			FB.login(function(response_one) {
       	if (response_one.authResponse) {
       		FB.api('/me/permissions', function(response) {
-      			if(response.data[0]["basic_info"] == 1 && response.data[0]["create_note"] == 1 && response.data[0]["email"] == 1 && response.data[0]["installed"] == 1 && response.data[0]["manage_pages"] == 1 && response.data[0]["photo_upload"] == 1 && response.data[0]["publish_actions"] == 1 && response.data[0]["publish_stream"] == 1 && response.data[0]["read_friendlists"] == 1 && response.data[0]["share_item"] == 1 && response.data[0]["status_update"] == 1 && response.data[0]["user_about_me"] == 1 && response.data[0]["user_birthday"] == 1 && response.data[0]["user_education_history"] == 1 && response.data[0]["user_hometown"] == 1 && response.data[0]["user_interests"] == 1 && response.data[0]["user_likes"] == 1 && response.data[0]["user_location"] == 1 && response.data[0]["user_status"] == 1 && response.data[0]["user_website"] == 1 && response.data[0]["video_upload"] == 1) {
+      			if(response.data[0]["email"] == 1) {
       				$.ajax({
       					type: 'POST',
       					url: '/fb-update-user-token',
@@ -256,7 +256,7 @@ function validateFbInviteFriends() {
       	} else {
       		document.location = "/fb-auth-cancelled?page_id=<%= params[:page_id] %>&liked=<%= params[:liked] %>&admin=<%= params[:admin] %>";
       	} // End else
-      }, {scope: 'email,offline_access,publish_actions,publish_stream,user_birthday,user_about_me,user_location,user_likes,user_education_history,user_website,read_friendlists,user_interests,user_hometown,user_status,manage_pages'});
+      }, {scope: 'email'});
 		} else {
 			window.top.location = 'https://www.facebook.com/index.php';
 		} // End else

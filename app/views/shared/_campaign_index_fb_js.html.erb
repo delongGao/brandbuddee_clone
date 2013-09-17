@@ -1,0 +1,99 @@
+<script>
+window.fbAsyncInit = function() {
+  FB.init({
+    appId      : <% if Rails.env.development? %>'253857021420655'<% elsif Rails.env.production? %>'278238152312772'<% end %>,
+    channelUrl : '<%= root_url %>fbapp/channel.html',
+    status     : true, // check the login status upon init?
+    cookie     : true, // set sessions cookies to allow your server to access the session?
+    frictionlessRequests : true, // enable frictionless requests
+    xfbml      : true  // parse XFBML tags on this page?
+  }); // FB.init()
+
+}; // window.fbAsyncInit
+
+function getFbWallPostPerms() {
+	FB.getLoginStatus(function(response) {
+		if (response.status === 'connected') {
+			FB.api('/me/permissions', function(response) {
+				if(response.data[0]["publish_actions"] == 1) {
+					$("#facebookModal").modal('toggle');
+				} else {
+					FB.login(function(response_one) {
+						if (response_one.authResponse) {
+							FB.api('/me/permissions', function(response) {
+								if(response.data[0]["publish_actions"] == 1) {
+									$("#facebookModal").modal('toggle');
+									$.ajax({
+		      					type: 'POST',
+		      					url: '/fb-update-user-token',
+		      					data: {
+		      						token: response_one.authResponse.accessToken,
+		      						expires: response_one.authResponse.expiresIn
+		      					},
+		      					success: function (data) {
+		      						if (data == 'SUCCESS') {
+		      							console.log("User Updated With Token: " + response_one.authResponse.accessToken);
+		      						} else {
+		      							console.log("Error Updating User OAuth Token");
+		      						}
+		      					},
+		      					error: function () {
+		      						console.log("Error Updating User OAuth Token");
+		      					}
+		      				});
+								} else {
+									$("#wallPostErrorModal").modal('toggle');
+								} // End else
+							}); // End FB.api
+						} else {
+							$("#wallPostErrorModal").modal('toggle');
+						} // End else
+					}, {scope: 'publish_actions'});
+				} // End else
+			}); // End FB.api
+		} else if (response.status === 'not_authorized') {
+			FB.login(function(response_one) {
+      	if (response_one.authResponse) {
+      		FB.api('/me/permissions', function(response) {
+      			if(response.data[0]["publish_actions"] == 1) {
+      				$("#facebookModal").modal('toggle');
+      				$.ajax({
+      					type: 'POST',
+      					url: '/fb-update-user-token',
+      					data: {
+      						token: response_one.authResponse.accessToken,
+      						expires: response_one.authResponse.expiresIn
+      					},
+      					success: function (data) {
+      						if (data == 'SUCCESS') {
+      							console.log("User Updated With Token: " + response_one.authResponse.accessToken);
+      						} else {
+      							console.log("Error Updating User OAuth Token");
+      						}
+      					},
+      					error: function () {
+      						console.log("Error Updating User OAuth Token");
+      					}
+      				});
+      			} else {
+      				$("#wallPostErrorModal").modal('toggle');
+      			} // End else
+      		}); // End FB.api
+      	} else {
+      		$("#wallPostErrorModal").modal('toggle');
+      	} // End else
+      }, {scope: 'publish_actions'});
+		} else {
+			window.top.location = 'https://www.facebook.com/index.php';
+		} // End else
+	}); // getLoginStatus
+} // End validateOauthConn()
+
+(function(d, debug){
+  var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement('script'); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all" + (debug ? "/debug" : "") + ".js";
+  ref.parentNode.insertBefore(js, ref);
+}(document, /*debug*/ false));
+</script>

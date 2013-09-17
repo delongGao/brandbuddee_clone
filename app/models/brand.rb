@@ -3,7 +3,7 @@ class Brand
   include Mongoid::Document
   include ActiveModel::SecurePassword
   # has_and_belongs_to_many :categories
-  has_many :campaigns
+  has_many :campaigns, :dependent => :destroy
   has_many :embeds
 
   field :date, :type => DateTime

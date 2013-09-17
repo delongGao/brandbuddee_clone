@@ -51,8 +51,9 @@ class BrandsController < ApplicationController
 		@brand = Brand.find(@current_brand.id)
 		begin
 			if !params[:brand][:remove_brand_logo].nil? && params[:brand][:remove_brand_logo] == "1"
-				@brand.remove_brand_logo!
-				@brand.brand_logo = nil
+				#@brand.remove_brand_logo!
+				#@brand.brand_logo = nil
+				@brand.remove_brand_logo = true
 				@brand.save!(validate: false)
 			end
 			@brand.attributes = params[:brand]
@@ -62,8 +63,12 @@ class BrandsController < ApplicationController
 					session[:brand_profile_unfinished] = nil
 					BrandMailer.profile_completion(@brand, root_url).deliver
 				end
-				flash[:info] = "Your Brand Profile has been updated!"
-				redirect_to "/brands/profile"
+				if cookies[:brand_tour].present? && cookies[:brand_tour].to_s == "true"
+					redirect_to "/brands/dashboard"
+				else
+					flash[:info] = "Your Brand Profile has been updated!"
+					redirect_to "/brands/profile"
+				end
 			else
 				render "view_edit_profile"
 			end
@@ -501,6 +506,74 @@ class BrandsController < ApplicationController
 		else
 			flash[:error] = "An error occurred while trying to find the campaign you are trying to share."
 			redirect_to "/brands/dashboard"
+		end
+	end
+
+	def start_brand_tour
+		if cookies[:brand_tour].nil?
+			cookies[:brand_tour] = {:value => true, :expires => Time.now + 1.month}
+		end
+		redirect_to "/brands/dashboard"
+	end
+
+	def end_brand_tour
+		unless cookies[:brand_tour].nil? || cookies[:brand_tour].to_s != "true"
+			cookies.delete(:brand_tour)
+		end
+		redirect_to "/brands/dashboard"
+	end
+
+	def sample_campaign_list
+		@brand = current_brand
+	end
+
+	def sample_campaign_view
+		@brand = current_brand
+	end
+
+	def sample_viral_embed
+		@brand = current_brand
+	end
+
+	def sample_redeems_view
+		@brand = current_brand
+	end
+
+	def sample_tasks_view
+		@brand = current_brand
+	end
+
+	def update_fb_token_via_ajax
+		if request.xhr?
+			unless params[:token].nil? || params[:expires].nil?
+				if current_brand
+					@graph = Koala::Facebook::API.new(params[:token])
+					begin
+						profile = @graph.get_object("me")
+						unless profile.nil? || profile["id"].nil?
+							@brand = current_brand
+							@brand.facebook_token = params[:token].to_s
+							@brand.facebook_expires = DateTime.now + params[:expires].to_i.seconds
+							if @brand.save
+								render :text => "SUCCESS"
+							else
+								render :text => "ERROR"
+							end
+						else
+							render :text => "ERROR"
+						end
+					rescue Koala::Facebook::APIError
+						render :text => "ERROR"
+					end
+				else
+					render :text => "ERROR"
+				end
+			else
+				render :text => "ERROR"
+			end
+		else
+			flash[:error] = "An error occurred. Please refresh this page and try again."
+			redirect_to root_url
 		end
 	end
 end

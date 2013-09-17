@@ -6,6 +6,8 @@
 		<link rel="stylesheet" type="text/css" href="/css/bootstrap-tour.min.css">
 	<% end %>
 <% end %>
+<div id="fb-root"></div>
+<%= render 'shared/campaign_index_fb_js' %>
 <%= render 'shared/header' %>
 <% unless current_user %>
     <div class="span8" id="promo-campaign-wrap">
@@ -88,7 +90,6 @@
                             <% else %>
                                 <div style="margin-top:5%;"><%= @campaign.detail %></div>
                             <% end %>
-                            <div id="fb-root"></div>
 
                                 <div id="campaign-share">
                                     <%= javascript_include_tag "http://platform.twitter.com/widgets.js" %>
@@ -124,7 +125,7 @@
                                     <div class="clear"></div>
                                     Share Link:
                                     <input id="share_link_copy" class="input-large span4" type="text" value="<% if Rails.env.development? %><%= "#{@bitly_share_link} - #{root_url}s/#{@share.link}" %><% else %><%= @bitly_share_link %><% end %>">
-                                    <a href="#facebookModal" class="btn btn-primary btn-large" data-toggle="modal" style="margin-bottom:8px;" id="btnSubmitFbPost" title="<%= @campaign.title %> brandbuddee"><i class="icon-circle-arrow-up icon-white"></i> Post to Facebook</a>
+                                    <a href="javascript:void(0);" class="btn btn-primary btn-large testForWallPerms" style="margin-bottom:8px;" id="btnSubmitFbPost" title="<%= @campaign.title %> brandbuddee"><i class="icon-circle-arrow-up icon-white"></i> Post to Facebook</a>
                                     <div class="clear"></div>
                                 </div><br>
                                 <div class="divisor divisor_services"><!-- /divisor above tasks -->
@@ -623,7 +624,7 @@
                                                         Category
                                                     </td>
                                                     <td>
-                                                        <a href="<%= root_url %>home#<% @campaign.categories.each do |c| %><%= c.name %><% end %>" title="<%= @campaign.title %> brandbuddee">#<% @campaign.categories.each do |c| %><%= c.name %><% end %></a>
+                                                        <a href="<%= root_url %>home?c=<% @campaign.categories.each do |c| %><%= c.name %><% end %>" title="<%= @campaign.title %> brandbuddee">#<% @campaign.categories.each do |c| %><%= c.name %><% end %></a>
                                                     </td>
                                                 </tr>
                                             </table>
@@ -737,10 +738,10 @@
 </div>
 
 <%= render "shared/footer" %>
-<div id="redeemDetailsModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div id="redeemDetailsModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myRedeemModalLabel" aria-hidden="true">
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h3 id="myModalLabel">How To Redeem</h3>
+    <h3 id="myRedeemModalLabel">How To Redeem</h3>
   </div>
   <div class="modal-body">
     <% unless @campaign.redeem_details.blank? %>
@@ -754,6 +755,30 @@
     <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
   </div>
 </div>
+<div id="wallPostErrorModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="wallModalLabel" aria-hidden="true">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+		<h3 id="wallModalLabel">Uh Oh! You didn't accept the permissions!</h3>
+	</div>
+	<div class="modal-body">
+		<h4 class="extended_redeem_details" style="margin-bottom:2%;">brandbuddee uses social networks like Facebook and Twitter to help you share stories and earn gifts. To do so, you must first connect your account, and accept certain permissions.</h4>
+		<h4 class="extended_redeem_details" style="margin-bottom:2%;">Facebook permissions include general information about your account (your name and email), and access to posting to your Facebook Wall.</h4>
+		<h4 class="extended_redeem_details" style="margin-bottom:2%;">To try again, click the green button below. Or continue reading to find out more about why we request these permissions.</h4>
+		<h4 class="extended_redeem_details text-center"><b>Sample Permissions Dialog</b></h4>
+		<div class="text-center"><%= image_tag "fb-permission.jpg", style: "width:75%;margin-bottom:2%;", alt: "sweepstakes-contests-giveaways-brandbuddee", title: "Sweepstakes Contests Giveaways brandbuddee" %></div>
+		<dl class="dl-horizontal" style="margin-bottom:2%;">
+			<dt>Account Information</dt>
+			<dd>When you create an account, we like to ensure we have your email and name so when you win a reward we know where to send the redeem details. We will NEVER share your email or contact information with others.</dd>
+			<dt>Wall Posting</dt>
+			<dd>One of the most popular ways to share a campaign is posting it to your Facebook Wall. To do so from within our site or app, we need access. We will only post when you click the post button and you can customize the message. We will not automatically post any content.</dd>
+		</dl>
+		<h4 class="extended_redeem_details">We will never use your email, name, or Facebook/Twitter account for spam purposes. If you ever have any questions, feel free to spam Andy, our CEO, at: <a href="mailto:andy@brandbuddee.com" target="_blank">andy@brandbuddee.com</a></h4>
+	</div>
+	<div class="modal-footer">
+		<a href="#" class="btn btn-success testForWallPerms" data-dismiss="modal" style="font-weight:700;"><i class="icon-refresh"></i> Try Again</a>
+		<button class="btn btn-warning" data-dismiss="modal" aria-hidden="true" style="font-weight:700;"><i class="icon-remove"></i> Close</button>
+	</div>
+</div>
 
     <script>        
     !function (d, s, id) {
@@ -764,8 +789,6 @@
             }
         } (document, "script", "twitter-wjs"); </script>
     <!-- facebook -->
-    <div id="fb-root">
-    </div>
     <script>        (function (d, s, id) {
             var 
     js, fjs = d.getElementsByTagName(s)[0]; if (d.getElementById(id)) return; js = d.createElement(s);
@@ -799,6 +822,13 @@
     <script type="text/javascript" src="/js/ilightbox.js"></script>
     <script type="text/javascript">
         eval(function(p,a,c,k,e,d){e=function(c){return(c<a?'':e(parseInt(c/a)))+((c=c%a)>35?String.fromCharCode(c+29):c.toString(36))};if(!''.replace(/^/,String)){while(c--){d[e(c)]=k[c]||e(c)}k=[function(e){return d[e]}];e=function(){return'\\w+'};c=1};while(c--){if(k[c]){p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c])}}return p}('7 5=$(g).h();7 4=n<5?!0:!1;$("j#i k a").m({f:"b",8:"c",d:1.3,e:{l:0.9},o:{x:4},y:{A:2,z:0.6,v:2,q:0.6},r:{s:0.3,u:1},t:{p:w}});',37,37,'||75||thumbwidth|thewidth|55|var|path|||smooth|horizontal|maxScale|overlay|skin|window|width|gift_gallery|ul|li|opacity|iLightBox|767|controls|switchSpeed|prevOpacity|thumbnails|normalOpacity|effects|activeOpacity|prevOffsetX|700|thumbnail|styles|nextOpacity|nextOffsetX'.split('|'),0,{}))
+    </script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+  		$(".testForWallPerms").click(function() {
+  			getFbWallPostPerms();
+  		});
+    });
     </script>
     <!-- backstretch -->
     <!--<script src="/js/jquery.backstretch.min.js"></script>

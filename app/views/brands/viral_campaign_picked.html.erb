@@ -1,3 +1,7 @@
+<% content_for :fb_root_tag do %>
+<div id="fb-root"></div>
+<%= render("facebook_script") %>
+<% end %>
 <%= render 'shared/brands_header' %>
 <div class="container-fluid">
 <div class="row-fluid">
@@ -61,14 +65,14 @@
 						<h1 style="margin-top:0;">Current Campaign</h1>
 						<h2><%= @campaign.title %> <% if @campaign.status=="active" %><span class="label label-success">Live</span><% else %><span class="label label-important">Inactive</span><% end %></h2>
 						<h3>Get your Faceboook fans involved:</h3>
-						<a title="sweepstakes contests giveaways brandbuddee" href="/brands/campaigns/viral-install-fb?_id=<%= @campaign.id %>" class="btn install-to-facebook"><i class="icon-facebook-sign"></i>&nbsp;&nbsp;INSTALL TO A FACEBOOK PAGE</a>
+						<a title="sweepstakes contests giveaways brandbuddee" href="javascript:void(0);" class="btn install-to-facebook testForPagePerms" id="btnEmbedToFBPage"><i class="icon-facebook-sign"></i>&nbsp;&nbsp;INSTALL TO A FACEBOOK PAGE</a>
 						<h3 style="margin-bottom:1.5%;">Copy this code and put on any website or blog of yours:</h3>
 						<textarea readonly rows="4" id="txtEmbedCode"><div id="the-brandbuddee-embed-widget" data-frameloc="<%= root_url %>campaign/<%= @campaign.link %>/go_viral"><a id="the-brandbuddee-embed-widget-anchor" href="<%= root_url %>campaign/<%= @campaign.link %>" rel="nofollow"><%= "#{@campaign.title} | #{@brand.name}" %></a></div><script src="<%= root_url %>js/website_embed_script.js"></script></textarea>
 						<a title="sweepstakes contests giveaways brandbuddee" href="#" id="btnCopyToClipboard" class="btn" data-clipboard-target="txtEmbedCode"><i class="icon-copy"></i>&nbsp;&nbsp;COPY THE CODE TO CLIPBOARD</a>
 						<h3 style="margin-bottom:1.5%;">Or for Tumblr, use the code below:</h3>
 						<textarea readonly rows="4" id="txtTumblrCode" style="width:94.5%;overflow:hidden;"><iframe src="<%= root_url %>campaign/<%= @campaign.link %>/go_viral" frameborder="0" scrolling="yes" id="the-brandbuddee-embed-widget-frame" style="width: 479px; height: 510px;"></iframe></textarea>
 						<a title="sweepstakes contests giveaways brandbuddee" href="#" id="btnCopyTumblrCode" class="btn" data-clipboard-target="txtTumblrCode" style="width:90%; font-weight:700; color:#666666;"><i class="icon-copy" style="font-size: 1.25em; position: relative; top: 1px; color: #3B5998;"></i>&nbsp;&nbsp;COPY TUMBLR CODE</a>
-						<%= link_to image_tag("facebook.png", size: "246x47", alt: "sweepstakes-contests-giveaways-brandbuddee", title: "Sweepstakes Contests Giveaways brandbuddee", style: "margin-top:2%;"), "/brands/campaigns/viral-invite-facebook?_id=#{@campaign.id}" %>
+						<%= link_to image_tag("facebook.png", size: "246x47", alt: "sweepstakes-contests-giveaways-brandbuddee", title: "Sweepstakes Contests Giveaways brandbuddee", style: "margin-top:2%;"), "#", class: "btnInviteFbFriends" %>
 						<%= link_to image_tag("email.png", size: "246x47", alt: "sweepstakes-contests-giveaways-brandbuddee", title: "Sweepstakes Contests Giveaways brandbuddee", style: "margin-top:1%;"), "/brands/campaigns/viral-invite-email?_id=#{@campaign.id}" %>
 					</div>
 				</div>
@@ -86,10 +90,68 @@
 <%= render 'shared/brands_footer' %>
 
 </div><!--/.fluid-container-->
+<div id="wallPostErrorModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="wallModalLabel" aria-hidden="true">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+		<h3 id="wallModalLabel">Uh Oh! You didn't accept the permissions!</h3>
+	</div>
+	<div class="modal-body">
+		<h4 class="extended_redeem_details" style="margin-bottom:2%;">brandbuddee uses social networks like Facebook and Twitter to help you share your campaign with others. To do so, you must first connect your account, and accept certain permissions.</h4>
+		<h4 class="extended_redeem_details" style="margin-bottom:2%;">Facebook permissions include general information about your account (your name and email), and access to manage your pages.</h4>
+		<h4 class="extended_redeem_details" style="margin-bottom:2%;">To try again, click the green button below. Or continue reading to find out more about why we request these permissions.</h4>
+		<h4 class="extended_redeem_details text-center"><b>Sample Permissions Dialog</b></h4>
+		<div class="text-center"><%= image_tag "fb-permission.jpg", style: "width:75%;margin-bottom:2%;", alt: "sweepstakes-contests-giveaways-brandbuddee", title: "Sweepstakes Contests Giveaways brandbuddee" %></div>
+		<dl class="dl-horizontal" style="margin-bottom:2%;">
+			<dt>Account Information</dt>
+			<dd>When you create an account, we like to ensure we have your email and name so when your buddees win rewards we know how to contact you. We will NEVER share your email or contact information with others.</dd>
+			<dt>Manage Pages</dt>
+			<dd>One of the most popular ways to share a campaign with others is embedding it to a Facebook page. To do so, we need access to the pages you manage. We will only embed or add content when you click the embed button, and will never automatically embed any content.</dd>
+		</dl>
+		<h4 class="extended_redeem_details">We will never use your email, name, or Facebook/Twitter account for spam purposes. If you ever have any questions or concerns, feel free to spam Andy, our CEO, at: <a href="mailto:andy@brandbuddee.com" target="_blank">andy@brandbuddee.com</a></h4>
+	</div>
+	<div class="modal-footer">
+		<a href="#" class="btn btn-success testForPagePerms" data-dismiss="modal" style="font-weight:700;"><i class="icon-refresh"></i> Try Again</a>
+		<button class="btn btn-warning" data-dismiss="modal" aria-hidden="true" style="font-weight:700;"><i class="icon-remove"></i> Close</button>
+	</div>
+</div>
+<div id="inviteFriendsErrorModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="wallModalLabel" aria-hidden="true">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+		<h3 id="wallModalLabel">Uh Oh! You didn't accept the permissions!</h3>
+	</div>
+	<div class="modal-body">
+		<h4 class="extended_redeem_details" style="margin-bottom:2%;">brandbuddee uses social networks like Facebook and Twitter to help you share your campaign with others. To do so, you must first connect your account, and accept certain permissions.</h4>
+		<h4 class="extended_redeem_details" style="margin-bottom:2%;">Facebook permissions include general information about your account (your name and email), and access to manage your pages.</h4>
+		<h4 class="extended_redeem_details" style="margin-bottom:2%;">To try again, click the green button below. Or continue reading to find out more about why we request these permissions.</h4>
+		<h4 class="extended_redeem_details text-center"><b>Sample Permissions Dialog</b></h4>
+		<div class="text-center"><%= image_tag "fb-permission.jpg", style: "width:75%;margin-bottom:2%;", alt: "sweepstakes-contests-giveaways-brandbuddee", title: "Sweepstakes Contests Giveaways brandbuddee" %></div>
+		<dl class="dl-horizontal" style="margin-bottom:2%;">
+			<dt>Account Information</dt>
+			<dd>When you create an account, we like to ensure we have your email and name so when your buddees win rewards we know how to contact you. We will NEVER share your email or contact information with others.</dd>
+			<dt>Manage Pages</dt>
+			<dd>One of the most popular ways to share a campaign with others is embedding it to a Facebook page. To do so, we need access to the pages you manage. We will only embed or add content when you click the embed button, and will never automatically embed any content.</dd>
+		</dl>
+		<h4 class="extended_redeem_details">We will never use your email, name, or Facebook/Twitter account for spam purposes. If you ever have any questions or concerns, feel free to spam Andy, our CEO, at: <a href="mailto:andy@brandbuddee.com" target="_blank">andy@brandbuddee.com</a></h4>
+	</div>
+	<div class="modal-footer">
+		<a href="#" class="btn btn-success btnInviteFbFriends" data-dismiss="modal" style="font-weight:700;"><i class="icon-refresh"></i> Try Again</a>
+		<button class="btn btn-warning" data-dismiss="modal" aria-hidden="true" style="font-weight:700;"><i class="icon-remove"></i> Close</button>
+	</div>
+</div>
 <%= render 'shared/brands_scripts' %>
 <script type="text/javascript" src="/js/ZeroClipboard.min.js"></script>
 <script type="text/javascript">
 	ZeroClipboard.setDefaults( { moviePath: '/js/ZeroClipboard.swf' } );
 	var clip = new ZeroClipboard($("#btnCopyToClipboard"));			
 	var clip2 = new ZeroClipboard($("#btnCopyTumblrCode"));
+</script>
+<script type="text/javascript">
+$(document).ready(function() {
+	$(".testForPagePerms").click(function() {
+		getFbPageManagePerms();
+	});
+	$(".btnInviteFbFriends").click(function() {
+		getFbInviteFriendsPerms();
+	});
+});
 </script>

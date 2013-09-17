@@ -28,6 +28,14 @@
 				</div> <!-- .profile_image_wrap -->
 
 				<%= form_for @user, :url => {:controller => 'profile', :action => 'profile_settings_update'} do |f| %>
+					<% if @user.errors.any? %>
+						<% @user.errors.full_messages.each do |message| %>
+							<div class="alert alert-error fade in">
+								<a title="sweepstakes contests giveaways brandbuddee" href="#" class="close" data-dismiss="alert">&times;</a>
+								<strong>Uh Oh!</strong> <%= message %>
+							</div>
+						<% end %>
+					<% end %>
 
 					<fieldset>
 						<div class="control-group">

@@ -89,6 +89,14 @@ Brandbuddee::Application.routes.draw do
   match '/brands/campaigns/viral-invite-facebook' => 'brands#viral_invite_facebook'
   match '/brands/campaigns/viral-invite-fb-search' => 'brands#viral_invite_fb_search'
   match '/brands/campaigns/viral-invite-email-send' => 'brands#viral_invite_email_send'
+  match '/brands/tour' => 'brands#start_brand_tour'
+  match '/brands/end-tour' => 'brands#end_brand_tour'
+  match '/brands/sample-pages/campaigns' => 'brands#sample_campaign_list'
+  match '/brands/sample-pages/view-campaign' => 'brands#sample_campaign_view'
+  match '/brands/sample-pages/viral-embed' => 'brands#sample_viral_embed'
+  match '/brands/sample-pages/view-redeems' => 'brands#sample_redeems_view'
+  match '/brands/sample-pages/view-tasks' => 'brands#sample_tasks_view'
+  match '/brands/update-fb-token' => 'brands#update_fb_token_via_ajax'
   #resources :brands
   
   match 'complete/email' => 'users#complete_email'

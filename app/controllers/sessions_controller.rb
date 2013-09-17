@@ -47,6 +47,7 @@ class SessionsController < ApplicationController
             brand = Brand.from_omniauth_facebook(auth)
             if brand.date > DateTime.now - 1.minute # If Brand created in the last minute
               session[:brand_profile_unfinished] = true
+              cookies[:brand_tour] = {:value => true, :expires => Time.now + 1.month}
             end
             brand.last_login = DateTime.now
             brand.save(validate: false)
@@ -63,6 +64,7 @@ class SessionsController < ApplicationController
             brand = Brand.from_omniauth_twitter(auth)
             if brand.date > DateTime.now - 1.minute # If Brand created in the last minute
               session[:brand_profile_unfinished] = true
+              cookies[:brand_tour] = {:value => true, :expires => Time.now + 1.month}
             end
             brand.last_login = DateTime.now
             brand.save(validate: false)

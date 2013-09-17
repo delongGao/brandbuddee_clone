@@ -14,7 +14,7 @@
 				<% end %>
 				<% if @continue == true %>
 					<h2 class="whats-new">Discover what's new with<br>"<%= @campaign.brand.name %>"<br>Earn <span class="bb-blue">points</span> and <span class="bb-blue">win</span></h2>
-					<% unless @left < 1 || @campaign.end_date < Time.now %>
+					<% unless (!@campaign.redeem_is_raffle && @left < 1) || @campaign.end_date < Time.now %>
 						<div class="row stats-top">
 							<div class="span2">
 								<h3 class="whats-new">
@@ -55,14 +55,14 @@
 					    <div class="circle_left"></div>
 					    <div class="circle_right"></div>
 					</div>					
-					<% unless @left < 1 || @campaign.end_date < Time.now %>
+					<% unless (!@campaign.redeem_is_raffle && @left < 1) || @campaign.end_date < Time.now %>
 						<% if !@logged_in.nil? && @logged_in==true %>
 							<a href="/fb-add-campaign<%= "?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}" %>" class="btn btn-primary"><i class="icon-thumbs-up"></i> Join This Campaign</a>
 						<% else %>
 							<a href="/fb-embed-signup<%= "?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}" %>" class="btn btn-primary"><i class="icon-pencil"></i> Signup to get this gift</a>&nbsp;&nbsp;<a href="#loginModal" role="button" data-toggle="modal" class="btn btn-primary"><i class="icon-key"></i> Login to get this gift</a>
 						<% end %>
 					<% end %>
-					<% if @left < 1 || @campaign.end_date < Time.now %>
+					<% if (!@campaign.redeem_is_raffle && @left < 1) || @campaign.end_date < Time.now %>
 						<% unless @campaign.is_white_label? %>
 							<a href="/tell-me-more" target="_blank" class="btn btn-success" style="margin-bottom:2.5%;"><i class="icon-cogs"></i> How it works</a>
 						<% end %>
@@ -87,7 +87,7 @@
 	</div>
 </div>
 <% if @continue == true %>
-	<% unless @left < 1 || @campaign.end_date < Time.now %>
+	<% unless (!@campaign.redeem_is_raffle && @left < 1) || @campaign.end_date < Time.now %>
 		<% if @logged_in.nil? %>
 			<div id="loginModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 				<div class="modal-header">

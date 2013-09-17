@@ -1,3 +1,7 @@
+<% content_for :fb_root_tag do %>
+<div id="fb-root"></div>
+<%= render("facebook_script") %>
+<% end %>
 <%= render 'shared/brands_header' %>
 <div class="container-fluid">
 <div class="row-fluid">
@@ -51,7 +55,7 @@
 				<a title="sweepstakes contests giveaways brandbuddee" href="#" class="btn-minimize"><i class="icon-chevron-up"></i></a>
 			</div>
 		</div>
-		<div class="box-content" style="overflow:hidden;">
+		<div class="box-content" style="overflow:hidden;min-height:200px;">
 			<div class="span8 offset2">
 				<div class="pull-right" id="insertbeforeme">
           <%= form_tag("/brands/campaigns/viral-invite-fb-search", :method => "get", :class => "form-search", :style => "position: relative; right: 5%;") do %>

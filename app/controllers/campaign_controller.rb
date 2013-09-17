@@ -60,23 +60,24 @@ class CampaignController < ApplicationController
 	end
 
 	def activate_campaign
-		@campaign = Campaign.find(params[:_c])
-		unless @campaign.already_has_user_share?(current_user)
-			@campaign.user_ids << current_user.id
-			share_link = Share.assign_link
-			the_share = @campaign.shares.create!(date: Time.now, link: share_link, user_id: current_user.id, campaign_id: @campaign.id, url: @campaign.share_link )
-			#@campaign.shares.user_id = current_user.id
-			#@campaign.shares.campaign_id = @campaign.id
-			unless @campaign.already_has_user_task?(current_user)
-				@campaign.tasks.create!(task_1_url: @campaign.engagement_task_left_link, task_2_url: @campaign.engagement_task_right_link, user_id: current_user.id, campaign_id: @campaign.id)
-				if the_share.bitly_share_link
-					url = root_url + "campaign/" + @campaign.link
-					if @campaign.save(validate: false)
-		      			flash[:notice] = "Campaign Activated"
-		      			redirect_to url
+		unless current_user.nil?
+			@campaign = Campaign.find(params[:_c])
+			unless @campaign.already_has_user_share?(current_user)
+				@campaign.user_ids << current_user.id
+				share_link = Share.assign_link
+				the_share = @campaign.shares.create!(date: Time.now, link: share_link, user_id: current_user.id, campaign_id: @campaign.id, url: @campaign.share_link )
+				#@campaign.shares.user_id = current_user.id
+				#@campaign.shares.campaign_id = @campaign.id
+				unless @campaign.already_has_user_task?(current_user)
+					@campaign.tasks.create!(task_1_url: @campaign.engagement_task_left_link, task_2_url: @campaign.engagement_task_right_link, user_id: current_user.id, campaign_id: @campaign.id)
+					if the_share.bitly_share_link
+						url = root_url + "campaign/" + @campaign.link
+						if @campaign.save(validate: false)
+	      			flash[:notice] = "Campaign Activated"
+	      			redirect_to url
 		    		else
-		      			flash[:notice] = "Uh oh"
-		      			redirect_to url
+	      			flash[:notice] = "Uh oh"
+	      			redirect_to url
 		    		end
 		    	else
 		    		flash[:notice] = "An error occurred while trying to activate the campaign. Please try again."
@@ -90,6 +91,10 @@ class CampaignController < ApplicationController
 	    	flash[:notice] = "You have already activated this campaign!"
 	    	redirect_to "#{root_url}campaign/#{@campaign.link}"
 	    end
+	  else
+	  	flash[:error] = "You must be logged in to perform that action!"
+	  	redirect_to root_url
+	  end
 	end
 
 	def share
@@ -190,7 +195,7 @@ class CampaignController < ApplicationController
 							flash[:notice] = "Awesome! You've posted to your wall!"
 							redirect_to "#{root_url}campaign/#{params[:campaign_link]}"
 						rescue Koala::Facebook::APIError => exc
-							flash[:error] = "An error occurred while trying to post to your Facebook Wall. Please <a href='/auth/facebook' class='btn btn-mini btn-warning'>Reconnect With Facebook</a> and try again. If messages that say \"brandbuddee would like to...\" occur, make sure you enable these permissions."
+							flash[:error] = "An error occurred while trying to post to your Facebook Wall. Please <a href='/auth/facebook' class='btn btn-mini btn-warning'>Reconnect With Facebook</a> and try again. Make sure you accept any permissions requests."
 							redirect_to "#{root_url}campaign/#{params[:campaign_link]}"
 						end
 					else

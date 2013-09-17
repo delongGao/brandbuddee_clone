@@ -1,0 +1,399 @@
+<%= render 'shared/brands_header' %>
+<div class="container-fluid">
+<div class="row-fluid">
+<%= render 'shared/brands_side' %>
+<noscript>
+	<div class="alert alert-block span10">
+		<h4 class="alert-heading">Warning!</h4>
+		<p>You need to have <a title="sweepstakes contests giveaways brandbuddee" href="http://www.enable-javascript.com/" target="_blank">JavaScript</a> enabled to use this site.</p>
+	</div>
+</noscript>
+<div id="content" class="span10">
+<% flash.each do |name, msg| %>
+<div class="row">
+	<div class="span6 offset3">
+		<div class="alert alert-<%= name %> fade in">
+			<a title="sweepstakes contests giveaways brandbuddee" href="#" class="close" data-dismiss="alert">&times;</a>
+			<%= msg.html_safe %>
+		</div>
+	</div>
+</div>
+<% end %>
+<!-- Begin: Content -->
+<div>
+	<hr>
+	<ul class="breadcrumb">
+		<li>
+			<a title="sweepstakes contests giveaways brandbuddee" href="/brands/dashboard">Dashboard</a> <span class="divider">/</span>
+		</li>
+		<li>
+			<a title="sweepstakes contests giveaways brandbuddee" href="/brands/campaigns">View All Campaigns</a> <span class="divider">/</span>
+		</li>
+		<li>
+			<a title="sweepstakes contests giveaways brandbuddee" href="#">View Campaign: Sample Campaign</a>
+		</li>
+		<% unless @brand.manager_first.nil? %><li class="pull-right">Welcome back, <%= @brand.manager_first %></li><% end %>
+	</ul>
+	<hr>
+</div>
+<div class="row-fluid">
+	<a title="sweepstakes contests giveaways brandbuddee" class="quick-button span2 offset2 go-viral-button" href="#" id="brandsTourSlide6">
+		<i class="icon-beaker" style="color:#FF5D5D;"></i>
+		<p>Go Viral!</p>
+	</a>
+	<a title="sweepstakes contests giveaways brandbuddee" class="quick-button span2" href="#" id="brandsTourSlide7">
+		<i class="icon-group"></i>
+		<p>Buddees</p>
+		<span class="notification green">23</span>
+	</a>
+	<a title="sweepstakes contests giveaways brandbuddee" class="quick-button span2" href="#">
+		<i class="icon-barcode"></i>
+		<p>Redeems</p>
+		<span class="notification">3</span>
+	</a>
+	<a title="sweepstakes contests giveaways brandbuddee" class="quick-button span2" href="#">
+		<i class="icon-check"></i>
+		<p>Tasks</p>
+		<span class="notification yellow">4</span>
+	</a>
+</div>
+
+<hr>
+
+<div class="row-fluid">
+	<div class="circleStats">
+		<div class="span4" onTablet="span4" onDesktop="span4" style="margin-top:3%;">
+        	<div class="circleStatsItem blue">
+            	<i class="icon-bullhorn" style="margin-top:-7%;"></i>
+				<span id="share_stat" class="hidden">231</span>
+				<span class="blueCircle statCircles"><span class="statAdd">+</span>231<span class="statPercent">%</span></span>
+        	</div>
+			<div class="box-small-title"><a href="#" rel="tooltip" data-placement="bottom" data-original-title="231%" style="font-size:1.5em;color:#08c;text-decoration:none;cursor:default;">Shares</a></div>
+		</div><!-- /.span4 -->
+	</div><!-- /.circleStats -->
+	<div class="box span4" onTablet="span6" onDesktop="span4" id="brandsTourSlide8">
+		<div class="box-header">
+			<h2><i class="icon-list"></i><span class="break"></span>Weekly Stat</h2>
+			<div class="box-icon">
+				<a title="sweepstakes contests giveaways brandbuddee" href="#" class="btn-minimize"><i class="icon-chevron-up"></i></a>
+			</div>
+		</div>
+		<div class="box-content">
+			<ul class="dashboard-list">
+				<li>
+					<a title="sweepstakes contests giveaways brandbuddee" href="#">
+						<i class="icon-arrow-up green" style="display: inline-block; width: 1.25em; text-align: center;"></i>
+						<span class="green">13</span>
+						New Users
+					</a>
+				</li>
+			  	<li>
+					<a title="sweepstakes contests giveaways brandbuddee" href="#">
+				  		<i class="icon-plus blue" style="display: inline-block; width: 1.25em; text-align: center;"></i>
+				  		<span class="blue">53</span>
+				  		New Trackings
+					</a>
+			  	</li>
+			  	<li>
+					<a title="sweepstakes contests giveaways brandbuddee" href="#">
+				  		<i class="icon-arrow-up green" style="display: inline-block; width: 1.25em; text-align: center;"></i>
+				  		<span class="green">78</span>
+				  		New Views
+					</a>
+			  	</li>
+			  	<li>
+					<a title="sweepstakes contests giveaways brandbuddee" href="#">
+				  		<i class="icon-plus blue" style="display: inline-block; width: 1.25em; text-align: center;"></i>
+				  		<span class="blue">2</span>
+				  		New Redeems                                    
+					</a>
+			  	</li>
+			</ul>
+		</div><!-- /.box-content -->
+	</div><!-- /.box span4 -->
+	<div class="box span4" onTablet="span6" onDesktop="span4">
+		<div class="box-header">
+			<h2><i class="icon-list"></i><span class="break"></span>Shares Per Social Network</h2>
+			<div class="box-icon">
+				<a title="sweepstakes contests giveaways brandbuddee" href="#" class="btn-minimize"><i class="icon-chevron-up"></i></a>
+			</div>
+		</div>
+		<div class="box-content">
+			<ul class="dashboard-list">
+				<li>
+					<a title="sweepstakes contests giveaways brandbuddee" href="#">
+						<i class="icon-facebook" style="font-size:1.35em;color:#3B5998;display: inline-block; width: 1.25em; text-align: center;"></i>
+						<span style="color:#3B5998;">15</span>
+						Facebook Shares
+					</a>
+				</li>
+			  	<li>
+					<a title="sweepstakes contests giveaways brandbuddee" href="#">
+					  	<i class="icon-twitter blue" style="font-size:1.35em;display: inline-block; width: 1.25em; text-align: center;"></i>
+					  	<span class="blue">17</span>
+					  	Twitter Shares
+					</a>
+			  	</li>
+			  	<li>
+					<a title="sweepstakes contests giveaways brandbuddee" href="#">
+					  <i class="icon-pinterest" style="font-size:1.35em;color:#CB2027;display: inline-block; width: 1.25em; text-align: center;"></i>
+					  <span style="color:#CB2027;">6</span>
+					  Pinterest Shares
+					</a>
+			  	</li>
+			  	<li>
+			  		<a title="sweepstakes contests giveaways brandbuddee" href="#">
+			  			<i class="icon-tumblr" style="font-size:1.35em;color:#365472;display: inline-block; width: 1.25em; text-align: center;"></i>
+			  			<span style="color:#365472;">5</span>
+			  			Tumblr Shares
+			  		</a>
+			  	</li>
+			  	<li>
+			  		<a title="sweepstakes contests giveaways brandbuddee" href="#">
+			  			<i class="icon-linkedin-sign" style="font-size:1.35em;color:#0073B2;display: inline-block; width: 1.25em; text-align: center;"></i>
+			  			<span style="color:#0073B2;">11</span>
+			  			LinkedIn Shares
+			  		</a>
+			  	</li>
+			  	<li>
+			  		<a title="sweepstakes contests giveaways brandbuddee" href="#">
+			  			<i class="icon-google-plus-sign" style="font-size:1.35em;color:#CB3C2C;display: inline-block; width: 1.25em; text-align: center;"></i>
+			  			<span style="color:#CB3C2C;">3</span>
+			  			Google+ Shares
+			  		</a>
+			  	</li>
+			  	<li>
+			  		<a title="sweepstakes contests giveaways brandbuddee" href="#">
+			  			<i class="icon-bullhorn green" style="font-size:1.35em;display: inline-block; width: 1.25em; text-align: center;"></i>
+			  			<span class="green">57</span>
+			  			Total Shares
+			  		</a>
+			  	</li>
+			</ul>
+		</div>
+	</div><!--/span-->
+</div><!-- /.row-fluid -->
+<hr>
+<div class="row-fluid">
+	<div class="box span4" onTablet="span6" onDesktop="span4">
+		<div class="box-header">
+			<h2><i class="icon-bar-chart"></i><span class="break"></span>Social Network Comparison</h2>
+			<div class="box-icon">
+				<a title="sweepstakes contests giveaways brandbuddee" href="#" class="btn-close"><i class="icon-remove"></i></a>
+			</div>
+		</div>
+		<div class="box-content">
+			<div id="social-share-comparison" style="height:300px"></div>
+		</div>
+	</div>
+	<div class="box span4" onTablet="span6" onDesktop="span4">
+		<div class="box-header">
+			<h2><i class="icon-list"></i><span class="break"></span>Monthly Stat</h2>
+			<div class="box-icon">
+				<a title="sweepstakes contests giveaways brandbuddee" href="#" class="btn-minimize"><i class="icon-chevron-up"></i></a>
+			</div>
+		</div>
+		<div class="box-content">
+			<ul class="dashboard-list">
+				<li>
+					<a title="sweepstakes contests giveaways brandbuddee" href="#">
+						<i class="icon-arrow-up green" style="display: inline-block; width: 1.25em; text-align: center;"></i>
+						<span class="green">34</span>
+						New Users                                    
+					</a>
+				</li>
+			  <li>
+				<a title="sweepstakes contests giveaways brandbuddee" href="#">
+				  <i class="icon-plus blue" style="display: inline-block; width: 1.25em; text-align: center;"></i>
+				  <span class="blue">110</span>
+				  New Trackings
+				</a>
+			  </li>
+			  <li>
+				<a title="sweepstakes contests giveaways brandbuddee" href="#">
+				  <i class="icon-arrow-up green" style="display: inline-block; width: 1.25em; text-align: center;"></i>
+				  <span class="green">167</span>
+				  New Views
+				</a>
+			  </li>
+			  <li>
+				<a title="sweepstakes contests giveaways brandbuddee" href="#">
+				  <i class="icon-plus blue" style="display: inline-block; width: 1.25em; text-align: center;"></i>
+				  <span class="blue">5</span>
+				  New Redeems                                    
+				</a>
+			  </li>
+			</ul>
+		</div>
+	</div><!--/span-->
+	<div class="box span4" onTablet="span6" onDesktop="span4">
+		<div class="box-header">
+			<h2><i class="icon-user"></i><span class="break"></span>Last Users</h2>
+			<div class="box-icon">
+				<a title="sweepstakes contests giveaways brandbuddee" href="#" class="btn-minimize"><i class="icon-chevron-up"></i></a>
+			</div>
+		</div>
+		<div class="box-content">
+			<ul class="dashboard-list">
+				<li>
+					<a title="sweepstakes contests giveaways brandbuddee" href="#">
+						<img alt="sweepstakes-contests-giveaways-brandbuddee" title="Sweepstakes Contests Giveaways brandbuddee" class="avatar" src="/images/fallback/thumb_default.png">
+					</a>
+					<strong>Name:</strong> <a title="sweepstakes contests giveaways brandbuddee" href="#">John Doe</a><br>
+					<strong>Since:</strong> 2 months ago<br>
+					<strong>Status:</strong> <span class="label label-info">Facebook</span>
+				</li>
+				<li>
+					<a title="sweepstakes contests giveaways brandbuddee" href="#">
+						<img alt="sweepstakes-contests-giveaways-brandbuddee" title="Sweepstakes Contests Giveaways brandbuddee" class="avatar" src="/images/fallback/thumb_default.png">
+					</a>
+					<strong>Name:</strong> <a title="sweepstakes contests giveaways brandbuddee" href="#">Bill Sampson</a><br>
+					<strong>Since:</strong> 4 months ago<br>
+					<strong>Status:</strong> <span class="label label-info">Twitter</span>
+				</li>
+				<li>
+					<a title="sweepstakes contests giveaways brandbuddee" href="#">
+						<img alt="sweepstakes-contests-giveaways-brandbuddee" title="Sweepstakes Contests Giveaways brandbuddee" class="avatar" src="/images/fallback/thumb_default.png">
+					</a>
+					<strong>Name:</strong> <a title="sweepstakes contests giveaways brandbuddee" href="#">Susan Benson</a><br>
+					<strong>Since:</strong> 1 month ago<br>
+					<strong>Status:</strong> <span class="label label-info">Facebook</span>
+				</li>
+			</ul> <!-- .dashboard-list -->
+		</div>
+	</div><!--/span-->
+</div><!-- /.row-fluid -->
+<hr>
+<div class="row-fluid">
+	<div class="box span4 offset2" onTablet="span6" onDesktop="span4">
+		<div class="box-header">
+			<h2><i class="icon-list"></i><span class="break"></span>Monetary Value of Campaign</h2>
+			<div class="box-icon">
+				<a title="sweepstakes contests giveaways brandbuddee" href="#" class="btn-minimize"><i class="icon-chevron-up"></i></a>
+			</div>
+		</div>
+		<div class="box-content">
+			<ul class="dashboard-list">
+				<li>
+					<a title="sweepstakes contests giveaways brandbuddee" href="#">
+						<i class="icon-facebook" style="font-size:1.35em;color:#3B5998;display: inline-block; width: 1.25em; text-align: center;"></i>
+						<span style="color:#3B5998; padding-right:5%; padding-left:3%;"><%= number_to_currency(54 * 4.15) %></span>
+						Facebook Shares ($4.15 each)
+					</a>
+				</li>
+				<li>
+					<a title="sweepstakes contests giveaways brandbuddee" href="#">
+						<i class="icon-facebook-sign" style="font-size:1.35em;color:#3B5998;display:inline-block; width: 1.25em; text-align: center;"></i>
+						<span style="color:#3B5998; padding-right:5%; padding-left:3%;"><%= number_to_currency(8 * 174) %></span>
+						Facebook Likes ($174 each)
+					</a>
+				</li>
+			  	<li>
+					<a title="sweepstakes contests giveaways brandbuddee" href="#">
+					  	<i class="icon-twitter blue" style="font-size:1.35em;display: inline-block; width: 1.25em; text-align: center;"></i>
+					  	<span class="blue" style="padding-right:5%; padding-left:3%;"><%= number_to_currency(33 * 1.85) %></span>
+					  	Twitter Shares ($1.85 each)
+					</a>
+		  	</li>
+				<li>
+					<a title="sweepstakes contests giveaways brandbuddee" href="#">
+						<i class="icon-twitter-sign blue" style="font-size:1.35em;display:inline-block; width: 1.25em; text-align: center;"></i>
+						<span class="blue" style="padding-right:5%; padding-left:3%;"><%= number_to_currency(9 * 2) %></span>
+						Twitter Follows ($2 each)
+				</li>
+		  	<li>
+		  		<a title="sweepstakes contests giveaways brandbuddee" href="#">
+		  			<i class="icon-linkedin-sign" style="font-size:1.35em;color:#0073B2;display: inline-block; width: 1.25em; text-align: center;"></i>
+		  			<span style="color:#0073B2; padding-right:5%; padding-left:3%;"><%= number_to_currency(24 * 0.92) %></span>
+		  			LinkedIn Shares (92&cent; each)
+		  		</a>
+		  	</li>
+		  	<li>
+					<a title="sweepstakes contests giveaways brandbuddee" href="#">
+					  <i class="icon-usd red" style="font-size:1.35em;display: inline-block; width: 1.25em; text-align: center;"></i>
+					  <span class="red" style="padding-right:25%; padding-left:3%;"><%= number_to_currency(224.1 + 1392 + 61.05 + 18 + 22.08) %></span>
+					  <span class="red" style="list-style: none; font-size: 1.7em; line-height: 150%; text-align: -webkit-match-parent; display: inline; font-weight: 700;">Total Value</span>
+					</a>
+			  	</li>
+			</ul>
+		</div>
+	</div><!--/span-->
+	<div class="box span4" onTablet="span6" onDesktop="span4">
+		<div class="box-header">
+			<h2><i class="icon-list"></i><span class="break"></span>Equivilent Competitor's Costs</h2>
+			<div class="box-icon">
+				<a title="sweepstakes contests giveaways brandbuddee" href="#" class="btn-minimize"><i class="icon-chevron-up"></i></a>
+			</div>
+		</div>
+		<div class="box-content">
+			<ul class="dashboard-list">
+				<li>
+					<a title="sweepstakes contests giveaways brandbuddee" href="#">
+						<i class="icon-facebook" style="font-size:1.35em;color:#3B5998;display: inline-block; width: 1.25em; text-align: center;"></i>
+						<span style="color:#3B5998; padding-right:5%; padding-left:3%;"><%= number_to_currency(54 * 1.08) %></span>
+						Facebook ($1.08 each)
+					</a>
+				</li>
+				<li>
+					<a title="sweepstakes contests giveaways brandbuddee" href="http://www.optimum7.com/internet-marketing/search-engine-marketing/average-adwords-pay-per-click-ppc-costs.html" target="_blank">
+						<i class="icon-google-plus" style="font-size:1.35em;color:#CB3C2C;display:inline-block; width: 1.25em; text-align: center;"></i>
+						<span style="color:#CB3C2C; padding-right:5%; padding-left:3%;"><%= number_to_currency(16 * 3.3) %></span>
+						Google Ads ($3.30 each)
+				</li>
+				<li>
+					<a title="sweepstakes contests giveaways brandbuddee" href="#">
+						<i class="icon-usd yellow" style="font-size:1.35em;display:inline-block; width: 1.25em; text-align: center;"></i>
+						<span class="yellow" style="padding-right:5%; padding-left:3%;"><%= number_to_currency(58.32 + 52.8) %></span>
+						Total Cost
+				</li>
+			</ul>
+		</div>
+	</div><!-- /span4 -->
+</div>
+<hr>
+<!-- end: Content -->
+</div><!--/#content.span10-->
+	</div><!--/fluid-row-->
+
+<div class="clearfix"></div>
+
+<%= render 'shared/brands_footer' %>
+
+</div><!--/.fluid-container-->
+<%= render 'shared/brands_scripts' %>
+<script type="text/javascript">
+	var data = [
+		{ label: "Facebook",  data: 54},
+		{ label: "Twitter",  data: 33},
+		{ label: "Pinterest", data: 12},
+		{ label: "Tumblr", data: 5},
+		{ label: "Linkedin", data: 22},
+		{ label: "Google+", data: 3}
+	];
+	if($("#social-share-comparison").length) {
+		$.plot($("#social-share-comparison"), data,
+		{
+			series: {
+				pie: {
+					show: true
+				}
+			},
+			grid: {
+				hoverable: true,
+				clickable: true
+			},
+			legend: {
+				show: false
+			},
+			colors: ["#3B5998", "#1DCAFF", "#CB2027", "#365472", "#0073B2", "#CB3C2C"]
+		});
+		function pieHover(event, pos, obj) {
+			if (!obj)
+				return;
+			percent = parseFloat(obj.series.percent).toFixed(2);
+			$("#hover").html('<span style="font-weight: bold; color: '+obj.series.color+'">'+obj.series.label+' ('+percent+'%)</span>');
+		}
+		$("#social-share-comparison").bind("plothover", pieHover);
+	}
+</script>
+<%= render 'shared/brands_tour' %>

@@ -1,3 +1,4 @@
+require 'file_size_validator'
 class User
   include Mongoid::Document
   has_and_belongs_to_many :campaigns
@@ -58,7 +59,9 @@ class User
   EMAIL_REGEX = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i
   #validates :email, :presence => true, :length => { :maximum => 100 }, :format => EMAIL_REGEX, :confirmation => true
   validates :email, :presence => true, :length => { :maximum => 100 }, :format => EMAIL_REGEX, :confirmation => true
-  validates_uniqueness_of :email
+  validates_uniqueness_of :email, case_sensitive: false
+  validates :profile_image, :file_size => { :maximum => 1.5.megabytes.to_i }
+  validates :profile_cover, :file_size => { :maximum => 1.5.megabytes.to_i }
   
 
   def self.add_following(date, user_id, current_user_id, root_url)
@@ -145,12 +148,15 @@ class User
           oauth_token: auth["credentials"]["token"],
           oauth_expires_at: auth["credentials"]["expires_at"]
         )
+        return true
       elsif auth["provider"]=="twitter" && user.provider=="twitter"
         user.update_attributes!(
           oauth_token: auth["credentials"]["token"]
         )
+        return true
+      else
+      	return false
       end
-      return false
     else
       if auth["provider"]=="facebook"
         user.update_attributes!(

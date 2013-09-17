@@ -172,8 +172,9 @@ class ProfileController < ApplicationController
 	      flash[:notice] = "Successfully updated."
 	      redirect_to(:controller => 'profile', :action => 'profile_settings')
 	    else
-	      flash[:notice] = "Uh oh... something went wrong. Please try again."
-	      redirect_to(:controller => 'profile', :action => 'profile_settings')
+	    	render 'profile_settings'
+	      #flash[:notice] = "Uh oh... something went wrong. Please try again."
+	      #redirect_to(:controller => 'profile', :action => 'profile_settings')
 	    end
 	end
 
@@ -183,8 +184,9 @@ class ProfileController < ApplicationController
 	      flash[:notice] = "Successfully updated."
 	      redirect_to(:controller => 'profile', :action => 'account_settings')
 	    else
-	      flash[:notice] = "Uh oh... something went wrong. Please try again."
-	      redirect_to(:controller => 'profile', :action => 'account_settings')
+	    	render 'account_settings'
+	      #flash[:notice] = "Uh oh... something went wrong. Please try again."
+	      #redirect_to(:controller => 'profile', :action => 'account_settings')
 	    end
 	end
 
