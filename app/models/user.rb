@@ -60,8 +60,8 @@ class User
   #validates :email, :presence => true, :length => { :maximum => 100 }, :format => EMAIL_REGEX, :confirmation => true
   validates :email, :presence => true, :length => { :maximum => 100 }, :format => EMAIL_REGEX, :confirmation => true
   validates_uniqueness_of :email, case_sensitive: false
-  validates :profile_image, :file_size => { :maximum => 1.5.megabytes.to_i }
-  validates :profile_cover, :file_size => { :maximum => 1.5.megabytes.to_i }
+  #validates :profile_image, :file_size => { :maximum => 1.5.megabytes.to_i }
+  #validates :profile_cover, :file_size => { :maximum => 1.5.megabytes.to_i }
   
 
   def self.add_following(date, user_id, current_user_id, root_url)
