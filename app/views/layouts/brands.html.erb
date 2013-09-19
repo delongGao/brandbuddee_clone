@@ -32,6 +32,7 @@
 	<% unless cookies[:brand_tour].nil? || cookies[:brand_tour].to_s != "true" %>
 		<link rel="stylesheet" type="text/css" href="/css/bootstrap-tour.min.css">
 	<% end %>
+	<%= yield :extra_css_tags %>
 	<link rel="icon" type="image/png" href="/assets/favicon.png">
 	<script type="text/javascript">
 	  var _gaq = _gaq || [];

@@ -1,4 +1,7 @@
-<%= content_for :additional_link_tags, stylesheet_link_tag("/css/admin/datetimepicker.css") %>
+<% content_for :additional_link_tags do %>
+	<%= stylesheet_link_tag("/css/admin/datetimepicker.css") %>
+	<%= stylesheet_link_tag "/css/bootstrap-formhelpers.css" %>
+<% end %>
 	<div id="overlay">
 		<ul>
 		  <li class="li1"></li>
@@ -194,7 +197,7 @@
 	    						<div class="control-group span6">
 	    							<%= f.label :redeem_phone, "Contact Phone (OPTIONAL)", class: "control-label" %>
 	    							<div class="controls">
-	    								<%= f.telephone_field :redeem_phone %>
+	    								<%= f.telephone_field :redeem_phone, class: "bfh-phone", 'data-format' => '(ddd) ddd-dddd' %>
 	    							</div>
 	    						</div>
 	    						<div class="control-group span6">
@@ -574,4 +577,6 @@
 				});
 			});
 		</script>
+		<%= javascript_include_tag "/js/bootstrap-formhelpers-phone.format.js" %>
+		<%= javascript_include_tag "/js/bootstrap-formhelpers-phone.js" %>
 		<!-- end: JavaScript-->

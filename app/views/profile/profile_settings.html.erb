@@ -1,3 +1,6 @@
+<% content_for :homepage_style_tag do %>
+	<%= stylesheet_link_tag "/css/bootstrap-formhelpers.css" %>
+<% end %>
 <%= render 'shared/header' %>
 
 <div class="container main_container" style="padding-left:0;margin-top:20px;">
@@ -79,7 +82,7 @@
 						<div class="control-group">
 					        <label class="control-label" for="prependedInput"><%= f.label :phone, :class=>'' %></label>
 					        <div class="controls">
-					          <%= f.text_field :phone, :class=>'' %>
+					          <%= f.text_field :phone, :class=>'bfh-phone', 'data-format' => '+1 (ddd) ddd-dddd', :value => @user.phone, 'data-number' => @user.phone %>
 					        </div>
 						</div>
 					</fieldset>
@@ -141,3 +144,5 @@
 </div><!--/.container-->
 
 <%= render 'shared/footer' %>
+<%= javascript_include_tag "/js/bootstrap-formhelpers-phone.format.js" %>
+<%= javascript_include_tag "/js/bootstrap-formhelpers-phone.js" %>

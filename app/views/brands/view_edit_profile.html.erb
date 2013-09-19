@@ -1,3 +1,6 @@
+<% content_for :extra_css_tags do %>
+	<%= stylesheet_link_tag "/css/bootstrap-formhelpers.css" %>
+<% end %>
 <%= render 'shared/brands_header' %>
 <div class="container-fluid">
 <div class="row-fluid">
@@ -114,7 +117,7 @@
       			<div class="control-group">
       				<%= f.label :phone, "Brand Phone Number", class: "control-label" %>
       				<div class="controls">
-      					<%= f.telephone_field :phone, class: "span8", maxlength: 14, class: "txtMaximumLength" %>
+      					<%= f.telephone_field :phone, class: "span8", maxlength: 14, class: "txtMaximumLength bfh-phone", 'data-format' => '(ddd) ddd-dddd', :value => @brand.phone, 'data-number' => @brand.phone %>
       				</div>
       			</div>
       			<div class="control-group">
@@ -246,3 +249,5 @@
             });
       });
 </script>
+<%= javascript_include_tag "/js/bootstrap-formhelpers-phone.format.js" %>
+<%= javascript_include_tag "/js/bootstrap-formhelpers-phone.js" %>
