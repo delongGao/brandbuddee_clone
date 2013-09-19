@@ -564,7 +564,7 @@
 
             <% elsif %>
 
-                <% if left == 0 || @campaign.end_date < Time.now %>
+                <% if (!@campaign.redeem_is_raffle && left <= 0) || @campaign.end_date < Time.now %>
                     <div class="alert alert-info">
                         This campaign has finished.
                     </div> <!-- .alert -->
