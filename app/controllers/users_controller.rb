@@ -133,39 +133,51 @@ class UsersController < ApplicationController
         flash[:notice] = "Invalid username! Alphanumerics only."
         redirect_to(:controller => 'users', :action => 'choose_username')
       else
+      	unallowed_names = ["subscriptions", "invites", "invite", "contacts", "about", "terms", "privacy", "contact", "brands", "faq", "signout", "signin", "login", "signup", "plans", "admin", "home", "share", "reset_passwords"]
+      	has_unallowed_name = false
         if user_nickname_before.blank?
           flash[:notice] = "Username can't be blank"
           redirect_to(:controller => 'users', :action => 'choose_username')
-      else
-          if user_nickname_before.nil? || user_nickname_before == ""
-            user_nickname_after = nil
-          elsif user_nickname_before != nil
-            user_nickname_after = user_nickname_before.downcase
-          end
+      	else
+      		unallowed_names.each do |un|
+      			if user_nickname_before.downcase == un.downcase
+      				has_unallowed_name = true
+      			end
+      		end
+      		if has_unallowed_name == true
+      			flash[:notice] = "That Username Already Exists. Please Try Another"
+      			redirect_to(:controller => 'users', :action => 'choose_username')
+      		else
+	          if user_nickname_before.nil? || user_nickname_before == ""
+	            user_nickname_after = nil
+	          elsif user_nickname_before != nil
+	            user_nickname_after = user_nickname_before.downcase
+	          end
 
-          check_exist = User.first(conditions: { nickname: user_nickname_after})
-          if check_exist != nil
-            if @user.nickname == user_nickname_after
-              flash[:notice] = "This is your current username"
-              redirect_to(:controller => 'users', :action => 'choose_username')
-            elsif check_exist.nickname != nil
-              flash[:notice] = "Username already exists. Please try another."
-              redirect_to(:controller => 'users', :action => 'choose_username')
-            elsif check_exist.nickname == nil
-              flash[:notice] = "Please choose a username."
-              redirect_to(:controller => 'users', :action => 'choose_username')
-            end
-          elsif check_exist == nil
-            @user.nickname = user_nickname_after
-            if @user.save
-              flash[:notice] = "Username successfully updated."
-              redirect_to(:controller => 'users', :action => 'choose_username')
-          else
-              flash[:notice] = "Uh oh... something went wrong. Please try again."
-              redirect_to(:controller => 'users', :action => 'choose_username')
-          end
+	          check_exist = User.first(conditions: { nickname: user_nickname_after})
+	          if check_exist != nil
+	            if @user.nickname == user_nickname_after
+	              flash[:notice] = "This is your current username"
+	              redirect_to(:controller => 'users', :action => 'choose_username')
+	            elsif check_exist.nickname != nil
+	              flash[:notice] = "Username already exists. Please try another."
+	              redirect_to(:controller => 'users', :action => 'choose_username')
+	            elsif check_exist.nickname == nil
+	              flash[:notice] = "Please choose a username."
+	              redirect_to(:controller => 'users', :action => 'choose_username')
+	            end
+	          elsif check_exist == nil
+	            @user.nickname = user_nickname_after
+	            if @user.save
+	              flash[:notice] = "Username successfully updated."
+	              redirect_to(:controller => 'users', :action => 'choose_username')
+	          else
+	              flash[:notice] = "Uh oh... something went wrong. Please try again."
+	              redirect_to(:controller => 'users', :action => 'choose_username')
+	          end
+	        end
             #flash[:notice] = "Nickname is now yours!"
-          end
+        end
       end
     end
   end

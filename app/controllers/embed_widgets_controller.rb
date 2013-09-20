@@ -216,13 +216,25 @@ class EmbedWidgetsController < ApplicationController
 				if user_nickname_before.match(/^[a-z0-9_]+$/)
 					check_exist = User.first(conditions: {nickname: /^#{user_nickname_before}$/i}) # Case Insensitive
 					if check_exist.nil? # Username NOT taken
-						@user.nickname = user_nickname_before
-						if @user.save
-							flash[:success] = "Your nickname has been created!"
-							redirect_to "/campaign/#{@campaign.link}/go_viral"
-						else
-							flash[:error] = "An error occurred while trying to update your username. Please try again later."
-							redirect_to "/campaign/#{@campaign.link}/go_viral_create_username"
+						unallowed_names = ["subscriptions", "invites", "invite", "contacts", "about", "terms", "privacy", "contact", "brands", "faq", "signout", "signin", "login", "signup", "plans", "admin", "home", "share", "reset_passwords"]
+						has_unallowed_name = false
+						unallowed_names.each do |un|
+	      			if user_nickname_before == un.downcase
+	      				has_unallowed_name = true
+	      			end
+	      		end
+	      		if has_unallowed_name == true
+	      			flash[:error] = "That username has already been taken. Please choose another one."
+	      			redirect_to "/campaign/#{@campaign.link}/go_viral_create_username"
+	      		else
+							@user.nickname = user_nickname_before
+							if @user.save
+								flash[:success] = "Your nickname has been created!"
+								redirect_to "/campaign/#{@campaign.link}/go_viral"
+							else
+								flash[:error] = "An error occurred while trying to update your username. Please try again later."
+								redirect_to "/campaign/#{@campaign.link}/go_viral_create_username"
+							end
 						end
 					else # Username IS taken
 						flash[:error] = "That username has already been taken. Please choose another."
@@ -800,41 +812,53 @@ class EmbedWidgetsController < ApplicationController
 			unless params[:user].nil?
 				@user = User.find(current_user.id)
 				user_nickname_before = params[:user][:nickname].downcase
+				unallowed_names = ["subscriptions", "invites", "invite", "contacts", "about", "terms", "privacy", "contact", "brands", "faq", "signout", "signin", "login", "signup", "plans", "admin", "home", "share", "reset_passwords"]
+				has_unallowed_name = false
 				if user_nickname_before.match(/^[a-z0-9_]+$/)
 					check_exist = User.first(conditions: {nickname: /^#{user_nickname_before}$/i}) # Case Insensitive
 					if check_exist.nil? # Username NOT taken
-						@user.nickname = user_nickname_before
-						if @user.save
-							if params[:admin].to_s == "true"
-								redirect_to "/fb-embed-admin?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
-							else
-								@embed = Embed.where(fb_page_id: params[:page_id].to_s).last
-								unless @embed.nil? || @embed.campaign_link.blank?
-									@campaign = Campaign.where(link: @embed.campaign_link).first
-									unless @campaign.nil?
-										@left = @campaign.limit - @campaign.redeems.size
-										unless (!@campaign.redeem_is_raffle && @left < 1) || @campaign.end_date < Time.now
-											redirect_to "/fb-joined-campaign?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
-										else
-											unless @campaign.is_white_label?
-												flash[:info] = "Your username has been updated! Unfortunately, this campaign has expired. Head over to brandbuddee.com to see a full list of current campaigns!"
+						unallowed_names.each do |un|
+	      			if user_nickname_before == un.downcase
+	      				has_unallowed_name = true
+	      			end
+	      		end
+	      		if has_unallowed_name == true
+	      			flash[:error] = "That username has already been taken. Please choose another one"
+	      			redirect_to "/fb-create-username?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
+	      		else
+							@user.nickname = user_nickname_before
+							if @user.save
+								if params[:admin].to_s == "true"
+									redirect_to "/fb-embed-admin?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
+								else
+									@embed = Embed.where(fb_page_id: params[:page_id].to_s).last
+									unless @embed.nil? || @embed.campaign_link.blank?
+										@campaign = Campaign.where(link: @embed.campaign_link).first
+										unless @campaign.nil?
+											@left = @campaign.limit - @campaign.redeems.size
+											unless (!@campaign.redeem_is_raffle && @left < 1) || @campaign.end_date < Time.now
+												redirect_to "/fb-joined-campaign?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
 											else
-												flash[:info] = "Your username has been update! Unfortunately, this campaign has expired."
+												unless @campaign.is_white_label?
+													flash[:info] = "Your username has been updated! Unfortunately, this campaign has expired. Head over to brandbuddee.com to see a full list of current campaigns!"
+												else
+													flash[:info] = "Your username has been update! Unfortunately, this campaign has expired."
+												end
+												redirect_to "/fb-error-page?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
 											end
+										else
+											flash[:error] = "An error occurred while trying to find the campaign associated with this Facebook Page. Please try again."
 											redirect_to "/fb-error-page?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
 										end
 									else
 										flash[:error] = "An error occurred while trying to find the campaign associated with this Facebook Page. Please try again."
 										redirect_to "/fb-error-page?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
 									end
-								else
-									flash[:error] = "An error occurred while trying to find the campaign associated with this Facebook Page. Please try again."
-									redirect_to "/fb-error-page?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
 								end
+							else
+								flash[:error] = "An error occurred while trying to update your username. Please try again later."
+								redirect_to "/fb-error-page?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
 							end
-						else
-							flash[:error] = "An error occurred while trying to update your username. Please try again later."
-							redirect_to "/fb-error-page?page_id=#{params[:page_id]}&liked=#{params[:liked]}&admin=#{params[:admin]}"
 						end
 					else # Username IS taken
 						flash[:error] = "That username has already been taken. Please choose another."
