@@ -78,7 +78,7 @@
           <div class="fb-like" data-href="<%= @bitly_link %>" data-send="true" data-width="375" data-show-faces="false" data-action="" data-layout="button_count"></div>
         </div>
         <div class="clear"></div>
-        <span style="position:relative; bottom:4px;">Share Link:</span> <input id="share_link_copy" class="input-medium" type="text" value="<%= @bitly_link %>"><a href="#facebookModal" class="btn btn-primary" data-toggle="modal" style="margin-bottom:10px;margin-left:1%;" id="btnSubmitFbPost"><i class="icon-circle-arrow-up icon-white"></i> Post to Facebook</a>
+        <span style="position:relative; bottom:4px;">Share Link:</span> <input id="share_link_copy" class="input-medium" type="text" value="<%= @bitly_link %>"><a href="#" class="btn btn-primary" style="margin-bottom:10px;margin-left:1%;" id="btnSubmitFbPost"><i class="icon-circle-arrow-up icon-white"></i> Post to Facebook</a>
 			</div>
 			<% if @campaign.has_tasks? %>
 				<div class="divisor divisor_services">
@@ -452,5 +452,12 @@
   	<% end %>
 	  var campaign_link = "<%= @campaign.link %>";
 	  eval(function(p,a,c,k,e,d){e=function(c){return(c<a?'':e(parseInt(c/a)))+((c=c%a)>35?String.fromCharCode(c+29):c.toString(36))};while(c--){if(k[c]){p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c])}}return p}('x.y(1(x){x.B.C(\'D\',1(z){$.c({e:\'f\',b:\'/9/\'+0+\'/E\',2:{d:\'m\'},l:1(2){j(2==\'g\'){4.3("5 #"+0+": t k")}h{4.3("5 #"+0+": 7 6 t")}},i:1(2){4.3("5 #"+0+": 7 6 t")}})})});q.u.w(\'A.F\',1(s){$.c({e:\'f\',b:\'/9/\'+0+\'/r\',2:{d:\'m\',n:0},l:1(2){j(2==\'g\'){4.3("5 #"+0+": 8 k")}h{4.3("5 #"+0+": 7 6 8")}},i:1(){4.3("5 #"+0+": 7 6 8")}})});q.u.w(\'A.G\',1(s){$.c({e:\'f\',b:\'/9/\'+0+\'/r\',2:{d:\'H\',n:0},l:1(2){j(2==\'g\'){4.3("5 #"+0+": 8 k")}h{4.3("5 #"+0+": 7 6 8")}},i:1(){4.3("5 #"+0+": 7 6 8")}})});q.u.w(\'O.R\',1(s){$.c({e:\'f\',b:\'/9/\'+0+\'/r\',2:{d:\'m\',n:0},l:1(2){j(2==\'g\'){4.3("5 #"+0+": 8 k")}h{4.3("5 #"+0+": 7 6 8")}},i:1(){4.3("5 #"+0+": 7 6 8")}})});1 Q(){$.c({e:\'f\',b:\'/9/\'+0+\'/S\',2:{d:\'m\',n:0},l:1(2){j(2==\'g\'){4.3("5 #"+0+": p k")}h{4.3("5 #"+0+": 7 6 p")}},i:1(){4.3("5 #"+0+": 7 6 p")}})}1 T(U){$.c({e:\'f\',b:\'/9/\'+0+\'/P\',2:{d:\'m\',n:0},l:1(2){j(2==\'g\'){4.3("5 #"+0+": o k")}h{4.3("5 #"+0+": 7 6 o")}},i:1(){4.3("5 #"+0+": 7 6 o")}})}$(K).y(1(){$("a.I-J-L").M(1(z){$.c({e:\'f\',b:\'/9/\'+0+\'/N\',2:{d:\'m\',n:0},l:1(2){j(2==\'g\'){4.3("5 #"+0+": v k")}h{4.3("5 #"+0+": 7 6 v")}},i:1(){4.3("5 #"+0+": 7 6 v")}})})});',57,57,'campaign_link|function|data|log|console|Campaign|updating|Error|facebook_clicks|campaign||url|ajax|addClick|type|POST|SUCCESS|else|error|if|UPDATED|success|true|campaignLink|google_plus_clicks|linkedin_clicks|FB|track_facebook_click|response|twitter_clicks|Event|pinterest_clicks|subscribe|twttr|ready|event|edge|events|bind|tweet|track_twitter_click|create|remove|false|pin|it|document|button|click|track_pinterest_click|message|track_google_plus_click|addLinkedInSharePoint|send|track_linkedin_click|addGooglePlusSharePoint|jsonParam'.split('|')))
+	  $(document).ready(function() {
+			if($("#btnSubmitFbPost").length) {
+				$("#btnSubmitFbPost").click(function() {
+					validateFbPostSubmit();
+				});
+			} // End if
+		});
 	</script>
 <% end %>

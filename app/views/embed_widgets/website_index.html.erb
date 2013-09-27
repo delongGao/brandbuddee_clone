@@ -100,3 +100,14 @@
 		</div>
 	</div>
 </div>
+<% content_for :social_share_tracking do %>
+	<script type="text/javascript">
+	$(document).ready(function() {
+		if($("#btnWebsiteEmbedFbSignup").length) {
+			$("#btnWebsiteEmbedFbSignup").click(function() {
+				getLoginAuth();
+			});
+		} // End if
+	});
+	</script>
+<% end %>
