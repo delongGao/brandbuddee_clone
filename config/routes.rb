@@ -75,6 +75,7 @@ Brandbuddee::Application.routes.draw do
   match '/brands/change-email' => 'brands#change_email'
   match '/brands/update-email-address' => 'brands#update_email'
   match '/brands/campaigns' => 'brands#list_campaigns'
+  match '/brands/campaigns/create' => 'brands#create_campaign'
   match '/brands/campaigns/view' => 'brands#view_campaign'
   match '/brands/campaigns/buddees' => 'brands#view_campaign_buddees'
   match '/brands/campaigns/redeems' => 'brands#view_campaign_redeems'
@@ -97,6 +98,9 @@ Brandbuddee::Application.routes.draw do
   match '/brands/sample-pages/view-redeems' => 'brands#sample_redeems_view'
   match '/brands/sample-pages/view-tasks' => 'brands#sample_tasks_view'
   match '/brands/update-fb-token' => 'brands#update_fb_token_via_ajax'
+  match '/brands/campaigns/story-auth' => 'brands#story_auth'
+  match '/brands/campaigns/story-page-chosen' => 'brands#story_campaign_fb_page_chosen'
+  match '/brands/campaigns/story-chosen' => 'brands#story_chosen'
   #resources :brands
   
   match 'complete/email' => 'users#complete_email'

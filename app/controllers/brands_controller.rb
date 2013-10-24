@@ -576,4 +576,131 @@ class BrandsController < ApplicationController
 			redirect_to root_url
 		end
 	end
+
+	def create_campaign
+		@brand = Brand.find(@current_brand.id)
+		@campaign = Campaign.new
+		@link = Campaign.assign_link()
+		@location_all = Location.all.order_by([:name, :asc])
+		@brand_all = Brand.all.order_by([:name, :asc])
+		@category_all = Category.all.order_by([:name, :asc])
+
+		# populate example campaign info
+		@campaign.date = Time.now
+		@campaign.title = "Here goes your campaign title"
+		@campaign.detail = "You can write your customized story here."
+		@campaign.points_required = 10
+		@campaign.campaign_image = "example_campaign_image.jpg"
+		@campaign.limit = 3
+		@campaign.end_date = "2013-11-13 17:50:00 UTC"
+		@campaign.share_link = "http://your_share_link.com"
+		@campaign.reward = "Describe your cool reward here."
+		@campaign.tweet = "Customize the tweet you want the customers to share."
+		@campaign.location_id = BSON::ObjectId('51f1a453b62885263f000003')
+		@campaign.redeem_details = "Describe the redeem details here."
+		@campaign.redeem_name = "Contact person for redeem"
+		@campaign.redeem_email = "example@email.com"
+		@campaign.redeem_phone = "(123) 456-7890"
+		@campaign.redeem_value = "$50"
+		@campaign.redeem_expires = "2013/12/31"
+		@campaign.redeem_event_date = "2013/12/31"
+		@campaign.redeem_is_raffle = "true"
+		@campaign.redeem_special_circ = "Special circumstances you want your customers know about redeem"
+		@campaign.task_blog_post = {"use_it"=>true, "title"=>"Title For Task", "description"=>"Task Description", "points"=>5}
+		@campaign.task_facebook = {"use_it"=>true, "title"=>"Title For Task", "description"=>"Task Description", "points"=>5, "link"=>"http://www.facebook.com/your_facebook_address"}
+		@campaign.task_twitter = {"use_it"=>true, "title"=>"Title For Task ", "description"=>"Task Description", "points"=>5, "link"=>"http://www.twitter.com/your_twitter_address"}
+		@campaign.task_custom_1 = {"use_it"=>true, "title"=>"Title For Task", "description"=>"Task Description", "points"=>"5", "link"=>"http://link_you_lead_customer_to"}
+		@campaign.task_custom_2 = {"use_it"=>true, "title"=>"Title For Task", "description"=>"Task Description", "points"=>"5", "link"=>"http://link_you_lead_customer_to"}
+		@campaign.task_custom_3 = {"use_it"=>true, "title"=>"Title For Task", "description"=>"Task Description", "points"=>"5", "link"=>"http://link_you_lead_customer_to"}
+		@campaign.task_custom_4 = {"use_it"=>true, "title"=>"Title For Task", "description"=>"Task Description", "points"=>"5", "link"=>"http://link_you_lead_customer_to"}
+		@campaign.task_custom_5 = {"use_it"=>true, "title"=>"Title For Task", "description"=>"Task Description", "points"=>"5", "link"=>"http://link_you_lead_customer_to"}
+		@campaign.task_yelp = {"use_it"=>true, "title"=>"Title For Task", "description"=>"Task Description", "points"=>5}
+		@campaign.task_email_subscription = {"use_it"=>true, "title"=>"Title For Task", "description"=>"Task Description", "points"=>5}
+		@campaign.engagement_tasks = {"left"=>"Facebook", "right"=>"Twitter"}
+		@campaign.gift_image = "example_gift_image1.jpg"
+		@campaign.gift_image_two = nil
+		@campaign.gift_image_three = nil
+		@campaign.easy_prize = "Say something to appreciate your customers!"
+		@campaign.is_white_label = false
+		# end populate example campaign data
+
+		if !@brand.facebook_token.blank? && !(!@brand.facebook_expires.nil? && @brand.facebook_expires <= DateTime.now)
+			@facebook = Koala::Facebook::API.new(@brand.facebook_token)
+			begin
+				@accounts = @facebook.get_connections("me", "accounts")
+				flash[:info] = "Signed in as #{@brand.name}, start creating your first campaign!"
+			rescue Koala::Facebook::APIError
+				flash[:error] = "An error occurred while trying to communicate with your Facebook Account. To fix this, please <a href='/brands/facebook-re-connect?_id=#{@campaign.id}' class='btn btn-mini btn-warning'>Reconnect With Facebook</a>"
+				redirect_to "/brands/campaigns/create"
+			rescue Koala::Facebook::AuthenticationError
+				flash[:error] = "An error occurred while trying to communicate with your Facebook Account. To fix this, please <a href='/brands/facebook-re-connect?_id=#{@campaign.id}' class='btn btn-mini btn-warning'>Reconnect With Facebook</a>"
+				redirect_to "/brands/campaigns/create"
+			rescue Koala::Facebook::ClientError
+				flash[:error] = "An error occurred while trying to communicate with your Facebook Account. To fix this, please <a href='/brands/facebook-re-connect?_id=#{@campaign.id}' class='btn btn-mini btn-warning'>Reconnect With Facebook</a>"
+				redirect_to "/brands/campaigns/create"
+			end
+		else
+			# flash[:error] = "You need to re-connect to facebook to create a campaign."
+		end
+	end
+
+	def story_auth
+		@brand = Brand.find(@current_brand.id)
+
+		if @brand.facebook_token.blank? || (!@brand.facebook_expires.nil? && @brand.facebook_expires <= DateTime.now)
+			# redirect_to "/brands/facebook-re-connect?_id=#{@campaign.id}"
+			redirect_to "/auth/facebook?state=brand_fb_story_connect"	
+		end
+	end
+
+	def story_campaign_fb_page_chosen
+		require 'json'
+
+		@brand = Brand.find(@current_brand.id)
+		@page_graph = nil
+		if params[:acctok]
+			fb_page_token = params[:acctok]
+			@page_graph = Koala::Facebook::API.new(fb_page_token)
+		else
+			flash[:error] = "You must select a Facebook Page to select the story"
+			redirect_to "/brands/campaigns/create"
+		end
+
+		unless @page_graph.nil?
+			begin
+				@page_detail = @page_graph.get_object('me')
+				unless @page_graph.get_connections('me','photos').blank?
+					@page_photos = @page_graph.get_connections('me','photos')[0]["images"]
+					@page_profile_img = @page_photos.select { |img| img["height"] == 130 }[0]
+				else
+					@page_profile_img = ""
+				end
+				# we only need the most recent page profile photo, and for this specific purpose, just the smallest img with it.
+				@wall_posts = @page_graph.get_connections('me','feed')
+				
+				hash = { :page_detail => @page_detail, :page_profile_img => @page_profile_img, :wall_posts => @wall_posts }
+				if !@wall_posts.blank? && !@page_detail.blank?
+					render :json => JSON.pretty_generate(hash)
+				else
+					flash[:error] = "There is no information on the chosen page. Please select another one and try again."
+					redirect_to "/brands/campaigns/create"
+				end
+			rescue Koala::Facebook::APIError => exc
+				if exc.message == "OAuthException: (#200) User does not have sufficient administrative permission for this action on this page"
+					flash[:error] = "You do not have sufficient administrative permission to install a Facebook App to that Page. Please choose a different Facebook Page."
+				else
+					flash[:error] = "An error occured while trying to install the Go Viral! Widget to your Facebook Page. We have been notified. Please try again later."
+					UserMailer.email_brice_error("Error at brands_controller#viral_campaign_fb_page_chosen. Message: #{exc.message}").deliver
+				end
+				redirect_to "/brands/dashboard"
+			end
+		else
+			flash[:error] = "Error occured: your page selection has been lost. Please try it again."
+			redirect_to "/brands/campaigns/create"
+		end
+	end  # end of fb_page chosen
+
+	def story_chosen
+		
+	end
 end

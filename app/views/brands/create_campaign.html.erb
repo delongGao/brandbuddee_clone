@@ -1,0 +1,198 @@
+<%= render 'shared/brands_header' %>
+<div class="container-fluid">
+<div class="row-fluid">
+<%= render 'shared/brands_side' %>
+<% content_for :brands_create_campaign_css do%>
+    <!-- brands create campaign css -->
+    <link rel="stylesheet" type="text/css" href="/css/brands/create_c_style_common.css" />
+    <link rel="stylesheet" type="text/css" href="/css/brands/create_c_style9.css" />
+<% end %>
+<noscript>
+    <div class="alert alert-block span10">
+        <h4 class="alert-heading">Warning!</h4>
+        <p>You need to have <a title="sweepstakes contests giveaways brandbuddee" href="http://www.enable-javascript.com/" target="_blank">JavaScript</a> enabled to use this site.</p>
+    </div>
+</noscript>
+<div id="content" class="span10">
+<% flash.each do |name, msg| %>
+<div class="row">
+    <div class="span6 offset3">
+        <div class="alert alert-<%= name %> fade in">
+            <a title="sweepstakes contests giveaways brandbuddee" href="#" class="close" data-dismiss="alert">&times;</a>
+            <%= msg.html_safe %>
+        </div>
+    </div>
+</div>
+<% end %>
+<!-- Begin: Content -->
+<div>
+    <hr>
+    <ul class="breadcrumb">
+        <li>
+            <a title="sweepstakes contests giveaways brandbuddee" href="/brands/dashboard">Dashboard</a> <span class="divider">/</span>
+        </li>
+        <li>
+            <a title="sweepstakes contests giveaways brandbuddee" href="#">Create a Campaign</a>
+        </li>
+        <% unless @brand.manager_first.nil? %><li class="pull-right">Welcome back, <%= @brand.manager_first %></li><% end %>
+    </ul>
+    <hr>
+</div>
+<div class="row-fluid">
+    <div class="box span12">
+        <div class="box-header">
+            <h2><i class="icon-edit"></i><span class="break"></span>Create a Campaign</h2>
+            <div class="box-icon">
+                <a title="sweepstakes contests giveaways brandbuddee" href="#" class="btn-minimize"><i class="icon-chevron-up"></i></a>
+            </div>
+        </div>
+        <div class="box-content">
+            
+            <!-- steps as tabs -->
+            <div class="row span12">
+                <ul class="nav nav-tabs" id="step_tab">
+                    <li class="active span3" id="step_story_tabItem">
+                        <a href="#step_story" data-toggle="tooltip" title="Step 1: Post a story">
+                            1. Story
+                        </a>
+                    </li>
+                    <li class="span3" id="step_results_tabItem">
+                        <a href="#step_results" data-toggle="tooltip" title="Step 2: Pick the results you want" disabled="true">
+                            2. Results
+                        </a>
+                    </li>
+                    <li class="span3" id="step_reward_tabItem">
+                        <a href="#step_reward" data-toggle="tooltip" title="Step 3: Offer a loyalty reward" disabled="true">
+                            3. Loyalty Reward
+                        </a>
+                    </li>
+                    <li class="span3" id="step_TermCondition_tabItem">
+                        <a href="#step_TermCondition" data-toggle="tooltip" title="Step 4: Customize your Terms and Conditions" disabled="true">
+                            4. Terms and Conditions
+                        </a>
+                    </li>
+                </ul><!-- end tab items -->
+                                                 
+                <div class="tab-content" id="step_tab_content">
+                    <div class="tab-pane active" id="step_story">
+                        <section class="well" style="margin-top:5px;">
+                            <h1>Post a story</h1>
+                            <p class="alert alert-info">Brandbuddee helps people discover what your brand is up to, share your updates on popular social media networks, drive referral traffic and complete custom tasks that you set (Liking your page, subscribing to your email newsletter, writing a blog, etc). We help you tell your brand’s story through your fans, because it means more. Tips for choosing a story</p>
+
+                            <div class="well well-small story_option" id="story_fb">
+                                <label class="muted">Choose a current story or update from your Facebook timeline to promote</label>
+                                
+                                <div id="wrapper_fb" style="display:none;" class="story_detail">
+                                    <% if @brand.facebook_token.blank? || (!@brand.facebook_expires.nil? && @brand.facebook_expires <= DateTime.now) %>
+                                        <a href="/brands/campaigns/story-auth" class="btn btn-large"><i class="icon-facebook-sign" style="font-size: 1.25em; line-height: 50%;"></i> Connect to a facebook account to choose a story</a>
+                                    <% elsif !@accounts.blank? && !@brand.facebook_token.blank? %>
+                                        <h1>Which story would you like to choose?</h1>
+                                        <div class="btn-group" id="page_select_buttons">
+                                            <a title="sweepstakes contests giveaways brandbuddee" class="btn btn-info dropdown-toggle" data-toggle="dropdown" href="#" style="font-weight:700;">
+                                                <i class="icon-facebook-sign" style="font-size: 1.25em; line-height: 50%;"></i> Choose a Facebook Page to select a story
+                                                <span class="caret"></span>
+                                            </a>
+                                            <ul class="dropdown-menu">
+                                                <% @accounts.each do |acc| %>
+                                                <li class="text-left">
+                                                    <a title="sweepstakes contests giveaways brandbuddee" href="#" class="select_fb_page" data-acctok="<%= acc["access_token"] %>"><%= acc["name"] %></a>
+                                                </li>
+                                                <% end %>
+                                            </ul>
+                                        </div>
+                                        <!-- story selection box -->
+                                        <ul style="display:none;overflow:hidden" id="story_selection_box">
+                                            <input type="hidden" id="nextGrpToDisplay" value="2"><!-- We will use this to determine which div to display next -->
+                                            <input type="hidden" id="totalGroup" value="1"><!-- use this to determine total number of dsiplayed stories -->
+
+                                            <div id='story-button-box'>
+                                                <div class='span3 offset3 story-button' id="selectAnother"><a href='/brands/campaigns/create' class='btn btn-info'>Select another page</a></div>
+
+                                                <div class='span3 story-button' id='load_more'><button class='btn btn-success'>Load more pages</button></div>
+                                            </div>
+                                        </ul>
+
+                                        <!-- loading box -->
+                                        <div style="display:none;" id="fb_page_loading">
+                                            <img src="/images/brands/loading-1.gif" width="30px"> Loading stories, please wait...
+                                        </div>
+                                    <% else %>
+                                        <h2>We couldn't find any Facebook Pages that you have admin access to. Create a Facebook Page, and then try again.</h2>
+                                    <% end %>
+                                </div>
+                            </div>
+                            
+                            
+                            <h1>or</h1>
+                            <div class="well well-small story_option" id="story_customize">
+                                <label class="muted">Customize what you’d like your fans to share on social media.</label>
+                                
+                                <div id="wrapper_customize_story" style="display:none;" class="story_detail">
+                                    <%= @campaign.detail %>
+                                </div>
+                            </div>
+                        
+                            <!-- nav buttons -->
+                            <div class="nav_buttons">
+                                <a href="#step_results" class="btn pull-right" data-toggle="tooltip" title="Step 2: Pick the results you want" disabled="true">
+                                    Next >>
+                                </a>       
+                            </div>
+                        </section>                        
+                    </div>
+                    <div class="tab-pane" id="step_results">
+                        <section class="well" style="margin-top:5px;">
+                            <h1>Pick the results you want</h1>
+                            <p class="alert alert-info">Choose the metrics you want to drive from your brand advocacy campaign, your real-time analytics will track each and every piece of ROI including the financial impact according to industry standards. Buddees earn a few points for sharing and a point for every unique click referral to your link. You set the points allotted for custom tasks, such as writing a blog post about your business. Tips for choosing your metrics.</p>
+                            <div class="nav_buttons">
+                                <a href="#step_story" class="btn pull-left" data-toggle="tooltip" title="Step 1: Post a story">
+                                    Previous <<
+                                </a>
+                                <a href="#step_reward" class="btn pull-right" data-toggle="tooltip" title="Step 3: Offer a loyalty reward" disabled="true">
+                                    Next >>
+                                </a>       
+                            </div>
+                        </section>
+                    </div>
+                    <div class="tab-pane" id="step_reward">
+                        <section class="well" style="margin-top:5px;">
+                            <h1>Offer a <em>loyalty</em> reward</h1>
+                            <p class="alert alert-info">Offer your fans and influencers a social loyalty reward for promoting your business online. These rewards are redeemable back with your business, helping you get the word out about your business to get more customers AND keeping your current customers coming back! You’ll set the terms and conditions for your fans to get the reward on the next page, ensuring you get the optimal ROI for your offer. Tips for choosing a reward.</p>
+                            <div class="nav_buttons">
+                                <a href="#step_results" class="btn pull-left" data-toggle="tooltip" title="Step 2: Pick the results you want">
+                                    Previous <<
+                                </a>
+                                <a href="#step_TermCondition" class="btn pull-right" data-toggle="tooltip" title="Step 4: Customize your Terms and Conditions" disabled="true">
+                                    Next >>
+                                </a>       
+                            </div>
+                        </section>
+                    </div>
+                    <div class="tab-pane" id="step_TermCondition">
+                        <section class="well" style="margin-top:5px;">
+                            <h1>Customize your Terms and Conditions</h1>
+                            <p class="alert alert-info">You’re almost ready to launch! You can either skip ahead, accepting typical campaign terms, by clicking the launch button or you can customize your terms and conditions, viewing the updates live on the campaign preview on the right. Keep the title short, like a press release title, pick a location you want the campaign to be available to get geo-targeted results, and much more. Tips for choosing a your terms and conditions.</p>
+                            <div class="nav_buttons">
+                                <a href="#step_reward" class="btn pull-left" data-toggle="tooltip" title="Step 3: Offer a loyalty reward">
+                                    Previous <<
+                                </a>       
+                            </div>
+                        </section>
+                    </div>
+                </div><!-- end tab content -->
+            </div><!-- end row -->
+            <!-- end steps as tabs -->
+        </div>
+    </div><!--/span-->
+</div><!--/row-->
+<hr>
+<!-- end: Content -->
+</div><!--/#content.span10-->
+    </div><!--/fluid-row-->
+
+<div class="clearfix"></div>
+
+<%= render 'shared/brands_footer' %>
+
+</div><!--/.fluid-container-->
+<%= render 'shared/brands_scripts' %>

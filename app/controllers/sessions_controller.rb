@@ -305,6 +305,71 @@ class SessionsController < ApplicationController
 			      	flash[:error] = "The campaign you are trying to install to your Facebook Page could not be found. Please try again."
 	            redirect_to "/brands/dashboard"
 			      end
+          elsif params[:state].start_with?("brand_fb_story_connect") # Brand FB story connect
+            if current_brand
+              @brand = Brand.find(current_brand.id)
+              if @brand.provider == "facebook"
+                if @brand.uid == auth["uid"]
+                  @brand.facebook_token = auth["credentials"]["token"]
+                  unless auth["credentials"]["expires_at"].nil?
+                    @brand.facebook_expires = Time.at(auth["credentials"]["expires_at"])
+                  else
+                    @brand.facebook_expires = DateTime.now + 60.days
+                  end
+                  if @brand.save(validate: false)
+                    redirect_to "/brands/campaigns/create"
+                  else
+                    flash[:error] = "An error occurred while trying to update your Brand Account with Facebook Connection Info. Please try again."
+                    redirect_to "/brands/campaigns/create"
+                  end
+                else
+                  flash[:error] = "The Facebook Account you are trying to update with does not belong to this Brand Account. Please login with a different Facebook Account and try again."
+                  redirect_to "/brands/dashboard"
+                end
+              elsif @brand.provider == "email"
+                # unless Brand.exists?(conditions: { provider: auth["provider"], uid: auth["uid"] })
+                  @brand.facebook_token = auth["credentials"]["token"]
+                  unless auth["credentials"]["expires_at"].nil?
+                    @brand.facebook_expires = Time.at(auth["credentials"]["expires_at"])
+                  else
+                    @brand.facebook_expires = DateTime.now + 60.days
+                  end
+                  if @brand.save(validate: false)
+                    redirect_to "/brands/campaigns/create"
+                  else
+                    flash[:error] = "An error occurred while trying to update your Brand Account with Facebook Connection Info. Please try again."
+                    redirect_to "/brands/campaigns/create"
+                  end
+                # else
+                #   flash[:error] = "The Facebook Account you are trying to connect with belongs to an existing Brand Account. Please login with a different Facebook Account and try again."
+                #   redirect_to "/brands/dashboard"
+                # end
+              elsif @brand.provider == "twitter"
+                unless Brand.exists?(conditions: { provider: auth["provider"], uid: auth["uid"] })
+                  @brand.facebook_token = auth["credentials"]["token"]
+                  unless auth["credentials"]["expires_at"].nil?
+                    @brand.facebook_expires = Time.at(auth["credentials"]["expires_at"])
+                  else
+                    @brand.facebook_expires = DateTime.now + 60.days
+                  end
+                  if @brand.save(validate: false)
+                    redirect_to "/brands/campaigns/create"
+                  else
+                    flash[:error] = "An error occurred while trying to update your Brand Account with Facebook Connection Info. Please try again."
+                    redirect_to "/brands/dashboard"
+                  end
+                else
+                  flash[:error] = "The Facebook Account you are trying to connect with belongs to an existing Brand Account. Please login with a different Facebook Account and try again."
+                  redirect_to "/brands/dashboard"
+                end
+              else
+                redirect_to root_url
+                flash[:error] = "No provider found"
+              end
+            else
+              flash[:error] ="You need to login as a brand"
+              redirect_to root_url
+            end
 			    elsif params[:state].start_with?("fb_embed_user_auth_") # User Auth For FB Embed Widget
 			    	str = params[:state][19..-1]
 						campaign_id = str[0..(str.index("_")-1)]

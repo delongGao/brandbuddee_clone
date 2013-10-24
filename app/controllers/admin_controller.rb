@@ -74,6 +74,45 @@ class AdminController < ApplicationController
 		@location_all = Location.all.order_by([:name, :asc])
 		@brand_all = Brand.all.order_by([:name, :asc])
 		@category_all = Category.all.order_by([:name, :asc])
+
+		# populate example campaign info
+		@campaign.date = Time.now
+		@campaign.title = "Here goes your campaign title"
+		@campaign.detail = "You can write your Campaign Details here."
+		@campaign.points_required = 10
+		@campaign.campaign_image = "example_campaign_image.jpg"
+		@campaign.limit = 3
+		@campaign.end_date = "2013-11-13 17:50:00 UTC"
+		@campaign.share_link = "http://your_share_link.com"
+		@campaign.reward = "Describe your cool reward here."
+		@campaign.tweet = "Customize the tweet you want the customers to share."
+		@campaign.location_id = BSON::ObjectId('51f1a453b62885263f000003')
+		@campaign.redeem_details = "Describe the redeem details here."
+		@campaign.redeem_name = "Contact person for redeem"
+		@campaign.redeem_email = "example@email.com"
+		@campaign.redeem_phone = "(123) 456-7890"
+		@campaign.redeem_value = "$50"
+		@campaign.redeem_expires = "2013/12/31"
+		@campaign.redeem_event_date = "2013/12/31"
+		@campaign.redeem_is_raffle = "true"
+		@campaign.redeem_special_circ = "Special circumstances you want your customers know about redeem"
+		@campaign.task_blog_post = {"use_it"=>true, "title"=>"Title For Task", "description"=>"Task Description", "points"=>5}
+		@campaign.task_facebook = {"use_it"=>true, "title"=>"Title For Task", "description"=>"Task Description", "points"=>5, "link"=>"http://www.facebook.com/your_facebook_address"}
+		@campaign.task_twitter = {"use_it"=>true, "title"=>"Title For Task ", "description"=>"Task Description", "points"=>5, "link"=>"http://www.twitter.com/your_twitter_address"}
+		@campaign.task_custom_1 = {"use_it"=>true, "title"=>"Title For Task", "description"=>"Task Description", "points"=>"5", "link"=>"http://link_you_lead_customer_to"}
+		@campaign.task_custom_2 = {"use_it"=>true, "title"=>"Title For Task", "description"=>"Task Description", "points"=>"5", "link"=>"http://link_you_lead_customer_to"}
+		@campaign.task_custom_3 = {"use_it"=>true, "title"=>"Title For Task", "description"=>"Task Description", "points"=>"5", "link"=>"http://link_you_lead_customer_to"}
+		@campaign.task_custom_4 = {"use_it"=>true, "title"=>"Title For Task", "description"=>"Task Description", "points"=>"5", "link"=>"http://link_you_lead_customer_to"}
+		@campaign.task_custom_5 = {"use_it"=>true, "title"=>"Title For Task", "description"=>"Task Description", "points"=>"5", "link"=>"http://link_you_lead_customer_to"}
+		@campaign.task_yelp = {"use_it"=>true, "title"=>"Title For Task", "description"=>"Task Description", "points"=>5}
+		@campaign.task_email_subscription = {"use_it"=>true, "title"=>"Title For Task", "description"=>"Task Description", "points"=>5}
+		@campaign.engagement_tasks = {"left"=>"Facebook", "right"=>"Twitter"}
+		@campaign.gift_image = "example_gift_image1.jpg"
+		@campaign.gift_image_two = nil
+		@campaign.gift_image_three = nil
+		@campaign.easy_prize = "Say something to appreciate your customers!"
+		@campaign.is_white_label = false
+		# end populate example campaign data
 	end
 
 	def campaign_new

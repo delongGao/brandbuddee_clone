@@ -1,0 +1,138 @@
+
+			// for future usage
+			$("#task_blog_post_0").click(function() {
+	  if ($(this).attr("checked") === "checked") {
+	    $("#lblEnableTask1").removeClass("muted");
+	    return $("#task_blog_detail_wrapper h2").parent().slideDown();
+	  } else {
+	    $("#lblEnableTask1").addClass("muted");
+	    return $("#task_blog_detail_wrapper h2").parent().slideUp();
+	  }
+	});
+
+	$("#task_yelp_0").click(function() {
+	  if ($(this).attr("checked") === "checked") {
+	    $("#lblEnableTask9").removeClass("muted");
+	    return $("#task_yelp_detail_wrapper h2").parent().slideDown();
+	  } else {
+	    $("#lblEnableTask9").addClass("muted");
+	    return $("#task_yelp_detail_wrapper h2").parent().slideUp();
+	  }
+	});
+
+	$("#task_facebook_0").click(function() {
+	  if ($(this).attr("checked") === "checked") {
+	    $("#lblEnableTask2").removeClass("muted");
+	    return $('#task_facebook_detail_wrapper h2').parent().slideDown();
+	  } else {
+	    $("#lblEnableTask2").addClass("muted");
+	    return $('#task_facebook_detail_wrapper h2').parent().slideUp();
+	  }
+	});
+
+	$("#task_twitter_0").click(function() {
+	  if ($(this).attr("checked") === "checked") {
+	    $("#lblEnableTask3").removeClass("muted");
+	    return $('#task_twitter_detail_wrapper h2').parent().slideDown();
+	  } else {
+	    $("#lblEnableTask3").addClass("muted");
+	    return $("#task_twitter_detail_wrapper h2").parent().slideUp();
+	  }
+	});
+
+	$("#task_email_subscription_0").click(function() {
+	  if ($(this).attr("checked") === "checked") {
+	    $("#lblEnableTask10").removeClass("muted");
+	    return $("#task_email_subscription_detail_wrapper h2").parent().slideDown();
+	  } else {
+	    $("#lblEnableTask10").addClass("muted");
+	    return $("#task_email_subscription_detail_wrapper h2").parent().slideUp();
+	  }
+	});
+
+	$("#task_custom_1_0").click(function() {
+	  if ($(this).attr("checked") === "checked") {
+	    $("#lblEnableTask4").removeClass("muted");
+	    return $("#task_custom_1_detail_wrapper h2").parent().slideDown();
+	  } else {
+	    $("#lblEnableTask4").addClass("muted");
+	    return $("#task_custom_1_detail_wrapper h2").parent().slideUp();
+	  }
+	});
+
+	$("#task_custom_2_0").click(function() {
+	  if ($(this).attr("checked") === "checked") {
+	    $("#lblEnableTask5").removeClass("muted");
+	    return $("#task_custom_2_detail_wrapper h2").parent().slideDown();
+	  } else {
+	    $("#lblEnableTask5").addClass("muted");
+	    return $("#task_custom_2_detail_wrapper h2").parent().slideUp();
+	  }
+	});
+
+	$("#task_custom_3_0").click(function() {
+	  if ($(this).attr("checked") === "checked") {
+	    $("#lblEnableTask6").removeClass("muted");
+	    return $("#task_custom_3_detail_wrapper h2").parent().slideDown();
+	  } else {
+	    $("#lblEnableTask6").addClass("muted");
+	    return $("#task_custom_3_detail_wrapper h2").parent().slideUp();
+	  }
+	});
+
+	$("#task_custom_4_0").click(function() {
+	  if ($(this).attr("checked") === "checked") {
+	    $("#lblEnableTask7").removeClass("muted");
+	    return $("#task_custom_4_detail_wrapper h2").parent().slideDown();
+	  } else {
+	    $("#lblEnableTask7").addClass("muted");
+	    return $("#task_custom_4_detail_wrapper h2").parent().slideUp();
+	  }
+	});
+
+	$("#task_custom_5_0").click(function() {
+	  if ($(this).attr("checked") === "checked") {
+	    $("#lblEnableTask8").removeClass("muted");
+	    return $("#task_custom_5_detail_wrapper h2").parent().slideDown();
+	  } else {
+	    $("#lblEnableTask8").addClass("muted");
+	    return $("#task_custom_5_detail_wrapper h2").parent().slideUp();
+	  }
+	});
+
+	$('#gift_image_1_0').click(function() {
+	  if ($(this).attr("checked") === "checked") {
+	    $('#lblEnableGiftImg1').removeClass("muted");
+	    return $('#gift_image_1_wrapper #gift_image_frame_1').parent().slideDown();
+	  } else {
+	    $('#lblEnableGiftImg1').addClass("muted");
+	    return $('#gift_image_1_wrapper #gift_image_frame_1').parent().slideUp();
+	  }
+	});
+
+	// $('#gift_image_3_0').click(function() {
+	//   if ($(this).attr("checked") === "checked") {
+	//     $('#lblEnableGiftImg3').removeClass("muted");
+	//     $('#gift_image_3_wrapper #gift_image_frame_3').parent().slideDown();
+	//   } else {
+	//     $('#lblEnableGiftImg3').addClass("muted");
+	//     $('#gift_image_3_wrapper #gift_image_frame_3').parent().slideUp();
+	//   }
+	//   // if ($('#cropbox').length) {
+	//   //  	return new AvatarCropper();
+	//   // }
+	// });
+
+	$("#campaign-share li.abled a").click(function(e) {
+	  e.preventDefault();
+	  return $(this).tab("show");
+	});
+
+	$('#campaign-share a').tooltip();
+
+	$("#redeem_detail_nav li a").click(function(e) {
+	  e.preventDefault();
+	  return $(this).tab("show");
+	});
+
+	$('#redeem_detail_nav a').tooltip();	

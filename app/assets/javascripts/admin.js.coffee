@@ -5,141 +5,98 @@ jQuery ->
 	$("#task_blog_post_0").click ->
 		if $(this).attr("checked")=="checked"
 			$("#lblEnableTask1").removeClass "muted"
-			$("#task_blog_post_1").removeAttr("disabled").parent().slideDown()
-			$("#task_blog_post_2").removeAttr("disabled").parent().slideDown()
-			$("#task_blog_post_3").removeAttr("disabled").parent().slideDown()
+			$("#task_blog_detail_wrapper h2").parent().slideDown()
 		else
 			$("#lblEnableTask1").addClass "muted"
-			$("#task_blog_post_1").attr("disabled", "disabled").parent().slideUp()
-			$("#task_blog_post_2").attr("disabled", "disabled").parent().slideUp()
-			$("#task_blog_post_3").attr("disabled", "disabled").parent().slideUp()
+			$("#task_blog_detail_wrapper h2").parent().slideUp()
 	$("#task_yelp_0").click ->
 		if $(this).attr("checked")=="checked"
 			$("#lblEnableTask9").removeClass "muted"
-			$("#task_yelp_1").removeAttr("disabled").parent().slideDown()
-			$("#task_yelp_2").removeAttr("disabled").parent().slideDown()
-			$("#task_yelp_3").removeAttr("disabled").parent().slideDown()
+			$("#task_yelp_detail_wrapper h2").parent().slideDown()
 		else
 			$("#lblEnableTask9").addClass "muted"
-			$("#task_yelp_1").attr("disabled", "disabled").parent().slideUp()
-			$("#task_yelp_2").attr("disabled", "disabled").parent().slideUp()
-			$("#task_yelp_3").attr("disabled", "disabled").parent().slideUp()
+			$("#task_yelp_detail_wrapper h2").parent().slideUp()
 	$("#task_facebook_0").click ->
 		if $(this).attr("checked")=="checked"
 			$("#lblEnableTask2").removeClass "muted"
-			$("#task_facebook_1").removeAttr("disabled").parent().slideDown()
-			$("#task_facebook_2").removeAttr("disabled").parent().slideDown()
-			$("#task_facebook_3").removeAttr("disabled").parent().slideDown()
-			$("#task_facebook_4").removeAttr("disabled").parent().slideDown()
-			$("#chkEngageLeftFacebook").parent().parent().parent().parent().slideDown()
+			$('#task_facebook_detail_wrapper h2').parent().slideDown()
 		else
 			$("#lblEnableTask2").addClass "muted"
-			$("#task_facebook_1").attr("disabled", "disabled").parent().slideUp()
-			$("#task_facebook_2").attr("disabled", "disabled").parent().slideUp()
-			$("#task_facebook_3").attr("disabled", "disabled").parent().slideUp()
-			$("#task_facebook_4").attr("disabled", "disabled").parent().slideUp()
-			$("#chkEngageLeftFacebook").parent().parent().parent().parent().slideUp()
+			$('#task_facebook_detail_wrapper h2').parent().slideUp()
 	$("#task_twitter_0").click ->
 		if $(this).attr("checked")=="checked"
 			$("#lblEnableTask3").removeClass "muted"
-			$("#task_twitter_1").removeAttr("disabled").parent().slideDown()
-			$("#task_twitter_2").removeAttr("disabled").parent().slideDown()
-			$("#task_twitter_3").removeAttr("disabled").parent().slideDown()
-			$("#task_twitter_4").removeAttr("disabled").parent().slideDown()
-			$("#chkEngageLeftTwitter").parent().parent().parent().parent().slideDown()
+			$('#task_twitter_detail_wrapper h2').parent().slideDown()
 		else
 			$("#lblEnableTask3").addClass "muted"
-			$("#task_twitter_1").attr("disabled", "disabled").parent().slideUp()
-			$("#task_twitter_2").attr("disabled", "disabled").parent().slideUp()
-			$("#task_twitter_3").attr("disabled", "disabled").parent().slideUp()
-			$("#task_twitter_4").attr("disabled", "disabled").parent().slideUp()
-			$("#chkEngageLeftTwitter").parent().parent().parent().parent().slideUp()
+			$("#task_twitter_detail_wrapper h2").parent().slideUp()
 	$("#task_email_subscription_0").click ->
 		if $(this).attr("checked")=="checked"
 			$("#lblEnableTask10").removeClass "muted"
-			$("#task_email_subscription_1").removeAttr("disabled").parent().slideDown()
-			$("#task_email_subscription_2").removeAttr("disabled").parent().slideDown()
-			$("#task_email_subscription_3").removeAttr("disabled").parent().slideDown()
+			$("#task_email_subscription_detail_wrapper h2").parent().slideDown()
 		else
 			$("#lblEnableTask10").addClass "muted"
-			$("#task_email_subscription_1").attr("disabled", "disabled").parent().slideUp()
-			$("#task_email_subscription_2").attr("disabled", "disabled").parent().slideUp()
-			$("#task_email_subscription_3").attr("disabled", "disabled").parent().slideUp()
+			$("#task_email_subscription_detail_wrapper h2").parent().slideUp()
 	$("#task_custom_1_0").click ->
 		if $(this).attr("checked")=="checked"
 			$("#lblEnableTask4").removeClass "muted"
-			$("#task_custom_1_1").removeAttr("disabled").parent().slideDown()
-			$("#task_custom_1_2").removeAttr("disabled").parent().slideDown()
-			$("#task_custom_1_3").removeAttr("disabled").parent().slideDown()
-			$("#task_custom_1_4").removeAttr("disabled").parent().slideDown()
-			$("#chkEngageLeftCustom1").parent().parent().parent().parent().slideDown()
+			$("#task_custom_1_detail_wrapper h2").parent().slideDown()
 		else
 			$("#lblEnableTask4").addClass "muted"
-			$("#task_custom_1_1").attr("disabled", "disabled").parent().slideUp()
-			$("#task_custom_1_2").attr("disabled", "disabled").parent().slideUp()
-			$("#task_custom_1_3").attr("disabled", "disabled").parent().slideUp()
-			$("#task_custom_1_4").attr("disabled", "disabled").parent().slideUp()
-			$("#chkEngageLeftCustom1").parent().parent().parent().parent().slideUp()
+			$("#task_custom_1_detail_wrapper h2").parent().slideUp()
 	$("#task_custom_2_0").click ->
 		if $(this).attr("checked")=="checked"
 			$("#lblEnableTask5").removeClass "muted"
-			$("#task_custom_2_1").removeAttr("disabled").parent().slideDown()
-			$("#task_custom_2_2").removeAttr("disabled").parent().slideDown()
-			$("#task_custom_2_3").removeAttr("disabled").parent().slideDown()
-			$("#task_custom_2_4").removeAttr("disabled").parent().slideDown()
-			$("#chkEngageLeftCustom2").parent().parent().parent().parent().slideDown()
+			$("#task_custom_2_detail_wrapper h2").parent().slideDown()
 		else
 			$("#lblEnableTask5").addClass "muted"
-			$("#task_custom_2_1").attr("disabled", "disabled").parent().slideUp()
-			$("#task_custom_2_2").attr("disabled", "disabled").parent().slideUp()
-			$("#task_custom_2_3").attr("disabled", "disabled").parent().slideUp()
-			$("#task_custom_2_4").attr("disabled", "disabled").parent().slideUp()
-			$("#chkEngageLeftCustom2").parent().parent().parent().parent().slideUp()
+			$("#task_custom_2_detail_wrapper h2").parent().slideUp()
 	$("#task_custom_3_0").click ->
 		if $(this).attr("checked")=="checked"
 			$("#lblEnableTask6").removeClass "muted"
-			$("#task_custom_3_1").removeAttr("disabled").parent().slideDown()
-			$("#task_custom_3_2").removeAttr("disabled").parent().slideDown()
-			$("#task_custom_3_3").removeAttr("disabled").parent().slideDown()
-			$("#task_custom_3_4").removeAttr("disabled").parent().slideDown()
-			$("#chkEngageLeftCustom3").parent().parent().parent().parent().slideDown()
+			$("#task_custom_3_detail_wrapper h2").parent().slideDown()
 		else
 			$("#lblEnableTask6").addClass "muted"
-			$("#task_custom_3_1").attr("disabled", "disabled").parent().slideUp()
-			$("#task_custom_3_2").attr("disabled", "disabled").parent().slideUp()
-			$("#task_custom_3_3").attr("disabled", "disabled").parent().slideUp()
-			$("#task_custom_3_4").attr("disabled", "disabled").parent().slideUp()
-			$("#chkEngageLeftCustom3").parent().parent().parent().parent().slideUp()
+			$("#task_custom_3_detail_wrapper h2").parent().slideUp()
 	$("#task_custom_4_0").click ->
 		if $(this).attr("checked")=="checked"
 			$("#lblEnableTask7").removeClass "muted"
-			$("#task_custom_4_1").removeAttr("disabled").parent().slideDown()
-			$("#task_custom_4_2").removeAttr("disabled").parent().slideDown()
-			$("#task_custom_4_3").removeAttr("disabled").parent().slideDown()
-			$("#task_custom_4_4").removeAttr("disabled").parent().slideDown()
-			$("#chkEngageLeftCustom4").parent().parent().parent().parent().slideDown()
+			$("#task_custom_4_detail_wrapper h2").parent().slideDown()
 		else
 			$("#lblEnableTask7").addClass "muted"
-			$("#task_custom_4_1").attr("disabled", "disabled").parent().slideUp()
-			$("#task_custom_4_2").attr("disabled", "disabled").parent().slideUp()
-			$("#task_custom_4_3").attr("disabled", "disabled").parent().slideUp()
-			$("#task_custom_4_4").attr("disabled", "disabled").parent().slideUp()
-			$("#chkEngageLeftCustom4").parent().parent().parent().parent().slideUp()
+			$("#task_custom_4_detail_wrapper h2").parent().slideUp()
 	$("#task_custom_5_0").click ->
 		if $(this).attr("checked")=="checked"
 			$("#lblEnableTask8").removeClass "muted"
-			$("#task_custom_5_1").removeAttr("disabled").parent().slideDown()
-			$("#task_custom_5_2").removeAttr("disabled").parent().slideDown()
-			$("#task_custom_5_3").removeAttr("disabled").parent().slideDown()
-			$("#task_custom_5_4").removeAttr("disabled").parent().slideDown()
-			$("#chkEngageLeftCustom5").parent().parent().parent().parent().slideDown()
+			$("#task_custom_5_detail_wrapper h2").parent().slideDown()
 		else
 			$("#lblEnableTask8").addClass "muted"
-			$("#task_custom_5_1").attr("disabled", "disabled").parent().slideUp()
-			$("#task_custom_5_2").attr("disabled", "disabled").parent().slideUp()
-			$("#task_custom_5_3").attr("disabled", "disabled").parent().slideUp()
-			$("#task_custom_5_4").attr("disabled", "disabled").parent().slideUp()
-			$("#chkEngageLeftCustom5").parent().parent().parent().parent().slideUp()
+			$("#task_custom_5_detail_wrapper h2").parent().slideUp()
+	# gift image
+	$('#gift_image_1_0').click ->
+		if $(this).attr("checked") == "checked"
+		  	$('#lblEnableGiftImg1').removeClass "muted"
+		  	$('#gift_image_1_wrapper #gift_image_frame_1').parent().slideDown()
+		else
+		  	$('#lblEnableGiftImg1').addClass "muted"
+		  	$('#gift_image_1_wrapper #gift_image_frame_1').parent().slideUp()
+	
+	$('#gift_image_2_0').click ->
+		if $(this).attr("checked") == "checked"
+			$('#lblEnableGiftImg2').removeClass "muted"
+			$('#gift_image_2_wrapper #gift_image_frame_2').parent().slideDown()
+		else
+			$('#lblEnableGiftImg2').addClass "muted"
+			$('#gift_image_2_wrapper #gift_image_frame_2').parent().slideUp()
+
+	$('#gift_image_3_0').click ->
+		if $(this).attr("checked") == "checked"
+			$('#lblEnableGiftImg3').removeClass "muted"
+			$('#gift_image_3_wrapper #gift_image_frame_3').parent().slideDown()
+		else
+			$('#lblEnableGiftImg3').addClass "muted"
+			$('#gift_image_3_wrapper #gift_image_frame_3').parent().slideUp()
+
 	# $("#lblEngageLeftBlog").click ->
 		# num = $(".chkTrackLeft:checked").length
 	$("#campaign_gift_image").change ->
@@ -266,6 +223,15 @@ jQuery ->
 			$("#chkCustom5EngageRight").prop("checked", false).parent().removeClass("checked")
 	if $('#cropbox').length
 		new AvatarCropper()
+	$("#campaign-share li.abled a").click (e) ->
+  		e.preventDefault()
+  		$(this).tab "show"
+  	$('#campaign-share a').tooltip()
+  	$("#redeem_detail_nav li a").click (e) ->
+  		e.preventDefault()
+  		$(this).tab "show"
+  	$('#redeem_detail_nav a').tooltip()
+
 
 class AvatarCropper
 	constructor: ->
